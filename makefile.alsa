@@ -1,0 +1,127 @@
+
+CHUCK_SRC_DIR=../../chuck_dev/v2
+CHUCK_MAKEFILE=makefile.alsa
+THIS_DIR=$(PWD)
+LANGUAGE=English
+
+WXW_DIR=wxw
+BIN_DIR=wxw
+
+CC=gcc
+LEX=flex
+YACC=bison
+WX_OPTIONS?=
+INCLUDES=-I$(CHUCK_SRC_DIR) -I$(WXW_DIR) -I$(PWD)
+FLAGS=-D__LINUX_ALSA__ -D__LINUX__ -D__MA_WXWIDGETS__ \
+	  `wx-config $(WX_OPTIONS) --cppflags` -O3 -c
+LIBS=`wx-config $(WX_OPTIONS) --libs stc,adv,core,base` -lasound \
+     -lpthread -lstdc++ -ldl -lm
+SF_OBJ=$(CHUCK_SRC_DIR)/util_sndfile.o
+
+ifneq ($(CHUCK_DEBUG),)
+FLAGS+= -g -O0
+endif
+
+ifneq ($(CHUCK_STRICT),)
+FLAGS+= -Wall
+endif
+
+#-----------------------------------------------------------------------------
+# by default, ChucK uses a pre-configured libsndfile...
+# uncomment the next 3 lines to use libsndfile on your system
+#-----------------------------------------------------------------------------
+FLAGS+= -D__CK_SNDFILE_NATIVE__
+LIBS+= -lsndfile
+SF_OBJ=
+
+CHUCK_OBJS=$(CHUCK_SRC_DIR)/chuck.tab.o $(CHUCK_SRC_DIR)/chuck.yy.o \
+	$(CHUCK_SRC_DIR)/chuck_absyn.o $(CHUCK_SRC_DIR)/chuck_parse.o \
+	$(CHUCK_SRC_DIR)/chuck_errmsg.o $(CHUCK_SRC_DIR)/chuck_frame.o \
+	$(CHUCK_SRC_DIR)/chuck_symbol.o $(CHUCK_SRC_DIR)/chuck_table.o \
+	$(CHUCK_SRC_DIR)/chuck_utils.o $(CHUCK_SRC_DIR)/chuck_vm.o \
+	$(CHUCK_SRC_DIR)/chuck_instr.o $(CHUCK_SRC_DIR)/chuck_scan.o \
+	$(CHUCK_SRC_DIR)/chuck_type.o $(CHUCK_SRC_DIR)/chuck_emit.o \
+	$(CHUCK_SRC_DIR)/chuck_compile.o $(CHUCK_SRC_DIR)/chuck_dl.o \
+	$(CHUCK_SRC_DIR)/chuck_oo.o $(CHUCK_SRC_DIR)/chuck_lang.o \
+	$(CHUCK_SRC_DIR)/chuck_ugen.o $(CHUCK_SRC_DIR)/chuck_globals.o \
+	$(CHUCK_SRC_DIR)/chuck_otf.o $(CHUCK_SRC_DIR)/chuck_stats.o \
+	$(CHUCK_SRC_DIR)/chuck_bbq.o $(CHUCK_SRC_DIR)/chuck_shell.o \
+	$(CHUCK_SRC_DIR)/chuck_console.o $(CHUCK_SRC_DIR)/digiio_rtaudio.o \
+    $(CHUCK_SRC_DIR)/hidio_sdl.o \
+	$(CHUCK_SRC_DIR)/midiio_rtmidi.o $(CHUCK_SRC_DIR)/rtaudio.o \
+	$(CHUCK_SRC_DIR)/rtmidi.o $(CHUCK_SRC_DIR)/ugen_osc.o \
+	$(CHUCK_SRC_DIR)/ugen_filter.o $(CHUCK_SRC_DIR)/ugen_stk.o \
+	$(CHUCK_SRC_DIR)/ugen_xxx.o $(CHUCK_SRC_DIR)/ulib_machine.o \
+	$(CHUCK_SRC_DIR)/uana_xform.o $(CHUCK_SRC_DIR)/uana_extract.o \
+	$(CHUCK_SRC_DIR)/ulib_math.o $(CHUCK_SRC_DIR)/ulib_std.o \
+	$(CHUCK_SRC_DIR)/ulib_opsc.o $(CHUCK_SRC_DIR)/util_buffers.o \
+	$(CHUCK_SRC_DIR)/util_console.o $(CHUCK_SRC_DIR)/util_math.o \
+	$(CHUCK_SRC_DIR)/util_network.o $(CHUCK_SRC_DIR)/util_raw.o \
+	$(CHUCK_SRC_DIR)/util_string.o $(CHUCK_SRC_DIR)/util_thread.o \
+	$(CHUCK_SRC_DIR)/util_xforms.o $(CHUCK_SRC_DIR)/util_opsc.o \
+	$(CHUCK_SRC_DIR)/util_hid.o $(SF_OBJ)
+
+OBJS=miniAudicle.o $(WXW_DIR)/mAParentFrame.o $(WXW_DIR)/mADocument.o \
+     $(WXW_DIR)/mAView.o $(WXW_DIR)/mAVMMonitor.o $(WXW_DIR)/mAMenuBar.o \
+     $(WXW_DIR)/mAConsoleMonitor.o $(WXW_DIR)/mAConfig.o \
+     $(WXW_DIR)/mAPreferencesWindow.o \
+     $(WXW_DIR)/mAUIElements.o miniAudicle_import.o miniAudicle_ui_elements.o
+
+RESOURCES=$(WXW_DIR)/icons/miniAudicle.rc $(WXW_DIR)/icons/miniAudicle.ico
+
+XPMS=$(WXW_DIR)/icons/add.xpm $(WXW_DIR)/icons/remove.xpm \
+	 $(WXW_DIR)/icons/replace.xpm $(WXW_DIR)/icons/miniAudicle.xpm
+
+.PHONY: miniAudicle
+miniAudicle: $(BIN_DIR)/miniAudicle
+
+$(BIN_DIR)/miniAudicle: $(OBJS) chuck
+	g++ -o $(BIN_DIR)/miniAudicle $(OBJS) $(CHUCK_OBJS) $(LIBS)
+
+# build the core chuck code
+.PHONY: chuck
+chuck:
+	make -C $(CHUCK_SRC_DIR) -f $(CHUCK_MAKEFILE)
+
+miniAudicle_shell.o: miniAudicle_shell.cpp miniAudicle_shell.h
+	$(CC) $(FLAGS) $(INCLUDES) miniAudicle_shell.cpp
+
+miniAudicle.o: miniAudicle.cpp miniAudicle.h
+	$(CC) $(FLAGS) $(INCLUDES) miniAudicle.cpp
+
+$(WXW_DIR)/mAParentFrame.o: $(WXW_DIR)/mAParentFrame.cpp $(WXW_DIR)/mAParentFrame.h $(WXW_DIR)/mAView.h $(WXW_DIR)/mADocument.h $(WXW_DIR)/mAVMMonitor.h miniAudicle.h $(WXW_DIR)/mAMenuBar.h $(XPMS)
+	$(CC) -o $(WXW_DIR)/mAParentFrame.o $(FLAGS) $(INCLUDES) $(WXW_DIR)/mAParentFrame.cpp
+
+$(WXW_DIR)/mADocument.o: $(WXW_DIR)/mADocument.cpp $(WXW_DIR)/mADocument.h $(WXW_DIR)/mAView.h
+	$(CC) -o $(WXW_DIR)/mADocument.o $(FLAGS) $(INCLUDES) $(WXW_DIR)/mADocument.cpp
+
+$(WXW_DIR)/mAView.o: $(WXW_DIR)/mAView.cpp $(WXW_DIR)/mAView.h
+	$(CC) -o $(WXW_DIR)/mAView.o $(FLAGS) $(INCLUDES) $(WXW_DIR)/mAView.cpp
+
+$(WXW_DIR)/mAVMMonitor.o: $(WXW_DIR)/mAVMMonitor.cpp $(WXW_DIR)/mAVMMonitor.h $(WXW_DIR)/mAParentFrame.h miniAudicle.h
+	$(CC) -o $(WXW_DIR)/mAVMMonitor.o $(FLAGS) $(INCLUDES) $(WXW_DIR)/mAVMMonitor.cpp
+
+$(WXW_DIR)/mAConsoleMonitor.o: $(WXW_DIR)/mAConsoleMonitor.cpp $(WXW_DIR)/mAConsoleMonitor.h $(WXW_DIR)/mAParentFrame.h
+	$(CC) -o $(WXW_DIR)/mAConsoleMonitor.o $(FLAGS) $(INCLUDES) $(WXW_DIR)/mAConsoleMonitor.cpp
+
+$(WXW_DIR)/mAMenuBar.o: $(WXW_DIR)/mAMenuBar.cpp $(WXW_DIR)/mAMenuBar.h $(WXW_DIR)/mAEvents.h
+	$(CC) -o $(WXW_DIR)/mAMenuBar.o $(FLAGS) $(INCLUDES) $(WXW_DIR)/mAMenuBar.cpp
+
+$(WXW_DIR)/mAConfig.o: $(WXW_DIR)/mAConfig.cpp $(WXW_DIR)/mAConfig.h
+	$(CC) -o $(WXW_DIR)/mAConfig.o $(FLAGS) $(INCLUDES) $(WXW_DIR)/mAConfig.cpp
+
+$(WXW_DIR)/mAPreferencesWindow.o: $(WXW_DIR)/mAPreferencesWindow.cpp $(WXW_DIR)/mAPreferencesWindow.h
+	$(CC) -o $(WXW_DIR)/mAPreferencesWindow.o $(FLAGS) $(INCLUDES) $(WXW_DIR)/mAPreferencesWindow.cpp
+
+$(WXW_DIR)/mAUIElements.o: $(WXW_DIR)/mAUIElements.cpp miniAudicle_ui_elements.h
+	$(CC) -o $(WXW_DIR)/mAUIElements.o $(FLAGS) $(INCLUDES) $(WXW_DIR)/mAUIElements.cpp
+
+miniAudicle_import.o: miniAudicle_import.cpp miniAudicle_import.h miniAudicle_ui_elements.h
+	$(CC) -o miniAudicle_import.o $(FLAGS) $(INCLUDES) miniAudicle_import.cpp
+
+miniAudicle_ui_elements.o: miniAudicle_ui_elements.cpp miniAudicle_ui_elements.h
+	$(CC) -o miniAudicle_ui_elements.o $(FLAGS) $(INCLUDES) miniAudicle_ui_elements.cpp
+
+clean: 
+	rm -rf *.o $(WXW_DIR)/*.o $(BIN_DIR)/miniAudicle
+

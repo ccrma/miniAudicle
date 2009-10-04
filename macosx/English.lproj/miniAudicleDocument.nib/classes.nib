@@ -1,0 +1,22 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = NumberedTextView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = mAArgumentsTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }, 
+        {
+            ACTIONS = {handleArgumentText = id; toggleArguments = id; }; 
+            CLASS = miniAudicleDocument; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "argument_subview" = RBSplitSubview; 
+                "argument_table" = NSTableView; 
+                "argument_text" = NSTextField; 
+                "status_text" = NSTextField; 
+                "text_view" = NumberedTextView; 
+                "toggle_argument_subview" = NSButton; 
+            }; 
+            SUPERCLASS = NSDocument; 
+        }
+    ); 
+    IBVersion = 1; 
+}
