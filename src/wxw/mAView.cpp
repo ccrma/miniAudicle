@@ -153,7 +153,7 @@ bool mAChuckView::OnCreate( wxDocument * doc, long WXUNUSED( flags ) )
         frame_width = ( int ) ( .8 * client_width - frame_x );
     if( frame_height + frame_y > ( .8 * client_height ) )
         frame_height = ( int ) ( .8 * client_height - frame_y );
-    frame->SetSize( frame_width, frame_height );
+    //frame->SetSize( frame_width, frame_height );
     
     window->StyleClearAll();
 
