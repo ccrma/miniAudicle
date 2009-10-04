@@ -1,0 +1,401 @@
+<head>
+<title>miniAudicle - [Documentation]</title>
+<link rel="stylesheet" type="text/css" href="miniAudicle.css" />
+<script type="text/javascript">
+function make_email( a, b, c, d )
+{
+	document.write( "<a href=\"mailto:" + a + "@" + b 
+					+ "." + c + "\">" + d + "</a>" );
+}
+</script>
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<a name="top" />
+<center>
+
+<div id="chuck_header">
+<h1>miniAudicle</h1>
+
+<div id="chuck_revision">
+version: 0.1.3.7 (alpha)
+</div>
+
+<hr width="20%" />
+</div>
+</center>
+
+<center>
+For the most up-to-date version of this document,
+<br>
+please visit <a href="http://audicle.cs.princeton.edu/mini/mac/doc/index.html">http://audicle.cs.princeton.edu/mini/mac/doc/</a>
+</center>
+
+
+<!-- navigation bar -->
+
+<div class="ma_toc">
+<center>
+<h3>Contents</h3>
+</center>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#requirements">System Requirements</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#tutorial">Tutorial</a></li>
+<li><a href="#interface">Interface Reference</a></li>
+<li><a href="#maui">MAUI Elements</a></li>
+<li><a href="#support">Support, Contact, Mailing Lists</li>
+<li><a href="#credits">Credits</li>
+</ul>
+
+</div>
+
+<div class="ma_body">
+<a name="introduction">
+<h2>Introduction</h2>
+</a>
+
+<p>
+The miniAudicle is a graphical integrated development environment for the 
+<a href="http://chuck.cs.princeton.edu/">ChucK</a>
+digital audio synthesis environment.  miniAudicle allows ChucK programmers to 
+develop programs and utilize on-the-fly programming features outside of the 
+sometimes cumbersome command-line interface.  Its features include:
+<ul>
+<li>Integrated syntax highlighting text editor, ChucK Virtual Machine, 
+and Virtual Machine monitor</li>
+<li>Support for standard on-the-fly programming commands (add, replace, 
+remove, remove all, remove last)</li>
+<li>Integrated console monitor displays virtual machine text output</li>
+<li>Integrated ChucK Shell</li>
+<li>Uses native Mac OS X graphical user interface API</li>
+<li>Ability to create and interact with Mac OS X user interface elements from 
+    ChucK code (MAUI Elements)</li>
+</ul>    
+</p>
+
+<p>Planned features include:
+<ul>
+<li>Code completion, auto-tabbing</li>
+<li>Online ChucK/miniAudicle help system</li>
+<li>Connections to remote virtual machines</li>
+<li>Expansion of MAUI Elements</li>
+</ul>
+</p>
+
+<a name="requirements">
+<h2>System Requirements</h2>
+</a>
+
+<p>Currently miniAudicle supports PowerPC G3, G4, G5, or Intel processors 
+and Mac OS X 10.3.9 or greater.  </p>
+
+<a name="installation">
+<h2>Installation</h2>
+</a>
+
+<p>1. To install, first download the miniAudicle disk image at <a 
+href="http://audicle.cs.princeton.edu/mini/">http://audicle.cs.princeton.edu/mini/</a>.</p>
+
+<p>2. Mount the disk image by double-clicking it.  Open the disk image and 
+simply drag the miniAudicle application to your <b>/Applications</b> 
+folder or your desired location.</p>
+
+<p>3. If you like, make a shortcut (to the newly installed miniAudicle) in 
+your System Dock.</p>
+
+<p>4. To run miniAudicle, simply double-click the miniAudicle 
+application in Finder, or open it from the Dock.</p>
+
+<center><img src="images/ma-dock.jpg"></center>
+
+<a name="tutorial">
+<h2>Tutorial</h2>
+</a>
+
+<p>If you are new to ChucK programming, the following tutorial should set you 
+well on your way to producing righteous ChucK programs.  If you are already 
+familiar with ChucK, you could probably skip ahead to the next section, or 
+open up the miniAudicle and start hacking.  </p>
+
+<p>When the miniAudicle is first started, you will see a large blank window and 
+a small window titled "Virtual Machine".  To get started, click on the button 
+"Start Virtual Machine" in the small window.  If you have used ChucK on the 
+command line before, this is analogous to running <code>chuck --loop</code>.  A window will 
+appear called the "Console Monitor"; this window displays any textual 
+information emitted by the virtual machine as it operates.  </p>
+
+<p>Once the virtual machine is started, you are ready to start ChucKing!  For 
+starters, type or copy/paste the following simple ChucK program into the blank 
+editing window:
+<pre>
+  SinOsc s => dac;
+  .2 => s.gain;
+  <<< "Hello, worlD!" >>>;
+  3::second => now;
+</pre>
+
+Once this code has been entered, click on the "Add Shred" button at the top of 
+the window.  You should hear a sine wave sounding for three seconds.  In the 
+Virtual Machine monitor, you should see a row appear in the "shred table".  
+On the console monitor, the text 
+<pre>
+  [chuck](VM): sporking incoming shred: 1 (Untitled)...
+  "Hello, worlD!" : (string)
+</pre>
+should print.  If all these things occurred, then you have successfully run a 
+ChucK program!</p>
+
+<p>The "Add Shred" button attempts to run whatever code is in the current window 
+on the virtual machine.  If you haven't started the virtual machine yet, this 
+button will be greyed out and disabled, because there is no virtual machine to 
+add it to.  You can add code in a particular window as many times as you like.  
+Each time you click on "Add Shred" a new "shred" is created to execute that
+code.  Thus, for the code above, if you click on "Add Shred" 10 times in rapid 
+succession, you will hear the sound of 10 simulataneous sine waves mixed 
+together for about three seconds.  
+</p>
+
+<p>Now, in the program you entered in above, try changing the word "second" to 
+"day".  The new program should look something like this:
+<pre>
+  SinOsc s => dac;
+  .2 => s.gain;
+  <<< "Hello, worlD!" >>>;
+  3::day => now;
+</pre>
+Go ahead and run the program.  You might have noticed that this program is 
+similar to the previous one, except that it will run for three days instead of 
+three seconds.  Now, for most purposes, three days is far too long!  If that is 
+the case, it is easy to prematurely terminate the running shred.  Simply click 
+on the "Remove Shred" button.  
+</p>
+
+<p>Try running this program 5 times in succession.  You will hear several sine 
+waves now.  If you click on "Remove Shred", only the shred which was most 
+recently added will be removed.  How do you get rid of all those other shreds? 
+Notice the "shreds" table in the Virtual Machine monitor.  Each entry in the 
+table has a "shred id", a "name", and a button next to it with a "-" sign in it. 
+The name is the name of the file, which in this case is "Untitled".  The shred 
+id is a unique id assigned to each shred by the virtual machine.  Clicking on 
+the button serves to remove the shred corresponding to that entry in the shred 
+table.  In this way, you can stop execution of any shred you like in the virtual 
+machine.  </p>
+
+<p>Now, suppose you wanted to quickly remove all of the shreds that are 
+currently running.  This is easily accomplished by clicking on the "Remove All" 
+button at the top of each code window.  </p>
+
+<p>Suppose that you really like this sine wave program, and you would like to 
+keep it for later use.  Like most text editors, miniAudicle supports saving, 
+opening, and creating new ChucK source files, and keeping multiple ChucK source 
+files open at the same time.  </p>
+
+<p>Now you are well on your way to writing masterful ChucK programs.  Please 
+read on for further information on how to use miniAudicle.  For more information 
+about the ChucK programming language and on-the-fly programming please visit 
+<a href="http://chuck.cs.princeton.edu/">the ChucK website</a>, particularly the 
+<a href="http://chuck.cs.princeton.edu/doc/">documentation</a> and 
+<a href="http://chuck.cs.princeton.edu/doc/examples/">example code</a> sections.  
+</p>
+
+<a name="interface">
+<h2>Interface Reference</h2>
+</a>
+
+<h3>On-the-fly programming commands</h3>
+
+<p>miniAudicle supports the Add, Replace, Remove, Removeall, and Removelast 
+on-the-fly programming commands.  These can be invoked by clicking on the 
+appropriate button in the toolbar of each document window.  These commands are 
+also available in the ChucK menu.  The Add, Replace, and Remove commands can be 
+invoked by the key combinations Command +, Command =, and Command -, 
+respectively.  Removeall can be triggered by Command Delete.  </p>
+
+<p>The Add, Replace, and Remove commands refer to the active document window, 
+i.e. the topmost document window, when invoked from the ChucK menu or by a key 
+combination.  Note that on the fly programming commands are disabled whenever
+the virtual machine is not running.</p>
+
+<center><img width=400 src="images/ma-editor.jpg"></center>
+
+<p>The behavior of these commands are as follows:
+<dl>
+<dt>Add Shred</dt>
+<dd>Adds the active document to the virtual machine.  </dd>
+    
+<dt>Replace Shred</dt> 
+<dd>Simultaneously removes the most recently added shred corresponding to the 
+active document and adds the active document to the virtual machine</dd>
+    
+<dt>Remove Shred</dt>
+<dd>Removes the most recent shred corresponding to the active document</dd>
+
+<dt>Remove Last Shred</dt>
+<dd>Removes the most recently added shred, irrespective of the active document
+</dd>
+    
+<dt>Remove All Shreds</dt>
+<dd>Removes all shreds on the virtual machine</dd>
+</dl>
+</p>
+
+<h3>Virtual Machine Monitor</h3>
+
+<p>The Virtual Machine monitor provides a real-time overview of the status of 
+the virtual machine.  It displays the length of time the VM has been active, the 
+number of shreds that are currently running, and a list of information for each 
+running shred.  </p>
+
+<p>To start the virtual machine, click on the "Start Virtual Machine" button.  
+Clicking this button again will stop the virtual machine.  The virtual 
+machine can be stopped and started as many times as desired.  Each time the 
+virtual machine is stopped, all running shreds are removed.  </p>
+
+<p>When the Virtual Machine is started, miniAudicle also opens up the default 
+port to accept on-the-fly programming commands from other sources, such as the 
+<code>chuck</code> command line program, the ChucK Shell, or other programs.
+</p>
+
+<center><img src="images/ma-monitor.jpg"></center>
+
+<p>The shred table lists all shreds running on the virtual machine as they are 
+added.  To remove a shred from the virtual machine, click on the "-" button at
+the right of each shred entry.  </p>
+
+<p>The Virtual Machine Monitor can be opened and closed by selecting "Virtual 
+Machine Monitor" from the "Window" menu, or pressing the key combination 
+Command 1.  </p>
+    
+<h3>Console Monitor</h3>
+
+<p>The console monitor prints virtual machine text output and ChucK log 
+information.  This is the same text which is printed to stdout and stderr when 
+chuck is run from the commmand line.  Currently the Console Monitor does not 
+support stdin textual input.  </p>
+
+<p>The Console Monitor can be opened and closed via the "Console Monitor" menu 
+item in the "Window" menu, or using the Command 2 key combination.  </p>
+
+<center><img src="images/ma-console.jpg"></center>
+
+<h3>ChucK Menu</h3>
+
+<p>In addition to on-the-fly programming commands, the ChucK menu has the Start
+Virtual Machine menu item and Log Level menu item.  The Start Virtual Machine 
+menu item is semantically the same as clicking on the Start Virtual Machine 
+button of the Virtual Machine Monitor.  Additionally, the Virtual Machine can be
+started and stopped using the Command . key combination.  </p>
+
+<p>The Log Level menu item allows users to adjust the verbosity of ChucK's 
+logging system.  The verbosity is measured on a scale from 0 to 10, with 0 
+corresponding to no logging and 10 corresponding to logging of everything.  The 
+current log level is checked in the Log Level menu.  </p>
+
+<p>The log is printed to the Console Monitor.  </p>
+
+<a name="maui">
+<h2>miniAudicle User Interface Elements</h2>
+</a>
+
+<p>miniAudicle User Interface Elements (MAUI Elements) are objects instantiated 
+within a ChucK program which create graphic user interface controls in the 
+miniAudicle.  Through these user interface controls it is possible to receive 
+input from the user, and also send output back to the user.  In this way, 
+parameters in ChucK code can be controlled in real time using graphical 
+controls.  </p>
+
+<p>Currently, miniAudicle supports sliders, buttons, and light emitting diodes 
+(LED's).  </p>
+
+<center><img size=75% src="images/ma-mand.jpg"></center>
+
+<p>To start using MAUI Elements, try running the following ChucK code: 
+<pre>
+  SinOsc sine => dac;
+
+  MAUI_Slider slider;
+  slider.range( 200, 2000 );
+  slider.name( "frequency" );
+  slider.display();
+
+  while( 1 )
+  {
+      slider.value() => sine.freq;
+      slider => now;
+  }
+</pre>
+Running this code will do two things.  First, you will hear a sine wave 
+sounding at 200Hz.  Second, a small window will appear with the text "frequency" 
+in it, the number "200", and a graphical slider.  Try moving the slider around.  
+You will notice that the frequency of the sine wave changes as you move the 
+slider, and that the slider window displays the current value of the slider.</p>
+
+<p>Now, lets take apart the code above.  The line 
+<code>MAUI_Slider slider;</code> declares and initializes the slider.  The line 
+<code>slider.range( 200, 2000 );</code> sets the inclusive minimum and maximum 
+values of the slider to [200, 2000].  The line 
+<code>slider.name( "frequency" );</code> sets the display name of the slider to 
+"frequency".  The line <code>slider.value() => sine.freq;</code> assigns the 
+current value of the slider to the freqency of the sine oscillator.  Lastly, the 
+somewhat cryptic line <code>slider => now;</code> tells virtual machine to block 
+execution on this shred until the value of the slider is changed.  </p>
+
+<p>ChucK code which employs MAUI Elements will typically not work on ChucK 
+virtual machines outside of the miniAudicle.  However, when the miniAudicle is 
+released for Windows and Linux, code employing MAUI Elements will work correctly 
+on all three platforms.  </p>
+
+<p>For more information about how to use the MAUI Elements API to build 
+graphical user interfaces in ChucK, please visit the 
+<a href="maui_api.html">MAUI API Reference.</a></p>
+
+<a name="support">
+<h2>Support, Contact, Mailing Lists</h2>
+</a>
+<p>Have any questions about ChucK or miniAudicle not answered here?  First, see 
+if you can figure it out on the 
+<a href="http://chuck.cs.princeton.edu">ChucK</a> or 
+<a href="http://audicle.cs.princeton.edu/mini/">miniAudicle</a> website.</p>
+
+<p>Second, consider 
+<a href="http://chuck.cs.princeton.edu/community/">subscribing</a> to the chuck/chuck-users email list and posting
+your questions there.</p>
+
+<p>Thirdly, bug reports, features requests, and unsolved questions regarding 
+miniAudicle can be directed to 
+<script type="text/javascript">
+make_email( "ssalazar", "cs.princeton", "edu", "Spencer Salazar" )
+</script>
+ or 
+<script type="text/javascript">
+make_email( "gewang", "cs.princeton", "edu", "Ge Wang" )
+</script>, 
+or to the chuck-users or chuck-dev mailing list.</p>
+</p>
+
+<a name="credits">
+<h2>Credits</h2>
+</a>
+
+<h5>miniAudicle Team</h5>
+<p>Spencer Salazar, Ge Wang</p>
+
+<h5>ChucK Team</h5>
+<p>Ge Wang, Perry Cook, Ananya Misra, Philip Davidson, Ari Lazier, Spencer 
+Salazar, Mark Daly, Adam Tindale, Ajay Kapur</p>
+
+<h5>Libraries</h5>
+
+<p>miniAudicle incorporates portions of IDEKit (Copyright (c) Glenn Andreas), 
+licensed under section 6 of the LGPL v2 (OS X only), wxWidgets, licensed under 
+the wxWidgets license (Win32/Linux only); RtAudio; STK; and libsndfile 
+(Copyright (c) Erik de Castro Lopo, 
+<a href="http://www.mega-nerd.comlibsndfile/">
+http://www.mega-nerd.comlibsndfile/</a>), licensed 
+under section 6 of the LGPL v2.  </p>
+
+</div>
+
+</body>
+</html>

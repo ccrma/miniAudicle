@@ -1,0 +1,330 @@
+<head>
+<title>miniAudicle - [Documentation]</title>
+<link rel="stylesheet" type="text/css" href="miniAudicle.css" />
+<script type="text/javascript">
+function make_email( a, b, c, d )
+{
+	document.write( "<a href=\"mailto:" + a + "@" + b 
+					+ "." + c + "\">" + d + "</a>" );
+}
+</script>
+<style type="text/css">
+.ma_toc
+{
+	width: 15em;
+}
+</style>
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<a name="top" />
+<center>
+
+<div id="chuck_header">
+<h1>miniAudicle User Interface Elements API</h1>
+
+<div id="chuck_revision">
+version: 0.1.3.7 (alpha)
+</div>
+
+<hr width="20%" />
+</div>
+</center>
+
+<center>
+For the most up-to-date version of this document, please visit 
+<a href="http://audicle.cs.princeton.edu/mini/mac/doc/maui_api.html">
+http://audicle.cs.princeton.edu/mini/mac/doc/maui_api.html</a>
+</center>
+
+<!-- navigation bar -->
+
+<div class="ma_toc">
+<ul>
+<li><a href="#element">MAUI_Element</a></li>
+<li><a href="#view">MAUI_View</a></li>
+<li><a href="#slider">MAUI_Slider</a></li>
+<li><a href="#button">MAUI_Button</a></li>
+<li><a href="#led">MAUI_LED</a></li>
+</ul>
+
+</div>
+
+<div class="ma_body">
+
+<div class="ma_api_listing">
+<a name="element" />
+
+<h4>MAUI_Element</h4>
+<p>MAUI Element base class.  It is possible to instantiate 
+this class directly, but it will not create anything useful.  </p>
+
+<h5>class hierarchy</h5>
+<p>Object -> Event -> MAUI_Element</p>
+
+<h5>member functions</h5>
+<dl>
+<dt>void <span class="name">display</span>()</dt>
+<dd>Causes the element to become visible.  Must be called at least once to make 
+the element become visible, as all elements are created hidden.  </dd>
+
+<dt>void <span class="name">destroy</span>()</dt>
+<dd>Closes the element and deallocates any associated memory.  </dd>
+
+<dt>string <span class="name">name</span>( string s )</dt>
+<dd>Sets the name of the element to s.  </dd>
+
+<dt>string <span class="name">name</span>()</dt>
+<dd>Returns the name of the element.  </dd>
+
+<dt>void <span class="name">size</span>( float w, float h )</dt>
+<dd>Sets the width and height of the element.  </dd>
+
+<dt>float <span class="name">width</span>()</dt>
+<dd>Returns the width of the element.  </dd>
+
+<dt>float <span class="name">height</span>()</dt>
+<dd>Returns the height of the element.  </dd>
+
+<dt>void <span class="name">position</span>( float x, float y )</dt>
+<dd>Sets the position of the element, with respect to its parent View.  </dd>
+
+<dt>float <span class="name">x</span>()</dt>
+<dd>Returns the x coordinate of the element.  </dd>
+
+<dt>float <span class="name">y</span>()</dt>
+<dd>Returns the y coordinate of the element.  </dd>
+
+<dt>Event <span class="name">onChange</span>()</dt>
+<dd>Returns an event.  Whenever this element is changed, this event will 
+broadcast to all shreds waiting on it.  Note that onChange() simply returns 
+the instance of the MAUI_Element, such that 
+<pre>
+  element.onChange() => now;
+</pre>
+is equivalent to 
+<pre>
+  element => now;
+</pre>
+</dd>
+</dl>
+</div>
+
+<div class="ma_api_listing">
+
+<a name="view" />
+<h4>MAUI_View</h4>
+<img src="images/ma-view.jpg" />
+<p>View class for grouping elements into a single window.  The only way that a 
+MAUI_Element can be displayed is through a MAUI_View.  However, elements not 
+explicitly assigned to a MAUI_View will create their own implicit MAUI_View. 
+</p>
+<p>Currently it is undefined behavior to nest a MAUI_View within another 
+MAUI_View.  Additionally, it is undefined behavior to add a MAUI_Element
+to more than one MAUI_View, or to the same view more than once.  </p>
+
+<h5>class hierarchy</h5>
+<p>Object -> Event -> MAUI_Element -> MAUI_View</p>
+
+<h5>member functions</h5>
+<dl>
+<dt>void <span class="name">addElement</span>( MAUI_Element e )</dt>
+<dd>Adds an element to the MAUI_View.  </dd>
+</dl>
+
+<h5>examples</h5>
+<ul>
+<li><a href="examples/view01.ck" />view01.ck</a></li>
+<li><a href="examples/mand-o-ui.ck" />mand-o-ui.ck</a></li>
+</ul>
+
+</div>
+
+<div class="ma_api_listing">
+
+<a name="slider" />
+<h4>MAUI_Slider</h4>
+
+<img src="images/ma-slider.jpg" />
+
+<p>Graphical slider class.  Additionally, this element maintains two text 
+fields, displaying the title and current value of the slider.  </p>
+
+<h5>class hierarchy</h5>
+<p>Object -> Event -> MAUI_Element -> MAUI_Slider</p>
+
+<h5>member functions</h5>
+<dl>
+<dt>float <span class="name">value</span>()</dt>
+<dd>Returns the current value.  </dd>
+
+<dt>float <span class="name">value</span>( float v )</dt>
+<dd>Sets the current value as a float, and returns the new current value.</dd>
+
+<dt>void <span class="name">range</span>( float min, float max )</dt>
+<dd>Sets the minimum and maximum values of the slider.</dd>
+
+<dt>float <span class="name">min</span>()</dt>
+<dd>Returns the minimum value of the slider.  </dd>
+
+<dt>float <span class="name">max</span>()</dt>
+<dd>Returns the maximum value of the slider.  </dd>
+
+<dt>int <span class="name">precision</span>( int p )</dt>
+<dd>Sets the precision of the value display of the slider.  Returns the
+new precision.  The precision is used to determine the maximum number of 
+significant digits of the bestFormat displayFormat, and the number of digits 
+after the decimal point in the decimalFormat and scientificFormat display 
+formats. </dd>
+
+<dt>int <span class="name">precision</span>()</dt>
+<dd>Returns the precision of the value display of the slider.  The default
+precision is 4.  </dd>
+
+<dt>int <span class="name">displayFormat</span>( int df )</dt>
+<dd>Sets the display format, and returns the new display format.  For a list of 
+meaningful values to pass as a display format, please see member variables 
+below.  </dd>
+
+<dt>int <span class="name">displayFormat</span>()</dt>
+<dd>Returns the current display format for the value display of the slider.</dd>
+
+</dl>
+
+<h5>member variables</h5>
+<dl>
+<dt>static const int <span class="name">bestFormat</span></dt>
+<dd>Corresponds to a slider value display format in which the most appropriate 
+display format is selected automatically, depending on the value  
+of the slider.  For example, using bestFormat and a precision of 4, a value of 
+20 would be displayed as 20, 20.4 would be displayed as 20.4, and 
+200000000000000 would display as 2e14.  The precision specifies the 
+maximum number of significant digits.  </dd>
+
+<dt>static const int <span class="name">integerFormat</span></dt>
+<dd>Corresponds to a value display format in which the slider value is displayed 
+as an integer.  The precision is unused in this display format.  </dd>
+
+<dt>static const int <span class="name">decimalFormat</span></dt>
+<dd>Corresponds to a value display format in which the slider value is displayed 
+as a decimal.  The precision specifies the number of digits appearing after the
+decimal point.  </dd>
+
+<dt>static const int <span class="name">scientificFormat</span></dt>
+<dd>Specifys the value display format in which the value is displayed in 
+scientific format.  The precision specifies the number of digits appearing after
+the decimal point.  </dd>
+
+</dl>
+
+<h5>examples</h5>
+<ul>
+<li><a href="examples/slide01.ck" />slide01.ck</a></li>
+<li><a href="examples/slide02.ck" />slide02.ck</a></li>
+<li><a href="examples/slide03.ck" />slide03.ck</a></li>
+<li><a href="examples/view01.ck" />view01.ck</a></li>
+<li><a href="examples/mand-o-ui.ck" />mand-o-ui.ck</a></li>
+</ul>
+
+</div>
+
+<div class="ma_api_listing">
+
+<a name="button" />
+<h4>MAUI_Button</h4>
+<img src="images/ma-button.jpg" />
+<p>Graphical button class, maintaining an optional title in the center of the
+button.</p>
+
+<h5>class hierarchy</h5>
+<p>Object -> Event -> MAUI_Element -> MAUI_Button</p>
+
+<h5>member functions</h5>
+<dl>
+<dt>int <span class="name">state</span>()</dt>
+<dd>Returns the current state of the button.  0 represents an unpushed button, 
+and a non-zero value represents a pushed button.  </dd>
+
+<dt>int <span class="name">state</span>( int s )</dt>
+<dd>Sets the current state of the toggle button.  0 represents an unpushed 
+button, and a non-zero value represents a pushed button.  Returns the new
+state of the button.</dd>
+
+<dt>void <span class="name">pushType</span>()</dt>
+<dd>Sets the button to type to a push button.  Push buttons stay pushed as long 
+as the user holds the mouse button down.  The event is broadcasted once when the
+mouse is pressed over the button, and once when the mouse is released over the
+button.  </dd>
+
+<dt>void <span class="name">toggleType</span>()</dt>
+<dd>Sets the button type to a toggle button.  Toggle buttons enter the pushed 
+state when they are pushed once, and exit the pushed state after they are pushed 
+once more.  The event is broadcasted each time the mouse is pressed over the 
+button.  Changing the button type of a toggle button will reset its state
+to the unpushed state.  </dd>
+
+<h5>examples</h5>
+<ul>
+<li><a href="examples/view01.ck" />view01.ck</a></li>
+<li><a href="examples/mand-o-ui.ck" />mand-o-ui.ck</a></li>
+</ul>
+
+</dl>
+
+</div>
+
+<div class="ma_api_listing">
+
+<a name="led" />
+<h4>MAUI_LED</h4>
+<img src="images/ma-led.jpg" />
+<p>User interface element to simulate a light emitting diode (LED).  Three colors are available.  All LED elements have the same size; increasing their height and width will increase the margin around the LED.  </p>
+
+<h5>class hierarchy</h5>
+<p>Object -> Event -> MAUI_Element -> MAUI_LED</p>
+
+<h5>member functions</h5>
+<dl>
+
+<dt>void <span class="name">light</span>()</dt>
+<dd>Sets the LED to the lit, or colored, state.</dd>
+
+<dt>void <span class="name">unlight</span>()</dt>
+<dd>Sets the LED to the unlit, or uncolored, state.</dd>
+
+<dt>int <span class="name">color</span>( int c )</dt>
+<dd>Sets the color of the LED, and returns the new color.  For a list of 
+meaningful values to pass as the color, see member variables.  </dd>
+
+<dt>int <span class="name">color</span>()</dt>
+<dd>Returns the color of the LED.</dd>
+
+</dl>
+
+<h5>member variables</h5>
+<dl>
+<dt>static const int <span class="name">red</span></dt>
+<dd>Corresponds to a red colored LED.</dd>
+
+<dt>static const int <span class="name">green</name></dt>
+<dd>Corresponds to a green colored LED.</dd>
+
+<dt>static const int <span class="name">blue</name></dt>
+<dd>Corresponds to a blue colored LED.</dd>
+
+</dl>
+
+<h5>examples</h5>
+<ul>
+<li><a href="examples/led01.ck" />led01.ck</a></li>
+<li><a href="examples/view01.ck" />view01.ck</a></li>
+<li><a href="examples/mand-o-ui.ck" />mand-o-ui.ck</a></li>
+</ul>
+
+</div>
+
+
+</div>
+</body>
+</html>
+
+
