@@ -131,6 +131,7 @@ NOTES:=$(addprefix $(NOTES_DIR)/,$(NOTES))
 
 CHUCK_MANUAL_DIR=$(CHUCK_SRC_DIR)/../doc/manual
 CHUCK_MANUAL=$(CHUCK_MANUAL_DIR)/ChucK_manual.pdf
+CHUCK_MANUAL_URL=http://chuck.stanford.edu/release/files/chuck_manual.pdf
 
 .PHONY: dist
 dist:
@@ -139,7 +140,8 @@ dist:
 	cp $(MSVC_RELEASE_DIR)/miniAudicle.exe $(NOTES) $(DIST_DIR)
 	cp -r $(CHUCK_SRC_DIR)/examples $(DIST_DIR)
 	mkdir $(DIST_DIR)/documentation
-	-make -C $(CHUCK_MANUAL_DIR) > /dev/null
-	cp $(CHUCK_MANUAL) $(DIST_DIR)/documentation
-	rm -r `find $(DIST_DIR)/ -name CVS`
+#	-make -C $(CHUCK_MANUAL_DIR) > /dev/null
+#	cp $(CHUCK_MANUAL) $(DIST_DIR)/documentation
+	curl $(CHUCK_MANUAL_URL) > $(DIST_DIR)/documentation/ChucK_manual.pdf
+	rm -rf `find $(DIST_DIR)/ -name CVS` `find $(DIST_DIR)/ -name .svn`
 	zip -9 -r -m miniAudicle-$(VERSION).zip $(DIST_DIR)
