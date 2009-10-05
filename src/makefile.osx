@@ -144,7 +144,7 @@ $(NIBS): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/%: $(OS
 	cp $< $@
 
 # build the core chuck code
-#.PHONY: chuck
+.PHONY: chuck
 chuck:
 #	echo $(CHUCK_SRCS) &> /dev/null
 	make -C $(CHUCK_SRC_DIR) -f makefile.osx
