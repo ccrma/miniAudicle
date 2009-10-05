@@ -158,7 +158,7 @@ $(NIBS): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/%: $(OS
 	cp $< $@
 
 # build the core chuck code
-#.PHONY: chuck
+.PHONY: chuck
 chuck:
 #	echo $(CHUCK_SRCS) &> /dev/null
 	make -C $(CHUCK_SRC_DIR) -f makefile.osx-ub
@@ -258,6 +258,6 @@ dist: miniAudicle
 #	make -C $(CHUCK_MANUAL_DIR) > /dev/null
 #	cp -r $(CHUCK_MANUAL) $(DIST_DIR)/documentation/
 	curl $(CHUCK_MANUAL_URL) > $(DIST_DIR)/documentation/ChucK_manual.pdf
-	rm -r `find $(DIST_DIR)/ -name .DS_Store` `find $(DIST_DIR)/ -name CVS`
+	rm -rf `find $(DIST_DIR)/ -name .DS_Store` `find $(DIST_DIR)/ -name CVS` `find $(DIST_DIR)/ -name .svn`
 	hdiutil create -srcfolder $(DIST_DIR) miniAudicle-$(VERSION).dmg -format UDZO -imagekey zlib-level=9
-	rm -r $(DIST_DIR)/
+	rm -rf $(DIST_DIR)/
