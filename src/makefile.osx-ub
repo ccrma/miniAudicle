@@ -17,7 +17,7 @@ CXX=g++-4.0
 endif
 INCLUDES=-I$(CHUCK_SRC_DIR) -I$(OSX_DIR) -I.
 FLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH_i386 -arch ppc -arch i386 \
-      -mmacosx-version-min=10.3 -m32 -isysroot /Developer/SDKs/MacOSX10.4u.sdk/
+      -mmacosx-version-min=10.3 -isysroot /Developer/SDKs/MacOSX10.4u.sdk/
 LIBS=-framework Cocoa -framework CoreAudio -framework CoreMIDI \
 	 -framework CoreFoundation -framework Carbon -framework IOKit \
 	 -lstdc++ -lm
