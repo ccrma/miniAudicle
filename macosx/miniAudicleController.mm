@@ -49,6 +49,10 @@ const NSString * mAVirtualMachineDidTurnOffNotification = @"VirtualMachineDidTur
 @interface miniAudicleController (Private)
 - (void)adjustChucKMenuItems;
 - (void)applicationWillTerminate:(NSNotification *)n;
+
+- (void)_backgroundVMOn;
+- (void)_vmOnFinished;
+
 @end
 
 @implementation miniAudicleController
@@ -755,20 +759,22 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
             enable_block = [enable_block_obj boolValue];
         ma->set_blocking(enable_block);
         
-        ma->start_vm();
-        
-        [self setLockdown:NO];
-        
-        [madv makeObjectsPerformSelector:@selector(vm_on)];
-        [vm_monitor vm_on];
-        [[NSNotificationCenter defaultCenter] postNotificationName:mAVirtualMachineDidTurnOnNotification
-                                                            object:self];
-        if( [[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesAutoOpenConsoleMonitor] == YES)
-            [console_monitor activateMonitor];
-        
-        vm_on = YES;
+        vm_starting = YES;
         
         [self adjustChucKMenuItems];
+        [vm_monitor vm_starting];
+        
+        if([self respondsToSelector:@selector(performSelectorInBackground:withObject:)])
+        {
+            [self performSelectorInBackground:@selector(_backgroundVMOn)
+                                   withObject:nil];
+        }
+        else
+        {
+            [self _backgroundVMOn];
+        }
+
+        
         //[self updateSyntaxHighlighting];
     }
 }
@@ -821,19 +827,30 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
 
 - (void)adjustChucKMenuItems
 {
-    BOOL enable;
+    BOOL enable, enable_vm_ui;
     NSString * old_text, * new_text;
     
-    if( vm_on )
+    if( vm_starting )
+    {
+        enable = NO;
+        enable_vm_ui = NO;
+        
+        new_text = @"Starting Virtual Machine";
+        old_text = @"Start Virtual Machine";
+    }
+    else if( vm_on )
     {
         enable = YES;
+        enable_vm_ui = YES;
+        
         new_text = @"Stop Virtual Machine";
         old_text = @"Start Virtual Machine";
     }
-    
     else
     {
         enable = NO;
+        enable_vm_ui = YES;
+        
         new_text = @"Start Virtual Machine";
         old_text = @"Stop Virtual Machine";
     }
@@ -849,15 +866,56 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
         if( [[tmenu itemAtIndex:i] tag] & 1 )
             [[tmenu itemAtIndex:i] setEnabled:enable];
     
-    i = [tmenu indexOfItemWithTitle:old_text];
-    if( i >= 0 )
-       [[tmenu itemAtIndex:i] setTitle:new_text];
+//    i = [tmenu indexOfItemWithTitle:old_text];
+//    if( i >= 0 )
+//    {
+//       [[tmenu itemAtIndex:i] setTitle:new_text];
+//    }
+    
+    [startVMMenuItem setTitle:new_text];
+    [startVMMenuItem setEnabled:enable_vm_ui];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)n
 {
     if( vm_on )
         [self toggleVM:nil];
+}
+
+
+- (void)_backgroundVMOn
+{
+    ma->start_vm();
+    
+    if([self respondsToSelector:@selector(performSelectorInBackground:withObject:)])
+    {
+        // in other words, this is happening in the background
+        [self performSelectorOnMainThread:@selector(_vmOnFinished)
+                               withObject:nil
+                            waitUntilDone:NO];
+    }
+    else
+    {
+        [self _vmOnFinished];
+    }
+
+}
+
+- (void)_vmOnFinished
+{
+    [self setLockdown:NO];
+    
+    [madv makeObjectsPerformSelector:@selector(vm_on)];
+    [vm_monitor vm_on];
+    [[NSNotificationCenter defaultCenter] postNotificationName:mAVirtualMachineDidTurnOnNotification
+                                                        object:self];
+    if( [[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesAutoOpenConsoleMonitor] == YES)
+        [console_monitor activateMonitor];
+    
+    vm_starting = NO;
+    vm_on = YES;
+    
+    [self adjustChucKMenuItems];
 }
 
 @end
