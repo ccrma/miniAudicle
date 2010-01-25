@@ -47,6 +47,7 @@ U.S.A.
 #include <unistd.h>
 #include <poll.h>
 #include <fcntl.h>
+#include <stdio.h>
 #else
 #include <windows.h>
 #include <io.h>
@@ -139,6 +140,8 @@ mAConsoleMonitor::mAConsoleMonitor( wxMDIParentFrame * parent,
     {
         EM_log( CK_LOG_WARNING, "(console monitor): unable to set stderr to non-blocking" );
     }
+    
+    setlinebuf(stdout);
     
 #else
     HANDLE hRead, hWrite;
