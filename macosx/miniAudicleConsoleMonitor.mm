@@ -74,7 +74,7 @@ U.S.A.
         
         if(setlinebuf(stdout))
         {
-            EM_log(CK_LOG_SYSTEM, "(miniAudicle): unable to set ")
+            EM_log(CK_LOG_SYSTEM, "(miniAudicle): unable to set chout buffering to line-based")
         }
         
 #endif
