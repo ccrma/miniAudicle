@@ -71,6 +71,12 @@ U.S.A.
                                                  selector:@selector(readData:)
                                                      name:NSFileHandleDataAvailableNotification
                                                    object:std_out];
+        
+        if(setlinebuf(stdout))
+        {
+            EM_log(CK_LOG_SYSTEM, "(miniAudicle): unable to set ")
+        }
+        
 #endif
         if( pipe( fd ) )
         {

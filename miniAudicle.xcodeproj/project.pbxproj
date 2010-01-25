@@ -79,6 +79,8 @@
 		09812B9A0C6E394A00D1D68C /* uana_extract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09812B980C6E394A00D1D68C /* uana_extract.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
 		09812B9B0C6E394A00D1D68C /* uana_extract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09812B980C6E394A00D1D68C /* uana_extract.cpp */; };
 		09812B9C0C6E394A00D1D68C /* uana_extract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09812B980C6E394A00D1D68C /* uana_extract.cpp */; };
+		09820BA110941F7F001F662E /* miniAudicle_log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09820BA010941F7F001F662E /* miniAudicle_log.cpp */; };
+		09820BA210941F7F001F662E /* miniAudicle_log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09820BA010941F7F001F662E /* miniAudicle_log.cpp */; };
 		09A40B680A9A54DA007604EA /* chuck_absyn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B060A9A54DA007604EA /* chuck_absyn.cpp */; };
 		09A40B690A9A54DA007604EA /* chuck_bbq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B080A9A54DA007604EA /* chuck_bbq.cpp */; };
 		09A40B6A0A9A54DA007604EA /* chuck_compile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B0A0A9A54DA007604EA /* chuck_compile.cpp */; };
@@ -152,7 +154,6 @@
 		09A40C700A9A57FA007604EA /* ck.icns in Resources */ = {isa = PBXBuildFile; fileRef = 09A40C650A9A57FA007604EA /* ck.icns */; };
 		09A40C710A9A57FA007604EA /* led-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 09A40C660A9A57FA007604EA /* led-blue.png */; };
 		09A40C720A9A57FA007604EA /* miniAudicle.icns in Resources */ = {isa = PBXBuildFile; fileRef = 09A40C670A9A57FA007604EA /* miniAudicle.icns */; };
-		09A40C7B0A9A58A0007604EA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09A40C7A0A9A58A0007604EA /* Info.plist */; };
 		09A40D130A9A6185007604EA /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
 		09A40D860A9AC579007604EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		09AF2D1F0BA63F5900B18EC6 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 09AF2D1E0BA63F5900B18EC6 /* lock.png */; };
@@ -459,6 +460,8 @@
 		098061AD0AA15BDB00915136 /* chuck_main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = chuck_main.cpp; path = ../../chuck_dev/v2/chuck_main.cpp; sourceTree = SOURCE_ROOT; };
 		09812B980C6E394A00D1D68C /* uana_extract.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = uana_extract.cpp; path = ../../chuck_dev/v2/uana_extract.cpp; sourceTree = SOURCE_ROOT; };
 		09812B990C6E394A00D1D68C /* uana_extract.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = uana_extract.h; path = ../../chuck_dev/v2/uana_extract.h; sourceTree = SOURCE_ROOT; };
+		09820B9F10941F7F001F662E /* miniAudicle_log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = miniAudicle_log.h; sourceTree = "<group>"; };
+		09820BA010941F7F001F662E /* miniAudicle_log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = miniAudicle_log.cpp; sourceTree = "<group>"; };
 		098C58470B2A1E9A00931934 /* mouse.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = mouse.ck; path = ../../chuck_dev/v2/examples/hid/mouse.ck; sourceTree = SOURCE_ROOT; };
 		09A1E6120CBA1AEC001FAD6F /* makefile.alsa */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = makefile.alsa; sourceTree = SOURCE_ROOT; };
 		09A1E6130CBA1AEC001FAD6F /* makefile.jack */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = makefile.jack; sourceTree = SOURCE_ROOT; };
@@ -1240,6 +1243,8 @@
 				09A40BCE0A9A5662007604EA /* miniAudicle.cpp */,
 				09A40BCF0A9A5662007604EA /* miniAudicle.h */,
 				09E5546D0DA61CB700F1A6C8 /* miniAudicle_debug.h */,
+				09820B9F10941F7F001F662E /* miniAudicle_log.h */,
+				09820BA010941F7F001F662E /* miniAudicle_log.cpp */,
 			);
 			name = miniAudicle;
 			sourceTree = "<group>";
@@ -1521,7 +1526,6 @@
 				09A40C700A9A57FA007604EA /* ck.icns in Resources */,
 				09A40C710A9A57FA007604EA /* led-blue.png in Resources */,
 				09A40C720A9A57FA007604EA /* miniAudicle.icns in Resources */,
-				09A40C7B0A9A58A0007604EA /* Info.plist in Resources */,
 				09E481FA0B1CE5AF002087DF /* gauge01.ck in Resources */,
 				09E481FB0B1CE5AF002087DF /* gauge02.ck in Resources */,
 				09F05F590B74558400023899 /* tilt.ck in Resources */,
@@ -1667,6 +1671,7 @@
 				0910DF7A0B1D0D0800BBC2B8 /* mAParentFrame.cpp in Sources */,
 				090B4B1C0C4F038E00DF5577 /* uana_xform.cpp in Sources */,
 				09812B9A0C6E394A00D1D68C /* uana_extract.cpp in Sources */,
+				09820BA210941F7F001F662E /* miniAudicle_log.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1745,6 +1750,7 @@
 				09F37B070BC075AC005931F6 /* mABrowserController.mm in Sources */,
 				090B4B1D0C4F038E00DF5577 /* uana_xform.cpp in Sources */,
 				09812B9B0C6E394A00D1D68C /* uana_extract.cpp in Sources */,
+				09820BA110941F7F001F662E /* miniAudicle_log.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1959,6 +1965,7 @@
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.3;
@@ -1979,6 +1986,7 @@
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_VERSION = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
