@@ -34,6 +34,7 @@ U.S.A.
 #import "miniAudiclePreferencesController.h"
 #import "mAConsoleMonitorView.h"
 #import <unistd.h>
+#import "chuck_errmsg.h"
 
 #define __USE_NEW_CONSOLE_MONITOR__ 1
 
@@ -74,7 +75,7 @@ U.S.A.
         
         if(setlinebuf(stdout))
         {
-            EM_log(CK_LOG_SYSTEM, "(miniAudicle): unable to set chout buffering to line-based")
+            EM_log(CK_LOG_SYSTEM, "(miniAudicle): unable to set chout buffering to line-based");
         }
         
 #endif
