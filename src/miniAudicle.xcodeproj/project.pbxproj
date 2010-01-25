@@ -639,7 +639,7 @@
 		09CD6E210AC602BC00F5D110 /* KBPopUpToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = KBPopUpToolbarItem.m; path = macosx/KBPopUpToolbarItem.m; sourceTree = SOURCE_ROOT; };
 		09E481F80B1CE5AF002087DF /* gauge01.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = gauge01.ck; path = ../test/gauge01.ck; sourceTree = SOURCE_ROOT; };
 		09E481F90B1CE5AF002087DF /* gauge02.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = gauge02.ck; path = ../test/gauge02.ck; sourceTree = SOURCE_ROOT; };
-		09E482060B1CEF41002087DF /* miniAudicle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = miniAudicle; sourceTree = BUILT_PRODUCTS_DIR; };
+		09E482060B1CEF41002087DF /* miniAudicle GTK */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "miniAudicle GTK"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09E4827F0B1CF107002087DF /* mAConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = mAConfig.cpp; path = wxw/mAConfig.cpp; sourceTree = SOURCE_ROOT; };
 		09E482800B1CF107002087DF /* mAConfig.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = mAConfig.h; path = wxw/mAConfig.h; sourceTree = SOURCE_ROOT; };
 		09E482810B1CF107002087DF /* mAConsoleMonitor.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = mAConsoleMonitor.cpp; path = wxw/mAConsoleMonitor.cpp; sourceTree = SOURCE_ROOT; };
@@ -1376,7 +1376,7 @@
 			children = (
 				09805FE70AA10D0C00915136 /* chuck */,
 				8D1107320486CEB800E47090 /* miniAudicle.app */,
-				09E482060B1CEF41002087DF /* miniAudicle */,
+				09E482060B1CEF41002087DF /* miniAudicle GTK */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1472,7 +1472,7 @@
 			);
 			name = "miniAudicle GTK";
 			productName = "miniAudicle GTK";
-			productReference = 09E482060B1CEF41002087DF /* miniAudicle */;
+			productReference = 09E482060B1CEF41002087DF /* miniAudicle GTK */;
 			productType = "com.apple.product-type.tool";
 		};
 		8D1107260486CEB800E47090 /* miniAudicle */ = {
