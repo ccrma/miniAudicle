@@ -184,6 +184,14 @@ int compare_shred_vectors( const vector< Chuck_VM_Shred_Status * > & a,
     [controller toggleVM:sender];
 }
 
+- (void)vm_starting
+{
+    [vm_toggle_button setTitle:@"Starting Virtual Machine"];
+    [vm_toggle_button setEnabled:NO];
+    [removeall_button setEnabled:NO];
+    [removelast_button setEnabled:NO];
+}
+
 - (void)vm_on
 // TODO: account for vm_on failure
 {
@@ -194,6 +202,7 @@ int compare_shred_vectors( const vector< Chuck_VM_Shred_Status * > & a,
     vm_stall_count = 0;
     
     [vm_toggle_button setTitle:@"Stop Virtual Machine"];
+    [vm_toggle_button setEnabled:YES];
     [removeall_button setEnabled:YES];
     [removelast_button setEnabled:YES];
     
@@ -224,6 +233,7 @@ int compare_shred_vectors( const vector< Chuck_VM_Shred_Status * > & a,
     [timer invalidate];
     [timer release];
     [vm_toggle_button setTitle:@"Start Virtual Machine"];
+    [vm_toggle_button setEnabled:YES];
     [removeall_button setEnabled:NO];
     [removelast_button setEnabled:NO];
     vm_on = NO;

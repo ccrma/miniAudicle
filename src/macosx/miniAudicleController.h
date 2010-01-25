@@ -69,8 +69,11 @@ extern const NSString * mAVirtualMachineDidTurnOffNotification;
     NSMutableDictionary * class_names;
     
     BOOL vm_on;
+    BOOL vm_starting;
     
     BOOL in_lockdown;
+    
+    IBOutlet NSMenuItem *startVMMenuItem;
 }
 
 // static/non-static initializers

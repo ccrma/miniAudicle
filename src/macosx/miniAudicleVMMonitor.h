@@ -98,6 +98,7 @@ struct mAShredOptimizationMetadata
 - (void)update:(id)data;
 - (void)activateMonitor:(id)sender;
 - (void)toggleVM:(id)sender;
+- (void)vm_starting;
 - (void)vm_on;
 - (void)vm_off;
 - (void)removeShred:(id)sender;
