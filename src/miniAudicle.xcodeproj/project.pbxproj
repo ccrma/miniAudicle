@@ -946,7 +946,7 @@
 		09A40C670A9A57FA007604EA /* miniAudicle.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = miniAudicle.icns; path = macosx/icon/miniAudicle.icns; sourceTree = SOURCE_ROOT; };
 		09A40C7A0A9A58A0007604EA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; name = Info.plist; path = macosx/Info.plist; sourceTree = SOURCE_ROOT; };
 		09A40DC60A9AC659007604EA /* makefile.osx-ub */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = "makefile.osx-ub"; sourceTree = SOURCE_ROOT; };
-		09A40DC80A9AC677007604EA /* makefile.osx */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = makefile.osx; sourceTree = SOURCE_ROOT; };
+		09A40DC80A9AC677007604EA /* makefile.osx */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; indentWidth = 4; path = makefile.osx; sourceTree = SOURCE_ROOT; tabWidth = 4; usesTabs = 0; };
 		09A40DD20A9AC6D3007604EA /* makefile */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = SOURCE_ROOT; };
 		09A40DED0A9AC8C8007604EA /* chuckula_blood.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = chuckula_blood.jpg; path = ../docs/web/images/chuckula_blood.jpg; sourceTree = SOURCE_ROOT; };
 		09A40DEE0A9AC8C8007604EA /* ma-about.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "ma-about.jpg"; path = "../docs/web/images/ma-about.jpg"; sourceTree = SOURCE_ROOT; };
@@ -1717,7 +1717,7 @@
 				09A40B670A9A54DA007604EA /* util_xforms.h */,
 			);
 			name = ChucK;
-			path = ../../chuck/trunk/src;
+			path = chuck;
 			sourceTree = "<group>";
 		};
 		09A40B010A9A5303007604EA /* miniAudicle */ = {
@@ -1990,7 +1990,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "miniAudicle" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* miniAudicle */;
 			projectDirPath = "";
 			projectRoot = "";
