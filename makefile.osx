@@ -1,5 +1,5 @@
 
-CHUCK_SRC_DIR=../../chuck_dev/v2
+CHUCK_SRC_DIR=chuck
 LANGUAGE=English
 
 OSX_DIR=macosx
@@ -115,10 +115,12 @@ BUNDLE_DATA=Info.plist PkgInfo
 BUNDLE_DATA:=$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/,$(BUNDLE_DATA))
 
 NIBS=miniAudicle.nib/classes.nib miniAudicle.nib/info.nib \
-         miniAudicle.nib/keyedobjects.nib InfoPlist.strings \
-		 miniAudicleDocument.nib/classes.nib miniAudicleDocument.nib/info.nib \
-         miniAudicleDocument.nib/keyedobjects.nib
+     miniAudicle.nib/keyedobjects.nib InfoPlist.strings \
+     miniAudicleDocument.nib/classes.nib miniAudicleDocument.nib/info.nib \
+     miniAudicleDocument.nib/keyedobjects.nib
 
+
+NIBS_INTERMEDIATE:=$(addprefix $(OSX_DIR)/$(LANGUAGE).lproj/,$(NIBS))
 NIBS:=$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/,$(NIBS))
 
 .PHONY: miniAudicle
@@ -142,6 +144,8 @@ $(NIBS): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/%: $(OS
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/miniAudicle.nib/
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/miniAudicleDocument.nib/
 	cp $< $@
+
+$(NIBS_INTERMEDIATE): 
 
 # build the core chuck code
 .PHONY: chuck
