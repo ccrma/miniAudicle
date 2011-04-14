@@ -826,8 +826,19 @@ t_CKBOOL miniAudicle::start_vm()
 
         // allocate the compiler
         g_compiler = compiler = new Chuck_Compiler;
+        
         // initialize the compiler
-        compiler->initialize( vm );
+        string lib_search_path = "";
+        for(vector<string>::iterator i = vm_options.library_paths.begin();
+            i != vm_options.library_paths.end(); i++)
+        {
+            if(i != vm_options.library_paths.begin())
+                lib_search_path += ":";
+            lib_search_path += (*i);
+        }
+        
+        list<string> named_dls;
+        compiler->initialize( vm, lib_search_path, named_dls );
         // enable dump
         compiler->emitter->dump = FALSE;
         // set auto depend
@@ -1367,6 +1378,18 @@ t_CKBOOL miniAudicle::set_enable_std_system( t_CKBOOL enable )
 t_CKBOOL miniAudicle::get_enable_std_system()
 {
     return g_enable_system_cmd;
+}
+
+t_CKBOOL miniAudicle::set_library_paths( vector< string > & paths )
+{
+    vm_options.library_paths = paths;
+    return TRUE;
+}
+
+t_CKBOOL miniAudicle::get_library_paths( vector< string > & paths )
+{
+    paths = vm_options.library_paths;
+    return TRUE;
 }
 
 //-----------------------------------------------------------------------------

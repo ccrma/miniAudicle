@@ -66,6 +66,8 @@ extern NSString * mAPreferencesEnableOTFVisuals;
 extern NSString * mAPreferencesSoundfilesDirectory;
 extern NSString * mAPreferencesBackupSuffix;
 
+extern NSString * mAPreferencesLibraryPath;
+
 extern NSString * mASyntaxColoringChangedNotification;
 extern NSString * mAPreferencesChangedNotification;
 
