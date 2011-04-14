@@ -79,6 +79,8 @@ NSString * mAPreferencesLogLevel = @"LogLevel";
 NSString * mAPreferencesSoundfilesDirectory = @"SoundfilesDirectory";
 NSString * mAPreferencesBackupSuffix = @"BackupSuffix";
 
+NSString * mAPreferencesLibraryPath = @"LibraryPath";
+
 NSString * mASyntaxColoringChangedNotification = @"mASyntaxColoringChanged";
 NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
 
@@ -389,6 +391,8 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesShowStatusBar];
         [defaults setObject:[NSNumber numberWithBool:NO] forKey:mAPreferencesEnableOTFVisuals];
         
+        [defaults setObject:[NSArray arrayWithObjects:@"/usr/lib/chuck", nil] forKey:mAPreferencesLibraryPath];
+        
         [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
         
         // TODO: apparently this needs to happen before awakeFromNib
@@ -584,6 +588,15 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     [[NSNotificationCenter defaultCenter] postNotificationName:mAPreferencesChangedNotification
                                                         object:self];
     //*/
+    
+    vector< string > library_paths;
+    NSArray * obj_library_paths = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesLibraryPath];
+    for(int i = 0; i < [obj_library_paths count]; i++)
+    {
+        NSString * path = [obj_library_paths objectAtIndex:i];
+        library_paths.push_back([path UTF8String]);
+    }
+    [mac miniAudicle]->set_library_paths(library_paths);    
 }
 
 - (void)awakeFromNib
@@ -640,6 +653,15 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     ma->set_enable_audio( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesEnableAudio] intValue] == NSOnState);
     ma->set_enable_network_thread( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAcceptsNetworkCommands] intValue] == NSOnState );
     chdir( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesSoundfilesDirectory] cString] );
+    
+    vector< string > library_paths;
+    NSArray * obj_library_paths = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesLibraryPath];
+    for(int i = 0; i < [obj_library_paths count]; i++)
+    {
+        NSString * path = [obj_library_paths objectAtIndex:i];
+        library_paths.push_back([path UTF8String]);
+    }
+    ma->set_library_paths(library_paths);
     
 //    [self loadGUIFromDefaults];
 //    [self loadMiniAudicleFromGUI];

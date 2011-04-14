@@ -140,6 +140,8 @@ public:
     t_CKBOOL get_blocking();
     t_CKBOOL set_enable_std_system( t_CKBOOL enable );
     t_CKBOOL get_enable_std_system();
+    t_CKBOOL set_library_paths( vector< string > & paths );
+    t_CKBOOL get_library_paths( vector< string > & paths );
     
 protected:
     map< t_CKUINT, vector< t_CKUINT > * > documents; // maps documents to shreds
@@ -190,6 +192,7 @@ protected:
         t_CKBOOL enable_audio;
         t_CKBOOL enable_network;
         t_CKBOOL enable_block;
+        vector< string > library_paths;
     } vm_options;
 };
 
