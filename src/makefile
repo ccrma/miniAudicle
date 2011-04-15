@@ -1,4 +1,7 @@
+
 DESTDIR=/usr/bin
+CHUCK_SRC_DIR=chuck
+
 
 ifneq ($(MA_PLATFORM),)
 ifeq ($(MAKECMDGOALS),)
@@ -40,6 +43,7 @@ win32:
 	-make -f makefile.win32 $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
 clean: 
-	rm -rf *.o wxw/*.o wxw/miniAudicle wxw/miniAudicle.exe macosx/*.o macosx/miniAudicle.app
+	rm -rf *.o wxw/*.o wxw/miniAudicle wxw/miniAudicle.exe macosx/*.o macosx/miniAudicle.app macosx/English.lproj/*.nib
+	-make -C $(CHUCK_SRC_DIR) clean
 
 endif
