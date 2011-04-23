@@ -67,6 +67,7 @@ extern NSString * mAPreferencesSoundfilesDirectory;
 extern NSString * mAPreferencesBackupSuffix;
 
 extern NSString * mAPreferencesLibraryPath;
+extern NSString * mAPreferencesChuginPaths;
 
 extern NSString * mASyntaxColoringChangedNotification;
 extern NSString * mAPreferencesChangedNotification;
@@ -100,6 +101,8 @@ extern NSString * mAPreferencesChangedNotification;
 
     id keybindings_table;
     
+    id chugin_table;
+    
     id preferences_window;
     
     NSMutableDictionary * t_sh_prefs;
@@ -114,6 +117,8 @@ extern NSString * mAPreferencesChangedNotification;
     NSTabView * preferences_tab_view;
     NSText * keybindings_field_editor;
     NSArray * keybindings;
+    
+    NSMutableArray * chugin_paths;
 }
 
 - (void)awakeFromNib;
@@ -131,6 +136,10 @@ extern NSString * mAPreferencesChangedNotification;
 - (void)probeAudioInterfaces:(id)sender;
 - (void)selectedAudioOutputChanged:(id)sender;
 - (void)selectedAudioInputChanged:(id)sender;
+
+- (IBAction)addChuginPath:(id)sender;
+- (IBAction)deleteChuginPath:(id)sender;
+
 @end
 
 
