@@ -80,6 +80,7 @@ NSString * mAPreferencesSoundfilesDirectory = @"SoundfilesDirectory";
 NSString * mAPreferencesBackupSuffix = @"BackupSuffix";
 
 NSString * mAPreferencesLibraryPath = @"LibraryPath";
+NSString * mAPreferencesChuginPaths = @"ChuginPaths";
 
 NSString * mASyntaxColoringChangedNotification = @"mASyntaxColoringChanged";
 NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
@@ -391,7 +392,9 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesShowStatusBar];
         [defaults setObject:[NSNumber numberWithBool:NO] forKey:mAPreferencesEnableOTFVisuals];
         
-        [defaults setObject:[NSArray arrayWithObjects:@"/usr/lib/chuck", nil] forKey:mAPreferencesLibraryPath];
+        [defaults setObject:[NSArray arrayWithObjects:
+                             [NSDictionary dictionaryWithObjectsAndKeys:@"/usr/lib/chuck", @"location", @"folder", @"type", nil],
+                             nil] forKey:mAPreferencesChuginPaths];
         
         [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
         
@@ -447,7 +450,7 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     [soundfiles_directory setStringValue:[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesSoundfilesDirectory]];
     
     [default_font setStringValue:[NSString stringWithFormat:@"%s - %.1f pt", 
-        [[default_font_font displayName] cString], [default_font_font pointSize]]];
+        [[default_font_font displayName] UTF8String], [default_font_font pointSize]]];
     [tab_uses_tab setState:[[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesTabUsesTab] boolValue]];
     [tab_width setIntValue:[[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesTabWidth] intValue]];
     [enable_smart_indentation setState:[[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesEnableSmartIndentation] boolValue]];
@@ -462,6 +465,10 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     //    [keybindings release];
     //keybindings = [[mAKeyBindingsRecord createFromMainMenu] retain];
     //[keybindings_table reloadData];
+    
+    [chugin_paths release];
+    chugin_paths = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:mAPreferencesChuginPaths]];
+    [chugin_table reloadData];
     
     [self probeAudioInterfaces:nil];
 }
@@ -589,14 +596,17 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
                                                         object:self];
     //*/
     
-    vector< string > library_paths;
-    NSArray * obj_library_paths = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesLibraryPath];
-    for(int i = 0; i < [obj_library_paths count]; i++)
-    {
-        NSString * path = [obj_library_paths objectAtIndex:i];
-        library_paths.push_back([path UTF8String]);
-    }
-    [mac miniAudicle]->set_library_paths(library_paths);    
+    [[NSUserDefaults standardUserDefaults] setObject:chugin_paths forKey:mAPreferencesChuginPaths];
+    
+    //TODO: set chugin paths in miniAudicle
+//    vector< string > library_paths;
+//    NSArray * obj_library_paths = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesLibraryPath];
+//    for(int i = 0; i < [obj_library_paths count]; i++)
+//    {
+//        NSString * path = [obj_library_paths objectAtIndex:i];
+//        library_paths.push_back([path UTF8String]);
+//    }
+//    [mac miniAudicle]->set_library_paths(library_paths);    
 }
 
 - (void)awakeFromNib
@@ -622,8 +632,8 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     
     [preferences_window center];
     
-    [preferences_tab_view removeTabViewItem:[preferences_tab_view tabViewItemAtIndex:[preferences_tab_view indexOfTabViewItemWithIdentifier:@"Key Bindings"]]];
-    [keybindings_table setAutoresizesOutlineColumn:NO];
+    //[preferences_tab_view removeTabViewItem:[preferences_tab_view tabViewItemAtIndex:[preferences_tab_view indexOfTabViewItemWithIdentifier:@"Key Bindings"]]];
+    //[keybindings_table setAutoresizesOutlineColumn:NO];
     
     [self initDefaults];    
 }
@@ -634,6 +644,7 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     [default_font_font release];
     [keybindings_field_editor release];
     [keybindings release];
+    [chugin_paths release];
     [super dealloc];
 }
 
@@ -654,14 +665,14 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     ma->set_enable_network_thread( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAcceptsNetworkCommands] intValue] == NSOnState );
     chdir( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesSoundfilesDirectory] cString] );
     
-    vector< string > library_paths;
-    NSArray * obj_library_paths = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesLibraryPath];
-    for(int i = 0; i < [obj_library_paths count]; i++)
-    {
-        NSString * path = [obj_library_paths objectAtIndex:i];
-        library_paths.push_back([path UTF8String]);
-    }
-    ma->set_library_paths(library_paths);
+//    vector< string > library_paths;
+//    NSArray * obj_library_paths = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesLibraryPath];
+//    for(int i = 0; i < [obj_library_paths count]; i++)
+//    {
+//        NSString * path = [obj_library_paths objectAtIndex:i];
+//        library_paths.push_back([path UTF8String]);
+//    }
+//    ma->set_library_paths(library_paths);
     
 //    [self loadGUIFromDefaults];
 //    [self loadMiniAudicleFromGUI];
@@ -672,10 +683,14 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
 
 - (void)cancel:(id)sender
 {
+    [chugin_paths release];
+    chugin_paths = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:mAPreferencesChuginPaths]];
+    [chugin_table reloadData];
+    
     [preferences_window close];
     [[NSFontPanel sharedFontPanel] close];
     [[NSColorPanel sharedColorPanel] close];
-    
+        
     [[NSUserDefaultsController sharedUserDefaultsController] revert:sender];
 }
 
@@ -732,12 +747,11 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     //NSFont * f = [[[NSFont alloc] initWithCoder:uar] autorelease];
     default_font_font = [[sender convertFont:[default_font_font autorelease]] retain];
     [default_font setStringValue:[NSString stringWithFormat:@"%s - %.1f pt", 
-        [[default_font_font displayName] cString], [default_font_font pointSize]]];
+        [[default_font_font displayName] UTF8String], [default_font_font pointSize]]];
 }
 
 - (void)selectSoundfilesDirectory:(id)sender
 {
-    
     NSOpenPanel * op = [NSOpenPanel openPanel];
     [op setCanChooseFiles:NO];
     [op setCanChooseDirectories:YES];
@@ -906,52 +920,61 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
         return nil;
 }
 
+
+- (IBAction)addChuginPath:(id)sender
+{
+    
+}
+
+
+- (IBAction)deleteChuginPath:(id)sender
+{
+    
+}
+
+
 /* NSOutlineViewDataSource implementation */
+#pragma mark NSOutlineViewDataSource implementation
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(int)index ofItem:(id)item
 {
-    if( keybindings == nil )
-        return nil;
-
-    if( item == nil )
-        return [keybindings objectAtIndex:index];
-    else
-        return [item childAtIndex:index];
+    if(item == nil)
+    {
+        return [chugin_paths objectAtIndex:index];
+    }
+        
+    return nil;
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item
 {
-    if( keybindings == nil )
-        return NO;
-    
-    if( item == nil )
-        return YES;
-    else
-        return [item numberOfChildren] != 0;
+    return NO;
 }
 
 - (int)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
 {
-    if( keybindings == nil )
-        return 0;
+    if(item == nil)
+        return [chugin_paths count];
     
-    if( item == nil )
-        return [keybindings count];
-    else
-        return [item numberOfChildren];
+    return 0;
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn
            byItem:(id)item
 {
-    if( keybindings == nil )
-        return @"";
-    
-    if( [[tableColumn identifier] isEqualToString:@"Command"] )
-        return [item title];
-    
-    else if( [[tableColumn identifier] isEqualToString:@"Key Binding"] )
-        return [item printedKeyEquivalent];
+    if([[tableColumn identifier] isEqualToString:@"type"])
+    {
+        if([[item objectForKey:@"type"] isEqualToString:@"folder"])
+            return [NSImage imageNamed:@"folder"];
+        else if([[item objectForKey:@"type"] isEqualToString:@"chugin"])
+            return [NSImage imageNamed:@"chugin"];
+        else 
+            return nil;
+    }
+    else if([[tableColumn identifier] isEqualToString:@"location"])
+    {
+        return [item objectForKey:@"location"];
+    }
     
     return @"";
 }
@@ -959,16 +982,22 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn
                item:(id)item
 {
-    if( [outlineView isExpandable:item] )
-        return NO;
-    else
-        return YES;
+    return YES;
 }
 
 - (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)object 
      forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
 {
-    
+    if([[tableColumn identifier] isEqualToString:@"location"])
+    {
+        [item setObject:object forKey:@"location"];
+    }
+}
+
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item
+{
+    return YES;
 }
 
 

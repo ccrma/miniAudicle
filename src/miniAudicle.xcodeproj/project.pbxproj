@@ -20,6 +20,8 @@
 		093D84E10B7A99F200E55E71 /* RBSplitSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = 093D84DE0B7A99F200E55E71 /* RBSplitSubview.m */; };
 		093D84E20B7A99F200E55E71 /* RBSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 093D84E00B7A99F200E55E71 /* RBSplitView.m */; };
 		093D88130B7C320300E55E71 /* Thumb9.png in Resources */ = {isa = PBXBuildFile; fileRef = 093D88120B7C320300E55E71 /* Thumb9.png */; };
+		0942B6F71362466700C870F2 /* chugin.png in Resources */ = {isa = PBXBuildFile; fileRef = 0942B6F51362466700C870F2 /* chugin.png */; };
+		0942B6F81362466700C870F2 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0942B6F61362466700C870F2 /* folder.png */; };
 		095B59720BC6D0F900E8759D /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 095B59710BC6D0F900E8759D /* error.png */; };
 		096FAB870B56D56B00125FE2 /* mAConsoleMonitorView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 096FAB850B56D56B00125FE2 /* mAConsoleMonitorView.mm */; };
 		09805FFA0AA10D3800915136 /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
@@ -279,6 +281,8 @@
 		093D84E00B7A99F200E55E71 /* RBSplitView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = RBSplitView.m; path = macosx/RBSplitView.m; sourceTree = SOURCE_ROOT; };
 		093D84E80B7A9A6000E55E71 /* RBSplitViewPrivateDefines.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RBSplitViewPrivateDefines.h; path = macosx/RBSplitViewPrivateDefines.h; sourceTree = SOURCE_ROOT; };
 		093D88120B7C320300E55E71 /* Thumb9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Thumb9.png; path = macosx/icon/Thumb9.png; sourceTree = SOURCE_ROOT; };
+		0942B6F51362466700C870F2 /* chugin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chugin.png; path = macosx/icon/chugin.png; sourceTree = "<group>"; };
+		0942B6F61362466700C870F2 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = folder.png; path = macosx/icon/folder.png; sourceTree = "<group>"; };
 		09594C120BD56B5300336A56 /* led-off.xpm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = "led-off.xpm"; path = "wxw/icons/led-off.xpm"; sourceTree = SOURCE_ROOT; };
 		09594C330BD56E6F00336A56 /* led-red.xpm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = "led-red.xpm"; path = "wxw/icons/led-red.xpm"; sourceTree = SOURCE_ROOT; };
 		09594C340BD56E6F00336A56 /* led-green.xpm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = "led-green.xpm"; path = "wxw/icons/led-green.xpm"; sourceTree = SOURCE_ROOT; };
@@ -727,7 +731,7 @@
 		09CD6E210AC602BC00F5D110 /* KBPopUpToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = KBPopUpToolbarItem.m; path = macosx/KBPopUpToolbarItem.m; sourceTree = SOURCE_ROOT; };
 		09E481F80B1CE5AF002087DF /* gauge01.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = gauge01.ck; path = ../test/gauge01.ck; sourceTree = SOURCE_ROOT; };
 		09E481F90B1CE5AF002087DF /* gauge02.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = gauge02.ck; path = ../test/gauge02.ck; sourceTree = SOURCE_ROOT; };
-		09E482060B1CEF41002087DF /* miniAudicle GTK */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "miniAudicle GTK"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09E482060B1CEF41002087DF /* miniAudicle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = miniAudicle; sourceTree = BUILT_PRODUCTS_DIR; };
 		09E4827F0B1CF107002087DF /* mAConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = mAConfig.cpp; path = wxw/mAConfig.cpp; sourceTree = SOURCE_ROOT; };
 		09E482800B1CF107002087DF /* mAConfig.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = mAConfig.h; path = wxw/mAConfig.h; sourceTree = SOURCE_ROOT; };
 		09E482810B1CF107002087DF /* mAConsoleMonitor.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = mAConsoleMonitor.cpp; path = wxw/mAConsoleMonitor.cpp; sourceTree = SOURCE_ROOT; };
@@ -1615,7 +1619,7 @@
 			children = (
 				09805FE70AA10D0C00915136 /* chuck */,
 				8D1107320486CEB800E47090 /* miniAudicle.app */,
-				09E482060B1CEF41002087DF /* miniAudicle GTK */,
+				09E482060B1CEF41002087DF /* miniAudicle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1638,6 +1642,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0942B6F51362466700C870F2 /* chugin.png */,
+				0942B6F61362466700C870F2 /* folder.png */,
 				098C3BD8110DBEE800772EBB /* miniAudicleDocument.xib */,
 				098C3BD4110DBEAB00772EBB /* miniAudicle.xib */,
 				09594C330BD56E6F00336A56 /* led-red.xpm */,
@@ -1712,7 +1718,7 @@
 			);
 			name = "miniAudicle GTK";
 			productName = "miniAudicle GTK";
-			productReference = 09E482060B1CEF41002087DF /* miniAudicle GTK */;
+			productReference = 09E482060B1CEF41002087DF /* miniAudicle */;
 			productType = "com.apple.product-type.tool";
 		};
 		8D1107260486CEB800E47090 /* miniAudicle */ = {
@@ -1782,6 +1788,8 @@
 				095B59720BC6D0F900E8759D /* error.png in Resources */,
 				098C3BD6110DBEAB00772EBB /* miniAudicle.xib in Resources */,
 				098C3BDA110DBEE800772EBB /* miniAudicleDocument.xib in Resources */,
+				0942B6F71362466700C870F2 /* chugin.png in Resources */,
+				0942B6F81362466700C870F2 /* folder.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
