@@ -142,6 +142,8 @@ public:
     t_CKBOOL get_enable_std_system();
     t_CKBOOL set_library_paths( vector< string > & paths );
     t_CKBOOL get_library_paths( vector< string > & paths );
+    t_CKBOOL set_named_chugins( list< string > & chugins );
+    t_CKBOOL get_named_chugins( list< string > & chugins );
     
 protected:
     map< t_CKUINT, vector< t_CKUINT > * > documents; // maps documents to shreds
@@ -193,6 +195,7 @@ protected:
         t_CKBOOL enable_network;
         t_CKBOOL enable_block;
         vector< string > library_paths;
+        list< string > named_chugins;
     } vm_options;
 };
 
