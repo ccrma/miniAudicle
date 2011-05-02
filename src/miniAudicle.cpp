@@ -837,8 +837,7 @@ t_CKBOOL miniAudicle::start_vm()
             lib_search_path += (*i);
         }
         
-        list<string> named_dls;
-        compiler->initialize( vm, lib_search_path, named_dls );
+        compiler->initialize( vm, lib_search_path, vm_options.named_chugins );
         // enable dump
         compiler->emitter->dump = FALSE;
         // set auto depend
@@ -1389,6 +1388,18 @@ t_CKBOOL miniAudicle::set_library_paths( vector< string > & paths )
 t_CKBOOL miniAudicle::get_library_paths( vector< string > & paths )
 {
     paths = vm_options.library_paths;
+    return TRUE;
+}
+
+t_CKBOOL miniAudicle::set_named_chugins( list< string > & chugins )
+{
+    vm_options.named_chugins = chugins;
+    return TRUE;
+}
+
+t_CKBOOL miniAudicle::get_named_chugins( list< string > & chugins )
+{
+    chugins = vm_options.named_chugins;
     return TRUE;
 }
 

@@ -600,15 +600,20 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     
     [[NSUserDefaults standardUserDefaults] setObject:chugin_paths forKey:mAPreferencesChuginPaths];
     
-    //TODO: set chugin paths in miniAudicle
-//    vector< string > library_paths;
-//    NSArray * obj_library_paths = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesLibraryPath];
-//    for(int i = 0; i < [obj_library_paths count]; i++)
-//    {
-//        NSString * path = [obj_library_paths objectAtIndex:i];
-//        library_paths.push_back([path UTF8String]);
-//    }
-//    [mac miniAudicle]->set_library_paths(library_paths);    
+    vector< string > library_paths;
+    list< string > named_chugins;
+    NSArray * obj_library_paths = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesChuginPaths];
+    for(int i = 0; i < [obj_library_paths count]; i++)
+    {
+        NSDictionary * path = [obj_library_paths objectAtIndex:i];
+        if([[path objectForKey:@"type"] isEqualToString:@"chugin"])
+            named_chugins.push_back([[path objectForKey:@"location"] UTF8String]);
+        else if([[path objectForKey:@"type"] isEqualToString:@"folder"])
+            library_paths.push_back([[path objectForKey:@"location"] UTF8String]);
+    }
+    
+    [mac miniAudicle]->set_library_paths(library_paths);
+    [mac miniAudicle]->set_named_chugins(named_chugins);
 }
 
 - (void)awakeFromNib
@@ -945,8 +950,6 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     int i = [selected lastIndex];
     do
     {
-//        NSLog(@"%i", i);
-//        fprintf(stderr, "%i\n", i);
         [chugin_table deselectRow:i];
         [[[chugin_paths objectAtIndex:i] retain] autorelease];
         [chugin_paths removeObjectAtIndex:i];
