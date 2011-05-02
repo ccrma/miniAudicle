@@ -393,7 +393,9 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
         [defaults setObject:[NSNumber numberWithBool:NO] forKey:mAPreferencesEnableOTFVisuals];
         
         [defaults setObject:[NSArray arrayWithObjects:
-                             [NSDictionary dictionaryWithObjectsAndKeys:@"/usr/lib/chuck", @"location", @"folder", @"type", nil],
+                             [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                              @"/usr/lib/chuck", @"location", 
+                              @"folder", @"type", nil],
                              nil] forKey:mAPreferencesChuginPaths];
         
         [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
@@ -683,7 +685,7 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
 
 - (void)cancel:(id)sender
 {
-    [chugin_paths release];
+    [chugin_paths autorelease];
     chugin_paths = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:mAPreferencesChuginPaths]];
     [chugin_table reloadData];
     
@@ -923,13 +925,35 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
 
 - (IBAction)addChuginPath:(id)sender
 {
+    [chugin_paths addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                             @"", @"location", 
+                             @"chugin", @"type", 
+                             nil]];
+ 
+    [chugin_table reloadData];
     
+    [chugin_table editColumn:1
+                         row:[chugin_paths count]-1
+                   withEvent:nil
+                      select:YES];
 }
 
 
 - (IBAction)deleteChuginPath:(id)sender
 {
+    NSIndexSet *selected = [chugin_table selectedRowIndexes];
+    int i = [selected lastIndex];
+    do
+    {
+//        NSLog(@"%i", i);
+//        fprintf(stderr, "%i\n", i);
+        [chugin_table deselectRow:i];
+        [[[chugin_paths objectAtIndex:i] retain] autorelease];
+        [chugin_paths removeObjectAtIndex:i];
+    }
+    while((i = [selected indexLessThanIndex:i]) != NSNotFound);
     
+    [chugin_table reloadData];
 }
 
 
@@ -988,9 +1012,37 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
 - (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)object 
      forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
 {
+    [outlineView deselectRow:[outlineView rowForItem:item]];
+    
     if([[tableColumn identifier] isEqualToString:@"location"])
     {
-        [item setObject:object forKey:@"location"];
+        if(![object isEqualToString:@""])
+        {
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            
+            BOOL isDirectory = NO;
+            BOOL exists = [fileManager fileExistsAtPath:object 
+                                            isDirectory:&isDirectory];
+            if(!exists) isDirectory = NO;
+            
+            if(isDirectory || (!exists && ![[object pathExtension] isEqualToString:@"chug"]))
+            {
+                [item setObject:@"folder" forKey:@"type"];
+            }
+            else
+            {
+                [item setObject:@"chugin" forKey:@"type"];
+            }
+            
+            [item setObject:object forKey:@"location"];
+        }
+        
+        if([[item objectForKey:@"location"] isEqualToString:@""])
+        {
+            [chugin_paths removeObject:item];
+        }        
+        
+        [chugin_table reloadData];
     }
 }
 

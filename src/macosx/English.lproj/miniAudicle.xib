@@ -2170,7 +2170,7 @@ cHJpbmNldG9uLmVkdS8</string>
 								<int key="NSCellFlags2">33554432</int>
 								<object class="NSCustomResource" key="NSContents">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">miniAudicle</string>
+									<string key="NSResourceName">NSApplicationIcon</string>
 								</object>
 								<int key="NSAlign">0</int>
 								<int key="NSScale">0</int>
@@ -3654,7 +3654,7 @@ cyByZXN0YXJ0ZWQuCg</string>
 																<reference key="NSBackgroundColor" ref="490129801"/>
 																<reference key="NSGridColor" ref="485490196"/>
 																<double key="NSRowHeight">17</double>
-																<int key="NSTvFlags">-767557632</int>
+																<int key="NSTvFlags">-633339904</int>
 																<reference key="NSDelegate"/>
 																<reference key="NSDataSource"/>
 																<int key="NSColumnAutoresizingStyle">4</int>
@@ -13945,22 +13945,22 @@ IGRpcmVjdG9yeS4gIAo</string>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>NSAddTemplate</string>
+				<string>NSApplicationIcon</string>
 				<string>NSMenuCheckmark</string>
 				<string>NSMenuMixedState</string>
 				<string>NSRemoveTemplate</string>
 				<string>NSSwitch</string>
 				<string>chugin</string>
-				<string>miniAudicle</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{8, 8}</string>
+				<string>{128, 128}</string>
 				<string>{9, 8}</string>
 				<string>{7, 2}</string>
 				<string>{8, 8}</string>
 				<string>{15, 15}</string>
 				<string>{16, 16}</string>
-				<string>{128, 128}</string>
 			</object>
 		</object>
 	</data>
