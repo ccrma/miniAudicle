@@ -44,6 +44,16 @@ U.S.A.
 #include "mAEvents.h"
 #include "mAParentFrame.h"
 
+
+#ifdef __WINDOWS_DS__
+const wxString mAPreferencesDefaultChuGinPaths = _T( "dC:\\WINDOWS\\system32\\ChucK" );
+const wxChar mAPreferencesPathSeparator = ';';
+#else
+const wxString mAPreferencesDefaultChuGinPaths = _T( "d/usr/lib/chuck" );
+const wxChar mAPreferencesPathSeparator = ':';
+#endif
+
+
 const wxString mAPreferencesParentFrameWidth = _T( "/GUI/ParentFrame/width" );
 const wxString mAPreferencesParentFrameHeight = _T( "/GUI/ParentFrame/height" );
 const wxString mAPreferencesParentFrameX = _T( "/GUI/ParentFrame/x" );
@@ -76,6 +86,9 @@ const wxString mAPreferencesTabSize = _T( "/GUI/Editing/TabSize" );
 const wxString mAPreferencesShowLineNumbers = _T( "/GUI/Editing/ShowLineNumbers" );
 
 const wxString mAPreferencesCurrentDirectory = _T( "/Miscellaneous/CurrentDirectory" );
+
+const wxString mAPreferencesEnableChuGins = _T( "/ChuGins/Enable" );
+const wxString mAPreferencesChuGinPaths = _T( "/ChuGins/Paths" );
 
 const wxString mAPreferencesAudioOutput = _T( "/VM/DAC" );
 const wxString mAPreferencesAudioInput = _T( "/VM/ADC" );
@@ -111,6 +124,68 @@ __sc_token sc_tokens[] =
     __sc_token( NULL, _T( "" ), 0 )
 };
 
+
+struct ChuGinPath
+{
+    enum Type
+    {
+        DIRECTORY_TYPE,
+        CHUGIN_TYPE
+    };
+
+    ChuGinPath(Type _type=DIRECTORY_TYPE) :
+        type(_type),
+        path(wxEmptyString)
+    {}
+    
+    ChuGinPath(Type _type, wxString & _path) :
+        type(_type),
+        path(_path)
+    {}
+    
+    Type type;
+    wxString path;
+};
+
+
+static void DeserializeChuGinPaths(wxString pathstr, std::vector<ChuGinPath> & pathv)
+{
+    while(pathstr != wxEmptyString && pathstr.Length() > 0)
+    {
+        wxString path = pathstr.BeforeFirst(mAPreferencesPathSeparator);
+        if(path != wxEmptyString && path.Length() > 0)
+        {
+            ChuGinPath::Type type;
+            if(path[0] == 'd')
+                type = ChuGinPath::DIRECTORY_TYPE;
+            else if(path[0] == 'c')
+                type = ChuGinPath::CHUGIN_TYPE;
+            else
+                // uhh
+                type = ChuGinPath::CHUGIN_TYPE;
+
+            pathv.push_back(ChuGinPath(type, path.SubString(1, path.Length()-1)));
+        }
+        pathstr = pathstr.AfterFirst(mAPreferencesPathSeparator);
+    }
+}
+
+static void SerializeChuGinPaths(wxString & pathstr, std::vector<ChuGinPath> & pathv)
+{
+    for(std::vector<ChuGinPath>::iterator i = pathv.begin(); i != pathv.end(); i++)
+    {
+        if(i != pathv.begin())
+            pathstr.Append(mAPreferencesPathSeparator);
+        if((*i).type == ChuGinPath::DIRECTORY_TYPE)
+            pathstr.Append('d');
+        else
+            pathstr.Append('c');
+        pathstr.Append((*i).path);
+    }
+}
+
+
+
 mAPreferencesWindow::mAPreferencesWindow( miniAudicle * ma, 
     mAWindowParent * parent, wxWindowID id, const wxString & title, 
     const wxPoint & pos, const wxSize & size, long style )
@@ -139,7 +214,7 @@ mAPreferencesWindow::mAPreferencesWindow( miniAudicle * ma,
     notebook = new wxNotebook( this, wxID_ANY );
     top->Add( notebook, 2, wxALL | wxEXPAND, 10 );
 
-    // create/populate the audio page of the notebook
+    /*** create/populate the audio page of the notebook ***/
     audio_page = new wxPanel( notebook, wxID_ANY );
 
     notebook->AddPage( audio_page, _T( "Audio" ) );
@@ -300,7 +375,7 @@ mAPreferencesWindow::mAPreferencesWindow( miniAudicle * ma,
     audio_page->SetSizer( audio_page_top );
     audio_page_top->Fit( audio_page );
     
-    // create/populate the editing page of the notebook
+    /*** create/populate the editing page of the notebook ***/
     editing_page = new wxPanel( notebook );
     notebook->AddPage( editing_page, _T( "Editing" ) );
 
@@ -408,7 +483,50 @@ mAPreferencesWindow::mAPreferencesWindow( miniAudicle * ma,
     editing_page->SetSizer( editing_page_top );
     editing_page->Fit();
 
-    // create/populate the miscellaneous page of the notebook
+
+    /*** create/populate the chugin page of the notebook ***/
+
+    chugin_page = new wxPanel( notebook );
+    notebook->AddPage( chugin_page, _T( "ChuGins" ) );
+
+    wxSizer * chugin_page_sizer = new wxBoxSizer(wxVERTICAL);
+    
+    enable_chugins = new wxCheckBox(chugin_page, wxID_ANY, "Enable ChuGins");
+    chugin_page_sizer->Add(enable_chugins, 0, 
+        wxTOP | wxLEFT | wxRIGHT | wxBOTTOM | wxALIGN_LEFT, 10);
+    
+    chugin_grid = new wxGrid(chugin_page, wxID_ANY);
+    chugin_grid->CreateGrid(0, 2);
+
+    chugin_grid->SetRowLabelSize( 0 );
+    chugin_grid->SetColLabelSize( 0 );
+    //grid->SetMinSize( wxSize( 250, 200 ) );
+
+    chugin_grid->SetColSize( 0, 38 );
+    wxGridCellAttr * gca = new wxGridCellAttr();
+    gca->SetReadOnly( true );
+    gca->SetAlignment( wxALIGN_CENTRE, wxALIGN_BOTTOM );
+    chugin_grid->SetColAttr( 0, gca );
+    
+#ifdef __LINUX__
+    chugin_grid->SetColSize( 1, 134 );
+#else
+    chugin_grid->SetColSize( 1, 114 );
+#endif /* __LINUX__ */
+
+    gca = new wxGridCellAttr();
+    gca->SetReadOnly( false );
+    gca->SetAlignment( wxALIGN_LEFT, wxALIGN_BOTTOM );
+    chugin_grid->SetColAttr( 1, gca );
+
+    chugin_page_sizer->Add(chugin_grid, 1, 
+        wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 10);
+
+    chugin_page->SetSizer(chugin_page_sizer);
+    chugin_page->Fit();
+
+
+    /*** create/populate the miscellaneous page of the notebook ***/
     misc_page = new wxPanel( notebook );
     notebook->AddPage( misc_page, _T( "Miscellaneous" ) );
 
@@ -751,6 +869,8 @@ void mAPreferencesWindow::LoadPreferencesToGUI()
     wxString str;
     long l;
     bool b;
+    int i;
+    int len;
     
     config->Read( mAPreferencesEnableAudio, &b, true );
     enable_audio->SetValue( b );
@@ -759,7 +879,7 @@ void mAPreferencesWindow::LoadPreferencesToGUI()
     enable_network->SetValue( b );
     
     config->Read( mAPreferencesBufferSize, &l, BUFFER_SIZE_DEFAULT );
-    for( int i = 0, len = buffer_size->GetCount(); i < len; i++ )
+    for( i = 0, len = buffer_size->GetCount(); i < len; i++ )
     {
         if( ( ( long ) buffer_size->GetClientData( i ) ) == l )
         {
@@ -808,6 +928,24 @@ void mAPreferencesWindow::LoadPreferencesToGUI()
     str = wxGetHomeDir();
     config->Read( mAPreferencesCurrentDirectory, &str );
     cwd_display->SetValue( str );
+
+    config->Read( mAPreferencesEnableChuGins, &b, true );
+    enable_chugins->SetValue( b );
+
+    config->Read( mAPreferencesChuGinPaths, &str, mAPreferencesDefaultChuGinPaths );
+    std::vector<ChuGinPath> pathv;
+    DeserializeChuGinPaths( str, pathv );
+
+    len = pathv.size();
+    int num_rows = chugin_grid->GetNumberRows();
+
+    if(len > num_rows)
+        chugin_grid->AppendRows( len - num_rows );
+    else if( len < num_rows )
+        chugin_grid->DeleteRows( 0, num_rows - len );
+
+    for( i = 0, len = pathv.size(); i < len; i++ )
+        chugin_grid->SetCellValue( i, 1, pathv[i].path );
 }
 
 void mAPreferencesWindow::LoadGUIToMiniAudicleAndPreferences()
@@ -917,6 +1055,9 @@ void mAPreferencesWindow::LoadGUIToMiniAudicleAndPreferences()
     // current directory
     config->Write( mAPreferencesCurrentDirectory, cwd_display->GetValue() );
     wxSetWorkingDirectory( cwd_display->GetValue() );
+
+    // enable chugins
+    config->Write( mAPreferencesEnableChuGins, enable_chugins->GetValue() );
 }
 
 
