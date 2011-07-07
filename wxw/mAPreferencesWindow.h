@@ -33,9 +33,8 @@ U.S.A.
 #ifndef __MA_PREFERENCES_WINDOW_H__
 #define __MA_PREFERENCES_WINDOW_H__
 
-#include "wx/notebook.h"
-#include "wx/image.h"
-#include "wx/fontdlg.h"
+#include "wx/wx.h"
+#include "wx/grid.h"
 
 #include <map>
 
@@ -123,6 +122,12 @@ protected:
 
     wxCheckBox * line_numbers;
     
+    // chugin page
+    wxPanel * chugin_page;
+
+    wxCheckBox * enable_chugins;
+    wxGrid * chugin_grid;
+
     // miscellaneous page
     wxPanel * misc_page;
 
@@ -161,6 +166,9 @@ extern const wxString mAPreferencesTabSize;
 extern const wxString mAPreferencesShowLineNumbers;
 
 extern const wxString mAPreferencesCurrentDirectory;
+
+extern const wxString mAPreferencesEnableChuGins;
+extern const wxString mAPreferencesChuGinPaths;
 
 extern const wxString mAPreferencesAudioOutput;
 extern const wxString mAPreferencesAudioInput;

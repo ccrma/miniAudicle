@@ -182,7 +182,7 @@ protected:
     
     map< string, t_CKINT > * class_names;
 
-    struct
+    struct _vm_options
     {
         t_CKUINT dac;
         t_CKUINT adc;
