@@ -49,6 +49,33 @@ typedef wxMDIParentFrame mAWindowParent; // window parent object type
 #endif
 
 
+struct ChuGinPath
+{
+    enum Type
+    {
+        DIRECTORY_TYPE,
+        CHUGIN_TYPE
+    };
+
+    ChuGinPath(Type _type=DIRECTORY_TYPE) :
+        type(_type),
+        path(wxEmptyString)
+    {}
+    
+    ChuGinPath(Type _type, wxString & _path) :
+        type(_type),
+        path(_path)
+    {}
+    
+    Type type;
+    wxString path;
+};
+
+
+void DeserializeChuGinPaths(wxString pathstr, std::vector<ChuGinPath> & pathv);
+void SerializeChuGinPaths(wxString & pathstr, std::vector<ChuGinPath> & pathv);
+
+
 class mAPreferencesWindow : public mAWindowSuper
 {
 public:
@@ -81,6 +108,9 @@ public:
     void OnSelectedAudioOutputChanged( wxCommandEvent & event );
     void SelectedAudioInputChanged();
     void OnSelectedAudioInputChanged( wxCommandEvent & event );
+
+    void OnChuGinGridChange( wxGridEvent & event );
+    void OnChuGinGridKeyDown( wxKeyEvent & event );
 
 protected:
     miniAudicle * ma;
@@ -127,6 +157,8 @@ protected:
 
     wxCheckBox * enable_chugins;
     wxGrid * chugin_grid;
+
+    std::vector<ChuGinPath> chugin_paths;
 
     // miscellaneous page
     wxPanel * misc_page;
