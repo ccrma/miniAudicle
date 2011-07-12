@@ -125,30 +125,7 @@ __sc_token sc_tokens[] =
 };
 
 
-struct ChuGinPath
-{
-    enum Type
-    {
-        DIRECTORY_TYPE,
-        CHUGIN_TYPE
-    };
-
-    ChuGinPath(Type _type=DIRECTORY_TYPE) :
-        type(_type),
-        path(wxEmptyString)
-    {}
-    
-    ChuGinPath(Type _type, wxString & _path) :
-        type(_type),
-        path(_path)
-    {}
-    
-    Type type;
-    wxString path;
-};
-
-
-static void DeserializeChuGinPaths(wxString pathstr, std::vector<ChuGinPath> & pathv)
+void DeserializeChuGinPaths(wxString pathstr, std::vector<ChuGinPath> & pathv)
 {
     while(pathstr != wxEmptyString && pathstr.Length() > 0)
     {
@@ -170,7 +147,7 @@ static void DeserializeChuGinPaths(wxString pathstr, std::vector<ChuGinPath> & p
     }
 }
 
-static void SerializeChuGinPaths(wxString & pathstr, std::vector<ChuGinPath> & pathv)
+void SerializeChuGinPaths(wxString & pathstr, std::vector<ChuGinPath> & pathv)
 {
     for(std::vector<ChuGinPath>::iterator i = pathv.begin(); i != pathv.end(); i++)
     {
@@ -495,7 +472,7 @@ mAPreferencesWindow::mAPreferencesWindow( miniAudicle * ma,
     chugin_page_sizer->Add(enable_chugins, 0, 
         wxTOP | wxLEFT | wxRIGHT | wxBOTTOM | wxALIGN_LEFT, 10);
     
-    chugin_grid = new wxGrid(chugin_page, wxID_ANY);
+    chugin_grid = new wxGrid(chugin_page, mAID_PREFS_CHUGIN_GRID);
     chugin_grid->CreateGrid(0, 2);
 
     chugin_grid->SetRowLabelSize( 0 );
@@ -511,7 +488,7 @@ mAPreferencesWindow::mAPreferencesWindow( miniAudicle * ma,
 #ifdef __LINUX__
     chugin_grid->SetColSize( 1, 134 );
 #else
-    chugin_grid->SetColSize( 1, 114 );
+    chugin_grid->SetColSize( 1, 224 );
 #endif /* __LINUX__ */
 
     gca = new wxGridCellAttr();
@@ -524,6 +501,13 @@ mAPreferencesWindow::mAPreferencesWindow( miniAudicle * ma,
 
     chugin_page->SetSizer(chugin_page_sizer);
     chugin_page->Fit();
+
+    chugin_grid->SetMaxSize( chugin_grid->GetSize() );
+
+    Connect( mAID_PREFS_CHUGIN_GRID, wxEVT_GRID_CELL_CHANGE,
+        wxGridEventHandler( mAPreferencesWindow::OnChuGinGridChange ) );
+    Connect( wxID_ANY, wxEVT_KEY_DOWN,
+        wxKeyEventHandler( mAPreferencesWindow::OnChuGinGridKeyDown ) );
 
 
     /*** create/populate the miscellaneous page of the notebook ***/
@@ -861,6 +845,70 @@ void mAPreferencesWindow::OnSelectedAudioInputChanged( wxCommandEvent & event )
     this->SelectedAudioInputChanged();
 }
 
+
+void mAPreferencesWindow::OnChuGinGridChange( wxGridEvent & event )
+{
+    int row = event.GetRow(), col = event.GetCol();
+    wxString value = chugin_grid->GetCellValue( row, col );
+
+    if( value.Length() > 0 )
+    {
+        // TODO: what if path contains the path separator character?
+        if( row >= chugin_paths.size() )
+        {
+            // new path
+            ChuGinPath cp;
+            cp.type = ChuGinPath::DIRECTORY_TYPE; // TODO: figure this out for real
+            cp.path = value;
+            chugin_paths.push_back( cp );
+
+            chugin_grid->AppendRows(1);
+        }
+        else
+        {
+            chugin_paths[event.GetRow()].path = value;
+        }
+    }
+    else if( row < chugin_paths.size() )
+    {
+        // reset value if the string is empty
+        chugin_grid->SetCellValue( row, col, chugin_paths[row].path );
+    }
+}
+
+template<typename T>
+static int f_intcmp(T *first, T *second)
+{
+    if( first < second ) return -1;
+    if( first > second ) return 1;
+    return 0;
+}
+
+void mAPreferencesWindow::OnChuGinGridKeyDown( wxKeyEvent & event )
+{
+    fprintf( stderr, "1\n" );
+    if( chugin_grid->IsSelection() && event.GetKeyCode() == WXK_DELETE )
+    {
+        fprintf( stderr, "2\n" );
+        wxArrayInt selected = chugin_grid->GetSelectedRows();
+        selected.Sort(f_intcmp);
+
+        for( int i = 0; i < selected.Count(); i++ )
+        {
+            int index = selected[i] - i;
+            if( index < chugin_paths.size() )
+            {
+                chugin_paths.erase( chugin_paths.begin() + index );
+            }
+        }
+    }
+    else
+    {
+        event.Skip();
+    }
+}
+
+
 void mAPreferencesWindow::LoadPreferencesToGUI()
 // assumes command line preferences have already been parsed
 {
@@ -933,19 +981,21 @@ void mAPreferencesWindow::LoadPreferencesToGUI()
     enable_chugins->SetValue( b );
 
     config->Read( mAPreferencesChuGinPaths, &str, mAPreferencesDefaultChuGinPaths );
-    std::vector<ChuGinPath> pathv;
-    DeserializeChuGinPaths( str, pathv );
+    chugin_paths.clear();
+    DeserializeChuGinPaths( str, chugin_paths );
 
-    len = pathv.size();
+    len = chugin_paths.size();
     int num_rows = chugin_grid->GetNumberRows();
 
-    if(len > num_rows)
-        chugin_grid->AppendRows( len - num_rows );
-    else if( len < num_rows )
-        chugin_grid->DeleteRows( 0, num_rows - len );
+    if( len + 1 > num_rows )
+        chugin_grid->AppendRows( len - num_rows + 1 );
+    else if( len + 1 < num_rows )
+        chugin_grid->DeleteRows( 0, num_rows - len - 1 );
 
-    for( i = 0, len = pathv.size(); i < len; i++ )
-        chugin_grid->SetCellValue( i, 1, pathv[i].path );
+    for( i = 0, len = chugin_paths.size(); i < len; i++ )
+    {
+        chugin_grid->SetCellValue( i, 1, chugin_paths[i].path );
+    }
 }
 
 void mAPreferencesWindow::LoadGUIToMiniAudicleAndPreferences()
@@ -1058,6 +1108,11 @@ void mAPreferencesWindow::LoadGUIToMiniAudicleAndPreferences()
 
     // enable chugins
     config->Write( mAPreferencesEnableChuGins, enable_chugins->GetValue() );
+
+    // chugin paths
+    wxString pathstr;
+    SerializeChuGinPaths( pathstr, chugin_paths );
+    config->Write( mAPreferencesChuGinPaths, pathstr );
 }
 
 
