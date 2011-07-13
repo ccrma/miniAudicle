@@ -472,29 +472,10 @@ mAPreferencesWindow::mAPreferencesWindow( miniAudicle * ma,
     chugin_page_sizer->Add(enable_chugins, 0, 
         wxTOP | wxLEFT | wxRIGHT | wxBOTTOM | wxALIGN_LEFT, 10);
     
-    chugin_grid = new wxGrid(chugin_page, mAID_PREFS_CHUGIN_GRID);
-    chugin_grid->CreateGrid(0, 2);
-
-    chugin_grid->SetRowLabelSize( 0 );
-    chugin_grid->SetColLabelSize( 0 );
-    //grid->SetMinSize( wxSize( 250, 200 ) );
-
-    chugin_grid->SetColSize( 0, 38 );
-    wxGridCellAttr * gca = new wxGridCellAttr();
-    gca->SetReadOnly( true );
-    gca->SetAlignment( wxALIGN_CENTRE, wxALIGN_BOTTOM );
-    chugin_grid->SetColAttr( 0, gca );
-    
-#ifdef __LINUX__
-    chugin_grid->SetColSize( 1, 134 );
-#else
-    chugin_grid->SetColSize( 1, 224 );
-#endif /* __LINUX__ */
-
-    gca = new wxGridCellAttr();
-    gca->SetReadOnly( false );
-    gca->SetAlignment( wxALIGN_LEFT, wxALIGN_BOTTOM );
-    chugin_grid->SetColAttr( 1, gca );
+    chugin_grid = new wxListCtrl(chugin_page, mAID_PREFS_CHUGIN_GRID, 
+        wxDefaultPosition, wxDefaultSize, 
+        wxLC_REPORT | wxLC_NO_HEADER | wxLC_HRULES | wxLC_EDIT_LABELS );
+    chugin_grid->InsertColumn( 0, _T("chugin"), wxLIST_FORMAT_LEFT, 268 );
 
     chugin_page_sizer->Add(chugin_grid, 1, 
         wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 10);
@@ -504,8 +485,8 @@ mAPreferencesWindow::mAPreferencesWindow( miniAudicle * ma,
 
     chugin_grid->SetMaxSize( chugin_grid->GetSize() );
 
-    Connect( mAID_PREFS_CHUGIN_GRID, wxEVT_GRID_CELL_CHANGE,
-        wxGridEventHandler( mAPreferencesWindow::OnChuGinGridChange ) );
+    Connect( mAID_PREFS_CHUGIN_GRID, wxEVT_COMMAND_LIST_END_LABEL_EDIT,
+        wxListEventHandler( mAPreferencesWindow::OnChuGinGridChange ) );
     Connect( wxID_ANY, wxEVT_KEY_DOWN,
         wxKeyEventHandler( mAPreferencesWindow::OnChuGinGridKeyDown ) );
 
@@ -846,10 +827,11 @@ void mAPreferencesWindow::OnSelectedAudioInputChanged( wxCommandEvent & event )
 }
 
 
-void mAPreferencesWindow::OnChuGinGridChange( wxGridEvent & event )
+void mAPreferencesWindow::OnChuGinGridChange( wxListEvent & event )
 {
-    int row = event.GetRow(), col = event.GetCol();
-    wxString value = chugin_grid->GetCellValue( row, col );
+    fprintf( stderr, "WTF\n" );
+    int row = event.GetIndex();
+    wxString value = event.GetLabel();
 
     if( value.Length() > 0 )
     {
@@ -862,18 +844,20 @@ void mAPreferencesWindow::OnChuGinGridChange( wxGridEvent & event )
             cp.path = value;
             chugin_paths.push_back( cp );
 
-            chugin_grid->AppendRows(1);
+            chugin_grid->InsertItem( chugin_grid->GetItemCount(), _T("") );
         }
         else
         {
-            chugin_paths[event.GetRow()].path = value;
+            chugin_paths[row].path = value;
         }
     }
     else if( row < chugin_paths.size() )
     {
         // reset value if the string is empty
-        chugin_grid->SetCellValue( row, col, chugin_paths[row].path );
+        chugin_grid->SetItemText( row, chugin_paths[row].path );
     }
+
+    //event.Skip();
 }
 
 template<typename T>
@@ -886,7 +870,7 @@ static int f_intcmp(T *first, T *second)
 
 void mAPreferencesWindow::OnChuGinGridKeyDown( wxKeyEvent & event )
 {
-    fprintf( stderr, "1\n" );
+/*    fprintf( stderr, "1\n" );
     if( chugin_grid->IsSelection() && event.GetKeyCode() == WXK_DELETE )
     {
         fprintf( stderr, "2\n" );
@@ -905,7 +889,8 @@ void mAPreferencesWindow::OnChuGinGridKeyDown( wxKeyEvent & event )
     else
     {
         event.Skip();
-    }
+    }*/
+    event.Skip();
 }
 
 
@@ -985,16 +970,16 @@ void mAPreferencesWindow::LoadPreferencesToGUI()
     DeserializeChuGinPaths( str, chugin_paths );
 
     len = chugin_paths.size();
-    int num_rows = chugin_grid->GetNumberRows();
+    int num_rows = chugin_grid->GetItemCount();
 
-    if( len + 1 > num_rows )
-        chugin_grid->AppendRows( len - num_rows + 1 );
-    else if( len + 1 < num_rows )
-        chugin_grid->DeleteRows( 0, num_rows - len - 1 );
+    while( len + 1 > chugin_grid->GetItemCount() )
+        chugin_grid->InsertItem( chugin_grid->GetItemCount(), _T("") );
+    while( len + 1 < chugin_grid->GetItemCount() )
+        chugin_grid->DeleteItem( chugin_grid->GetItemCount() - 1 );
 
     for( i = 0, len = chugin_paths.size(); i < len; i++ )
     {
-        chugin_grid->SetCellValue( i, 1, chugin_paths[i].path );
+        chugin_grid->SetItemText( i, chugin_paths[i].path );
     }
 }
 

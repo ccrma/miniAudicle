@@ -34,6 +34,7 @@ U.S.A.
 #define __MA_PREFERENCES_WINDOW_H__
 
 #include "wx/wx.h"
+#include "wx/listctrl.h"
 #include "wx/grid.h"
 
 #include <map>
@@ -109,7 +110,7 @@ public:
     void SelectedAudioInputChanged();
     void OnSelectedAudioInputChanged( wxCommandEvent & event );
 
-    void OnChuGinGridChange( wxGridEvent & event );
+    void OnChuGinGridChange( wxListEvent & event );
     void OnChuGinGridKeyDown( wxKeyEvent & event );
 
 protected:
@@ -156,7 +157,7 @@ protected:
     wxPanel * chugin_page;
 
     wxCheckBox * enable_chugins;
-    wxGrid * chugin_grid;
+    wxListCtrl * chugin_grid;
 
     std::vector<ChuGinPath> chugin_paths;
 
