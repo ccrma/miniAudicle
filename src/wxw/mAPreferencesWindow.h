@@ -111,7 +111,7 @@ public:
     void OnSelectedAudioInputChanged( wxCommandEvent & event );
 
     void OnChuGinGridChange( wxListEvent & event );
-    void OnChuGinGridKeyDown( wxKeyEvent & event );
+    void OnChuGinGridKeyDown( wxListEvent & event );
 
 protected:
     miniAudicle * ma;
