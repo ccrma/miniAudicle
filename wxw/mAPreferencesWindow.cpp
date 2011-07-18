@@ -487,8 +487,8 @@ mAPreferencesWindow::mAPreferencesWindow( miniAudicle * ma,
 
     Connect( mAID_PREFS_CHUGIN_GRID, wxEVT_COMMAND_LIST_END_LABEL_EDIT,
         wxListEventHandler( mAPreferencesWindow::OnChuGinGridChange ) );
-    Connect( wxID_ANY, wxEVT_KEY_DOWN,
-        wxKeyEventHandler( mAPreferencesWindow::OnChuGinGridKeyDown ) );
+    Connect( mAID_PREFS_CHUGIN_GRID, wxEVT_COMMAND_LIST_KEY_DOWN,
+        wxListEventHandler( mAPreferencesWindow::OnChuGinGridKeyDown ) );
 
 
     /*** create/populate the miscellaneous page of the notebook ***/
@@ -829,7 +829,7 @@ void mAPreferencesWindow::OnSelectedAudioInputChanged( wxCommandEvent & event )
 
 void mAPreferencesWindow::OnChuGinGridChange( wxListEvent & event )
 {
-    fprintf( stderr, "WTF\n" );
+    //fprintf( stderr, "WTF\n" );
     int row = event.GetIndex();
     wxString value = event.GetLabel();
 
@@ -856,41 +856,25 @@ void mAPreferencesWindow::OnChuGinGridChange( wxListEvent & event )
         // reset value if the string is empty
         chugin_grid->SetItemText( row, chugin_paths[row].path );
     }
-
-    //event.Skip();
 }
 
-template<typename T>
-static int f_intcmp(T *first, T *second)
+void mAPreferencesWindow::OnChuGinGridKeyDown( wxListEvent & event )
 {
-    if( first < second ) return -1;
-    if( first > second ) return 1;
-    return 0;
-}
-
-void mAPreferencesWindow::OnChuGinGridKeyDown( wxKeyEvent & event )
-{
-/*    fprintf( stderr, "1\n" );
-    if( chugin_grid->IsSelection() && event.GetKeyCode() == WXK_DELETE )
+    int keycode = event.GetKeyCode();
+    if( chugin_grid->GetSelectedItemCount() > 0 && 
+        ( keycode == WXK_DELETE || keycode == WXK_BACK || keycode == WXK_NUMPAD_DELETE ) )
     {
-        fprintf( stderr, "2\n" );
-        wxArrayInt selected = chugin_grid->GetSelectedRows();
-        selected.Sort(f_intcmp);
-
-        for( int i = 0; i < selected.Count(); i++ )
+        long item = 0;
+        while( ( item = chugin_grid->GetNextItem( item-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED ) ) != -1 )
         {
-            int index = selected[i] - i;
-            if( index < chugin_paths.size() )
-            {
-                chugin_paths.erase( chugin_paths.begin() + index );
-            }
+            chugin_grid->DeleteItem( item );
+            chugin_paths.erase( chugin_paths.begin() + item );
         }
     }
     else
     {
         event.Skip();
-    }*/
-    event.Skip();
+    }
 }
 
 
