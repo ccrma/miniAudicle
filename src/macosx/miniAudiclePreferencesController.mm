@@ -396,6 +396,9 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
                              [NSMutableDictionary dictionaryWithObjectsAndKeys:
                               @"/usr/lib/chuck", @"location", 
                               @"folder", @"type", nil],
+                             [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                              @"/Library/Application Support/ChucK", @"location", 
+                              @"folder", @"type", nil],
                              nil] forKey:mAPreferencesChuginPaths];
         
         [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
@@ -600,7 +603,7 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     
     [[NSUserDefaults standardUserDefaults] setObject:chugin_paths forKey:mAPreferencesChuginPaths];
     
-    vector< string > library_paths;
+    list< string > library_paths;
     list< string > named_chugins;
     NSArray * obj_library_paths = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesChuginPaths];
     for(int i = 0; i < [obj_library_paths count]; i++)
@@ -672,18 +675,21 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     ma->set_enable_network_thread( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAcceptsNetworkCommands] intValue] == NSOnState );
     chdir( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesSoundfilesDirectory] cString] );
     
-//    vector< string > library_paths;
-//    NSArray * obj_library_paths = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesLibraryPath];
-//    for(int i = 0; i < [obj_library_paths count]; i++)
-//    {
-//        NSString * path = [obj_library_paths objectAtIndex:i];
-//        library_paths.push_back([path UTF8String]);
-//    }
-//    ma->set_library_paths(library_paths);
+    list< string > library_paths;
+    list< string > named_chugins;
+    NSArray * obj_library_paths = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesChuginPaths];
+    for(int i = 0; i < [obj_library_paths count]; i++)
+    {
+        NSDictionary * path = [obj_library_paths objectAtIndex:i];
+        if([[path objectForKey:@"type"] isEqualToString:@"chugin"])
+            named_chugins.push_back([[path objectForKey:@"location"] UTF8String]);
+        else if([[path objectForKey:@"type"] isEqualToString:@"folder"])
+            library_paths.push_back([[path objectForKey:@"location"] UTF8String]);
+    }
     
-//    [self loadGUIFromDefaults];
-//    [self loadMiniAudicleFromGUI];
-
+    ma->set_library_paths(library_paths);
+    ma->set_named_chugins(named_chugins);
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:mAPreferencesChangedNotification
                                                         object:self];
 }
