@@ -1082,6 +1082,14 @@ void mAPreferencesWindow::LoadGUIToMiniAudicleAndPreferences()
     wxString pathstr;
     SerializeChuGinPaths( pathstr, chugin_paths );
     config->Write( mAPreferencesChuGinPaths, pathstr );
+
+    std::list< std::string > library_paths;
+    for( std::vector< ChuGinPath >::iterator icps = chugin_paths.begin();
+         icps != chugin_paths.end(); icps++ )
+    {
+        library_paths.push_back( std::string( (*icps).path.c_str() ) );
+    }
+    ma->set_library_paths( library_paths );
 }
 
 
