@@ -12,7 +12,7 @@
 		090B4B1C0C4F038E00DF5577 /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
 		090B4B1D0C4F038E00DF5577 /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */; };
 		090B4B1E0C4F038E00DF5577 /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */; };
-		0910DF7A0B1D0D0800BBC2B8 /* mAParentFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0910DF790B1D0D0800BBC2B8 /* mAParentFrame.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I/sw/lib/wx/include/gtk2-unicode-debug-2.8 -I/sw/include/wx-2.8 -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
+		0910DF7A0B1D0D0800BBC2B8 /* mAParentFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0910DF790B1D0D0800BBC2B8 /* mAParentFrame.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I$(WX_INCLUDE_DIR) -I$(WX_SETUP_INCLUDE_DIR) -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
 		09216C0A134ED4A900145064 /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09216C09134ED4A900145064 /* MultitouchSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		09297A160B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
 		09297A170B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
@@ -20,9 +20,14 @@
 		093D84E10B7A99F200E55E71 /* RBSplitSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = 093D84DE0B7A99F200E55E71 /* RBSplitSubview.m */; };
 		093D84E20B7A99F200E55E71 /* RBSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 093D84E00B7A99F200E55E71 /* RBSplitView.m */; };
 		093D88130B7C320300E55E71 /* Thumb9.png in Resources */ = {isa = PBXBuildFile; fileRef = 093D88120B7C320300E55E71 /* Thumb9.png */; };
+		093ECDBF13B5781100B645F0 /* libwx_baseud-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDBE13B5781100B645F0 /* libwx_baseud-2.8.dylib */; };
+		093ECDC113B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDC013B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib */; };
+		093ECDC313B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDC213B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib */; };
+		093ECDCF13B578B800B645F0 /* libwx_gtk2ud_adv-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDCE13B578B800B645F0 /* libwx_gtk2ud_adv-2.8.dylib */; };
 		0942B6F71362466700C870F2 /* chugin.png in Resources */ = {isa = PBXBuildFile; fileRef = 0942B6F51362466700C870F2 /* chugin.png */; };
 		0942B6F81362466700C870F2 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0942B6F61362466700C870F2 /* folder.png */; };
 		095B59720BC6D0F900E8759D /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 095B59710BC6D0F900E8759D /* error.png */; };
+		096B324C13B573CE008ED860 /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09216C09134ED4A900145064 /* MultitouchSupport.framework */; };
 		096FAB870B56D56B00125FE2 /* mAConsoleMonitorView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 096FAB850B56D56B00125FE2 /* mAConsoleMonitorView.mm */; };
 		09805FFA0AA10D3800915136 /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
 		09805FFB0AA10D3900915136 /* chuck.y in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B360A9A54DA007604EA /* chuck.y */; };
@@ -213,14 +218,14 @@
 		09E482580B1CF050002087DF /* miniAudicle_import.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40BC80A9A5662007604EA /* miniAudicle_import.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__"; }; };
 		09E482590B1CF051002087DF /* miniAudicle_shell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40BCA0A9A5662007604EA /* miniAudicle_shell.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__"; }; };
 		09E4825A0B1CF051002087DF /* miniAudicle_ui_elements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40BCC0A9A5662007604EA /* miniAudicle_ui_elements.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__"; }; };
-		09E482910B1CF107002087DF /* mAConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09E4827F0B1CF107002087DF /* mAConfig.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I/sw/lib/wx/include/gtk2-unicode-debug-2.8 -I/sw/include/wx-2.8 -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
-		09E482920B1CF107002087DF /* mAConsoleMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09E482810B1CF107002087DF /* mAConsoleMonitor.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I/sw/lib/wx/include/gtk2-unicode-debug-2.8 -I/sw/include/wx-2.8 -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
-		09E482930B1CF107002087DF /* mADocument.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09E482830B1CF107002087DF /* mADocument.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I/sw/lib/wx/include/gtk2-unicode-debug-2.8 -I/sw/include/wx-2.8 -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
-		09E482940B1CF107002087DF /* mAMenuBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09E482860B1CF107002087DF /* mAMenuBar.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I/sw/lib/wx/include/gtk2-unicode-debug-2.8 -I/sw/include/wx-2.8 -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
-		09E482950B1CF107002087DF /* mAPreferencesWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09E482890B1CF107002087DF /* mAPreferencesWindow.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I/sw/lib/wx/include/gtk2-unicode-debug-2.8 -I/sw/include/wx-2.8 -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
-		09E482960B1CF107002087DF /* mAUIElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09E4828B0B1CF107002087DF /* mAUIElements.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I/sw/lib/wx/include/gtk2-unicode-debug-2.8 -I/sw/include/wx-2.8 -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
-		09E482970B1CF107002087DF /* mAView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09E4828D0B1CF107002087DF /* mAView.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I/sw/lib/wx/include/gtk2-unicode-debug-2.8 -I/sw/include/wx-2.8 -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
-		09E482980B1CF107002087DF /* mAVMMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09E4828F0B1CF107002087DF /* mAVMMonitor.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I/sw/lib/wx/include/gtk2-unicode-debug-2.8 -I/sw/include/wx-2.8 -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
+		09E482910B1CF107002087DF /* mAConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09E4827F0B1CF107002087DF /* mAConfig.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I$(WX_INCLUDE_DIR) -I$(WX_SETUP_INCLUDE_DIR) -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
+		09E482920B1CF107002087DF /* mAConsoleMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09E482810B1CF107002087DF /* mAConsoleMonitor.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I$(WX_INCLUDE_DIR) -I$(WX_SETUP_INCLUDE_DIR) -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
+		09E482930B1CF107002087DF /* mADocument.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09E482830B1CF107002087DF /* mADocument.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I$(WX_INCLUDE_DIR) -I$(WX_SETUP_INCLUDE_DIR) -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
+		09E482940B1CF107002087DF /* mAMenuBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09E482860B1CF107002087DF /* mAMenuBar.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I$(WX_INCLUDE_DIR) -I$(WX_SETUP_INCLUDE_DIR) -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
+		09E482950B1CF107002087DF /* mAPreferencesWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09E482890B1CF107002087DF /* mAPreferencesWindow.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I$(WX_INCLUDE_DIR) -I$(WX_SETUP_INCLUDE_DIR) -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
+		09E482960B1CF107002087DF /* mAUIElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09E4828B0B1CF107002087DF /* mAUIElements.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I$(WX_INCLUDE_DIR) -I$(WX_SETUP_INCLUDE_DIR) -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
+		09E482970B1CF107002087DF /* mAView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09E4828D0B1CF107002087DF /* mAView.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I$(WX_INCLUDE_DIR) -I$(WX_SETUP_INCLUDE_DIR) -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
+		09E482980B1CF107002087DF /* mAVMMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09E4828F0B1CF107002087DF /* mAVMMonitor.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I$(WX_INCLUDE_DIR) -I$(WX_SETUP_INCLUDE_DIR) -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
 		09E4829F0B1CF129002087DF /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A40BD40A9A57C6007604EA /* Carbon.framework */; };
 		09E482A00B1CF12A002087DF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		09E482A10B1CF12B002087DF /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A40BD50A9A57C6007604EA /* CoreAudio.framework */; };
@@ -281,6 +286,10 @@
 		093D84E00B7A99F200E55E71 /* RBSplitView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = RBSplitView.m; path = macosx/RBSplitView.m; sourceTree = SOURCE_ROOT; };
 		093D84E80B7A9A6000E55E71 /* RBSplitViewPrivateDefines.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RBSplitViewPrivateDefines.h; path = macosx/RBSplitViewPrivateDefines.h; sourceTree = SOURCE_ROOT; };
 		093D88120B7C320300E55E71 /* Thumb9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Thumb9.png; path = macosx/icon/Thumb9.png; sourceTree = SOURCE_ROOT; };
+		093ECDBE13B5781100B645F0 /* libwx_baseud-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_baseud-2.8.dylib"; path = "/opt/local/lib/libwx_baseud-2.8.dylib"; sourceTree = "<absolute>"; };
+		093ECDC013B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_gtk2ud_core-2.8.dylib"; path = "/opt/local/lib/libwx_gtk2ud_core-2.8.dylib"; sourceTree = "<absolute>"; };
+		093ECDC213B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_gtk2ud_stc-2.8.dylib"; path = "/opt/local/lib/libwx_gtk2ud_stc-2.8.dylib"; sourceTree = "<absolute>"; };
+		093ECDCE13B578B800B645F0 /* libwx_gtk2ud_adv-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_gtk2ud_adv-2.8.dylib"; path = "/opt/local/lib/libwx_gtk2ud_adv-2.8.dylib"; sourceTree = "<absolute>"; };
 		0942B6F51362466700C870F2 /* chugin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chugin.png; path = macosx/icon/chugin.png; sourceTree = "<group>"; };
 		0942B6F61362466700C870F2 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = folder.png; path = macosx/icon/folder.png; sourceTree = "<group>"; };
 		09594C120BD56B5300336A56 /* led-off.xpm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = "led-off.xpm"; path = "wxw/icons/led-off.xpm"; sourceTree = SOURCE_ROOT; };
@@ -795,6 +804,11 @@
 				09E482A30B1CF12E002087DF /* Foundation.framework in Frameworks */,
 				09E482A40B1CF12E002087DF /* IOKit.framework in Frameworks */,
 				09297A170B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */,
+				096B324C13B573CE008ED860 /* MultitouchSupport.framework in Frameworks */,
+				093ECDBF13B5781100B645F0 /* libwx_baseud-2.8.dylib in Frameworks */,
+				093ECDC113B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib in Frameworks */,
+				093ECDC313B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib in Frameworks */,
+				093ECDCF13B578B800B645F0 /* libwx_gtk2ud_adv-2.8.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1594,6 +1608,11 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				093ECDCE13B578B800B645F0 /* libwx_gtk2ud_adv-2.8.dylib */,
+				093ECDBE13B5781100B645F0 /* libwx_baseud-2.8.dylib */,
+				093ECDC013B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib */,
+				093ECDC213B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib */,
+				09216C09134ED4A900145064 /* MultitouchSupport.framework */,
 				092979FB0B4DED60005C3B7A /* IOBluetooth.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
 				09A40BD40A9A57C6007604EA /* Carbon.framework */,
@@ -1677,7 +1696,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				09216C09134ED4A900145064 /* MultitouchSupport.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -2093,35 +2111,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = G4;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INSTALL_PATH = "$(HOME)/bin";
-				MACOSX_DEPLOYMENT_TARGET = 10.3;
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = (
-					"-lm",
-					"-lstdc++",
-					"-L/sw/lib",
-					"-L/usr/X11R6/lib",
-					"-framework",
-					IOKit,
-					"-framework",
-					CoreServices,
-					"-framework",
-					System,
-					"-framework",
-					ApplicationServices,
-					"-lwx_gtk2ud_core-2.8",
-					"-lwx_baseud-2.8",
-					"-lwx_gtk2ud_adv-2.8",
-					"-lwx_gtk2ud_stc-2.8",
+				LIBRARY_SEARCH_PATHS = (
+					"$(WX_LIBRARY_DIR)",
+					/usr/X11R6/lib,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = miniAudicle;
-				ZERO_LINK = NO;
+				SDKROOT = "";
+				WX_INCLUDE_DIR = "/opt/local/include/wx-2.8";
+				WX_LIBRARY_DIR = /opt/local/lib;
+				WX_SETUP_INCLUDE_DIR = "/opt/local/lib/wx/include/gtk2-unicode-debug-2.8/";
 			};
 			name = Debug;
 		};
@@ -2129,13 +2138,24 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
+					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
+				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = "$(HOME)/bin";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "miniAudicle GTK";
-				ZERO_LINK = NO;
+				WX_INCLUDE_DIR = "/opt/local/include/wx-2.8";
+				WX_LIBRARY_DIR = /opt/local/lib;
+				WX_SETUP_INCLUDE_DIR = "/opt/local/lib/wx/include/gtk2-ansi-release-2.8/";
 			};
 			name = Release;
 		};
@@ -2225,7 +2245,6 @@
 				PREBINDING = NO;
 				SDKROOT = macosx10.6;
 				YACC_GENERATED_FILE_STEM = InputFileStem;
-				ZERO_LINK = NO;
 			};
 			name = Debug;
 		};
