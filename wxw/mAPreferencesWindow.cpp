@@ -579,6 +579,16 @@ mAPreferencesWindow::mAPreferencesWindow( miniAudicle * ma,
 
     LoadPreferencesToGUI();
     ProbeAudioDevices();
+    
+    // HACK
+    // TODO: separate LoadPreferencesToMiniAudicle function
+    std::list< std::string > library_paths;
+    for( std::vector< ChuGinPath >::iterator icps = chugin_paths.begin();
+         icps != chugin_paths.end(); icps++ )
+    {
+        library_paths.push_back( std::string( (*icps).path.c_str() ) );
+    }
+    ma->set_library_paths( library_paths );
 }
 
 mAPreferencesWindow::~mAPreferencesWindow()
