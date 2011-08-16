@@ -5,7 +5,7 @@
 #import "chuck_type.h"
 #import "chuck_compile.h"
 #import "rtmidi.h"
-#import "rtaudio.h"
+#import "RtAudio/RtAudio.h"
 #import "hidio_sdl.h"
 
 struct Chuck_Type;
@@ -142,7 +142,7 @@ static const char * exclude_types[] =
         audio = [NSMutableArray new];
         
         RtAudio * rta = NULL;
-        RtAudioDeviceInfo info;
+        RtAudio::DeviceInfo info;
         
         // allocate RtAudio
         try { rta = new RtAudio( ); }
@@ -250,10 +250,16 @@ static const char * exclude_types[] =
                 nil]];
             
             [device addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                @"Default Device", @"name",
-                ( info.isDefault ? @"Yes" : @"No" ), @"description",
-                [NSNumber numberWithBool:YES], @"leaf",
-                nil]];
+                               @"Default Output", @"name",
+                               ( info.isDefaultOutput ? @"Yes" : @"No" ), @"description",
+                               [NSNumber numberWithBool:YES], @"leaf",
+                               nil]];
+            
+            [device addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                               @"Default Input", @"name",
+                               ( info.isDefaultInput ? @"Yes" : @"No" ), @"description",
+                               [NSNumber numberWithBool:YES], @"leaf",
+                               nil]];
             
             [audio addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                 [NSString stringWithFormat:@"%i", i], @"name",
@@ -297,7 +303,7 @@ static const char * exclude_types[] =
         try { min = new RtMidiIn; }
         catch( RtError & err )
         {
-            EM_error2b( 0, "%s", err.getMessageString() );
+            EM_error2b( 0, "%s", err.getMessage().c_str() );
             return;
         }
         
@@ -325,7 +331,7 @@ static const char * exclude_types[] =
         try { mout = new RtMidiOut; }
         catch( RtError & err )
         {
-            EM_error2b( 0, "%s", err.getMessageString() );
+            EM_error2b( 0, "%s", err.getMessage().c_str() );
             return;
         }
         

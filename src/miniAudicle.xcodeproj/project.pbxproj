@@ -57,7 +57,6 @@
 		098060130AA10D4D00915136 /* digiio_rtaudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B370A9A54DA007604EA /* digiio_rtaudio.cpp */; };
 		098060140AA10D4E00915136 /* hidio_sdl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B390A9A54DA007604EA /* hidio_sdl.cpp */; };
 		098060150AA10D4E00915136 /* midiio_rtmidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B3B0A9A54DA007604EA /* midiio_rtmidi.cpp */; };
-		0980601B0AA14E4000915136 /* rtaudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B3D0A9A54DA007604EA /* rtaudio.cpp */; };
 		0980601C0AA14E4100915136 /* rtmidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B400A9A54DA007604EA /* rtmidi.cpp */; };
 		0980601D0AA14E4100915136 /* ugen_filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B420A9A54DA007604EA /* ugen_filter.cpp */; };
 		0980601E0AA14E4200915136 /* ugen_osc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B440A9A54DA007604EA /* ugen_osc.cpp */; };
@@ -117,7 +116,6 @@
 		09A40B810A9A54DA007604EA /* digiio_rtaudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B370A9A54DA007604EA /* digiio_rtaudio.cpp */; };
 		09A40B820A9A54DA007604EA /* hidio_sdl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B390A9A54DA007604EA /* hidio_sdl.cpp */; };
 		09A40B830A9A54DA007604EA /* midiio_rtmidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B3B0A9A54DA007604EA /* midiio_rtmidi.cpp */; };
-		09A40B840A9A54DA007604EA /* rtaudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B3D0A9A54DA007604EA /* rtaudio.cpp */; };
 		09A40B850A9A54DA007604EA /* rtmidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B400A9A54DA007604EA /* rtmidi.cpp */; };
 		09A40B860A9A54DA007604EA /* ugen_filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B420A9A54DA007604EA /* ugen_filter.cpp */; };
 		09A40B870A9A54DA007604EA /* ugen_osc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B440A9A54DA007604EA /* ugen_osc.cpp */; };
@@ -164,6 +162,7 @@
 		09A40C720A9A57FA007604EA /* miniAudicle.icns in Resources */ = {isa = PBXBuildFile; fileRef = 09A40C670A9A57FA007604EA /* miniAudicle.icns */; };
 		09A40D130A9A6185007604EA /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
 		09A40D860A9AC579007604EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
+		09AC749A13E36A970015CC99 /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09AC749613E36A970015CC99 /* RtAudio.cpp */; };
 		09AF2D1F0BA63F5900B18EC6 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 09AF2D1E0BA63F5900B18EC6 /* lock.png */; };
 		09CD6E220AC602BC00F5D110 /* KBPopUpToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CD6E210AC602BC00F5D110 /* KBPopUpToolbarItem.m */; };
 		09E482260B1CF018002087DF /* chuck.y in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B360A9A54DA007604EA /* chuck.y */; };
@@ -193,7 +192,6 @@
 		09E4823F0B1CF034002087DF /* digiio_rtaudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B370A9A54DA007604EA /* digiio_rtaudio.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
 		09E482400B1CF034002087DF /* hidio_sdl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B390A9A54DA007604EA /* hidio_sdl.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
 		09E482410B1CF036002087DF /* midiio_rtmidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B3B0A9A54DA007604EA /* midiio_rtmidi.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482420B1CF037002087DF /* rtaudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B3D0A9A54DA007604EA /* rtaudio.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
 		09E482430B1CF038002087DF /* rtmidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B400A9A54DA007604EA /* rtmidi.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
 		09E482440B1CF03A002087DF /* ugen_filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B420A9A54DA007604EA /* ugen_filter.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
 		09E482450B1CF03A002087DF /* ugen_osc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B440A9A54DA007604EA /* ugen_osc.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
@@ -626,9 +624,6 @@
 		09A40B3A0A9A54DA007604EA /* hidio_sdl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = hidio_sdl.h; sourceTree = "<group>"; };
 		09A40B3B0A9A54DA007604EA /* midiio_rtmidi.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = midiio_rtmidi.cpp; sourceTree = "<group>"; };
 		09A40B3C0A9A54DA007604EA /* midiio_rtmidi.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = midiio_rtmidi.h; sourceTree = "<group>"; };
-		09A40B3D0A9A54DA007604EA /* rtaudio.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = rtaudio.cpp; sourceTree = "<group>"; };
-		09A40B3E0A9A54DA007604EA /* rtaudio.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rtaudio.h; sourceTree = "<group>"; };
-		09A40B3F0A9A54DA007604EA /* rterror.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rterror.h; sourceTree = "<group>"; };
 		09A40B400A9A54DA007604EA /* rtmidi.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = rtmidi.cpp; sourceTree = "<group>"; };
 		09A40B410A9A54DA007604EA /* rtmidi.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rtmidi.h; sourceTree = "<group>"; };
 		09A40B420A9A54DA007604EA /* ugen_filter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ugen_filter.cpp; sourceTree = "<group>"; };
@@ -733,6 +728,9 @@
 		09A40F2A0A9AE5FE007604EA /* INSTALL */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = INSTALL; path = ../notes/INSTALL; sourceTree = SOURCE_ROOT; };
 		09A40F2B0A9AE5FE007604EA /* LGPL */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = LGPL; path = ../notes/LGPL; sourceTree = SOURCE_ROOT; };
 		09A40F2C0A9AE5FE007604EA /* VERSIONS */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = VERSIONS; path = ../notes/VERSIONS; sourceTree = SOURCE_ROOT; };
+		09AC749613E36A970015CC99 /* RtAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RtAudio.cpp; sourceTree = "<group>"; };
+		09AC749713E36A970015CC99 /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
+		09AC749813E36A970015CC99 /* RtError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtError.h; sourceTree = "<group>"; };
 		09AF2D1E0BA63F5900B18EC6 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lock.png; path = macosx/icon/lock.png; sourceTree = SOURCE_ROOT; };
 		09BA0A050AC791A5007EB7E7 /* mAShredTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAShredTable.h; path = macosx/mAShredTable.h; sourceTree = SOURCE_ROOT; };
 		09BA0A060AC791A5007EB7E7 /* mAShredTable.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAShredTable.mm; path = macosx/mAShredTable.mm; sourceTree = SOURCE_ROOT; };
@@ -1440,9 +1438,6 @@
 				09A40B3A0A9A54DA007604EA /* hidio_sdl.h */,
 				09A40B3B0A9A54DA007604EA /* midiio_rtmidi.cpp */,
 				09A40B3C0A9A54DA007604EA /* midiio_rtmidi.h */,
-				09A40B3D0A9A54DA007604EA /* rtaudio.cpp */,
-				09A40B3E0A9A54DA007604EA /* rtaudio.h */,
-				09A40B3F0A9A54DA007604EA /* rterror.h */,
 				09A40B400A9A54DA007604EA /* rtmidi.cpp */,
 				09A40B410A9A54DA007604EA /* rtmidi.h */,
 				09A40B420A9A54DA007604EA /* ugen_filter.cpp */,
@@ -1571,12 +1566,24 @@
 		09A40E130A9AC96C007604EA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				09AC749113E36A970015CC99 /* RtAudio */,
 				09A40B000A9A52FC007604EA /* ChucK */,
 				09A40B010A9A5303007604EA /* miniAudicle */,
 				080E96DDFE201D6D7F000001 /* miniAudicle OS X */,
 				09E482020B1CEEF5002087DF /* miniAudicle GTK */,
 			);
 			name = Sources;
+			sourceTree = "<group>";
+		};
+		09AC749113E36A970015CC99 /* RtAudio */ = {
+			isa = PBXGroup;
+			children = (
+				09AC749613E36A970015CC99 /* RtAudio.cpp */,
+				09AC749713E36A970015CC99 /* RtAudio.h */,
+				09AC749813E36A970015CC99 /* RtError.h */,
+			);
+			name = RtAudio;
+			path = chuck/RtAudio;
 			sourceTree = "<group>";
 		};
 		09E482020B1CEEF5002087DF /* miniAudicle GTK */ = {
@@ -1846,7 +1853,6 @@
 				098060130AA10D4D00915136 /* digiio_rtaudio.cpp in Sources */,
 				098060140AA10D4E00915136 /* hidio_sdl.cpp in Sources */,
 				098060150AA10D4E00915136 /* midiio_rtmidi.cpp in Sources */,
-				0980601B0AA14E4000915136 /* rtaudio.cpp in Sources */,
 				0980601C0AA14E4100915136 /* rtmidi.cpp in Sources */,
 				0980601D0AA14E4100915136 /* ugen_filter.cpp in Sources */,
 				0980601E0AA14E4200915136 /* ugen_osc.cpp in Sources */,
@@ -1904,7 +1910,6 @@
 				09E4823F0B1CF034002087DF /* digiio_rtaudio.cpp in Sources */,
 				09E482400B1CF034002087DF /* hidio_sdl.cpp in Sources */,
 				09E482410B1CF036002087DF /* midiio_rtmidi.cpp in Sources */,
-				09E482420B1CF037002087DF /* rtaudio.cpp in Sources */,
 				09E482430B1CF038002087DF /* rtmidi.cpp in Sources */,
 				09E482440B1CF03A002087DF /* ugen_filter.cpp in Sources */,
 				09E482450B1CF03A002087DF /* ugen_osc.cpp in Sources */,
@@ -1977,7 +1982,6 @@
 				09A40B810A9A54DA007604EA /* digiio_rtaudio.cpp in Sources */,
 				09A40B820A9A54DA007604EA /* hidio_sdl.cpp in Sources */,
 				09A40B830A9A54DA007604EA /* midiio_rtmidi.cpp in Sources */,
-				09A40B840A9A54DA007604EA /* rtaudio.cpp in Sources */,
 				09A40B850A9A54DA007604EA /* rtmidi.cpp in Sources */,
 				09A40B860A9A54DA007604EA /* ugen_filter.cpp in Sources */,
 				09A40B870A9A54DA007604EA /* ugen_osc.cpp in Sources */,
@@ -2021,6 +2025,7 @@
 				090B4B1D0C4F038E00DF5577 /* uana_xform.cpp in Sources */,
 				09812B9B0C6E394A00D1D68C /* uana_extract.cpp in Sources */,
 				09820BA110941F7F001F662E /* miniAudicle_log.cpp in Sources */,
+				09AC749A13E36A970015CC99 /* RtAudio.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2180,7 +2185,7 @@
 					__CK_DEBUG__,
 				);
 				GCC_WARN_UNUSED_PARAMETER = NO;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = chuck;
 				INFOPLIST_FILE = macosx/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
@@ -2190,7 +2195,6 @@
 				);
 				PRODUCT_NAME = miniAudicle;
 				WRAPPER_EXTENSION = app;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
@@ -2216,7 +2220,7 @@
 					__MACOSX_CORE__,
 					GCC_FAST_OBJC_DISPATCH_i386,
 				);
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = chuck;
 				INFOPLIST_FILE = macosx/Info.plist;
 				INSTALL_PATH = /Applications;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;

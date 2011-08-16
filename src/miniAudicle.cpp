@@ -75,7 +75,7 @@ t_CKINT priority = 0x7fffffff;
 t_CKINT priority_low = 0x7fffffff;
 #endif
 
-extern const char MA_VERSION[] = "0.2.1-dev (gidora)\0";
+extern const char MA_VERSION[] = "0.2.1-beta-1 (gidora)\0";
 extern const char MA_ABOUT[] = "version %s\nCopyright (c) Spencer Salazar\n\nChucK: version %s\nCopyright (c) Ge Wang and Perry Cook\nhttp://chuck.cs.princeton.edu/\0";
 extern const char MA_HELP[] = 
 "usage: miniAudicle [options] [files] \n\
@@ -1074,7 +1074,7 @@ t_CKBOOL miniAudicle::probe()
     interfaces.clear();
     
     RtAudio * rta = NULL;
-    RtAudioDeviceInfo info;
+    RtAudio::DeviceInfo info;
     
     // allocate RtAudio
     try 
@@ -1084,7 +1084,7 @@ t_CKBOOL miniAudicle::probe()
     catch( RtError & error )
     {
         // problem finding audio devices, most likely
-        EM_log( CK_LOG_WARNING, "(RtAudio): %s", error.getMessageString() );
+        EM_log( CK_LOG_WARNING, "(RtAudio): %s", error.getMessage().c_str() );
         return FALSE;
     }
     
@@ -1094,23 +1094,25 @@ t_CKBOOL miniAudicle::probe()
     default_output = devices;
     
     // loop
-    for( int i = 1; i <= devices; i++ )
+    for( int i = 0; i < devices; i++ )
     {
         try
         { 
             interfaces.push_back( rta->getDeviceInfo( i ) );
             
-            if( interfaces[i - 1].isDefault && interfaces[i - 1].inputChannels 
-                && default_input == devices )
-                default_input = i - 1;
+            if( interfaces[i].isDefaultInput &&
+                interfaces[i].inputChannels &&
+                default_input == devices )
+                default_input = i;
             
-            if( interfaces[i - 1].isDefault && interfaces[i - 1].outputChannels 
-                && default_output == devices )
-                default_output = i - 1;
+            if( interfaces[i].isDefaultOutput &&
+                interfaces[i].outputChannels &&
+                default_output == devices )
+                default_output = i;
         }
         catch( RtError & error )
         {
-            EM_log( CK_LOG_WARNING, "(RtAudio): %s", error.getMessageString() );
+            EM_log( CK_LOG_WARNING, "(RtAudio): %s", error.getMessage().c_str() );
             break;
         }
     }
@@ -1128,7 +1130,7 @@ t_CKBOOL miniAudicle::probe()
     return TRUE;
 }
 
-const vector< RtAudioDeviceInfo > & miniAudicle::get_interfaces()
+const vector< RtAudio::DeviceInfo > & miniAudicle::get_interfaces()
 {
     return interfaces;
 }
@@ -1247,7 +1249,7 @@ t_CKBOOL miniAudicle::set_dac( t_CKUINT dac )
 {
     // sanity check
     if( dac < 0 || dac > interfaces.size() )
-        vm_options.dac = 0;
+        return FALSE;
     else
         vm_options.dac = dac;
     
@@ -1266,7 +1268,7 @@ t_CKBOOL miniAudicle::set_adc( t_CKUINT adc )
 {
     // sanity check
     if( adc < 0 || adc > interfaces.size() )
-        vm_options.adc = 0;
+        return FALSE;
     else
         vm_options.adc = adc;
 
@@ -1291,8 +1293,8 @@ t_CKBOOL miniAudicle::set_sample_rate( t_CKUINT srate )
     
     // sanity checks
     // ensure that dac and adc support the given sample rate
-    vector< int > & dac_sample_rates = interfaces[( vm_options.dac ? vm_options.dac - 1 : default_output )].sampleRates;
-    vector< int >::size_type i, len = dac_sample_rates.size();
+    vector< unsigned int > & dac_sample_rates = interfaces[( vm_options.dac ? vm_options.dac - 1 : default_output )].sampleRates;
+    vector< unsigned int >::size_type i, len = dac_sample_rates.size();
     for( i = 0; i < len; i++ )
     {
         if( dac_sample_rates[i] == srate )
@@ -1306,7 +1308,7 @@ t_CKBOOL miniAudicle::set_sample_rate( t_CKUINT srate )
         return TRUE;
     }
     
-    vector< int > & adc_sample_rates = interfaces[( vm_options.adc ? vm_options.adc - 1 : default_input )].sampleRates;
+    vector< unsigned int > & adc_sample_rates = interfaces[( vm_options.adc ? vm_options.adc - 1 : default_input )].sampleRates;
     len = adc_sample_rates.size();
     for( i = 0; i < len; i++ )
     {

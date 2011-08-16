@@ -641,11 +641,11 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     sc_options_changed = NO;
     
     [preferences_window center];
+    [preferences_tab_view selectFirstTabViewItem:self];
     
-    //[preferences_tab_view removeTabViewItem:[preferences_tab_view tabViewItemAtIndex:[preferences_tab_view indexOfTabViewItemWithIdentifier:@"Key Bindings"]]];
     //[keybindings_table setAutoresizesOutlineColumn:NO];
     
-    [self initDefaults];    
+    [self initDefaults];
 }
 
 - (void)dealloc
@@ -830,8 +830,8 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
 {
     [mac miniAudicle]->probe();
     
-    const vector< RtAudioDeviceInfo > & interfaces = [mac miniAudicle]->get_interfaces();
-    vector< RtAudioDeviceInfo >::size_type i, len = interfaces.size();
+    const vector< RtAudio::DeviceInfo > & interfaces = [mac miniAudicle]->get_interfaces();
+    vector< RtAudio::DeviceInfo >::size_type i, len = interfaces.size();
     
     [audio_output removeAllItems];
     [audio_input removeAllItems];
@@ -865,9 +865,9 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
 
 - (void)selectedAudioOutputChanged:(id)sender
 {
-    const vector< RtAudioDeviceInfo > & interfaces = [mac miniAudicle]->get_interfaces();
+    const vector< RtAudio::DeviceInfo > & interfaces = [mac miniAudicle]->get_interfaces();
 
-    vector< RtAudioDeviceInfo >::size_type selected_output = [[audio_output selectedItem] tag];
+    vector< RtAudio::DeviceInfo >::size_type selected_output = [[audio_output selectedItem] tag];
     
     vector< int >::size_type j, sr_len = interfaces[selected_output].sampleRates.size();
     
@@ -903,9 +903,9 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
 
 - (void)selectedAudioInputChanged:(id)sender
 {
-    const vector< RtAudioDeviceInfo > & interfaces = [mac miniAudicle]->get_interfaces();
+    const vector< RtAudio::DeviceInfo > & interfaces = [mac miniAudicle]->get_interfaces();
     
-    vector< RtAudioDeviceInfo >::size_type selected_input = [[audio_input selectedItem] tag];
+    vector< RtAudio::DeviceInfo >::size_type selected_input = [[audio_input selectedItem] tag];
     
     [input_channels removeAllItems];
     
