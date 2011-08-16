@@ -95,7 +95,7 @@ CHUCK_SRCS= $(CHUCK_SRC_DIR)/chuck_absyn.cpp $(CHUCK_SRC_DIR)/chuck_parse.cpp \
 	$(CHUCK_SRC_DIR)/chuck_bbq.cpp $(CHUCK_SRC_DIR)/chuck_shell.cpp \
 	$(CHUCK_SRC_DIR)/chuck_console.cpp $(CHUCK_SRC_DIR)/digiio_rtaudio.cpp \
 	$(CHUCK_SRC_DIR)/hidio_sdl.cpp \
-	$(CHUCK_SRC_DIR)/midiio_rtmidi.cpp $(CHUCK_SRC_DIR)/rtaudio.cpp \
+	$(CHUCK_SRC_DIR)/midiio_rtmidi.cpp $(CHUCK_SRC_DIR)/RtAudio/RtAudio.cpp \
 	$(CHUCK_SRC_DIR)/rtmidi.cpp $(CHUCK_SRC_DIR)/ugen_osc.cpp \
 	$(CHUCK_SRC_DIR)/ugen_filter.cpp $(CHUCK_SRC_DIR)/ugen_stk.cpp \
 	$(CHUCK_SRC_DIR)/ugen_xxx.cpp \
@@ -173,7 +173,7 @@ $(filter %.nib,$(NIBS)): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAG
 .PHONY: chuck
 chuck:
 #	echo $(CHUCK_SRCS) &> /dev/null
-	make -C $(CHUCK_SRC_DIR) -f makefile.osx-ub
+	make -C $(CHUCK_SRC_DIR) osx-ub
 
 # now build miniAudicle files
 $(OSX_DIR)/miniAudicleController.o: $(OSX_DIR)/miniAudicleController.mm $(OSX_DIR)/miniAudicleController.h

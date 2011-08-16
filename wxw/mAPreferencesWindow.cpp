@@ -700,8 +700,8 @@ void mAPreferencesWindow::ProbeAudioDevices()
 
     ma->probe();
     
-    const vector< RtAudioDeviceInfo > & interfaces = ma->get_interfaces();
-    vector< RtAudioDeviceInfo >::size_type i, len = interfaces.size();
+    const vector< RtAudio::DeviceInfo > & interfaces = ma->get_interfaces();
+    vector< RtAudio::DeviceInfo >::size_type i, len = interfaces.size();
     
     audio_output->Clear();
     audio_input->Clear();
@@ -749,14 +749,14 @@ void mAPreferencesWindow::SelectedAudioOutputChanged()
     output_channels->Clear();   
     sample_rate->Clear();
     
-    const vector< RtAudioDeviceInfo > & interfaces = ma->get_interfaces();
+    const vector< RtAudio::DeviceInfo > & interfaces = ma->get_interfaces();
 
     int selected_output_item = audio_output->GetSelection();
 
     if( selected_output_item == wxNOT_FOUND )
         return;
     
-    vector< RtAudioDeviceInfo >::size_type selected_output = ( vector< RtAudioDeviceInfo >::size_type ) audio_output->GetClientData( selected_output_item ) - 1;
+    vector< RtAudio::DeviceInfo >::size_type selected_output = ( vector< RtAudio::DeviceInfo >::size_type ) audio_output->GetClientData( selected_output_item ) - 1;
     
     vector< int >::size_type j, sr_len = interfaces[selected_output].sampleRates.size();
     
@@ -805,14 +805,14 @@ void mAPreferencesWindow::SelectedAudioInputChanged()
 
     input_channels->Clear();   
     
-    const vector< RtAudioDeviceInfo > & interfaces = ma->get_interfaces();
+    const vector< RtAudio::DeviceInfo > & interfaces = ma->get_interfaces();
 
     int selected_input_item = audio_input->GetSelection();
 
     if( selected_input_item == wxNOT_FOUND )
         return;
     
-    vector< RtAudioDeviceInfo >::size_type selected_input = ( vector< RtAudioDeviceInfo >::size_type ) audio_input->GetClientData( selected_input_item ) - 1;
+    vector< RtAudio::DeviceInfo >::size_type selected_input = ( vector< RtAudio::DeviceInfo >::size_type ) audio_input->GetClientData( selected_input_item ) - 1;
     
     // load available numbers of channels into respective pop up buttons
     int k, num_channels;

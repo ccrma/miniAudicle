@@ -35,7 +35,7 @@ U.S.A.
 
 #include "chuck_compile.h"
 #include "util_thread.h"
-#include "rtaudio.h"
+#include "RtAudio/RtAudio.h"
 
 #include <map>
 #include <string>
@@ -116,7 +116,7 @@ public:
                              miniAudicle_SyntaxHighlighting * sh );
 
     t_CKBOOL probe();
-    const vector< RtAudioDeviceInfo > & get_interfaces();
+    const vector< RtAudio::DeviceInfo > & get_interfaces();
 
     int get_log_level();
     t_CKBOOL set_log_level( int l );
@@ -176,9 +176,9 @@ protected:
     size_t num_status_bufs;
     size_t status_bufs_read, status_bufs_write;
     
-    vector< RtAudioDeviceInfo > interfaces;
-    vector< RtAudioDeviceInfo >::size_type default_input;
-    vector< RtAudioDeviceInfo >::size_type default_output;
+    vector< RtAudio::DeviceInfo > interfaces;
+    vector< RtAudio::DeviceInfo >::size_type default_input;
+    vector< RtAudio::DeviceInfo >::size_type default_output;
     
     map< string, t_CKINT > * class_names;
 
