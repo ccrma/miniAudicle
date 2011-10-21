@@ -1,6 +1,6 @@
 
 CHUCK_SRC_DIR=chuck
-CHUCK_MAKEFILE=makefile.alsa
+CHUCK_MAKECMD=linux-alsa
 THIS_DIR=$(PWD)
 LANGUAGE=English
 
@@ -48,7 +48,7 @@ CHUCK_OBJS=$(CHUCK_SRC_DIR)/chuck.tab.o $(CHUCK_SRC_DIR)/chuck.yy.o \
 	$(CHUCK_SRC_DIR)/chuck_bbq.o $(CHUCK_SRC_DIR)/chuck_shell.o \
 	$(CHUCK_SRC_DIR)/chuck_console.o $(CHUCK_SRC_DIR)/digiio_rtaudio.o \
     $(CHUCK_SRC_DIR)/hidio_sdl.o \
-	$(CHUCK_SRC_DIR)/midiio_rtmidi.o $(CHUCK_SRC_DIR)/rtaudio.o \
+	$(CHUCK_SRC_DIR)/midiio_rtmidi.o $(CHUCK_SRC_DIR)/RtAudio/RtAudio.o \
 	$(CHUCK_SRC_DIR)/rtmidi.o $(CHUCK_SRC_DIR)/ugen_osc.o \
 	$(CHUCK_SRC_DIR)/ugen_filter.o $(CHUCK_SRC_DIR)/ugen_stk.o \
 	$(CHUCK_SRC_DIR)/ugen_xxx.o $(CHUCK_SRC_DIR)/ulib_machine.o \
@@ -81,7 +81,7 @@ $(BIN_DIR)/miniAudicle: $(OBJS) chuck
 # build the core chuck code
 .PHONY: chuck
 chuck:
-	make -C $(CHUCK_SRC_DIR) -f $(CHUCK_MAKEFILE)
+	make -C $(CHUCK_SRC_DIR) $(CHUCK_MAKECMD)
 
 miniAudicle_shell.o: miniAudicle_shell.cpp miniAudicle_shell.h
 	$(CC) $(FLAGS) $(INCLUDES) miniAudicle_shell.cpp
