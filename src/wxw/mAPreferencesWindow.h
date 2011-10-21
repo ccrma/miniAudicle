@@ -36,6 +36,7 @@ U.S.A.
 #include "wx/wx.h"
 #include "wx/listctrl.h"
 #include "wx/grid.h"
+#include "wx/notebook.h"
 
 #include <map>
 

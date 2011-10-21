@@ -141,7 +141,8 @@ void DeserializeChuGinPaths(wxString pathstr, std::vector<ChuGinPath> & pathv)
                 // uhh
                 type = ChuGinPath::CHUGIN_TYPE;
 
-            pathv.push_back(ChuGinPath(type, path.SubString(1, path.Length()-1)));
+            wxString s = path.SubString(1, path.Length()-1);
+            pathv.push_back(ChuGinPath(type, s));
         }
         pathstr = pathstr.AfterFirst(mAPreferencesPathSeparator);
     }
@@ -468,7 +469,8 @@ mAPreferencesWindow::mAPreferencesWindow( miniAudicle * ma,
 
     wxSizer * chugin_page_sizer = new wxBoxSizer(wxVERTICAL);
     
-    enable_chugins = new wxCheckBox(chugin_page, wxID_ANY, "Enable ChuGins");
+    
+    enable_chugins = new wxCheckBox(chugin_page, wxID_ANY, wxT("Enable ChuGins"));
     chugin_page_sizer->Add(enable_chugins, 0, 
         wxTOP | wxLEFT | wxRIGHT | wxBOTTOM | wxALIGN_LEFT, 10);
     
@@ -586,7 +588,7 @@ mAPreferencesWindow::mAPreferencesWindow( miniAudicle * ma,
     for( std::vector< ChuGinPath >::iterator icps = chugin_paths.begin();
          icps != chugin_paths.end(); icps++ )
     {
-        library_paths.push_back( std::string( (*icps).path.c_str() ) );
+        library_paths.push_back( std::string( (*icps).path.mb_str(wxConvUTF8) ) );
     }
     ma->set_library_paths( library_paths );
 }
@@ -767,7 +769,7 @@ void mAPreferencesWindow::SelectedAudioOutputChanged()
     {
         sample_rate->Append( wxString::Format( _T( "%i" ), 
                                                interfaces[selected_output].sampleRates[j] ),
-                             ( void * ) interfaces[selected_output].sampleRates[j] );
+                             ( void * ) ( long ) interfaces[selected_output].sampleRates[j]);
         
         // select the default sample rate
         if( interfaces[selected_output].sampleRates[j] == default_sample_rate )
@@ -783,7 +785,7 @@ void mAPreferencesWindow::SelectedAudioOutputChanged()
     num_channels = interfaces[selected_output].outputChannels;
     for( k = 0; k < num_channels; k++ )
         output_channels->Append( wxString::Format( _T( "%i" ), k + 1 ),
-                                 ( void * ) ( k + 1 ) );
+                                 ( void * ) ( long ) ( k + 1 ) );
     
     int default_output_channels;
     config->Read( mAPreferencesOutputChannels, &default_output_channels, -1 );
@@ -820,7 +822,7 @@ void mAPreferencesWindow::SelectedAudioInputChanged()
     num_channels = interfaces[selected_input].inputChannels;
     for( k = 0; k < num_channels; k++ )
         input_channels->Append( wxString::Format( _T( "%i" ), k + 1 ),
-                                 ( void * ) ( k + 1 ) );
+                                 ( void * ) ( long ) ( k + 1 ) );
     
     int default_input_channels;
     config->Read( mAPreferencesInputChannels, &default_input_channels, -1 );
@@ -995,7 +997,7 @@ void mAPreferencesWindow::LoadGUIToMiniAudicleAndPreferences()
     selected_item = audio_output->GetSelection();
     if( selected_item != wxNOT_FOUND )
     {
-        int dac = ( int ) audio_output->GetClientData( selected_item );
+        int dac = ( long ) audio_output->GetClientData( selected_item );
         config->Write( mAPreferencesAudioOutput, dac );
         ma->set_dac( dac );
     }
@@ -1004,7 +1006,7 @@ void mAPreferencesWindow::LoadGUIToMiniAudicleAndPreferences()
     selected_item = audio_input->GetSelection();
     if( selected_item != wxNOT_FOUND )
     {
-        int adc = ( int ) audio_input->GetClientData( selected_item );
+        int adc = ( long ) audio_input->GetClientData( selected_item );
         config->Write( mAPreferencesAudioInput, adc );
         ma->set_adc( adc );
     }
@@ -1013,7 +1015,7 @@ void mAPreferencesWindow::LoadGUIToMiniAudicleAndPreferences()
     selected_item = output_channels->GetSelection();
     if( selected_item != wxNOT_FOUND )
     {
-        int num_outputs = ( int ) output_channels->GetClientData( selected_item );
+        int num_outputs = ( long ) output_channels->GetClientData( selected_item );
         config->Write( mAPreferencesOutputChannels, num_outputs );
         ma->set_num_outputs( num_outputs );
     }
@@ -1022,7 +1024,7 @@ void mAPreferencesWindow::LoadGUIToMiniAudicleAndPreferences()
     selected_item = input_channels->GetSelection();
     if( selected_item != wxNOT_FOUND )
     {
-        int num_inputs = ( int ) input_channels->GetClientData( selected_item );
+        int num_inputs = ( long ) input_channels->GetClientData( selected_item );
         config->Write( mAPreferencesInputChannels, num_inputs );
         ma->set_num_inputs( num_inputs );
     }
@@ -1031,7 +1033,7 @@ void mAPreferencesWindow::LoadGUIToMiniAudicleAndPreferences()
     selected_item = sample_rate->GetSelection();
     if( selected_item != wxNOT_FOUND )
     {
-        int _sample_rate = ( int ) sample_rate->GetClientData( selected_item );
+        int _sample_rate = ( long ) sample_rate->GetClientData( selected_item );
         config->Write( mAPreferencesSampleRate, _sample_rate );
         ma->set_sample_rate( _sample_rate );
     }
@@ -1040,7 +1042,7 @@ void mAPreferencesWindow::LoadGUIToMiniAudicleAndPreferences()
     selected_item = buffer_size->GetSelection();
     if( selected_item != wxNOT_FOUND )
     {
-        int _buffer_size = ( int ) buffer_size->GetClientData( selected_item );
+        int _buffer_size = ( long ) buffer_size->GetClientData( selected_item );
         config->Write( mAPreferencesBufferSize, _buffer_size );
         ma->set_buffer_size( _buffer_size );
     }
@@ -1097,7 +1099,7 @@ void mAPreferencesWindow::LoadGUIToMiniAudicleAndPreferences()
     for( std::vector< ChuGinPath >::iterator icps = chugin_paths.begin();
          icps != chugin_paths.end(); icps++ )
     {
-        library_paths.push_back( std::string( (*icps).path.c_str() ) );
+        library_paths.push_back( std::string( (*icps).path.mb_str(wxConvUTF8) ) );
     }
     ma->set_library_paths( library_paths );
 }
