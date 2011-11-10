@@ -2184,6 +2184,7 @@
 					__MACOSX_CORE__,
 					__CK_DEBUG__,
 				);
+				GCC_VERSION = "";
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				HEADER_SEARCH_PATHS = chuck;
 				INFOPLIST_FILE = macosx/Info.plist;
@@ -2220,6 +2221,7 @@
 					__MACOSX_CORE__,
 					GCC_FAST_OBJC_DISPATCH_i386,
 				);
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = chuck;
 				INFOPLIST_FILE = macosx/Info.plist;
 				INSTALL_PATH = /Applications;

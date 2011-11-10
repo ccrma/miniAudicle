@@ -43,8 +43,8 @@ extern const char MA_VERSION[];
 extern const char CK_VERSION[];
 extern const char MA_ABOUT[];
 
-const NSString * mAVirtualMachineDidTurnOnNotification = @"VirtualMachineDidTurnOnNotification";
-const NSString * mAVirtualMachineDidTurnOffNotification = @"VirtualMachineDidTurnOnNotification";
+NSString * const mAVirtualMachineDidTurnOnNotification = @"VirtualMachineDidTurnOnNotification";
+NSString * const mAVirtualMachineDidTurnOffNotification = @"VirtualMachineDidTurnOnNotification";
 
 @interface miniAudicleController (Private)
 - (void)adjustChucKMenuItems;
