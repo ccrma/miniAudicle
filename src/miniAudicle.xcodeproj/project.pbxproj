@@ -19,7 +19,6 @@
 		09297A180B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
 		093D84E10B7A99F200E55E71 /* RBSplitSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = 093D84DE0B7A99F200E55E71 /* RBSplitSubview.m */; };
 		093D84E20B7A99F200E55E71 /* RBSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 093D84E00B7A99F200E55E71 /* RBSplitView.m */; };
-		093D88130B7C320300E55E71 /* Thumb9.png in Resources */ = {isa = PBXBuildFile; fileRef = 093D88120B7C320300E55E71 /* Thumb9.png */; };
 		093ECDBF13B5781100B645F0 /* libwx_baseud-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDBE13B5781100B645F0 /* libwx_baseud-2.8.dylib */; };
 		093ECDC113B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDC013B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib */; };
 		093ECDC313B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDC213B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib */; };
@@ -283,7 +282,6 @@
 		093D84DF0B7A99F200E55E71 /* RBSplitView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RBSplitView.h; path = macosx/RBSplitView.h; sourceTree = SOURCE_ROOT; };
 		093D84E00B7A99F200E55E71 /* RBSplitView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = RBSplitView.m; path = macosx/RBSplitView.m; sourceTree = SOURCE_ROOT; };
 		093D84E80B7A9A6000E55E71 /* RBSplitViewPrivateDefines.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RBSplitViewPrivateDefines.h; path = macosx/RBSplitViewPrivateDefines.h; sourceTree = SOURCE_ROOT; };
-		093D88120B7C320300E55E71 /* Thumb9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Thumb9.png; path = macosx/icon/Thumb9.png; sourceTree = SOURCE_ROOT; };
 		093ECDBE13B5781100B645F0 /* libwx_baseud-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_baseud-2.8.dylib"; path = "/opt/local/lib/libwx_baseud-2.8.dylib"; sourceTree = "<absolute>"; };
 		093ECDC013B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_gtk2ud_core-2.8.dylib"; path = "/opt/local/lib/libwx_gtk2ud_core-2.8.dylib"; sourceTree = "<absolute>"; };
 		093ECDC213B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_gtk2ud_stc-2.8.dylib"; path = "/opt/local/lib/libwx_gtk2ud_stc-2.8.dylib"; sourceTree = "<absolute>"; };
@@ -1683,7 +1681,6 @@
 				09F376E90BBC97D6005931F6 /* remove.png */,
 				09F376EA0BBC97D6005931F6 /* add.png */,
 				09AF2D1E0BA63F5900B18EC6 /* lock.png */,
-				093D88120B7C320300E55E71 /* Thumb9.png */,
 				09E482AE0B1CF16F002087DF /* add.xpm */,
 				09E482AF0B1CF16F002087DF /* miniAudicle.xpm */,
 				09E482B00B1CF16F002087DF /* remove.xpm */,
@@ -1803,7 +1800,6 @@
 				09A40C700A9A57FA007604EA /* ck.icns in Resources */,
 				09A40C710A9A57FA007604EA /* led-blue.png in Resources */,
 				09A40C720A9A57FA007604EA /* miniAudicle.icns in Resources */,
-				093D88130B7C320300E55E71 /* Thumb9.png in Resources */,
 				09AF2D1F0BA63F5900B18EC6 /* lock.png in Resources */,
 				09F376EB0BBC97D6005931F6 /* removelast.png in Resources */,
 				09F376EC0BBC97D6005931F6 /* removeall.png in Resources */,
