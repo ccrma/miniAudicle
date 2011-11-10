@@ -43,8 +43,8 @@ class miniAudicle;
 @class IDEKit_LexParser;
 @class miniAudicleDocument;
 
-extern const NSString * mAVirtualMachineDidTurnOnNotification;
-extern const NSString * mAVirtualMachineDidTurnOffNotification;
+extern NSString * const mAVirtualMachineDidTurnOnNotification;
+extern NSString * const mAVirtualMachineDidTurnOffNotification;
 
 @interface miniAudicleController : NSDocumentController
 {

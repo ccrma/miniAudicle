@@ -39,7 +39,7 @@ class miniAudicle;
 @class RBSplitSubview;
 @class mAArgumentsTableView;
 
-@interface miniAudicleDocument : NSDocument 
+@interface miniAudicleDocument : NSDocument <NSToolbarDelegate>
 {
     IBOutlet NSWindow * window;
     IBOutlet NumberedTextView * text_view;

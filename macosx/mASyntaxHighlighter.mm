@@ -34,8 +34,8 @@ U.S.A.
 #import "Cocoa/Cocoa.h"
 #import "mASyntaxHighlighter.h"
 
-static const NSString * mALexerStateAttributeName = @"mALexerStateAttribute";
-static const NSString * mAUserStyledAttributeName = @"mAUserStyledAttribute";
+static NSString * const mALexerStateAttributeName = @"mALexerStateAttribute";
+static const NSString * const mAUserStyledAttributeName = @"mAUserStyledAttribute";
 
 static mASyntaxDefinition * g_master_definition;
 

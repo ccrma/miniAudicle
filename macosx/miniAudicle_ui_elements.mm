@@ -950,10 +950,10 @@ void Button::button_changed()
 
 } /* namespace UI */
 
-const static NSString * off_image_name = @"led-off.png";
-const static NSString * red_image_name = @"led-red.png";
-const static NSString * green_image_name = @"led-green.png";
-const static NSString * blue_image_name = @"led-blue.png";
+static NSString * const off_image_name = @"led-off.png";
+static NSString * const red_image_name = @"led-red.png";
+static NSString * const green_image_name = @"led-green.png";
+static NSString * const blue_image_name = @"led-blue.png";
 
 @interface mAUILED : mAUIElement
 {

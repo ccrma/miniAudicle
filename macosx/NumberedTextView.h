@@ -59,7 +59,7 @@ U.S.A.
 
 @class IDEKit_LexParser;
 
-@interface NumberedTextView : NSView
+@interface NumberedTextView : NSView < NSTextStorageDelegate, NSTextViewDelegate >
 {
     BOOL drawNumbersInMargin;
     BOOL drawLineNumbers;
