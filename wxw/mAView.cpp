@@ -125,8 +125,20 @@ void mAChuckWindow::OnModify( wxStyledTextEvent & event )
 
 IMPLEMENT_DYNAMIC_CLASS( mAChuckView, wxView )
 
+void mAChuckView::OnActivateView(bool activate, wxView *activeView, wxView *deactiveView)
+{
+    //window->SetFocus();
+    fprintf(stderr, "mAChuckView::OnActivateView %ls\n", GetDocument()->GetTitle().c_str());
+    if( !activate )
+    {
+        ((wxDocMDIParentFrame *) frame->GetParent())->ActivatePrevious();
+    }
+}
+
 bool mAChuckView::OnCreate( wxDocument * doc, long WXUNUSED( flags ) )
 {
+    fprintf(stderr, "mAChuckView::OnCreate %ls\n", doc->GetTitle().c_str());
+    
     frame = wxGetApp().CreateChildFrame( doc, this );
     
 //  wxConfigBase * config = wxConfigBase::Get();
@@ -251,8 +263,9 @@ bool mAChuckView::OnCreate( wxDocument * doc, long WXUNUSED( flags ) )
     is_modified = false;
     
     frame->Show( true );
+    frame->Raise();
     Activate( true );
-    window->SetFocus();
+    //window->SetFocus();
     
     return true;
 }
@@ -508,6 +521,13 @@ mADocMDIChildFrame::mADocMDIChildFrame( wxDocument * doc, wxView * view,
     : wxDocMDIChildFrame( doc, view, parent, id, title, pos, size, style, name )
 {
     m_menuid = -1;
+}
+
+void mADocMDIChildFrame::OnActivate(wxActivateEvent event)
+{
+    wxDocMDIChildFrame::OnActivate(event);
+    ((mAChuckView *) GetView())->window->SetFocus();
+    ((mAChuckView *) GetView())->Activate(true);
 }
 
 void mADocMDIChildFrame::RegisterWithWindowMenu()
