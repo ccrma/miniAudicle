@@ -476,16 +476,16 @@ mAPreferencesWindow::mAPreferencesWindow( miniAudicle * ma,
     
     chugin_grid = new wxListCtrl(chugin_page, mAID_PREFS_CHUGIN_GRID, 
         wxDefaultPosition, wxDefaultSize, 
-        wxLC_REPORT | wxLC_NO_HEADER | wxLC_HRULES | wxLC_EDIT_LABELS );
-    chugin_grid->InsertColumn( 0, _T("chugin"), wxLIST_FORMAT_LEFT, 268 );
+        wxLC_REPORT | wxLC_NO_HEADER | wxLC_HRULES | wxLC_EDIT_LABELS | wxSUNKEN_BORDER  );
+    chugin_grid->InsertColumn( 0, _T("chugin"), wxLIST_FORMAT_LEFT, 238 );
 
-    chugin_page_sizer->Add(chugin_grid, 1, 
+    chugin_page_sizer->Add(chugin_grid, 2, 
         wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 10);
 
     chugin_page->SetSizer(chugin_page_sizer);
     chugin_page->Fit();
 
-    chugin_grid->SetMaxSize( chugin_grid->GetSize() );
+//    chugin_grid->SetMaxSize( chugin_grid->GetSize() );
 
     Connect( mAID_PREFS_CHUGIN_GRID, wxEVT_COMMAND_LIST_END_LABEL_EDIT,
         wxListEventHandler( mAPreferencesWindow::OnChuGinGridChange ) );
@@ -873,14 +873,22 @@ void mAPreferencesWindow::OnChuGinGridChange( wxListEvent & event )
 void mAPreferencesWindow::OnChuGinGridKeyDown( wxListEvent & event )
 {
     int keycode = event.GetKeyCode();
-    if( chugin_grid->GetSelectedItemCount() > 0 && 
+    if( chugin_grid->GetSelectedItemCount() > 0 &&
         ( keycode == WXK_DELETE || keycode == WXK_BACK || keycode == WXK_NUMPAD_DELETE ) )
     {
         long item = 0;
         while( ( item = chugin_grid->GetNextItem( item-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED ) ) != -1 )
         {
-            chugin_grid->DeleteItem( item );
-            chugin_paths.erase( chugin_paths.begin() + item );
+            // the last item is the designated "add new item"
+            if( item != chugin_grid->GetItemCount() - 1 )
+            {
+                chugin_grid->DeleteItem( item );
+                chugin_paths.erase( chugin_paths.begin() + item );
+            }
+            else
+            {
+                item += 1;
+            }
         }
     }
     else
@@ -966,7 +974,7 @@ void mAPreferencesWindow::LoadPreferencesToGUI()
     DeserializeChuGinPaths( str, chugin_paths );
 
     len = chugin_paths.size();
-    int num_rows = chugin_grid->GetItemCount();
+    //int num_rows = chugin_grid->GetItemCount();
 
     while( len + 1 > chugin_grid->GetItemCount() )
         chugin_grid->InsertItem( chugin_grid->GetItemCount(), _T("") );
