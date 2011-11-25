@@ -12,3 +12,9 @@ mAMainWindow::~mAMainWindow()
 {
     delete ui;
 }
+
+
+void mAMainWindow::doExit()
+{
+    qApp->exit(0);
+}

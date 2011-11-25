@@ -11,17 +11,24 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>mAMainWindow</string>
+   <string>miniAudicle</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="miniAudicle.qrc">
+    <normaloff>:/icon/miniAudicle.png</normaloff>:/icon/miniAudicle.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>3</x>
-      <y>9</y>
-      <width>601</width>
-      <height>591</height>
+      <x>0</x>
+      <y>0</y>
+      <width>611</width>
+      <height>631</height>
      </rect>
+    </property>
+    <property name="currentIndex">
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -49,36 +56,470 @@
      <string>File</string>
     </property>
     <addaction name="actionNew"/>
+    <addaction name="actionOpen"/>
+    <addaction name="actionClose"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSave_As"/>
+    <addaction name="separator"/>
+    <addaction name="actionRecent_Files"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
+    <addaction name="separator"/>
+    <addaction name="actionCut"/>
+    <addaction name="actionCopy"/>
+    <addaction name="actionPaste"/>
+    <addaction name="separator"/>
+    <addaction name="actionSelect_All"/>
+    <addaction name="separator"/>
+    <addaction name="actionPreferences"/>
+   </widget>
+   <widget class="QMenu" name="menuChucK">
+    <property name="title">
+     <string>ChucK</string>
+    </property>
+    <widget class="QMenu" name="menuLog_Level">
+     <property name="title">
+      <string>Log Level</string>
+     </property>
+     <addaction name="actionNone"/>
+     <addaction name="actionCore"/>
+     <addaction name="actionSystem"/>
+     <addaction name="actionSevere"/>
+     <addaction name="actionWarning"/>
+     <addaction name="actionInfo"/>
+     <addaction name="actionConfig"/>
+     <addaction name="actionFine"/>
+     <addaction name="actionFiner"/>
+     <addaction name="actionFinest"/>
+     <addaction name="actionCrazy"/>
+    </widget>
+    <addaction name="actionAdd_Shred"/>
+    <addaction name="actionReplace_Shred"/>
+    <addaction name="actionRemove_Shred"/>
+    <addaction name="separator"/>
+    <addaction name="actionAdd_All_Open_Documents"/>
+    <addaction name="actionReplace_All_Open_Documents"/>
+    <addaction name="actionRemove_All_Open_Documents"/>
+    <addaction name="separator"/>
+    <addaction name="actionRemove_Last_Shred"/>
+    <addaction name="actionRemove_All_Shreds"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbort_Currently_Running_Shred"/>
+    <addaction name="separator"/>
+    <addaction name="actionStart_Virtual_Machine"/>
+    <addaction name="menuLog_Level"/>
+   </widget>
+   <widget class="QMenu" name="menuWindow">
+    <property name="title">
+     <string>Window</string>
+    </property>
+    <addaction name="actionConsole_Monitor"/>
+    <addaction name="actionVirtual_Machine_Monitor"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionMiniAudicle_website"/>
+    <addaction name="actionChucK_website"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbout_miniAudicle"/>
    </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuChucK"/>
+   <addaction name="menuWindow"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextUnderIcon</enum>
+   </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionAdd_Shred"/>
+   <addaction name="actionReplace_Shred"/>
+   <addaction name="actionRemove_Shred"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionExit">
-   <property name="text">
-    <string>Exit</string>
-   </property>
-   <property name="shortcut">
-    <string>Alt+X</string>
-   </property>
-  </action>
   <action name="actionNew">
    <property name="text">
-    <string>New...</string>
+    <string>New</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
    </property>
   </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open...</string>
+   </property>
+   <property name="toolTip">
+    <string>Open...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="text">
+    <string>Close</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionSave_As">
+   <property name="text">
+    <string>Save As...</string>
+   </property>
+   <property name="toolTip">
+    <string>Save As...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="actionRecent_Files">
+   <property name="text">
+    <string>Recent Files</string>
+   </property>
+  </action>
+  <action name="actionCut">
+   <property name="text">
+    <string>Cut</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionCopy">
+   <property name="text">
+    <string>Copy</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="text">
+    <string>Undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="text">
+    <string>Redo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Z</string>
+   </property>
+  </action>
+  <action name="actionPaste">
+   <property name="text">
+    <string>Paste</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
+  </action>
+  <action name="actionSelect_All">
+   <property name="text">
+    <string>Select All</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="actionPreferences">
+   <property name="text">
+    <string>Preferences...</string>
+   </property>
+   <property name="toolTip">
+    <string>Preferences...</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+,</string>
+   </property>
+  </action>
+  <action name="actionAdd_Shred">
+   <property name="icon">
+    <iconset>
+     <normalon>:/icon/add.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Add Shred</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt++</string>
+   </property>
+  </action>
+  <action name="actionReplace_Shred">
+   <property name="icon">
+    <iconset resource="miniAudicle.qrc">
+     <normaloff>:/icon/replace.png</normaloff>:/icon/replace.png</iconset>
+   </property>
+   <property name="text">
+    <string>Replace Shred</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+=</string>
+   </property>
+  </action>
+  <action name="actionRemove_Shred">
+   <property name="icon">
+    <iconset resource="miniAudicle.qrc">
+     <normaloff>:/icon/remove.png</normaloff>:/icon/remove.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove Shred</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+-</string>
+   </property>
+  </action>
+  <action name="actionAdd_All_Open_Documents">
+   <property name="text">
+    <string>Add All Open Documents</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+Shift+=</string>
+   </property>
+  </action>
+  <action name="actionReplace_All_Open_Documents">
+   <property name="text">
+    <string>Replace All Open Documents</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+=</string>
+   </property>
+  </action>
+  <action name="actionRemove_All_Open_Documents">
+   <property name="text">
+    <string>Remove All Open Documents</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+-</string>
+   </property>
+  </action>
+  <action name="actionRemove_All_Shreds">
+   <property name="icon">
+    <iconset resource="miniAudicle.qrc">
+     <normaloff>:/icon/removeall.png</normaloff>:/icon/removeall.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove All Shreds</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Del</string>
+   </property>
+  </action>
+  <action name="actionRemove_Last_Shred">
+   <property name="icon">
+    <iconset resource="miniAudicle.qrc">
+     <normaloff>:/icon/removelast.png</normaloff>:/icon/removelast.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove Last Shred</string>
+   </property>
+  </action>
+  <action name="actionStart_Virtual_Machine">
+   <property name="text">
+    <string>Start Virtual Machine</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+.</string>
+   </property>
+  </action>
+  <action name="actionAbort_Currently_Running_Shred">
+   <property name="text">
+    <string>Abort Currently Running Shred</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+K</string>
+   </property>
+  </action>
+  <action name="actionVirtual_Machine_Monitor">
+   <property name="text">
+    <string>Virtual Machine Monitor</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+1</string>
+   </property>
+  </action>
+  <action name="actionConsole_Monitor">
+   <property name="text">
+    <string>Console Monitor</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+0</string>
+   </property>
+  </action>
+  <action name="actionMiniAudicle_website">
+   <property name="text">
+    <string>miniAudicle website...</string>
+   </property>
+   <property name="toolTip">
+    <string>miniAudicle website...</string>
+   </property>
+  </action>
+  <action name="actionChucK_website">
+   <property name="text">
+    <string>ChucK website...</string>
+   </property>
+   <property name="toolTip">
+    <string>ChucK website...</string>
+   </property>
+  </action>
+  <action name="actionAbout_miniAudicle">
+   <property name="text">
+    <string>About miniAudicle</string>
+   </property>
+  </action>
+  <action name="actionNone">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>None</string>
+   </property>
+  </action>
+  <action name="actionCore">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Core</string>
+   </property>
+  </action>
+  <action name="actionSystem">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>System</string>
+   </property>
+  </action>
+  <action name="actionSevere">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Severe</string>
+   </property>
+  </action>
+  <action name="actionWarning">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Warning</string>
+   </property>
+  </action>
+  <action name="actionInfo">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Info</string>
+   </property>
+  </action>
+  <action name="actionConfig">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Config</string>
+   </property>
+  </action>
+  <action name="actionFine">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Fine</string>
+   </property>
+  </action>
+  <action name="actionFiner">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Finer</string>
+   </property>
+  </action>
+  <action name="actionFinest">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Finest</string>
+   </property>
+  </action>
+  <action name="actionCrazy">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Crazy</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
- <connections/>
+ <resources>
+  <include location="miniAudicle.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>doExit()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>305</x>
+     <y>327</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>doExit()</slot>
+ </slots>
 </ui>

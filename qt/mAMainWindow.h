@@ -15,6 +15,9 @@ public:
     explicit mAMainWindow(QWidget *parent = 0);
     ~mAMainWindow();
 
+public slots:
+    void doExit();
+
 private:
     Ui::mAMainWindow *ui;
 };

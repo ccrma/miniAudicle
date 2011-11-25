@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icon/miniAudicle.png</file>
+        <file>icon/add.png</file>
+        <file>icon/remove.png</file>
+        <file>icon/removeall.png</file>
+        <file>icon/removelast.png</file>
+        <file>icon/replace.png</file>
+    </qresource>
+</RCC>
