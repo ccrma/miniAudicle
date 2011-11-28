@@ -2,6 +2,10 @@
 #define MAMAINWINDOW_H
 
 #include <QMainWindow>
+#include <Qsci/qsciscintilla.h>
+#include <vector>
+
+#include "madocumentview.h"
 
 namespace Ui {
     class mAMainWindow;
@@ -16,9 +20,16 @@ public:
     ~mAMainWindow();
 
 public slots:
-    void doExit();
+
+    void exit();
+
+    void openFile();
+    void newFile();
+    void closeFile();
 
 private:
+
+    std::vector<mADocumentView *> documents;
     Ui::mAMainWindow *ui;
 };
 

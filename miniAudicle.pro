@@ -17,6 +17,8 @@ RCC_DIR = build
 UI_DIR = build
 OBJECTS_DIR = build
 
+LIBS += -lqscintilla2
+
 macx {
 CFLAGS = -D__MACOSX_CORE__ -m32 -O3 -I../qt/chuck
 QMAKE_CXXFLAGS += $$CFLAGS
@@ -84,7 +86,8 @@ SOURCES += \
     chuck/chuck_compile.cpp \
     chuck/chuck_bbq.cpp \
     chuck/chuck_absyn.cpp \
-    chuck/RtAudio/RtAudio.cpp
+    chuck/RtAudio/RtAudio.cpp \
+    qt/madocumentview.cpp
 
 macx {
     SOURCES += chuck/util_sndfile.c
@@ -146,10 +149,12 @@ HEADERS  += qt/mAMainWindow.h \
     chuck/chuck_bbq.h \
     chuck/chuck_absyn.h \
     chuck/RtAudio/RtError.h \
-    chuck/RtAudio/RtAudio.h
+    chuck/RtAudio/RtAudio.h \
+    qt/madocumentview.h
 
 FORMS += \
-    qt/mAMainWindow.ui
+    qt/mAMainWindow.ui \
+    qt/madocumentview.ui
 
 FLEXSOURCES = chuck/chuck.lex
 BISONSOURCES = chuck/chuck.y
@@ -187,6 +192,9 @@ OTHER_FILES += \
     qt/icon/replace.png \
     qt/icon/removelast.png \
     qt/icon/removeall.png
+
+
+
 
 
 

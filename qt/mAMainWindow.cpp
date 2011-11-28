@@ -6,6 +6,8 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     ui(new Ui::mAMainWindow)
 {
     ui->setupUi(this);
+
+    newFile();
 }
 
 mAMainWindow::~mAMainWindow()
@@ -14,7 +16,25 @@ mAMainWindow::~mAMainWindow()
 }
 
 
-void mAMainWindow::doExit()
+void mAMainWindow::exit()
 {
     qApp->exit(0);
+}
+
+void mAMainWindow::newFile()
+{
+    mADocumentView * documentView = new mADocumentView;
+    documents.push_back(documentView);
+    ui->tabWidget->addTab(documentView, QIcon(), "untitled");
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);
+}
+
+void mAMainWindow::openFile()
+{
+
+}
+
+void mAMainWindow::closeFile()
+{
+
 }
