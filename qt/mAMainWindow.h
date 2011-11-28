@@ -2,7 +2,7 @@
 #define MAMAINWINDOW_H
 
 #include <QMainWindow>
-#include <Qsci/qsciscintilla.h>
+
 #include <vector>
 
 #include "madocumentview.h"
@@ -26,6 +26,7 @@ public slots:
     void openFile();
     void newFile();
     void closeFile();
+    void closeFile(int i);
 
 private:
 

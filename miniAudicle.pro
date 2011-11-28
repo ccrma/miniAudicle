@@ -17,10 +17,12 @@ RCC_DIR = build
 UI_DIR = build
 OBJECTS_DIR = build
 
+PRECOMPILED_HEADER = qt/miniAudicle_pc.h
+
 LIBS += -lqscintilla2
 
 macx {
-CFLAGS = -D__MACOSX_CORE__ -m32 -O3 -I../qt/chuck
+CFLAGS = -D__MACOSX_CORE__ -m32 -I../qt/chuck
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LIBS += -framework Cocoa -framework CoreAudio -framework CoreMIDI \
@@ -150,7 +152,8 @@ HEADERS  += qt/mAMainWindow.h \
     chuck/chuck_absyn.h \
     chuck/RtAudio/RtError.h \
     chuck/RtAudio/RtAudio.h \
-    qt/madocumentview.h
+    qt/madocumentview.h \
+    qt/miniAudicle_pc.h
 
 FORMS += \
     qt/mAMainWindow.ui \
@@ -192,6 +195,9 @@ OTHER_FILES += \
     qt/icon/replace.png \
     qt/icon/removelast.png \
     qt/icon/removeall.png
+
+
+
 
 
 

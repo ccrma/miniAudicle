@@ -12,8 +12,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>100</width>
-    <height>100</height>
+    <width>300</width>
+    <height>300</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -564,11 +564,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>tabWidget</sender>
+   <signal>tabCloseRequested(int)</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>closeFile(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>304</x>
+     <y>383</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>304</x>
+     <y>352</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>exit()</slot>
   <slot>openFile()</slot>
   <slot>newFile()</slot>
   <slot>closeFile()</slot>
+  <slot>closeFile(int)</slot>
  </slots>
 </ui>
