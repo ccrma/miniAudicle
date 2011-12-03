@@ -34,7 +34,7 @@ void mAMainWindow::newFile()
     ui->tabWidget->addTab(documentView, QIcon(), "untitled");
     ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);
 
-    documentView->setFocus();
+    documentView->show();
 }
 
 void mAMainWindow::openFile()

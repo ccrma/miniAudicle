@@ -69,6 +69,11 @@ void mADocumentView::setTabWidget(QTabWidget * _tabWidget)
         tabWidget->setTabText(tabWidget->indexOf(this), QString(title.c_str()));
 }
 
+void mADocumentView::showEvent( QShowEvent * event )
+{
+    ui->textEdit->setFocus();
+}
+
 bool mADocumentView::isDocumentModified()
 {
     return ui->textEdit->isModified();
