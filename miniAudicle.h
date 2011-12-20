@@ -35,7 +35,9 @@ U.S.A.
 
 #include "chuck_compile.h"
 #include "util_thread.h"
+#ifndef __CHIP_MODE__
 #include "RtAudio/RtAudio.h"
+#endif // __CHIP_MODE__
 
 #include <map>
 #include <string>
@@ -116,7 +118,9 @@ public:
                              miniAudicle_SyntaxHighlighting * sh );
 
     t_CKBOOL probe();
+#ifndef __CHIP_MODE__
     const vector< RtAudio::DeviceInfo > & get_interfaces();
+#endif // __CHIP_MODE__
 
     int get_log_level();
     t_CKBOOL set_log_level( int l );
@@ -176,9 +180,11 @@ protected:
     size_t num_status_bufs;
     size_t status_bufs_read, status_bufs_write;
     
+#ifndef __CHIP_MODE__
     vector< RtAudio::DeviceInfo > interfaces;
     vector< RtAudio::DeviceInfo >::size_type default_input;
     vector< RtAudio::DeviceInfo >::size_type default_output;
+#endif // __CHIP_MODE__
     
     map< string, t_CKINT > * class_names;
 
