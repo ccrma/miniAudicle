@@ -9,8 +9,11 @@
 #import "mAAppDelegate.h"
 
 #import "mAMasterViewController.h"
-
 #import "mADetailViewController.h"
+
+#import "mAChucKController.h"
+#import "miniAudicle.h"
+
 
 @implementation mAAppDelegate
 
@@ -20,6 +23,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [mAChucKController chuckController].ma->start_vm();
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -38,8 +43,11 @@
         self.splitViewController.viewControllers = [NSArray arrayWithObjects:masterNavigationController, detailNavigationController, nil];
         
         self.window.rootViewController = self.splitViewController;
+        
+        [detailViewController newItem];
     }
-    [self.window makeKeyAndVisible];
+    [self.window makeKeyAndVisible];    
+    
     return YES;
 }
 

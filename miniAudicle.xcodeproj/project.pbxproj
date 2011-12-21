@@ -24,9 +24,9 @@
 		093E261814A108C8008694BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261714A108C8008694BC /* CoreGraphics.framework */; };
 		093E261E14A108C8008694BC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 093E261C14A108C8008694BC /* InfoPlist.strings */; };
 		093E262014A108C8008694BC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 093E261F14A108C8008694BC /* main.m */; };
-		093E262414A108C8008694BC /* mAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 093E262314A108C8008694BC /* mAAppDelegate.m */; };
-		093E262714A108C8008694BC /* mAMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 093E262614A108C8008694BC /* mAMasterViewController.m */; };
-		093E262A14A108C8008694BC /* mADetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 093E262914A108C8008694BC /* mADetailViewController.m */; };
+		093E262414A108C8008694BC /* mAAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E262314A108C8008694BC /* mAAppDelegate.mm */; };
+		093E262714A108C8008694BC /* mAMasterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E262614A108C8008694BC /* mAMasterViewController.mm */; };
+		093E262A14A108C8008694BC /* mADetailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E262914A108C8008694BC /* mADetailViewController.mm */; };
 		093E262D14A108C8008694BC /* mAMasterViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E262B14A108C8008694BC /* mAMasterViewController_iPhone.xib */; };
 		093E263014A108C8008694BC /* mAMasterViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E262E14A108C8008694BC /* mAMasterViewController_iPad.xib */; };
 		093E263314A108C9008694BC /* mADetailViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E263114A108C8008694BC /* mADetailViewController_iPhone.xib */; };
@@ -86,6 +86,11 @@
 		093E267414A12A69008694BC /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E267314A12A69008694BC /* CoreAudio.framework */; };
 		093E267614A12A89008694BC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E267514A12A89008694BC /* AudioToolbox.framework */; };
 		093E267814A12E3C008694BC /* mo_audio.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E267714A12E3B008694BC /* mo_audio.mm */; };
+		093E267914A14E91008694BC /* replace.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E80BBC97D6005931F6 /* replace.png */; };
+		093E267A14A14E91008694BC /* remove.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E90BBC97D6005931F6 /* remove.png */; };
+		093E267B14A14E91008694BC /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376EA0BBC97D6005931F6 /* add.png */; };
+		093E267C14A14E91008694BC /* miniAudicle.icns in Resources */ = {isa = PBXBuildFile; fileRef = 09A40C670A9A57FA007604EA /* miniAudicle.icns */; };
+		093E267F14A1B3B3008694BC /* mAChucKController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E267E14A1B3B2008694BC /* mAChucKController.mm */; };
 		093ECDBF13B5781100B645F0 /* libwx_baseud-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDBE13B5781100B645F0 /* libwx_baseud-2.8.dylib */; };
 		093ECDC113B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDC013B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib */; };
 		093ECDC313B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDC213B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib */; };
@@ -358,11 +363,11 @@
 		093E261F14A108C8008694BC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		093E262114A108C8008694BC /* miniAudicle iOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "miniAudicle iOS-Prefix.pch"; sourceTree = "<group>"; };
 		093E262214A108C8008694BC /* mAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mAAppDelegate.h; sourceTree = "<group>"; };
-		093E262314A108C8008694BC /* mAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mAAppDelegate.m; sourceTree = "<group>"; };
+		093E262314A108C8008694BC /* mAAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = mAAppDelegate.mm; sourceTree = "<group>"; };
 		093E262514A108C8008694BC /* mAMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mAMasterViewController.h; sourceTree = "<group>"; };
-		093E262614A108C8008694BC /* mAMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mAMasterViewController.m; sourceTree = "<group>"; };
+		093E262614A108C8008694BC /* mAMasterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = mAMasterViewController.mm; sourceTree = "<group>"; };
 		093E262814A108C8008694BC /* mADetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mADetailViewController.h; sourceTree = "<group>"; };
-		093E262914A108C8008694BC /* mADetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mADetailViewController.m; sourceTree = "<group>"; };
+		093E262914A108C8008694BC /* mADetailViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = mADetailViewController.mm; sourceTree = "<group>"; };
 		093E262C14A108C8008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/mAMasterViewController_iPhone.xib; sourceTree = "<group>"; };
 		093E262F14A108C8008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/mAMasterViewController_iPad.xib; sourceTree = "<group>"; };
 		093E263214A108C9008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/mADetailViewController_iPhone.xib; sourceTree = "<group>"; };
@@ -370,6 +375,8 @@
 		093E267314A12A69008694BC /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
 		093E267514A12A89008694BC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
 		093E267714A12E3B008694BC /* mo_audio.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mo_audio.mm; path = momu/mo_audio.mm; sourceTree = "<group>"; };
+		093E267D14A1B3B2008694BC /* mAChucKController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAChucKController.h; sourceTree = "<group>"; };
+		093E267E14A1B3B2008694BC /* mAChucKController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAChucKController.mm; sourceTree = "<group>"; };
 		093ECDBE13B5781100B645F0 /* libwx_baseud-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_baseud-2.8.dylib"; path = "/opt/local/lib/libwx_baseud-2.8.dylib"; sourceTree = "<absolute>"; };
 		093ECDC013B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_gtk2ud_core-2.8.dylib"; path = "/opt/local/lib/libwx_gtk2ud_core-2.8.dylib"; sourceTree = "<absolute>"; };
 		093ECDC213B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_gtk2ud_stc-2.8.dylib"; path = "/opt/local/lib/libwx_gtk2ud_stc-2.8.dylib"; sourceTree = "<absolute>"; };
@@ -969,17 +976,19 @@
 		093E261914A108C8008694BC /* miniAudicle iOS */ = {
 			isa = PBXGroup;
 			children = (
-				093E262214A108C8008694BC /* mAAppDelegate.h */,
-				093E262314A108C8008694BC /* mAAppDelegate.m */,
-				093E262514A108C8008694BC /* mAMasterViewController.h */,
-				093E262614A108C8008694BC /* mAMasterViewController.m */,
-				093E262814A108C8008694BC /* mADetailViewController.h */,
-				093E262914A108C8008694BC /* mADetailViewController.m */,
+				093E261A14A108C8008694BC /* Supporting Files */,
 				093E262B14A108C8008694BC /* mAMasterViewController_iPhone.xib */,
 				093E262E14A108C8008694BC /* mAMasterViewController_iPad.xib */,
 				093E263114A108C8008694BC /* mADetailViewController_iPhone.xib */,
 				093E263414A108C9008694BC /* mADetailViewController_iPad.xib */,
-				093E261A14A108C8008694BC /* Supporting Files */,
+				093E262214A108C8008694BC /* mAAppDelegate.h */,
+				093E262314A108C8008694BC /* mAAppDelegate.mm */,
+				093E262514A108C8008694BC /* mAMasterViewController.h */,
+				093E262614A108C8008694BC /* mAMasterViewController.mm */,
+				093E262814A108C8008694BC /* mADetailViewController.h */,
+				093E262914A108C8008694BC /* mADetailViewController.mm */,
+				093E267D14A1B3B2008694BC /* mAChucKController.h */,
+				093E267E14A1B3B2008694BC /* mAChucKController.mm */,
 			);
 			name = "miniAudicle iOS";
 			path = ios;
@@ -1958,6 +1967,10 @@
 				093E263014A108C8008694BC /* mAMasterViewController_iPad.xib in Resources */,
 				093E263314A108C9008694BC /* mADetailViewController_iPhone.xib in Resources */,
 				093E263614A108C9008694BC /* mADetailViewController_iPad.xib in Resources */,
+				093E267914A14E91008694BC /* replace.png in Resources */,
+				093E267A14A14E91008694BC /* remove.png in Resources */,
+				093E267B14A14E91008694BC /* add.png in Resources */,
+				093E267C14A14E91008694BC /* miniAudicle.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1994,9 +2007,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				093E262014A108C8008694BC /* main.m in Sources */,
-				093E262414A108C8008694BC /* mAAppDelegate.m in Sources */,
-				093E262714A108C8008694BC /* mAMasterViewController.m in Sources */,
-				093E262A14A108C8008694BC /* mADetailViewController.m in Sources */,
+				093E262414A108C8008694BC /* mAAppDelegate.mm in Sources */,
+				093E262714A108C8008694BC /* mAMasterViewController.mm in Sources */,
+				093E262A14A108C8008694BC /* mADetailViewController.mm in Sources */,
 				093E263B14A12201008694BC /* uana_extract.cpp in Sources */,
 				093E263C14A12201008694BC /* uana_xform.cpp in Sources */,
 				093E263D14A12201008694BC /* chuck_absyn.cpp in Sources */,
@@ -2050,6 +2063,7 @@
 				093E266F14A12240008694BC /* miniAudicle.cpp in Sources */,
 				093E267014A12240008694BC /* miniAudicle_log.cpp in Sources */,
 				093E267814A12E3C008694BC /* mo_audio.mm in Sources */,
+				093E267F14A1B3B3008694BC /* mAChucKController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

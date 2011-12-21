@@ -7,6 +7,17 @@
 //
 
 #import "mADetailViewController.h"
+#import "mAChucKController.h"
+#import "miniAudicle.h"
+
+
+@implementation mADetailItem
+
+@synthesize text = _text;
+@synthesize docid = _docid;
+
+@end
+
 
 @interface mADetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -19,11 +30,13 @@
 @synthesize detailDescriptionLabel = _detailDescriptionLabel;
 @synthesize masterPopoverController = _masterPopoverController;
 
+
 #pragma mark - Managing the detail item
 
 - (void)setDetailItem:(id)newDetailItem
 {
-    if (_detailItem != newDetailItem) {
+    if (_detailItem != newDetailItem)
+    {
         _detailItem = newDetailItem;
         
         // Update the view.
@@ -39,8 +52,10 @@
 {
     // Update the user interface for the detail item.
 
-    if (self.detailItem) {
+    if (self.detailItem)
+    {
         self.detailDescriptionLabel.text = [self.detailItem description];
+        textView.text = self.detailItem.text;
     }
 }
 
@@ -107,18 +122,63 @@
 							
 #pragma mark - Split view
 
-- (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
+- (void)splitViewController:(UISplitViewController *)splitController 
+     willHideViewController:(UIViewController *)viewController 
+          withBarButtonItem:(UIBarButtonItem *)barButtonItem 
+       forPopoverController:(UIPopoverController *)popoverController
 {
     barButtonItem.title = NSLocalizedString(@"Master", @"Master");
     [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
     self.masterPopoverController = popoverController;
 }
 
-- (void)splitViewController:(UISplitViewController *)splitController willShowViewController:(UIViewController *)viewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+- (void)splitViewController:(UISplitViewController *)splitController 
+     willShowViewController:(UIViewController *)viewController 
+  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
     // Called when the view is shown again in the split view, invalidating the button and popover controller.
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
     self.masterPopoverController = nil;
 }
+
+
+#pragma mark miniAudicle / ChucK VM stuff
+
+- (IBAction)newItem
+{
+    mADetailItem * detailItem = [mADetailItem new];
+    
+    detailItem.text = @"";
+    detailItem.docid = [mAChucKController chuckController].ma->allocate_document_id();
+    
+    self.detailItem = detailItem;
+}
+
+
+- (IBAction)addShred
+{
+    std::string code = [textView.text UTF8String];
+    std::string name = "untitled";
+    vector<string> args;
+    t_CKUINT shred_id;
+    std::string output;
+    
+    [mAChucKController chuckController].ma->run_code(code, name, args, 
+                                                     self.detailItem.docid, 
+                                                     shred_id, output);
+}
+
+
+- (IBAction)replaceShred
+{
+    
+}
+
+
+- (IBAction)removeShred
+{
+    
+}
+
 
 @end
