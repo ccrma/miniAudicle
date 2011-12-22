@@ -825,8 +825,6 @@
 		09AC749713E36A970015CC99 /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
 		09AC749813E36A970015CC99 /* RtError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtError.h; sourceTree = "<group>"; };
 		09AF2D1E0BA63F5900B18EC6 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lock.png; path = macosx/icon/lock.png; sourceTree = SOURCE_ROOT; };
-		09BA0A050AC791A5007EB7E7 /* mAShredTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAShredTable.h; path = macosx/mAShredTable.h; sourceTree = SOURCE_ROOT; };
-		09BA0A060AC791A5007EB7E7 /* mAShredTable.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAShredTable.mm; path = macosx/mAShredTable.mm; sourceTree = SOURCE_ROOT; };
 		09CD6E200AC602BC00F5D110 /* KBPopUpToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = KBPopUpToolbarItem.h; path = macosx/KBPopUpToolbarItem.h; sourceTree = SOURCE_ROOT; };
 		09CD6E210AC602BC00F5D110 /* KBPopUpToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = KBPopUpToolbarItem.m; path = macosx/KBPopUpToolbarItem.m; sourceTree = SOURCE_ROOT; };
 		09E481F80B1CE5AF002087DF /* gauge01.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = gauge01.ck; path = ../test/gauge01.ck; sourceTree = SOURCE_ROOT; };
@@ -945,8 +943,6 @@
 				093D84E00B7A99F200E55E71 /* RBSplitView.m */,
 				096FAB840B56D56B00125FE2 /* mAConsoleMonitorView.h */,
 				096FAB850B56D56B00125FE2 /* mAConsoleMonitorView.mm */,
-				09BA0A050AC791A5007EB7E7 /* mAShredTable.h */,
-				09BA0A060AC791A5007EB7E7 /* mAShredTable.mm */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				09CD6E200AC602BC00F5D110 /* KBPopUpToolbarItem.h */,
 				09CD6E210AC602BC00F5D110 /* KBPopUpToolbarItem.m */,
@@ -2627,6 +2623,7 @@
 				093E263814A108C9008694BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		098060180AA10D6C00915136 /* Build configuration list for PBXNativeTarget "chuck" */ = {
 			isa = XCConfigurationList;

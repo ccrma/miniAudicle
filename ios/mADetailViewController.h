@@ -13,21 +13,21 @@
 
 @interface mADetailItem : NSObject
 
-@property (retain, nonatomic) NSString * text;
+@property (strong, nonatomic) NSString * title;
+@property (strong, nonatomic) NSString * text;
 @property (nonatomic) t_CKUINT docid;
 
 @end
 
 @interface mADetailViewController : UIViewController <UISplitViewControllerDelegate>
 {
-    IBOutlet UITextView * textView;
+    IBOutlet UITextView * _textView;
+    IBOutlet UINavigationItem * _titleButton;
 }
 
 @property (strong, nonatomic) mADetailItem * detailItem;
 @property (strong, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 
-
-- (IBAction)newItem;
 
 - (IBAction)addShred;
 - (IBAction)replaceShred;

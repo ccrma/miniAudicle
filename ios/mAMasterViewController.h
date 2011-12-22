@@ -10,8 +10,16 @@
 
 @class mADetailViewController;
 
-@interface mAMasterViewController : UITableViewController
+@interface mAMasterViewController : UIViewController
+{
+    IBOutlet UITableView * _tableView;
+    
+    NSMutableArray * scripts;
+    int untitledNumber;
+}
 
 @property (strong, nonatomic) mADetailViewController *detailViewController;
+
+- (IBAction)newScript;
 
 @end

@@ -9,29 +9,67 @@
 #import "mAMasterViewController.h"
 
 #import "mADetailViewController.h"
+#import "mAChucKController.h"
+#import "miniAudicle.h"
+
+
+@interface mAMasterViewController ()
+
+@property (strong, nonatomic) UITableView * tableView;
+
+@end
 
 
 @implementation mAMasterViewController
 
 @synthesize detailViewController = _detailViewController;
+@synthesize tableView = _tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.title = NSLocalizedString(@"Master", @"Master");
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            self.clearsSelectionOnViewWillAppear = NO;
+    if(self)
+    {
+        self.title = NSLocalizedString(@"Scripts", @"Scripts");
+        if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+        {
+//            self.clearsSelectionOnViewWillAppear = NO;
             self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
         }
+        
+        scripts = [NSMutableArray new];
+        untitledNumber = 1;
     }
     return self;
 }
-							
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
+}
+
+
+#pragma mark IBActions
+
+- (IBAction)newScript
+{
+    mADetailItem * detailItem = [mADetailItem new];
+    
+    detailItem.title = [NSString stringWithFormat:@"Untitled %i", untitledNumber++];
+    detailItem.text = @"";
+    detailItem.docid = [mAChucKController chuckController].ma->allocate_document_id();
+    
+    int insertIndex = 0;
+    
+    [scripts insertObject:detailItem atIndex:insertIndex];
+    [self.tableView reloadData];
+    
+    self.detailViewController.detailItem = detailItem;
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:insertIndex inSection:0] 
+                                animated:YES
+                          scrollPosition:UITableViewScrollPositionNone];
 }
 
 
@@ -94,7 +132,7 @@
 - (NSInteger)tableView:(UITableView *)tableView 
  numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return [scripts count];
 }
 
 // Customize the appearance of table view cells.
@@ -112,7 +150,8 @@
     }
 
     // Configure the cell.
-    cell.textLabel.text = NSLocalizedString(@"Detail", @"Detail");
+    int index = indexPath.row;
+    cell.textLabel.text = [[scripts objectAtIndex:index] title];
     return cell;
 }
 
@@ -161,6 +200,11 @@
 	        self.detailViewController = [[mADetailViewController alloc] initWithNibName:@"mADetailViewController_iPhone" bundle:nil];
 	    }
         [self.navigationController pushViewController:self.detailViewController animated:YES];
+    }
+    else
+    {
+        int index = indexPath.row;
+        self.detailViewController.detailItem = [scripts objectAtIndex:index];
     }
 }
 

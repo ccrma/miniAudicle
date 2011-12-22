@@ -33,19 +33,22 @@
         self.window.rootViewController = self.navigationController;
     } else {
         mAMasterViewController *masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController_iPad" bundle:nil];
-        UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
+//        UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
         
         mADetailViewController *detailViewController = [[mADetailViewController alloc] initWithNibName:@"mADetailViewController_iPad" bundle:nil];
-        UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
+//        UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
     	
+        masterViewController.detailViewController = detailViewController;
+        
         self.splitViewController = [[UISplitViewController alloc] init];
         self.splitViewController.delegate = detailViewController;
-        self.splitViewController.viewControllers = [NSArray arrayWithObjects:masterNavigationController, detailNavigationController, nil];
+        self.splitViewController.viewControllers = [NSArray arrayWithObjects:masterViewController, detailViewController, nil];
         
         self.window.rootViewController = self.splitViewController;
         
-        [detailViewController newItem];
+        [masterViewController newScript];
     }
+    
     [self.window makeKeyAndVisible];    
     
     return YES;

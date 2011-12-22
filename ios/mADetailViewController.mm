@@ -13,6 +13,7 @@
 
 @implementation mADetailItem
 
+@synthesize title = _title;
 @synthesize text = _text;
 @synthesize docid = _docid;
 
@@ -20,8 +21,14 @@
 
 
 @interface mADetailViewController ()
+
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
+
+@property (strong, nonatomic) UITextView * textView;
+@property (strong, nonatomic) UINavigationItem * titleButton;
+
 - (void)configureView;
+
 @end
 
 @implementation mADetailViewController
@@ -30,13 +37,18 @@
 @synthesize detailDescriptionLabel = _detailDescriptionLabel;
 @synthesize masterPopoverController = _masterPopoverController;
 
+@synthesize textView = _textView, titleButton = _titleButton;
+
 
 #pragma mark - Managing the detail item
 
 - (void)setDetailItem:(id)newDetailItem
 {
-    if (_detailItem != newDetailItem)
+    if(_detailItem != newDetailItem)
     {
+        // save text
+        _detailItem.text = self.textView.text;
+        
         _detailItem = newDetailItem;
         
         // Update the view.
@@ -54,8 +66,8 @@
 
     if (self.detailItem)
     {
-        self.detailDescriptionLabel.text = [self.detailItem description];
-        textView.text = self.detailItem.text;
+        self.titleButton.title = self.detailItem.title;
+        self.textView.text = self.detailItem.text;
     }
 }
 
@@ -127,8 +139,8 @@
           withBarButtonItem:(UIBarButtonItem *)barButtonItem 
        forPopoverController:(UIPopoverController *)popoverController
 {
-    barButtonItem.title = NSLocalizedString(@"Master", @"Master");
-    [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
+    barButtonItem.title = NSLocalizedString(@"Scripts", @"Scripts");
+    [self.titleButton setLeftBarButtonItem:barButtonItem animated:YES];
     self.masterPopoverController = popoverController;
 }
 
@@ -137,28 +149,20 @@
   invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
     // Called when the view is shown again in the split view, invalidating the button and popover controller.
-    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+    [self.titleButton setLeftBarButtonItem:nil animated:YES];
     self.masterPopoverController = nil;
 }
 
 
 #pragma mark miniAudicle / ChucK VM stuff
 
-- (IBAction)newItem
-{
-    mADetailItem * detailItem = [mADetailItem new];
-    
-    detailItem.text = @"";
-    detailItem.docid = [mAChucKController chuckController].ma->allocate_document_id();
-    
-    self.detailItem = detailItem;
-}
-
 
 - (IBAction)addShred
 {
-    std::string code = [textView.text UTF8String];
-    std::string name = "untitled";
+    if(self.detailItem == nil) return;
+    
+    std::string code = [self.textView.text UTF8String];
+    std::string name = [self.detailItem.title UTF8String];
     vector<string> args;
     t_CKUINT shred_id;
     std::string output;
@@ -171,13 +175,29 @@
 
 - (IBAction)replaceShred
 {
+    if(self.detailItem == nil) return;
     
+    std::string code = [self.textView.text UTF8String];
+    std::string name = [self.detailItem.title UTF8String];
+    vector<string> args;
+    t_CKUINT shred_id;
+    std::string output;
+    
+    [mAChucKController chuckController].ma->replace_code(code, name, args, 
+                                                         self.detailItem.docid, 
+                                                         shred_id, output);
 }
 
 
 - (IBAction)removeShred
 {
+    if(self.detailItem == nil) return;
     
+    t_CKUINT shred_id;
+    std::string output;
+
+    [mAChucKController chuckController].ma->remove_code(self.detailItem.docid, 
+                                                        shred_id, output);
 }
 
 
