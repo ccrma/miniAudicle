@@ -238,6 +238,8 @@
 		09CD6E220AC602BC00F5D110 /* KBPopUpToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CD6E210AC602BC00F5D110 /* KBPopUpToolbarItem.m */; };
 		09D00B8414A3C4010019CD09 /* TitleEditView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */; };
 		09D00B8714A3C44B0019CD09 /* mATitleEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */; };
+		09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8914A44DFA0019CD09 /* mAVMMonitorController.mm */; };
+		09D00B8C14A44DFB0019CD09 /* mAVMMonitorController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09D00B8A14A44DFB0019CD09 /* mAVMMonitorController.xib */; };
 		09E482260B1CF018002087DF /* chuck.y in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B360A9A54DA007604EA /* chuck.y */; };
 		09E482270B1CF019002087DF /* chuck_absyn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B060A9A54DA007604EA /* chuck_absyn.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
 		09E482280B1CF01A002087DF /* chuck_bbq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B080A9A54DA007604EA /* chuck_bbq.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
@@ -830,8 +832,11 @@
 		09CD6E200AC602BC00F5D110 /* KBPopUpToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = KBPopUpToolbarItem.h; path = macosx/KBPopUpToolbarItem.h; sourceTree = SOURCE_ROOT; };
 		09CD6E210AC602BC00F5D110 /* KBPopUpToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = KBPopUpToolbarItem.m; path = macosx/KBPopUpToolbarItem.m; sourceTree = SOURCE_ROOT; };
 		09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleEditView_iPad.xib; sourceTree = "<group>"; };
-		09D00B8514A3C44A0019CD09 /* mATitleEditorController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = mATitleEditorController.h; sourceTree = "<group>"; };
+		09D00B8514A3C44A0019CD09 /* mATitleEditorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mATitleEditorController.h; sourceTree = "<group>"; };
 		09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mATitleEditorController.m; sourceTree = "<group>"; };
+		09D00B8814A44DFA0019CD09 /* mAVMMonitorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAVMMonitorController.h; sourceTree = "<group>"; };
+		09D00B8914A44DFA0019CD09 /* mAVMMonitorController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAVMMonitorController.mm; sourceTree = "<group>"; };
+		09D00B8A14A44DFB0019CD09 /* mAVMMonitorController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAVMMonitorController.xib; sourceTree = "<group>"; };
 		09E481F80B1CE5AF002087DF /* gauge01.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = gauge01.ck; path = ../test/gauge01.ck; sourceTree = SOURCE_ROOT; };
 		09E481F90B1CE5AF002087DF /* gauge02.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = gauge02.ck; path = ../test/gauge02.ck; sourceTree = SOURCE_ROOT; };
 		09E482060B1CEF41002087DF /* miniAudicle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = miniAudicle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -993,6 +998,9 @@
 				09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */,
 				09D00B8514A3C44A0019CD09 /* mATitleEditorController.h */,
 				09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */,
+				09D00B8814A44DFA0019CD09 /* mAVMMonitorController.h */,
+				09D00B8914A44DFA0019CD09 /* mAVMMonitorController.mm */,
+				09D00B8A14A44DFB0019CD09 /* mAVMMonitorController.xib */,
 			);
 			name = "miniAudicle iOS";
 			path = ios;
@@ -1976,6 +1984,7 @@
 				093E267B14A14E91008694BC /* add.png in Resources */,
 				093E267C14A14E91008694BC /* miniAudicle.icns in Resources */,
 				09D00B8414A3C4010019CD09 /* TitleEditView_iPad.xib in Resources */,
+				09D00B8C14A44DFB0019CD09 /* mAVMMonitorController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2070,6 +2079,7 @@
 				093E267814A12E3C008694BC /* mo_audio.mm in Sources */,
 				093E267F14A1B3B3008694BC /* mAChucKController.mm in Sources */,
 				09D00B8714A3C44B0019CD09 /* mATitleEditorController.m in Sources */,
+				09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

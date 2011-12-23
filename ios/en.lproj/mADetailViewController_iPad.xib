@@ -44,6 +44,7 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrame">{{0, 140}, {768, 864}}</string>
 						<reference key="NSSuperview" ref="647120888"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
@@ -79,6 +80,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{11, 12}, {72, 72}}</string>
 								<reference key="NSSuperview" ref="889724914"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="401592514"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -115,6 +117,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{253, 12}, {72, 72}}</string>
 								<reference key="NSSuperview" ref="889724914"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="651638810"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -138,6 +141,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{127, 12}, {72, 72}}</string>
 								<reference key="NSSuperview" ref="889724914"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1063941407"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -159,6 +163,7 @@
 						</array>
 						<string key="NSFrame">{{0, 44}, {768, 96}}</string>
 						<reference key="NSSuperview" ref="647120888"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="240677420"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -166,43 +171,51 @@
 						</object>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>
-					<object class="IBUIToolbar" id="712609723">
+					<object class="IBUIToolbar" id="30258087">
 						<reference key="NSNextResponder" ref="647120888"/>
 						<int key="NSvFlags">290</int>
 						<string key="NSFrameSize">{768, 44}</string>
 						<reference key="NSSuperview" ref="647120888"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="889724914"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<array class="NSMutableArray" key="IBUIItems">
-							<object class="IBUIBarButtonItem" id="18928602">
+							<object class="IBUIBarButtonItem" id="535961087">
+								<string key="IBUITitle">New Script</string>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<reference key="IBUIToolbar" ref="712609723"/>
+								<int key="IBUIStyle">1</int>
+								<reference key="IBUIToolbar" ref="30258087"/>
+							</object>
+							<object class="IBUIBarButtonItem" id="107218773">
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<reference key="IBUIToolbar" ref="30258087"/>
 								<int key="IBUISystemItemIdentifier">5</int>
 							</object>
-							<object class="IBUIBarButtonItem" id="559766454">
+							<object class="IBUIBarButtonItem" id="390297353">
 								<string key="IBUITitle">Title</string>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<reference key="IBUIToolbar" ref="712609723"/>
+								<reference key="IBUIToolbar" ref="30258087"/>
 							</object>
-							<object class="IBUIBarButtonItem" id="144350126">
+							<object class="IBUIBarButtonItem" id="576151715">
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<reference key="IBUIToolbar" ref="712609723"/>
+								<reference key="IBUIToolbar" ref="30258087"/>
 								<int key="IBUISystemItemIdentifier">5</int>
 							</object>
-							<object class="IBUIBarButtonItem" id="1065603717">
+							<object class="IBUIBarButtonItem" id="416763461">
 								<string key="IBUITitle">Shreds</string>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIStyle">1</int>
-								<reference key="IBUIToolbar" ref="712609723"/>
+								<reference key="IBUIToolbar" ref="30258087"/>
 							</object>
 						</array>
 					</object>
 				</array>
 				<string key="NSFrame">{{0, 20}, {768, 1004}}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSNextKeyView" ref="712609723"/>
+				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView" ref="30258087"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">6</int>
 					<string key="NSCatalogName">System</string>
@@ -215,9 +228,20 @@
 				</object>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
-			<object class="IBUIViewController" id="720666940">
+			<object class="IBUIViewController" id="484332808">
 				<bool key="IBUIAutoresizesArchivedViewToFullSize">NO</bool>
 				<string key="IBUINibName">TitleEditView_iPad</string>
+				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
+					<int key="IBUIStatusBarStyle">2</int>
+				</object>
+				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
+					<int key="IBUIInterfaceOrientation">1</int>
+					<int key="interfaceOrientation">1</int>
+				</object>
+				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+				<bool key="IBUIHorizontal">NO</bool>
+			</object>
+			<object class="IBUIViewController" id="1028467433">
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
 					<int key="IBUIStatusBarStyle">2</int>
 				</object>
@@ -251,7 +275,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">_toolbar</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="712609723"/>
+						<reference key="destination" ref="30258087"/>
 					</object>
 					<int key="connectionID">110</int>
 				</object>
@@ -259,7 +283,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">_titleButton</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="559766454"/>
+						<reference key="destination" ref="390297353"/>
 					</object>
 					<int key="connectionID">111</int>
 				</object>
@@ -267,9 +291,17 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">_titleEditor</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="720666940"/>
+						<reference key="destination" ref="484332808"/>
 					</object>
 					<int key="connectionID">123</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_vmMonitor</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="1028467433"/>
+					</object>
+					<int key="connectionID">127</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -301,10 +333,26 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">editTitle:</string>
-						<reference key="source" ref="559766454"/>
+						<reference key="source" ref="390297353"/>
 						<reference key="destination" ref="841351856"/>
 					</object>
 					<int key="connectionID">121</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">showVMMonitor:</string>
+						<reference key="source" ref="416763461"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">128</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">newScript:</string>
+						<reference key="source" ref="535961087"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">125</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -332,7 +380,7 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="889724914"/>
 							<reference ref="651638810"/>
-							<reference ref="712609723"/>
+							<reference ref="30258087"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -368,38 +416,49 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">105</int>
-						<reference key="object" ref="712609723"/>
+						<reference key="object" ref="30258087"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="18928602"/>
-							<reference ref="559766454"/>
-							<reference ref="144350126"/>
-							<reference ref="1065603717"/>
+							<reference ref="107218773"/>
+							<reference ref="390297353"/>
+							<reference ref="576151715"/>
+							<reference ref="416763461"/>
+							<reference ref="535961087"/>
 						</array>
 						<reference key="parent" ref="647120888"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">107</int>
-						<reference key="object" ref="18928602"/>
-						<reference key="parent" ref="712609723"/>
+						<reference key="object" ref="107218773"/>
+						<reference key="parent" ref="30258087"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">108</int>
-						<reference key="object" ref="559766454"/>
-						<reference key="parent" ref="712609723"/>
+						<reference key="object" ref="390297353"/>
+						<reference key="parent" ref="30258087"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">109</int>
-						<reference key="object" ref="144350126"/>
-						<reference key="parent" ref="712609723"/>
+						<reference key="object" ref="576151715"/>
+						<reference key="parent" ref="30258087"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">112</int>
-						<reference key="object" ref="1065603717"/>
-						<reference key="parent" ref="712609723"/>
+						<reference key="object" ref="416763461"/>
+						<reference key="parent" ref="30258087"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">122</int>
-						<reference key="object" ref="720666940"/>
+						<reference key="object" ref="484332808"/>
+						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">124</int>
+						<reference key="object" ref="535961087"/>
+						<reference key="parent" ref="30258087"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">126</int>
+						<reference key="object" ref="1028467433"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</array>
@@ -416,6 +475,9 @@
 				<string key="112.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="122.CustomClassName">mATitleEditorController</string>
 				<string key="122.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="124.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="126.CustomClassName">mAVMMonitorController</string>
+				<string key="126.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="67.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="68.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="69.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -427,7 +489,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">123</int>
+			<int key="maxID">128</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -437,8 +499,10 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="addShred">id</string>
 						<string key="editTitle:">id</string>
+						<string key="newScript:">id</string>
 						<string key="removeShred">id</string>
 						<string key="replaceShred">id</string>
+						<string key="showVMMonitor:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="addShred">
@@ -449,6 +513,10 @@
 							<string key="name">editTitle:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="newScript:">
+							<string key="name">newScript:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="removeShred">
 							<string key="name">removeShred</string>
 							<string key="candidateClassName">id</string>
@@ -457,12 +525,17 @@
 							<string key="name">replaceShred</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="showVMMonitor:">
+							<string key="name">showVMMonitor:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="_textView">UITextView</string>
 						<string key="_titleButton">UIBarButtonItem</string>
 						<string key="_titleEditor">mATitleEditorController</string>
 						<string key="_toolbar">UIToolbar</string>
+						<string key="_vmMonitor">mAVMMonitorController</string>
 						<string key="detailDescriptionLabel">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -481,6 +554,10 @@
 						<object class="IBToOneOutletInfo" key="_toolbar">
 							<string key="name">_toolbar</string>
 							<string key="candidateClassName">UIToolbar</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_vmMonitor">
+							<string key="name">_vmMonitor</string>
+							<string key="candidateClassName">mAVMMonitorController</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="detailDescriptionLabel">
 							<string key="name">detailDescriptionLabel</string>
@@ -523,6 +600,25 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/mATitleEditorController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">mAVMMonitorController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">_tableView</string>
+						<string key="NS.object.0">UITableView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">_tableView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">_tableView</string>
+							<string key="candidateClassName">UITableView</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/mAVMMonitorController.h</string>
 					</object>
 				</object>
 			</array>

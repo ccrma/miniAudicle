@@ -22,6 +22,7 @@
 
 @implementation mAMasterViewController
 
+@synthesize scripts = _scripts;
 @synthesize detailViewController = _detailViewController;
 @synthesize tableView = _tableView;
 
@@ -37,7 +38,7 @@
             self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
         }
         
-        scripts = [NSMutableArray new];
+        self.scripts = [NSMutableArray new];
         untitledNumber = 1;
     }
     return self;
@@ -48,6 +49,23 @@
 {
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
+}
+
+
+- (void)selectScript:(int)script
+{
+    if(script >= 0 && script < [self.scripts count])
+    {
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:script
+                                                                inSection:0]
+                                    animated:YES
+                              scrollPosition:UITableViewScrollPositionNone];
+    }
+}
+
+- (int)selectedScript
+{
+    return [[self.tableView indexPathForSelectedRow] row];
 }
 
 
@@ -69,7 +87,7 @@
     
     int insertIndex = 0;
     
-    [scripts insertObject:detailItem atIndex:insertIndex];
+    [self.scripts insertObject:detailItem atIndex:insertIndex];
     [self.tableView reloadData];
     
     self.detailViewController.detailItem = detailItem;
@@ -138,7 +156,7 @@
 - (NSInteger)tableView:(UITableView *)tableView 
  numberOfRowsInSection:(NSInteger)section
 {
-    return [scripts count];
+    return [self.scripts count];
 }
 
 // Customize the appearance of table view cells.
@@ -157,7 +175,7 @@
 
     // Configure the cell.
     int index = indexPath.row;
-    cell.textLabel.text = [[scripts objectAtIndex:index] title];
+    cell.textLabel.text = [[self.scripts objectAtIndex:index] title];
     return cell;
 }
 
@@ -210,7 +228,7 @@
     else
     {
         int index = indexPath.row;
-        self.detailViewController.detailItem = [scripts objectAtIndex:index];
+        self.detailViewController.detailItem = [self.scripts objectAtIndex:index];
     }
 }
 

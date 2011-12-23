@@ -14,14 +14,17 @@
 {
     IBOutlet UITableView * _tableView;
     
-    NSMutableArray * scripts;
+    NSMutableArray * _scripts;
     int untitledNumber;
 }
 
 @property (strong, nonatomic) mADetailViewController *detailViewController;
+@property (strong, nonatomic) NSMutableArray * scripts;
 
 - (IBAction)newScript;
 
+- (void)selectScript:(int)script;
+- (int)selectedScript;
 - (void)scriptDetailChanged;
 
 @end

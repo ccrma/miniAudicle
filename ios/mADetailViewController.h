@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-#import "mATitleEditorController.h"
 #import "chuck_def.h"
+#import "mATitleEditorController.h"
 
 
 @class mAMasterViewController;
+@class mAVMMonitorController;
 
 
 @interface mADetailItem : NSObject
@@ -20,6 +21,9 @@
 @property (strong, nonatomic) NSString * title;
 @property (strong, nonatomic) NSString * text;
 @property (nonatomic) t_CKUINT docid;
+
++ (mADetailItem *)detailItemFromDictionary:(NSDictionary *)dictionary;
+- (NSDictionary *)dictionary;
 
 @end
 
@@ -34,17 +38,23 @@ UIPopoverControllerDelegate >
 //    IBOutlet UINavigationItem * _titleButton;
     
     IBOutlet mATitleEditorController * _titleEditor;
+    
+    IBOutlet mAVMMonitorController * _vmMonitor;
 }
 
 @property (assign, nonatomic) mAMasterViewController * masterViewController;
 @property (strong, nonatomic) mADetailItem * detailItem;
 @property (strong, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 
+- (void)saveScript;
+
+- (IBAction)newScript:(id)sender;
 
 - (IBAction)addShred;
 - (IBAction)replaceShred;
 - (IBAction)removeShred;
 
 - (IBAction)editTitle:(id)sender;
+- (IBAction)showVMMonitor:(id)sender;
 
 @end

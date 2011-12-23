@@ -41,36 +41,6 @@ const static NSString * name_column_id = @"2";
 const static NSString * time_column_id = @"3";
 const static NSString * remove_column_id = @"4";
 
-int compare_shred_vectors( const vector< Chuck_VM_Shred_Status * > & a,
-                           const vector< Chuck_VM_Shred_Status * > & b )
-/* quickly determine if the two vectors are equal */
-{
-    vector< Chuck_VM_Shred_Status * >::size_type i, 
-        lenA = a.size(), lenB = b.size();
-
-    if( lenA != lenB )
-        return 1;
-        
-    if( lenA == 0 )
-        return 0;
-    
-    Chuck_VM_Shred_Status * cvmssA, * cvmssB;
-    
-    for( i = 0; i < lenA; i++ )
-    {
-        cvmssA = a[i];
-        cvmssB = b[i];
-        
-        if( cvmssA->xid != cvmssB->xid ||
-            cvmssA->start != cvmssB->start )
-            /* a shred is uniquely defined by ( shred id, start time ) */
-        {
-            return 1;
-        }
-    }
-    
-    return 0;
-}
 
 @implementation miniAudicleVMMonitor
 

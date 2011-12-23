@@ -15,11 +15,26 @@
 #import "miniAudicle.h"
 
 
+NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript";
+
+
+@interface mAAppDelegate ()
+
+@property (strong, nonatomic) mAMasterViewController * masterViewController;
+@property (strong, nonatomic) mADetailViewController * detailViewController;
+
+- (NSMutableArray *)loadScripts;
+- (void)saveScripts:(NSArray *)scripts;
+
+@end
+
+
 @implementation mAAppDelegate
 
 @synthesize window = _window;
 @synthesize navigationController = _navigationController;
 @synthesize splitViewController = _splitViewController;
+@synthesize masterViewController = _masterViewController, detailViewController = _detailViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -28,27 +43,36 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        mAMasterViewController *masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController_iPhone" bundle:nil];
-        self.navigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
+        self.masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController_iPhone" bundle:nil];
+        self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.masterViewController];
         self.window.rootViewController = self.navigationController;
     } else {
-        mAMasterViewController *masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController_iPad" bundle:nil];
+        self.masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController_iPad" bundle:nil];
 //        UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
         
-        mADetailViewController *detailViewController = [[mADetailViewController alloc] initWithNibName:@"mADetailViewController_iPad" bundle:nil];
+        self.detailViewController = [[mADetailViewController alloc] initWithNibName:@"mADetailViewController_iPad" bundle:nil];
 //        UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
     	
-        masterViewController.detailViewController = detailViewController;
-        detailViewController.masterViewController = masterViewController;
+        self.masterViewController.detailViewController = self.detailViewController;
+        self.detailViewController.masterViewController = self.masterViewController;
         
         self.splitViewController = [[UISplitViewController alloc] init];
-        self.splitViewController.delegate = detailViewController;
-        self.splitViewController.viewControllers = [NSArray arrayWithObjects:masterViewController, detailViewController, nil];
+        self.splitViewController.delegate = self.detailViewController;
+        self.splitViewController.viewControllers = [NSArray arrayWithObjects:self.masterViewController, self.detailViewController, nil];
         
         self.window.rootViewController = self.splitViewController;
         
-        [masterViewController newScript];
-    }
+        self.masterViewController.scripts = [self loadScripts];
+        
+        if([self.masterViewController.scripts count] == 0)
+        {
+            [self.masterViewController newScript];
+        }
+        else
+        {
+            [self.masterViewController selectScript:[[NSUserDefaults standardUserDefaults] integerForKey:kmAUserDefaultsSelectedScript]];
+        }
+    }    
     
     [self.window makeKeyAndVisible];
     
@@ -69,6 +93,10 @@
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:[self.masterViewController selectedScript]
+                                               forKey:kmAUserDefaultsSelectedScript];
+    [self saveScripts:self.masterViewController.scripts];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -92,6 +120,47 @@
      Save data if appropriate.
      See also applicationDidEnterBackground:.
      */
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:[self.masterViewController selectedScript]
+                                               forKey:kmAUserDefaultsSelectedScript];
+    [self saveScripts:self.masterViewController.scripts];
+}
+
+- (NSMutableArray *)loadScripts
+{
+    NSMutableArray * scripts = [NSMutableArray array];
+    
+    NSString * path = [NSString stringWithFormat:@"%@/scripts.plist", 
+                       [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
+    
+    NSArray * scripts2 = [NSArray arrayWithContentsOfFile:path];
+    
+    for(NSDictionary * item in scripts2)
+    {
+        [scripts addObject:[mADetailItem detailItemFromDictionary:item]];
+    }
+    
+    return scripts;
+}
+
+- (void)saveScripts:(NSArray *)scripts
+{
+    [self.detailViewController saveScript];
+    
+    NSString * path = [NSString stringWithFormat:@"%@/scripts.plist", 
+                       [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
+    
+    NSMutableArray * scripts2 = [NSMutableArray array];
+    
+    for(mADetailItem * item in scripts)
+    {
+        [scripts2 addObject:[item dictionary]];
+    }
+    
+    [scripts2 writeToFile:path atomically:YES];
 }
 
 @end
+
+
+

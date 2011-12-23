@@ -7,8 +7,11 @@
 //
 
 #import "mADetailViewController.h"
+
 #import "mAMasterViewController.h"
 #import "mAChucKController.h"
+#import "mATitleEditorController.h"
+#import "mAVMMonitorController.h"
 #import "miniAudicle.h"
 
 
@@ -17,6 +20,29 @@
 @synthesize title = _title;
 @synthesize text = _text;
 @synthesize docid = _docid;
+
++ (mADetailItem *)detailItemFromDictionary:(NSDictionary *)dictionary
+{
+    mADetailItem * detailItem = [mADetailItem new];
+    
+    detailItem.title = [dictionary objectForKey:@"title"];
+    detailItem.text = [dictionary objectForKey:@"text"];
+//    detailItem.docid = [[dictionary objectForKey:@"docid"] unsignedIntValue];
+    detailItem.docid = [mAChucKController chuckController].ma->allocate_document_id();
+    
+    return detailItem;
+}
+
+- (NSDictionary *)dictionary
+{
+    NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
+    
+    [dictionary setObject:self.title forKey:@"title"];
+    [dictionary setObject:self.text forKey:@"text"];
+//    [dictionary setObject:[NSNumber numberWithUnsignedInt:self.docid] forKey:@"docid"];
+    
+    return [NSDictionary dictionaryWithDictionary:dictionary];
+}
 
 @end
 
@@ -32,6 +58,9 @@
 @property (strong, nonatomic) UIPopoverController * popover;
 @property (strong, nonatomic) mATitleEditorController * titleEditor;
 
+@property (strong, nonatomic) UIPopoverController * vmMonitorPopover;
+@property (strong, nonatomic) mAVMMonitorController * vmMonitor;
+
 - (void)configureView;
 
 @end
@@ -46,9 +75,9 @@
 
 @synthesize textView = _textView;
 @synthesize titleButton = _titleButton, toolbar = _toolbar;
-@synthesize titleEditor = _titleEditor;
 
-@synthesize popover = _popover;
+@synthesize popover = _popover, titleEditor = _titleEditor;
+@synthesize vmMonitorPopover = _vmMonitorPopover, vmMonitor = _vmMonitor;
 
 #pragma mark - Managing the detail item
 
@@ -56,8 +85,11 @@
 {
     if(_detailItem != newDetailItem)
     {
-        // save text
-        _detailItem.text = self.textView.text;
+        if(_detailItem)
+        {
+            // save text
+            _detailItem.text = self.textView.text;
+        }
         
         _detailItem = newDetailItem;
         
@@ -176,6 +208,17 @@
 
 #pragma mark miniAudicle / ChucK VM stuff
 
+- (void)saveScript
+{
+    self.detailItem.text = self.textView.text;
+}
+
+
+- (IBAction)newScript:(id)sender
+{
+    [self.masterViewController newScript];
+}
+
 
 - (IBAction)addShred
 {
@@ -250,6 +293,28 @@
 - (void)titleEditorDidCancel:(mATitleEditorController *)titleEditor
 {
     [self.popover dismissPopoverAnimated:YES];
+}
+
+
+- (IBAction)showVMMonitor:(id)sender
+{
+    if(self.vmMonitorPopover == nil)
+    {
+        self.vmMonitorPopover = [[UIPopoverController alloc] initWithContentViewController:self.vmMonitor];
+    }
+    
+    if(self.vmMonitorPopover.isPopoverVisible)
+    {
+        [self.vmMonitorPopover dismissPopoverAnimated:YES];
+    }
+    else
+    {
+        self.vmMonitorPopover.delegate = self;
+        
+        [self.vmMonitorPopover presentPopoverFromBarButtonItem:sender
+                                      permittedArrowDirections:UIPopoverArrowDirectionUp
+                                                      animated:YES];
+    }
 }
 
 
