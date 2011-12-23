@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import "mATitleEditorController.h"
 #import "chuck_def.h"
+
+
+@class mAMasterViewController;
 
 
 @interface mADetailItem : NSObject
@@ -19,12 +23,20 @@
 
 @end
 
-@interface mADetailViewController : UIViewController <UISplitViewControllerDelegate>
+@interface mADetailViewController : UIViewController 
+< UISplitViewControllerDelegate, 
+mATitleEditorControllerDelegate,
+UIPopoverControllerDelegate >
 {
     IBOutlet UITextView * _textView;
-    IBOutlet UINavigationItem * _titleButton;
+    IBOutlet UIBarButtonItem * _titleButton;
+    IBOutlet UIToolbar * _toolbar;
+//    IBOutlet UINavigationItem * _titleButton;
+    
+    IBOutlet mATitleEditorController * _titleEditor;
 }
 
+@property (assign, nonatomic) mAMasterViewController * masterViewController;
 @property (strong, nonatomic) mADetailItem * detailItem;
 @property (strong, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 
@@ -32,5 +44,7 @@
 - (IBAction)addShred;
 - (IBAction)replaceShred;
 - (IBAction)removeShred;
+
+- (IBAction)editTitle:(id)sender;
 
 @end

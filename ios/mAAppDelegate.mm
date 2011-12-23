@@ -39,6 +39,7 @@
 //        UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
     	
         masterViewController.detailViewController = detailViewController;
+        detailViewController.masterViewController = masterViewController;
         
         self.splitViewController = [[UISplitViewController alloc] init];
         self.splitViewController.delegate = detailViewController;
@@ -49,7 +50,7 @@
         [masterViewController newScript];
     }
     
-    [self.window makeKeyAndVisible];    
+    [self.window makeKeyAndVisible];
     
     return YES;
 }

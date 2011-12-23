@@ -22,4 +22,6 @@
 
 - (IBAction)newScript;
 
+- (void)scriptDetailChanged;
+
 @end

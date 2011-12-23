@@ -51,6 +51,12 @@
 }
 
 
+- (void)scriptDetailChanged
+{
+    [self.tableView reloadData];
+}
+
+
 #pragma mark IBActions
 
 - (IBAction)newScript

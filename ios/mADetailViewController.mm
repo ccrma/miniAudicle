@@ -7,6 +7,7 @@
 //
 
 #import "mADetailViewController.h"
+#import "mAMasterViewController.h"
 #import "mAChucKController.h"
 #import "miniAudicle.h"
 
@@ -25,7 +26,11 @@
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
 
 @property (strong, nonatomic) UITextView * textView;
-@property (strong, nonatomic) UINavigationItem * titleButton;
+@property (strong, nonatomic) UIBarButtonItem * titleButton;
+@property (strong, nonatomic) UIToolbar * toolbar;
+
+@property (strong, nonatomic) UIPopoverController * popover;
+@property (strong, nonatomic) mATitleEditorController * titleEditor;
 
 - (void)configureView;
 
@@ -33,12 +38,17 @@
 
 @implementation mADetailViewController
 
+@synthesize masterViewController = _masterViewController;
+
 @synthesize detailItem = _detailItem;
 @synthesize detailDescriptionLabel = _detailDescriptionLabel;
 @synthesize masterPopoverController = _masterPopoverController;
 
-@synthesize textView = _textView, titleButton = _titleButton;
+@synthesize textView = _textView;
+@synthesize titleButton = _titleButton, toolbar = _toolbar;
+@synthesize titleEditor = _titleEditor;
 
+@synthesize popover = _popover;
 
 #pragma mark - Managing the detail item
 
@@ -140,7 +150,12 @@
        forPopoverController:(UIPopoverController *)popoverController
 {
     barButtonItem.title = NSLocalizedString(@"Scripts", @"Scripts");
-    [self.titleButton setLeftBarButtonItem:barButtonItem animated:YES];
+    
+//    [self.titleButton setLeftBarButtonItem:barButtonItem animated:YES];
+    NSMutableArray * items = [NSMutableArray arrayWithArray:self.toolbar.items];
+    [items insertObject:barButtonItem atIndex:0];
+    [self.toolbar setItems:items animated:YES];
+    
     self.masterPopoverController = popoverController;
 }
 
@@ -149,7 +164,12 @@
   invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
     // Called when the view is shown again in the split view, invalidating the button and popover controller.
-    [self.titleButton setLeftBarButtonItem:nil animated:YES];
+//    [self.titleButton setLeftBarButtonItem:nil animated:YES];    
+    NSMutableArray * items = [NSMutableArray arrayWithArray:self.toolbar.items];
+    [items removeObject:barButtonItem];
+    [self.toolbar setItems:items animated:YES];
+
+    
     self.masterPopoverController = nil;
 }
 
@@ -198,6 +218,38 @@
 
     [mAChucKController chuckController].ma->remove_code(self.detailItem.docid, 
                                                         shred_id, output);
+}
+
+
+- (IBAction)editTitle:(id)sender
+{
+    if(self.popover == nil)
+    {
+        self.popover = [[UIPopoverController alloc] initWithContentViewController:self.titleEditor];
+    }
+    
+    self.titleEditor.editedTitle = self.detailItem.title;
+    self.titleEditor.delegate = self;
+    self.popover.delegate = self;
+    
+    [self.popover presentPopoverFromBarButtonItem:self.titleButton
+                         permittedArrowDirections:UIPopoverArrowDirectionUp
+                                         animated:YES];
+}
+
+
+- (void)titleEditorDidConfirm:(mATitleEditorController *)titleEditor
+{
+    [self.popover dismissPopoverAnimated:YES];
+    self.detailItem.title = self.titleEditor.editedTitle;
+    [self configureView];
+    [self.masterViewController scriptDetailChanged];
+}
+
+
+- (void)titleEditorDidCancel:(mATitleEditorController *)titleEditor
+{
+    [self.popover dismissPopoverAnimated:YES];
 }
 
 
