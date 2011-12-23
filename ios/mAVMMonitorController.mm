@@ -10,6 +10,7 @@
 
 #import "mAChucKController.h"
 #import "miniAudicle.h"
+#import "mAVMMonitorCellController.h"
 
 @interface mAVMMonitorController ()
 
@@ -68,6 +69,8 @@
                                                            repeats:YES];
         
         isUpdating = YES;
+        
+        [self update:self];
     }
 }
 
@@ -188,29 +191,58 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView 
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    static NSString *CellIdentifier = @"mAVMMonitorController_Cell";
+//    
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    if(cell == nil)
+//    {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2
+//                                      reuseIdentifier:CellIdentifier];
+//    }
+//    
+//    if(most_recent_status != nil)
+//    {
+//        int index = indexPath.row;
+//        cell.detailTextLabel.text = [NSString stringWithUTF8String:most_recent_status->list[index]->name.c_str()];
+//        
+//        time_t shred_running_time = rint( ( most_recent_status->now_system -  most_recent_status->list[index]->start ) / most_recent_status->srate );
+//        
+//        if( shred_running_time < 0 )
+//            shred_running_time = 0;
+//        
+//        cell.textLabel.text = [NSString stringWithFormat:@"%u:%02u", shred_running_time / 60, shred_running_time % 60];
+//        
+//        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+//    }
+//    
+//    return cell;
+
 {
     static NSString *CellIdentifier = @"mAVMMonitorController_Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    mAVMMonitorCell * cell = (mAVMMonitorCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2
-                                      reuseIdentifier:CellIdentifier];
+        cell = [mAVMMonitorCellController cell];
     }
     
     if(most_recent_status != nil)
     {
         int index = indexPath.row;
-        cell.detailTextLabel.text = [NSString stringWithUTF8String:most_recent_status->list[index]->name.c_str()];
         
-        time_t shred_running_time = rint( ( most_recent_status->now_system -  most_recent_status->list[index]->start ) / most_recent_status->srate );
+        Chuck_VM_Shred_Status * shred = most_recent_status->list[index];
+        
+        cell.controller.idLabel.text = [NSString stringWithFormat:@"%u", shred->xid];
+        
+        cell.controller.titleLabel.text = [NSString stringWithUTF8String:shred->name.c_str()];
+        
+        time_t shred_running_time = rint( ( most_recent_status->now_system -  shred->start ) / most_recent_status->srate );
         
         if( shred_running_time < 0 )
             shred_running_time = 0;
         
-        cell.textLabel.text = [NSString stringWithFormat:@"%u:%02u", shred_running_time / 60, shred_running_time % 60];
-        
-        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        cell.controller.timeLabel.text = [NSString stringWithFormat:@"%u:%02u", shred_running_time / 60, shred_running_time % 60];
     }
     
     return cell;
