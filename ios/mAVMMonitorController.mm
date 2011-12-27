@@ -22,6 +22,8 @@
 - (void)stopUpdating;
 - (void)update:(id)data;
 
+- (void)removeShred:(id)sender;
+
 @end
 
 
@@ -55,7 +57,6 @@
 
 - (void)startUpdating
 {
-    NSLog(@"startUpdating");
     if(!isUpdating)
     {
         status_buffers = new Chuck_VM_Status[2];
@@ -63,6 +64,7 @@
         which_status_buffer = 0;
         
         self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.075
+//        self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:1
                                                             target:self
                                                           selector:@selector(update:)
                                                           userInfo:self
@@ -77,7 +79,6 @@
 
 - (void)stopUpdating
 {
-    NSLog(@"stopUpdating");
     if(isUpdating)
     {
         SAFE_DELETE_ARRAY(status_buffers);
@@ -129,11 +130,15 @@
     }
     
     // otherwise, just update the shred time column
-    else
+//    else
     {
         
-        [self.tableView reloadData];
+//        [self.tableView reloadData];
 //        [shred_table setNeedsDisplayInRect:[shred_table rectOfColumn:[shred_table columnWithIdentifier:time_column_id]]];
+        for(mAVMMonitorCell * cell in [self.tableView visibleCells])
+        {
+            [cell updateShredStatus:most_recent_status];
+        }
     }
     
 //    time_t current_time = ( time_t ) ( most_recent_status->now_system / most_recent_status->srate );
@@ -141,6 +146,16 @@
 //                                       current_time / 60, current_time % 60, ( t_CKUINT ) fmod( most_recent_status->now_system, most_recent_status->srate ) ]];
 }
 
+
+- (void)removeShred:(id)sender
+{
+    t_CKUINT shred_id = [sender tag];
+    std::string output;
+    
+    [mAChucKController chuckController].ma->remove_shred(docid, 
+                                                         shred_id, 
+                                                         output);
+}
 
 #pragma mark - View lifecycle
 
@@ -191,40 +206,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView 
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    static NSString *CellIdentifier = @"mAVMMonitorController_Cell";
-//    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    if(cell == nil)
-//    {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2
-//                                      reuseIdentifier:CellIdentifier];
-//    }
-//    
-//    if(most_recent_status != nil)
-//    {
-//        int index = indexPath.row;
-//        cell.detailTextLabel.text = [NSString stringWithUTF8String:most_recent_status->list[index]->name.c_str()];
-//        
-//        time_t shred_running_time = rint( ( most_recent_status->now_system -  most_recent_status->list[index]->start ) / most_recent_status->srate );
-//        
-//        if( shred_running_time < 0 )
-//            shred_running_time = 0;
-//        
-//        cell.textLabel.text = [NSString stringWithFormat:@"%u:%02u", shred_running_time / 60, shred_running_time % 60];
-//        
-//        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-//    }
-//    
-//    return cell;
-
 {
     static NSString *CellIdentifier = @"mAVMMonitorController_Cell";
     
     mAVMMonitorCell * cell = (mAVMMonitorCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(cell == nil)
     {
-        cell = [mAVMMonitorCellController cell];
+        cell = [mAVMMonitorCell cell];
     }
     
     if(most_recent_status != nil)
@@ -233,16 +221,23 @@
         
         Chuck_VM_Shred_Status * shred = most_recent_status->list[index];
         
-        cell.controller.idLabel.text = [NSString stringWithFormat:@"%u", shred->xid];
+        cell.idLabel.text = [NSString stringWithFormat:@"%u", shred->xid];
         
-        cell.controller.titleLabel.text = [NSString stringWithUTF8String:shred->name.c_str()];
+        cell.titleLabel.text = [NSString stringWithUTF8String:shred->name.c_str()];
         
         time_t shred_running_time = rint( ( most_recent_status->now_system -  shred->start ) / most_recent_status->srate );
         
         if( shred_running_time < 0 )
             shred_running_time = 0;
         
-        cell.controller.timeLabel.text = [NSString stringWithFormat:@"%u:%02u", shred_running_time / 60, shred_running_time % 60];
+        cell.timeLabel.text = [NSString stringWithFormat:@"%u:%02u", shred_running_time / 60, shred_running_time % 60];
+        
+        [cell.removeButton addTarget:self
+                              action:@selector(removeShred:)
+                    forControlEvents:UIControlEventTouchUpInside];
+        cell.removeButton.tag = shred->xid;
+        
+        cell.shred_start_time = shred->start;
     }
     
     return cell;

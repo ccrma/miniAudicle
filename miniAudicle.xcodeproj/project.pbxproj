@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09087C6414A4F5F600AD2633 /* mAVMMonitorCellController.m */; };
+		09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09087C6414A4F5F600AD2633 /* mAVMMonitorCellController.mm */; };
 		09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09087C6714A4F61700AD2633 /* mAVMMonitorCell.xib */; };
 		09087C6B14A4F67100AD2633 /* UIRemoveControlMinus.png in Resources */ = {isa = PBXBuildFile; fileRef = 09087C6A14A4F67100AD2633 /* UIRemoveControlMinus.png */; };
 		090A5BE80AA75AEA005DC04D /* util_hid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090A5BE70AA75AEA005DC04D /* util_hid.cpp */; settings = {COMPILER_FLAGS = "-D__CK_HID_WIIREMOTE__"; }; };
@@ -351,7 +351,7 @@
 
 /* Begin PBXFileReference section */
 		09087C6314A4F5F600AD2633 /* mAVMMonitorCellController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAVMMonitorCellController.h; sourceTree = "<group>"; };
-		09087C6414A4F5F600AD2633 /* mAVMMonitorCellController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAVMMonitorCellController.m; sourceTree = "<group>"; };
+		09087C6414A4F5F600AD2633 /* mAVMMonitorCellController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAVMMonitorCellController.mm; sourceTree = "<group>"; };
 		09087C6714A4F61700AD2633 /* mAVMMonitorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAVMMonitorCell.xib; sourceTree = "<group>"; };
 		09087C6A14A4F67100AD2633 /* UIRemoveControlMinus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIRemoveControlMinus.png; sourceTree = "<group>"; };
 		090A5BE70AA75AEA005DC04D /* util_hid.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = util_hid.cpp; sourceTree = "<group>"; };
@@ -1018,7 +1018,7 @@
 				09D00B8914A44DFA0019CD09 /* mAVMMonitorController.mm */,
 				09D00B8A14A44DFB0019CD09 /* mAVMMonitorController.xib */,
 				09087C6314A4F5F600AD2633 /* mAVMMonitorCellController.h */,
-				09087C6414A4F5F600AD2633 /* mAVMMonitorCellController.m */,
+				09087C6414A4F5F600AD2633 /* mAVMMonitorCellController.mm */,
 				09087C6714A4F61700AD2633 /* mAVMMonitorCell.xib */,
 			);
 			name = "miniAudicle iOS";
@@ -2101,7 +2101,7 @@
 				093E267F14A1B3B3008694BC /* mAChucKController.mm in Sources */,
 				09D00B8714A3C44B0019CD09 /* mATitleEditorController.m in Sources */,
 				09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */,
-				09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.m in Sources */,
+				09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

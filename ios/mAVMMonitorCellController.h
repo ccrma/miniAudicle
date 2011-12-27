@@ -8,29 +8,28 @@
 
 #import <Foundation/Foundation.h>
 
-
-@class mAVMMonitorCellController;
+#import "miniAudicle.h"
 
 
 @interface mAVMMonitorCell : UITableViewCell
-
-@property (strong, nonatomic) IBOutlet mAVMMonitorCellController * controller;
-
-@end
-
-
-@interface mAVMMonitorCellController : NSObject
 {
+    t_CKFLOAT shred_start_time;
+    time_t last_time;
+    
     IBOutlet UILabel * idLabel;
     IBOutlet UILabel * titleLabel;
     IBOutlet UILabel * timeLabel;
     IBOutlet UIButton * removeButton;
 }
 
+@property (nonatomic) t_CKFLOAT shred_start_time;
+
 @property (strong, nonatomic) UILabel * idLabel, * titleLabel, * timeLabel;
 @property (strong, nonatomic) UIButton * removeButton;
 
 + (mAVMMonitorCell *)cell;
-- (IBAction)remove:(id)sender;
+
+- (void)updateShredStatus:(Chuck_VM_Status *)most_recent_status;
 
 @end
+
