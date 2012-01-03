@@ -16,6 +16,7 @@
 @interface mAMasterViewController ()
 
 @property (strong, nonatomic) UITableView * tableView;
+@property (strong, nonatomic) UIBarButtonItem * editButton;
 
 @end
 
@@ -24,7 +25,7 @@
 
 @synthesize scripts = _scripts;
 @synthesize detailViewController = _detailViewController;
-@synthesize tableView = _tableView;
+@synthesize tableView = _tableView, editButton = _editButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,12 +55,15 @@
 
 - (void)selectScript:(int)script
 {
+    (void) self.view; // force the view to load
+    
     if(script >= 0 && script < [self.scripts count])
     {
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:script
                                                                 inSection:0]
                                     animated:YES
                               scrollPosition:UITableViewScrollPositionNone];
+        self.detailViewController.detailItem = [self.scripts objectAtIndex:script];
     }
 }
 
@@ -94,6 +98,23 @@
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:insertIndex inSection:0] 
                                 animated:YES
                           scrollPosition:UITableViewScrollPositionNone];
+}
+
+
+- (IBAction)editScripts
+{
+    if(self.tableView.isEditing)
+    {
+        [self.tableView setEditing:NO animated:YES];
+        self.editButton.title = @"Edit";
+        self.editButton.style = UIBarButtonItemStyleBordered;
+    }
+    else
+    {
+        [self.tableView setEditing:YES animated:YES];
+        self.editButton.title = @"Done";
+        self.editButton.style = UIBarButtonItemStyleDone;
+    }
 }
 
 
@@ -231,5 +252,24 @@
         self.detailViewController.detailItem = [self.scripts objectAtIndex:index];
     }
 }
+
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tableView 
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle 
+forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        [self.scripts removeObjectAtIndex:[indexPath row]];
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                              withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+
 
 @end

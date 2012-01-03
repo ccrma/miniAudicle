@@ -13,6 +13,7 @@
 @interface mAMasterViewController : UIViewController
 {
     IBOutlet UITableView * _tableView;
+    IBOutlet UIBarButtonItem * _editButton;
     
     NSMutableArray * _scripts;
     int untitledNumber;
@@ -22,6 +23,7 @@
 @property (strong, nonatomic) NSMutableArray * scripts;
 
 - (IBAction)newScript;
+- (IBAction)editScripts;
 
 - (void)selectScript:(int)script;
 - (int)selectedScript;
