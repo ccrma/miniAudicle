@@ -12,6 +12,7 @@
 #import "mAChucKController.h"
 #import "mATitleEditorController.h"
 #import "mAVMMonitorController.h"
+#import "mAConsoleMonitorController.h"
 #import "miniAudicle.h"
 
 
@@ -61,6 +62,9 @@
 @property (strong, nonatomic) UIPopoverController * vmMonitorPopover;
 @property (strong, nonatomic) mAVMMonitorController * vmMonitor;
 
+@property (strong, nonatomic) UIPopoverController * consoleMonitorPopover;
+@property (strong, nonatomic) mAConsoleMonitorController * consoleMonitor;
+
 - (void)configureView;
 
 @end
@@ -78,6 +82,7 @@
 
 @synthesize popover = _popover, titleEditor = _titleEditor;
 @synthesize vmMonitorPopover = _vmMonitorPopover, vmMonitor = _vmMonitor;
+@synthesize consoleMonitorPopover = _consoleMonitorPopover, consoleMonitor = _consoleMonitor;
 
 #pragma mark - Managing the detail item
 
@@ -318,6 +323,27 @@
         [self.vmMonitorPopover presentPopoverFromBarButtonItem:sender
                                       permittedArrowDirections:UIPopoverArrowDirectionUp
                                                       animated:YES];
+    }
+}
+
+- (IBAction)showConsoleMonitor:(id)sender
+{
+    if(self.consoleMonitorPopover == nil)
+    {
+        self.consoleMonitorPopover = [[UIPopoverController alloc] initWithContentViewController:self.consoleMonitor];
+    }
+    
+    if(self.consoleMonitorPopover.isPopoverVisible)
+    {
+        [self.consoleMonitorPopover dismissPopoverAnimated:YES];
+    }
+    else
+    {
+        self.consoleMonitorPopover.delegate = self;
+        
+        [self.consoleMonitorPopover presentPopoverFromBarButtonItem:sender
+                                           permittedArrowDirections:UIPopoverArrowDirectionUp
+                                                           animated:YES];
     }
 }
 

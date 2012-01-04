@@ -14,6 +14,7 @@
 
 @class mAMasterViewController;
 @class mAVMMonitorController;
+@class mAConsoleMonitorController;
 
 
 @interface mADetailItem : NSObject
@@ -40,6 +41,7 @@ UIPopoverControllerDelegate >
     IBOutlet mATitleEditorController * _titleEditor;
     
     IBOutlet mAVMMonitorController * _vmMonitor;
+    IBOutlet mAConsoleMonitorController * _consoleMonitor;
 }
 
 @property (assign, nonatomic) mAMasterViewController * masterViewController;
@@ -56,5 +58,6 @@ UIPopoverControllerDelegate >
 
 - (IBAction)editTitle:(id)sender;
 - (IBAction)showVMMonitor:(id)sender;
+- (IBAction)showConsoleMonitor:(id)sender;
 
 @end
