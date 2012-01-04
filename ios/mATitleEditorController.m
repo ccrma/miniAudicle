@@ -56,20 +56,20 @@
 - (IBAction)confirm:(id)sender
 {
     [self.delegate titleEditorDidConfirm:self];
-    [self.textField resignFirstResponder];
+//    [self.textField resignFirstResponder];
 }
 
 
 - (IBAction)cancel:(id)sender
 {
     [self.delegate titleEditorDidCancel:self];
-    [self.textField resignFirstResponder];
+//    [self.textField resignFirstResponder];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [self.delegate titleEditorDidConfirm:self];
-    [self.textField resignFirstResponder];
+//    [self.textField resignFirstResponder];
     
     return YES;
 }

@@ -284,8 +284,12 @@
 - (void)titleEditorDidConfirm:(mATitleEditorController *)titleEditor
 {
     [self.popover dismissPopoverAnimated:YES];
+    
     self.detailItem.title = self.titleEditor.editedTitle;
+    self.detailItem.text = self.textView.text;
+    
     [self configureView];
+    
     [self.masterViewController scriptDetailChanged];
 }
 

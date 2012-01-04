@@ -75,7 +75,9 @@
 
 - (void)scriptDetailChanged
 {
+    int row = [self selectedScript];
     [self.tableView reloadData];
+    [self selectScript:row];
 }
 
 

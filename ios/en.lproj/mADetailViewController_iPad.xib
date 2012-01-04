@@ -45,7 +45,6 @@
 						<string key="NSFrame">{{0, 140}, {768, 864}}</string>
 						<reference key="NSSuperview" ref="647120888"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -182,12 +181,6 @@
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<array class="NSMutableArray" key="IBUIItems">
-							<object class="IBUIBarButtonItem" id="535961087">
-								<string key="IBUITitle">New Script</string>
-								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<int key="IBUIStyle">1</int>
-								<reference key="IBUIToolbar" ref="30258087"/>
-							</object>
 							<object class="IBUIBarButtonItem" id="107218773">
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<reference key="IBUIToolbar" ref="30258087"/>
@@ -346,14 +339,6 @@
 					</object>
 					<int key="connectionID">128</int>
 				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">newScript:</string>
-						<reference key="source" ref="535961087"/>
-						<reference key="destination" ref="841351856"/>
-					</object>
-					<int key="connectionID">125</int>
-				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -422,7 +407,6 @@
 							<reference ref="390297353"/>
 							<reference ref="576151715"/>
 							<reference ref="416763461"/>
-							<reference ref="535961087"/>
 						</array>
 						<reference key="parent" ref="647120888"/>
 					</object>
@@ -452,11 +436,6 @@
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">124</int>
-						<reference key="object" ref="535961087"/>
-						<reference key="parent" ref="30258087"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">126</int>
 						<reference key="object" ref="1028467433"/>
 						<reference key="parent" ref="0"/>
@@ -475,7 +454,6 @@
 				<string key="112.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="122.CustomClassName">mATitleEditorController</string>
 				<string key="122.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="124.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="126.CustomClassName">mAVMMonitorController</string>
 				<string key="126.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="67.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
