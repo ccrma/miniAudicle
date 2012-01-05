@@ -54,7 +54,7 @@ U.S.A.
 //using namespace miniAudicle;
 
 #ifndef __MA_IMPORT_MAUI__
-#if defined( __MACOSX_CORE__ )
+#if defined( __MACOSX_CORE__ ) && !defined(__CHIP_MODE__)
 #define __MA_IMPORT_MAUI__
 #endif // defined( __MACOSX_CORE__ )
 #endif // __MA_IMPORT_MAUI__
@@ -1069,8 +1069,12 @@ t_CKBOOL miniAudicle::highlight_line( string & line,
     return TRUE;
 }
 
+
+
 t_CKBOOL miniAudicle::probe()
 {
+#ifndef __CHIP_MODE__
+
     interfaces.clear();
     
     RtAudio * rta = NULL;
@@ -1127,13 +1131,20 @@ t_CKBOOL miniAudicle::probe()
     
     delete rta;
     
+#endif // __CHIP_MODE__
+    
     return TRUE;
 }
+
+
+#ifndef __CHIP_MODE__
 
 const vector< RtAudio::DeviceInfo > & miniAudicle::get_interfaces()
 {
     return interfaces;
 }
+
+#endif // __CHIP_MODE__
 
 //-----------------------------------------------------------------------------
 // name: set_num_inputs()
@@ -1141,6 +1152,7 @@ const vector< RtAudio::DeviceInfo > & miniAudicle::get_interfaces()
 //-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::set_num_inputs( t_CKUINT num )
 {
+#ifndef __CHIP_MODE__
     // sanity check
     int max;
     if( interfaces.size() == 0 )
@@ -1149,6 +1161,9 @@ t_CKBOOL miniAudicle::set_num_inputs( t_CKUINT num )
         max = interfaces[default_input].inputChannels;
     else
         max = interfaces[vm_options.adc - 1].inputChannels;
+#else
+    int max = 2;
+#endif // __CHIP_MODE__
     
     if( num < 0 || num > max )
         vm_options.num_inputs = max;
@@ -1157,6 +1172,7 @@ t_CKBOOL miniAudicle::set_num_inputs( t_CKUINT num )
     
     return TRUE;
 }
+
 
 //-----------------------------------------------------------------------------
 // name: get_num_inputs()
@@ -1173,6 +1189,7 @@ t_CKUINT miniAudicle::get_num_inputs()
 //-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::set_num_outputs( t_CKUINT num )
 {
+#ifndef __CHIP_MODE__
     // sanity check
     int max;
     if( interfaces.size() == 0 )
@@ -1181,7 +1198,10 @@ t_CKBOOL miniAudicle::set_num_outputs( t_CKUINT num )
         max = interfaces[default_output].outputChannels;
     else
         max = interfaces[vm_options.dac - 1].outputChannels;
-    
+#else
+    int max = 2;
+#endif // __CHIP_MODE__
+
     if( num < 0 || num > max )
         vm_options.num_outputs = max;
     else
@@ -1247,6 +1267,7 @@ t_CKBOOL miniAudicle::get_enable_network_thread()
 
 t_CKBOOL miniAudicle::set_dac( t_CKUINT dac )
 {
+#ifndef __CHIP_MODE__
     // sanity check
     if( dac < 0 || dac > interfaces.size() )
         return FALSE;
@@ -1255,6 +1276,7 @@ t_CKBOOL miniAudicle::set_dac( t_CKUINT dac )
     
     // set parameters to a reasonable value, if necessary
     set_num_outputs( get_num_outputs() );
+#endif // __CHIP_MODE__
     
     return TRUE;
 }
@@ -1266,6 +1288,7 @@ t_CKUINT miniAudicle::get_dac()
 
 t_CKBOOL miniAudicle::set_adc( t_CKUINT adc )
 {
+#ifndef __CHIP_MODE__
     // sanity check
     if( adc < 0 || adc > interfaces.size() )
         return FALSE;
@@ -1274,6 +1297,7 @@ t_CKBOOL miniAudicle::set_adc( t_CKUINT adc )
 
     // set parameters to a reasonable value, if necessary
     set_num_inputs( get_num_inputs() );
+#endif // __CHIP_MODE__
     
     return TRUE;
 }
@@ -1285,6 +1309,7 @@ t_CKUINT miniAudicle::get_adc()
 
 t_CKBOOL miniAudicle::set_sample_rate( t_CKUINT srate )
 {
+#ifndef __CHIP_MODE__
     if( interfaces.size() == 0 )
     {
         vm_options.srate = SAMPLING_RATE_DEFAULT;
@@ -1322,6 +1347,7 @@ t_CKBOOL miniAudicle::set_sample_rate( t_CKUINT srate )
         vm_options.srate = SAMPLING_RATE_DEFAULT; // hope this one works!
         return TRUE;
     }
+#endif // __CHIP_MODE__
     
     vm_options.srate = srate;
     return TRUE;
