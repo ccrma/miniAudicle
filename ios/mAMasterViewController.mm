@@ -75,9 +75,12 @@
 
 - (void)scriptDetailChanged
 {
-    int row = [self selectedScript];
-    [self.tableView reloadData];
-    [self selectScript:row];
+//    int row = [self selectedScript];
+//    [self.tableView reloadData];
+//    [self selectScript:row];
+    
+    // reload name
+    [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]].textLabel.text = self.detailViewController.detailItem.title;
 }
 
 
