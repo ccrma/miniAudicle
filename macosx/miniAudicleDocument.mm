@@ -318,14 +318,14 @@ U.S.A.
         
         [[text_view textView] animateError];
         
-        [status_text setStringValue:[NSString stringWithCString:result.c_str()]];
+        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
     }
     
     else
     {
         [[text_view textView] animateError];
         
-        [status_text setStringValue:[NSString stringWithCString:result.c_str()]];
+        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
     }
     //miniAudicleController * mac = [NSDocumentController sharedDocumentController];
     //[mac updateSyntaxHighlighting];
@@ -379,13 +379,13 @@ U.S.A.
         
         [[text_view textView] animateError];
         
-        [status_text setStringValue:[NSString stringWithCString:result.c_str()]];
+        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
     }
     
     else
     {
         [[text_view textView] animateError];
-        [status_text setStringValue:[NSString stringWithCString:result.c_str()]];
+        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
     }
     
     //miniAudicleController * mac = [NSDocumentController sharedDocumentController];
@@ -421,7 +421,7 @@ U.S.A.
     else
     {
         [[text_view textView] animateError];
-        [status_text setStringValue:[NSString stringWithCString:result.c_str()]];
+        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
     }
 }
 
@@ -434,7 +434,7 @@ U.S.A.
         [text_view setShowsErrorLine:NO];
     }
     
-    [status_text setStringValue:[NSString stringWithCString:result.c_str()]];
+    [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
 }
 
 - (void)removelast:(id)sender
@@ -446,7 +446,7 @@ U.S.A.
         [text_view setShowsErrorLine:NO];
     }
     
-    [status_text setStringValue:[NSString stringWithCString:result.c_str()]];
+    [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
 }
 
 - (void)removeShred:(id)sender
