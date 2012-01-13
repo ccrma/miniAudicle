@@ -20,6 +20,9 @@
 		09297A160B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
 		09297A170B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
 		09297A180B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
+		093A212C14BF587500497856 /* mAChuginManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A212B14BF587500497856 /* mAChuginManager.mm */; };
+		093A212E14BFEF7F00497856 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093A212D14BFEF7F00497856 /* Security.framework */; };
+		093A213114BFF5DC00497856 /* BLAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A213014BFF5DC00497856 /* BLAuthentication.m */; };
 		093D84E10B7A99F200E55E71 /* RBSplitSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = 093D84DE0B7A99F200E55E71 /* RBSplitSubview.m */; };
 		093D84E20B7A99F200E55E71 /* RBSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 093D84E00B7A99F200E55E71 /* RBSplitView.m */; };
 		093E261414A108C8008694BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261314A108C8008694BC /* UIKit.framework */; };
@@ -100,6 +103,7 @@
 		093ECDCF13B578B800B645F0 /* libwx_gtk2ud_adv-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDCE13B578B800B645F0 /* libwx_gtk2ud_adv-2.8.dylib */; };
 		0942B6F71362466700C870F2 /* chugin.png in Resources */ = {isa = PBXBuildFile; fileRef = 0942B6F51362466700C870F2 /* chugin.png */; };
 		0942B6F81362466700C870F2 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0942B6F61362466700C870F2 /* folder.png */; };
+		095A779A14C0336E003E53EC /* chugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = 095A779914C0336E003E53EC /* chugin.icns */; };
 		095B59720BC6D0F900E8759D /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 095B59710BC6D0F900E8759D /* error.png */; };
 		09608ADF14B40DE4009450FE /* mAConsoleMonitorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09608ADD14B40DE4009450FE /* mAConsoleMonitorController.mm */; };
 		09608AE014B40DE4009450FE /* mAConsoleMonitor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09608ADE14B40DE4009450FE /* mAConsoleMonitor.xib */; };
@@ -362,6 +366,11 @@
 		0910DF790B1D0D0800BBC2B8 /* mAParentFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 30; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = mAParentFrame.cpp; path = wxw/mAParentFrame.cpp; sourceTree = SOURCE_ROOT; tabWidth = 4; usesTabs = 0; };
 		09216C09134ED4A900145064 /* MultitouchSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultitouchSupport.framework; path = System/Library/PrivateFrameworks/MultitouchSupport.framework; sourceTree = SDKROOT; };
 		092979FB0B4DED60005C3B7A /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = /System/Library/Frameworks/IOBluetooth.framework; sourceTree = "<absolute>"; };
+		093A212A14BF587500497856 /* mAChuginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAChuginManager.h; path = macosx/mAChuginManager.h; sourceTree = "<group>"; };
+		093A212B14BF587500497856 /* mAChuginManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAChuginManager.mm; path = macosx/mAChuginManager.mm; sourceTree = "<group>"; };
+		093A212D14BFEF7F00497856 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		093A212F14BFF5DC00497856 /* BLAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLAuthentication.h; sourceTree = "<group>"; };
+		093A213014BFF5DC00497856 /* BLAuthentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLAuthentication.m; sourceTree = "<group>"; };
 		093D84DD0B7A99F200E55E71 /* RBSplitSubview.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RBSplitSubview.h; path = macosx/RBSplitSubview.h; sourceTree = SOURCE_ROOT; };
 		093D84DE0B7A99F200E55E71 /* RBSplitSubview.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = RBSplitSubview.m; path = macosx/RBSplitSubview.m; sourceTree = SOURCE_ROOT; };
 		093D84DF0B7A99F200E55E71 /* RBSplitView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RBSplitView.h; path = macosx/RBSplitView.h; sourceTree = SOURCE_ROOT; };
@@ -400,6 +409,7 @@
 		09594C330BD56E6F00336A56 /* led-red.xpm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = "led-red.xpm"; path = "wxw/icons/led-red.xpm"; sourceTree = SOURCE_ROOT; };
 		09594C340BD56E6F00336A56 /* led-green.xpm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = "led-green.xpm"; path = "wxw/icons/led-green.xpm"; sourceTree = SOURCE_ROOT; };
 		09594C350BD56E6F00336A56 /* led-blue.xpm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = "led-blue.xpm"; path = "wxw/icons/led-blue.xpm"; sourceTree = SOURCE_ROOT; };
+		095A779914C0336E003E53EC /* chugin.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = chugin.icns; path = macosx/icon/chugin.icns; sourceTree = "<group>"; };
 		095B59710BC6D0F900E8759D /* error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = error.png; path = macosx/icon/error.png; sourceTree = SOURCE_ROOT; };
 		09608ADC14B40DE4009450FE /* mAConsoleMonitorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAConsoleMonitorController.h; sourceTree = "<group>"; };
 		09608ADD14B40DE4009450FE /* mAConsoleMonitorController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAConsoleMonitorController.mm; sourceTree = "<group>"; };
@@ -939,6 +949,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				093A212E14BFEF7F00497856 /* Security.framework in Frameworks */,
 				09216C0A134ED4A900145064 /* MultitouchSupport.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				09A40BD80A9A57C6007604EA /* Carbon.framework in Frameworks */,
@@ -987,6 +998,10 @@
 				09A40BBB0A9A55EC007604EA /* miniAudicleVMMonitor.mm */,
 				09A40BBC0A9A55EC007604EA /* NumberedTextView.h */,
 				09A40BBD0A9A55EC007604EA /* NumberedTextView.mm */,
+				093A212F14BFF5DC00497856 /* BLAuthentication.h */,
+				093A213014BFF5DC00497856 /* BLAuthentication.m */,
+				093A212A14BF587500497856 /* mAChuginManager.h */,
+				093A212B14BF587500497856 /* mAChuginManager.mm */,
 			);
 			name = "miniAudicle OS X";
 			sourceTree = "<group>";
@@ -1847,6 +1862,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				095A779914C0336E003E53EC /* chugin.icns */,
 				0942B6F51362466700C870F2 /* chugin.png */,
 				0942B6F61362466700C870F2 /* folder.png */,
 				098C3BD8110DBEE800772EBB /* miniAudicleDocument.xib */,
@@ -1881,6 +1897,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				093A212D14BFEF7F00497856 /* Security.framework */,
 				093E267514A12A89008694BC /* AudioToolbox.framework */,
 				093E267314A12A69008694BC /* CoreAudio.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
@@ -2040,6 +2057,7 @@
 				098C3BDA110DBEE800772EBB /* miniAudicleDocument.xib in Resources */,
 				0942B6F71362466700C870F2 /* chugin.png in Resources */,
 				0942B6F81362466700C870F2 /* folder.png in Resources */,
+				095A779A14C0336E003E53EC /* chugin.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2320,6 +2338,8 @@
 				09812B9B0C6E394A00D1D68C /* uana_extract.cpp in Sources */,
 				09820BA110941F7F001F662E /* miniAudicle_log.cpp in Sources */,
 				09AC749A13E36A970015CC99 /* RtAudio.cpp in Sources */,
+				093A212C14BF587500497856 /* mAChuginManager.mm in Sources */,
+				093A213114BFF5DC00497856 /* BLAuthentication.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

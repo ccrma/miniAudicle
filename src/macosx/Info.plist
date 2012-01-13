@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleShortVersionString</key>
-	<string>0.2.0</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDocumentTypes</key>
@@ -20,13 +18,39 @@
 				<string>text/plain</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>ChucK Source Document</string>
+			<string>ChucK Script</string>
 			<key>CFBundleTypeOSTypes</key>
 			<array>
 				<string>****</string>
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>NSDocumentClass</key>
+			<string>miniAudicleDocument</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>chug</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>chugin</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/octet-stream</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>ChucK ChuGin</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>****</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Shell</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>edu.stanford.chuck.chugin</string>
+			</array>
 			<key>NSDocumentClass</key>
 			<string>miniAudicleDocument</string>
 		</dict>
@@ -43,10 +67,12 @@
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.2.1-beta-1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>0.2.0</string>
+	<string>0.2.1-beta-1</string>
 	<key>NSMainNibFile</key>
 	<string>miniAudicle</string>
 	<key>NSPrincipalClass</key>
