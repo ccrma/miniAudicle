@@ -272,8 +272,14 @@ U.S.A.
     
     [text_view setShowsErrorLine:NO];
     
-    t_OTF_RESULT otf_result = ma->run_code( code, code_name, argv, docid, 
-                                            shred_id, result );
+    string filepath;
+    if([self fileURL] && [[self fileURL] isFileURL])
+        filepath = [[[self fileURL] path] stlString];
+    else
+        filepath = "";
+    
+    t_OTF_RESULT otf_result = ma->run_code( code, code_name, argv, filepath, 
+                                            docid, shred_id, result );
     
     if( otf_result == OTF_SUCCESS )
     {
@@ -346,8 +352,14 @@ U.S.A.
     while( arg = [args_enum nextObject] )
         argv.push_back( [arg stlString] );
     
-    t_OTF_RESULT otf_result = ma->replace_code( code, code_name, argv, docid, 
-                                                shred_id, result );
+    string filepath;
+    if([self fileURL] && [[self fileURL] isFileURL])
+        filepath = [[[self fileURL] path] stlString];
+    else
+        filepath = "";
+
+    t_OTF_RESULT otf_result = ma->replace_code( code, code_name, argv, filepath,
+                                                docid, shred_id, result );
     
     if( otf_result == OTF_SUCCESS )
     {

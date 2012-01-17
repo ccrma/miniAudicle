@@ -84,11 +84,12 @@ public:
     ~miniAudicle();
     
     t_OTF_RESULT run_code( string & code, string & name, 
-                           vector< string > & args, t_CKUINT docid, 
-                           t_CKUINT & shred_id, string & out );
+                           vector< string > & args, string & filepath, 
+                           t_CKUINT docid, t_CKUINT & shred_id, string & out );
     t_OTF_RESULT replace_code( string & code, string & name, 
-                               vector< string > & args, t_CKUINT docid, 
-                               t_CKUINT & shred_id, string & out );
+                               vector< string > & args, string & filepath,
+                               t_CKUINT docid, t_CKUINT & shred_id, 
+                               string & out );
     t_OTF_RESULT remove_code( t_CKUINT docid, t_CKUINT & shred_id, 
                               string & out );
     t_OTF_RESULT remove_shred( t_CKUINT docid, t_CKINT shred_id, string & out );

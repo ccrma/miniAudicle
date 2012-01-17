@@ -188,8 +188,9 @@ miniAudicle::~miniAudicle()
 // desc: ...
 //-----------------------------------------------------------------------------
 t_OTF_RESULT miniAudicle::run_code( string & code, string & name, 
-                                    vector< string > & args, t_CKUINT docid, 
-                                    t_CKUINT & shred_id, string & out )
+                                    vector< string > & args, string & filepath, 
+                                    t_CKUINT docid, t_CKUINT & shred_id, 
+                                    string & out )
 {    
     if( documents.find( docid ) == documents.end() )
         // invalid document id
@@ -199,7 +200,7 @@ t_OTF_RESULT miniAudicle::run_code( string & code, string & name,
     }
 
     // compile
-    if( !compiler->go( name, NULL, code.c_str() ) )
+    if( !compiler->go( name, NULL, code.c_str(), filepath ) )
     {
         last_result[docid].result = OTF_COMPILE_ERROR;
         last_result[docid].output = string( EM_lasterror() ) + "\n";
@@ -232,8 +233,9 @@ t_OTF_RESULT miniAudicle::run_code( string & code, string & name,
 // desc: ...
 //-----------------------------------------------------------------------------
 t_OTF_RESULT miniAudicle::replace_code( string & code, string & name, 
-                                        vector< string > & args, t_CKUINT docid, 
-                                        t_CKUINT & shred_id, string & out )
+                                        vector< string > & args, string & filepath, 
+                                        t_CKUINT docid, t_CKUINT & shred_id, 
+                                        string & out )
 {    
     if( documents.find( docid ) == documents.end() )
     {
@@ -250,7 +252,7 @@ t_OTF_RESULT miniAudicle::replace_code( string & code, string & name,
         return OTF_MINI_ERROR;
     }
 
-    if( !compiler->go( name, NULL, code.c_str() ) )
+    if( !compiler->go( name, NULL, code.c_str(), filepath ) )
     {
         last_result[docid].result = OTF_COMPILE_ERROR;
         last_result[docid].output = string( EM_lasterror() ) + "\n";
