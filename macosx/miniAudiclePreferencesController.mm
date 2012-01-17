@@ -1000,7 +1000,7 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
         if([[item objectForKey:@"type"] isEqualToString:@"folder"])
             return [NSImage imageNamed:@"folder"];
         else if([[item objectForKey:@"type"] isEqualToString:@"chugin"])
-            return [NSImage imageNamed:@"chugin"];
+            return [NSImage imageNamed:@"chugin-mini.png"];
         else 
             return nil;
     }
