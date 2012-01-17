@@ -52,7 +52,7 @@
 				<string>edu.stanford.chuck.chugin</string>
 			</array>
 			<key>NSDocumentClass</key>
-			<string>miniAudicleDocument</string>
+			<string></string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
