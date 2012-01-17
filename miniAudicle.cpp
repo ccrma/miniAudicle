@@ -48,6 +48,7 @@ U.S.A.
 #include "chuck_otf.h"
 #include "chuck_errmsg.h"
 #include "chuck_globals.h"
+#include "util_string.h"
 
 #include "miniAudicle_ui_elements.h"
 #include "miniAudicle_import.h"
@@ -829,8 +830,19 @@ t_CKBOOL miniAudicle::start_vm()
         // allocate the compiler
         g_compiler = compiler = new Chuck_Compiler;
         
+        
+        std::list<std::string> library_paths = vm_options.library_paths;
+        std::list<std::string> named_chugins = vm_options.named_chugins;
+        // normalize paths
+        for(std::list<std::string>::iterator i = library_paths.begin();
+            i != library_paths.end(); i++)
+            *i = expand_filepath(*i);
+        for(std::list<std::string>::iterator j = named_chugins.begin();
+            j != named_chugins.end(); j++)
+            *j = expand_filepath(*j);
+        
         // initialize the compiler
-        compiler->initialize( vm, vm_options.library_paths, vm_options.named_chugins );
+        compiler->initialize( vm, library_paths, named_chugins );
         // enable dump
         compiler->emitter->dump = FALSE;
         // set auto depend
