@@ -101,7 +101,7 @@
 		093ECDC113B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDC013B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib */; };
 		093ECDC313B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDC213B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib */; };
 		093ECDCF13B578B800B645F0 /* libwx_gtk2ud_adv-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDCE13B578B800B645F0 /* libwx_gtk2ud_adv-2.8.dylib */; };
-		0942B6F71362466700C870F2 /* chugin.png in Resources */ = {isa = PBXBuildFile; fileRef = 0942B6F51362466700C870F2 /* chugin.png */; };
+		0942B6F71362466700C870F2 /* chugin-mini.png in Resources */ = {isa = PBXBuildFile; fileRef = 0942B6F51362466700C870F2 /* chugin-mini.png */; };
 		0942B6F81362466700C870F2 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0942B6F61362466700C870F2 /* folder.png */; };
 		095A779A14C0336E003E53EC /* chugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = 095A779914C0336E003E53EC /* chugin.icns */; };
 		095B59720BC6D0F900E8759D /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 095B59710BC6D0F900E8759D /* error.png */; };
@@ -403,7 +403,7 @@
 		093ECDC013B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_gtk2ud_core-2.8.dylib"; path = "/opt/local/lib/libwx_gtk2ud_core-2.8.dylib"; sourceTree = "<absolute>"; };
 		093ECDC213B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_gtk2ud_stc-2.8.dylib"; path = "/opt/local/lib/libwx_gtk2ud_stc-2.8.dylib"; sourceTree = "<absolute>"; };
 		093ECDCE13B578B800B645F0 /* libwx_gtk2ud_adv-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_gtk2ud_adv-2.8.dylib"; path = "/opt/local/lib/libwx_gtk2ud_adv-2.8.dylib"; sourceTree = "<absolute>"; };
-		0942B6F51362466700C870F2 /* chugin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chugin.png; path = macosx/icon/chugin.png; sourceTree = "<group>"; };
+		0942B6F51362466700C870F2 /* chugin-mini.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chugin-mini.png"; path = "macosx/icon/chugin-mini.png"; sourceTree = "<group>"; };
 		0942B6F61362466700C870F2 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = folder.png; path = macosx/icon/folder.png; sourceTree = "<group>"; };
 		09594C120BD56B5300336A56 /* led-off.xpm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = "led-off.xpm"; path = "wxw/icons/led-off.xpm"; sourceTree = SOURCE_ROOT; };
 		09594C330BD56E6F00336A56 /* led-red.xpm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = "led-red.xpm"; path = "wxw/icons/led-red.xpm"; sourceTree = SOURCE_ROOT; };
@@ -1863,7 +1863,7 @@
 			isa = PBXGroup;
 			children = (
 				095A779914C0336E003E53EC /* chugin.icns */,
-				0942B6F51362466700C870F2 /* chugin.png */,
+				0942B6F51362466700C870F2 /* chugin-mini.png */,
 				0942B6F61362466700C870F2 /* folder.png */,
 				098C3BD8110DBEE800772EBB /* miniAudicleDocument.xib */,
 				098C3BD4110DBEAB00772EBB /* miniAudicle.xib */,
@@ -2055,7 +2055,7 @@
 				095B59720BC6D0F900E8759D /* error.png in Resources */,
 				098C3BD6110DBEAB00772EBB /* miniAudicle.xib in Resources */,
 				098C3BDA110DBEE800772EBB /* miniAudicleDocument.xib in Resources */,
-				0942B6F71362466700C870F2 /* chugin.png in Resources */,
+				0942B6F71362466700C870F2 /* chugin-mini.png in Resources */,
 				0942B6F81362466700C870F2 /* folder.png in Resources */,
 				095A779A14C0336E003E53EC /* chugin.icns in Resources */,
 			);
