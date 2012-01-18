@@ -35,6 +35,10 @@ U.S.A.
 #import "miniAudicle.h"
 #import "mASyntaxHighlighter.h"
 
+#import "chuck_dl.h"
+#import "util_string.h"
+
+
 static int sh_tokens[] = 
 { 
     IDEKit_kLangColor_NormalText, 
@@ -247,9 +251,11 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
 
 @implementation mAKeyBindingsFieldEditor
 
-- (void)becomeFirstResponder
+- (BOOL)becomeFirstResponder
 {
     ignoreFlagsChanged = NO;
+    
+    return [super becomeFirstResponder];
 }
 
 - (void)adjustTextFromEvent:(NSEvent *)e
@@ -392,14 +398,19 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesShowStatusBar];
         [defaults setObject:[NSNumber numberWithBool:NO] forKey:mAPreferencesEnableOTFVisuals];
         
-        [defaults setObject:[NSArray arrayWithObjects:
-                             [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                              @"/usr/lib/chuck", @"location", 
-                              @"folder", @"type", nil],
-                             [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                              @"/Library/Application Support/ChucK", @"location", 
-                              @"folder", @"type", nil],
-                             nil] forKey:mAPreferencesChuginPaths];
+        std::list<std::string> default_chugin_pathv;
+        std::string path_list = g_default_chugin_path;
+        parse_path_list(path_list, default_chugin_pathv);
+        NSMutableArray * chugin_path_array = [NSMutableArray arrayWithCapacity:default_chugin_pathv.size()];
+        for(std::list<std::string>::iterator i = default_chugin_pathv.begin();
+            i != default_chugin_pathv.end(); i++)
+        {
+            [chugin_path_array addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                          [NSString stringWithUTF8String:i->c_str()], @"location", 
+                                          @"folder", @"type", nil]];
+        }
+        
+        [defaults setObject:chugin_path_array forKey:mAPreferencesChuginPaths];
         
         [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
         
