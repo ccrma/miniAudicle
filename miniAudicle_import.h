@@ -76,6 +76,8 @@ CK_DLL_MFUN( maslider_set_precision );
 CK_DLL_MFUN( maslider_get_precision );
 CK_DLL_MFUN( maslider_set_display_format );
 CK_DLL_MFUN( maslider_get_display_format );
+CK_DLL_MFUN( maslider_set_orientation );
+CK_DLL_MFUN( maslider_get_orientation );
 
 //-----------------------------------------------------------------------------
 // MAUIView API
@@ -93,6 +95,8 @@ CK_DLL_MFUN( mauibutton_set_state );
 CK_DLL_MFUN( mauibutton_get_state );
 CK_DLL_MFUN( mauibutton_push_type );
 CK_DLL_MFUN( mauibutton_toggle_type );
+CK_DLL_MFUN( mauibutton_set_image );
+CK_DLL_MFUN( mauibutton_unset_image );
 
 //-----------------------------------------------------------------------------
 // MAUILED API

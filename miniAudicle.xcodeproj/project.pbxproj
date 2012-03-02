@@ -369,8 +369,8 @@
 		093A212A14BF587500497856 /* mAChuginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAChuginManager.h; path = macosx/mAChuginManager.h; sourceTree = "<group>"; };
 		093A212B14BF587500497856 /* mAChuginManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAChuginManager.mm; path = macosx/mAChuginManager.mm; sourceTree = "<group>"; };
 		093A212D14BFEF7F00497856 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		093A212F14BFF5DC00497856 /* BLAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLAuthentication.h; sourceTree = "<group>"; };
-		093A213014BFF5DC00497856 /* BLAuthentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLAuthentication.m; sourceTree = "<group>"; };
+		093A212F14BFF5DC00497856 /* BLAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLAuthentication.h; path = macosx/BLAuthentication.h; sourceTree = "<group>"; };
+		093A213014BFF5DC00497856 /* BLAuthentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLAuthentication.m; path = macosx/BLAuthentication.m; sourceTree = "<group>"; };
 		093D84DD0B7A99F200E55E71 /* RBSplitSubview.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RBSplitSubview.h; path = macosx/RBSplitSubview.h; sourceTree = SOURCE_ROOT; };
 		093D84DE0B7A99F200E55E71 /* RBSplitSubview.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = RBSplitSubview.m; path = macosx/RBSplitSubview.m; sourceTree = SOURCE_ROOT; };
 		093D84DF0B7A99F200E55E71 /* RBSplitView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RBSplitView.h; path = macosx/RBSplitView.h; sourceTree = SOURCE_ROOT; };
@@ -682,12 +682,11 @@
 		0991F5A0128AA4830067C31C /* type_analysis.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = type_analysis.ck; sourceTree = "<group>"; };
 		0991F5A1128AA4830067C31C /* type_object.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = type_object.ck; sourceTree = "<group>"; };
 		0991F5A2128AA4830067C31C /* type_primitives.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = type_primitives.ck; sourceTree = "<group>"; };
-		09A1E6120CBA1AEC001FAD6F /* makefile.alsa */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = makefile.alsa; sourceTree = SOURCE_ROOT; };
-		09A1E6130CBA1AEC001FAD6F /* makefile.jack */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = makefile.jack; sourceTree = SOURCE_ROOT; };
-		09A1E6140CBA1AEC001FAD6F /* makefile.oss */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = makefile.oss; sourceTree = SOURCE_ROOT; };
-		09A1E6150CBA1AEC001FAD6F /* makefile.osx-gtk */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "makefile.osx-gtk"; sourceTree = SOURCE_ROOT; };
-		09A1E6160CBA1AEC001FAD6F /* makefile.source-dist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "makefile.source-dist"; sourceTree = SOURCE_ROOT; };
-		09A1E6170CBA1AEC001FAD6F /* makefile.win32 */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = makefile.win32; sourceTree = SOURCE_ROOT; };
+		09A1E6120CBA1AEC001FAD6F /* makefile.alsa */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = makefile.alsa; sourceTree = SOURCE_ROOT; };
+		09A1E6130CBA1AEC001FAD6F /* makefile.jack */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = makefile.jack; sourceTree = SOURCE_ROOT; };
+		09A1E6140CBA1AEC001FAD6F /* makefile.oss */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = makefile.oss; sourceTree = SOURCE_ROOT; };
+		09A1E6160CBA1AEC001FAD6F /* makefile.source-dist */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = "makefile.source-dist"; sourceTree = SOURCE_ROOT; };
+		09A1E6170CBA1AEC001FAD6F /* makefile.win32 */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = makefile.win32; sourceTree = SOURCE_ROOT; };
 		09A40B060A9A54DA007604EA /* chuck_absyn.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_absyn.cpp; sourceTree = "<group>"; };
 		09A40B070A9A54DA007604EA /* chuck_absyn.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = chuck_absyn.h; sourceTree = "<group>"; };
 		09A40B080A9A54DA007604EA /* chuck_bbq.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_bbq.cpp; sourceTree = "<group>"; };
@@ -822,8 +821,8 @@
 		09A40C670A9A57FA007604EA /* miniAudicle.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = miniAudicle.icns; path = macosx/icon/miniAudicle.icns; sourceTree = SOURCE_ROOT; };
 		09A40C7A0A9A58A0007604EA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; name = Info.plist; path = macosx/Info.plist; sourceTree = SOURCE_ROOT; };
 		09A40DC60A9AC659007604EA /* makefile.osx-ub */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = "makefile.osx-ub"; sourceTree = SOURCE_ROOT; };
-		09A40DC80A9AC677007604EA /* makefile.osx */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; indentWidth = 4; path = makefile.osx; sourceTree = SOURCE_ROOT; tabWidth = 4; usesTabs = 0; };
-		09A40DD20A9AC6D3007604EA /* makefile */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = SOURCE_ROOT; };
+		09A40DC80A9AC677007604EA /* makefile.osx */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; indentWidth = 4; path = makefile.osx; sourceTree = SOURCE_ROOT; tabWidth = 4; usesTabs = 0; xcLanguageSpecificationIdentifier = xcode.lang.csh; };
+		09A40DD20A9AC6D3007604EA /* makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = makefile; sourceTree = SOURCE_ROOT; };
 		09A40DED0A9AC8C8007604EA /* chuckula_blood.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = chuckula_blood.jpg; path = ../docs/web/images/chuckula_blood.jpg; sourceTree = SOURCE_ROOT; };
 		09A40DEE0A9AC8C8007604EA /* ma-about.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "ma-about.jpg"; path = "../docs/web/images/ma-about.jpg"; sourceTree = SOURCE_ROOT; };
 		09A40DEF0A9AC8C8007604EA /* ma-button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "ma-button.jpg"; path = "../docs/web/images/ma-button.jpg"; sourceTree = SOURCE_ROOT; };
@@ -1722,7 +1721,6 @@
 				09A1E6120CBA1AEC001FAD6F /* makefile.alsa */,
 				09A1E6130CBA1AEC001FAD6F /* makefile.jack */,
 				09A1E6140CBA1AEC001FAD6F /* makefile.oss */,
-				09A1E6150CBA1AEC001FAD6F /* makefile.osx-gtk */,
 				09A1E6160CBA1AEC001FAD6F /* makefile.source-dist */,
 				09A1E6170CBA1AEC001FAD6F /* makefile.win32 */,
 				09A40DD20A9AC6D3007604EA /* makefile */,

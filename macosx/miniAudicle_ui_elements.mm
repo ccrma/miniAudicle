@@ -32,6 +32,8 @@ U.S.A.
 #import <Cocoa/Cocoa.h>
 
 #include "miniAudicle_ui_elements.h"
+//#include "util_icon.h"
+
 using namespace std;
 //using namespace miniAudicle::UI;
 using namespace UI;
@@ -313,7 +315,7 @@ t_CKBOOL Element::set_position( t_CKFLOAT x, t_CKFLOAT y )
 - (void)setName
 {
     if( owner )
-        [panel setTitle:[NSString stringWithCString:(owner->get_name()).c_str()]];
+        [panel setTitle:[NSString stringWithUTF8String:(owner->get_name()).c_str()]];
 }
 
 - (void)setSize
@@ -465,6 +467,7 @@ t_CKBOOL View::remove_element( Element * e )
 - (void)setValue;
 - (void)setRange;
 - (void)setDisplayFormat;
+- (void)setOrientation;
 - (void)updateDisplay;
 - (void)sliderDidChange;
 
@@ -486,6 +489,8 @@ t_CKBOOL View::remove_element( Element * e )
 {
     if( self = [super init] )
     {
+        assert(owner != NULL);
+        
         slider = [[NSSlider alloc] initWithFrame:NSMakeRect( Slider::default_margin, 
                                                              Slider::default_margin,
                                                              Slider::default_width, 
@@ -503,6 +508,7 @@ t_CKBOOL View::remove_element( Element * e )
         [title setBezeled:NO];
         [title setDrawsBackground:NO];
         [title setAutoresizingMask:NSViewWidthSizable | NSViewMinYMargin | NSViewMaxYMargin];
+        [title setAlignment:NSLeftTextAlignment];
         
         value = [[NSTextField alloc] initWithFrame:NSMakeRect( Slider::default_margin,
                                                                Slider::default_margin + Slider::default_slider_height + Slider::default_inner_margin,
@@ -514,11 +520,7 @@ t_CKBOOL View::remove_element( Element * e )
         [value setAutoresizingMask:NSViewWidthSizable | NSViewMinYMargin | NSViewMaxYMargin];
         [value setAlignment:NSRightTextAlignment];
         
-        t_CKFLOAT w = Slider::default_width + Slider::default_margin * 2,
-            h = Slider::default_slider_height + Slider::default_inner_margin + 
-            Slider::default_text_height + 
-            Slider::default_margin * 2;
-        master_view = [[NSView alloc] initWithFrame:NSMakeRect( 0, 0, w, h )];
+        master_view = [[NSView alloc] initWithFrame:NSMakeRect( 0, 0, owner->get_width(), owner->get_height() )];
         [master_view setAutoresizingMask:NSViewNotSizable];
         [master_view addSubview:slider];
         [master_view addSubview:title];
@@ -526,6 +528,7 @@ t_CKBOOL View::remove_element( Element * e )
         
         [self setDisplayFormat];
         [self updateDisplay];
+        [self setOrientation];
     }
     
     return self;
@@ -545,7 +548,7 @@ t_CKBOOL View::remove_element( Element * e )
 {
     if( !owner )
         return;
-    [title setStringValue:[NSString stringWithCString:owner->get_name().c_str()]];
+    [title setStringValue:[NSString stringWithUTF8String:owner->get_name().c_str()]];
 }
 
 - (void)setValue
@@ -589,6 +592,58 @@ t_CKBOOL View::remove_element( Element * e )
         display_format = @"%.*e";
 }
 
+- (void)setOrientation
+{
+    t_CKFLOAT width = s_owner->get_width();
+    t_CKFLOAT height = s_owner->get_height();
+    
+    if( s_owner->get_orientation() == Slider::horizontal )
+    {
+        
+        [slider setFrame:NSMakeRect(Slider::default_margin, 
+                                    Slider::default_margin,
+                                    width - Slider::default_margin*2, 
+                                    Slider::default_slider_height)];
+        [slider setAutoresizingMask:NSViewWidthSizable | NSViewMinYMargin | NSViewMaxYMargin];
+        
+        [title setFrame:NSMakeRect(Slider::default_margin,
+                                   Slider::default_margin + Slider::default_slider_height + Slider::default_inner_margin,
+                                   width - Slider::default_margin*2,
+                                   Slider::default_text_height)];
+        [title setAlignment:NSLeftTextAlignment];
+        [title setAutoresizingMask:NSViewWidthSizable | NSViewMinYMargin];
+
+        [value setFrame:NSMakeRect(Slider::default_margin,
+                                   Slider::default_margin + Slider::default_slider_height + Slider::default_inner_margin,
+                                   width - Slider::default_margin*2,
+                                   Slider::default_text_height)];
+        [value setAlignment:NSRightTextAlignment];
+        [value setAutoresizingMask:NSViewWidthSizable | NSViewMinYMargin];
+    }
+    else if( s_owner->get_orientation() == Slider::vertical )
+    {
+        [slider setFrame:NSMakeRect(width/2 - Slider::default_slider_height/2, // default_slider_height -> width
+                                    Slider::default_margin + Slider::default_text_height + Slider::default_inner_margin,
+                                    Slider::default_slider_height,  // default_slider_height -> width)
+                                    height - Slider::default_inner_margin*2 - Slider::default_margin*2 - Slider::default_text_height*2)];
+        [slider setAutoresizingMask:NSViewHeightSizable | NSViewMinXMargin | NSViewMaxXMargin];
+        
+        [title setFrame:NSMakeRect(Slider::default_margin,
+                                   height - Slider::default_margin - Slider::default_text_height,
+                                   width - Slider::default_margin*2,
+                                   Slider::default_text_height)];
+        [title setAlignment:NSCenterTextAlignment];
+        [title setAutoresizingMask:NSViewWidthSizable | NSViewMinYMargin];
+
+        [value setFrame:NSMakeRect(Slider::default_margin,
+                                   Slider::default_margin,
+                                   width - Slider::default_margin*2,
+                                   Slider::default_text_height)];
+        [value setAlignment:NSCenterTextAlignment];
+        [value setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin];
+    }
+}
+
 - (void)updateDisplay
 {
     if( !s_owner )
@@ -622,7 +677,7 @@ const t_CKUINT Slider::default_inner_margin = 5;
 const t_CKUINT Slider::default_text_height = 17;
 
 t_CKBOOL Slider::init()
-{   
+{
     w = default_width + default_margin * 2;
     h = default_slider_height + default_inner_margin + 
         default_text_height + default_margin * 2;
@@ -632,12 +687,13 @@ t_CKBOOL Slider::init()
     
     df = best_format;
     precision = 4;
+    m_orientation = Slider::horizontal;
         
     native_element = native_slider = [mAUISlider alloc];
     [native_slider link:this];
     [native_slider performSelectorOnMainThread:@selector(init)
-                                          withObject:nil
-                                       waitUntilDone:NO];
+                                    withObject:nil
+                                 waitUntilDone:NO];
     
     return TRUE;
 }
@@ -724,6 +780,27 @@ Slider::display_format Slider::get_display_format()
     return df;
 }
 
+t_CKBOOL Slider::set_orientation( orientation o )
+{
+    if( o == horizontal || o == vertical )
+    {
+        m_orientation = o;
+        
+        [native_slider performSelectorOnMainThread:@selector(setOrientation)
+                                        withObject:nil
+                                     waitUntilDone:NO];
+        
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+    
+Slider::orientation Slider::get_orientation()
+{
+    return m_orientation;
+}
+    
 void Slider::slider_changed( t_CKDOUBLE v )
 {
     if( df == integer_format )
@@ -736,8 +813,8 @@ void Slider::slider_changed( t_CKDOUBLE v )
     
     // refresh
     [native_slider performSelectorOnMainThread:@selector(updateDisplay)
-                                          withObject:nil
-                                       waitUntilDone:NO];
+                                    withObject:nil
+                                 waitUntilDone:NO];
 }
 
 } /* namespace UI */
@@ -759,6 +836,7 @@ void Slider::slider_changed( t_CKDOUBLE v )
 - (void)setActionType;
 - (void)setState;
 - (void)setName;
+- (void)setImage:(NSImage *)i;
 - (void)buttonDidChange;
 
 @end
@@ -789,7 +867,7 @@ void Slider::slider_changed( t_CKDOUBLE v )
         [button setBezelStyle:NSShadowlessSquareBezelStyle];
         
         if( owner )
-            [button setTitle:[NSString stringWithCString:owner->get_name().c_str()]];
+            [button setTitle:[NSString stringWithUTF8String:owner->get_name().c_str()]];
         [button setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
         
         master_view = [[NSView alloc] initWithFrame:NSMakeRect( 0, 0, w, h )];
@@ -807,11 +885,15 @@ void Slider::slider_changed( t_CKDOUBLE v )
 - (void)destroy
 {
     if( button != nil )
+    {
         [button release];
+        button = nil;
+    }
     if( master_view != nil )
     {
         [master_view removeFromSuperview];
         [master_view release];
+        master_view = nil;
     }
     
     [self autorelease];
@@ -857,7 +939,12 @@ void Slider::slider_changed( t_CKDOUBLE v )
         return;
     
     if( button != nil )
-        [button setTitle:[NSString stringWithCString:owner->get_name().c_str()]];
+        [button setTitle:[NSString stringWithUTF8String:owner->get_name().c_str()]];
+}
+
+- (void)setImage:(NSImage *)i
+{
+    [button setImage:i];
 }
 
 - (void)buttonDidChange
@@ -940,6 +1027,36 @@ Button::action_type Button::get_action_type()
     return at;
 }
 
+t_CKBOOL Button::unset_image()
+{
+    [native_button performSelectorOnMainThread:@selector(setImage:)
+                                    withObject:nil
+                                 waitUntilDone:NO];
+    return TRUE;
+}
+    
+t_CKBOOL Button::set_image( std::string & path )
+{
+    NSAutoreleasePool * arpool = [NSAutoreleasePool new];
+    
+    NSImage * i = [[NSImage alloc] initWithContentsOfFile:[NSString stringWithUTF8String:path.c_str()]];
+    
+    if(i == NULL)
+    {
+        return FALSE;
+    }
+    
+    [native_button performSelectorOnMainThread:@selector(setImage:)
+                                    withObject:i
+                                 waitUntilDone:NO];
+    
+    [i release];
+    
+    [arpool release];
+    
+    return TRUE;
+}
+
 void Button::button_changed()
 {
     pushed = !pushed;
@@ -955,6 +1072,7 @@ static NSString * const red_image_name = @"led-red.png";
 static NSString * const green_image_name = @"led-green.png";
 static NSString * const blue_image_name = @"led-blue.png";
 
+
 @interface mAUILED : mAUIElement
 {
     NSImage * off_image;
@@ -963,6 +1081,11 @@ static NSString * const blue_image_name = @"led-blue.png";
     
     LED * l_owner;
 }
+
++ (NSImage *)offImage;
++ (NSImage *)redImage;
++ (NSImage *)greenImage;
++ (NSImage *)blueImage;
 
 - (void)link:( LED * )l;
 - (void)unlink;
@@ -975,6 +1098,50 @@ static NSString * const blue_image_name = @"led-blue.png";
 @end
 
 @implementation mAUILED
+
++ (NSImage *)offImage
+{
+    static NSImage * g_off_image = nil;
+    if(g_off_image == nil)
+    {
+        g_off_image = [NSImage imageNamed:@"led-off"];
+    }
+    
+    return g_off_image;
+}
+
++ (NSImage *)redImage
+{
+    static NSImage * g_red_image = nil;
+    if(g_red_image == nil)
+    {
+        g_red_image = [NSImage imageNamed:@"led-red"];
+    }
+    
+    return g_red_image;
+}
+
++ (NSImage *)greenImage
+{
+    static NSImage * g_green_image = nil;
+    if(g_green_image == nil)
+    {
+        g_green_image = [NSImage imageNamed:@"led-green"];
+    }
+    
+    return g_green_image;
+}
+
++ (NSImage *)blueImage
+{
+    static NSImage * g_blue_image = nil;
+    if(g_blue_image == nil)
+    {
+        g_blue_image = [NSImage imageNamed:@"led-blue"];
+    }
+    
+    return g_blue_image;
+}
 
 - (void)link:( LED * )l
 {
@@ -990,8 +1157,8 @@ static NSString * const blue_image_name = @"led-blue.png";
 {
     if( self = [super init] )
     {
-        on_image = [[NSImage imageNamed:red_image_name] retain];
-        off_image = [[NSImage imageNamed:off_image_name] retain];
+        on_image = [mAUILED redImage];
+        off_image = [mAUILED offImage];
         
         image_view = [[NSImageView alloc] initWithFrame:NSMakeRect( LED::default_margin,
                                                                     LED::default_margin,
@@ -1051,20 +1218,17 @@ static NSString * const blue_image_name = @"led-blue.png";
     
     if( c == LED::red )
     {
-        [on_image autorelease];
-        on_image = [[NSImage imageNamed:red_image_name] retain];
+        on_image = [mAUILED redImage];
     }
     
     else if( c == LED::green )
     {
-        [on_image autorelease];
-        on_image = [[NSImage imageNamed:green_image_name] retain];
+        on_image = [mAUILED greenImage];
     }
     
     else if( c == LED::blue )
     {
-        [on_image autorelease];
-        on_image = [[NSImage imageNamed:blue_image_name] retain];
+        on_image = [mAUILED blueImage];
     }
 }
 
@@ -1192,7 +1356,7 @@ LED::color LED::get_color()
 
         [master_view addSubview:text];
         
-        [text setStringValue:[NSString stringWithCString:owner->get_name().c_str()]];
+        [text setStringValue:[NSString stringWithUTF8String:owner->get_name().c_str()]];
     }
     
     return self;
@@ -1211,7 +1375,7 @@ LED::color LED::get_color()
 {
     if( owner )
     {
-        [text setStringValue:[NSString stringWithCString:owner->get_name().c_str()]];
+        [text setStringValue:[NSString stringWithUTF8String:owner->get_name().c_str()]];
         [text sizeToFit];
     }
 }

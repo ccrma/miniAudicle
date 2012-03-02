@@ -16,23 +16,35 @@ INSTALL_DIR=/Applications
 # compilation/linking presets
 CC=gcc
 CXX=g++
+
 INCLUDES=-I$(CHUCK_SRC_DIR) -I$(OSX_DIR) -I.
-FLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH_i386 -m32
-LIBS=-framework Cocoa -framework CoreAudio -framework CoreMIDI \
-	-framework CoreFoundation -framework Carbon -framework IOKit \
-    $(LINK_EXTRAS) -lstdc++ -lm
+CFLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH_i386 -m32 $(INCLUDES)
+
+FRAMEWORKS=Cocoa CoreAudio CoreMIDI CoreFoundation Carbon IOKit Security
+LIBS=$(addprefix -framework ,$(FRAMEWORKS)) $(LINK_EXTRAS) -lstdc++ -lm
 LDFLAGS=$(LIBS) -m32
+
 SF_SRC=util_sndfile.c
 
 ifneq ($(CHUCK_DEBUG),)
-FLAGS+= -g
+CFLAGS+= -g
 else
-FLAGS+= -O3
+CFLAGS+= -O3
 endif
 
 ifneq ($(CHUCK_STRICT),)
-FLAGS+= -Wall
+CFLAGS+= -Wall
 endif
+
+#-----------------------------------------------------------------------------
+# by default, ChucK uses a pre-configured libsndfile...
+# uncomment the next 3 lines to use libsndfile on your system
+#-----------------------------------------------------------------------------
+#CFLAGS+= -D__CK_SNDFILE_NATIVE__
+#LIBS+= -lsndfile
+#SF_SRC=
+
+CFLAGSDEPEND?=$(CFLAGS)
 
 # distribution target presets
 VERSION?=0.2.0
@@ -58,15 +70,11 @@ EXAMPLES:=$(addprefix $(EXAMPLES_DIR)/,$(EXAMPLES))
 CHUCK_MANUAL_DIR=$(CHUCK_SRC_DIR)/../doc/manual
 CHUCK_MANUAL=$(CHUCK_MANUAL_DIR)/ChucK_manual.pdf
 
-#-----------------------------------------------------------------------------
-# by default, ChucK uses a pre-configured libsndfile...
-# uncomment the next 3 lines to use libsndfile on your system
-#-----------------------------------------------------------------------------
-#FLAGS+= -D__CK_SNDFILE_NATIVE__
-#LIBS+= -lsndfile
-#SF_SRC=
+CHUCK_CSRCS= $(CHUCK_SRC_DIR)/util_math.c $(CHUCK_SRC_DIR)/util_network.c \
+    $(CHUCK_SRC_DIR)/util_raw.c $(CHUCK_SRC_DIR)/util_xforms.c \
+    $(CHUCK_SRC_DIR)/$(SF_SRC)
 
-CHUCK_SRCS= $(CHUCK_SRC_DIR)/chuck_absyn.cpp $(CHUCK_SRC_DIR)/chuck_parse.cpp \
+CHUCK_CXXSRCS= $(CHUCK_SRC_DIR)/chuck_absyn.cpp $(CHUCK_SRC_DIR)/chuck_parse.cpp \
 	$(CHUCK_SRC_DIR)/chuck_errmsg.cpp $(CHUCK_SRC_DIR)/chuck_frame.cpp \
 	$(CHUCK_SRC_DIR)/chuck_symbol.cpp $(CHUCK_SRC_DIR)/chuck_table.cpp \
 	$(CHUCK_SRC_DIR)/chuck_utils.cpp $(CHUCK_SRC_DIR)/chuck_vm.cpp \
@@ -87,29 +95,42 @@ CHUCK_SRCS= $(CHUCK_SRC_DIR)/chuck_absyn.cpp $(CHUCK_SRC_DIR)/chuck_parse.cpp \
 	$(CHUCK_SRC_DIR)/ulib_machine.cpp $(CHUCK_SRC_DIR)/ulib_math.cpp \
 	$(CHUCK_SRC_DIR)/ulib_std.cpp $(CHUCK_SRC_DIR)/ulib_opsc.cpp \
 	$(CHUCK_SRC_DIR)/util_buffers.cpp $(CHUCK_SRC_DIR)/util_console.cpp \
-	$(CHUCK_SRC_DIR)/util_math.c $(CHUCK_SRC_DIR)/util_network.c \
-	$(CHUCK_SRC_DIR)/util_raw.c $(CHUCK_SRC_DIR)/util_string.cpp \
-	$(CHUCK_SRC_DIR)/util_thread.cpp $(CHUCK_SRC_DIR)/util_xforms.c \
-	$(CHUCK_SRC_DIR)/util_opsc.cpp $(CHUCK_SRC_DIR)/util_hid.cpp \
-	$(CHUCK_SRC_DIR)/$(SF_SRC)
+	$(CHUCK_SRC_DIR)/util_string.cpp \
+	$(CHUCK_SRC_DIR)/util_thread.cpp \
+	$(CHUCK_SRC_DIR)/util_opsc.cpp $(CHUCK_SRC_DIR)/util_hid.cpp
 
-CHUCK_OBJS:=$(addsuffix .o, $(basename $(CHUCK_SRCS) ) )
-CHUCK_OBJS+=$(CHUCK_SRC_DIR)/chuck.tab.o $(CHUCK_SRC_DIR)/chuck.yy.o
+CHUCK_COBJS=$(CHUCK_CSRCS:.c=.o)
+CHUCK_CXXOBJS=$(CHUCK_CXXSRCS:.cpp=.o)
+CHUCK_OBJS+=$(CHUCK_COBJS) $(CHUCK_CXXOBJS) \
+    $(CHUCK_SRC_DIR)/chuck.tab.o $(CHUCK_SRC_DIR)/chuck.yy.o
 
-CHUCK_SRCS+=$(CHUCK_SRC_DIR)/chuck.lex $(CHUCK_SRC_DIR)/chuck.y \
-     $(CHUCK_SRC_DIR)/RtAudio/RtAudio.cpp
+CSRCS+= 
+CXXSRCS+= miniAudicle.cpp \
+    miniAudicle_shell.cpp \
+	miniAudicle_import.cpp \
+    miniAudicle_ui_elements.cpp
+OBJCSRCS+= $(OSX_DIR)/main.m \
+    $(OSX_DIR)/BLAuthentication.m \
+    $(OSX_DIR)/KBPopUpToolbarItem.m
+OBJCXXSRCS+= $(OSX_DIR)/miniAudicleController.mm \
+	$(OSX_DIR)/miniAudicleVMMonitor.mm \
+	$(OSX_DIR)/miniAudicleDocument.mm \
+    $(OSX_DIR)/miniAudicleConsoleMonitor.mm \
+	$(OSX_DIR)/miniAudicleShellController.mm  \
+	$(OSX_DIR)/mAConsoleMonitorView.mm \
+    $(OSX_DIR)/NumberedTextView.mm \
+	$(OSX_DIR)/miniAudicleShellTextView.mm \
+    $(OSX_DIR)/miniAudicle_ui_elements.mm \
+	$(OSX_DIR)/miniAudiclePreferencesController.mm \
+	$(OSX_DIR)/mABrowserController.mm \
+    $(OSX_DIR)/mASyntaxHighlighter.mm \
+	$(OSX_DIR)/mAChuginManager.mm
 
-OBJS=$(OSX_DIR)/miniAudicleController.o miniAudicle.o $(OSX_DIR)/main.o \
-	$(OSX_DIR)/miniAudicleVMMonitor.o \
-	$(OSX_DIR)/miniAudicleDocument.o $(OSX_DIR)/miniAudicleConsoleMonitor.o \
-	$(OSX_DIR)/miniAudicleShellController.o miniAudicle_shell.o \
-	$(OSX_DIR)/mAConsoleMonitorView.o $(OSX_DIR)/NumberedTextView.o \
-	$(OSX_DIR)/miniAudicleShellTextView.o $(OSX_DIR)/miniAudicle_ui_elements.o \
-	miniAudicle_import.o miniAudicle_ui_elements.o \
-	$(OSX_DIR)/miniAudiclePreferencesController.o \
-	$(OSX_DIR)/mABrowserController.o \
-    $(OSX_DIR)/mASyntaxHighlighter.o $(OSX_DIR)/KBPopUpToolbarItem.o \
-	$(OSX_DIR)/RBSplitView.o $(OSX_DIR)/RBSplitSubview.o
+COBJS=$(CSRCS:.c=.o)
+CXXOBJS=$(CXXSRCS:.cpp=.o)
+OBJCOBJS=$(OBJCSRCS:.m=.o)
+OBJCXXOBJS=$(OBJCXXSRCS:.mm=.o)
+OBJS=$(COBJS) $(CXXOBJS) $(OBJCOBJS) $(OBJCXXOBJS)
 
 # place all images in macosx/icon here
 IMAGES=led-red.png led-green.png led-blue.png led-off.png \
@@ -161,68 +182,22 @@ chuck:
 	make -C $(CHUCK_SRC_DIR) osx
 
 # now build miniAudicle files
-$(OSX_DIR)/miniAudicleController.o: $(OSX_DIR)/miniAudicleController.mm $(OSX_DIR)/miniAudicleController.h
-	$(CC) $(FLAGS) $(INCLUDES) $(OSX_DIR)/miniAudicleController.mm -o $(OSX_DIR)/miniAudicleController.o
+$(COBJS): %.o: %.c
+	$(CXX) $(CFLAGS) -c $< -o $@
+	@$(CXX) -MM $(CFLAGSDEPEND) $< > $*.d
 
-$(OSX_DIR)/miniAudicleView.o: $(OSX_DIR)/miniAudicleView.mm $(OSX_DIR)/miniAudicleView.h
-	$(CC) $(FLAGS) $(INCLUDES) $(OSX_DIR)/miniAudicleView.mm -o $(OSX_DIR)/miniAudicleView.o
+$(CXXOBJS): %.o: %.cpp
+	$(CXX) $(CFLAGS) -c $< -o $@
+	@$(CXX) -MM $(CFLAGSDEPEND) $< > $*.d
 
-$(OSX_DIR)/miniAudicleVMMonitor.o: $(OSX_DIR)/miniAudicleVMMonitor.mm $(OSX_DIR)/miniAudicleVMMonitor.h
-	$(CC) $(FLAGS) $(INCLUDES) $(OSX_DIR)/miniAudicleVMMonitor.mm -o $(OSX_DIR)/miniAudicleVMMonitor.o
+$(OBJCOBJS): %.o: %.m
+	$(CXX) $(CFLAGS) -c $< -o $@
+	@$(CXX) -MM $(CFLAGSDEPEND) $< > $*.d
 
-$(OSX_DIR)/miniAudicleDocument.o: $(OSX_DIR)/miniAudicleDocument.mm $(OSX_DIR)/miniAudicleDocument.h
-	$(CC) $(FLAGS) $(INCLUDES) $(OSX_DIR)/miniAudicleDocument.mm -o $(OSX_DIR)/miniAudicleDocument.o
+$(OBJCXXOBJS): %.o: %.mm
+	$(CXX) $(CFLAGS) -c $< -o $@
+	@$(CXX) -MM $(CFLAGSDEPEND) $< > $*.d
 
-$(OSX_DIR)/miniAudicleConsoleMonitor.o: $(OSX_DIR)/miniAudicleConsoleMonitor.mm $(OSX_DIR)/miniAudicleConsoleMonitor.h
-	$(CC) $(FLAGS) $(INCLUDES) $(OSX_DIR)/miniAudicleConsoleMonitor.mm -o $(OSX_DIR)/miniAudicleConsoleMonitor.o
-	
-$(OSX_DIR)/miniAudicleShellController.o: $(OSX_DIR)/miniAudicleShellController.mm $(OSX_DIR)/miniAudicleShellController.h miniAudicle_shell.h
-	$(CC) $(FLAGS) $(INCLUDES) $(OSX_DIR)/miniAudicleShellController.mm -o $(OSX_DIR)/miniAudicleShellController.o
-
-$(OSX_DIR)/miniAudicleShellTextView.o: $(OSX_DIR)/miniAudicleShellTextView.h $(OSX_DIR)/miniAudicleShellTextView.mm
-	$(CC) $(FLAGS) $(INCLUDES) $(OSX_DIR)/miniAudicleShellTextView.mm -o $(OSX_DIR)/miniAudicleShellTextView.o
-
-$(OSX_DIR)/miniAudiclePreferencesController.o: $(OSX_DIR)/miniAudiclePreferencesController.h $(OSX_DIR)/miniAudiclePreferencesController.mm
-	$(CC) $(FLAGS) $(INCLUDES) $(OSX_DIR)/miniAudiclePreferencesController.mm -o $(OSX_DIR)/miniAudiclePreferencesController.o
-
-$(OSX_DIR)/mASyntaxHighlighter.o: $(OSX_DIR)/mASyntaxHighlighter.h $(OSX_DIR)/mASyntaxHighlighter.mm
-	$(CC) $(FLAGS) $(INCLUDES) $(OSX_DIR)/mASyntaxHighlighter.mm -o $(OSX_DIR)/mASyntaxHighlighter.o
-
-$(OSX_DIR)/miniAudicle_ui_elements.o: $(OSX_DIR)/miniAudicle_ui_elements.mm miniAudicle_ui_elements.h
-	$(CC) $(FLAGS) $(INCLUDES) $(OSX_DIR)/miniAudicle_ui_elements.mm -o $(OSX_DIR)/miniAudicle_ui_elements.o
-
-miniAudicle_ui_elements.o: miniAudicle_ui_elements.cpp miniAudicle_ui_elements.h
-	$(CC) $(FLAGS) $(INCLUDES) miniAudicle_ui_elements.cpp -o miniAudicle_ui_elements.o
-
-miniAudicle_shell.o: miniAudicle_shell.cpp miniAudicle_shell.h
-	$(CC) $(FLAGS) $(INCLUDES) miniAudicle_shell.cpp
-
-miniAudicle_import.o: miniAudicle_import.h miniAudicle_import.cpp
-	$(CC) $(FLAGS) $(INCLUDES) miniAudicle_import.cpp
-
-$(OSX_DIR)/NumberedTextView.o: $(OSX_DIR)/NumberedTextView.mm $(OSX_DIR)/NumberedTextView.h
-	$(CC) $(FLAGS) $(INCLUDES) $(OSX_DIR)/NumberedTextView.mm -o $(OSX_DIR)/NumberedTextView.o
-
-$(OSX_DIR)/mAConsoleMonitorView.o: $(OSX_DIR)/mAConsoleMonitorView.mm $(OSX_DIR)/mAConsoleMonitorView.h
-	$(CC) $(FLAGS) $(INCLUDES) $(OSX_DIR)/mAConsoleMonitorView.mm -o $(OSX_DIR)/mAConsoleMonitorView.o
-
-$(OSX_DIR)/mABrowserController.o: $(OSX_DIR)/mABrowserController.mm $(OSX_DIR)/mABrowserController.h
-	$(CC) $(FLAGS) $(INCLUDES) $(OSX_DIR)/mABrowserController.mm -o $(OSX_DIR)/mABrowserController.o
-
-$(OSX_DIR)/KBPopUpToolbarItem.o: $(OSX_DIR)/KBPopUpToolbarItem.m $(OSX_DIR)/KBPopUpToolbarItem.h
-	$(CC) $(FLAGS) $(INCLUDES) $(OSX_DIR)/KBPopUpToolbarItem.m -o $(OSX_DIR)/KBPopUpToolbarItem.o
-
-$(OSX_DIR)/RBSplitView.o: $(OSX_DIR)/RBSplitView.m $(OSX_DIR)/RBSplitView.h $(OSX_DIR)/RBSplitViewPrivateDefines.h $(OSX_DIR)/RBSplitSubview.h
-	$(CC) $(FLAGS) $(OSX_DIR)/RBSplitView.m -o $(OSX_DIR)/RBSplitView.o
-
-$(OSX_DIR)/RBSplitSubview.o: $(OSX_DIR)/RBSplitSubview.m $(OSX_DIR)/RBSplitView.h $(OSX_DIR)/RBSplitViewPrivateDefines.h $(OSX_DIR)/RBSplitSubview.h
-	$(CC) $(FLAGS) $(OSX_DIR)/RBSplitSubview.m -o $(OSX_DIR)/RBSplitSubview.o
-
-miniAudicle.o: miniAudicle.cpp miniAudicle.h
-	$(CC) $(FLAGS) $(INCLUDES) miniAudicle.cpp
-
-$(OSX_DIR)/main.o: $(OSX_DIR)/main.m
-	$(CC) $(FLAGS) $(INCLUDES) $(OSX_DIR)/main.m -o $(OSX_DIR)/main.o
 
 .PHONY: clean
 clean: 

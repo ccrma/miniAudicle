@@ -32,6 +32,7 @@ U.S.A.
 
 #include "miniAudicle_ui_elements.h"
 #include "chuck_errmsg.h"
+//#include "chuck_ui.h"
 
 using namespace std;
 
@@ -49,6 +50,8 @@ Element::Element()
     x = y = 0;
     w = h = 0;
     lmargin = rmargin = tmargin = bmargin = 0;
+    
+//    Chuck_UI_Manager::instance()->start();
 }
 
 Element::~Element()
@@ -264,6 +267,9 @@ const Slider::display_format Slider::integer_format = 0;
 const Slider::display_format Slider::decimal_format = 1;
 const Slider::display_format Slider::scientific_format = 2;
 const Slider::display_format Slider::best_format = 3;
+    
+const Slider::orientation Slider::horizontal = 1;
+const Slider::orientation Slider::vertical = 2;
 
 const LED::color LED::red = 0;
 const LED::color LED::green = 1;
