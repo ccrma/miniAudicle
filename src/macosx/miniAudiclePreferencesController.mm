@@ -363,7 +363,7 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
         [defaults setObject:[NSNumber numberWithInt:44100] forKey:mAPreferencesSampleRate];
         [defaults setObject:[NSNumber numberWithInt:256] forKey:mAPreferencesBufferSize];
         
-        [defaults setObject:[NSNumber numberWithFloat:1.0] forKey:mAPreferencesVMStallTimeout];
+        [defaults setObject:[NSNumber numberWithFloat:2.0] forKey:mAPreferencesVMStallTimeout];
         
         [defaults setObject:[NSNumber numberWithInt:2] forKey:mAPreferencesLogLevel];
         [defaults setObject:[NSNumber numberWithInt:100000] forKey:mAPreferencesScrollbackBufferSize];
@@ -396,7 +396,7 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesShowArguments];
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesShowToolbar];
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesShowStatusBar];
-        [defaults setObject:[NSNumber numberWithBool:NO] forKey:mAPreferencesEnableOTFVisuals];
+        [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesEnableOTFVisuals];
         
         std::list<std::string> default_chugin_pathv;
         std::string path_list = g_default_chugin_path;
