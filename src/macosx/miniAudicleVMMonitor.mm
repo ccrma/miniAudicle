@@ -36,10 +36,10 @@ U.S.A.
 #import "miniAudicle.h"
 #import "chuck_vm.h"
 
-const static NSString * shred_column_id = @"1";
-const static NSString * name_column_id = @"2";
-const static NSString * time_column_id = @"3";
-const static NSString * remove_column_id = @"4";
+static NSString * const shred_column_id = @"1";
+static NSString * const name_column_id = @"2";
+static NSString * const time_column_id = @"3";
+static NSString * const remove_column_id = @"4";
 
 
 @implementation miniAudicleVMMonitor
