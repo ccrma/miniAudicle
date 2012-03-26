@@ -670,6 +670,27 @@ Slider::display_format Slider::get_display_format()
     return df;
 }
 
+t_CKBOOL Slider::set_orientation( orientation o )
+{
+    if( o == horizontal || o == vertical )
+    {
+        m_orientation = o;
+        
+//        [native_slider performSelectorOnMainThread:@selector(setOrientation)
+//                                        withObject:nil
+//                                     waitUntilDone:NO];
+        
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+
+Slider::orientation Slider::get_orientation()
+{
+    return m_orientation;
+}
+
 void Slider::slider_changed( t_CKFLOAT v )
 {
     value = v;
@@ -924,6 +945,36 @@ t_CKBOOL Button::set_action_type( action_type t )
 Button::action_type Button::get_action_type()
 {
     return at;
+}
+
+t_CKBOOL Button::unset_image()
+{
+//    [native_button performSelectorOnMainThread:@selector(setImage:)
+//                                    withObject:nil
+//                                 waitUntilDone:NO];
+    return TRUE;
+}
+
+t_CKBOOL Button::set_image( std::string & path )
+{
+//    NSAutoreleasePool * arpool = [NSAutoreleasePool new];
+//    
+//    NSImage * i = [[NSImage alloc] initWithContentsOfFile:[NSString stringWithUTF8String:path.c_str()]];
+//    
+//    if(i == NULL)
+//    {
+//        return FALSE;
+//    }
+//    
+//    [native_button performSelectorOnMainThread:@selector(setImage:)
+//                                    withObject:i
+//                                 waitUntilDone:NO];
+//    
+//    [i release];
+//    
+//    [arpool release];
+    
+    return TRUE;
 }
 
 void Button::button_changed()
