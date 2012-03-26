@@ -334,7 +334,9 @@ void mAChuckView::Add()
     if( !extract_args( args_string, filename, argv ) )
         argv.clear();
 
-    t_CKUINT result_code = ma->run_code( code, name, argv, docid, shred_id, result );
+    // SPENCERTODO
+    std::string filepath = "";
+    t_CKUINT result_code = ma->run_code( code, name, argv, filepath, docid, shred_id, result );
 
     if( result_code == OTF_VM_TIMEOUT )
     {
@@ -375,7 +377,9 @@ void mAChuckView::Replace()
     if( !extract_args( args_string, filename, argv ) )
         argv.clear();
 
-    ma->replace_code( code, name, argv, docid, shred_id, result );
+    // SPENCERTODO
+    std::string filepath = "";
+    ma->replace_code( code, name, argv, filepath, docid, shred_id, result );
 
     wxString status( result.c_str(), wxConvUTF8 );
     
