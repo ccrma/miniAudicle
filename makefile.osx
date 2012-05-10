@@ -1,5 +1,5 @@
 
-ifeq ($(shell sw_vers -productVersion | egrep '10\.6(\.[0-9]+)?'),)
+ifeq ($(shell sw_vers -productVersion | egrep '10\.[67](\.[0-9]+)?'),)
 LINK_EXTRAS=
 else
 LINK_EXTRAS=-F/System/Library/PrivateFrameworks \
@@ -170,7 +170,7 @@ $(filter %.strings,$(NIBS)): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LAN
 
 $(filter %.nib,$(NIBS)): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/%.nib: $(OSX_DIR)/$(LANGUAGE).lproj/%.xib
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/
-	/Developer/usr/bin/ibtool \
+	ibtool \
     --errors --warnings --notices --output-format human-readable-text \
     --compile $@ $<
 #    --sdk /Developer/SDKs/MacOSX10.6.sdk
