@@ -247,11 +247,12 @@
     
     std::string code = [self.textView.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
+    std::string filepath = "";
     vector<string> args;
     t_CKUINT shred_id;
     std::string output;
     
-    [mAChucKController chuckController].ma->run_code(code, name, args, 
+    [mAChucKController chuckController].ma->run_code(code, name, args, filepath,
                                                      self.detailItem.docid, 
                                                      shred_id, output);
 }
@@ -263,11 +264,12 @@
     
     std::string code = [self.textView.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
+    std::string filepath = "";
     vector<string> args;
     t_CKUINT shred_id;
     std::string output;
     
-    [mAChucKController chuckController].ma->replace_code(code, name, args, 
+    [mAChucKController chuckController].ma->replace_code(code, name, args, filepath,
                                                          self.detailItem.docid, 
                                                          shred_id, output);
 }
