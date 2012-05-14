@@ -83,264 +83,14 @@ NSString * mAPreferencesLogLevel = @"LogLevel";
 NSString * mAPreferencesSoundfilesDirectory = @"SoundfilesDirectory";
 NSString * mAPreferencesBackupSuffix = @"BackupSuffix";
 
+NSString * mAPreferencesEnableChugins = @"EnableChugins";
 NSString * mAPreferencesLibraryPath = @"LibraryPath";
 NSString * mAPreferencesChuginPaths = @"ChuginPaths";
 
 NSString * mASyntaxColoringChangedNotification = @"mASyntaxColoringChanged";
 NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
 
-@interface mAKeyBindingsRecord : NSObject
-{
-    NSMenuItem * menu_item;
-    NSString * title;
-    NSString * printed_key_equivalent;
-    NSArray * children;
-}
 
-+ (NSArray *)createFromMainMenu;
-- (id)initWithMenuItem:(NSMenuItem *)mi;
-- (id)initWithMenuItem:(NSMenuItem *)mi
-  printedKeyEquivalent:(NSString *)pke
-              children:(NSArray *)c;
-- (NSMenuItem *)menuItem;
-- (NSString *)title;
-- (NSString *)printedKeyEquivalent;
-- (int)numberOfChildren;
-- (mAKeyBindingsRecord *)childAtIndex:(int)index;
-
-@end
-
-@implementation mAKeyBindingsRecord
-
-+ (NSArray *)createFromMainMenu
-{
-    NSMutableArray * c = [[[NSMutableArray alloc] init] autorelease];
-    
-    NSArray * submenu_items = [[NSApp mainMenu] itemArray];
-    for( int i = 0; i < [submenu_items count]; i++ )
-    {
-        NSMenuItem * child = [submenu_items objectAtIndex:i];
-        if( ![child isSeparatorItem] )
-            [c addObject:[[[mAKeyBindingsRecord alloc] initWithMenuItem:child] autorelease]];
-    }
-    
-    return [NSArray arrayWithArray:c];
-}
-
-- (id)initWithMenuItem:(NSMenuItem *)mi
-{
-    if( self = [super init] )
-    {
-        menu_item = [mi retain];
-        
-        if( [menu_item menu] == [NSApp mainMenu] &&
-            [[menu_item title] isEqualToString:@""] )
-            // application menu
-            title = [@"miniAudicle" retain];
-        else
-            title = [[menu_item title] retain];
-        
-        if( [[menu_item keyEquivalent] isEqualToString:@""] )
-            printed_key_equivalent = [@"" retain];
-        else
-        {
-            NSMutableString * pke = [[[NSMutableString alloc] init] autorelease];
-            if( [menu_item keyEquivalentModifierMask] & NSCommandKeyMask )
-                [pke appendString:[NSString stringWithUTF8String:"\u2318"]];
-            if( [menu_item keyEquivalentModifierMask] & NSAlternateKeyMask )
-                [pke appendString:[NSString stringWithUTF8String:"\u2325"]];
-            if( [menu_item keyEquivalentModifierMask] & NSControlKeyMask )
-                [pke appendString:[NSString stringWithUTF8String:"\u2303"]];
-            if( [menu_item keyEquivalentModifierMask] & NSShiftKeyMask )
-                [pke appendString:[NSString stringWithUTF8String:"\u21E7"]];
-            
-            NSString * key_equivalent = [menu_item keyEquivalent];
-            if( [key_equivalent rangeOfCharacterFromSet:[NSCharacterSet uppercaseLetterCharacterSet]].location != NSNotFound )
-                [pke appendString:[NSString stringWithUTF8String:"\u21E7"]];
-            
-            [pke appendString:[key_equivalent uppercaseString]];
-            printed_key_equivalent = [[NSString stringWithString:pke] retain];
-        }
-            
-        if( [menu_item hasSubmenu] )
-        {
-            NSMutableArray * c = [[[NSMutableArray alloc] init] autorelease];
-            NSArray * submenu_items = [[menu_item submenu] itemArray];
-            for( int i = 0; i < [submenu_items count]; i++ )
-            {
-                NSMenuItem * child = [submenu_items objectAtIndex:i];
-                if( ![child isSeparatorItem] )
-                    [c addObject:[[[mAKeyBindingsRecord alloc] initWithMenuItem:child] autorelease]];
-            }
-            
-            children = [[NSArray arrayWithArray:c] retain];
-        }
-    }
-    
-    return self;
-}
-
-- (id)initWithMenuItem:(NSMenuItem *)mi
-  printedKeyEquivalent:(NSString *)pke
-              children:(NSArray *)c
-{
-    if( self = [super init] )
-    {
-        menu_item = [mi retain];
-        printed_key_equivalent = [pke retain];
-        if( c != nil )
-            children = [c retain];
-        else
-            children = nil;
-    }
-    
-    return self;
-}
-
-- (void)dealloc
-{
-    [menu_item release];
-    [title release];
-    [printed_key_equivalent release];
-    if( children != nil )
-        [children release];
-    
-    [super dealloc];
-}
-
-- (NSMenuItem *)menuItem
-{
-    return menu_item;
-}
-
-- (NSString *)title
-{
-    return title;
-}
-
-- (NSString *)printedKeyEquivalent
-{
-    return printed_key_equivalent;
-}
-
-- (int)numberOfChildren
-{
-    if( children == nil )
-        return 0;
-    else
-        return [children count];
-}
-
-- (mAKeyBindingsRecord *)childAtIndex:(int)index
-{
-    if( children != nil )
-        return [children objectAtIndex:index];
-    else
-        return nil;
-}
-
-@end
-
-@interface mAKeyBindingsFieldEditor : NSTextView
-{
-    NSCharacterSet * newlines;
-    BOOL ignoreFlagsChanged;
-}
-
-@end
-
-@implementation mAKeyBindingsFieldEditor
-
-- (BOOL)becomeFirstResponder
-{
-    ignoreFlagsChanged = NO;
-    
-    return [super becomeFirstResponder];
-}
-
-- (void)adjustTextFromEvent:(NSEvent *)e
-{
-    BOOL command_key = NO,
-        alt_key = NO,
-        control_key = NO,
-        shift_key = NO;
-    
-    if( [e modifierFlags] & NSCommandKeyMask )
-        command_key = YES;
-    if( [e modifierFlags] & NSAlternateKeyMask )
-        alt_key = YES;
-    if( [e modifierFlags] & NSControlKeyMask )
-        control_key = YES;
-    if( [e modifierFlags] & NSShiftKeyMask )
-        shift_key = YES;
-    
-    NSString * key = nil;
-    
-    if( [e type] == NSKeyDown )
-    {
-        NSString * key_equivalent = [e charactersIgnoringModifiers];
-        
-        if( [key_equivalent rangeOfCharacterFromSet:[NSCharacterSet uppercaseLetterCharacterSet]].location != NSNotFound )
-            shift_key = YES;
-        else if( [key_equivalent rangeOfCharacterFromSet:[NSCharacterSet letterCharacterSet]].location == NSNotFound )
-            shift_key = NO;
-        
-        key = [key_equivalent uppercaseString];
-        ignoreFlagsChanged = YES;
-        
-        [self selectAll:nil];
-    }
-    
-    NSMutableString * pke = [[[NSMutableString alloc] init] autorelease];
-    
-    if( command_key )
-        [pke appendString:[NSString stringWithUTF8String:"\u2318"]];
-    if( alt_key )
-        [pke appendString:[NSString stringWithUTF8String:"\u2325"]];
-    if( control_key )
-        [pke appendString:[NSString stringWithUTF8String:"\u2303"]];
-    if( shift_key )
-        [pke appendString:[NSString stringWithUTF8String:"\u21E7"]];
-    if( key != nil )
-        [pke appendString:key];
-    
-    [self setString:pke];
-}
-
-- (void)keyDown:(NSEvent *)e
-{
-    if( [[e characters] characterAtIndex:0] == NSNewlineCharacter || 
-        [[e characters] characterAtIndex:0] == NSEnterCharacter )
-        [[self window] makeFirstResponder:nil];
-    else
-        [self adjustTextFromEvent:e];
-}
-
-- (void)keyUp:(NSEvent *)e
-{
-    
-}
-
-- (void)flagsChanged:(NSEvent *)e
-{
-    if( !ignoreFlagsChanged )
-        [self adjustTextFromEvent:e];
-    if( ( [e modifierFlags] & ( NSCommandKeyMask | NSAlternateKeyMask | NSControlKeyMask | NSShiftKeyMask ) ) == 0 )
-        ignoreFlagsChanged = NO;
-}
-
-- (BOOL)performKeyEquivalent:(NSEvent *)e
-{
-    if( [[e characters] characterAtIndex:0] == NSNewlineCharacter || 
-        [[e characters] characterAtIndex:0] == NSEnterCharacter )
-        [[self window] makeFirstResponder:nil];
-    else
-        [self adjustTextFromEvent:e];
-
-    return YES;
-}
-
-@end
 
 @implementation miniAudiclePreferencesController
 
@@ -398,6 +148,8 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesShowStatusBar];
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesEnableOTFVisuals];
         
+        [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesEnableChugins];
+        
         std::list<std::string> default_chugin_pathv;
         std::string path_list = g_default_chugin_path;
         parse_path_list(path_list, default_chugin_pathv);
@@ -441,8 +193,6 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
             [new_sh setObject:@"ffffff" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Background )];
             [[NSUserDefaults standardUserDefaults] setObject:new_sh forKey:IDEKit_TextColorsPrefKey];
         }
-        
-        keybindings_field_editor = [[mAKeyBindingsFieldEditor alloc] init];
     }
     
     return self;
@@ -450,6 +200,8 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     
 - (void)loadGUIFromDefaults
 {
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    
     NSUnarchiver * uar = [[[NSUnarchiver alloc] initForReadingWithData:[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesDefaultFont]] autorelease];
     [default_font_font release];
     default_font_font = [[NSFont alloc] initWithCoder:uar];
@@ -477,10 +229,7 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     [enable_syntax_highlighting setState:[[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesEnableSyntaxHighlighting] boolValue]];
     [self enableSyntaxHighlightingChanged:nil];
     
-    //if( keybindings != nil )
-    //    [keybindings release];
-    //keybindings = [[mAKeyBindingsRecord createFromMainMenu] retain];
-    //[keybindings_table reloadData];
+    [enable_chugins setState:[[defaults objectForKey:mAPreferencesEnableChugins] boolValue] ? NSOnState : NSOffState];
     
     [chugin_paths release];
     chugin_paths = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:mAPreferencesChuginPaths]];
@@ -491,6 +240,8 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
 
 - (void)loadMiniAudicleFromGUI
 {
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    
     // enable audio
     if( [enable_audio state] != [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesEnableAudio] intValue] )
     {
@@ -590,7 +341,7 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     // current directory
     // dont compare the current default to the new default; save a string comparison
     [[NSUserDefaults standardUserDefaults] setObject:[[soundfiles_directory stringValue] stringByExpandingTildeInPath] forKey:mAPreferencesSoundfilesDirectory];
-    chdir( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesSoundfilesDirectory] cString] );        
+    chdir( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesSoundfilesDirectory] UTF8String] );        
     
     // default font
     // dont compare the new default to the old default; that takes too long
@@ -608,26 +359,35 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     // syntax colors
     [[NSUserDefaults standardUserDefaults] setObject:t_sh_prefs forKey:IDEKit_TextColorsPrefKey];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:mAPreferencesChangedNotification
-                                                        object:self];
     //*/
     
-    [[NSUserDefaults standardUserDefaults] setObject:chugin_paths forKey:mAPreferencesChuginPaths];
+    [defaults setObject:[NSNumber numberWithBool:([enable_chugins state] == NSOnState ? YES : NO)]
+                 forKey:mAPreferencesEnableChugins];
+    
+    [defaults setObject:chugin_paths forKey:mAPreferencesChuginPaths];
     
     list< string > library_paths;
     list< string > named_chugins;
-    NSArray * obj_library_paths = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesChuginPaths];
-    for(int i = 0; i < [obj_library_paths count]; i++)
+    if([[defaults objectForKey:mAPreferencesEnableChugins] boolValue])
     {
-        NSDictionary * path = [obj_library_paths objectAtIndex:i];
-        if([[path objectForKey:@"type"] isEqualToString:@"chugin"])
-            named_chugins.push_back([[path objectForKey:@"location"] UTF8String]);
-        else if([[path objectForKey:@"type"] isEqualToString:@"folder"])
-            library_paths.push_back([[path objectForKey:@"location"] UTF8String]);
+        NSArray * obj_library_paths = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesChuginPaths];
+        for(int i = 0; i < [obj_library_paths count]; i++)
+        {
+            NSDictionary * path = [obj_library_paths objectAtIndex:i];
+            if([[path objectForKey:@"type"] isEqualToString:@"chugin"])
+                named_chugins.push_back([[path objectForKey:@"location"] UTF8String]);
+            else if([[path objectForKey:@"type"] isEqualToString:@"folder"])
+                library_paths.push_back([[path objectForKey:@"location"] UTF8String]);
+        }
     }
+    // load empty chugin lists to disable chugins
     
     [mac miniAudicle]->set_library_paths(library_paths);
     [mac miniAudicle]->set_named_chugins(named_chugins);
+                         
+    [[NSNotificationCenter defaultCenter] postNotificationName:mAPreferencesChangedNotification
+                                                        object:self];
+
 }
 
 - (void)awakeFromNib
@@ -855,7 +615,7 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     {
         if( interfaces[i].outputChannels > 0 || interfaces[i].duplexChannels > 0 )
         {
-            [audio_output addItemWithTitle:[NSString stringWithCString:interfaces[i].name.c_str()]];
+            [audio_output addItemWithTitle:[NSString stringWithUTF8String:interfaces[i].name.c_str()]];
             [[audio_output lastItem] setTag:i];
             if( i == dac )
                 [audio_output selectItem:[audio_output lastItem]];
@@ -863,7 +623,7 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
 
         if( interfaces[i].inputChannels > 0 || interfaces[i].duplexChannels > 0 )
         {
-            [audio_input addItemWithTitle:[NSString stringWithCString:interfaces[i].name.c_str()]];
+            [audio_input addItemWithTitle:[NSString stringWithUTF8String:interfaces[i].name.c_str()]];
             [[audio_input lastItem] setTag:i];
             if( i == adc )
                 [audio_input selectItem:[audio_input lastItem]];
@@ -949,7 +709,7 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
 {
     [chugin_paths addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
                              @"", @"location", 
-                             @"chugin", @"type", 
+                             @"", @"type", 
                              nil]];
  
     [chugin_table reloadData];
