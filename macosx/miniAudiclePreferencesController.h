@@ -118,6 +118,7 @@ extern NSString * mAPreferencesChangedNotification;
     NSText * keybindings_field_editor;
     NSArray * keybindings;
     
+    IBOutlet NSButton * enable_chugins;
     NSMutableArray * chugin_paths;
 }
 

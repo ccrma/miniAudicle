@@ -28,32 +28,6 @@
 			<key>NSDocumentClass</key>
 			<string>miniAudicleDocument</string>
 		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>chug</string>
-			</array>
-			<key>CFBundleTypeIconFile</key>
-			<string>chugin</string>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>application/octet-stream</string>
-			</array>
-			<key>CFBundleTypeName</key>
-			<string>ChucK ChuGin</string>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>****</string>
-			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Shell</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>edu.stanford.chuck.chugin</string>
-			</array>
-			<key>NSDocumentClass</key>
-			<string></string>
-		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>miniAudicle</string>
