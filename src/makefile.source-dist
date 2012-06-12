@@ -23,7 +23,7 @@ MA_SVN_URL=http://miniaudicle.googlecode.com/svn/trunk/src/
 .PHONY: source-dist
 source-dist:
 	rm -rf $(DIST_DIR) miniAudicle-$(VERSION).tgz
-	svn export $(MA_SVN_URL) $(DIST_DIR) 
+	svn export -q --non-interactive $(MA_SVN_URL) $(DIST_DIR) 
 	cp -r $(NOTES) $(DIST_DIR)/
 	mkdir $(DIST_DIR)/examples
 	cp -r $(EXAMPLES_DIR)/* $(DIST_DIR)/examples

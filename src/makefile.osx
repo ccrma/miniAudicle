@@ -47,7 +47,7 @@ endif
 CFLAGSDEPEND?=$(CFLAGS)
 
 # distribution target presets
-VERSION?=0.2.0
+VERSION?=0.2.1-beta-3
 
 DIST_DIR=miniAudicle-$(VERSION)
 
@@ -67,7 +67,8 @@ EXAMPLES=slide01.ck slide02.ck slide03.ck led01.ck view01.ck mand-o-ui.ck \
          mode-o-ui.ck gauge01.ck gauge02.ck
 EXAMPLES:=$(addprefix $(EXAMPLES_DIR)/,$(EXAMPLES))
 
-CHUCK_MANUAL_DIR=$(CHUCK_SRC_DIR)/../doc/manual
+CHUCK_FULL_SRC_DIR=../../chuck/trunk/src
+CHUCK_MANUAL_DIR=$(CHUCK_FULL_SRC_DIR)/../doc/manual
 CHUCK_MANUAL=$(CHUCK_MANUAL_DIR)/ChucK_manual.pdf
 
 CHUCK_CSRCS= $(CHUCK_SRC_DIR)/util_math.c $(CHUCK_SRC_DIR)/util_network.c \
@@ -227,8 +228,8 @@ dist: miniAudicle
 	cp -r $(DOC_IMAGES) $(DIST_DIR)/documentation/images/
 	cp -r $(EXAMPLES) $(DIST_DIR)/documentation/examples/ui
 	cp -r $(CHUCK_SRC_DIR)/examples/* $(DIST_DIR)/documentation/examples/
-	make -C $(CHUCK_MANUAL_DIR) > /dev/null
+#	make -C $(CHUCK_MANUAL_DIR) > /dev/null
 	cp -r $(CHUCK_MANUAL) $(DIST_DIR)/documentation/
-	rm -r `find $(DIST_DIR)/ -name .DS_Store` `find $(DIST_DIR)/ -name CVS`
+	rm -rf `find $(DIST_DIR)/ -name .DS_Store` `find $(DIST_DIR)/ -name .svn`
 	hdiutil create -srcfolder $(DIST_DIR) miniAudicle-$(VERSION).dmg -format UDZO -imagekey zlib-level=9
 	rm -r $(DIST_DIR)/
