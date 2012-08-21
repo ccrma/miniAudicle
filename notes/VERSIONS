@@ -1,4 +1,11 @@
 ---
+0.2.1
+    - (added)(all) chuck-1.3.0.0
+    - (added)(all) GUI chugin manager
+    - (added)(Mac) default VM stall timeout changed to 2 seconds
+	- (fixed)(Linux) build in Ubuntu 11.10 (thanks Ricardo Fabbri)
+
+---
 0.2.0
     - (added)(all) chuck-1.2.1.3
     - (added)(Mac) GUI buffer size option
