@@ -1,9 +1,12 @@
 
-ifeq ($(shell sw_vers -productVersion | egrep '10\.[67](\.[0-9]+)?'),)
-LINK_EXTRAS=
-else
+ifneq ($(shell sw_vers -productVersion | egrep '10\.[678](\.[0-9]+)?'),)
+SDK=$(shell xcodebuild -sdk macosx -version | grep '^Path:' | sed 's/Path: \(.*\)/\1/')
+ISYSROOT=-isysroot $(SDK)
 LINK_EXTRAS=-F/System/Library/PrivateFrameworks \
     -weak_framework MultitouchSupport
+else
+ISYSROOT=-isysroot /Developer/SDKs/MacOSX10.4u.sdk
+LINK_EXTRAS=
 endif
 
 CHUCK_SRC_DIR=chuck
@@ -16,6 +19,11 @@ INSTALL_DIR=/Applications
 # compilation/linking presets
 CC=gcc
 CXX=g++
+
+ifneq ($(shell sw_vers -productVersion | egrep '10\.[78](\.[0-9]+)?'),)
+CC=clang
+CXX=clang++
+endif
 
 INCLUDES=-I$(CHUCK_SRC_DIR) -I$(OSX_DIR) -I.
 CFLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH_i386 -m32 $(INCLUDES)
