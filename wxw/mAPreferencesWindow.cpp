@@ -584,13 +584,19 @@ mAPreferencesWindow::mAPreferencesWindow( miniAudicle * ma,
     
     // HACK
     // TODO: separate LoadPreferencesToMiniAudicle function
-    std::list< std::string > library_paths;
-    for( std::vector< ChuGinPath >::iterator icps = chugin_paths.begin();
-         icps != chugin_paths.end(); icps++ )
+    wxConfigBase * config = wxConfigBase::Get();
+    bool enable = true;
+    config->Read( mAPreferencesEnableChuGins, &enable, true );
+    if(enable)
     {
-        library_paths.push_back( std::string( (*icps).path.mb_str(wxConvUTF8) ) );
+        std::list< std::string > library_paths;
+        for( std::vector< ChuGinPath >::iterator icps = chugin_paths.begin();
+          icps != chugin_paths.end(); icps++ )
+        {
+            library_paths.push_back( std::string( (*icps).path.mb_str(wxConvUTF8) ) );
+        }
+        ma->set_library_paths( library_paths );
     }
-    ma->set_library_paths( library_paths );
 }
 
 mAPreferencesWindow::~mAPreferencesWindow()
@@ -1096,20 +1102,27 @@ void mAPreferencesWindow::LoadGUIToMiniAudicleAndPreferences()
     wxSetWorkingDirectory( cwd_display->GetValue() );
 
     // enable chugins
-    config->Write( mAPreferencesEnableChuGins, enable_chugins->GetValue() );
+    bool enable = enable_chugins->GetValue();
+    config->Write( mAPreferencesEnableChuGins, enable );
 
     // chugin paths
     wxString pathstr;
     SerializeChuGinPaths( pathstr, chugin_paths );
     config->Write( mAPreferencesChuGinPaths, pathstr );
 
-    std::list< std::string > library_paths;
-    for( std::vector< ChuGinPath >::iterator icps = chugin_paths.begin();
-         icps != chugin_paths.end(); icps++ )
+    if(enable)
     {
-        library_paths.push_back( std::string( (*icps).path.mb_str(wxConvUTF8) ) );
+        std::list< std::string > library_paths;
+        if(enable_chugins->GetValue())
+        {
+            for( std::vector< ChuGinPath >::iterator icps = chugin_paths.begin();
+                 icps != chugin_paths.end(); icps++ )
+            {
+                library_paths.push_back( std::string( (*icps).path.mb_str(wxConvUTF8) ) );
+            }
+        }
+        ma->set_library_paths( library_paths );
     }
-    ma->set_library_paths( library_paths );
 }
 
 
