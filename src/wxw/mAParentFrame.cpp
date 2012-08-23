@@ -718,8 +718,12 @@ void mAApp::SyntaxColoringPreferencesChanged()
 
 int mAApp::OnExit()
 {
+    // this function is apparently never called
+
     SavePreferences();
+#if !defined( __WINDOWS_DS__ )
     SAFE_DELETE( ma );
+#endif
     SAFE_DELETE( doc_manager );
 
     return 0;
@@ -999,7 +1003,7 @@ void mAParentFrame::OnCloseWindow( wxCloseEvent & event )
     
     wxDocMDIParentFrame::OnCloseWindow( event );
 
-#if defined( __WINDOWS_DS__ ) && defined( __WINDOWS_PTHREAD__ )
+#if defined( __WINDOWS_DS__ )
     /* its ugly but its the only thing that seems to work */
     exit( 0 );
 #endif
