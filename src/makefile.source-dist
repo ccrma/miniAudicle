@@ -3,8 +3,8 @@ OSX_DIR=macosx
 WXW_DIR=wxw
 
 # distribution target presets
-VERSION?=0.2.1-beta-2
-CK_VERSION?=1.2.1.3
+VERSION?=0.2.1
+CK_VERSION?=1.3.0.0
 
 DIST_DIR=miniAudicle-$(VERSION)
 

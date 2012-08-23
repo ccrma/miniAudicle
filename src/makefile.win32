@@ -120,7 +120,7 @@ miniAudicle_ui_elements.o: miniAudicle_ui_elements.cpp miniAudicle_ui_elements.h
 clean: 
 	rm -rf *.o $(WXW_DIR)/*.o $(BIN_DIR)/miniAudicle.exe
 
-VERSION?=0.2.1-beta-3
+VERSION?=0.2.1
 DIST_DIR=miniAudicle-$(VERSION)
 
 MSVC_RELEASE_DIR=Release
