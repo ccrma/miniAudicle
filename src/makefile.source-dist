@@ -3,7 +3,7 @@ OSX_DIR=macosx
 WXW_DIR=wxw
 
 # distribution target presets
-VERSION?=0.2.1
+VERSION?=0.2.1a
 CK_SVN=https://chuck-dev.stanford.edu/svn/chuck/
 
 DIST_DIR=miniAudicle-$(VERSION)
