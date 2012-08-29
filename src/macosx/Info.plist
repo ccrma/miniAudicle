@@ -32,7 +32,7 @@
 	<key>CFBundleExecutable</key>
 	<string>miniAudicle</string>
 	<key>CFBundleGetInfoString</key>
-	<string>miniAudicle 0.2.1a</string>
+	<string>miniAudicle 0.2.1b</string>
 	<key>CFBundleIconFile</key>
 	<string>miniAudicle</string>
 	<key>CFBundleIdentifier</key>
@@ -42,11 +42,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.2.1a</string>
+	<string>0.2.1b</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>0.2.1a</string>
+	<string>0.2.1b</string>
 	<key>NSMainNibFile</key>
 	<string>miniAudicle</string>
 	<key>NSPrincipalClass</key>
