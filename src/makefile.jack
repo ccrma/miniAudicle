@@ -13,9 +13,9 @@ YACC=bison
 WX_OPTIONS?=
 INCLUDES=-I$(CHUCK_SRC_DIR) -I$(WXW_DIR) -I$(PWD)
 FLAGS=-D__LINUX_ALSA__ -D__LINUX__ -D__MA_WXWIDGETS__ \
-	  `wx-config $(WX_OPTIONS) --cppflags` -O3 -c -fno-strict-aliasing
+	  `wx-config $(WX_OPTIONS) --cppflags` -O3 -c -fno-strict-aliasing -m32
 LIBS=`wx-config $(WX_OPTIONS) --libs stc,adv,core,base` -lasound -ljack \
-     -lpthread -lstdc++ -ldl -lm
+     -lpthread -lstdc++ -ldl -lm -m32
 SF_OBJ=$(CHUCK_SRC_DIR)/util_sndfile.o
 
 ifneq ($(CHUCK_DEBUG),)
@@ -81,7 +81,7 @@ $(BIN_DIR)/miniAudicle: $(OBJS) chuck
 # build the core chuck code
 .PHONY: chuck
 chuck:
-	make -C $(CHUCK_SRC_DIR) $(CHUCK_MAKECMD)
+	CFLAGS=-m32 LDFLAGS=-m32 make -C $(CHUCK_SRC_DIR) $(CHUCK_MAKECMD)
 
 miniAudicle_shell.o: miniAudicle_shell.cpp miniAudicle_shell.h
 	$(CC) $(FLAGS) $(INCLUDES) miniAudicle_shell.cpp
