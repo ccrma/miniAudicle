@@ -554,7 +554,8 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
              returnCode:(int)returnCode
             contextInfo:(void *)contextInfo
 {
-    if( ( int ) contextInfo == 1 && returnCode == NSOKButton )
+    // 1.2.2: changed (int) to (long)
+    if( (long)contextInfo == 1 && returnCode == NSOKButton )
     {
         NSString * filename = [op filename];
         if( filename != nil )

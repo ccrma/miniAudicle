@@ -1131,7 +1131,8 @@ mAConsoleMonitorViewRange operator- ( mAConsoleMonitorViewRange r1,
 
     (void) [layout_manager glyphRangeForTextContainer:text_container];
     
-    float fraction;
+    // 1.2.2: changed from 'float' to 'CGFloat'
+    CGFloat fraction = 0;
     unsigned glyph = [layout_manager glyphIndexForPoint:p
                                         inTextContainer:text_container
                          fractionOfDistanceThroughGlyph:&fraction];
@@ -1169,7 +1170,8 @@ mAConsoleMonitorViewRange operator- ( mAConsoleMonitorViewRange r1,
     
     (void) [layout_manager glyphRangeForTextContainer:text_container];
     
-    float fraction;
+    // 1.2.2: changed from 'float' to 'CGFloat'
+    CGFloat fraction = 0;
     unsigned glyph = [layout_manager glyphIndexForPoint:p
                                         inTextContainer:text_container
                          fractionOfDistanceThroughGlyph:&fraction];
