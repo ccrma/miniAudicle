@@ -26,7 +26,7 @@ CXX=clang++
 endif
 
 INCLUDES=-I$(CHUCK_SRC_DIR) -I$(OSX_DIR) -I.
-CFLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH_i386 -m32 $(INCLUDES)
+CFLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH -m32 $(INCLUDES)
 
 FRAMEWORKS=Cocoa CoreAudio CoreMIDI CoreFoundation Carbon IOKit Security
 LIBS=$(addprefix -framework ,$(FRAMEWORKS)) $(LINK_EXTRAS) -lstdc++ -lm
@@ -179,16 +179,14 @@ $(filter %.strings,$(NIBS)): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LAN
 
 $(filter %.nib,$(NIBS)): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/%.nib: $(OSX_DIR)/$(LANGUAGE).lproj/%.xib
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/
-	ibtool \
-    --errors --warnings --notices --output-format human-readable-text \
-    --compile $@ $<
+	ibtool --errors --warnings --notices --output-format human-readable-text --compile $@ $<
 #    --sdk /Developer/SDKs/MacOSX10.6.sdk
 
 # build the core chuck code
 .PHONY: chuck
 chuck:
 #	echo $(CHUCK_SRCS) &> /dev/null
-	make -C $(CHUCK_SRC_DIR) osx
+	CFLAGS=-m32 LDFLAGS=-m32 make -C $(CHUCK_SRC_DIR) osx
 
 # now build miniAudicle files
 $(COBJS): %.o: %.c
