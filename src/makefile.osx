@@ -32,6 +32,8 @@ FRAMEWORKS=Cocoa CoreAudio CoreMIDI CoreFoundation Carbon IOKit Security
 LIBS=$(addprefix -framework ,$(FRAMEWORKS)) $(LINK_EXTRAS) -lstdc++ -lm
 LDFLAGS=$(LIBS)
 
+ARCHOPTS=$(addprefix -arch ,$(ARCHS))
+
 SF_SRC=util_sndfile.c
 
 ifneq ($(CHUCK_DEBUG),)
@@ -52,7 +54,7 @@ endif
 #LIBS+= -lsndfile
 #SF_SRC=
 
-CFLAGSDEPEND?=$(CFLAGS)
+CFLAGSDEPEND?=$(patsubst -arch %,,$(CFLAGS))
 
 # distribution target presets
 VERSION?=0.2.1b
@@ -161,7 +163,7 @@ miniAudicle: $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(IMAGES) $(N
 
 $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle: $(OBJS) chuck
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/MacOS/
-	$(CXX) -o $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(OBJS) $(CHUCK_OBJS) $(LDFLAGS)
+	$(CXX) -o $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(OBJS) $(CHUCK_OBJS) $(LDFLAGS) $(ARCHOPTS)
 
 $(IMAGES): $(BIN_DIR)/miniAudicle.app/Contents/Resources/%: $(OSX_DIR)/icon/% 
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/Resources/
@@ -186,23 +188,23 @@ $(filter %.nib,$(NIBS)): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAG
 .PHONY: chuck
 chuck:
 #	echo $(CHUCK_SRCS) &> /dev/null
-	make -C $(CHUCK_SRC_DIR) osx
+	ARCHS='$(ARCHS)' make -C $(CHUCK_SRC_DIR) osx
 
 # now build miniAudicle files
 $(COBJS): %.o: %.c
-	$(CXX) $(CFLAGS) -c $< -o $@
+	$(CXX) $(CFLAGS) $(ARCHOPTS) -c $< -o $@
 	@$(CXX) -MM $(CFLAGSDEPEND) $< > $*.d
 
 $(CXXOBJS): %.o: %.cpp
-	$(CXX) $(CFLAGS) -c $< -o $@
+	$(CXX) $(CFLAGS) $(ARCHOPTS) -c $< -o $@
 	@$(CXX) -MM $(CFLAGSDEPEND) $< > $*.d
 
 $(OBJCOBJS): %.o: %.m
-	$(CXX) $(CFLAGS) -c $< -o $@
+	$(CXX) $(CFLAGS) $(ARCHOPTS) -c $< -o $@
 	@$(CXX) -MM $(CFLAGSDEPEND) $< > $*.d
 
 $(OBJCXXOBJS): %.o: %.mm
-	$(CXX) $(CFLAGS) -c $< -o $@
+	$(CXX) $(CFLAGS) $(ARCHOPTS) -c $< -o $@
 	@$(CXX) -MM $(CFLAGSDEPEND) $< > $*.d
 
 

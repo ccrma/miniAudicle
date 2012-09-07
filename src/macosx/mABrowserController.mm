@@ -15,8 +15,8 @@ enum
     types_compare_classes_context
 };
 
-// 1.2.2: changed return type from 'int' to 'long' (64-bit fix)
-static long types_compare( id a, id b, void * context )
+// 1.2.2: changed return type from 'int' to 'NSInteger' (64-bit fix)
+static NSInteger types_compare( id a, id b, void * context )
 {
     return [[a objectForKey:@"name"] compare:[b objectForKey:@"name"]];
 }
