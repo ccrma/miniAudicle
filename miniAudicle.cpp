@@ -76,7 +76,7 @@ t_CKINT priority = 0x7fffffff;
 t_CKINT priority_low = 0x7fffffff;
 #endif
 
-extern const char MA_VERSION[] = "0.2.1b (gidora)\0";
+extern const char MA_VERSION[] = "0.2.2 (gidora)\0";
 extern const char MA_ABOUT[] = "version %s\nCopyright (c) Spencer Salazar\n\nChucK: version %s\nCopyright (c) Ge Wang and Perry Cook\nhttp://chuck.cs.princeton.edu/\0";
 extern const char MA_HELP[] = 
 "usage: miniAudicle [options] [files] \n\
