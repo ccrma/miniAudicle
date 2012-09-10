@@ -35,55 +35,10 @@ U.S.A.
 #import "miniAudicleController.h"
 #import "NumberedTextView.h"
 #import "miniAudiclePreferencesController.h"
-//#import "KBPopUpToolbarItem.h"
-#import "RBSplitView.h"
 #import "miniAudicle.h"
 #import "chuck_parse.h"
 #import "util_string.h"
 
-#define USE_POPUP_TOOLBAR_ITEMS 0
-
-@interface mAArgumentsTableView : NSTableView
-
-- (void)keyDown:(NSEvent *)e;
-
-@end
-
-@implementation mAArgumentsTableView
-
-- (void)keyDown:(NSEvent *)e
-{
-    if( [[e characters] length] > 0 )
-    {
-        unichar c = [[e characters] characterAtIndex:0];
-        
-        if ( ( c == NSDeleteFunctionKey || c == NSDeleteCharFunctionKey ||
-               c == NSDeleteCharacter || c == NSBackspaceCharacter ) && 
-             [[self dataSource] respondsToSelector:@selector( argumentsTableView:deleteRows: )])
-        {
-            [[self dataSource] argumentsTableView:self 
-                                       deleteRows:[self selectedRowIndexes]];
-            [self reloadData];
-        }
-        
-        else if( c == NSInsertLineFunctionKey || c == NSNewlineCharacter || 
-                 c == NSCarriageReturnCharacter || c == NSEnterCharacter )
-        {
-            [self editColumn:[self columnWithIdentifier:@"argument"]
-                         row:[self selectedRow]
-                   withEvent:nil
-                      select:YES];
-        }
-        
-        else
-            [super keyDown:e];
-    }
-    
-    else 
-        [super keyDown:e];
-}
-
-@end
 
 @interface NSString ( mADocument )
 - (string)stlString;
@@ -99,8 +54,6 @@ U.S.A.
 }
 
 @end
-
-//@interface mAText
 
 @implementation miniAudicleDocument
 
@@ -198,8 +151,6 @@ U.S.A.
     NSButton * toolbar_pill = [window standardWindowButton:NSWindowToolbarButton];
     [toolbar_pill setTarget:self];
     [toolbar_pill setAction:@selector( toggleToolbar: )];
-    
-    [argument_subview collapse];
     
     [window makeFirstResponder:text_view];
     
@@ -658,7 +609,7 @@ U.S.A.
             [toggle_argument_subview removeFromSuperview];
             [argument_text removeFromSuperview];
             
-            RBSplitView * view = [argument_subview splitView];
+            NumberedTextView * view = text_view;
             NSRect frame_rect = [view frame];
             frame_rect.size.height += __MA_ARGUMENTS_TEXT_HEIGHT__;
             //frame_rect.origin.y += __MA_ARGUMENTS_TEXT_HEIGHT__;
@@ -668,7 +619,7 @@ U.S.A.
         else
         {
             //printf( "showing arguments\n" );
-            RBSplitView * view = [argument_subview splitView];
+            NumberedTextView * view = text_view;
             NSRect frame_rect = [view frame];
             frame_rect.size.height -= __MA_ARGUMENTS_TEXT_HEIGHT__;
             //frame_rect.origin.y -= __MA_ARGUMENTS_TEXT_HEIGHT__;
@@ -735,7 +686,7 @@ U.S.A.
         {
             [status_text removeFromSuperview];
             
-            RBSplitView * view = [argument_subview splitView];
+            NumberedTextView * view = text_view;
             NSRect frame_rect = [view frame];
             frame_rect.origin.y -= [status_text frame].size.height;
             frame_rect.size.height += [status_text frame].size.height;
@@ -744,7 +695,7 @@ U.S.A.
         
         else
         {
-            RBSplitView * view = [argument_subview splitView];
+            NumberedTextView * view = text_view;
             NSRect frame_rect = [view frame];
             frame_rect.origin.y += [status_text frame].size.height;
             frame_rect.size.height -= [status_text frame].size.height;
@@ -784,40 +735,6 @@ U.S.A.
             [arguments addObject:[NSString stringWithUTF8String:iter->c_str()]];
         
         [argument_table reloadData];
-    }
-}
-
-- (void)toggleArguments:(id)sender
-{
-    if( [sender state] == NSOnState )
-    {
-        [[argument_subview splitView] setDivider:[NSImage imageNamed:@"Thumb9.png"]];
-        [argument_subview expandWithAnimation];
-    }
-    
-    else
-    {
-        [argument_subview collapseWithAnimation];
-    }
-}
-
-- (void)splitView:(RBSplitView*)sender didExpand:(RBSplitSubview*)subview
-{
-    if( subview == argument_subview )
-    {
-        [toggle_argument_subview setState:NSOnState];
-        [sender setDivider:[NSImage imageNamed:@"Thumb9.png"]];
-        [window makeFirstResponder:argument_text];
-    }
-}
-
-- (void)splitView:(RBSplitView*)sender didCollapse:(RBSplitSubview*)subview 
-{
-    if( subview == argument_subview )
-    {
-        [toggle_argument_subview setState:NSOffState];
-        [sender setDivider:nil];
-        [window makeFirstResponder:[text_view textView]];
     }
 }
 

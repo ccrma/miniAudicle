@@ -23,8 +23,6 @@
 		093A212C14BF587500497856 /* mAChuginManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A212B14BF587500497856 /* mAChuginManager.mm */; };
 		093A212E14BFEF7F00497856 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093A212D14BFEF7F00497856 /* Security.framework */; };
 		093A213114BFF5DC00497856 /* BLAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A213014BFF5DC00497856 /* BLAuthentication.m */; };
-		093D84E10B7A99F200E55E71 /* RBSplitSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = 093D84DE0B7A99F200E55E71 /* RBSplitSubview.m */; };
-		093D84E20B7A99F200E55E71 /* RBSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 093D84E00B7A99F200E55E71 /* RBSplitView.m */; };
 		093E261414A108C8008694BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261314A108C8008694BC /* UIKit.framework */; };
 		093E261614A108C8008694BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261514A108C8008694BC /* Foundation.framework */; };
 		093E261814A108C8008694BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261714A108C8008694BC /* CoreGraphics.framework */; };
@@ -244,7 +242,6 @@
 		09A40D860A9AC579007604EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		09AC749A13E36A970015CC99 /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09AC749613E36A970015CC99 /* RtAudio.cpp */; };
 		09AF2D1F0BA63F5900B18EC6 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 09AF2D1E0BA63F5900B18EC6 /* lock.png */; };
-		09CD6E220AC602BC00F5D110 /* KBPopUpToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CD6E210AC602BC00F5D110 /* KBPopUpToolbarItem.m */; };
 		09D00B8414A3C4010019CD09 /* TitleEditView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */; };
 		09D00B8714A3C44B0019CD09 /* mATitleEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */; };
 		09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8914A44DFA0019CD09 /* mAVMMonitorController.mm */; };
@@ -371,11 +368,6 @@
 		093A212D14BFEF7F00497856 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		093A212F14BFF5DC00497856 /* BLAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLAuthentication.h; path = macosx/BLAuthentication.h; sourceTree = "<group>"; };
 		093A213014BFF5DC00497856 /* BLAuthentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLAuthentication.m; path = macosx/BLAuthentication.m; sourceTree = "<group>"; };
-		093D84DD0B7A99F200E55E71 /* RBSplitSubview.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RBSplitSubview.h; path = macosx/RBSplitSubview.h; sourceTree = SOURCE_ROOT; };
-		093D84DE0B7A99F200E55E71 /* RBSplitSubview.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = RBSplitSubview.m; path = macosx/RBSplitSubview.m; sourceTree = SOURCE_ROOT; };
-		093D84DF0B7A99F200E55E71 /* RBSplitView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RBSplitView.h; path = macosx/RBSplitView.h; sourceTree = SOURCE_ROOT; };
-		093D84E00B7A99F200E55E71 /* RBSplitView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = RBSplitView.m; path = macosx/RBSplitView.m; sourceTree = SOURCE_ROOT; };
-		093D84E80B7A9A6000E55E71 /* RBSplitViewPrivateDefines.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RBSplitViewPrivateDefines.h; path = macosx/RBSplitViewPrivateDefines.h; sourceTree = SOURCE_ROOT; };
 		093E261114A108C8008694BC /* miniAudicle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miniAudicle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		093E261314A108C8008694BC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		093E261514A108C8008694BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -850,8 +842,6 @@
 		09AC749713E36A970015CC99 /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
 		09AC749813E36A970015CC99 /* RtError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtError.h; sourceTree = "<group>"; };
 		09AF2D1E0BA63F5900B18EC6 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lock.png; path = macosx/icon/lock.png; sourceTree = SOURCE_ROOT; };
-		09CD6E200AC602BC00F5D110 /* KBPopUpToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = KBPopUpToolbarItem.h; path = macosx/KBPopUpToolbarItem.h; sourceTree = SOURCE_ROOT; };
-		09CD6E210AC602BC00F5D110 /* KBPopUpToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = KBPopUpToolbarItem.m; path = macosx/KBPopUpToolbarItem.m; sourceTree = SOURCE_ROOT; };
 		09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleEditView_iPad.xib; sourceTree = "<group>"; };
 		09D00B8514A3C44A0019CD09 /* mATitleEditorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mATitleEditorController.h; sourceTree = "<group>"; };
 		09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mATitleEditorController.m; sourceTree = "<group>"; };
@@ -968,16 +958,9 @@
 			children = (
 				09F37B060BC075AC005931F6 /* mABrowserController.h */,
 				09F37B050BC075AC005931F6 /* mABrowserController.mm */,
-				093D84E80B7A9A6000E55E71 /* RBSplitViewPrivateDefines.h */,
-				093D84DD0B7A99F200E55E71 /* RBSplitSubview.h */,
-				093D84DE0B7A99F200E55E71 /* RBSplitSubview.m */,
-				093D84DF0B7A99F200E55E71 /* RBSplitView.h */,
-				093D84E00B7A99F200E55E71 /* RBSplitView.m */,
 				096FAB840B56D56B00125FE2 /* mAConsoleMonitorView.h */,
 				096FAB850B56D56B00125FE2 /* mAConsoleMonitorView.mm */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
-				09CD6E200AC602BC00F5D110 /* KBPopUpToolbarItem.h */,
-				09CD6E210AC602BC00F5D110 /* KBPopUpToolbarItem.m */,
 				09A40BAB0A9A55EC007604EA /* mASyntaxHighlighter.h */,
 				09A40BAC0A9A55EC007604EA /* mASyntaxHighlighter.mm */,
 				09A40BAD0A9A55EC007604EA /* miniAudicle_ui_elements.mm */,
@@ -2327,10 +2310,7 @@
 				09A40BD30A9A5662007604EA /* miniAudicle.cpp in Sources */,
 				09A40D130A9A6185007604EA /* chuck.lex in Sources */,
 				090A5BE90AA75AEA005DC04D /* util_hid.cpp in Sources */,
-				09CD6E220AC602BC00F5D110 /* KBPopUpToolbarItem.m in Sources */,
 				096FAB870B56D56B00125FE2 /* mAConsoleMonitorView.mm in Sources */,
-				093D84E10B7A99F200E55E71 /* RBSplitSubview.m in Sources */,
-				093D84E20B7A99F200E55E71 /* RBSplitView.m in Sources */,
 				09F37B070BC075AC005931F6 /* mABrowserController.mm in Sources */,
 				090B4B1D0C4F038E00DF5577 /* uana_xform.cpp in Sources */,
 				09812B9B0C6E394A00D1D68C /* uana_extract.cpp in Sources */,

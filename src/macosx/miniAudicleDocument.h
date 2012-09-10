@@ -44,7 +44,6 @@ class miniAudicle;
     IBOutlet NSWindow * window;
     IBOutlet NumberedTextView * text_view;
     IBOutlet NSTextField * status_text;
-    IBOutlet RBSplitSubview * argument_subview;
     IBOutlet NSTextField * argument_text;
     IBOutlet NSButton * toggle_argument_subview;
     IBOutlet NSButton * button_bar;
@@ -116,7 +115,7 @@ class miniAudicle;
 - (void)setShowsStatusBar:(BOOL)_shows_status_bar;
 - (BOOL)showsStatusBar;
 
-- (void)handleArgumentText:(id)sender;
+- (IBAction)handleArgumentText:(id)sender;
 
 - (void)argumentsTableView:(mAArgumentsTableView *)atv 
                 deleteRows:(NSIndexSet *)is;
