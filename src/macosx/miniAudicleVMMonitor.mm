@@ -134,7 +134,7 @@ static NSString * const remove_column_id = @"4";
     if( compare_shred_vectors( status_buffers[0].list, status_buffers[1].list ) )
     {
         [shred_table reloadData];
-        [shreds_text setStringValue:[NSString stringWithFormat:@"%u", 
+        [shreds_text setStringValue:[NSString stringWithFormat:@"%lu",
             most_recent_status->list.size()]];
     }
     
@@ -145,7 +145,7 @@ static NSString * const remove_column_id = @"4";
     }
     
     time_t current_time = ( time_t ) ( most_recent_status->now_system / most_recent_status->srate );
-    [running_time_text setStringValue:[NSString stringWithFormat:@"%u:%.2u.%.5u", 
+    [running_time_text setStringValue:[NSString stringWithFormat:@"%lu:%.2lu.%.5lu", 
         current_time / 60, current_time % 60, ( t_CKUINT ) fmod( most_recent_status->now_system, most_recent_status->srate ) ]];
 }
 
@@ -239,7 +239,7 @@ objectValueForTableColumn:(NSTableColumn *)table_column
         return [NSNumber numberWithInt:most_recent_status->list[rowIndex]->xid];
     
     else if( [table_column identifier] == name_column_id )
-        return [NSString stringWithCString:most_recent_status->list[rowIndex]->name.c_str()];
+        return [NSString stringWithUTF8String:most_recent_status->list[rowIndex]->name.c_str()];
     
     else if( [table_column identifier] == time_column_id )
     {
@@ -251,7 +251,7 @@ objectValueForTableColumn:(NSTableColumn *)table_column
         if( rowIndex < omd->size() && shred_running_time != (*omd)[rowIndex].last_time )
         {
             [(*omd)[rowIndex].last_string autorelease];
-            (*omd)[rowIndex].last_string = [[NSString stringWithFormat:@"%u:%02u", shred_running_time / 60, shred_running_time % 60] retain];
+            (*omd)[rowIndex].last_string = [[NSString stringWithFormat:@"%lu:%02u", shred_running_time / 60, shred_running_time % 60] retain];
             (*omd)[rowIndex].last_time = shred_running_time;
         }
         

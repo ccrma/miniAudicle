@@ -48,8 +48,9 @@ U.S.A.
 {
     if( self = [super init] )
     {
-        int fd[2];
 #ifndef __CK_DEBUG__
+        int fd[2];
+        
         if( pipe( fd ) )
         {
             //unable to create the pipe!

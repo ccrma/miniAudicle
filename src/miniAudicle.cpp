@@ -880,7 +880,7 @@ t_CKBOOL miniAudicle::start_vm()
         g_sock = ck_tcp_create( 1 );
         if( !g_sock || !ck_bind( g_sock, g_port ) || !ck_listen( g_sock, 10 ) )
         {
-            fprintf( stderr, "[chuck]: cannot bind to tcp port %i...\n", g_port );
+            fprintf( stderr, "[chuck]: cannot bind to tcp port %li...\n", g_port );
             ck_close( g_sock );
             g_sock = NULL;
         }
@@ -1179,7 +1179,7 @@ t_CKBOOL miniAudicle::set_num_inputs( t_CKUINT num )
     int max = 2;
 #endif // __CHIP_MODE__
     
-    if( num < 0 || num > max )
+    if( num > max )
         vm_options.num_inputs = max;
     else
         vm_options.num_inputs = num;
@@ -1216,7 +1216,7 @@ t_CKBOOL miniAudicle::set_num_outputs( t_CKUINT num )
     int max = 2;
 #endif // __CHIP_MODE__
 
-    if( num < 0 || num > max )
+    if( num > max )
         vm_options.num_outputs = max;
     else
         vm_options.num_outputs = num;
@@ -1283,7 +1283,7 @@ t_CKBOOL miniAudicle::set_dac( t_CKUINT dac )
 {
 #ifndef __CHIP_MODE__
     // sanity check
-    if( dac < 0 || dac > interfaces.size() )
+    if( dac > interfaces.size() )
         return FALSE;
     else
         vm_options.dac = dac;
@@ -1304,7 +1304,7 @@ t_CKBOOL miniAudicle::set_adc( t_CKUINT adc )
 {
 #ifndef __CHIP_MODE__
     // sanity check
-    if( adc < 0 || adc > interfaces.size() )
+    if( adc > interfaces.size() )
         return FALSE;
     else
         vm_options.adc = adc;

@@ -781,7 +781,7 @@ U.S.A.
         
         vector< string >::const_iterator iter = argv.begin(), end = argv.end();
         for( ; iter != end; iter++ )
-            [arguments addObject:[NSString stringWithCString:iter->c_str()]];
+            [arguments addObject:[NSString stringWithUTF8String:iter->c_str()]];
         
         [argument_table reloadData];
     }

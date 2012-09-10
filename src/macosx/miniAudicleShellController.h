@@ -82,4 +82,4 @@ class Chuck_Shell;
 
 @end
 
-#endif __MINIAUDICLESHELLCONTROLLER_H__
+#endif // __MINIAUDICLESHELLCONTROLLER_H__

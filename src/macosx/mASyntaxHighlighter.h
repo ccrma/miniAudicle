@@ -78,7 +78,7 @@ enum
 
 @end
 
-@interface mASyntaxHighlighter : NSObject
+@interface mASyntaxHighlighter : NSObject<NSTextStorageDelegate>
 {
     NSTextStorage * s;
 //    NSArray * defs;

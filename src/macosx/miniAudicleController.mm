@@ -389,7 +389,7 @@ NSString * const mAChuginExtension = @"chug";
         //[syntax_highlighter addKeyword:[NSString stringWithCString:new_names[i].c_str()] 
         //                         color:IDEKit_kLangColor_Classes lexID:1];
         [class_names setObject:[NSNumber numberWithInt:1]
-                        forKey:[NSString stringWithCString:new_names[i].c_str()]];
+                        forKey:[NSString stringWithUTF8String:new_names[i].c_str()]];
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:mASyntaxColoringChangedNotification
