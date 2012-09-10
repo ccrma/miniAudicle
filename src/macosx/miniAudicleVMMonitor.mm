@@ -251,7 +251,7 @@ objectValueForTableColumn:(NSTableColumn *)table_column
         if( rowIndex < omd->size() && shred_running_time != (*omd)[rowIndex].last_time )
         {
             [(*omd)[rowIndex].last_string autorelease];
-            (*omd)[rowIndex].last_string = [[NSString stringWithFormat:@"%lu:%02u", shred_running_time / 60, shred_running_time % 60] retain];
+            (*omd)[rowIndex].last_string = [[NSString stringWithFormat:@"%lu:%02lu", shred_running_time / 60, shred_running_time % 60] retain];
             (*omd)[rowIndex].last_time = shred_running_time;
         }
         
