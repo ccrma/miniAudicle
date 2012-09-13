@@ -57,7 +57,7 @@ endif
 CFLAGSDEPEND?=$(patsubst -arch %,,$(CFLAGS))
 
 # distribution target presets
-VERSION?=0.2.2
+VERSION?=0.2.2a
 
 DIST_DIR=miniAudicle-$(VERSION)
 
@@ -121,8 +121,7 @@ CXXSRCS+= miniAudicle.cpp \
 	miniAudicle_import.cpp \
     miniAudicle_ui_elements.cpp
 OBJCSRCS+= $(OSX_DIR)/main.m \
-    $(OSX_DIR)/BLAuthentication.m \
-    $(OSX_DIR)/KBPopUpToolbarItem.m
+    $(OSX_DIR)/BLAuthentication.m
 OBJCXXSRCS+= $(OSX_DIR)/miniAudicleController.mm \
 	$(OSX_DIR)/miniAudicleVMMonitor.mm \
 	$(OSX_DIR)/miniAudicleDocument.mm \

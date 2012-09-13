@@ -791,7 +791,7 @@ mAParentFrame::mAParentFrame( miniAudicle * ma,
     wxString copystring;
     wxString about( MA_ABOUT, wxConvUTF8 ), version( MA_VERSION, wxConvUTF8 ),
         ck_version( CK_VERSION, wxConvUTF8 );
-    copystring.Printf( about.c_str(), version.c_str(), ck_version.c_str() );
+    copystring.Printf( about.c_str(), version.c_str(), ck_version.c_str(), sizeof(void*)*8 );
     copystring.Prepend( _T( "miniAudicle\n" ) );
     wxStaticText * copytext = new wxStaticText( &about_dialog, wxID_ANY, 
         copystring, wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE );

@@ -194,7 +194,7 @@ NSString * const mAChuginExtension = @"chug";
 - (void)awakeFromNib
 {
     // format/set the about box text
-    NSString * t_string = [[[NSString alloc] initWithFormat:[NSString stringWithUTF8String:MA_ABOUT], MA_VERSION, CK_VERSION] autorelease];
+    NSString * t_string = [[[NSString alloc] initWithFormat:[NSString stringWithUTF8String:MA_ABOUT], MA_VERSION, CK_VERSION, sizeof(void*)*8] autorelease];
     [about_text setStringValue:t_string];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
