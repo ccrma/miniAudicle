@@ -1,4 +1,4 @@
-KNOWN BUGS (miniAudicle-0.2.2a (gidora))
+KNOWN BUGS (miniAudicle-0.2.2b (gidora))
 ----------------------------------------
 
 - miniAudicle will not run on Linux with wxWidgets 2.8 or higher and GTK 2.8 or 
