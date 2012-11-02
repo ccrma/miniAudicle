@@ -869,6 +869,53 @@ t_CKBOOL miniAudicle::start_vm()
         // reset the parser
         reset_parse();
         
+        Chuck_VM_Code * code = NULL;
+        Chuck_VM_Shred * shred = NULL;
+        
+        // whether or not chug should be enabled (added 1.3.0.0)
+        EM_log( CK_LOG_SEVERE, "pre-loading ChucK libs..." );
+        EM_pushlog();
+        
+        // iterate over list of ck files that the compiler found
+        for( std::list<std::string>::iterator j = compiler->m_cklibs_to_preload.begin();
+            j != compiler->m_cklibs_to_preload.end(); j++)
+        {
+            // the filename
+            std::string filename = *j;
+            
+            // log
+            EM_log( CK_LOG_SEVERE, "preloading '%s'...", filename.c_str() );
+            // push indent
+            EM_pushlog();
+            
+            // SPENCERTODO: what to do for full path
+            std::string full_path = filename;
+            
+            // parse, type-check, and emit
+            if( compiler->go( filename, NULL, NULL, full_path ) )
+            {
+                // TODO: how to compilation handle?
+                //return 1;
+                
+                // get the code
+                code = compiler->output();
+                // name it - TODO?
+                // code->name += string(argv[i]);
+                
+                // spork it
+                shred = vm->spork( code, NULL );
+            }
+            
+            // pop indent
+            EM_poplog();
+        }
+        
+        // clear the list of chuck files to preload
+        compiler->m_cklibs_to_preload.clear();
+        
+        // pop log
+        EM_poplog();
+        
         // start the vm handler threads
 #ifndef __PLATFORM_WIN32__
         pthread_create( &vm_tid, NULL, vm_cb, NULL );
