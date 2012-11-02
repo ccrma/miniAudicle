@@ -10,7 +10,7 @@
 		09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09087C6414A4F5F600AD2633 /* mAVMMonitorCellController.mm */; };
 		09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09087C6714A4F61700AD2633 /* mAVMMonitorCell.xib */; };
 		09087C6B14A4F67100AD2633 /* UIRemoveControlMinus.png in Resources */ = {isa = PBXBuildFile; fileRef = 09087C6A14A4F67100AD2633 /* UIRemoveControlMinus.png */; };
-		090A5BE80AA75AEA005DC04D /* util_hid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090A5BE70AA75AEA005DC04D /* util_hid.cpp */; settings = {COMPILER_FLAGS = "-D__CK_HID_WIIREMOTE__"; }; };
+		090A5BE80AA75AEA005DC04D /* util_hid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090A5BE70AA75AEA005DC04D /* util_hid.cpp */; };
 		090A5BE90AA75AEA005DC04D /* util_hid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090A5BE70AA75AEA005DC04D /* util_hid.cpp */; };
 		090B4B1C0C4F038E00DF5577 /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
 		090B4B1D0C4F038E00DF5577 /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */; };
@@ -246,6 +246,7 @@
 		09D00B8714A3C44B0019CD09 /* mATitleEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */; };
 		09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8914A44DFA0019CD09 /* mAVMMonitorController.mm */; };
 		09D00B8C14A44DFB0019CD09 /* mAVMMonitorController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09D00B8A14A44DFB0019CD09 /* mAVMMonitorController.xib */; };
+		09D9D910164359EC00E6CC4E /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09AC749613E36A970015CC99 /* RtAudio.cpp */; };
 		09E482260B1CF018002087DF /* chuck.y in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B360A9A54DA007604EA /* chuck.y */; };
 		09E482270B1CF019002087DF /* chuck_absyn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B060A9A54DA007604EA /* chuck_absyn.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
 		09E482280B1CF01A002087DF /* chuck_bbq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B080A9A54DA007604EA /* chuck_bbq.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
@@ -1088,7 +1089,7 @@
 				0991F59F128AA4830067C31C /* type */,
 			);
 			name = ChucK;
-			path = ../../chuck/trunk/src;
+			path = chuck/src;
 			sourceTree = "<group>";
 		};
 		0980603F0AA1591C00915136 /* miniAudicle */ = {
@@ -1654,7 +1655,7 @@
 				09A40B670A9A54DA007604EA /* util_xforms.h */,
 			);
 			name = ChucK;
-			path = chuck;
+			path = chuck/src;
 			sourceTree = "<group>";
 		};
 		09A40B010A9A5303007604EA /* miniAudicle */ = {
@@ -1757,7 +1758,7 @@
 				09AC749813E36A970015CC99 /* RtError.h */,
 			);
 			name = RtAudio;
-			path = chuck/RtAudio;
+			path = chuck/src/RtAudio;
 			sourceTree = "<group>";
 		};
 		09E482020B1CEEF5002087DF /* miniAudicle GTK */ = {
@@ -2169,6 +2170,7 @@
 				090A5BE80AA75AEA005DC04D /* util_hid.cpp in Sources */,
 				090B4B1E0C4F038E00DF5577 /* uana_xform.cpp in Sources */,
 				09812B9C0C6E394A00D1D68C /* uana_extract.cpp in Sources */,
+				09D9D910164359EC00E6CC4E /* RtAudio.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2570,7 +2572,7 @@
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
-					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
+					"\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2580,7 +2582,7 @@
 				);
 				GCC_VERSION = "";
 				GCC_WARN_UNUSED_PARAMETER = NO;
-				HEADER_SEARCH_PATHS = chuck;
+				HEADER_SEARCH_PATHS = chuck/src;
 				INFOPLIST_FILE = macosx/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
@@ -2604,7 +2606,7 @@
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
-					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
+					"\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -2613,7 +2615,7 @@
 					GCC_FAST_OBJC_DISPATCH_i386,
 				);
 				GCC_VERSION = "";
-				HEADER_SEARCH_PATHS = chuck;
+				HEADER_SEARCH_PATHS = chuck/src;
 				INFOPLIST_FILE = macosx/Info.plist;
 				INSTALL_PATH = /Applications;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
