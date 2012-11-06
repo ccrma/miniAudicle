@@ -8,7 +8,7 @@ LINK_EXTRAS=-F/System/Library/PrivateFrameworks \
     -weak_framework MultitouchSupport
 endif
 
-CHUCK_SRC_DIR=chuck
+CHUCK_SRC_DIR=chuck/src
 LANGUAGE=English
 
 OSX_DIR=macosx

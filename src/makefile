@@ -1,6 +1,6 @@
 
 DESTDIR=/usr/bin
-CHUCK_SRC_DIR=chuck
+CHUCK_SRC_DIR=chuck/src
 
 ifneq ($(MA_PLATFORM),)
 ifeq ($(MAKECMDGOALS),)

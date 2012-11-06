@@ -9,7 +9,7 @@ ISYSROOT=-isysroot /Developer/SDKs/MacOSX10.4u.sdk
 LINK_EXTRAS=
 endif
 
-CHUCK_SRC_DIR=chuck
+CHUCK_SRC_DIR=chuck/src
 LANGUAGE=English
 
 OSX_DIR=macosx
