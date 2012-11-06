@@ -1,0 +1,3 @@
+[submodule "src/chuck"]
+	path = src/chuck
+	url = https://github.com/spencersalazar/chuck.git
