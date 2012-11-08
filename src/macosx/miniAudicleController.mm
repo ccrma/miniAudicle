@@ -36,6 +36,7 @@ U.S.A.
 #import "miniAudicleDocument.h"
 #import "miniAudiclePreferencesController.h"
 #import "mASyntaxHighlighter.h"
+#import "mAChuginManager.h"
 #import "chuck_shell.h"
 #import "miniAudicle.h"
 
@@ -45,6 +46,8 @@ extern const char MA_ABOUT[];
 
 NSString * const mAVirtualMachineDidTurnOnNotification = @"VirtualMachineDidTurnOnNotification";
 NSString * const mAVirtualMachineDidTurnOffNotification = @"VirtualMachineDidTurnOnNotification";
+
+NSString * const mAChuginExtension = @"chug";
 
 @interface miniAudicleController (Private)
 - (void)adjustChucKMenuItems;
@@ -191,14 +194,14 @@ NSString * const mAVirtualMachineDidTurnOffNotification = @"VirtualMachineDidTur
 - (void)awakeFromNib
 {
     // format/set the about box text
-    NSString * t_string = [[[NSString alloc] initWithFormat:[NSString stringWithCString:MA_ABOUT], MA_VERSION, CK_VERSION] autorelease];
+    NSString * t_string = [[[NSString alloc] initWithFormat:[NSString stringWithUTF8String:MA_ABOUT], MA_VERSION, CK_VERSION, sizeof(void*)*8] autorelease];
     [about_text setStringValue:t_string];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(windowDidBecomeMain:)
                                                  name:NSWindowDidBecomeMainNotification
                                                object:nil];
-    
+        
     // init preferences
     // [mapc initDefaults];
 }
@@ -232,6 +235,41 @@ NSString * const mAVirtualMachineDidTurnOffNotification = @"VirtualMachineDidTur
     
     [madv removeObject:doc];
 }
+
+
+- (BOOL)application:(NSApplication *)theApplication
+           openFile:(NSString *)filename
+{
+    if([[filename pathExtension] isEqualToString:mAChuginExtension])
+    {
+        NSString * chuginName = [filename lastPathComponent];
+        NSAlert * chuginAlert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Do you want to install the ChuGin '%@'?", chuginName]
+                                                defaultButton:@"Install for all users"
+                                              alternateButton:@"Cancel"
+                                                  otherButton:@"Install for just this user"
+                                    informativeTextWithFormat:@"If you install for all users, you must authenticate as an administrator."];
+        
+        int result = [chuginAlert runModal];
+        
+        if(result == NSAlertDefaultReturn)
+        {
+            [[mAChuginManager chuginManager] installChuginForAllUsers:filename];
+        }
+        else if(result == NSAlertOtherReturn)
+        {
+            [[mAChuginManager chuginManager] installChuginForCurrentUser:filename];
+        }
+        else
+        {
+            
+        }
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
 
 - (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL
                             display:(BOOL)displayDocument
@@ -351,7 +389,7 @@ NSString * const mAVirtualMachineDidTurnOffNotification = @"VirtualMachineDidTur
         //[syntax_highlighter addKeyword:[NSString stringWithCString:new_names[i].c_str()] 
         //                         color:IDEKit_kLangColor_Classes lexID:1];
         [class_names setObject:[NSNumber numberWithInt:1]
-                        forKey:[NSString stringWithCString:new_names[i].c_str()]];
+                        forKey:[NSString stringWithUTF8String:new_names[i].c_str()]];
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:mASyntaxColoringChangedNotification
@@ -820,6 +858,8 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
     
     return r;
 }
+
+
 
 @end
 

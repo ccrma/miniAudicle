@@ -718,8 +718,12 @@ void mAApp::SyntaxColoringPreferencesChanged()
 
 int mAApp::OnExit()
 {
+    // this function is apparently never called
+
     SavePreferences();
+#if !defined( __WINDOWS_DS__ )
     SAFE_DELETE( ma );
+#endif
     SAFE_DELETE( doc_manager );
 
     return 0;
@@ -787,7 +791,7 @@ mAParentFrame::mAParentFrame( miniAudicle * ma,
     wxString copystring;
     wxString about( MA_ABOUT, wxConvUTF8 ), version( MA_VERSION, wxConvUTF8 ),
         ck_version( CK_VERSION, wxConvUTF8 );
-    copystring.Printf( about.c_str(), version.c_str(), ck_version.c_str() );
+    copystring.Printf( about.c_str(), version.c_str(), ck_version.c_str(), sizeof(void*)*8 );
     copystring.Prepend( _T( "miniAudicle\n" ) );
     wxStaticText * copytext = new wxStaticText( &about_dialog, wxID_ANY, 
         copystring, wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE );
@@ -999,7 +1003,7 @@ void mAParentFrame::OnCloseWindow( wxCloseEvent & event )
     
     wxDocMDIParentFrame::OnCloseWindow( event );
 
-#if defined( __WINDOWS_DS__ ) && defined( __WINDOWS_PTHREAD__ )
+#if defined( __WINDOWS_DS__ )
     /* its ugly but its the only thing that seems to work */
     exit( 0 );
 #endif

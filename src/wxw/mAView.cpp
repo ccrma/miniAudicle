@@ -125,20 +125,8 @@ void mAChuckWindow::OnModify( wxStyledTextEvent & event )
 
 IMPLEMENT_DYNAMIC_CLASS( mAChuckView, wxView )
 
-void mAChuckView::OnActivateView(bool activate, wxView *activeView, wxView *deactiveView)
-{
-    //window->SetFocus();
-    fprintf(stderr, "mAChuckView::OnActivateView %ls\n", GetDocument()->GetTitle().c_str());
-    if( !activate )
-    {
-        ((wxDocMDIParentFrame *) frame->GetParent())->ActivatePrevious();
-    }
-}
-
 bool mAChuckView::OnCreate( wxDocument * doc, long WXUNUSED( flags ) )
 {
-    fprintf(stderr, "mAChuckView::OnCreate %ls\n", doc->GetTitle().c_str());
-    
     frame = wxGetApp().CreateChildFrame( doc, this );
     
 //  wxConfigBase * config = wxConfigBase::Get();
@@ -263,9 +251,8 @@ bool mAChuckView::OnCreate( wxDocument * doc, long WXUNUSED( flags ) )
     is_modified = false;
     
     frame->Show( true );
-    frame->Raise();
     Activate( true );
-    //window->SetFocus();
+    window->SetFocus();
     
     return true;
 }
@@ -347,7 +334,9 @@ void mAChuckView::Add()
     if( !extract_args( args_string, filename, argv ) )
         argv.clear();
 
-    t_CKUINT result_code = ma->run_code( code, name, argv, docid, shred_id, result );
+    // SPENCERTODO
+    std::string filepath = "";
+    t_CKUINT result_code = ma->run_code( code, name, argv, filepath, docid, shred_id, result );
 
     if( result_code == OTF_VM_TIMEOUT )
     {
@@ -388,7 +377,9 @@ void mAChuckView::Replace()
     if( !extract_args( args_string, filename, argv ) )
         argv.clear();
 
-    ma->replace_code( code, name, argv, docid, shred_id, result );
+    // SPENCERTODO
+    std::string filepath = "";
+    ma->replace_code( code, name, argv, filepath, docid, shred_id, result );
 
     wxString status( result.c_str(), wxConvUTF8 );
     
@@ -521,13 +512,6 @@ mADocMDIChildFrame::mADocMDIChildFrame( wxDocument * doc, wxView * view,
     : wxDocMDIChildFrame( doc, view, parent, id, title, pos, size, style, name )
 {
     m_menuid = -1;
-}
-
-void mADocMDIChildFrame::OnActivate(wxActivateEvent event)
-{
-    wxDocMDIChildFrame::OnActivate(event);
-    ((mAChuckView *) GetView())->window->SetFocus();
-    ((mAChuckView *) GetView())->Activate(true);
 }
 
 void mADocMDIChildFrame::RegisterWithWindowMenu()

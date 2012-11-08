@@ -203,7 +203,7 @@ SOURCE=chuck\midiio_rtmidi.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\rtaudio.cpp
+SOURCE=.\chuck\RtAudio\RtAudio.cpp
 # End Source File
 # Begin Source File
 

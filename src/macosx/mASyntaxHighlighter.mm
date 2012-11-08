@@ -196,7 +196,7 @@ static mASyntaxDefinition * g_master_definition;
               backgroundColor:(NSColor *)background
                          font:(NSFont *)f
 {
-    if( state < 0 || state > MA_LS_COUNT )
+    if( state > MA_LS_COUNT )
         return;
     
     if( text != nil )
@@ -429,7 +429,7 @@ static mASyntaxDefinition * g_master_definition;
 
     fprintf( stderr, "hr: %i %i\n", highlight_range.location, highlight_range.length );
     
-    fprintf( stderr, "'%s'\n", [[str substringWithRange:highlight_range] cString] );
+    fprintf( stderr, "'%s'\n", [[str substringWithRange:highlight_range] UTF8String] );
     
     // now determine the lexer state and highlight color
     NSRange token_range, t_range;
@@ -476,7 +476,7 @@ static mASyntaxDefinition * g_master_definition;
                 [self setState:MA_LS_DEFAULT forRange:token_range];
         }
         
-        fprintf( stderr, "'%s'\n", [token_string cString] );
+        fprintf( stderr, "'%s'\n", [token_string UTF8String] );
     }
 }
 
@@ -526,7 +526,7 @@ static mASyntaxDefinition * g_master_definition;
     
     // see if theres a comment delimiter somewhere in there
     NSString * str = [s string];
-    NSRange comment_range = [str rangeOfString:@"\/\*" options:0
+    NSRange comment_range = [str rangeOfString:@"/*" options:0
                                          range:token_range];
     if( comment_range.location == NSNotFound )
         // for now, just set everything thats not a comment to operator
@@ -550,7 +550,7 @@ static mASyntaxDefinition * g_master_definition;
                                     [str length] - comment_range.location );
     
     // t_range - the location/length of the comment end delimiter
-    t_range = [str rangeOfString:@"\*\/" options:0
+    t_range = [str rangeOfString:@"*/" options:0
                            range:t_range2];
     
     if( t_range.location == NSNotFound )

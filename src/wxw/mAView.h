@@ -68,8 +68,6 @@ public:
     void RegisterWithWindowMenu();
     void DeregisterWithWindowMenu();
     void ReregisterWithWindowMenu();
-    
-    void OnActivate(wxActivateEvent event);
 
 private:
     int m_menuid;
@@ -90,7 +88,6 @@ public:
 
     void SetMiniAudicle( miniAudicle * ma );
 
-    void OnActivateView(bool activate, wxView *activeView, wxView *deactiveView);
     bool OnCreate( wxDocument *doc, long flags );
     void OnDraw( wxDC * dc );
     void OnUpdate( wxView * sender, wxObject * hint = ( wxObject * ) NULL );

@@ -1,0 +1,170 @@
+---
+0.2.2
+    - (added) chuck-1.3.1.0
+    - (fixed) 64-bit support
+
+---
+0.2.1
+    - (added)(all) chuck-1.3.0.0
+    - (added)(all) GUI chugin manager
+    - (added)(Mac) default VM stall timeout changed to 2 seconds
+	- (fixed)(Linux) build in Ubuntu 11.10 (thanks Ricardo Fabbri)
+	- (fixed)(Windows) miniAudicle now exits properly
+
+---
+0.2.0
+    - (added)(all) chuck-1.2.1.3
+    - (added)(Mac) GUI buffer size option
+    - (fixed)(Mac) Snow Leopard compilation fix
+
+---
+0.1.3.8
+    - (added)(all) chuck-1.2.1.1
+    - (added)(all) hooks into VM stall detection
+    - (added)(Mac) device browser
+    - (added)(Mac) on-the-fly programming visualization
+    - (fixed)(Mac) smart indentation bugfixes/tweaks
+
+---
+0.1.3.7
+    - (added)(all) chuck-1.2.0.8
+    - (added)(all) command line argument support
+    - (added)(Windows,Linux) graphical preferences interface
+    - (added)(Windows,Linux) wxWidgets 2.8 support
+    - (added)(Linux) ChucK/miniAudicle logo now associated 
+      with application windows
+    - (added)(Mac) smart indentation (including enable/disable 
+      Prefs option) (not so smart sometimes)
+    - (added)(Mac) buffer size Preferences option
+    - (added)(Mac) Text, Gauge UI elements
+    - (added)(Mac) enable/disable line numbers Preferences option
+    - (added)(Mac) "lock editing" feature
+    - (added)(Mac) "add all open documents" menu option
+    - (fixed)(Linux) crash closing document windows
+    - (fixed)(Mac) line numbers now scroll dynamically and 
+      continue to bottom of document view
+    - (fixed)(Mac) VM and console monitors update when mouse is 
+      held down
+    - (fixed)(Mac) improved console monitor performance
+
+---
+0.1.3.6c
+    - (added)(all) integrated with chuck-1.2.0.7b
+    - (fixed)(Mac) resolved continuing Intel real time audio
+      issues.
+    - (fixed)(Mac) fixed issue where documents with non-ASCII
+      characters would not be saved.
+
+---
+0.1.3.6
+    - (fixed)(Linux) massive stability improvements
+    - (fixed)(Mac) resolved spurious 'undefined type' errors when using MAUI
+      elements
+    - (fixed)(Mac) Virtual Machine monitor CPU usage improvments
+    - (fixed)(Mac) console monitor speed/performance improvements
+    - (changed)(Linux,Windows) ChucK menu items now use same key bindings as 
+      miniAudicle OS X
+    - (added)(all) chuck-1.2.0.7 integrated
+    - (added)(Linux,Windows) ability to close and recall console monitor and 
+      virtual machine monitor
+    - (removed)(Linux,Windows) console monitor buffer limit ignored (too slow)
+
+---
+0.1.3.5
+    - (fixed)(all) fixed nasty bug where real-time audio would fail if more 
+      than one audio device was specified as default and one or more of the
+      default devices had only input or only output channels
+    - (fixed)(Mac) fixed threading issue which caused MAUI LEDs to erratically
+      not light or unlight as directed
+    - (changed)(Win32,Linux) changed default font size for document window and
+      console monitor
+    - (changed)(Win32,Linux) disabled network OTF thread
+    - (changed)(Win32,Linux) changed syntax highlighting colors
+    - (added)(all) console monitor now has limited, user-adjustable scrollback 
+      buffer size
+
+---
+0.1.3.4
+    - (fixed)(Linux,Win32) miniAudicle now compiles correctly with Unicode and 
+      ANSI versions of wxWidgets
+    - (fixed)(Linux,Win32) updated key bindings
+    - (fixed)(Linux) hanoi.ck example will run a few times before crashing 
+      miniAudicle
+    - (fixed)(Linux) makefile.jack actually binds miniAudicle to libjack
+    - (fixed)(Win32) miniAudicle process no longer persists after exit
+    - (fixed)(Mac) minimized CPU slowdown when many document windows are open
+    - (fixed)(Mac) reduced virtual machine monitor CPU usage
+    - (added)(all) Replace Shred and Remove Shred commands are now slightly
+      smarter in picking which shred to remove/replace; eg, shreds spawned from  
+      a single document window will be removed in reverse order from which they
+      were added.  
+    - (added)(Linux,Win32) ability to change log level at run time through menu
+      item
+    - (added)(Linux,Win32) ability to change log level, dac, adc, number of 
+      audio channels, buffer size, and sample rate through command line options
+    - (added)(Linux,Win32) probe audio interfaces with command line option
+    - (added)(Linux,Win32) help/about text with command line option
+    - (added)(Linux,Win32) ability to change log level, dac, adc, number of 
+      audio channels, buffer size, sample rate, document window text size, 
+      and console monitor text size through ~/.miniAudicle on Linux or the 
+      registry on Win32
+    - (added)(Mac) OS X 10.4-Intel support, Universal Binary support
+    - (added)(Mac) ability to select audio interface and sample rate via 
+      Preferences dialog
+
+---
+0.1.3.3
+    - initial Windows release
+	- initial Linux release
+    - fixed excessive CPU consumption problem (os x)
+    - background color option now works (os x)
+
+---
+0.1.3.2
+	- fixed bug where MAUI elements would not always disappear when calling
+      MAUI_Element.destroy()
+    - removed external dependencies in documentation files
+    - ChucK version 1.2.0.6 integrated
+
+---
+0.1.3.1
+    - updated on-the-fly toolbar icons
+    - fixed bug where miniAudicle freezes adding/replacing large files
+    - fixed "NSScanner nil string" bug
+
+---
+0.1.3.0
+    - added ChucK syntax coloring in editing windows
+    - added syntax coloring preferences item
+    - implemented MAUI_View, MAUI_Button, and MAUI_LED objects
+    - expanded MAUI_Element and MAUI_Slider object interfaces
+    - disabled network thread by default
+
+---
+0.1.2.0
+    - added "time" column to the shred table in the Virtual Machine Monitor
+    - added ability to select which columns appear in the shred table with 
+    a context menu in the shred table columns
+    - shred table columns can be reordered
+    - added line numbers in editing windows
+    - added hot key for remove last shred
+    - added shred table context menu with "Remove Last" and "Remove All" items
+    - added Console Monitor context menu with "Clear Buffer" item
+    - added Preferences window
+    - added "Enable audio", "Output channels", "Input channels", 
+    "Default log level", and "Automatically open console monitor" preference 
+    items
+    - added Default Font Selection preference item
+    - added Current Directory preference item
+    - improved Console Monitor performance after many lines of text have been
+    printed
+    - fixed ChucK shell bug where the first command entered would be ignored
+    - improved ChucK shell performance after many lines of text have been 
+    printed
+    - ChucK version 1.2.0.5 integrated
+    - Virtual Machine Monitor, Console Monitor, and ChucK shell no longer 
+    temporarily disappear when moving the focus to another application
+
+---
+0.1.0.0
+    - initial release

@@ -48,13 +48,14 @@ U.S.A.
 #include "chuck_otf.h"
 #include "chuck_errmsg.h"
 #include "chuck_globals.h"
+#include "util_string.h"
 
 #include "miniAudicle_ui_elements.h"
 #include "miniAudicle_import.h"
 //using namespace miniAudicle;
 
 #ifndef __MA_IMPORT_MAUI__
-#if defined( __MACOSX_CORE__ )
+#if defined( __MACOSX_CORE__ ) && !defined(__CHIP_MODE__)
 #define __MA_IMPORT_MAUI__
 #endif // defined( __MACOSX_CORE__ )
 #endif // __MA_IMPORT_MAUI__
@@ -75,8 +76,12 @@ t_CKINT priority = 0x7fffffff;
 t_CKINT priority_low = 0x7fffffff;
 #endif
 
-extern const char MA_VERSION[] = "0.2.1-beta-1 (gidora)\0";
-extern const char MA_ABOUT[] = "version %s\nCopyright (c) Spencer Salazar\n\nChucK: version %s\nCopyright (c) Ge Wang and Perry Cook\nhttp://chuck.cs.princeton.edu/\0";
+extern const char MA_VERSION[] = "0.2.2c (gidora)\0";
+extern const char MA_ABOUT[] = "version %s\n\
+Copyright (c) Spencer Salazar\n\n\
+ChucK: version %s %lu-bit \n\
+Copyright (c) Ge Wang and Perry Cook\nhttp://chuck.cs.princeton.edu/\0";
+
 extern const char MA_HELP[] = 
 "usage: miniAudicle [options] [files] \n\
 options: \n\
@@ -188,8 +193,9 @@ miniAudicle::~miniAudicle()
 // desc: ...
 //-----------------------------------------------------------------------------
 t_OTF_RESULT miniAudicle::run_code( string & code, string & name, 
-                                    vector< string > & args, t_CKUINT docid, 
-                                    t_CKUINT & shred_id, string & out )
+                                    vector< string > & args, string & filepath, 
+                                    t_CKUINT docid, t_CKUINT & shred_id, 
+                                    string & out )
 {    
     if( documents.find( docid ) == documents.end() )
         // invalid document id
@@ -199,7 +205,7 @@ t_OTF_RESULT miniAudicle::run_code( string & code, string & name,
     }
 
     // compile
-    if( !compiler->go( name, NULL, code.c_str() ) )
+    if( !compiler->go( name, NULL, code.c_str(), filepath ) )
     {
         last_result[docid].result = OTF_COMPILE_ERROR;
         last_result[docid].output = string( EM_lasterror() ) + "\n";
@@ -232,8 +238,9 @@ t_OTF_RESULT miniAudicle::run_code( string & code, string & name,
 // desc: ...
 //-----------------------------------------------------------------------------
 t_OTF_RESULT miniAudicle::replace_code( string & code, string & name, 
-                                        vector< string > & args, t_CKUINT docid, 
-                                        t_CKUINT & shred_id, string & out )
+                                        vector< string > & args, string & filepath, 
+                                        t_CKUINT docid, t_CKUINT & shred_id, 
+                                        string & out )
 {    
     if( documents.find( docid ) == documents.end() )
     {
@@ -250,7 +257,7 @@ t_OTF_RESULT miniAudicle::replace_code( string & code, string & name,
         return OTF_MINI_ERROR;
     }
 
-    if( !compiler->go( name, NULL, code.c_str() ) )
+    if( !compiler->go( name, NULL, code.c_str(), filepath ) )
     {
         last_result[docid].result = OTF_COMPILE_ERROR;
         last_result[docid].output = string( EM_lasterror() ) + "\n";
@@ -827,8 +834,19 @@ t_CKBOOL miniAudicle::start_vm()
         // allocate the compiler
         g_compiler = compiler = new Chuck_Compiler;
         
+        
+        std::list<std::string> library_paths = vm_options.library_paths;
+        std::list<std::string> named_chugins = vm_options.named_chugins;
+        // normalize paths
+        for(std::list<std::string>::iterator i = library_paths.begin();
+            i != library_paths.end(); i++)
+            *i = expand_filepath(*i);
+        for(std::list<std::string>::iterator j = named_chugins.begin();
+            j != named_chugins.end(); j++)
+            *j = expand_filepath(*j);
+        
         // initialize the compiler
-        compiler->initialize( vm, vm_options.library_paths, vm_options.named_chugins );
+        compiler->initialize( vm, library_paths, named_chugins );
         // enable dump
         compiler->emitter->dump = FALSE;
         // set auto depend
@@ -851,6 +869,53 @@ t_CKBOOL miniAudicle::start_vm()
         // reset the parser
         reset_parse();
         
+        Chuck_VM_Code * code = NULL;
+        Chuck_VM_Shred * shred = NULL;
+        
+        // whether or not chug should be enabled (added 1.3.0.0)
+        EM_log( CK_LOG_SEVERE, "pre-loading ChucK libs..." );
+        EM_pushlog();
+        
+        // iterate over list of ck files that the compiler found
+        for( std::list<std::string>::iterator j = compiler->m_cklibs_to_preload.begin();
+            j != compiler->m_cklibs_to_preload.end(); j++)
+        {
+            // the filename
+            std::string filename = *j;
+            
+            // log
+            EM_log( CK_LOG_SEVERE, "preloading '%s'...", filename.c_str() );
+            // push indent
+            EM_pushlog();
+            
+            // SPENCERTODO: what to do for full path
+            std::string full_path = filename;
+            
+            // parse, type-check, and emit
+            if( compiler->go( filename, NULL, NULL, full_path ) )
+            {
+                // TODO: how to compilation handle?
+                //return 1;
+                
+                // get the code
+                code = compiler->output();
+                // name it - TODO?
+                // code->name += string(argv[i]);
+                
+                // spork it
+                shred = vm->spork( code, NULL );
+            }
+            
+            // pop indent
+            EM_poplog();
+        }
+        
+        // clear the list of chuck files to preload
+        compiler->m_cklibs_to_preload.clear();
+        
+        // pop log
+        EM_poplog();
+        
         // start the vm handler threads
 #ifndef __PLATFORM_WIN32__
         pthread_create( &vm_tid, NULL, vm_cb, NULL );
@@ -866,7 +931,7 @@ t_CKBOOL miniAudicle::start_vm()
         g_sock = ck_tcp_create( 1 );
         if( !g_sock || !ck_bind( g_sock, g_port ) || !ck_listen( g_sock, 10 ) )
         {
-            fprintf( stderr, "[chuck]: cannot bind to tcp port %i...\n", g_port );
+            fprintf( stderr, "[chuck]: cannot bind to tcp port %li...\n", g_port );
             ck_close( g_sock );
             g_sock = NULL;
         }
@@ -1069,8 +1134,12 @@ t_CKBOOL miniAudicle::highlight_line( string & line,
     return TRUE;
 }
 
+
+
 t_CKBOOL miniAudicle::probe()
 {
+#ifndef __CHIP_MODE__
+
     interfaces.clear();
     
     RtAudio * rta = NULL;
@@ -1127,13 +1196,20 @@ t_CKBOOL miniAudicle::probe()
     
     delete rta;
     
+#endif // __CHIP_MODE__
+    
     return TRUE;
 }
+
+
+#ifndef __CHIP_MODE__
 
 const vector< RtAudio::DeviceInfo > & miniAudicle::get_interfaces()
 {
     return interfaces;
 }
+
+#endif // __CHIP_MODE__
 
 //-----------------------------------------------------------------------------
 // name: set_num_inputs()
@@ -1141,6 +1217,7 @@ const vector< RtAudio::DeviceInfo > & miniAudicle::get_interfaces()
 //-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::set_num_inputs( t_CKUINT num )
 {
+#ifndef __CHIP_MODE__
     // sanity check
     int max;
     if( interfaces.size() == 0 )
@@ -1149,14 +1226,18 @@ t_CKBOOL miniAudicle::set_num_inputs( t_CKUINT num )
         max = interfaces[default_input].inputChannels;
     else
         max = interfaces[vm_options.adc - 1].inputChannels;
+#else
+    int max = 2;
+#endif // __CHIP_MODE__
     
-    if( num < 0 || num > max )
+    if( num > max )
         vm_options.num_inputs = max;
     else
         vm_options.num_inputs = num;
     
     return TRUE;
 }
+
 
 //-----------------------------------------------------------------------------
 // name: get_num_inputs()
@@ -1173,6 +1254,7 @@ t_CKUINT miniAudicle::get_num_inputs()
 //-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::set_num_outputs( t_CKUINT num )
 {
+#ifndef __CHIP_MODE__
     // sanity check
     int max;
     if( interfaces.size() == 0 )
@@ -1181,8 +1263,11 @@ t_CKBOOL miniAudicle::set_num_outputs( t_CKUINT num )
         max = interfaces[default_output].outputChannels;
     else
         max = interfaces[vm_options.dac - 1].outputChannels;
-    
-    if( num < 0 || num > max )
+#else
+    int max = 2;
+#endif // __CHIP_MODE__
+
+    if( num > max )
         vm_options.num_outputs = max;
     else
         vm_options.num_outputs = num;
@@ -1247,14 +1332,16 @@ t_CKBOOL miniAudicle::get_enable_network_thread()
 
 t_CKBOOL miniAudicle::set_dac( t_CKUINT dac )
 {
+#ifndef __CHIP_MODE__
     // sanity check
-    if( dac < 0 || dac > interfaces.size() )
+    if( dac > interfaces.size() )
         return FALSE;
     else
         vm_options.dac = dac;
     
     // set parameters to a reasonable value, if necessary
     set_num_outputs( get_num_outputs() );
+#endif // __CHIP_MODE__
     
     return TRUE;
 }
@@ -1266,14 +1353,16 @@ t_CKUINT miniAudicle::get_dac()
 
 t_CKBOOL miniAudicle::set_adc( t_CKUINT adc )
 {
+#ifndef __CHIP_MODE__
     // sanity check
-    if( adc < 0 || adc > interfaces.size() )
+    if( adc > interfaces.size() )
         return FALSE;
     else
         vm_options.adc = adc;
 
     // set parameters to a reasonable value, if necessary
     set_num_inputs( get_num_inputs() );
+#endif // __CHIP_MODE__
     
     return TRUE;
 }
@@ -1285,6 +1374,7 @@ t_CKUINT miniAudicle::get_adc()
 
 t_CKBOOL miniAudicle::set_sample_rate( t_CKUINT srate )
 {
+#ifndef __CHIP_MODE__
     if( interfaces.size() == 0 )
     {
         vm_options.srate = SAMPLING_RATE_DEFAULT;
@@ -1322,6 +1412,7 @@ t_CKBOOL miniAudicle::set_sample_rate( t_CKUINT srate )
         vm_options.srate = SAMPLING_RATE_DEFAULT; // hope this one works!
         return TRUE;
     }
+#endif // __CHIP_MODE__
     
     vm_options.srate = srate;
     return TRUE;

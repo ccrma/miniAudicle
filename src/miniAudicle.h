@@ -35,7 +35,9 @@ U.S.A.
 
 #include "chuck_compile.h"
 #include "util_thread.h"
+#ifndef __CHIP_MODE__
 #include "RtAudio/RtAudio.h"
+#endif // __CHIP_MODE__
 
 #include <map>
 #include <string>
@@ -82,11 +84,12 @@ public:
     ~miniAudicle();
     
     t_OTF_RESULT run_code( string & code, string & name, 
-                           vector< string > & args, t_CKUINT docid, 
-                           t_CKUINT & shred_id, string & out );
+                           vector< string > & args, string & filepath, 
+                           t_CKUINT docid, t_CKUINT & shred_id, string & out );
     t_OTF_RESULT replace_code( string & code, string & name, 
-                               vector< string > & args, t_CKUINT docid, 
-                               t_CKUINT & shred_id, string & out );
+                               vector< string > & args, string & filepath,
+                               t_CKUINT docid, t_CKUINT & shred_id, 
+                               string & out );
     t_OTF_RESULT remove_code( t_CKUINT docid, t_CKUINT & shred_id, 
                               string & out );
     t_OTF_RESULT remove_shred( t_CKUINT docid, t_CKINT shred_id, string & out );
@@ -116,7 +119,9 @@ public:
                              miniAudicle_SyntaxHighlighting * sh );
 
     t_CKBOOL probe();
+#ifndef __CHIP_MODE__
     const vector< RtAudio::DeviceInfo > & get_interfaces();
+#endif // __CHIP_MODE__
 
     int get_log_level();
     t_CKBOOL set_log_level( int l );
@@ -176,9 +181,11 @@ protected:
     size_t num_status_bufs;
     size_t status_bufs_read, status_bufs_write;
     
+#ifndef __CHIP_MODE__
     vector< RtAudio::DeviceInfo > interfaces;
     vector< RtAudio::DeviceInfo >::size_type default_input;
     vector< RtAudio::DeviceInfo >::size_type default_output;
+#endif // __CHIP_MODE__
     
     map< string, t_CKINT > * class_names;
 
@@ -198,6 +205,39 @@ protected:
         list< string > named_chugins;
     } vm_options;
 };
+
+
+inline int compare_shred_vectors( const vector< Chuck_VM_Shred_Status * > & a,
+                                  const vector< Chuck_VM_Shred_Status * > & b )
+/* quickly determine if the two vectors are equal */
+{
+    vector< Chuck_VM_Shred_Status * >::size_type i, 
+    lenA = a.size(), lenB = b.size();
+    
+    if( lenA != lenB )
+        return 1;
+    
+    if( lenA == 0 )
+        return 0;
+    
+    Chuck_VM_Shred_Status * cvmssA, * cvmssB;
+    
+    for( i = 0; i < lenA; i++ )
+    {
+        cvmssA = a[i];
+        cvmssB = b[i];
+        
+        if( cvmssA->xid != cvmssB->xid ||
+           cvmssA->start != cvmssB->start )
+        /* a shred is uniquely defined by ( shred id, start time ) */
+        {
+            return 1;
+        }
+    }
+    
+    return 0;
+}
+
 
 #endif // __MINIAUDICLE__H__
 

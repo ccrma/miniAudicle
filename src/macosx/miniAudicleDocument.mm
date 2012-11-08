@@ -35,55 +35,10 @@ U.S.A.
 #import "miniAudicleController.h"
 #import "NumberedTextView.h"
 #import "miniAudiclePreferencesController.h"
-//#import "KBPopUpToolbarItem.h"
-#import "RBSplitView.h"
 #import "miniAudicle.h"
 #import "chuck_parse.h"
 #import "util_string.h"
 
-#define USE_POPUP_TOOLBAR_ITEMS 0
-
-@interface mAArgumentsTableView : NSTableView
-
-- (void)keyDown:(NSEvent *)e;
-
-@end
-
-@implementation mAArgumentsTableView
-
-- (void)keyDown:(NSEvent *)e
-{
-    if( [[e characters] length] > 0 )
-    {
-        unichar c = [[e characters] characterAtIndex:0];
-        
-        if ( ( c == NSDeleteFunctionKey || c == NSDeleteCharFunctionKey ||
-               c == NSDeleteCharacter || c == NSBackspaceCharacter ) && 
-             [[self dataSource] respondsToSelector:@selector( argumentsTableView:deleteRows: )])
-        {
-            [[self dataSource] argumentsTableView:self 
-                                       deleteRows:[self selectedRowIndexes]];
-            [self reloadData];
-        }
-        
-        else if( c == NSInsertLineFunctionKey || c == NSNewlineCharacter || 
-                 c == NSCarriageReturnCharacter || c == NSEnterCharacter )
-        {
-            [self editColumn:[self columnWithIdentifier:@"argument"]
-                         row:[self selectedRow]
-                   withEvent:nil
-                      select:YES];
-        }
-        
-        else
-            [super keyDown:e];
-    }
-    
-    else 
-        [super keyDown:e];
-}
-
-@end
 
 @interface NSString ( mADocument )
 - (string)stlString;
@@ -99,8 +54,6 @@ U.S.A.
 }
 
 @end
-
-//@interface mAText
 
 @implementation miniAudicleDocument
 
@@ -199,8 +152,6 @@ U.S.A.
     [toolbar_pill setTarget:self];
     [toolbar_pill setAction:@selector( toggleToolbar: )];
     
-    [argument_subview collapse];
-    
     [window makeFirstResponder:text_view];
     
     [self userDefaultsDidChange:nil];
@@ -272,8 +223,14 @@ U.S.A.
     
     [text_view setShowsErrorLine:NO];
     
-    t_OTF_RESULT otf_result = ma->run_code( code, code_name, argv, docid, 
-                                            shred_id, result );
+    string filepath;
+    if([self fileURL] && [[self fileURL] isFileURL])
+        filepath = [[[self fileURL] path] stlString];
+    else
+        filepath = "";
+    
+    t_OTF_RESULT otf_result = ma->run_code( code, code_name, argv, filepath, 
+                                            docid, shred_id, result );
     
     if( otf_result == OTF_SUCCESS )
     {
@@ -318,14 +275,14 @@ U.S.A.
         
         [[text_view textView] animateError];
         
-        [status_text setStringValue:[NSString stringWithCString:result.c_str()]];
+        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
     }
     
     else
     {
         [[text_view textView] animateError];
         
-        [status_text setStringValue:[NSString stringWithCString:result.c_str()]];
+        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
     }
     //miniAudicleController * mac = [NSDocumentController sharedDocumentController];
     //[mac updateSyntaxHighlighting];
@@ -346,8 +303,14 @@ U.S.A.
     while( arg = [args_enum nextObject] )
         argv.push_back( [arg stlString] );
     
-    t_OTF_RESULT otf_result = ma->replace_code( code, code_name, argv, docid, 
-                                                shred_id, result );
+    string filepath;
+    if([self fileURL] && [[self fileURL] isFileURL])
+        filepath = [[[self fileURL] path] stlString];
+    else
+        filepath = "";
+
+    t_OTF_RESULT otf_result = ma->replace_code( code, code_name, argv, filepath,
+                                                docid, shred_id, result );
     
     if( otf_result == OTF_SUCCESS )
     {
@@ -379,13 +342,13 @@ U.S.A.
         
         [[text_view textView] animateError];
         
-        [status_text setStringValue:[NSString stringWithCString:result.c_str()]];
+        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
     }
     
     else
     {
         [[text_view textView] animateError];
-        [status_text setStringValue:[NSString stringWithCString:result.c_str()]];
+        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
     }
     
     //miniAudicleController * mac = [NSDocumentController sharedDocumentController];
@@ -421,7 +384,7 @@ U.S.A.
     else
     {
         [[text_view textView] animateError];
-        [status_text setStringValue:[NSString stringWithCString:result.c_str()]];
+        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
     }
 }
 
@@ -434,7 +397,7 @@ U.S.A.
         [text_view setShowsErrorLine:NO];
     }
     
-    [status_text setStringValue:[NSString stringWithCString:result.c_str()]];
+    [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
 }
 
 - (void)removelast:(id)sender
@@ -446,7 +409,7 @@ U.S.A.
         [text_view setShowsErrorLine:NO];
     }
     
-    [status_text setStringValue:[NSString stringWithCString:result.c_str()]];
+    [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
 }
 
 - (void)removeShred:(id)sender
@@ -646,7 +609,7 @@ U.S.A.
             [toggle_argument_subview removeFromSuperview];
             [argument_text removeFromSuperview];
             
-            RBSplitView * view = [argument_subview splitView];
+            NumberedTextView * view = text_view;
             NSRect frame_rect = [view frame];
             frame_rect.size.height += __MA_ARGUMENTS_TEXT_HEIGHT__;
             //frame_rect.origin.y += __MA_ARGUMENTS_TEXT_HEIGHT__;
@@ -656,7 +619,7 @@ U.S.A.
         else
         {
             //printf( "showing arguments\n" );
-            RBSplitView * view = [argument_subview splitView];
+            NumberedTextView * view = text_view;
             NSRect frame_rect = [view frame];
             frame_rect.size.height -= __MA_ARGUMENTS_TEXT_HEIGHT__;
             //frame_rect.origin.y -= __MA_ARGUMENTS_TEXT_HEIGHT__;
@@ -723,7 +686,7 @@ U.S.A.
         {
             [status_text removeFromSuperview];
             
-            RBSplitView * view = [argument_subview splitView];
+            NumberedTextView * view = text_view;
             NSRect frame_rect = [view frame];
             frame_rect.origin.y -= [status_text frame].size.height;
             frame_rect.size.height += [status_text frame].size.height;
@@ -732,7 +695,7 @@ U.S.A.
         
         else
         {
-            RBSplitView * view = [argument_subview splitView];
+            NumberedTextView * view = text_view;
             NSRect frame_rect = [view frame];
             frame_rect.origin.y += [status_text frame].size.height;
             frame_rect.size.height -= [status_text frame].size.height;
@@ -769,43 +732,9 @@ U.S.A.
         
         vector< string >::const_iterator iter = argv.begin(), end = argv.end();
         for( ; iter != end; iter++ )
-            [arguments addObject:[NSString stringWithCString:iter->c_str()]];
+            [arguments addObject:[NSString stringWithUTF8String:iter->c_str()]];
         
         [argument_table reloadData];
-    }
-}
-
-- (void)toggleArguments:(id)sender
-{
-    if( [sender state] == NSOnState )
-    {
-        [[argument_subview splitView] setDivider:[NSImage imageNamed:@"Thumb9.png"]];
-        [argument_subview expandWithAnimation];
-    }
-    
-    else
-    {
-        [argument_subview collapseWithAnimation];
-    }
-}
-
-- (void)splitView:(RBSplitView*)sender didExpand:(RBSplitSubview*)subview
-{
-    if( subview == argument_subview )
-    {
-        [toggle_argument_subview setState:NSOnState];
-        [sender setDivider:[NSImage imageNamed:@"Thumb9.png"]];
-        [window makeFirstResponder:argument_text];
-    }
-}
-
-- (void)splitView:(RBSplitView*)sender didCollapse:(RBSplitSubview*)subview 
-{
-    if( subview == argument_subview )
-    {
-        [toggle_argument_subview setState:NSOffState];
-        [sender setDivider:nil];
-        [window makeFirstResponder:[text_view textView]];
     }
 }
 

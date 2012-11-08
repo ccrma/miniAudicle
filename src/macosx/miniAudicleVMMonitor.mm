@@ -36,41 +36,11 @@ U.S.A.
 #import "miniAudicle.h"
 #import "chuck_vm.h"
 
-const static NSString * shred_column_id = @"1";
-const static NSString * name_column_id = @"2";
-const static NSString * time_column_id = @"3";
-const static NSString * remove_column_id = @"4";
+static NSString * const shred_column_id = @"1";
+static NSString * const name_column_id = @"2";
+static NSString * const time_column_id = @"3";
+static NSString * const remove_column_id = @"4";
 
-int compare_shred_vectors( const vector< Chuck_VM_Shred_Status * > & a,
-                           const vector< Chuck_VM_Shred_Status * > & b )
-/* quickly determine if the two vectors are equal */
-{
-    vector< Chuck_VM_Shred_Status * >::size_type i, 
-        lenA = a.size(), lenB = b.size();
-
-    if( lenA != lenB )
-        return 1;
-        
-    if( lenA == 0 )
-        return 0;
-    
-    Chuck_VM_Shred_Status * cvmssA, * cvmssB;
-    
-    for( i = 0; i < lenA; i++ )
-    {
-        cvmssA = a[i];
-        cvmssB = b[i];
-        
-        if( cvmssA->xid != cvmssB->xid ||
-            cvmssA->start != cvmssB->start )
-            /* a shred is uniquely defined by ( shred id, start time ) */
-        {
-            return 1;
-        }
-    }
-    
-    return 0;
-}
 
 @implementation miniAudicleVMMonitor
 
@@ -164,7 +134,7 @@ int compare_shred_vectors( const vector< Chuck_VM_Shred_Status * > & a,
     if( compare_shred_vectors( status_buffers[0].list, status_buffers[1].list ) )
     {
         [shred_table reloadData];
-        [shreds_text setStringValue:[NSString stringWithFormat:@"%u", 
+        [shreds_text setStringValue:[NSString stringWithFormat:@"%lu",
             most_recent_status->list.size()]];
     }
     
@@ -175,7 +145,7 @@ int compare_shred_vectors( const vector< Chuck_VM_Shred_Status * > & a,
     }
     
     time_t current_time = ( time_t ) ( most_recent_status->now_system / most_recent_status->srate );
-    [running_time_text setStringValue:[NSString stringWithFormat:@"%u:%.2u.%.5u", 
+    [running_time_text setStringValue:[NSString stringWithFormat:@"%lu:%.2lu.%.5lu", 
         current_time / 60, current_time % 60, ( t_CKUINT ) fmod( most_recent_status->now_system, most_recent_status->srate ) ]];
 }
 
@@ -269,7 +239,7 @@ objectValueForTableColumn:(NSTableColumn *)table_column
         return [NSNumber numberWithInt:most_recent_status->list[rowIndex]->xid];
     
     else if( [table_column identifier] == name_column_id )
-        return [NSString stringWithCString:most_recent_status->list[rowIndex]->name.c_str()];
+        return [NSString stringWithUTF8String:most_recent_status->list[rowIndex]->name.c_str()];
     
     else if( [table_column identifier] == time_column_id )
     {
@@ -281,7 +251,7 @@ objectValueForTableColumn:(NSTableColumn *)table_column
         if( rowIndex < omd->size() && shred_running_time != (*omd)[rowIndex].last_time )
         {
             [(*omd)[rowIndex].last_string autorelease];
-            (*omd)[rowIndex].last_string = [[NSString stringWithFormat:@"%u:%02u", shred_running_time / 60, shred_running_time % 60] retain];
+            (*omd)[rowIndex].last_string = [[NSString stringWithFormat:@"%lu:%02lu", shred_running_time / 60, shred_running_time % 60] retain];
             (*omd)[rowIndex].last_time = shred_running_time;
         }
         

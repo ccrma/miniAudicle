@@ -619,8 +619,10 @@ static NSImage * error_image;
     
     NSTextStorage * ts = [text_view textStorage];    
     if ( [ts editedMask] == NSTextStorageEditedAttributes )
-        return; 
-    unsigned int start_index, line_end_index, contents_end_index;
+        return;
+
+    // 1.2.2: changed from 'unsigned int' to 'NSUInteger'
+    NSUInteger start_index, line_end_index, contents_end_index;
     [[ts string] getLineStart:&start_index 
                           end:&line_end_index 
                   contentsEnd:&contents_end_index 

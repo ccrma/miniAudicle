@@ -66,7 +66,7 @@ U.S.A.
 
 - (void)keyDown:(NSEvent *)e
 {   
-    char character = [[e characters] cString][0];
+    char character = [[e characters] UTF8String][0];
     
     if( character == NSDeleteCharacter )
         // backspace

@@ -15,7 +15,8 @@ enum
     types_compare_classes_context
 };
 
-static int types_compare( id a, id b, void * context )
+// 1.2.2: changed return type from 'int' to 'NSInteger' (64-bit fix)
+static NSInteger types_compare( id a, id b, void * context )
 {
     return [[a objectForKey:@"name"] compare:[b objectForKey:@"name"]];
 }
@@ -119,7 +120,7 @@ static const char * exclude_types[] =
             continue;
         
         NSDictionary * class_dict = [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSString stringWithCString:name.c_str()], @"name",
+            [NSString stringWithUTF8String:name.c_str()], @"name",
             [NSNumber numberWithBool:YES], @"leaf",
             nil];
         
@@ -263,7 +264,7 @@ static const char * exclude_types[] =
             
             [audio addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                 [NSString stringWithFormat:@"%i", i], @"name",
-                [NSString stringWithCString:info.name.c_str()], @"description",
+                [NSString stringWithUTF8String:info.name.c_str()], @"description",
                 device, @"data",
                 [NSNumber numberWithBool:NO], @"leaf",
                 nil]];
@@ -320,8 +321,8 @@ static const char * exclude_types[] =
         }
             
             [input addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                [NSString stringWithFormat:@"%i", i], @"name",
-                [NSString stringWithCString:s.c_str()], @"description",
+                [NSString stringWithFormat:@"%li", i], @"name",
+                [NSString stringWithUTF8String:s.c_str()], @"description",
                 [NSNumber numberWithBool:YES], @"leaf",
                 nil]];
         }
@@ -347,8 +348,8 @@ static const char * exclude_types[] =
         }
             
             [output addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                [NSString stringWithFormat:@"%i", i], @"name",
-                [NSString stringWithCString:s.c_str()], @"description",
+                [NSString stringWithFormat:@"%li", i], @"name",
+                [NSString stringWithUTF8String:s.c_str()], @"description",
                 [NSNumber numberWithBool:YES], @"leaf",
                 nil]];
         }
@@ -390,7 +391,7 @@ static const char * exclude_types[] =
                 
                 NSMutableDictionary * current_driver = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     [NSString stringWithFormat:@"%i", j], @"name",
-                    [NSString stringWithCString:name], @"description",
+                    [NSString stringWithUTF8String:name], @"description",
                     [NSNumber numberWithBool:YES], @"leaf",
                     nil];
 
@@ -398,7 +399,7 @@ static const char * exclude_types[] =
             }
             
             [hid addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                [NSString stringWithCString:default_drivers[i].driver_name], @"name",
+                [NSString stringWithUTF8String:default_drivers[i].driver_name], @"name",
                 driver, @"data",
                 [NSNumber numberWithBool:NO], @"leaf",
                 nil]];

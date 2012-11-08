@@ -48,8 +48,9 @@ U.S.A.
 {
     if( self = [super init] )
     {
-        int fd[2];
 #ifndef __CK_DEBUG__
+        int fd[2];
+        
         if( pipe( fd ) )
         {
             //unable to create the pipe!
@@ -78,7 +79,6 @@ U.S.A.
             EM_log(CK_LOG_SYSTEM, "(miniAudicle): unable to set chout buffering to line-based");
         }
         
-#endif
         if( pipe( fd ) )
         {
             //unable to create the pipe!
@@ -100,7 +100,8 @@ U.S.A.
                                                  selector:@selector(readData:)
                                                      name:NSFileHandleDataAvailableNotification
                                                    object:std_err];
-        
+#endif
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(preferencesChanged:)
                                                      name:mAPreferencesChangedNotification

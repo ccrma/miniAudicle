@@ -1,5 +1,5 @@
 
-CHUCK_SRC_DIR=chuck
+CHUCK_SRC_DIR=chuck/src
 THIS_DIR=$(PWD)
 LANGUAGE=English
 
@@ -120,7 +120,7 @@ miniAudicle_ui_elements.o: miniAudicle_ui_elements.cpp miniAudicle_ui_elements.h
 clean: 
 	rm -rf *.o $(WXW_DIR)/*.o $(BIN_DIR)/miniAudicle.exe
 
-VERSION?=0.2.0
+VERSION?=0.2.2c
 DIST_DIR=miniAudicle-$(VERSION)
 
 MSVC_RELEASE_DIR=Release
@@ -144,4 +144,4 @@ dist:
 #	cp $(CHUCK_MANUAL) $(DIST_DIR)/documentation
 	curl $(CHUCK_MANUAL_URL) > $(DIST_DIR)/documentation/ChucK_manual.pdf
 	rm -rf `find $(DIST_DIR)/ -name CVS` `find $(DIST_DIR)/ -name .svn`
-	zip -9 -r -m miniAudicle-$(VERSION).zip $(DIST_DIR)
+	zip -q -9 -r -m miniAudicle-$(VERSION).zip $(DIST_DIR)

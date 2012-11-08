@@ -1,5 +1,5 @@
 
-CHUCK_SRC_DIR=chuck
+CHUCK_SRC_DIR=chuck/src
 CHUCK_MAKECMD=linux-jack
 THIS_DIR=$(PWD)
 LANGUAGE=English
@@ -81,7 +81,7 @@ $(BIN_DIR)/miniAudicle: $(OBJS) chuck
 # build the core chuck code
 .PHONY: chuck
 chuck:
-	make -C $(CHUCK_SRC_DIR) $(CHUCK_MAKECMD)
+	+make -C $(CHUCK_SRC_DIR) $(CHUCK_MAKECMD)
 
 miniAudicle_shell.o: miniAudicle_shell.cpp miniAudicle_shell.h
 	$(CC) $(FLAGS) $(INCLUDES) miniAudicle_shell.cpp

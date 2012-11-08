@@ -1,0 +1,8 @@
+*.o
+*.d
+.DS_Store
+
+src/macosx/miniAudicle.app
+
+src/miniAudicle.xcodeproj/project.xcworkspace
+src/miniAudicle.xcodeproj/xcuserdata

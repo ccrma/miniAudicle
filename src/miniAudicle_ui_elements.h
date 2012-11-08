@@ -201,6 +201,13 @@ public:
      virtual t_CKBOOL get_ticks_only( t_CKBOOL to );
      */
     
+    typedef t_CKUINT orientation;
+    const static orientation horizontal;
+    const static orientation vertical;
+    
+    virtual t_CKBOOL set_orientation( orientation o );
+    virtual orientation get_orientation();
+    
     virtual void slider_changed( t_CKDOUBLE v );
     
     const static t_CKUINT default_margin;
@@ -214,7 +221,7 @@ protected:
     display_format df;
     t_CKUINT precision;
     t_CKDOUBLE value, max, min;
-    
+    orientation m_orientation;
 };
 
 
@@ -247,6 +254,9 @@ public:
     };
     virtual t_CKBOOL set_action_type( action_type t );
     virtual action_type get_action_type();
+    
+    virtual t_CKBOOL unset_image();
+    virtual t_CKBOOL set_image( std::string & path );
      
     /* enum text_position
      {
