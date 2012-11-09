@@ -22,7 +22,7 @@ PRECOMPILED_HEADER = qt/miniAudicle_pc.h
 LIBS += -lqscintilla2
 
 macx {
-CFLAGS = -D__MACOSX_CORE__ -m32 -I../qt/chuck
+CFLAGS = -D__MACOSX_CORE__ -m32 -I../src/chuck/src
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LIBS += -framework Cocoa -framework CoreAudio -framework CoreMIDI \
@@ -32,7 +32,7 @@ QMAKE_LFLAGS += -m32
 }
 
 linux-g++ {
-CFLAGS = -D__LINUX_ALSA__ -m32 -O3 -D__CK_SNDFILE_NATIVE__ -D__LINUX__ -Ichuck
+CFLAGS = -D__LINUX_ALSA__ -m32 -O3 -D__CK_SNDFILE_NATIVE__ -D__LINUX__ -Ichuck/src
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LFLAGS += -m32 -lasound -lpthread -lstdc++ -ldl -lm -lsndfile
@@ -41,117 +41,117 @@ QMAKE_LFLAGS += -m32 -lasound -lpthread -lstdc++ -ldl -lm -lsndfile
 SOURCES += \
     qt/mAMainWindow.cpp \
     qt/main.cpp \
-    chuck/util_xforms.c \
-    chuck/util_thread.cpp \
-    chuck/util_string.cpp \
-    chuck/util_raw.c \
-    chuck/util_opsc.cpp \
-    chuck/util_network.c \
-    chuck/util_math.c \
-    chuck/util_hid.cpp \
-    chuck/util_console.cpp \
-    chuck/util_buffers.cpp \
-    chuck/ulib_std.cpp \
-    chuck/ulib_opsc.cpp \
-    chuck/ulib_math.cpp \
-    chuck/ulib_machine.cpp \
-    chuck/ugen_xxx.cpp \
-    chuck/ugen_stk.cpp \
-    chuck/ugen_osc.cpp \
-    chuck/ugen_filter.cpp \
-    chuck/uana_xform.cpp \
-    chuck/uana_extract.cpp \
-    chuck/rtmidi.cpp \
-    chuck/midiio_rtmidi.cpp \
-    chuck/hidio_sdl.cpp \
-    chuck/digiio_rtaudio.cpp \
-    chuck/chuck_vm.cpp \
-    chuck/chuck_utils.cpp \
-    chuck/chuck_ugen.cpp \
-    chuck/chuck_type.cpp \
-    chuck/chuck_table.cpp \
-    chuck/chuck_symbol.cpp \
-    chuck/chuck_stats.cpp \
-    chuck/chuck_shell.cpp \
-    chuck/chuck_scan.cpp \
-    chuck/chuck_parse.cpp \
-    chuck/chuck_otf.cpp \
-    chuck/chuck_oo.cpp \
-    chuck/chuck_lang.cpp \
-    chuck/chuck_instr.cpp \
-    chuck/chuck_globals.cpp \
-    chuck/chuck_frame.cpp \
-    chuck/chuck_errmsg.cpp \
-    chuck/chuck_emit.cpp \
-    chuck/chuck_dl.cpp \
-    chuck/chuck_console.cpp \
-    chuck/chuck_compile.cpp \
-    chuck/chuck_bbq.cpp \
-    chuck/chuck_absyn.cpp \
-    chuck/RtAudio/RtAudio.cpp \
+    chuck/src/util_xforms.c \
+    chuck/src/util_thread.cpp \
+    chuck/src/util_string.cpp \
+    chuck/src/util_raw.c \
+    chuck/src/util_opsc.cpp \
+    chuck/src/util_network.c \
+    chuck/src/util_math.c \
+    chuck/src/util_hid.cpp \
+    chuck/src/util_console.cpp \
+    chuck/src/util_buffers.cpp \
+    chuck/src/ulib_std.cpp \
+    chuck/src/ulib_opsc.cpp \
+    chuck/src/ulib_math.cpp \
+    chuck/src/ulib_machine.cpp \
+    chuck/src/ugen_xxx.cpp \
+    chuck/src/ugen_stk.cpp \
+    chuck/src/ugen_osc.cpp \
+    chuck/src/ugen_filter.cpp \
+    chuck/src/uana_xform.cpp \
+    chuck/src/uana_extract.cpp \
+    chuck/src/rtmidi.cpp \
+    chuck/src/midiio_rtmidi.cpp \
+    chuck/src/hidio_sdl.cpp \
+    chuck/src/digiio_rtaudio.cpp \
+    chuck/src/chuck_vm.cpp \
+    chuck/src/chuck_utils.cpp \
+    chuck/src/chuck_ugen.cpp \
+    chuck/src/chuck_type.cpp \
+    chuck/src/chuck_table.cpp \
+    chuck/src/chuck_symbol.cpp \
+    chuck/src/chuck_stats.cpp \
+    chuck/src/chuck_shell.cpp \
+    chuck/src/chuck_scan.cpp \
+    chuck/src/chuck_parse.cpp \
+    chuck/src/chuck_otf.cpp \
+    chuck/src/chuck_oo.cpp \
+    chuck/src/chuck_lang.cpp \
+    chuck/src/chuck_instr.cpp \
+    chuck/src/chuck_globals.cpp \
+    chuck/src/chuck_frame.cpp \
+    chuck/src/chuck_errmsg.cpp \
+    chuck/src/chuck_emit.cpp \
+    chuck/src/chuck_dl.cpp \
+    chuck/src/chuck_console.cpp \
+    chuck/src/chuck_compile.cpp \
+    chuck/src/chuck_bbq.cpp \
+    chuck/src/chuck_absyn.cpp \
+    chuck/src/RtAudio/RtAudio.cpp \
     qt/madocumentview.cpp
 
 macx {
-    SOURCES += chuck/util_sndfile.c
+    SOURCES += chuck/src/util_sndfile.c
 }
 
 win32 {
-    SOURCES += chuck/chuck_win32.c
+    SOURCES += chuck/src/chuck_win32.c
 }
 
 HEADERS  += qt/mAMainWindow.h \
-    chuck/util_xforms.h \
-    chuck/util_thread.h \
-    chuck/util_string.h \
-    chuck/util_sndfile.h \
-    chuck/util_raw.h \
-    chuck/util_opsc.h \
-    chuck/util_network.h \
-    chuck/util_math.h \
-    chuck/util_hid.h \
-    chuck/util_console.h \
-    chuck/util_buffers.h \
-    chuck/ulib_std.h \
-    chuck/ulib_opsc.h \
-    chuck/ulib_math.h \
-    chuck/ulib_machine.h \
-    chuck/ugen_xxx.h \
-    chuck/ugen_stk.h \
-    chuck/ugen_osc.h \
-    chuck/ugen_filter.h \
-    chuck/uana_xform.h \
-    chuck/uana_extract.h \
-    chuck/rtmidi.h \
-    chuck/midiio_rtmidi.h \
-    chuck/hidio_sdl.h \
-    chuck/digiio_rtaudio.h \
-    chuck/chuck_win32.h \
-    chuck/chuck_vm.h \
-    chuck/chuck_utils.h \
-    chuck/chuck_ugen.h \
-    chuck/chuck_type.h \
-    chuck/chuck_table.h \
-    chuck/chuck_symbol.h \
-    chuck/chuck_stats.h \
-    chuck/chuck_shell.h \
-    chuck/chuck_scan.h \
-    chuck/chuck_parse.h \
-    chuck/chuck_otf.h \
-    chuck/chuck_oo.h \
-    chuck/chuck_lang.h \
-    chuck/chuck_instr.h \
-    chuck/chuck_globals.h \
-    chuck/chuck_frame.h \
-    chuck/chuck_errmsg.h \
-    chuck/chuck_emit.h \
-    chuck/chuck_dl.h \
-    chuck/chuck_def.h \
-    chuck/chuck_console.h \
-    chuck/chuck_compile.h \
-    chuck/chuck_bbq.h \
-    chuck/chuck_absyn.h \
-    chuck/RtAudio/RtError.h \
-    chuck/RtAudio/RtAudio.h \
+    chuck/src/util_xforms.h \
+    chuck/src/util_thread.h \
+    chuck/src/util_string.h \
+    chuck/src/util_sndfile.h \
+    chuck/src/util_raw.h \
+    chuck/src/util_opsc.h \
+    chuck/src/util_network.h \
+    chuck/src/util_math.h \
+    chuck/src/util_hid.h \
+    chuck/src/util_console.h \
+    chuck/src/util_buffers.h \
+    chuck/src/ulib_std.h \
+    chuck/src/ulib_opsc.h \
+    chuck/src/ulib_math.h \
+    chuck/src/ulib_machine.h \
+    chuck/src/ugen_xxx.h \
+    chuck/src/ugen_stk.h \
+    chuck/src/ugen_osc.h \
+    chuck/src/ugen_filter.h \
+    chuck/src/uana_xform.h \
+    chuck/src/uana_extract.h \
+    chuck/src/rtmidi.h \
+    chuck/src/midiio_rtmidi.h \
+    chuck/src/hidio_sdl.h \
+    chuck/src/digiio_rtaudio.h \
+    chuck/src/chuck_win32.h \
+    chuck/src/chuck_vm.h \
+    chuck/src/chuck_utils.h \
+    chuck/src/chuck_ugen.h \
+    chuck/src/chuck_type.h \
+    chuck/src/chuck_table.h \
+    chuck/src/chuck_symbol.h \
+    chuck/src/chuck_stats.h \
+    chuck/src/chuck_shell.h \
+    chuck/src/chuck_scan.h \
+    chuck/src/chuck_parse.h \
+    chuck/src/chuck_otf.h \
+    chuck/src/chuck_oo.h \
+    chuck/src/chuck_lang.h \
+    chuck/src/chuck_instr.h \
+    chuck/src/chuck_globals.h \
+    chuck/src/chuck_frame.h \
+    chuck/src/chuck_errmsg.h \
+    chuck/src/chuck_emit.h \
+    chuck/src/chuck_dl.h \
+    chuck/src/chuck_def.h \
+    chuck/src/chuck_console.h \
+    chuck/src/chuck_compile.h \
+    chuck/src/chuck_bbq.h \
+    chuck/src/chuck_absyn.h \
+    chuck/src/RtAudio/RtError.h \
+    chuck/src/RtAudio/RtAudio.h \
     qt/madocumentview.h \
     qt/miniAudicle_pc.h
 
@@ -159,8 +159,8 @@ FORMS += \
     qt/mAMainWindow.ui \
     qt/madocumentview.ui
 
-FLEXSOURCES = chuck/chuck.lex
-BISONSOURCES = chuck/chuck.y
+FLEXSOURCES = chuck/src/chuck.lex
+BISONSOURCES = chuck/src/chuck.y
 
 flex.commands = flex -o $$OBJECTS_DIR/${QMAKE_FILE_BASE}.yy.c ${QMAKE_FILE_IN}
 flex.input = FLEXSOURCES

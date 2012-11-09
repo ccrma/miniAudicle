@@ -6,3 +6,7 @@ src/macosx/miniAudicle.app
 
 src/miniAudicle.xcodeproj/project.xcworkspace
 src/miniAudicle.xcodeproj/xcuserdata
+
+miniAudicle-build-Desktop-Debug
+
+src/miniAudicle.pro.user.*
