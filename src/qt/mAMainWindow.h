@@ -2,8 +2,10 @@
 #define MAMAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFile>
+#include <QFileDialog>
 
-#include <vector>
+#include <list>
 
 #include "madocumentview.h"
 
@@ -23,15 +25,16 @@ public slots:
 
     void exit();
 
-    void openFile();
+    void openFile(const QString &path = QString());
     void newFile();
     void closeFile();
     void closeFile(int i);
+    void saveFile();
 
 private:
 
-    std::vector<mADocumentView *> documents;
     Ui::mAMainWindow *ui;
+    std::list<mADocumentView *> documents;
 };
 
 #endif // MAMAINWINDOW_H

@@ -580,6 +580,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionSave</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>saveFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>304</x>
+     <y>352</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>exit()</slot>
@@ -587,5 +603,6 @@
   <slot>newFile()</slot>
   <slot>closeFile()</slot>
   <slot>closeFile(int)</slot>
+  <slot>saveFile()</slot>
  </slots>
 </ui>

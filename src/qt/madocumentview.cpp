@@ -2,6 +2,8 @@
 #include "madocumentview.h"
 #include "ui_madocumentview.h"
 
+#include <QFileDialog>
+
 #include <Qsci/qsciscintilla.h>
 #include <Qsci/qscilexercpp.h>
 
@@ -29,7 +31,7 @@ public:
 };
 
 
-mADocumentView::mADocumentView(QWidget *parent, std::string _title) :
+mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file) :
     QWidget(parent),
     ui(new Ui::mADocumentView),
     tabWidget(NULL)
@@ -37,6 +39,10 @@ mADocumentView::mADocumentView(QWidget *parent, std::string _title) :
     ui->setupUi(this);
 
     title = _title;
+
+    if(file != NULL)
+        ui->textEdit->read(file);
+    this->file = file;
 
     ui->textEdit->setMarginLineNumbers(1, true);
     ui->textEdit->setMarginsFont(QFont("Courier New", 9));
@@ -79,11 +85,50 @@ bool mADocumentView::isDocumentModified()
     return ui->textEdit->isModified();
 }
 
-void mADocumentView::documentModified(bool modified)
+void mADocumentView::setTitle(std::string _title)
 {
-    if(isDocumentModified())
-        tabWidget->setTabText(tabWidget->indexOf(this), QString(std::string(title + "*").c_str()));
-    else
-        tabWidget->setTabText(tabWidget->indexOf(this), QString(title.c_str()));
+    title = _title;
+    if(tabWidget != NULL)
+    {
+        if(isDocumentModified())
+            tabWidget->setTabText(tabWidget->indexOf(this), QString(std::string(title + "*").c_str()));
+        else
+            tabWidget->setTabText(tabWidget->indexOf(this), QString(title.c_str()));
+    }
 }
 
+void mADocumentView::documentModified(bool modified)
+{
+    if(tabWidget != NULL)
+    {
+        if(isDocumentModified())
+            tabWidget->setTabText(tabWidget->indexOf(this), QString(std::string(title + "*").c_str()));
+        else
+            tabWidget->setTabText(tabWidget->indexOf(this), QString(title.c_str()));
+    }
+}
+
+void mADocumentView::save()
+{
+    if(file == NULL)
+    {
+        QString fileName = QFileDialog::getSaveFileName(this,
+            tr("Save File"), "", "ChucK Scripts (*.ck)");
+        file = new QFile(fileName);
+        if(!file->open(QFile::ReadWrite | QFile::Text))
+        {
+            delete file;
+            file = NULL;
+        }
+
+        QFileInfo fileInfo(fileName);
+        setTitle(fileInfo.fileName().toStdString());
+    }
+
+    if(file != NULL)
+    {
+        ui->textEdit->write(file);
+        ui->textEdit->setModified(false);
+        documentModified(false);
+    }
+}
