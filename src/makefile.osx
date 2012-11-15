@@ -46,6 +46,11 @@ ifneq ($(CHUCK_STRICT),)
 CFLAGS+= -Wall
 endif
 
+ifneq ($(filter SPENCER,$(MA_SPECIAL)),)
+CFLAGS+= -DSPENCER
+FRAMEWORKS+=QuartzCore
+endif
+
 #-----------------------------------------------------------------------------
 # by default, ChucK uses a pre-configured libsndfile...
 # uncomment the next 3 lines to use libsndfile on your system

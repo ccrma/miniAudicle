@@ -35,6 +35,9 @@ U.S.A.
 #import "miniAudiclePreferencesController.h"
 #import "mASyntaxHighlighter.h"
 
+#import <QuartzCore/QuartzCore.h>
+
+
 #define MARGIN_WIDTH 30
 #define MIN_MARGIN_WIDTH 30
 
@@ -468,6 +471,35 @@ static NSImage * error_image;
     [[text_view textContainer] setWidthTracksTextView:NO];
     [[text_view textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
     [text_view setPostsBoundsChangedNotifications:YES];
+    
+#ifdef SPENCER
+    [text_view setWantsLayer:YES];
+    [text_view setContentFilters:@[
+//     [CIFilter filterWithName:@"CIGaussianBlur"
+//                keysAndValues:@"inputRadius", @(0.5),
+//      nil],
+     [CIFilter filterWithName:@"CIBloom"
+                keysAndValues:
+      @"inputRadius", @(3),
+      @"inputIntensity", @(1),
+      nil],
+     [CIFilter filterWithName:@"CIToneCurve"
+                keysAndValues:
+      @"inputPoint0", [CIVector vectorWithX:0 Y:0],
+      @"inputPoint1", [CIVector vectorWithX:0.25 Y:0.125],
+      @"inputPoint2", [CIVector vectorWithX:0.5 Y:0.5],
+      @"inputPoint3", [CIVector vectorWithX:0.75 Y:0.9],
+      @"inputPoint4", [CIVector vectorWithX:1 Y:1],
+      nil],
+//     [CIFilter filterWithName:@"CIGaussianBlur"
+//                keysAndValues:@"inputRadius", @(0.5),
+//      nil],
+//     [CIFilter filterWithName:@"CIBloom"
+//                keysAndValues:@"inputRadius", @(100),
+//      @"inputIntensity", @(0.5),
+//      nil],
+     ]];
+#endif // SPENCER
     
     [scroll_view setDocumentView:text_view];
     
