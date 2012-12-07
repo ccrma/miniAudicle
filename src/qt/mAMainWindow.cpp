@@ -7,16 +7,35 @@
 
 mAMainWindow::mAMainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::mAMainWindow)
+    ui(new Ui::mAMainWindow),
+    ma(new miniAudicle)
 {
+    vm_on = false;
+
     ui->setupUi(this);
+
+    ui->actionAdd_Shred->setEnabled(false);
+    ui->actionRemove_Shred->setEnabled(false);
+    ui->actionReplace_Shred->setEnabled(false);
 
     newFile();
 }
 
 mAMainWindow::~mAMainWindow()
 {
+    if(vm_on)
+    {
+        ma->stop_vm();
+    }
+
+    // manually close all windows
+    for(int i = ui->tabWidget->count()-1; i >= 0; i--)
+    {
+        ui->tabWidget->removeTab(i);
+    }
+
     delete ui;
+    delete ma;
 }
 
 
@@ -27,7 +46,7 @@ void mAMainWindow::exit()
 
 void mAMainWindow::newFile()
 {
-    mADocumentView * documentView = new mADocumentView(0, "untitled");
+    mADocumentView * documentView = new mADocumentView(0, "untitled", NULL, ma);
     documentView->setTabWidget(ui->tabWidget);
 
     ui->tabWidget->addTab(documentView, QIcon(), "untitled");
@@ -49,7 +68,7 @@ void mAMainWindow::openFile(const QString &path)
         if (file->open(QFile::ReadWrite | QFile::Text))
         {
             QFileInfo fileInfo(fileName);
-            mADocumentView * documentView = new mADocumentView(0, fileInfo.fileName().toStdString(), file);
+            mADocumentView * documentView = new mADocumentView(0, fileInfo.fileName().toStdString(), file, ma);
             documentView->setTabWidget(ui->tabWidget);
 
             ui->tabWidget->addTab(documentView, QIcon(), fileInfo.fileName());
@@ -105,3 +124,50 @@ void mAMainWindow::saveFile()
 
     view->save();
 }
+
+#pragma mark
+
+void mAMainWindow::addCurrentDocument()
+{
+    ((mADocumentView *) ui->tabWidget->currentWidget())->add();
+}
+
+void mAMainWindow::replaceCurrentDocument()
+{
+    ((mADocumentView *) ui->tabWidget->currentWidget())->replace();
+}
+
+void mAMainWindow::removeCurrentDocument()
+{
+    ((mADocumentView *) ui->tabWidget->currentWidget())->remove();
+}
+
+void mAMainWindow::toggleVM()
+{
+    if(!vm_on)
+    {
+        if(ma->start_vm())
+        {
+            ui->actionStart_Virtual_Machine->setText("Stop Virtual Machine");
+
+            ui->actionAdd_Shred->setEnabled(true);
+            ui->actionRemove_Shred->setEnabled(true);
+            ui->actionReplace_Shred->setEnabled(true);
+
+            vm_on = true;
+        }
+    }
+    else
+    {
+        ma->stop_vm();
+
+        ui->actionStart_Virtual_Machine->setText("Start Virtual Machine");
+
+        ui->actionAdd_Shred->setEnabled(false);
+        ui->actionRemove_Shred->setEnabled(false);
+        ui->actionReplace_Shred->setEnabled(false);
+
+        vm_on = false;
+    }
+}
+

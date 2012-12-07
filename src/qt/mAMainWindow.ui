@@ -596,6 +596,70 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionStart_Virtual_Machine</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>toggleVM()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>304</x>
+     <y>352</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAdd_Shred</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>addCurrentDocument()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>304</x>
+     <y>352</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRemove_Shred</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>removeCurrentDocument()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>304</x>
+     <y>352</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionReplace_Shred</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>replaceCurrentDocument()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>304</x>
+     <y>352</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>exit()</slot>
@@ -604,5 +668,9 @@
   <slot>closeFile()</slot>
   <slot>closeFile(int)</slot>
   <slot>saveFile()</slot>
+  <slot>toggleVM()</slot>
+  <slot>addCurrentDocument()</slot>
+  <slot>replaceCurrentDocument()</slot>
+  <slot>removeCurrentDocument()</slot>
  </slots>
 </ui>

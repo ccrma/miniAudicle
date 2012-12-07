@@ -89,7 +89,10 @@ SOURCES += \
     chuck/src/chuck_bbq.cpp \
     chuck/src/chuck_absyn.cpp \
     chuck/src/RtAudio/RtAudio.cpp \
-    qt/madocumentview.cpp
+    qt/madocumentview.cpp \
+    miniAudicle.cpp \
+    miniAudicle_shell.cpp \
+    miniAudicle_log.cpp
 
 macx {
     SOURCES += chuck/src/util_sndfile.c
@@ -153,7 +156,13 @@ HEADERS  += qt/mAMainWindow.h \
     chuck/src/RtAudio/RtError.h \
     chuck/src/RtAudio/RtAudio.h \
     qt/madocumentview.h \
-    qt/miniAudicle_pc.h
+    qt/miniAudicle_pc.h \
+    miniAudicle.h \
+    miniAudicle_ui_elements.h \
+    miniAudicle_shell.h \
+    miniAudicle_log.h \
+    miniAudicle_import.h \
+    miniAudicle_debug.h
 
 FORMS += \
     qt/mAMainWindow.ui \

@@ -9,6 +9,8 @@
 
 #include "madocumentview.h"
 
+#include "miniAudicle.h"
+
 namespace Ui {
     class mAMainWindow;
 }
@@ -31,10 +33,18 @@ public slots:
     void closeFile(int i);
     void saveFile();
 
+    void addCurrentDocument();
+    void replaceCurrentDocument();
+    void removeCurrentDocument();
+    void toggleVM();
+
 private:
 
     Ui::mAMainWindow *ui;
     std::list<mADocumentView *> documents;
+    bool vm_on;
+
+    miniAudicle * ma;
 };
 
 #endif // MAMAINWINDOW_H

@@ -31,10 +31,11 @@ public:
 };
 
 
-mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file) :
+mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file, miniAudicle * ma) :
     QWidget(parent),
     ui(new Ui::mADocumentView),
-    tabWidget(NULL)
+    tabWidget(NULL),
+    m_ma(ma)
 {
     ui->setupUi(this);
 
@@ -58,10 +59,14 @@ mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file
 
     ui->textEdit->setBraceMatching(QsciScintilla::SloppyBraceMatch);
     ui->textEdit->setAutoIndent(true);
+
+    m_docid = m_ma->allocate_document_id();
 }
 
 mADocumentView::~mADocumentView()
 {
+    m_ma->free_document_id(m_docid);
+
     delete ui;
     delete lexer;
 }
@@ -131,4 +136,38 @@ void mADocumentView::save()
         ui->textEdit->setModified(false);
         documentModified(false);
     }
+}
+
+void mADocumentView::add()
+{
+    vector<string> args;
+    string filepath;
+    if(file != NULL) filepath = file->fileName().toStdString();
+    string output;
+    t_CKUINT shred_id;
+    string code = ui->textEdit->text().toStdString();
+
+    m_ma->run_code(code, this->title, args,
+                   filepath, m_docid, shred_id, output);
+}
+
+void mADocumentView::replace()
+{
+    vector<string> args;
+    string filepath;
+    if(file != NULL) filepath = file->fileName().toStdString();
+    string output;
+    t_CKUINT shred_id;
+    string code = ui->textEdit->text().toStdString();
+
+    m_ma->replace_code(code, this->title, args,
+                       filepath, m_docid, shred_id, output);
+}
+
+void mADocumentView::remove()
+{
+    string output;
+    t_CKUINT shred_id;
+
+    m_ma->remove_code(m_docid, shred_id, output);
 }

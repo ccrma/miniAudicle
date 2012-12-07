@@ -6,6 +6,8 @@
 #include <QFile>
 #include <Qsci/qscilexer.h>
 
+#include "miniAudicle.h"
+
 namespace Ui {
     class mADocumentView;
 }
@@ -15,13 +17,18 @@ class mADocumentView : public QWidget
     Q_OBJECT
 
 public:
-    explicit mADocumentView(QWidget *parent = 0, std::string _title = std::string(), QFile * file = NULL);
+    explicit mADocumentView(QWidget *parent, std::string _title,
+                            QFile * file, miniAudicle * ma);
     ~mADocumentView();
 
     void setTabWidget(QTabWidget * _tabWidget);
     bool isDocumentModified();
 
     void save();
+
+    void add();
+    void replace();
+    void remove();
 
 public slots:
     void documentModified(bool modified);
@@ -41,6 +48,9 @@ private:
     QsciLexer * lexer;
 
     QFile * file;
+
+    miniAudicle * m_ma;
+    t_CKUINT m_docid;
 };
 
 #endif // MADOCUMENTVIEW_H

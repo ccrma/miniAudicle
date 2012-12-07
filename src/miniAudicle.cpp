@@ -55,7 +55,7 @@ U.S.A.
 //using namespace miniAudicle;
 
 #ifndef __MA_IMPORT_MAUI__
-#if defined( __MACOSX_CORE__ ) && !defined(__CHIP_MODE__)
+#if defined( __MACOSX_CORE__ ) && !defined(__CHIP_MODE__) && !defined(QT_GUI_LIB)
 #define __MA_IMPORT_MAUI__
 #endif // defined( __MACOSX_CORE__ )
 #endif // __MA_IMPORT_MAUI__
