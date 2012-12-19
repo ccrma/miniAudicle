@@ -29,13 +29,17 @@ mAMainWindow::~mAMainWindow()
     }
 
     // manually close all windows
+    // each window has a pointer to the miniAudicle object
+    // so we have to delete them before deleting the miniAudicle
     for(int i = ui->tabWidget->count()-1; i >= 0; i--)
     {
         ui->tabWidget->removeTab(i);
     }
 
     delete ui;
+    ui = NULL;
     delete ma;
+    ma = NULL;
 }
 
 

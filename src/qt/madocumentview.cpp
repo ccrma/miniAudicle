@@ -68,7 +68,9 @@ mADocumentView::~mADocumentView()
     m_ma->free_document_id(m_docid);
 
     delete ui;
+    ui = NULL;
     delete lexer;
+    lexer = NULL;
 }
 
 void mADocumentView::setTabWidget(QTabWidget * _tabWidget)
