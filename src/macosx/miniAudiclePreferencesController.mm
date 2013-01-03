@@ -366,8 +366,8 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     
     [defaults setObject:chugin_paths forKey:mAPreferencesChuginPaths];
     
-    list< string > library_paths;
-    list< string > named_chugins;
+    list<string> library_paths;
+    list<string> named_chugins;
     if([[defaults objectForKey:mAPreferencesEnableChugins] boolValue])
     {
         NSArray * obj_library_paths = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesChuginPaths];
@@ -379,6 +379,10 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
             else if([[path objectForKey:@"type"] isEqualToString:@"folder"])
                 library_paths.push_back([[path objectForKey:@"location"] UTF8String]);
         }
+        
+        // add bundle chugin path
+        NSString * bundle_chugin_path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"ChuGins"];
+        library_paths.push_back([bundle_chugin_path UTF8String]);
     }
     // load empty chugin lists to disable chugins
     
@@ -448,16 +452,22 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     
     list< string > library_paths;
     list< string > named_chugins;
-    NSArray * obj_library_paths = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesChuginPaths];
-    for(int i = 0; i < [obj_library_paths count]; i++)
+    if([[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesEnableChugins] boolValue])
     {
-        NSDictionary * path = [obj_library_paths objectAtIndex:i];
-        if([[path objectForKey:@"type"] isEqualToString:@"chugin"])
-            named_chugins.push_back([[path objectForKey:@"location"] UTF8String]);
-        else if([[path objectForKey:@"type"] isEqualToString:@"folder"])
-            library_paths.push_back([[path objectForKey:@"location"] UTF8String]);
+        NSArray * obj_library_paths = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesChuginPaths];
+        for(int i = 0; i < [obj_library_paths count]; i++)
+        {
+            NSDictionary * path = [obj_library_paths objectAtIndex:i];
+            if([[path objectForKey:@"type"] isEqualToString:@"chugin"])
+                named_chugins.push_back([[path objectForKey:@"location"] UTF8String]);
+            else if([[path objectForKey:@"type"] isEqualToString:@"folder"])
+                library_paths.push_back([[path objectForKey:@"location"] UTF8String]);
+        }
+        
+        NSString * bundle_chugin_path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"ChuGins"];
+        library_paths.push_back([bundle_chugin_path UTF8String]);
     }
-    
+
     ma->set_library_paths(library_paths);
     ma->set_named_chugins(named_chugins);
     
