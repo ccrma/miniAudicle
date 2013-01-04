@@ -2,6 +2,9 @@
 #include "mAMainWindow.h"
 #include "ui_mAMainWindow.h"
 
+#include "madocumentview.h"
+#include "mAConsoleMonitor.h"
+
 #include <QMessageBox>
 
 
@@ -19,6 +22,10 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     ui->actionReplace_Shred->setEnabled(false);
 
     newFile();
+
+    m_consoleMonitor = new mAConsoleMonitor(this);
+    m_consoleMonitor->show();
+    ma->set_log_level(CK_LOG_SYSTEM);
 }
 
 mAMainWindow::~mAMainWindow()
@@ -28,12 +35,13 @@ mAMainWindow::~mAMainWindow()
         ma->stop_vm();
     }
 
-    // manually close all windows
+    // manually detach
     // each window has a pointer to the miniAudicle object
-    // so we have to delete them before deleting the miniAudicle
+    // so we have to detach that object before deleting the miniAudicle
     for(int i = ui->tabWidget->count()-1; i >= 0; i--)
     {
-        ui->tabWidget->removeTab(i);
+        mADocumentView * view = (mADocumentView *) ui->tabWidget->widget(i);
+        view->detach();
     }
 
     delete ui;

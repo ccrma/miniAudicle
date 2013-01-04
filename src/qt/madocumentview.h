@@ -20,6 +20,7 @@ public:
     explicit mADocumentView(QWidget *parent, std::string _title,
                             QFile * file, miniAudicle * ma);
     ~mADocumentView();
+    void detach(); // workaround
 
     void setTabWidget(QTabWidget * _tabWidget);
     bool isDocumentModified();

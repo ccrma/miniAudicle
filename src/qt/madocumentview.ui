@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="miniAudicle.qrc">
+    <normaloff>:/icon/miniAudicle.png</normaloff>:/icon/miniAudicle.png</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="margin">
     <number>0</number>
@@ -46,9 +50,12 @@
    <class>QsciScintilla</class>
    <extends>QFrame</extends>
    <header>Qsci/qsciscintilla.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="miniAudicle.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>textEdit</sender>

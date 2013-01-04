@@ -65,12 +65,21 @@ mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file
 
 mADocumentView::~mADocumentView()
 {
-    m_ma->free_document_id(m_docid);
+    detach();
 
     delete ui;
     ui = NULL;
     delete lexer;
     lexer = NULL;
+}
+
+void mADocumentView::detach()
+{
+    if(m_ma)
+    {
+        m_ma->free_document_id(m_docid);
+        m_ma = NULL;
+    }
 }
 
 void mADocumentView::setTabWidget(QTabWidget * _tabWidget)

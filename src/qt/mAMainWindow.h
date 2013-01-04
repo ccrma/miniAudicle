@@ -7,12 +7,13 @@
 
 #include <list>
 
-#include "madocumentview.h"
-
 #include "miniAudicle.h"
 
+class mADocumentView;
+class mAConsoleMonitor;
+
 namespace Ui {
-    class mAMainWindow;
+class mAMainWindow;
 }
 
 class mAMainWindow : public QMainWindow
@@ -43,6 +44,8 @@ private:
     Ui::mAMainWindow *ui;
     std::list<mADocumentView *> documents;
     bool vm_on;
+
+    mAConsoleMonitor * m_consoleMonitor;
 
     miniAudicle * ma;
 };
