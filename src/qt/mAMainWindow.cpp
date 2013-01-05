@@ -26,6 +26,8 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     m_consoleMonitor = new mAConsoleMonitor(this);
     m_consoleMonitor->show();
     ma->set_log_level(CK_LOG_SYSTEM);
+
+    this->move(100, 50);
 }
 
 mAMainWindow::~mAMainWindow()

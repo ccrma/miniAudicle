@@ -25,10 +25,6 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QTextBlockFormat format = ui->plainTextEdit->textCursor().blockFormat();
-    format.setBottomMargin(0);
-    ui->plainTextEdit->textCursor().setBlockFormat(format);
-
 #ifndef __PLATFORM_WIN32__
     int fd[2];
 
@@ -74,6 +70,8 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent) :
     m_errNotifier = new QSocketNotifier( err_fd, QSocketNotifier::Read );
     connect(m_errNotifier, SIGNAL(activated(int)), this, SLOT(appendFromFile(int)));
     m_errNotifier->setEnabled(true);
+
+    this->move(50, 200);
 }
 
 mAConsoleMonitor::~mAConsoleMonitor()
