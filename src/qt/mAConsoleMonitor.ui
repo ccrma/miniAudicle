@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Console Monitor</string>
+   <string>Console</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPlainTextEdit" name="plainTextEdit">

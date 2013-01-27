@@ -93,7 +93,8 @@ SOURCES += \
     miniAudicle.cpp \
     miniAudicle_shell.cpp \
     miniAudicle_log.cpp \
-    qt/mAConsoleMonitor.cpp
+    qt/mAConsoleMonitor.cpp \
+    qt/mAVMMonitor.cpp
 
 macx {
     SOURCES += chuck/src/util_sndfile.c
@@ -164,12 +165,14 @@ HEADERS  += qt/mAMainWindow.h \
     miniAudicle_log.h \
     miniAudicle_import.h \
     miniAudicle_debug.h \
-    qt/mAConsoleMonitor.h
+    qt/mAConsoleMonitor.h \
+    qt/mAVMMonitor.h
 
 FORMS += \
     qt/mAMainWindow.ui \
     qt/madocumentview.ui \
-    qt/mAConsoleMonitor.ui
+    qt/mAConsoleMonitor.ui \
+    qt/mAVMMonitor.ui
 
 FLEXSOURCES = chuck/src/chuck.lex
 BISONSOURCES = chuck/src/chuck.y
