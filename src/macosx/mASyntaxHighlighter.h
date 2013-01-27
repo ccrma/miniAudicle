@@ -22,81 +22,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 U.S.A.
 -----------------------------------------------------------------------------*/
 
-//-----------------------------------------------------------------------------
-// file: mASyntaxHighlighter.h
-// desc: Syntax highlighting module.  Based heavily on Glenn Andreas' IDEKit,
-// but there are modifications.  
-//
-// author: Spencer Salazar (ssalazar@cs.princeton.edu)
-// date: Summer 2006
-//-----------------------------------------------------------------------------
+#import <Foundation/Foundation.h>
 
-typedef unsigned int mALexerState;
-enum
-{
-    MA_LS_DEFAULT,
-    MA_LS_NUMBER,
-    MA_LS_KEYWORD,
-    MA_LS_CLASS,
-    MA_LS_FUNCTION,
-    MA_LS_OPERATOR,
-    MA_LS_STRING,
-    MA_LS_COMMENT,
-    MA_LS_COMMENT_START,
-    MA_LS_COMMENT_END,
-    MA_LS_LINECOMMENT,
-    MA_LS_LINECOMMENT_START,
-    MA_LS_COUNT
-};
+@interface mASyntaxHighlighting : NSObject
 
-@interface mASyntaxDefinition : NSObject
-{
-    NSMutableDictionary * keywords;
-    NSMutableDictionary * operators;
-    NSMutableDictionary * classes;
-    NSMutableDictionary * user1;
-        
-    struct 
-    {
-        NSColor * text;
-        NSColor * background;
-        NSFont * font;
-    } attributes[MA_LS_COUNT];
-}
-
-+ (mASyntaxDefinition *)masterDefinition;
-- (id)init;
-- (void)addKeyword:(NSString *)s;
-- (void)addOperator:(NSString *)s;
-- (void)addClass:(NSString *)s;
-- (void)addUser1Keyword:(NSString *)s;
-
-- (void)setStyleForLexerState:(mALexerState)state 
-                    textColor:(NSColor *)text
-              backgroundColor:(NSColor *)background
-                         font:(NSFont *)f;
-
-@end
-
-@interface mASyntaxHighlighter : NSObject<NSTextStorageDelegate>
-{
-    NSTextStorage * s;
-//    NSArray * defs;
-    mASyntaxDefinition * def;
-    
-    NSCharacterSet * idchars;
-    NSCharacterSet * fidchars;
-    NSCharacterSet * nonidchars;
-    NSCharacterSet * whitespace;
-}
-
-- (id)initWithTextStorage:(NSTextStorage *)str;
-//- (void)pushSyntaxDefinition:(mASyntaxDefinition *)sd;
++ (NSArray *)defaultClasses;
++ (NSArray *)defaultUGens;
 
 @end
 
 //
-//  IDEKit_UserSettings.h
+// IDEKit_UserSettings.h
 //
 //  Created by Glenn Andreas on Sat Mar 22 2003.
 //  Copyright (c) 2003, 2004 by Glenn Andreas

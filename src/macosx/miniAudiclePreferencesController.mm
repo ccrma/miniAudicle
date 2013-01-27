@@ -43,7 +43,8 @@ static int sh_tokens[] =
 { 
     IDEKit_kLangColor_NormalText, 
     IDEKit_kLangColor_Keywords,
-//    IDEKit_kLangColor_Classes,
+    IDEKit_kLangColor_Classes,
+    IDEKit_kLangColor_OtherSymbol1,
     IDEKit_kLangColor_Comments,
     IDEKit_kLangColor_Strings,
     IDEKit_kLangColor_Numbers,
@@ -128,7 +129,8 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
         [default_sh setObject:@"#ffffff" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Background )];
         [default_sh setObject:@"#000000" forKey:IDEKit_NameForColor( IDEKit_kLangColor_NormalText )];
         [default_sh setObject:@"#0000ff" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Keywords )];
-        [default_sh setObject:@"#009900" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Classes )];
+        [default_sh setObject:@"#800023" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Classes )];
+        [default_sh setObject:@"#A200EC" forKey:IDEKit_NameForColor( IDEKit_kLangColor_OtherSymbol1 )];
         [default_sh setObject:@"#609010" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Comments )];
         [default_sh setObject:@"#404040" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Strings )];
         [default_sh setObject:@"#D48010" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Numbers )];
@@ -165,6 +167,22 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
         [defaults setObject:chugin_path_array forKey:mAPreferencesChuginPaths];
         
         [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
+        
+        // spencer: 0.2.3: add extra syntax color keys if missing
+        NSDictionary * actualSH = [[NSUserDefaults standardUserDefaults] objectForKey:IDEKit_TextColorsPrefKey];
+        NSMutableDictionary * newSH = nil;
+        if([actualSH objectForKey:IDEKit_NameForColor( IDEKit_kLangColor_Classes )] == nil)
+        {
+            if(newSH == nil) newSH = [NSMutableDictionary dictionaryWithDictionary:actualSH];
+            [newSH setObject:@"#800023" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Classes )];
+        }
+        if([actualSH objectForKey:IDEKit_NameForColor( IDEKit_kLangColor_OtherSymbol1 )] == nil)
+        {
+            if(newSH == nil) newSH = [NSMutableDictionary dictionaryWithDictionary:actualSH];
+            [newSH setObject:@"#A200EC" forKey:IDEKit_NameForColor( IDEKit_kLangColor_OtherSymbol1 )];
+        }
+        if(newSH != nil)
+            [[NSUserDefaults standardUserDefaults] setObject:newSH forKey:IDEKit_TextColorsPrefKey];
         
         // TODO: apparently this needs to happen before awakeFromNib
         [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:defaults];

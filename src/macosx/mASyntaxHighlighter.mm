@@ -22,593 +22,166 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 U.S.A.
 -----------------------------------------------------------------------------*/
 
-//-----------------------------------------------------------------------------
-// file: mASyntaxHighlighter.mm
-// desc: Syntax highlighting module.  Based heavily on Glenn Andreas' IDEKit,
-// but there are modifications.  
-//
-// author: Spencer Salazar (ssalazar@cs.princeton.edu)
-// date: Summer 2006
-//-----------------------------------------------------------------------------
-
-#import "Cocoa/Cocoa.h"
+#import <Cocoa/Cocoa.h>
 #import "mASyntaxHighlighter.h"
 
-static NSString * const mALexerStateAttributeName = @"mALexerStateAttribute";
-static const NSString * const mAUserStyledAttributeName = @"mAUserStyledAttribute";
+@implementation mASyntaxHighlighting
 
-static mASyntaxDefinition * g_master_definition;
-
-@implementation mASyntaxDefinition
-
-+ (void)initialize
++ (NSArray *)defaultClasses
 {
-    g_master_definition = [[mASyntaxDefinition alloc] init];
-    
-    // keywords
-    // see http://chuck.cs.princeton.edu/doc/language/overview.html#reserve
-    [g_master_definition addKeyword:@"int"];
-    [g_master_definition addKeyword:@"float"];
-    [g_master_definition addKeyword:@"time"];
-    [g_master_definition addKeyword:@"dur"];
-    [g_master_definition addKeyword:@"void"];
-    [g_master_definition addKeyword:@"same"];
-    
-    [g_master_definition addKeyword:@"if"];
-    [g_master_definition addKeyword:@"else"];
-    [g_master_definition addKeyword:@"while"];
-    [g_master_definition addKeyword:@"until"];
-    [g_master_definition addKeyword:@"for"];
-    [g_master_definition addKeyword:@"repeat"];
-    [g_master_definition addKeyword:@"break"];
-    [g_master_definition addKeyword:@"continue"];
-    [g_master_definition addKeyword:@"return"];
-    [g_master_definition addKeyword:@"switch"];
-    [g_master_definition addKeyword:@"repeat"];
-    
-    [g_master_definition addKeyword:@"class"];
-    [g_master_definition addKeyword:@"extends"];
-    [g_master_definition addKeyword:@"public"];
-    [g_master_definition addKeyword:@"static"];
-    [g_master_definition addKeyword:@"pure"];
-    [g_master_definition addKeyword:@"this"];
-    [g_master_definition addKeyword:@"super"];
-    [g_master_definition addKeyword:@"interface"];
-    [g_master_definition addKeyword:@"implements"];
-    [g_master_definition addKeyword:@"protected"];
-    [g_master_definition addKeyword:@"private"];
-
-    [g_master_definition addKeyword:@"function"];
-    [g_master_definition addKeyword:@"fun"];
-    [g_master_definition addKeyword:@"spork"];
-    [g_master_definition addKeyword:@"const"];
-    [g_master_definition addKeyword:@"new"];
-    
-    [g_master_definition addKeyword:@"now"];
-    [g_master_definition addKeyword:@"true"];
-    [g_master_definition addKeyword:@"false"];
-    [g_master_definition addKeyword:@"maybe"];
-    [g_master_definition addKeyword:@"null"];
-    [g_master_definition addKeyword:@"NULL"];
-    [g_master_definition addKeyword:@"me"];
-    [g_master_definition addKeyword:@"pi"];
-    
-    [g_master_definition addKeyword:@"samp"];
-    [g_master_definition addKeyword:@"ms"];
-    [g_master_definition addKeyword:@"second"];
-    [g_master_definition addKeyword:@"minute"];
-    [g_master_definition addKeyword:@"hour"];
-    [g_master_definition addKeyword:@"day"];
-    [g_master_definition addKeyword:@"week"];
-
-    [g_master_definition addKeyword:@"dac"];
-    [g_master_definition addKeyword:@"adc"];
-    [g_master_definition addKeyword:@"blackhole"];
-    
-    // operators
-    // see http://chuck.cs.princeton.edu/doc/language/oper.html
-    [g_master_definition addOperator:@"=>"];
-    [g_master_definition addOperator:@"=<"];
-    [g_master_definition addOperator:@"@=>"];    
-    
-    [g_master_definition addOperator:@"+"];
-    [g_master_definition addOperator:@"++"];
-    [g_master_definition addOperator:@"-"];
-    [g_master_definition addOperator:@"--"];
-    [g_master_definition addOperator:@"*"];
-    [g_master_definition addOperator:@"/"];
-    [g_master_definition addOperator:@"%"];
-    [g_master_definition addOperator:@"+=>"];
-    [g_master_definition addOperator:@"-=>"];
-    [g_master_definition addOperator:@"*=>"];
-    [g_master_definition addOperator:@"/=>"];
-    [g_master_definition addOperator:@"%=>"];
-
-    [g_master_definition addOperator:@"=="];
-    [g_master_definition addOperator:@"!="];
-    [g_master_definition addOperator:@"<"];
-    [g_master_definition addOperator:@">"];
-    [g_master_definition addOperator:@"<="];
-    [g_master_definition addOperator:@">="];
-    [g_master_definition addOperator:@"&&"];
-    [g_master_definition addOperator:@"||"];
-
-    [g_master_definition addOperator:@"<<"];
-    [g_master_definition addOperator:@">>"];
-    [g_master_definition addOperator:@"&"];
-    [g_master_definition addOperator:@"|"];
-    [g_master_definition addOperator:@"^"];
-
-    [g_master_definition addOperator:@"$"];
-    [g_master_definition addOperator:@"::"];
-
-    [g_master_definition addOperator:@"<<<"];
-    [g_master_definition addOperator:@">>>"];
+    return @[
+    @"Object",
+    @"string",
+    @"UAnaBlob",
+    @"Shred",
+    @"Thread",
+    @"Class",
+    @"Event",
+    @"IO",
+    @"FileIO",
+    @"StdOut",
+    @"StdErr",
+    @"Windowing",
+    @"Machine",
+    @"Std",
+    @"KBHit",
+    @"ConsoleInput",
+    @"StringTokenizer",
+    @"Math",
+    @"OscSend",
+    @"OscEvent",
+    @"OscRecv",
+    @"MidiMsg",
+    @"MidiIn",
+    @"MidiOut",
+    @"MidiRW",
+    @"MidiMsgIn",
+    @"MidiMsgOut",
+    @"HidMsg",
+    @"Hid",
+    ];
 }
 
-+ (mASyntaxDefinition *)masterDefinition
++ (NSArray *)defaultUGens
 {
-    return g_master_definition;
-}
-
-- (id)init
-{
-    if( self = [super init] )
-    {
-        keywords = [NSMutableDictionary new];
-        operators = [NSMutableDictionary new];
-        classes = [NSMutableDictionary new];
-        user1 = [NSMutableDictionary new];
-
-        for( int i = 0; i < MA_LS_COUNT; i++ )
-        {
-            attributes[i].text = [[NSColor blackColor] retain];
-            attributes[i].background = [[NSColor whiteColor] retain];
-            attributes[i].font = [[NSFont fontWithName:@"Monaco" size:10] retain];
-        }
-    }
-    
-    return self;
-}
-
-- (void)addKeyword:(NSString *)s
-{
-    [keywords setObject:s forKey:s];
-}
-
-- (void)addOperator:(NSString *)s
-{
-    [operators setObject:s forKey:s];
-}
-
-- (void)addClass:(NSString *)s
-{
-    [classes setObject:s forKey:s];
-}
-
-- (void)addUser1Keyword:(NSString *)s
-{
-    [user1 setObject:s forKey:s];
-}
-
-- (void)setStyleForLexerState:(mALexerState)state 
-                    textColor:(NSColor *)text
-              backgroundColor:(NSColor *)background
-                         font:(NSFont *)f
-{
-    if( state > MA_LS_COUNT )
-        return;
-    
-    if( text != nil )
-    {
-        [attributes[state].text release];
-        attributes[state].text = [text retain];
-    }
-    
-    if( background != nil )
-    {
-        [attributes[state].background release];
-        attributes[state].background = [background retain];
-    }
-    
-    if( f != nil )
-    {
-        [attributes[state].font release];
-        attributes[state].font = [f retain];
-    }
-}
-
-- (BOOL)isKeyword:(NSString *)s
-{
-    return [keywords objectForKey:s] != nil;
-}
-
-- (BOOL)isOperator:(NSString *)s
-{
-    return [operators objectForKey:s] != nil;
+    return @[
+    @"UGen",
+    @"UAna",
+    @"Osc",
+    @"Phasor",
+    @"SinOsc",
+    @"TriOsc",
+    @"SawOsc",
+    @"PulseOsc",
+    @"SqrOsc",
+    @"GenX",
+    @"Gen5",
+    @"Gen7",
+    @"Pan2",
+    @"Gen9",
+    @"Gen10",
+    @"Gen17",
+    @"CurveTable",
+    @"WarpTable",
+    @"Chubgraph",
+    @"Chugen",
+    @"UGen_Stereo",
+    @"UGen_Multi",
+    @"DAC",
+    @"ADC",
+    @"Mix2",
+    @"Gain",
+    @"Noise",
+    @"CNoise",
+    @"Impulse",
+    @"Step",
+    @"HalfRect",
+    @"FullRect",
+    @"DelayP",
+    @"SndBuf",
+    @"SndBuf2",
+    @"Dyno",
+    @"LiSa",
+    @"FilterBasic",
+    @"BPF",
+    @"BRF",
+    @"LPF",
+    @"HPF",
+    @"ResonZ",
+    @"BiQuad",
+    @"Teabox",
+    @"StkInstrument",
+    @"BandedWG",
+    @"BlowBotl",
+    @"BlowHole",
+    @"Bowed",
+    @"Brass",
+    @"Clarinet",
+    @"Flute",
+    @"Mandolin",
+    @"ModalBar",
+    @"Moog",
+    @"Saxofony",
+    @"Shakers",
+    @"Sitar",
+    @"StifKarp",
+    @"VoicForm",
+    @"FM",
+    @"BeeThree",
+    @"FMVoices",
+    @"HevyMetl",
+    @"PercFlut",
+    @"Rhodey",
+    @"TubeBell",
+    @"Wurley",
+    @"Delay",
+    @"DelayA",
+    @"DelayL",
+    @"Echo",
+    @"Envelope",
+    @"ADSR",
+    @"FilterStk",
+    @"OnePole",
+    @"TwoPole",
+    @"OneZero",
+    @"TwoZero",
+    @"PoleZero",
+    @"JCRev",
+    @"NRev",
+    @"PRCRev",
+    @"Chorus",
+    @"Modulate",
+    @"PitShift",
+    @"SubNoise",
+    @"WvIn",
+    @"WaveLoop",
+    @"WvOut",
+    @"WvOut2",
+    @"BLT",
+    @"BlitSquare",
+    @"Blit",
+    @"BlitSaw",
+    @"JetTabl",
+    @"Mesh2D",
+    @"FFT",
+    @"IFFT",
+    @"Flip",
+    @"pilF",
+    @"DCT",
+    @"IDCT",
+    @"FeatureCollector",
+    @"Centroid",
+    @"Flux",
+    @"RMS",
+    @"RollOff",
+    @"AutoCorr",
+    @"XCorr",
+    @"ZeroX",
+    ];
 }
 
 @end
 
-@interface mASyntaxHighlighter (Private)
-
-- (void)textStorageDidProcessEditing:(NSNotification *)notification;
-- (void)highlightRange:(NSRange)range previousState:(mALexerState)previous_state;
-- (BOOL)parseSymbols:(NSRange)range previousState:(mALexerState)previous_state;
-- (void)setState:(mALexerState)state forRange:(NSRange)range;
-
-@end
-
-@implementation mASyntaxHighlighter
-
-- (id)initWithTextStorage:(NSTextStorage *)str
-{
-    if( self = [super init] )
-    {
-        s = str;
-        [s setDelegate:self];
-        def = [mASyntaxDefinition masterDefinition];
-        
-        NSMutableCharacterSet * _idchars = [[NSMutableCharacterSet new] autorelease];
-        [_idchars formUnionWithCharacterSet:[NSCharacterSet alphanumericCharacterSet]];
-        [_idchars addCharactersInString:@"_"];
-        idchars = [[NSCharacterSet characterSetWithBitmapRepresentation:[_idchars bitmapRepresentation]] retain];
-        
-        NSMutableCharacterSet * _fidchars = [[NSMutableCharacterSet new] autorelease];
-        [_fidchars formUnionWithCharacterSet:[NSCharacterSet letterCharacterSet]];
-        [_fidchars addCharactersInString:@"_"];
-        fidchars = [[NSCharacterSet characterSetWithBitmapRepresentation:[_fidchars bitmapRepresentation]] retain];
-        
-        nonidchars = [[idchars invertedSet] retain];
-        
-        whitespace = [[NSCharacterSet whitespaceAndNewlineCharacterSet] retain];        
-    }
-    
-    return self;
-}
-
-@end
-
-/********
- 
- Model
- 
- 
- 
- 
- *******/
-
-
-@implementation mASyntaxHighlighter (Private)
-
-- (void)textStorageDidProcessEditing:(NSNotification *)notification
-{
-    if ( [s editedMask] == NSTextStorageEditedAttributes )
-        return;
-    
-    NSRange edited_range = [s editedRange];
-    
-    fprintf( stderr, "er: %i %i\n", edited_range.location, edited_range.length );
-    
-    //if( edited_range.length < 1 )
-    //    return;
-    
-    // determine the preceding lexer state
-    mALexerState previous_state;
-    if( edited_range.location > 0 )
-    {
-        NSNumber * num = [s attribute:mALexerStateAttributeName
-                              atIndex:( edited_range.location - 1 )
-                       effectiveRange:NULL];
-        if( num == nil )
-        {
-            previous_state = MA_LS_DEFAULT;
-            edited_range.location--;
-            edited_range.length++;
-        }
-        else
-            previous_state = [num intValue];
-    }
-    
-    else
-        previous_state = MA_LS_DEFAULT;
-    
-    // determine the range of characters that we have to highlight
-    NSString * str = [s string];
-    NSRange highlight_range;
-    NSRange search_range, found_range;
-    unsigned min, max, length;
-    
-    switch( previous_state )
-    {
-        case MA_LS_COMMENT:
-            search_range = NSMakeRange( edited_range.location - 1, edited_range.length + 1 );
-            found_range = [[s string] rangeOfString:@"*/" 
-                                             options:NSLiteralSearch
-                                               range:search_range];
-            if( found_range.location != NSNotFound && 
-                [[s string] characterAtIndex:found_range.location - 1] != '/' )
-            {
-                int pre_commentend_length = found_range.location - edited_range.location;
-                if( pre_commentend_length > 0 )
-                    [self setState:MA_LS_COMMENT forRange:NSMakeRange( edited_range.location, pre_commentend_length )];
-                [self setState:MA_LS_COMMENT_END forRange:found_range];
-                highlight_range = NSMakeRange( found_range.location + found_range.length, 
-                                               [s length] - ( found_range.location + found_range.length ) );
-            }
-            
-            else
-            {
-                search_range = NSMakeRange( edited_range.location, 
-                                            [s length] - edited_range.location );
-                while( true )
-                {
-                    found_range = [[s string] rangeOfString:@"*/" 
-                                                    options:NSLiteralSearch
-                                                      range:search_range];
-                    
-                    if( found_range.location == NSNotFound )
-                    {
-                        [self setState:MA_LS_COMMENT forRange:search_range];
-                        break;
-                    }
-                    
-                    else if( [[s string] characterAtIndex:found_range.location - 1] != '/' )
-                    {
-                        [self setState:MA_LS_COMMENT forRange:NSMakeRange( search_range.location, 
-                                                                           found_range.location - search_range.location )];
-                        [self setState:MA_LS_COMMENT_END forRange:found_range];
-                        break;
-                    }
-                    
-                    else
-                    {
-                        [self setState:MA_LS_COMMENT forRange:NSMakeRange( search_range.location, 
-                                                                           found_range.location - search_range.location + found_range.length )];
-                        search_range = NSMakeRange( found_range.location + found_range.length, 
-                                                    [s length] - ( found_range.location + found_range.length ) );
-                    }
-                }
-                
-                return;
-            }
-            /*
-            else
-            {
-                [self setState:MA_LS_COMMENT forRange:edited_range];
-                return;
-            }
-            */
-            break;
-                        
-        case MA_LS_COMMENT_START:
-            if( edited_range.length > 0 )
-            {
-                [self setState:MA_LS_COMMENT forRange:edited_range];
-                return;
-            }
-            // else do the default thing, because a delimiter was probably deleted
-            
-        case MA_LS_DEFAULT:
-        default:
-            /* by default, we only have to highlight from the beginning of the 
-            first word that lies in the edited range to the end of the last word
-            that lies in the edited range. */
-            min = edited_range.location;
-            max = edited_range.location + edited_range.length;
-            length = [s length];
-            
-            if( min >= length && min > 0 )
-                min--;
-                
-            while( min > 0 && 
-                   ![whitespace characterIsMember:[str characterAtIndex:min]] )
-            min--;
-            if( min < length && [whitespace characterIsMember:[str characterAtIndex:min]] )
-                min++;
-                        
-            while( max < length && 
-                   ![whitespace characterIsMember:[str characterAtIndex:max]] )
-                max++;
-                            
-            if( max < min )
-                max = min;
-                                
-            highlight_range = NSMakeRange( min, max - min );
-            
-            break;
-    }
-    
-    [self highlightRange:highlight_range previousState:previous_state];
-}
-
-- (void)highlightRange:(NSRange)highlight_range 
-         previousState:(mALexerState)previous_state
-{
-    NSString * str = [s string];
-
-    fprintf( stderr, "hr: %i %i\n", highlight_range.location, highlight_range.length );
-    
-    fprintf( stderr, "'%s'\n", [[str substringWithRange:highlight_range] UTF8String] );
-    
-    // now determine the lexer state and highlight color
-    NSRange token_range, t_range;
-    BOOL is_symbol = NO;
-    while( highlight_range.length )
-    {
-        
-        if( [fidchars characterIsMember:[str characterAtIndex:highlight_range.location]] )
-        {
-            t_range = [str rangeOfCharacterFromSet:nonidchars options:0
-                                             range:NSMakeRange( highlight_range.location + 1,
-                                                                highlight_range.length - 1 )];
-            is_symbol = NO;
-        }
-        else
-        {
-            t_range = [str rangeOfCharacterFromSet:fidchars options:0
-                                             range:highlight_range];
-            is_symbol = YES;
-        }
-        
-        if( t_range.location == NSNotFound )
-            token_range = highlight_range;
-        else
-            token_range = NSMakeRange( highlight_range.location, 
-                                       t_range.location - highlight_range.location );
-        
-        highlight_range.location += token_range.length;
-        highlight_range.length -= token_range.length;
-        
-        NSString * token_string = [str substringWithRange:token_range];
-        
-        if( is_symbol )
-        {
-            if( [self parseSymbols:token_range previousState:previous_state] )
-                break;
-        }
-        
-        else
-        {
-            if( [def isKeyword:token_string] )
-                [self setState:MA_LS_KEYWORD forRange:token_range];
-            else
-                [self setState:MA_LS_DEFAULT forRange:token_range];
-        }
-        
-        fprintf( stderr, "'%s'\n", [token_string UTF8String] );
-    }
-}
-
-//------------------------------------------------------------------------------
-// name: parseSymbols 
-// desc: iterates through the symbols within token_range. breaks symbols up into
-// chunks as large as possible, except when those chunks are /*, */, or // 
-// comment delimiters
-//------------------------------------------------------------------------------
-- (BOOL)parseSymbols:(NSRange)token_range 
-       previousState:(mALexerState)previous_state
-{
-/*    NSString * str = [s string];
-    NSString * token_string = [str substringWithRange:token_range];
-    NSString * sub_string;
-    NSRange sub_range;
-    NSRange t_range;
-
-    while( token_range.length )
-    {
-        
-        
-        sub_string = [str substringWithRange:sub_range];
-        
-        if( [sub_string isEqualToString:@"\/\*"] )
-        {
-            // t_range2 - from token_range.location to the end of the text
-            NSRange t_range2 = NSMakeRange( token_range.location, 
-                                            [str length] - token_range.location );
-            
-            // t_range - the location/length of the comment end delimiter
-            t_range = [str rangeOfString:@"\*\/" options:0
-                                   range:t_range2];
-            if( t_range.location == NSNotFound )
-                token_range.length = [str length] - token_range.location;
-            else
-                token_range.length = t_range.location + 2;
-            [self setState:MA_LS_COMMENT forRange:token_range];
-        }
-        
-        else if( [def isOperator:token_string] )
-            [self setState:MA_LS_OPERATOR forRange:token_range];
-        
-        else
-            [self setState:MA_LS_DEFAULT forRange:token_range];
-    }*/
-    
-    // see if theres a comment delimiter somewhere in there
-    NSString * str = [s string];
-    NSRange comment_range = [str rangeOfString:@"/*" options:0
-                                         range:token_range];
-    if( comment_range.location == NSNotFound )
-        // for now, just set everything thats not a comment to operator
-    {
-        [self setState:MA_LS_OPERATOR forRange:token_range];
-        return NO;
-    }
-    
-    // set everything up to the comment as an operator
-    NSRange t_range = NSMakeRange( token_range.location, 
-                                   comment_range.location - token_range.location );
-    if( t_range.length > 0 )
-        [self setState:MA_LS_OPERATOR forRange:t_range];
-    
-    t_range = NSMakeRange( token_range.location, 2 );
-    [self setState:MA_LS_COMMENT_START forRange:t_range];
-    token_range.location++;
-    
-    // t_range2 - everything from comment start delimiter to buffer end
-    NSRange t_range2 = NSMakeRange( comment_range.location, 
-                                    [str length] - comment_range.location );
-    
-    // t_range - the location/length of the comment end delimiter
-    t_range = [str rangeOfString:@"*/" options:0
-                           range:t_range2];
-    
-    if( t_range.location == NSNotFound )
-        token_range.length = [str length] - token_range.location;
-    else
-    {
-        token_range.length = t_range.location - token_range.location - 2;
-        [self setState:MA_LS_COMMENT_END forRange:t_range];
-    }
-    
-    [self setState:MA_LS_COMMENT forRange:token_range];
-    
-    return YES;
-}
-
-- (void)setState:(mALexerState)state forRange:(NSRange)range
-{
-    if( state == MA_LS_KEYWORD )
-    {
-        [s addAttribute:NSForegroundColorAttributeName 
-                  value:[NSColor blueColor]
-                  range:range];
-    }
-    
-    else if( state == MA_LS_OPERATOR )
-    {
-        [s addAttribute:NSForegroundColorAttributeName 
-                  value:[NSColor greenColor]
-                  range:range];
-    }
-    
-    else if( state == MA_LS_COMMENT )
-    {
-        [s addAttribute:NSForegroundColorAttributeName 
-                  value:[NSColor redColor]
-                  range:range];
-    }
-    
-    else if( state == MA_LS_COMMENT_START || state == MA_LS_COMMENT_END )
-    {
-        [s addAttribute:NSForegroundColorAttributeName 
-                  value:[NSColor redColor]
-                  range:range];
-    }
-    
-    else if( state == MA_LS_DEFAULT )
-    {
-        [s addAttribute:NSForegroundColorAttributeName 
-                  value:[NSColor blackColor]
-                  range:range];
-    }
-    
-    [s addAttribute:mALexerStateAttributeName 
-              value:[NSNumber numberWithInt:state]
-              range:range];
-}
-
-@end
 
 //
 //  IDEKit_LexParser.mm
@@ -1115,7 +688,10 @@ enum {
                 color = IDEKit_kLangColor_NormalText;
                 break;
             case  IDEKit_kLexKindKeyword:
-                color = IDEKit_kLangColor_Keywords;
+            {
+                NSDictionary * info = [myKeywords objectForKey:[[string string] substringWithRange:tokenRange]];
+                color = [[info objectForKey:IDEKit_LexColorKey] intValue];
+            }
                 break;
             case IDEKit_kLexKindPrePro:
                 color = IDEKit_kLangColor_Preprocessor;
@@ -1334,6 +910,8 @@ NSString *IDEKit_NameForColor(int color)
         case IDEKit_kLangColor_UserKeyword2: return @"User 2";
         case IDEKit_kLangColor_UserKeyword3: return @"User 3";
         case IDEKit_kLangColor_UserKeyword4: return @"User 4";
+            // spencer: add ugens
+        case IDEKit_kLangColor_OtherSymbol1: return @"UGens";
     }
     return nil;
 }

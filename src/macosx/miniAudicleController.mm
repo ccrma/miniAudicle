@@ -148,7 +148,17 @@ NSString * const mAChuginExtension = @"chug";
         [syntax_highlighter addSingleComment: @"//"];        
         [syntax_highlighter addSingleComment: @"<--"];        
                 
-        [syntax_highlighter setIdentifierChars:[NSCharacterSet characterSetWithCharactersInString: @"_"]];
+        [syntax_highlighter setIdentifierChars:[NSCharacterSet characterSetWithCharactersInString:@"_"]];
+        
+        for(id class_name in [mASyntaxHighlighting defaultClasses])
+        {
+            [syntax_highlighter addKeyword:class_name color:IDEKit_kLangColor_Classes lexID:0];
+        }
+        
+        for(id ugen_name in [mASyntaxHighlighting defaultUGens])
+        {
+            [syntax_highlighter addKeyword:ugen_name color:IDEKit_kLangColor_OtherSymbol1 lexID:0];
+        }
         
         // detach one empty NSThread to put Cocoa into multithreaded mode
         [NSThread detachNewThreadSelector:@selector(nop:) 
