@@ -26,11 +26,11 @@ CXX=clang++
 endif
 
 INCLUDES=-I$(CHUCK_SRC_DIR) -I$(OSX_DIR) -I.
-CFLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH $(INCLUDES)
+CFLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH $(INCLUDES) -mmacosx-version-min=10.5
 
 FRAMEWORKS=Cocoa CoreAudio CoreMIDI CoreFoundation Carbon IOKit Security
 LIBS=$(addprefix -framework ,$(FRAMEWORKS)) $(LINK_EXTRAS) -lstdc++ -lm
-LDFLAGS=$(LIBS)
+LDFLAGS=$(LIBS) -mmacosx-version-min=10.5
 
 ARCHOPTS=$(addprefix -arch ,$(ARCHS))
 
@@ -62,7 +62,7 @@ endif
 CFLAGSDEPEND?=$(patsubst -arch %,,$(CFLAGS))
 
 # distribution target presets
-VERSION?=0.2.2c
+VERSION?=0.2.3-beta-1
 
 DIST_DIR=miniAudicle-$(VERSION)
 
@@ -256,4 +256,4 @@ dist: miniAudicle
 	cp -r $(CHUCK_MANUAL) $(DIST_DIR)/documentation/
 	rm -rf `find $(DIST_DIR)/ -name .DS_Store` `find $(DIST_DIR)/ -name .svn`
 	hdiutil create -srcfolder $(DIST_DIR) miniAudicle-$(VERSION).dmg -format UDZO -imagekey zlib-level=9
-	rm -r $(DIST_DIR)/
+	rm -rf $(DIST_DIR)/
