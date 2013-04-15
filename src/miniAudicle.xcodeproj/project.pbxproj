@@ -15,6 +15,12 @@
 		090B4B1C0C4F038E00DF5577 /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
 		090B4B1D0C4F038E00DF5577 /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */; };
 		090B4B1E0C4F038E00DF5577 /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */; };
+		090F4B41171C61A700530FC7 /* chuck_io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090F4B3D171C61A700530FC7 /* chuck_io.cpp */; };
+		090F4B42171C61A700530FC7 /* chuck_io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090F4B3D171C61A700530FC7 /* chuck_io.cpp */; };
+		090F4B43171C61A700530FC7 /* chuck_io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090F4B3D171C61A700530FC7 /* chuck_io.cpp */; };
+		090F4B44171C61A700530FC7 /* util_serial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090F4B3F171C61A700530FC7 /* util_serial.cpp */; };
+		090F4B45171C61A700530FC7 /* util_serial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090F4B3F171C61A700530FC7 /* util_serial.cpp */; };
+		090F4B46171C61A700530FC7 /* util_serial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090F4B3F171C61A700530FC7 /* util_serial.cpp */; };
 		0910DF7A0B1D0D0800BBC2B8 /* mAParentFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0910DF790B1D0D0800BBC2B8 /* mAParentFrame.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I$(WX_INCLUDE_DIR) -I$(WX_SETUP_INCLUDE_DIR) -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
 		0913D8291654CBC000210436 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0913D8281654CBC000210436 /* QuartzCore.framework */; };
 		09216C0A134ED4A900145064 /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09216C09134ED4A900145064 /* MultitouchSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -362,6 +368,10 @@
 		090A5BE70AA75AEA005DC04D /* util_hid.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = util_hid.cpp; sourceTree = "<group>"; };
 		090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = uana_xform.cpp; sourceTree = "<group>"; };
 		090B4B1B0C4F038E00DF5577 /* uana_xform.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = uana_xform.h; sourceTree = "<group>"; };
+		090F4B3D171C61A700530FC7 /* chuck_io.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_io.cpp; sourceTree = "<group>"; };
+		090F4B3E171C61A700530FC7 /* chuck_io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chuck_io.h; sourceTree = "<group>"; };
+		090F4B3F171C61A700530FC7 /* util_serial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util_serial.cpp; sourceTree = "<group>"; };
+		090F4B40171C61A700530FC7 /* util_serial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util_serial.h; sourceTree = "<group>"; };
 		0910DF790B1D0D0800BBC2B8 /* mAParentFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 30; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = mAParentFrame.cpp; path = wxw/mAParentFrame.cpp; sourceTree = SOURCE_ROOT; tabWidth = 4; usesTabs = 0; };
 		0913D8281654CBC000210436 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		09216C09134ED4A900145064 /* MultitouchSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultitouchSupport.framework; path = System/Library/PrivateFrameworks/MultitouchSupport.framework; sourceTree = SDKROOT; };
@@ -1555,6 +1565,10 @@
 		09A40B000A9A52FC007604EA /* ChucK */ = {
 			isa = PBXGroup;
 			children = (
+				090F4B3D171C61A700530FC7 /* chuck_io.cpp */,
+				090F4B3E171C61A700530FC7 /* chuck_io.h */,
+				090F4B3F171C61A700530FC7 /* util_serial.cpp */,
+				090F4B40171C61A700530FC7 /* util_serial.h */,
 				093E267714A12E3B008694BC /* mo_audio.mm */,
 				09812B980C6E394A00D1D68C /* uana_extract.cpp */,
 				09812B990C6E394A00D1D68C /* uana_extract.h */,
@@ -2116,6 +2130,8 @@
 				09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */,
 				09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.mm in Sources */,
 				09608ADF14B40DE4009450FE /* mAConsoleMonitorController.mm in Sources */,
+				090F4B43171C61A700530FC7 /* chuck_io.cpp in Sources */,
+				090F4B46171C61A700530FC7 /* util_serial.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2175,6 +2191,8 @@
 				090B4B1E0C4F038E00DF5577 /* uana_xform.cpp in Sources */,
 				09812B9C0C6E394A00D1D68C /* uana_extract.cpp in Sources */,
 				09D9D910164359EC00E6CC4E /* RtAudio.cpp in Sources */,
+				090F4B41171C61A700530FC7 /* chuck_io.cpp in Sources */,
+				090F4B44171C61A700530FC7 /* util_serial.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2324,6 +2342,8 @@
 				09AC749A13E36A970015CC99 /* RtAudio.cpp in Sources */,
 				093A212C14BF587500497856 /* mAChuginManager.mm in Sources */,
 				093A213114BFF5DC00497856 /* BLAuthentication.m in Sources */,
+				090F4B42171C61A700530FC7 /* chuck_io.cpp in Sources */,
+				090F4B45171C61A700530FC7 /* util_serial.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
