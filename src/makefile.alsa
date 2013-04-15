@@ -46,6 +46,7 @@ CHUCK_OBJS=$(CHUCK_SRC_DIR)/chuck.tab.o $(CHUCK_SRC_DIR)/chuck.yy.o \
 	$(CHUCK_SRC_DIR)/chuck_ugen.o $(CHUCK_SRC_DIR)/chuck_globals.o \
 	$(CHUCK_SRC_DIR)/chuck_otf.o $(CHUCK_SRC_DIR)/chuck_stats.o \
 	$(CHUCK_SRC_DIR)/chuck_bbq.o $(CHUCK_SRC_DIR)/chuck_shell.o \
+    $(CHUCK_SRC_DIR)/chuck_io.o \
 	$(CHUCK_SRC_DIR)/chuck_console.o $(CHUCK_SRC_DIR)/digiio_rtaudio.o \
     $(CHUCK_SRC_DIR)/hidio_sdl.o \
 	$(CHUCK_SRC_DIR)/midiio_rtmidi.o $(CHUCK_SRC_DIR)/RtAudio/RtAudio.o \
@@ -59,7 +60,7 @@ CHUCK_OBJS=$(CHUCK_SRC_DIR)/chuck.tab.o $(CHUCK_SRC_DIR)/chuck.yy.o \
 	$(CHUCK_SRC_DIR)/util_network.o $(CHUCK_SRC_DIR)/util_raw.o \
 	$(CHUCK_SRC_DIR)/util_string.o $(CHUCK_SRC_DIR)/util_thread.o \
 	$(CHUCK_SRC_DIR)/util_xforms.o $(CHUCK_SRC_DIR)/util_opsc.o \
-	$(CHUCK_SRC_DIR)/util_hid.o $(SF_OBJ)
+	$(CHUCK_SRC_DIR)/util_hid.o $(CHUCK_SRC_DIR)/util_serial.o $(SF_OBJ)
 
 OBJS=miniAudicle.o $(WXW_DIR)/mAParentFrame.o $(WXW_DIR)/mADocument.o \
      $(WXW_DIR)/mAView.o $(WXW_DIR)/mAVMMonitor.o $(WXW_DIR)/mAMenuBar.o \
