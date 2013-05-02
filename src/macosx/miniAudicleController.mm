@@ -39,6 +39,7 @@ U.S.A.
 #import "mAChuginManager.h"
 #import "chuck_shell.h"
 #import "miniAudicle.h"
+#import "mARecordSessionController.h"
 
 extern const char MA_VERSION[];
 extern const char CK_VERSION[];
@@ -81,6 +82,9 @@ NSString * const mAChuginExtension = @"chug";
                                                  selector:@selector(applicationWillTerminate:)
                                                      name:NSApplicationWillTerminateNotification
                                                    object:NSApp];
+        
+        m_recordSessionController = [[mARecordSessionController alloc] initWithWindowNibName:@"mARecordSession"];
+        m_recordSessionController.controller = self;
         
         // initialize syntax highlighting
         syntax_highlighter = [[IDEKit_LexParser alloc] init];
@@ -182,13 +186,11 @@ NSString * const mAChuginExtension = @"chug";
         delete ma;
     }
     
-    if( syntax_highlighter )
-        [syntax_highlighter release];
-    
-    if( class_names )
-        [class_names release];
-    
+    [syntax_highlighter release];
+    [class_names release];
     [madv autorelease];
+    m_recordSessionController.controller = nil;
+    [m_recordSessionController release];
     
     [super dealloc];
 }
@@ -848,6 +850,13 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
 {
     return in_lockdown;
 }
+
+
+- (IBAction)recordSession:(id)sender
+{
+    [[m_recordSessionController window] makeKeyAndOrderFront:sender];
+}
+
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menu_item
 {

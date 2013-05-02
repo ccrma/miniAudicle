@@ -50,6 +50,9 @@ t_CKBOOL init_class_mauigauge( Chuck_Env * env );
 
 static t_CKINT mauielement_offset_data = 0;
 
+t_CKFLOAT marecordsession_leftVU = 0;
+t_CKFLOAT marecordsession_rightVU = 0;
+
 //-----------------------------------------------------------------------------
 // name: init_maui()
 // desc: ...
@@ -84,6 +87,22 @@ t_CKBOOL init_maui( Chuck_Env * env )
     //EM_log( CK_LOG_SEVERE, "module MAUI_Gauge..." );
     if( !init_class_mauigauge( env ) ) goto error;
 
+    // import
+    if( !type_engine_import_class_begin( env, "mARecordSession", "Object",
+                                        env->global(), NULL,
+                                        NULL ) )
+        goto error;
+    
+    // add leftVU
+    if( !type_engine_import_svar( env, "float", "leftVU", FALSE, (t_CKUINT)&marecordsession_leftVU ) )
+        goto error;
+    // add rightVU
+    if( !type_engine_import_svar( env, "float", "rightVU", FALSE, (t_CKUINT)&marecordsession_rightVU ) )
+        goto error;
+    
+    // end the class import
+    type_engine_import_class_end( env );
+    
     // clear context
     type_engine_unload_context( env );
 
@@ -192,8 +211,8 @@ t_CKBOOL init_class_mauielement( Chuck_Env * env )
     
 error:
         
-        // end the class import
-        type_engine_import_class_end( env );
+    // end the class import
+    type_engine_import_class_end( env );
     
     return FALSE;
 }

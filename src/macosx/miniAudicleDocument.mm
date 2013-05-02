@@ -38,22 +38,8 @@ U.S.A.
 #import "miniAudicle.h"
 #import "chuck_parse.h"
 #import "util_string.h"
+#import "NSString+STLString.h"
 
-
-@interface NSString ( mADocument )
-- (string)stlString;
-@end
-
-@implementation NSString ( mADocument )
-
-- (string)stlString
-{
-    NSData * data = [self dataUsingEncoding:NSASCIIStringEncoding
-                       allowLossyConversion:YES];
-    return string( ( char * ) [data bytes], [data length] );
-}
-
-@end
 
 @implementation miniAudicleDocument
 

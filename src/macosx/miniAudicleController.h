@@ -42,6 +42,7 @@ class miniAudicle;
 @class miniAudiclePreferencesController;
 @class IDEKit_LexParser;
 @class miniAudicleDocument;
+@class mARecordSessionController;
 
 extern NSString * const mAVirtualMachineDidTurnOnNotification;
 extern NSString * const mAVirtualMachineDidTurnOffNotification;
@@ -58,6 +59,7 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
     NSDrawer * document_drawer;
     NSTextField * about_text;
     miniAudiclePreferencesController * mapc;
+    mARecordSessionController * m_recordSessionController;
     
     miniAudicleDocument * main_document;
     
@@ -125,6 +127,7 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
 - (void)toggleVM:(id)sender;
 - (void)setLockdown:(BOOL)_lockdown;
 - (BOOL)isInLockdown;
+- (IBAction)recordSession:(id)sender;
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menu_item;
 

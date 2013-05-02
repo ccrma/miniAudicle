@@ -122,6 +122,12 @@ CK_DLL_DTOR( mauigauge_dtor );
 CK_DLL_MFUN( mauigauge_set_value );
 CK_DLL_MFUN( mauigauge_get_value );
 
+//-----------------------------------------------------------------------------
+// Record Session VUs
+//-----------------------------------------------------------------------------
+extern t_CKFLOAT marecordsession_leftVU;
+extern t_CKFLOAT marecordsession_rightVU;
+
 //}
 
 #endif

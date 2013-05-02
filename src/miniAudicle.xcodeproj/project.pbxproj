@@ -112,6 +112,9 @@
 		095B59720BC6D0F900E8759D /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 095B59710BC6D0F900E8759D /* error.png */; };
 		09608ADF14B40DE4009450FE /* mAConsoleMonitorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09608ADD14B40DE4009450FE /* mAConsoleMonitorController.mm */; };
 		09608AE014B40DE4009450FE /* mAConsoleMonitor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09608ADE14B40DE4009450FE /* mAConsoleMonitor.xib */; };
+		0962902F1731CCD1007CADBA /* record.ck in Resources */ = {isa = PBXBuildFile; fileRef = 0962902D1731CCD1007CADBA /* record.ck */; };
+		096290301731CCD1007CADBA /* recordvu.ck in Resources */ = {isa = PBXBuildFile; fileRef = 0962902E1731CCD1007CADBA /* recordvu.ck */; };
+		0962903317323065007CADBA /* NSString+STLString.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0962903217323065007CADBA /* NSString+STLString.mm */; };
 		0964A38E172F8DC800043ABA /* record.png in Resources */ = {isa = PBXBuildFile; fileRef = 0964A38C172F8DC800043ABA /* record.png */; };
 		0964A38F172F8DC800043ABA /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 0964A38D172F8DC800043ABA /* stop.png */; };
 		0964A392172F8F2E00043ABA /* mARecordSession.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0964A390172F8F2E00043ABA /* mARecordSession.xib */; };
@@ -424,6 +427,10 @@
 		09608ADC14B40DE4009450FE /* mAConsoleMonitorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAConsoleMonitorController.h; sourceTree = "<group>"; };
 		09608ADD14B40DE4009450FE /* mAConsoleMonitorController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAConsoleMonitorController.mm; sourceTree = "<group>"; };
 		09608ADE14B40DE4009450FE /* mAConsoleMonitor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAConsoleMonitor.xib; sourceTree = "<group>"; };
+		0962902D1731CCD1007CADBA /* record.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = record.ck; sourceTree = "<group>"; };
+		0962902E1731CCD1007CADBA /* recordvu.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = recordvu.ck; sourceTree = "<group>"; };
+		0962903117323065007CADBA /* NSString+STLString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+STLString.h"; path = "macosx/NSString+STLString.h"; sourceTree = "<group>"; };
+		0962903217323065007CADBA /* NSString+STLString.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "NSString+STLString.mm"; path = "macosx/NSString+STLString.mm"; sourceTree = "<group>"; };
 		0964A38C172F8DC800043ABA /* record.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = record.png; path = macosx/icon/record.png; sourceTree = "<group>"; };
 		0964A38D172F8DC800043ABA /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stop.png; path = macosx/icon/stop.png; sourceTree = "<group>"; };
 		0964A391172F8F2E00043ABA /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/English.lproj/mARecordSession.xib; sourceTree = "<group>"; };
@@ -1012,6 +1019,8 @@
 				093A212B14BF587500497856 /* mAChuginManager.mm */,
 				0964A393172F8FD800043ABA /* mARecordSessionController.h */,
 				0964A394172F8FD800043ABA /* mARecordSessionController.mm */,
+				0962903117323065007CADBA /* NSString+STLString.h */,
+				0962903217323065007CADBA /* NSString+STLString.mm */,
 			);
 			name = "miniAudicle OS X";
 			sourceTree = "<group>";
@@ -1072,8 +1081,11 @@
 		0964A396172F976F00043ABA /* ChucK Scripts */ = {
 			isa = PBXGroup;
 			children = (
+				0962902D1731CCD1007CADBA /* record.ck */,
+				0962902E1731CCD1007CADBA /* recordvu.ck */,
 			);
 			name = "ChucK Scripts";
+			path = "macosx/ChucK Scripts";
 			sourceTree = "<group>";
 		};
 		0980603D0AA158F600915136 /* Examples */ = {
@@ -2088,6 +2100,8 @@
 				0964A38E172F8DC800043ABA /* record.png in Resources */,
 				0964A38F172F8DC800043ABA /* stop.png in Resources */,
 				0964A392172F8F2E00043ABA /* mARecordSession.xib in Resources */,
+				0962902F1731CCD1007CADBA /* record.ck in Resources */,
+				096290301731CCD1007CADBA /* recordvu.ck in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2376,6 +2390,7 @@
 				090F4B45171C61A700530FC7 /* util_serial.cpp in Sources */,
 				0964A395172F8FD800043ABA /* mARecordSessionController.mm in Sources */,
 				0964A399172F9F4C00043ABA /* mA_oscbus.cpp in Sources */,
+				0962903317323065007CADBA /* NSString+STLString.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

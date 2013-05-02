@@ -2,7 +2,7 @@
 me.arg(0) => string location;
 me.arg(1) => string filename;
 
-dac => Gain g => WvOut2 w => blackhole;
+dac => WvOut2 w => blackhole;
 if(filename == "special:auto")
 {
     location + "/chuck-session" => w.autoPrefix;
@@ -10,9 +10,9 @@ if(filename == "special:auto")
 }
 else
 {
-    location + "/" + "filename" => w.wavFilename;
+    location + "/" + filename => w.wavFilename;
 }
-.5 => g.gain;
+.5 => w.fileGain;
 
 // temporary workaround to automatically close file on remove-shred
 null @=> w;
