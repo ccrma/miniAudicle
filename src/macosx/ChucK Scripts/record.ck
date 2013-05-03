@@ -2,7 +2,7 @@
 me.arg(0) => string location;
 me.arg(1) => string filename;
 
-dac => WvOut2 w => blackhole;
+dac => WvOut w => blackhole;
 if(filename == "special:auto")
 {
     location + "/chuck-session" => w.autoPrefix;

@@ -785,14 +785,15 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
     {
         [madv makeObjectsPerformSelector:@selector(vm_off)];
         [vm_monitor vm_off];
-        [[NSNotificationCenter defaultCenter] postNotificationName:mAVirtualMachineDidTurnOffNotification
-                                                            object:self];
         
         vm_on = NO;
 
         [self adjustChucKMenuItems];
         
         ma->stop_vm();
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:mAVirtualMachineDidTurnOffNotification
+                                                            object:self];
     }
     
     else

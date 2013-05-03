@@ -12,16 +12,22 @@
 
 @class miniAudicleController;
 
-@interface mARecordSessionController : NSWindowController
+@interface mARecordSessionController : NSWindowController<NSWindowDelegate>
 {
     IBOutlet NSLevelIndicator * rightChannel;
     IBOutlet NSLevelIndicator * leftChannel;
     IBOutlet NSTextField * fileName;
     IBOutlet NSTextField * saveLocation;
+    IBOutlet NSTextField * status;
+    
+    IBOutlet NSButton * recordButton;
+    IBOutlet NSButton * stopButton;
     
     miniAudicleController * _controller;
     
     t_CKUINT docid;
+    t_CKUINT vu_shred_id;
+    t_CKUINT record_shred_id;
     NSTimer * timer;
 }
 
