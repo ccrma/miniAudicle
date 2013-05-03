@@ -12,6 +12,9 @@
 #import "NSString+STLString.h"
 #import "miniAudicle_import.h"
 
+NSString * const mARecordSessionFilenameKey = @"mARecordSessionFilenameKey";
+NSString * const mARecordSessionSaveToKey = @"mARecordSessionSaveToKey";
+
 @interface mARecordSessionController ()
 
 - (t_CKUINT)add:(NSString *)filename args:(NSArray *)args;
@@ -19,6 +22,7 @@
 - (void)updateStatus;
 - (void)vmDidTurnOn:(NSNotification *)n;
 - (void)vmDidTurnOff:(NSNotification *)n;
+- (void)showError:(NSString *)description;
 
 @end
 
@@ -30,6 +34,10 @@
 {
     if(self = [super initWithWindowNibName:windowNibName])
     {
+        fileNameAuto = YES;
+        [fileName setStringValue:@"Auto"];
+        [saveLocation setStringValue:@"~/Desktop"];
+        
         docid = 0;
         vu_shred_id = 0;
         record_shred_id = 0;
@@ -76,19 +84,97 @@
 
 - (IBAction)editFileName:(id)sender
 {
+    if(fileNameAuto)
+        [fileNameEntry setStringValue:@""];
+    else
+    {
+        [fileNameEntry setStringValue:[[fileName stringValue] stringByDeletingPathExtension]];
+    }
+
+    [NSApp beginSheet:fileNameSheet
+       modalForWindow:[self window]
+        modalDelegate:self
+       didEndSelector:@selector(didEndSheet:returnCode:contextInfo:)
+          contextInfo:nil];
     
+    [fileNameEntry becomeFirstResponder];
 }
+
+- (IBAction)fileNameSheetOK:(id)sender
+{
+    if([[fileNameEntry stringValue] length] > 0)
+    {
+        NSString * value = [fileNameEntry stringValue];
+        if([[[value pathExtension] lowercaseString] isEqualToString:@"wav"])
+            [fileName setStringValue:value];
+        else
+            [fileName setStringValue:[NSString stringWithFormat:@"%@.wav", value]];
+        fileNameAuto = NO;
+    }
+    
+    [NSApp endSheet:fileNameSheet];
+}
+
+- (IBAction)fileNameSheetCancel:(id)sender
+{
+    [NSApp endSheet:fileNameSheet];
+}
+
+- (IBAction)fileNameSheetAuto:(id)sender
+{
+    fileNameAuto = YES;
+    [fileName setStringValue:@"Auto"];
+
+    [NSApp endSheet:fileNameSheet];
+}
+
 
 - (IBAction)changeSaveLocation:(id)sender
 {
+    NSOpenPanel * openPanel = [NSOpenPanel openPanel];
+    [openPanel setAllowsMultipleSelection:NO];
+    [openPanel setCanChooseDirectories:YES];
+    [openPanel setCanChooseFiles:NO];
+    [openPanel setCanCreateDirectories:YES];
     
+    [openPanel beginSheetForDirectory:[[saveLocation stringValue] stringByExpandingTildeInPath]
+                                 file:nil
+                                types:nil
+                       modalForWindow:[self window]
+                        modalDelegate:self
+                       didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:)
+                          contextInfo:nil];
+}
+
+- (void)openPanelDidEnd:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void *)contextInfo
+{
+    if(returnCode == NSOKButton)
+    {
+        NSURL * url = [[panel URLs] objectAtIndex:0];
+        [saveLocation setStringValue:[[url path] stringByAbbreviatingWithTildeInPath]];
+    }
 }
 
 - (IBAction)record:(id)sender
 {
+    NSString * _sl = [[saveLocation stringValue] stringByExpandingTildeInPath];
+    
+    BOOL isDirectory = NO;
+    if(![[NSFileManager defaultManager] fileExistsAtPath:_sl isDirectory:&isDirectory] ||
+       !isDirectory)
+    {
+        [self showError:@"The selected directory does not exist, or is not a directory. Please choose a different directory to save the recording. "];
+        return;
+    }
+    
     if(record_shred_id == 0)
     {
-        record_shred_id = [self add:@"record.ck" args:@[[@"~/Desktop" stringByExpandingTildeInPath], @"special:auto"]];
+        NSString * _fn;
+        if(fileNameAuto)
+            _fn = @"special:auto";
+        else
+            _fn = [fileName stringValue];
+        record_shred_id = [self add:@"record.ck" args:@[_sl, _fn]];
     }
     
     [self updateStatus];
@@ -173,14 +259,22 @@
         else if( otf_result == OTF_COMPILE_ERROR )
         {
             int error_line;
-            if( ma->get_last_result( docid, NULL, NULL, &error_line ) )
+            string error_text;
+            if( ma->get_last_result( docid, NULL, &error_text, &error_line ) )
             {
+                [self showError:[NSString stringWithFormat:@"The virtual machine reported a compile error: %s", error_text.c_str()]];
+            }
+            else
+            {
+                [self showError:@"The virtual machine reported a compile error."];
             }
             
             return 0;
         }
         else
         {
+            [self showError:@"The virtual machine reported an unknown error."];
+
             return 0;
         }
     }
@@ -221,6 +315,25 @@
     }
 }
 
+
+- (void)showError:(NSString *)description
+{
+    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+    [alert addButtonWithTitle:@"OK"];
+    [alert setMessageText:@"An error occurred."];
+    [alert setInformativeText:description];
+    [alert setAlertStyle:NSWarningAlertStyle];
+    
+    [alert beginSheetModalForWindow:[self window]
+                      modalDelegate:self
+                     didEndSelector:nil
+                        contextInfo:nil];
+}
+
+- (void)didEndSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
+{
+    [sheet orderOut:self];
+}
 
 @end
 

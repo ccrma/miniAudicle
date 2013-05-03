@@ -12,16 +12,20 @@
 
 @class miniAudicleController;
 
-@interface mARecordSessionController : NSWindowController<NSWindowDelegate>
+@interface mARecordSessionController : NSWindowController<NSWindowDelegate, NSOpenSavePanelDelegate>
 {
     IBOutlet NSLevelIndicator * rightChannel;
     IBOutlet NSLevelIndicator * leftChannel;
-    IBOutlet NSTextField * fileName;
     IBOutlet NSTextField * saveLocation;
     IBOutlet NSTextField * status;
     
     IBOutlet NSButton * recordButton;
     IBOutlet NSButton * stopButton;
+    
+    IBOutlet NSTextField * fileName;
+    IBOutlet NSWindow * fileNameSheet;
+    IBOutlet NSTextField * fileNameEntry;
+    BOOL fileNameAuto;
     
     miniAudicleController * _controller;
     
@@ -37,5 +41,9 @@
 - (IBAction)changeSaveLocation:(id)sender;
 - (IBAction)record:(id)sender;
 - (IBAction)stop:(id)sender;
+
+- (IBAction)fileNameSheetOK:(id)sender;
+- (IBAction)fileNameSheetCancel:(id)sender;
+- (IBAction)fileNameSheetAuto:(id)sender;
 
 @end
