@@ -95,49 +95,16 @@ U.S.A.
 {
     [super windowControllerDidLoadNib:windowController];
 
-//    window = [windowController window];
-    
-//    miniAudicleController * mac = [NSDocumentController sharedDocumentController];
-//    [mac setLastWindowTopLeftCorner:[window cascadeTopLeftFromPoint:[mac lastWindowTopLeftCorner]]];
-//
-//    // set text view syntax highlighter
-//    [text_view setSyntaxHighlighter:[mac syntaxHighlighter] colorer:mac];
-//    if( data != nil )
-//    {
-//        BOOL esi = [text_view smartIndentationEnabled];
-//        [text_view setSmartIndentationEnabled:NO];
-//        [[text_view textView] setString:data];
-//        [text_view setSmartIndentationEnabled:esi];
-//    }
-    
-//    // build the toolbar
-//    toolbar = [[NSToolbar alloc] initWithIdentifier:@"miniAudicle"];
-//    [toolbar setVisible:YES];
-//    [toolbar setDelegate:self];
-//    
-//    // add toolbar to the window
-//    [window setToolbar:toolbar];
-//    
-//    NSButton * toolbar_pill = [window standardWindowButton:NSWindowToolbarButton];
-//    [toolbar_pill setTarget:self];
-//    [toolbar_pill setAction:@selector( toggleToolbar: )];
-//    
-//    [window makeFirstResponder:text_view];
-    
     [self userDefaultsDidChange:nil];
 }
 
-//- (NSString * )windowNibName
-//{
-//    return @"miniAudicleDocument";
-//}
-
 -(void)makeWindowControllers
 {
-//    [[NSNotificationCenter defaultCenter] postNotificationName:DocumentNeedWindowNotification object:self];
     miniAudicleController * mac = [NSDocumentController sharedDocumentController];
     [[mac topWindowController] addDocument:self];
+    [[mac topWindowController] window];
     [[[mac topWindowController] window] makeKeyAndOrderFront:self];
+    [self addWindowController:[mac topWindowController]];
 }
 
 - (NSString *)windowNibName

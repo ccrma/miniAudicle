@@ -32,7 +32,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "PSMTabBarControl/PSMTabBarControl.h"
+#import <PSMTabBarControl/PSMTabBarControl.h>
 
 @interface mAMultiDocWindowController : NSWindowController <NSWindowDelegate, NSToolbarDelegate>
 {
@@ -48,9 +48,10 @@
     BOOL _showsToolbar;
 }
 
-- (PSMTabBarControl *)tabBar;
-
 - (IBAction)closeTab:(id)sender;
+
+- (unsigned int)numberOfTabs;
+- (PSMTabBarControl *)tabBar;
 
 - (void)addDocument:(NSDocument *)docToAdd;
 - (void)removeDocument:(NSDocument *)docToRemove;
@@ -58,10 +59,10 @@
 - (void)vm_on;
 - (void)vm_off;
 
-- (void)add:(id)sender;
-- (void)remove:(id)sender;
-- (void)replace:(id)sender;
-- (void)removeall:(id)sender;
-- (void)removelast:(id)sender;
+- (IBAction)add:(id)sender;
+- (IBAction)remove:(id)sender;
+- (IBAction)replace:(id)sender;
+- (IBAction)removeall:(id)sender;
+- (IBAction)removelast:(id)sender;
 
 @end

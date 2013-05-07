@@ -86,7 +86,7 @@ using namespace std;
 
 - (void)activate
 {
-    [[self.view window] makeFirstResponder:text_view];
+    [[self.view window] makeFirstResponder:[text_view textView]];
 }
 
 

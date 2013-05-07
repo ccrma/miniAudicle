@@ -64,7 +64,8 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
     
     miniAudicleDocument * main_document;
     
-    mAMultiDocWindowController * m_windowController;
+    mAMultiDocWindowController * _topWindowController;
+    NSMutableArray * _windowControllers;
     
     NSWindow * remote_vm_dialog;
     NSTextField * remote_vm_host;
@@ -94,6 +95,8 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
 - (miniAudicle *)miniAudicle;
 
 - (mAMultiDocWindowController *)topWindowController;
+- (mAMultiDocWindowController *)newWindowController;
+- (void)windowDidCloseForController:(mAMultiDocWindowController *)controller;
 
 // overridden NSDocumentController functions
 - (void)addDocument:(NSDocument *)doc;

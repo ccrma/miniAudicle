@@ -80,12 +80,6 @@ class miniAudicle;
 - (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type;
 - (BOOL)isEmpty;
 
-- (void)add:(id)sender;
-- (void)remove:(id)sender;
-- (void)replace:(id)sender;
-- (void)removeall:(id)sender;
-- (void)removelast:(id)sender;
-
 - (void)removeShred:(id)sender;
 - (void)replaceShred:(id)sender;
 
@@ -109,7 +103,5 @@ class miniAudicle;
 
 - (void)setShowsStatusBar:(BOOL)_shows_status_bar;
 - (BOOL)showsStatusBar;
-
-- (IBAction)handleArgumentText:(id)sender;
 
 @end

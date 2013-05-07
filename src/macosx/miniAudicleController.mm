@@ -91,7 +91,7 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
         m_recordSessionController = [[mARecordSessionController alloc] initWithWindowNibName:@"mARecordSession"];
         m_recordSessionController.controller = self;
         
-        m_windowController = [[mAMultiDocWindowController alloc] initWithWindowNibName:@"mADocumentWindow"];
+        _windowControllers = [NSMutableArray new];
         
         // initialize syntax highlighting
         syntax_highlighter = [[IDEKit_LexParser alloc] init];
@@ -175,7 +175,7 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
         [NSThread detachNewThreadSelector:@selector(nop:) 
                                  toTarget:self withObject:nil];
         
-        [self adjustChucKMenuItems];
+        [self adjustChucKMenuItems];        
     }
     
     return self;
@@ -198,7 +198,7 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     [madv autorelease];
     m_recordSessionController.controller = nil;
     [m_recordSessionController release];
-    [m_windowController release];
+    [_windowControllers release];
     
     [super dealloc];
 }
@@ -224,6 +224,7 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
         
     // init preferences
     // [mapc initDefaults];
+    [self newDocument:self];
 }
 
 //-----------------------------------------------------------------------------
@@ -233,6 +234,29 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 - (miniAudicle *)miniAudicle
 {
     return ma;
+}
+
+
+- (mAMultiDocWindowController *)topWindowController
+{
+    if(_topWindowController == nil)
+        _topWindowController = [self newWindowController];
+    return _topWindowController;
+}
+
+
+- (mAMultiDocWindowController *)newWindowController
+{
+    mAMultiDocWindowController * windowController = [[[mAMultiDocWindowController alloc] initWithWindowNibName:@"mADocumentWindow"] autorelease];
+    [_windowControllers addObject:windowController];
+    return windowController;
+}
+
+- (void)windowDidCloseForController:(mAMultiDocWindowController *)controller
+{
+    [_windowControllers removeObject:controller];
+    if(controller == _topWindowController)
+        _topWindowController = nil;
 }
 
 
@@ -278,17 +302,6 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     objc_msgSend(delegate,didCloseAllSelector,self,_didCloseAll,contextInfo);
 }
 
-
-- (mAMultiDocWindowController *)topWindowController
-{
-    return m_windowController;
-}
-
-
-//-----------------------------------------------------------------------------
-// name: addDocument
-// desc: creates a new "Document", typically creating a new window for it.  
-//-----------------------------------------------------------------------------
 - (void)addDocument:(NSDocument *)doc
 {
     [doc retain];
@@ -301,10 +314,16 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 - (void)removeDocument:(NSDocument *)doc
 {
     [super removeDocument:doc];
-    
+
     [madv removeObject:doc];
     
-    [m_windowController removeDocument:doc];
+    mAMultiDocWindowController * windowController = [[[[(miniAudicleDocument *)doc viewController] view] window] windowController];
+    [windowController removeDocument:doc];
+    if([windowController numberOfTabs] == 0)
+    {
+        [self windowDidCloseForController:windowController];
+        [[windowController window] close];
+    }
 }
 
 
@@ -402,9 +421,11 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
         [[edit_menu itemWithTag:2] setTitle:@"Lock Editing"];
         [[edit_menu itemWithTag:2] setEnabled:NO];
     }
-    
     else
     {
+        if([[window windowController] isKindOfClass:[mAMultiDocWindowController class]])
+            _topWindowController = [window windowController];
+        
         if( vm_on )
         {
             NSMenu * ckmenu = [[[NSApp mainMenu] itemWithTitle:@"ChucK"] submenu];
@@ -853,7 +874,7 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
     {
 //        [madv makeObjectsPerformSelector:@selector(vm_off)];
         [vm_monitor vm_off];
-        [m_windowController vm_off];
+        [_windowControllers makeObjectsPerformSelector:@selector(vm_off)];
         
         vm_on = NO;
 
@@ -1035,7 +1056,7 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
     [self setLockdown:NO];
     
 //    [madv makeObjectsPerformSelector:@selector(vm_on)];
-    [m_windowController vm_on];
+    [_windowControllers makeObjectsPerformSelector:@selector(vm_on)];
     [vm_monitor vm_on];
     [[NSNotificationCenter defaultCenter] postNotificationName:mAVirtualMachineDidTurnOnNotification
                                                         object:self];
