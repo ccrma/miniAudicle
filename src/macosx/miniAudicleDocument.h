@@ -37,6 +37,7 @@ U.S.A.
 class miniAudicle;
 @class NumberedTextView;
 @class mADocumentViewController;
+@class mAMultiDocWindowController;
 
 @interface miniAudicleDocument : NSDocument <NSToolbarDelegate>
 {
@@ -48,7 +49,7 @@ class miniAudicle;
     IBOutlet NSView * view;
     
     mADocumentViewController * _viewController;
-    NSWindowController * _windowController;
+    mAMultiDocWindowController * _windowController;
     
     NSMutableArray * arguments;
     BOOL reject_argument_edits;
@@ -81,9 +82,6 @@ class miniAudicle;
 - (NSData *)dataRepresentationOfType:(NSString *)type;
 - (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type;
 - (BOOL)isEmpty;
-
-- (void)removeShred:(id)sender;
-- (void)replaceShred:(id)sender;
 
 - (void)setLockEditing:(BOOL)lock;
 - (BOOL)lockEditing;

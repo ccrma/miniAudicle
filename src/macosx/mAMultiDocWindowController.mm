@@ -111,12 +111,15 @@
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 //    [tabBar hideTabBar:YES animate:NO];
     [tabBar setHideForSingleTab:NO];
+    [tabBar setCanCloseOnlyTab:YES];
     [tabBar setSizeCellsToFit:YES];
     [tabBar setAllowsResizing:YES];
     [tabBar setAlwaysShowActiveTab:NO];
 //    [tabBar setHideForSingleTab:YES];
     [tabBar setShowAddTabButton:YES];
     [tabBar setStyleNamed:@"Metal"];
+    [[tabBar addTabButton] setTarget:self];
+    [[tabBar addTabButton] setAction:@selector(newDocument:)];
     
     // add views for any documents that were added before the window was created
     for(NSDocument* document in self.documents)
@@ -218,6 +221,13 @@
     [documents removeObject:docToRemove];
 }
 
+- (void)documentWasEdited:(NSDocument *)doc
+{
+    mADocumentViewController *viewController = [(miniAudicleDocument *)doc viewController];
+    if(viewController == (mADocumentViewController *)[[tabView selectedTabViewItem] identifier])
+        [[self window] setDocumentEdited:YES];
+}
+
 - (void)setDocument:(NSDocument *)document
 {
     // NSLog(@"Will not set document to: %@",document);
@@ -248,12 +258,25 @@
         [document close];
 }
 
+
 #pragma mark NSTabView + PSMTabBarControl delegate methods
+
+- (void)newDocument:(id)sender
+{
+    [[self window] makeKeyAndOrderFront:sender];
+    [[NSDocumentController sharedDocumentController] newDocument:sender];
+}
+
+- (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem
+{
+    NSViewController* ctrl = (NSViewController*)[tabViewItem identifier];
+    NSDocument* doc = [(id)ctrl document];
+    [[self window] setDocumentEdited:[doc isDocumentEdited]];
+}
 
 - (BOOL)tabView:(NSTabView *)aTabView shouldCloseTabViewItem:(NSTabViewItem *)tabViewItem
 {
-    NSViewController* ctrl = (NSViewController*)[[tabView selectedTabViewItem] identifier];
-    
+    NSViewController* ctrl = (NSViewController*)[tabViewItem identifier];
     NSDocument* doc = [(id)ctrl document];
     
     [doc canCloseDocumentWithDelegate:self

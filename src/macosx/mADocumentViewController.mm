@@ -46,6 +46,7 @@ using namespace std;
 
 @implementation mADocumentViewController
 
+@synthesize isEdited = _edited;
 @synthesize document = _document;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -55,6 +56,7 @@ using namespace std;
     {
         // Initialization code here.
         arguments = [NSMutableArray new];
+        self.isEdited = NO;
     }
     
     return self;

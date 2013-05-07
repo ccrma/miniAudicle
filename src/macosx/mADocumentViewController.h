@@ -51,9 +51,12 @@ class miniAudicle;
     
     miniAudicle * ma;
     t_CKUINT docid;
+    
+    BOOL _edited;
 }
 
 @property (assign, nonatomic) miniAudicleDocument* document;
+@property (nonatomic) BOOL isEdited;
 
 - (void)activate;
 - (IBAction)handleArgumentText:(id)sender;

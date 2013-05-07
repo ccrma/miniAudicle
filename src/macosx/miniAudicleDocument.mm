@@ -148,6 +148,13 @@ U.S.A.
     return [self.viewController isEmpty] && ![self isDocumentEdited] && [self fileURL] == nil;
 }
 
+- (void)updateChangeCount:(NSDocumentChangeType)changeType
+{
+    [super updateChangeCount:changeType];
+    _viewController.isEdited = YES;
+    [_windowController documentWasEdited:self];
+}
+
 - (void)userDefaultsDidChange:(NSNotification *)n
 {
     if( !has_customized_appearance )
@@ -164,24 +171,6 @@ U.S.A.
 {
     ma = t_ma;
     docid = ma->allocate_document_id();
-}
-
-- (void)removeShred:(id)sender
-{
-    if( sender && [sender tag] == 0 )
-    {
-        
-    }
-    
-    else
-    {
-        
-    }
-}
-
-- (void)replaceShred:(id)sender
-{
-    
 }
 
 - (void)setLockEditing:(BOOL)lock
@@ -202,12 +191,6 @@ U.S.A.
 - (void)saveBackup:(id)sender
 {
     //NSString * backup_name = [[NSUserDefaults standardUserDefaults] stringForKey:];
-}
-
-- (void)toggleToolbar:(id)sender
-{
-    miniAudicleController * mac = [NSDocumentController sharedDocumentController];
-    [mac hideToolbar:sender];
 }
 
 #define __MA_ARGUMENTS_TEXT_HEIGHT__ 24
@@ -324,11 +307,6 @@ U.S.A.
 - (BOOL)showsStatusBar
 {
     return shows_status_bar;
-}
-
-- (void)controlTextDidBeginEditing:(NSNotification *)n
-{
-    reject_argument_edits = NO;
 }
 
 @end
