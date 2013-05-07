@@ -58,4 +58,10 @@
 - (void)vm_on;
 - (void)vm_off;
 
+- (void)add:(id)sender;
+- (void)remove:(id)sender;
+- (void)replace:(id)sender;
+- (void)removeall:(id)sender;
+- (void)removelast:(id)sender;
+
 @end

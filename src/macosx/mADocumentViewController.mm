@@ -39,6 +39,7 @@
 #import "chuck_parse.h"
 #import "util_string.h"
 #import "NSString+STLString.h"
+#import "miniAudicle.h"
 
 using namespace std;
 
@@ -89,11 +90,11 @@ using namespace std;
 }
 
 
-- (void)removeFromWindowController
+- (void)setMiniAudicle:(miniAudicle *)_ma
 {
-    
+    ma = _ma;
+    docid = ma->allocate_document_id();
 }
-
 
 - (void)handleArgumentText:(id)sender
 {
@@ -110,6 +111,190 @@ using namespace std;
             [arguments addObject:[NSString stringWithUTF8String:iter->c_str()]];
     }
 }
+
+
+#pragma mark OTF commands
+
+- (void)add:(id)sender
+{
+    [self handleArgumentText:argument_text];
+    
+    string result;
+    t_CKUINT shred_id;
+    string code_name = string( [[self.document displayName] stlString] );
+    
+    string code = [[[text_view textView] string] stlString];
+    
+    vector< string > argv;
+    NSEnumerator * args_enum = [arguments objectEnumerator];
+    NSString * arg = nil;
+    while( arg = [args_enum nextObject] )
+        argv.push_back( [arg stlString] );
+    
+    [text_view setShowsErrorLine:NO];
+    
+    string filepath;
+    if([self.document fileURL] && [[self.document fileURL] isFileURL])
+        filepath = [[[self.document fileURL] path] stlString];
+    else
+        filepath = "";
+    
+    t_OTF_RESULT otf_result = ma->run_code( code, code_name, argv, filepath,
+                                            docid, shred_id, result );
+    
+    if( otf_result == OTF_SUCCESS )
+    {
+        [status_text setStringValue:@""];
+        
+        [[text_view textView] animateAdd];
+        [text_view setShowsErrorLine:NO];
+    }
+    
+    else if( otf_result == OTF_VM_TIMEOUT )
+    {
+        miniAudicleController * mac = [NSDocumentController sharedDocumentController];
+        [mac setLockdown:YES];
+    }
+    
+    else if( otf_result == OTF_COMPILE_ERROR )
+    {
+        int error_line;
+        if( ma->get_last_result( docid, NULL, NULL, &error_line ) )
+        {
+            [text_view setShowsErrorLine:YES];
+            [text_view setErrorLine:error_line];
+        }
+        
+        [[text_view textView] animateError];
+        
+        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
+    }
+    
+    else
+    {
+        [[text_view textView] animateError];
+        
+        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
+    }
+    //miniAudicleController * mac = [NSDocumentController sharedDocumentController];
+    //[mac updateSyntaxHighlighting];
+}
+
+- (void)replace:(id)sender
+{
+    [self handleArgumentText:argument_text];
+    
+    string result;
+    t_CKUINT shred_id;
+    string code = [[[text_view textView] string] stlString];
+    string code_name = [[self.document displayName] stlString];
+    
+    vector< string > argv;
+    NSEnumerator * args_enum = [arguments objectEnumerator];
+    NSString * arg = nil;
+    while( arg = [args_enum nextObject] )
+        argv.push_back( [arg stlString] );
+    
+    string filepath;
+    if([self.document fileURL] && [[self.document fileURL] isFileURL])
+        filepath = [[[self.document fileURL] path] stlString];
+    else
+        filepath = "";
+    
+    t_OTF_RESULT otf_result = ma->replace_code( code, code_name, argv, filepath,
+                                               docid, shred_id, result );
+    
+    if( otf_result == OTF_SUCCESS )
+    {
+        [status_text setStringValue:@""];
+        
+        [[text_view textView] animateReplace];
+        [text_view setShowsErrorLine:NO];
+    }
+    
+    else if( otf_result == OTF_VM_TIMEOUT )
+    {
+        miniAudicleController * mac = [NSDocumentController sharedDocumentController];
+        [mac setLockdown:YES];
+    }
+    
+    else if( otf_result == OTF_COMPILE_ERROR )
+    {
+        int error_line;
+        if( ma->get_last_result( docid, NULL, NULL, &error_line ) )
+        {
+            [text_view setShowsErrorLine:YES];
+            [text_view setErrorLine:error_line];
+        }
+        
+        [[text_view textView] animateError];
+        
+        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
+    }
+    
+    else
+    {
+        [[text_view textView] animateError];
+        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
+    }
+    
+    //miniAudicleController * mac = [NSDocumentController sharedDocumentController];
+    //[mac updateSyntaxHighlighting];
+}
+
+- (void)remove:(id)sender
+{
+    string result;
+    t_CKUINT shred_id;
+    
+    t_OTF_RESULT otf_result = ma->remove_code( docid, shred_id, result );
+    
+    if( otf_result == OTF_SUCCESS )
+    {
+        [status_text setStringValue:@""];
+        
+        [[text_view textView] animateRemove];
+        [text_view setShowsErrorLine:NO];
+    }
+    
+    else if( otf_result == OTF_VM_TIMEOUT )
+    {
+        miniAudicleController * mac = [NSDocumentController sharedDocumentController];
+        [mac setLockdown:YES];
+    }
+    
+    else
+    {
+        [[text_view textView] animateError];
+        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
+    }
+}
+
+- (void)removeall:(id)sender
+{
+    string result;
+    if( !ma->removeall( docid, result ) )
+    {
+        [[text_view textView] animateRemoveAll];
+        [text_view setShowsErrorLine:NO];
+    }
+    
+    [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
+}
+
+- (void)removelast:(id)sender
+{
+    string result;
+    if( !ma->removelast( docid, result ) )
+    {
+        [[text_view textView] animateRemoveLast];
+        [text_view setShowsErrorLine:NO];
+    }
+    
+    [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
+}
+
+
 
 
 @end

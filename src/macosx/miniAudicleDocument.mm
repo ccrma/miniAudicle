@@ -54,12 +54,6 @@ U.S.A.
     {
         ma = nil;
         
-        docid = 0;
-        vm_on = FALSE;
-        
-        arguments = [[NSMutableArray alloc] init];
-        reject_argument_edits = YES;
-        
         shows_arguments = YES;
         shows_toolbar = YES;
         shows_line_numbers = YES;
@@ -84,14 +78,9 @@ U.S.A.
 
 - (void)dealloc
 {
-    [text_view release];
-    [toolbar release];
-    [status_text release];
     [data release];
     if( ma != nil )
         ma->free_document_id( docid );
-    
-    [argument_text release];
     
     _viewController.document = nil;
     [_viewController release];
@@ -163,6 +152,7 @@ U.S.A.
 {
     mADocumentViewController* ctrl = [[mADocumentViewController alloc] initWithNibName:@"mADocumentView" bundle:nil];
     ctrl.document = self;
+    [ctrl setMiniAudicle:ma];
     _viewController = ctrl;
     
     return ctrl;
@@ -209,185 +199,6 @@ U.S.A.
 {
     ma = t_ma;
     docid = ma->allocate_document_id();
-}
-
-- (void)add:(id)sender
-{
-    [self handleArgumentText:argument_text];
-    
-    string result;
-    t_CKUINT shred_id;
-    string code_name = string( [[self displayName] stlString] );
-
-    string code = [[[text_view textView] string] stlString];
-    
-    vector< string > argv;
-    NSEnumerator * args_enum = [arguments objectEnumerator];
-    NSString * arg = nil;
-    while( arg = [args_enum nextObject] )
-        argv.push_back( [arg stlString] );
-    
-    [text_view setShowsErrorLine:NO];
-    
-    string filepath;
-    if([self fileURL] && [[self fileURL] isFileURL])
-        filepath = [[[self fileURL] path] stlString];
-    else
-        filepath = "";
-    
-    t_OTF_RESULT otf_result = ma->run_code( code, code_name, argv, filepath, 
-                                            docid, shred_id, result );
-    
-    if( otf_result == OTF_SUCCESS )
-    {
-        [status_text setStringValue:@""];
-        
-        [[text_view textView] animateAdd];
-        [text_view setShowsErrorLine:NO];
-    }
-    
-    else if( otf_result == OTF_VM_TIMEOUT )
-    {
-        miniAudicleController * mac = [NSDocumentController sharedDocumentController];
-        [mac setLockdown:YES];
-    }
-    
-    else if( otf_result == OTF_COMPILE_ERROR )
-    {
-        int error_line;
-        if( ma->get_last_result( docid, NULL, NULL, &error_line ) )
-        {
-            [text_view setShowsErrorLine:YES];
-            [text_view setErrorLine:error_line];
-        }
-        
-        [[text_view textView] animateError];
-        
-        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
-    }
-    
-    else
-    {
-        [[text_view textView] animateError];
-        
-        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
-    }
-    //miniAudicleController * mac = [NSDocumentController sharedDocumentController];
-    //[mac updateSyntaxHighlighting];
-}
-
-- (void)replace:(id)sender
-{
-    [self handleArgumentText:argument_text];
-    
-    string result;
-    t_CKUINT shred_id;
-    string code = [[[text_view textView] string] stlString];
-    string code_name = [[self displayName] stlString];
-    
-    vector< string > argv;
-    NSEnumerator * args_enum = [arguments objectEnumerator];
-    NSString * arg = nil;
-    while( arg = [args_enum nextObject] )
-        argv.push_back( [arg stlString] );
-    
-    string filepath;
-    if([self fileURL] && [[self fileURL] isFileURL])
-        filepath = [[[self fileURL] path] stlString];
-    else
-        filepath = "";
-
-    t_OTF_RESULT otf_result = ma->replace_code( code, code_name, argv, filepath,
-                                                docid, shred_id, result );
-    
-    if( otf_result == OTF_SUCCESS )
-    {
-        [status_text setStringValue:@""];
-        
-        [[text_view textView] animateReplace];
-        [text_view setShowsErrorLine:NO];
-    }
-    
-    else if( otf_result == OTF_VM_TIMEOUT )
-    {
-        miniAudicleController * mac = [NSDocumentController sharedDocumentController];
-        [mac setLockdown:YES];
-    }
-    
-    else if( otf_result == OTF_COMPILE_ERROR )
-    {
-        int error_line;
-        if( ma->get_last_result( docid, NULL, NULL, &error_line ) )
-        {
-            [text_view setShowsErrorLine:YES];
-            [text_view setErrorLine:error_line];
-        }
-        
-        [[text_view textView] animateError];
-        
-        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
-    }
-    
-    else
-    {
-        [[text_view textView] animateError];
-        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
-    }
-    
-    //miniAudicleController * mac = [NSDocumentController sharedDocumentController];
-    //[mac updateSyntaxHighlighting];
-}
-
-- (void)remove:(id)sender
-{
-    string result;
-    t_CKUINT shred_id;
-    
-    t_OTF_RESULT otf_result = ma->remove_code( docid, shred_id, result );
-    
-    if( otf_result == OTF_SUCCESS )
-    {
-        [status_text setStringValue:@""];
-        
-        [[text_view textView] animateRemove];
-        [text_view setShowsErrorLine:NO];
-    }
-    
-    else if( otf_result == OTF_VM_TIMEOUT )
-    {
-        miniAudicleController * mac = [NSDocumentController sharedDocumentController];
-        [mac setLockdown:YES];
-    }
-    
-    else
-    {
-        [[text_view textView] animateError];
-        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
-    }
-}
-
-- (void)removeall:(id)sender
-{
-    string result;
-    if( !ma->removeall( docid, result ) )
-    {
-        [[text_view textView] animateRemoveAll];
-        [text_view setShowsErrorLine:NO];
-    }
-    
-    [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
-}
-
-- (void)removelast:(id)sender
-{
-    string result;
-    if( !ma->removelast( docid, result ) )
-    {
-        [[text_view textView] animateRemoveLast];
-        [text_view setShowsErrorLine:NO];
-    }
-    
-    [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
 }
 
 - (void)removeShred:(id)sender
@@ -548,22 +359,6 @@ U.S.A.
 - (BOOL)showsStatusBar
 {
     return shows_status_bar;
-}
-
-- (void)handleArgumentText:(id)sender
-{
-    NSMutableString * arg_text = [NSMutableString stringWithString:[sender stringValue]];
-    [arg_text insertString:@"filename:" atIndex:0];
-    string filename;
-    vector< string > argv;
-    if( extract_args( [arg_text stlString], filename, argv ) )
-    {
-        [arguments removeAllObjects];
-        
-        vector< string >::const_iterator iter = argv.begin(), end = argv.end();
-        for( ; iter != end; iter++ )
-            [arguments addObject:[NSString stringWithUTF8String:iter->c_str()]];
-    }
 }
 
 - (void)controlTextDidBeginEditing:(NSNotification *)n

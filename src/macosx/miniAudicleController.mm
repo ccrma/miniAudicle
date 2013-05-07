@@ -158,7 +158,7 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
         [syntax_highlighter addCommentStart: @"/*" end: @"*/"];
         [syntax_highlighter addSingleComment: @"//"];        
         [syntax_highlighter addSingleComment: @"<--"];        
-                
+        
         [syntax_highlighter setIdentifierChars:[NSCharacterSet characterSetWithCharactersInString:@"_"]];
         
         for(id class_name in [mASyntaxHighlighting defaultClasses])
@@ -242,7 +242,7 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 // The object is instantiated in Window.xib and becomes the application-global document
 // controller, overriding NSDocumentControllerÔs default instance.
 
-- (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose  contextInfo:(void  *)contextInfo
+- (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose contextInfo:(void  *)contextInfo
 {
     if (contextInfo == MultiWindowDocumentControllerCloseAllContext) {
         NSLog(@"in close all. should close: %@",@(shouldClose));
@@ -292,7 +292,7 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 - (void)addDocument:(NSDocument *)doc
 {
     [doc retain];
-    [( miniAudicleDocument * )doc setMiniAudicle:ma];
+    [(miniAudicleDocument *)doc setMiniAudicle:ma];
     [madv addObject:doc];
     
     [super addDocument:doc];
@@ -493,7 +493,7 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 //-----------------------------------------------------------------------------
 - (void)addShred:(id)sender
 {
-    [[self currentDocument] add:sender];
+    [[(id)[self currentDocument] viewController] add:sender];
 }
 
 //-----------------------------------------------------------------------------
@@ -502,7 +502,7 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 //-----------------------------------------------------------------------------
 - (void)removeShred:(id)sender
 {
-    [[self currentDocument] remove:sender];
+    [[(id)[self currentDocument] viewController] remove:sender];
 }
 
 //-----------------------------------------------------------------------------
@@ -511,7 +511,7 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 //-----------------------------------------------------------------------------
 - (void)replaceShred:(id)sender
 {
-    [[self currentDocument] replace:sender];
+    [[(id)[self currentDocument] viewController] replace:sender];
 }
 
 //-----------------------------------------------------------------------------
@@ -520,7 +520,10 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 //-----------------------------------------------------------------------------
 - (void)addOpenDocuments:(id)sender
 {
-    [madv makeObjectsPerformSelector:@selector(add:) withObject:sender];
+    for(NSDocument * doc in madv)
+    {
+        [[(id)doc viewController] add:sender];
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -529,7 +532,10 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 //-----------------------------------------------------------------------------
 - (void)replaceOpenDocuments:(id)sender
 {
-    [madv makeObjectsPerformSelector:@selector(replace:) withObject:sender];
+    for(NSDocument * doc in madv)
+    {
+        [[(id)doc viewController] replace:sender];
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -538,7 +544,10 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 //-----------------------------------------------------------------------------
 - (void)removeOpenDocuments:(id)sender
 {
-    [madv makeObjectsPerformSelector:@selector(remove:) withObject:sender];
+    for(NSDocument * doc in madv)
+    {
+        [[(id)doc viewController] remove:sender];
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -547,13 +556,13 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 //-----------------------------------------------------------------------------
 - (void)removeAllShreds:(id)sender
 {
-    if( [self currentDocument] )
-        [[self currentDocument] removeall:sender];
-    else
-    {
-        string result;
-        ma->removeall( docid, result );
-    }   
+//    if( [self currentDocument] )
+//        [[self currentDocument] removeall:sender];
+//    else
+//    {
+    string result;
+    ma->removeall( docid, result );
+//    }
 }
 
 - (void)commentOut:(id)sender
@@ -564,13 +573,13 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 
 - (void)removeLastShred:(id)sender
 {
-    if( [self currentDocument] )
-        [[self currentDocument] removelast:sender];
-    else
-    {
-        string result;
-        ma->removelast( docid, result );
-    }
+//    if( [self currentDocument] )
+//        [[self currentDocument] removelast:sender];
+//    else
+//    {
+    string result;
+    ma->removelast( docid, result );
+//    }
 }
 
 - (void)abortCurrentShred:(id)sender

@@ -32,6 +32,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "chuck_def.h"
 
 class miniAudicle;
 @class NumberedTextView;
@@ -47,12 +48,22 @@ class miniAudicle;
     IBOutlet NSView * argument_view;
     
     NSMutableArray * arguments;
+    
+    miniAudicle * ma;
+    t_CKUINT docid;
 }
 
 @property (assign, nonatomic) miniAudicleDocument* document;
 
 - (void)activate;
-- (void)removeFromWindowController;
 - (IBAction)handleArgumentText:(id)sender;
+
+- (void)setMiniAudicle:(miniAudicle *)_ma;
+
+- (void)add:(id)sender;
+- (void)remove:(id)sender;
+- (void)replace:(id)sender;
+- (void)removeall:(id)sender;
+- (void)removelast:(id)sender;
 
 @end

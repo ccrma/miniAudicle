@@ -95,6 +95,8 @@
 
     // add toolbar to the window
     [[self window] setToolbar:_toolbar];
+    
+    [[self window] setShowsToolbarButton:YES];
 
     NSButton * toolbar_pill = [[self window] standardWindowButton:NSWindowToolbarButton];
     [toolbar_pill setTarget:self];
@@ -105,29 +107,24 @@
 
 -(void)addViewWithDocument:(NSDocument*) document
 {
-    if ([document respondsToSelector:@selector(newPrimaryViewController)])
-    {
-        NSViewController* addedCtrl = [(id)document newPrimaryViewController];
-        [self.contentViewControllers addObject:addedCtrl];
-        
-        NSTabViewItem* tabViewItem = [[[NSTabViewItem alloc] initWithIdentifier:addedCtrl] autorelease];
-        [tabViewItem setView: addedCtrl.view];
-        [tabViewItem setLabel: [document displayName]];
-        
-        NSUInteger tabIndex = [tabView numberOfTabViewItems];
-        [tabView insertTabViewItem:tabViewItem atIndex:tabIndex];
-        [tabView selectTabViewItem:tabViewItem];
-        
-        [[tabView superview] setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable |
-         NSViewMinXMargin | NSViewMinYMargin |
-         NSViewMaxXMargin | NSViewMaxYMargin];
-        
-        if([addedCtrl respondsToSelector:@selector(activate)])
-            [(id)addedCtrl activate];
-
-        [document setWindow:self.window];
-        
-    }
+    NSViewController* addedCtrl = [(id)document newPrimaryViewController];
+    [self.contentViewControllers addObject:addedCtrl];
+    
+    NSTabViewItem* tabViewItem = [[[NSTabViewItem alloc] initWithIdentifier:addedCtrl] autorelease];
+    [tabViewItem setView: addedCtrl.view];
+    [tabViewItem setLabel: [document displayName]];
+    
+    NSUInteger tabIndex = [tabView numberOfTabViewItems];
+    [tabView insertTabViewItem:tabViewItem atIndex:tabIndex];
+    [tabView selectTabViewItem:tabViewItem];
+    
+    [[tabView superview] setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable |
+     NSViewMinXMargin | NSViewMinYMargin |
+     NSViewMaxXMargin | NSViewMaxYMargin];
+    
+    [(id)addedCtrl activate];
+    
+    [document setWindow:self.window];
     
     [document addWindowController:self];
 }
@@ -234,7 +231,7 @@
     NSLog(@"Did Detach Tab View Item");    
 }
 
--(NSDocument*)document
+- (NSDocument *) document
 {
     NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
     NSViewController* ctrl = (NSViewController*)tabViewItem.identifier;
@@ -296,13 +293,48 @@
 {
     _vm_on = t_vm_on;
     
-    NSArray * toolbar_items = [_toolbar items];
-    
-    int i = 0, len = [toolbar_items count];
-    for( ; i < len; i++ )
+    for(NSToolbarItem * item in [_toolbar items])
     {
-        [[toolbar_items objectAtIndex:i] setEnabled:_vm_on];
+        [item setEnabled:_vm_on];
     }
+}
+
+
+#pragma mark OTF toolbar messages
+
+- (void)add:(id)sender
+{
+    NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
+    mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
+    [vc add:sender];
+}
+
+- (void)remove:(id)sender
+{
+    NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
+    mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
+    [vc remove:sender];
+}
+
+- (void)replace:(id)sender
+{
+    NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
+    mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
+    [vc replace:sender];
+}
+
+- (void)removeall:(id)sender
+{
+    NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
+    mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
+    [vc removeall:sender];
+}
+
+- (void)removelast:(id)sender
+{
+    NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
+    mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
+    [vc removelast:sender];
 }
 
 #pragma mark NSToolbar stuff
@@ -379,7 +411,6 @@
 {
     if( [toolbar_item tag] == 1 )
         return _vm_on;
-    
     else
         return YES;
 }
