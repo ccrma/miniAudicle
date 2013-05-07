@@ -36,7 +36,6 @@ U.S.A.
 
 class miniAudicle;
 @class NumberedTextView;
-@class RBSplitSubview;
 @class mAArgumentsTableView;
 
 @interface miniAudicleDocument : NSDocument <NSToolbarDelegate>
@@ -45,23 +44,15 @@ class miniAudicle;
     IBOutlet NumberedTextView * text_view;
     IBOutlet NSTextField * status_text;
     IBOutlet NSTextField * argument_text;
-    IBOutlet NSButton * toggle_argument_subview;
-    IBOutlet NSButton * button_bar;
-    IBOutlet NSTableView * argument_table;
+    IBOutlet NSView * argument_view;
+    IBOutlet NSView * view;
     
     NSMutableArray * arguments;
     BOOL reject_argument_edits;
 
     NSToolbar * toolbar;
     NSString * data;
-        
-    //NSDrawer * shred_drawer;
-    //NSDrawer * document_drawer;
-    NSDrawer * argument_drawer;
     
-    NSMenu * remove_menu;
-    NSMenu * replace_menu;
-        
     miniAudicle * ma;
     t_CKUINT docid;
     BOOL vm_on;
@@ -74,9 +65,13 @@ class miniAudicle;
     BOOL has_customized_appearance;
 }
 
+@property (readonly, strong, nonatomic) NSString * data;
+
 - (id)init;
 
 - (void)userDefaultsDidChange:(NSNotification *)n;
+
+- (NSViewController *)newPrimaryViewController;
 
 - (NSData *)dataRepresentationOfType:(NSString *)type;
 - (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type;
@@ -117,6 +112,4 @@ class miniAudicle;
 
 - (IBAction)handleArgumentText:(id)sender;
 
-- (void)argumentsTableView:(mAArgumentsTableView *)atv 
-                deleteRows:(NSIndexSet *)is;
 @end

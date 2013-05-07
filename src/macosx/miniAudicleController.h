@@ -43,6 +43,7 @@ class miniAudicle;
 @class IDEKit_LexParser;
 @class miniAudicleDocument;
 @class mARecordSessionController;
+@class mAMultiDocWindowController;
 
 extern NSString * const mAVirtualMachineDidTurnOnNotification;
 extern NSString * const mAVirtualMachineDidTurnOffNotification;
@@ -63,6 +64,8 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
     
     miniAudicleDocument * main_document;
     
+    mAMultiDocWindowController * m_windowController;
+    
     NSWindow * remote_vm_dialog;
     NSTextField * remote_vm_host;
     NSTextField * remote_vm_port;
@@ -76,6 +79,8 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
     BOOL in_lockdown;
     
     IBOutlet NSMenuItem *startVMMenuItem;
+    
+    BOOL _didCloseAll;
 }
 
 // static/non-static initializers
@@ -87,6 +92,8 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
 
 // miniAudicle accessor
 - (miniAudicle *)miniAudicle;
+
+- (mAMultiDocWindowController *)topWindowController;
 
 // overridden NSDocumentController functions
 - (void)addDocument:(NSDocument *)doc;

@@ -40,6 +40,9 @@ U.S.A.
 #import "chuck_shell.h"
 #import "miniAudicle.h"
 #import "mARecordSessionController.h"
+#import "mAMultiDocWindowController.h"
+#import <objc/message.h>
+
 
 extern const char MA_VERSION[];
 extern const char CK_VERSION[];
@@ -49,6 +52,8 @@ NSString * const mAVirtualMachineDidTurnOnNotification = @"VirtualMachineDidTurn
 NSString * const mAVirtualMachineDidTurnOffNotification = @"VirtualMachineDidTurnOnNotification";
 
 NSString * const mAChuginExtension = @"chug";
+
+const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcartwright.MultiWindowDocumentControllerCloseAllContext";
 
 @interface miniAudicleController (Private)
 - (void)adjustChucKMenuItems;
@@ -85,6 +90,8 @@ NSString * const mAChuginExtension = @"chug";
         
         m_recordSessionController = [[mARecordSessionController alloc] initWithWindowNibName:@"mARecordSession"];
         m_recordSessionController.controller = self;
+        
+        m_windowController = [[mAMultiDocWindowController alloc] initWithWindowNibName:@"mADocumentWindow"];
         
         // initialize syntax highlighting
         syntax_highlighter = [[IDEKit_LexParser alloc] init];
@@ -191,6 +198,7 @@ NSString * const mAChuginExtension = @"chug";
     [madv autorelease];
     m_recordSessionController.controller = nil;
     [m_recordSessionController release];
+    [m_windowController release];
     
     [super dealloc];
 }
@@ -226,6 +234,56 @@ NSString * const mAChuginExtension = @"chug";
 {
     return ma;
 }
+
+
+#pragma mark NSDocument Delegate
+
+// We want a custom subclass of NSDocumentController to handle document closure.
+// The object is instantiated in Window.xib and becomes the application-global document
+// controller, overriding NSDocumentController‘s default instance.
+
+- (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose  contextInfo:(void  *)contextInfo
+{
+    if (contextInfo == MultiWindowDocumentControllerCloseAllContext) {
+        NSLog(@"in close all. should close: %@",@(shouldClose));
+        if (shouldClose) {
+            // work on a copy of the window controllers array so that the doc can mutate its own array.
+            NSArray* windowCtrls = [doc.windowControllers copy];
+            for (NSWindowController* windowCtrl in windowCtrls) {
+                if ([windowCtrl respondsToSelector:@selector(removeDocument:)]) {
+                    [(id)windowCtrl removeDocument:doc];
+                }
+            }
+            
+            [windowCtrls release];
+            [doc close];
+            [self removeDocument:doc];
+        } else {
+            _didCloseAll = NO;
+        }
+    }
+}
+
+
+#pragma mark NSDocumentController
+
+- (void)closeAllDocumentsWithDelegate:(id)delegate didCloseAllSelector:(SEL)didCloseAllSelector contextInfo:(void *)contextInfo
+{
+    NSLog(@"Closing all documents");
+    _didCloseAll = YES;
+    for (NSDocument* currentDocument in self.documents) {
+        [currentDocument canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(document:shouldClose:contextInfo:) contextInfo:(void*)MultiWindowDocumentControllerCloseAllContext];
+    }
+    
+    objc_msgSend(delegate,didCloseAllSelector,self,_didCloseAll,contextInfo);
+}
+
+
+- (mAMultiDocWindowController *)topWindowController
+{
+    return m_windowController;
+}
+
 
 //-----------------------------------------------------------------------------
 // name: addDocument
@@ -785,6 +843,7 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
     {
         [madv makeObjectsPerformSelector:@selector(vm_off)];
         [vm_monitor vm_off];
+        [m_windowController vm_off];
         
         vm_on = NO;
 
@@ -966,6 +1025,7 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
     [self setLockdown:NO];
     
     [madv makeObjectsPerformSelector:@selector(vm_on)];
+    [m_windowController vm_on];
     [vm_monitor vm_on];
     [[NSNotificationCenter defaultCenter] postNotificationName:mAVirtualMachineDidTurnOnNotification
                                                         object:self];

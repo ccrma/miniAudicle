@@ -39,19 +39,19 @@ U.S.A.
 #import "chuck_parse.h"
 #import "util_string.h"
 #import "NSString+STLString.h"
+#import "mADocumentViewController.h"
+#import "mAMultiDocWindowController.h"
 
 
 @implementation miniAudicleDocument
+
+@synthesize data;
 
 - (id)init
 {
     if( self = [super init] )
     {
         ma = nil;
-        text_view = nil;
-        toolbar = nil;
-        status_text = nil;
-        data = nil;
         
         docid = 0;
         vm_on = FALSE;
@@ -77,32 +77,20 @@ U.S.A.
 
 - (void)awakeFromNib
 {
-    [toggle_argument_subview setFont:[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]]];
-    [toggle_argument_subview setBezelStyle:NSShadowlessSquareBezelStyle];
-    
-    [toggle_argument_subview retain];
     [argument_text retain];
     [status_text retain];
-    //[toggle_argument_subview setBezelStyle:NSSmallSquareBezelStyle];
 }
 
 - (void)dealloc
 {
-    if( text_view != nil)
-        [text_view release];
-    if( toolbar != nil )
-        [toolbar release];
-    if( status_text != nil )
-        [status_text release];
-    if( data != nil )
-        [data release];
+    [text_view release];
+    [toolbar release];
+    [status_text release];
+    [data release];
     if( ma != nil )
         ma->free_document_id( docid );
     
-    if( toggle_argument_subview )
-        [toggle_argument_subview release];
-    if( argument_text )
-        [argument_text release];
+    [argument_text release];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -111,42 +99,75 @@ U.S.A.
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)windowController
 {
-    window = [windowController window];
-    
-    miniAudicleController * mac = [NSDocumentController sharedDocumentController];
-    [mac setLastWindowTopLeftCorner:[window cascadeTopLeftFromPoint:[mac lastWindowTopLeftCorner]]];
+    [super windowControllerDidLoadNib:windowController];
 
-    // set text view syntax highlighter
-    [text_view setSyntaxHighlighter:[mac syntaxHighlighter] colorer:mac];
-    if( data != nil )
-    {
-        BOOL esi = [text_view smartIndentationEnabled];
-        [text_view setSmartIndentationEnabled:NO];
-        [[text_view textView] setString:data];
-        [text_view setSmartIndentationEnabled:esi];
-    }
+//    window = [windowController window];
     
-    // build the toolbar
-    toolbar = [[NSToolbar alloc] initWithIdentifier:@"miniAudicle"];
-    [toolbar setVisible:YES];
-    [toolbar setDelegate:self];
+//    miniAudicleController * mac = [NSDocumentController sharedDocumentController];
+//    [mac setLastWindowTopLeftCorner:[window cascadeTopLeftFromPoint:[mac lastWindowTopLeftCorner]]];
+//
+//    // set text view syntax highlighter
+//    [text_view setSyntaxHighlighter:[mac syntaxHighlighter] colorer:mac];
+//    if( data != nil )
+//    {
+//        BOOL esi = [text_view smartIndentationEnabled];
+//        [text_view setSmartIndentationEnabled:NO];
+//        [[text_view textView] setString:data];
+//        [text_view setSmartIndentationEnabled:esi];
+//    }
     
-    // add toolbar to the window
-    [window setToolbar:toolbar];
-    
-    NSButton * toolbar_pill = [window standardWindowButton:NSWindowToolbarButton];
-    [toolbar_pill setTarget:self];
-    [toolbar_pill setAction:@selector( toggleToolbar: )];
-    
-    [window makeFirstResponder:text_view];
+//    // build the toolbar
+//    toolbar = [[NSToolbar alloc] initWithIdentifier:@"miniAudicle"];
+//    [toolbar setVisible:YES];
+//    [toolbar setDelegate:self];
+//    
+//    // add toolbar to the window
+//    [window setToolbar:toolbar];
+//    
+//    NSButton * toolbar_pill = [window standardWindowButton:NSWindowToolbarButton];
+//    [toolbar_pill setTarget:self];
+//    [toolbar_pill setAction:@selector( toggleToolbar: )];
+//    
+//    [window makeFirstResponder:text_view];
     
     [self userDefaultsDidChange:nil];
 }
 
-- (NSString * )windowNibName
+//- (NSString * )windowNibName
+//{
+//    return @"miniAudicleDocument";
+//}
+
+-(void)makeWindowControllers
 {
-    return @"miniAudicleDocument";
+//    [[NSNotificationCenter defaultCenter] postNotificationName:DocumentNeedWindowNotification object:self];
+    miniAudicleController * mac = [NSDocumentController sharedDocumentController];
+    [[mac topWindowController] addDocument:self];
+    [[[mac topWindowController] window] makeKeyAndOrderFront:self];
 }
+
+- (NSString *)windowNibName
+{
+    assert(false);
+    // Override returning the nib file name of the document
+    // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
+    return @"";
+}
+
+-(NSViewController *)newPrimaryViewController
+{
+    mADocumentViewController* ctrl = [[mADocumentViewController alloc] initWithNibName:@"mADocumentView" bundle:nil];
+    ctrl.document = self;
+    
+    // other initialization if needed
+    return ctrl;
+}
+
+//+ (BOOL)autosavesInPlace
+//{
+//    return YES;
+//}
+
 
 - (NSData *)dataRepresentationOfType:(NSString *)type
 {
@@ -224,24 +245,6 @@ U.S.A.
         
         [[text_view textView] animateAdd];
         [text_view setShowsErrorLine:NO];
-        
-#if defined( USE_POPUP_TOOLBAR_ITEMS ) && USE_POPUP_TOOLBAR_ITEMS
-        NSString * menu_title = [NSString stringWithFormat:@"%u (%@)", 
-            shred_id, [self displayName]];
-        NSMenuItem * menu_item = [[NSMenuItem alloc] initWithTitle:menu_title
-                                                            action:@selector(removeShred:)
-                                                     keyEquivalent:@""];
-        [menu_item autorelease];
-        [menu_item setTag:shred_id];
-        [remove_menu insertItem:menu_item atIndex:( [remove_menu numberOfItems] - 2 )];
-
-        menu_item = [[NSMenuItem alloc] initWithTitle:menu_title
-                                               action:@selector(replaceShred:)
-                                        keyEquivalent:@""];
-        [menu_item autorelease];
-        [menu_item setTag:shred_id];
-        [replace_menu insertItem:menu_item atIndex:( [replace_menu numberOfItems] - 2 )];
-#endif
     }
     
     else if( otf_result == OTF_VM_TIMEOUT )
@@ -304,11 +307,6 @@ U.S.A.
         
         [[text_view textView] animateReplace];
         [text_view setShowsErrorLine:NO];
-        
-#if defined( USE_POPUP_TOOLBAR_ITEMS ) && USE_POPUP_TOOLBAR_ITEMS
-        [[remove_menu itemWithTag:shred_id] setTitle:[self displayName]];
-        [[replace_menu itemWithTag:shred_id] setTitle:[self displayName]];
-#endif
     }
     
     else if( otf_result == OTF_VM_TIMEOUT )
@@ -354,11 +352,6 @@ U.S.A.
         
         [[text_view textView] animateRemove];
         [text_view setShowsErrorLine:NO];
-        
-#if defined( USE_POPUP_TOOLBAR_ITEMS ) && USE_POPUP_TOOLBAR_ITEMS
-        [remove_menu removeItem:[remove_menu itemWithTag:shred_id]];
-        [replace_menu removeItem:[replace_menu itemWithTag:shred_id]];
-#endif
     }
     
     else if( otf_result == OTF_VM_TIMEOUT )
@@ -475,60 +468,18 @@ U.S.A.
     
     else if( [itemIdentifier isEqual:@"remove"] )
     {
-#if defined( USE_POPUP_TOOLBAR_ITEMS ) && USE_POPUP_TOOLBAR_ITEMS
-        KBPopUpToolbarItem * popup_tb_item = [[KBPopUpToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-        remove_menu = [[NSMenu new] autorelease];
-        [remove_menu addItem:[NSMenuItem separatorItem]];
-        NSMenuItem * mi = [[NSMenuItem alloc] initWithTitle:@"Remove All Child Shreds"
-                                                     action:@selector(replaceShred:)
-                                              keyEquivalent:@""];
-        [mi autorelease];
-        [mi setTag:0];
-        [remove_menu addItem:mi];
-        [popup_tb_item setMenu:remove_menu];
-        toolbar_item = popup_tb_item;
-        [toolbar_item setLabel:@"Remove Shred"];
-        [toolbar_item setAction:@selector(remove:)];
-        NSImage * remove_image = [NSImage imageNamed:@"remove.png"];
-        [remove_image setScalesWhenResized:YES];
-        // TODO: scale these in image editor, ditch crappy runtime scaling
-        [remove_image setSize:NSMakeSize( 32, 32 )];
-        [toolbar_item setImage:remove_image];
-#else
         toolbar_item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
         [toolbar_item setLabel:@"Remove Shred"];
         [toolbar_item setAction:@selector(remove:)];
         [toolbar_item setImage:[NSImage imageNamed:@"remove.png"]];
-#endif
     }
     
     else if( [itemIdentifier isEqual:@"replace"] )
     {
-#if defined( USE_POPUP_TOOLBAR_ITEMS ) && USE_POPUP_TOOLBAR_ITEMS
-        KBPopUpToolbarItem * popup_tb_item = [[KBPopUpToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-        replace_menu = [[NSMenu new] autorelease];
-        [replace_menu addItem:[NSMenuItem separatorItem]];
-        NSMenuItem * mi = [[NSMenuItem alloc] initWithTitle:@"Replace All Child Shreds"
-                                                     action:@selector(replaceShred:)
-                                              keyEquivalent:@""];
-        [mi autorelease];
-        [mi setTag:0];
-        [replace_menu addItem:mi];
-        [popup_tb_item setMenu:replace_menu];
-        toolbar_item = popup_tb_item;
-        [toolbar_item setLabel:@"Replace Shred"];
-        [toolbar_item setAction:@selector(replace:)];
-        NSImage * replace_image = [NSImage imageNamed:@"replace.png"];
-        [replace_image setScalesWhenResized:YES];
-        // TODO: scale these in image editor, ditch crappy runtime scaling
-        [replace_image setSize:NSMakeSize( 32, 32 )];
-        [toolbar_item setImage:replace_image];
-#else
         toolbar_item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
         [toolbar_item setLabel:@"Replace Shred"];
         [toolbar_item setAction:@selector(replace:)];
         [toolbar_item setImage:[NSImage imageNamed:@"replace.png"]];
-#endif
     }
     
     else if( [itemIdentifier isEqual:@"removeall"] )
@@ -592,26 +543,22 @@ U.S.A.
         if( !_shows_arguments )
         {
             //printf( "hiding arguments\n" );
-            [toggle_argument_subview removeFromSuperview];
             [argument_text removeFromSuperview];
             
-            NumberedTextView * view = text_view;
-            NSRect frame_rect = [view frame];
+            NSRect frame_rect = [text_view frame];
             frame_rect.size.height += __MA_ARGUMENTS_TEXT_HEIGHT__;
             //frame_rect.origin.y += __MA_ARGUMENTS_TEXT_HEIGHT__;
-            [view setFrame:frame_rect];
+            [text_view setFrame:frame_rect];
         }
     
         else
         {
             //printf( "showing arguments\n" );
-            NumberedTextView * view = text_view;
-            NSRect frame_rect = [view frame];
+            NSRect frame_rect = [text_view frame];
             frame_rect.size.height -= __MA_ARGUMENTS_TEXT_HEIGHT__;
             //frame_rect.origin.y -= __MA_ARGUMENTS_TEXT_HEIGHT__;
-            [view setFrame:frame_rect];
+            [text_view setFrame:frame_rect];
             
-            [[window contentView] addSubview:toggle_argument_subview];
             [[window contentView] addSubview:argument_text];
             
             // redisplay the arguments bar area
@@ -672,20 +619,18 @@ U.S.A.
         {
             [status_text removeFromSuperview];
             
-            NumberedTextView * view = text_view;
-            NSRect frame_rect = [view frame];
+            NSRect frame_rect = [text_view frame];
             frame_rect.origin.y -= [status_text frame].size.height;
             frame_rect.size.height += [status_text frame].size.height;
-            [view setFrame:frame_rect];
+            [text_view setFrame:frame_rect];
         }
         
         else
         {
-            NumberedTextView * view = text_view;
-            NSRect frame_rect = [view frame];
+            NSRect frame_rect = [text_view frame];
             frame_rect.origin.y += [status_text frame].size.height;
             frame_rect.size.height -= [status_text frame].size.height;
-            [view setFrame:frame_rect];
+            [text_view setFrame:frame_rect];
             
             [[window contentView] addSubview:status_text];
             
@@ -719,112 +664,7 @@ U.S.A.
         vector< string >::const_iterator iter = argv.begin(), end = argv.end();
         for( ; iter != end; iter++ )
             [arguments addObject:[NSString stringWithUTF8String:iter->c_str()]];
-        
-        [argument_table reloadData];
     }
-}
-
-- (int)numberOfRowsInTableView:(NSTableView *)tv
-{
-    return [arguments count] + 1;
-}
-
-- (id)tableView:(NSTableView *)tv objectValueForTableColumn:(NSTableColumn *)tc 
-            row:(int)r
-{
-    if( [[tc identifier] isEqualToString:@"argument"] )
-    {
-        if( r == [arguments count] )
-        {
-            NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                [NSColor disabledControlTextColor], NSForegroundColorAttributeName, 
-                @"double-click here to add an attribute", NSToolTipAttributeName,
-                //[NSNumber numberWithFloat:0.5], NSObliquenessAttributeName, 
-                nil];
-            return [[[NSAttributedString alloc] initWithString:@"..."
-                                                    attributes:attributes]
-                autorelease];
-        }
-        
-        else
-            return [arguments objectAtIndex:r];
-    }
-    
-    else if( [[tc identifier] isEqualToString:@"number"] )
-    {
-        if( r == [arguments count] )
-            return @"";
-        
-        else
-            return [NSString stringWithFormat:@"%i", r];
-    }
-    
-    return @"error!";
-}
-
-- (void)tableView:(NSTableView *)tv
-   setObjectValue:(id)v
-   forTableColumn:(NSTableColumn *)tc
-              row:(int)r
-{
-    if( reject_argument_edits )
-        return;
-    
-    if( [[tc identifier] isEqualToString:@"argument"] )
-    {
-        if( r == [arguments count] )
-            [arguments addObject:v];
-        else
-            [arguments replaceObjectAtIndex:r withObject:v];
-        
-        NSMutableString * new_argument_text = [NSMutableString stringWithString:@""];
-        NSEnumerator * args_enum = [arguments objectEnumerator];
-        NSString * arg = [args_enum nextObject];
-        if( arg )
-            [new_argument_text appendString:arg];
-        while( arg = [args_enum nextObject] )
-        {
-            [new_argument_text appendString:@":"];
-            [new_argument_text appendString:arg];
-        }
-        
-        [argument_text setStringValue:new_argument_text];
-        
-        reject_argument_edits = YES;
-        
-        [tv reloadData];
-    }
-}
-
-- (void)argumentsTableView:(mAArgumentsTableView *)atv 
-                deleteRows:(NSIndexSet *)is
-{        
-    if( [is containsIndex:[arguments count]] )
-    {
-        NSMutableIndexSet * mis = [[[NSMutableIndexSet alloc] initWithIndexSet:is] autorelease];
-        [mis removeIndex:[arguments count]];
-        is = mis;
-    }
-    
-    if( [is count] == 0 )
-        NSBeep();
-    
-    [arguments removeObjectsAtIndexes:is];
-    
-    NSMutableString * new_argument_text = [NSMutableString stringWithString:@""];
-    NSEnumerator * args_enum = [arguments objectEnumerator];
-    NSString * arg = [args_enum nextObject];
-    if( arg )
-        [new_argument_text appendString:arg];
-    while( arg = [args_enum nextObject] )
-    {
-        [new_argument_text appendString:@":"];
-        [new_argument_text appendString:arg];
-    }
-    
-    [argument_text setStringValue:new_argument_text];
-    
-    [atv reloadData];
 }
 
 - (void)controlTextDidBeginEditing:(NSNotification *)n
