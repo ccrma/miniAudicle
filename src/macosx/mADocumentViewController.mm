@@ -96,6 +96,11 @@ using namespace std;
     docid = ma->allocate_document_id();
 }
 
+- (BOOL)isEmpty
+{
+    return [[[text_view textView] textStorage] length] == 0;
+}
+
 - (void)handleArgumentText:(id)sender
 {
     NSMutableString * arg_text = [NSMutableString stringWithString:[sender stringValue]];

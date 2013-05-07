@@ -122,13 +122,6 @@
     for(NSDocument* document in self.documents)
         [self addViewWithDocument:document tabViewItem:nil];
     
-//    _toolbar = [[[NSToolbar alloc] initWithIdentifier:@"miniAudicle"] autorelease];
-//    [_toolbar setVisible:YES];
-//    [_toolbar setDelegate:self];
-//
-//    // add toolbar to the window
-//    [[self window] setToolbar:_toolbar];
-    
     [[self window] setShowsToolbarButton:YES];
 
 //    NSButton * toolbar_pill = [[self window] standardWindowButton:NSWindowToolbarButton];
@@ -139,16 +132,15 @@
                                                           green:175.0/255.0
                                                            blue:175.0/255.0
                                                           alpha:1.0]];
-//    [[self window] setBackgroundColor:[NSColor windowFrameColor]];
 }
 
--(void)addViewWithDocument:(NSDocument*)document tabViewItem:(NSTabViewItem *)tabViewItem
+- (void)addViewWithDocument:(NSDocument*)document tabViewItem:(NSTabViewItem *)tabViewItem
 {
     mADocumentViewController *ctrl;
 
     if(tabViewItem == nil)
     {
-        ctrl = (mADocumentViewController *)[(id)document newPrimaryViewController];
+        ctrl = (mADocumentViewController *)[(miniAudicleDocument *)document newPrimaryViewController];
         
         tabViewItem = [[[NSTabViewItem alloc] initWithIdentifier:ctrl] autorelease];
         [tabViewItem setView:ctrl.view];
@@ -171,24 +163,12 @@
     [document addWindowController:self];
 }
 
--(void)addDocument:(NSDocument *)docToAdd
+- (void)addDocument:(NSDocument *)docToAdd
 {
-    NSMutableSet *documents = self.documents;
-    if ([documents containsObject:docToAdd])
-        return;
-    
-    [documents addObject:docToAdd];
-    
-    // check if the window has been created. We can not insert new tab
-    // items until the nib has been loaded. So if the window isnt created
-    // yet, do nothing and instead add the view controls during the
-    // windowDidLoad function
-    
-    if(self.isWindowLoaded)
-        [self addViewWithDocument:docToAdd tabViewItem:nil];
+    [self addDocument:docToAdd tabViewItem:nil];
 }
 
--(void)addDocument:(NSDocument *)docToAdd tabViewItem:(NSTabViewItem *)tabViewItem
+- (void)addDocument:(NSDocument *)docToAdd tabViewItem:(NSTabViewItem *)tabViewItem
 {
     NSMutableSet* documents = self.documents;
     if ([documents containsObject:docToAdd])
@@ -205,12 +185,12 @@
         [self addViewWithDocument:docToAdd tabViewItem:tabViewItem];
 }
 
--(void)removeDocument:(NSDocument *)docToRemove
+- (void)removeDocument:(NSDocument *)docToRemove
 {
     [self removeDocument:docToRemove attachedToViewController:[(miniAudicleDocument *)docToRemove viewController]];
 }
 
--(void)removeDocument:(NSDocument *)docToRemove attachedToViewController:(NSViewController*)ctrl
+- (void)removeDocument:(NSDocument *)docToRemove attachedToViewController:(NSViewController*)ctrl
 {
     NSMutableSet* documents = self.documents;
     if (![documents containsObject:docToRemove])
@@ -242,6 +222,15 @@
 {
     // NSLog(@"Will not set document to: %@",document);
 }
+
+- (NSDocument *)document
+{
+    NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
+    NSViewController* ctrl = (NSViewController*)tabViewItem.identifier;
+    
+    return [(id) ctrl document];
+}
+
 
 - (IBAction)closeTab:(id)sender
 {
@@ -277,10 +266,10 @@
 {
     NSLog(@"tabView willCloseTabViewItem");
 
-    NSViewController* ctrl = (NSViewController*)[[tabView selectedTabViewItem] identifier];
-    NSDocument* doc = [(id)ctrl document];
-    
-    [doc close];
+//    NSViewController* ctrl = (NSViewController*)[[tabView selectedTabViewItem] identifier];
+//    NSDocument* doc = [(id)ctrl document];
+//    
+//    [doc close];
 }
 
 - (void)tabView:(NSTabView *)aTabView didCloseTabViewItem:(NSTabViewItem *)tabViewItem
@@ -399,14 +388,6 @@
 	return [newWindowController tabBar];
 }
 
-
-- (NSDocument *)document
-{
-    NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
-    NSViewController* ctrl = (NSViewController*)tabViewItem.identifier;
-    
-    return [(id) ctrl document];
-}
 
 // Each document needs to be detached from the window controller before the window closes.
 // In addition, any references to those documents from any child view controllers will also

@@ -47,6 +47,7 @@ U.S.A.
 
 @synthesize data;
 @synthesize viewController = _viewController;
+@synthesize windowController = _windowController;
 
 - (id)init
 {
@@ -72,8 +73,6 @@ U.S.A.
 
 - (void)awakeFromNib
 {
-    [argument_text retain];
-    [status_text retain];
 }
 
 - (void)dealloc
@@ -102,9 +101,8 @@ U.S.A.
 {
     miniAudicleController * mac = [NSDocumentController sharedDocumentController];
     [[mac topWindowController] addDocument:self];
-    [[mac topWindowController] window];
     [[[mac topWindowController] window] makeKeyAndOrderFront:self];
-    [self addWindowController:[mac topWindowController]];
+    self.windowController = [mac topWindowController];
 }
 
 - (NSString *)windowNibName
@@ -147,7 +145,7 @@ U.S.A.
 
 - (BOOL)isEmpty
 {
-    return [[[text_view textView] string] length] == 0 && ![self isDocumentEdited];
+    return [self.viewController isEmpty] && ![self isDocumentEdited] && [self fileURL] == nil;
 }
 
 - (void)userDefaultsDidChange:(NSNotification *)n

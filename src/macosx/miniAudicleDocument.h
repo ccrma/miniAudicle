@@ -48,6 +48,7 @@ class miniAudicle;
     IBOutlet NSView * view;
     
     mADocumentViewController * _viewController;
+    NSWindowController * _windowController;
     
     NSMutableArray * arguments;
     BOOL reject_argument_edits;
@@ -69,6 +70,7 @@ class miniAudicle;
 
 @property (readonly, strong, nonatomic) NSString * data;
 @property (readonly, strong, nonatomic) mADocumentViewController * viewController;
+@property (weak, nonatomic) NSWindowController * windowController;
 
 - (id)init;
 

@@ -317,13 +317,33 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 
     [madv removeObject:doc];
     
-    mAMultiDocWindowController * windowController = [[[[(miniAudicleDocument *)doc viewController] view] window] windowController];
+    mAMultiDocWindowController * windowController = (mAMultiDocWindowController *)[(miniAudicleDocument *)doc windowController];
     [windowController removeDocument:doc];
     if([windowController numberOfTabs] == 0)
     {
         [self windowDidCloseForController:windowController];
         [[windowController window] close];
     }
+}
+
+
+- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL
+                            display:(BOOL)displayDocument
+                              error:(NSError **)outError
+{
+    NSDocument * docToClose = nil;
+    
+    if([[self currentDocument] isEmpty])
+        docToClose = [self currentDocument];
+    
+    id r = [super openDocumentWithContentsOfURL:absoluteURL
+                                        display:displayDocument
+                                          error:outError];
+    
+    if(docToClose && r)
+        [docToClose close];
+    
+    return r;
 }
 
 
@@ -360,25 +380,6 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     return NO;
 }
 
-
-//- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL
-//                            display:(BOOL)displayDocument
-//                              error:(NSError **)outError
-//{
-////    NSWindow * doc_window = nil;
-////    
-////    if( [madv count] == 1 && [[madv objectAtIndex:0] isEmpty] )
-////        doc_window = [[[[madv objectAtIndex:0] windowControllers] objectAtIndex:0] window];
-//    
-//    id r = [super openDocumentWithContentsOfURL:absoluteURL
-//                                        display:displayDocument
-//                                          error:outError];
-//    
-////    if( doc_window && r )
-////        [doc_window close];
-//    
-//    return r;
-//}
 
 //-----------------------------------------------------------------------------
 // name: lastWindowTopLeftCorner

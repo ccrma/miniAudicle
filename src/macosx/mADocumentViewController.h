@@ -57,6 +57,7 @@ class miniAudicle;
 
 - (void)activate;
 - (IBAction)handleArgumentText:(id)sender;
+- (BOOL)isEmpty;
 
 - (void)setMiniAudicle:(miniAudicle *)_ma;
 
