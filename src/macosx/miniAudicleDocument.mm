@@ -46,6 +46,7 @@ U.S.A.
 @implementation miniAudicleDocument
 
 @synthesize data;
+@synthesize viewController = _viewController;
 
 - (id)init
 {
@@ -91,6 +92,10 @@ U.S.A.
         ma->free_document_id( docid );
     
     [argument_text release];
+    
+    _viewController.document = nil;
+    [_viewController release];
+    _viewController = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -158,16 +163,10 @@ U.S.A.
 {
     mADocumentViewController* ctrl = [[mADocumentViewController alloc] initWithNibName:@"mADocumentView" bundle:nil];
     ctrl.document = self;
+    _viewController = ctrl;
     
-    // other initialization if needed
     return ctrl;
 }
-
-//+ (BOOL)autosavesInPlace
-//{
-//    return YES;
-//}
-
 
 - (NSData *)dataRepresentationOfType:(NSString *)type
 {

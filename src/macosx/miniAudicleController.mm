@@ -303,6 +303,8 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     [super removeDocument:doc];
     
     [madv removeObject:doc];
+    
+    [m_windowController removeDocument:doc];
 }
 
 
@@ -340,24 +342,24 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 }
 
 
-- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL
-                            display:(BOOL)displayDocument
-                              error:(NSError **)outError
-{
-    NSWindow * doc_window = nil;
-    
-    if( [madv count] == 1 && [[madv objectAtIndex:0] isEmpty] )
-        doc_window = [[[[madv objectAtIndex:0] windowControllers] objectAtIndex:0] window];
-    
-    id r = [super openDocumentWithContentsOfURL:absoluteURL
-                                        display:displayDocument
-                                          error:outError];
-    
-    if( doc_window && r )
-        [doc_window close];
-    
-    return r;
-}
+//- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL
+//                            display:(BOOL)displayDocument
+//                              error:(NSError **)outError
+//{
+////    NSWindow * doc_window = nil;
+////    
+////    if( [madv count] == 1 && [[madv objectAtIndex:0] isEmpty] )
+////        doc_window = [[[[madv objectAtIndex:0] windowControllers] objectAtIndex:0] window];
+//    
+//    id r = [super openDocumentWithContentsOfURL:absoluteURL
+//                                        display:displayDocument
+//                                          error:outError];
+//    
+////    if( doc_window && r )
+////        [doc_window close];
+//    
+//    return r;
+//}
 
 //-----------------------------------------------------------------------------
 // name: lastWindowTopLeftCorner

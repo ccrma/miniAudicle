@@ -33,6 +33,7 @@
 
 #import "mAMultiDocWindowController.h"
 #import "miniAudicleDocument.h"
+#import "mADocumentViewController.h"
 #import <PSMTabBarControl/PSMTabStyle.h>
 
 @interface mAMultiDocWindowController ()
@@ -104,7 +105,6 @@
 
 -(void)addViewWithDocument:(NSDocument*) document
 {
-    
     if ([document respondsToSelector:@selector(newPrimaryViewController)])
     {
         NSViewController* addedCtrl = [(id)document newPrimaryViewController];
@@ -126,6 +126,7 @@
             [(id)addedCtrl activate];
 
         [document setWindow:self.window];
+        
     }
     
     [document addWindowController:self];
@@ -149,6 +150,11 @@
     }
 }
 
+-(void)removeDocument:(NSDocument *)docToRemove
+{
+    [self removeDocument:docToRemove attachedToViewController:[(id)docToRemove viewController]];
+}
+
 -(void)removeDocument:(NSDocument *)docToRemove attachedToViewController:(NSViewController*)ctrl
 {
     NSMutableSet* documents = self.documents;
@@ -163,44 +169,65 @@
     }
     [ctrl release];
     
-        // remove the view from the tab item
-        // dont remove the tab view item from the tab view, as this is handled by the framework (when
-        // we click on the close button on the tab) - of course it wouldnt be if you closed the document
-        // using the menu (TODO)
-    NSTabViewItem* tabViewItem = [tabView tabViewItemAtIndex: [tabView indexOfTabViewItemWithIdentifier: ctrl]];
-    [tabViewItem setView: nil];
+    // remove the view from the tab item
+    // dont remove the tab view item from the tab view, as this is handled by the framework (when
+    // we click on the close button on the tab) - of course it wouldnt be if you closed the document
+    // using the menu (TODO)
+    NSTabViewItem* tabViewItem = [tabView tabViewItemAtIndex:[tabView indexOfTabViewItemWithIdentifier:ctrl]];
+    //[tabViewItem setView: nil];
+    [tabView removeTabViewItem:tabViewItem];
     
-        // remove the control from the view controllers set
-    [self.contentViewControllers removeObject: ctrl];
+    // remove the control from the view controllers set
+    [self.contentViewControllers removeObject:ctrl];
     
     // finally detach the document from the window controller
     [docToRemove removeWindowController:self];
     [documents removeObject:docToRemove];
 }
 
--(void)setDocument:(NSDocument *)document
+- (void)setDocument:(NSDocument *)document
 {
     // NSLog(@"Will not set document to: %@",document);
 }
 
-- (BOOL)tabView:(NSTabView *)aTabView shouldCloseTabViewItem:(NSTabViewItem *)tabViewItem {
-    return TRUE;
+- (IBAction)closeTab:(id)sender
+{
+    NSViewController* ctrl = (NSViewController*)[[tabView selectedTabViewItem] identifier];
+    NSDocument* doc = [(id)ctrl document];
+    
+    [doc canCloseDocumentWithDelegate:self
+                  shouldCloseSelector:@selector(document:shouldClose:contextInfo:)
+                          contextInfo:nil];
 }
 
-- (void)tabView:(NSTabView *)aTabView willCloseTabViewItem:(NSTabViewItem *)tabViewItem {
-    NSLog(@"Will Close Tab View Item");
-    
-    // identifier is wrong now
+- (void)document:(NSDocument *)document shouldClose:(BOOL)shouldClose contextInfo:(void *)contextInfo
+{
+    if(shouldClose)
+        [document close];
+}
+
+- (BOOL)tabView:(NSTabView *)aTabView shouldCloseTabViewItem:(NSTabViewItem *)tabViewItem
+{
     NSViewController* ctrl = (NSViewController*)[[tabView selectedTabViewItem] identifier];
     
-    if ([ctrl respondsToSelector:@selector(document)]) {
-        NSDocument* doc = [(id) ctrl document];
-        [self removeDocument:doc attachedToViewController:ctrl];
-    }
+    NSDocument* doc = [(id)ctrl document];
+    
+    [doc canCloseDocumentWithDelegate:self
+                  shouldCloseSelector:@selector(document:shouldClose:contextInfo:)
+                          contextInfo:nil];
+    return NO;
+}
+
+- (void)tabView:(NSTabView *)aTabView willCloseTabViewItem:(NSTabViewItem *)tabViewItem
+{
+    NSViewController* ctrl = (NSViewController*)[[tabView selectedTabViewItem] identifier];
+    NSDocument* doc = [(id)ctrl document];
+    
+    [doc close];
 }
 
 - (void)tabView:(NSTabView *)aTabView didCloseTabViewItem:(NSTabViewItem *)tabViewItem {
-    NSLog(@"Did Close Tab View Item");    
+//    NSLog(@"Did Close Tab View Item");    
 }
 
 - (void)tabView:(NSTabView *)aTabView didDetachTabViewItem:(NSTabViewItem *)tabViewItem {
@@ -212,10 +239,7 @@
     NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
     NSViewController* ctrl = (NSViewController*)tabViewItem.identifier;
     
-    if ([ctrl respondsToSelector:@selector(document)]) {
-        return [(id) ctrl document];
-    }
-    return nil;
+    return [(id) ctrl document];
 }
 
 // Each document needs to be detached from the window controller before the window closes.

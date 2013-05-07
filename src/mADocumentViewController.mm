@@ -89,6 +89,12 @@ using namespace std;
 }
 
 
+- (void)removeFromWindowController
+{
+    
+}
+
+
 - (void)handleArgumentText:(id)sender
 {
     NSMutableString * arg_text = [NSMutableString stringWithString:[sender stringValue]];

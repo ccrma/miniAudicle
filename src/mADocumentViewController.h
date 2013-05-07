@@ -49,9 +49,10 @@ class miniAudicle;
     NSMutableArray * arguments;
 }
 
-@property (retain, nonatomic) miniAudicleDocument* document;
+@property (assign, nonatomic) miniAudicleDocument* document;
 
 - (void)activate;
+- (void)removeFromWindowController;
 - (IBAction)handleArgumentText:(id)sender;
 
 @end

@@ -36,7 +36,7 @@ U.S.A.
 
 class miniAudicle;
 @class NumberedTextView;
-@class mAArgumentsTableView;
+@class mADocumentViewController;
 
 @interface miniAudicleDocument : NSDocument <NSToolbarDelegate>
 {
@@ -46,6 +46,8 @@ class miniAudicle;
     IBOutlet NSTextField * argument_text;
     IBOutlet NSView * argument_view;
     IBOutlet NSView * view;
+    
+    mADocumentViewController * _viewController;
     
     NSMutableArray * arguments;
     BOOL reject_argument_edits;
@@ -66,6 +68,7 @@ class miniAudicle;
 }
 
 @property (readonly, strong, nonatomic) NSString * data;
+@property (readonly, strong, nonatomic) mADocumentViewController * viewController;
 
 - (id)init;
 

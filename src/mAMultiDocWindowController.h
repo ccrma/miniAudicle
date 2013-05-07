@@ -50,9 +50,10 @@
 
 - (PSMTabBarControl *)tabBar;
 
--(void)addDocument:(NSDocument *)docToAdd;
--(void)removeDocument:(NSDocument *)docToRemove;
+- (IBAction)closeTab:(id)sender;
 
+- (void)addDocument:(NSDocument *)docToAdd;
+- (void)removeDocument:(NSDocument *)docToRemove;
 
 - (void)vm_on;
 - (void)vm_off;
