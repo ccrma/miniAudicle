@@ -22,6 +22,7 @@
  U.S.A.
  -----------------------------------------------------------------------------*/
 
+/* Based in part on: */
 //
 //  MultiDocWindowController.m
 //  MultiDocTest
@@ -101,21 +102,30 @@
     [tabBar setStyleNamed:@"Unified"];
 }
 
--(void)addViewWithDocument:(NSDocument*) document {
+-(void)addViewWithDocument:(NSDocument*) document
+{
     
-    if ([document respondsToSelector:@selector(newPrimaryViewController)]) {
+    if ([document respondsToSelector:@selector(newPrimaryViewController)])
+    {
         NSViewController* addedCtrl = [(id)document newPrimaryViewController];
-        [self.contentViewControllers addObject: addedCtrl];
+        [self.contentViewControllers addObject:addedCtrl];
         
-        NSTabViewItem* tabViewItem = [[[NSTabViewItem alloc]initWithIdentifier: addedCtrl] autorelease];
+        NSTabViewItem* tabViewItem = [[[NSTabViewItem alloc] initWithIdentifier:addedCtrl] autorelease];
         [tabViewItem setView: addedCtrl.view];
         [tabViewItem setLabel: [document displayName]];
         
         NSUInteger tabIndex = [tabView numberOfTabViewItems];
         [tabView insertTabViewItem:tabViewItem atIndex:tabIndex];
-        [tabView selectTabViewItem: tabViewItem];
+        [tabView selectTabViewItem:tabViewItem];
         
-        [document setWindow: self.window];
+        [[tabView superview] setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable |
+         NSViewMinXMargin | NSViewMinYMargin |
+         NSViewMaxXMargin | NSViewMaxYMargin];
+        
+        if([addedCtrl respondsToSelector:@selector(activate)])
+            [(id)addedCtrl activate];
+
+        [document setWindow:self.window];
     }
     
     [document addWindowController:self];
@@ -124,9 +134,8 @@
 -(void)addDocument:(NSDocument *)docToAdd
 {
     NSMutableSet* documents = self.documents;
-    if ([documents containsObject:docToAdd]) {
+    if ([documents containsObject:docToAdd])
         return;
-    }
     
     [documents addObject:docToAdd];
 

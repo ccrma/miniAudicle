@@ -22,6 +22,7 @@
  U.S.A.
  -----------------------------------------------------------------------------*/
 
+/* Based in part on: */
 //
 //  DocumentViewController.h
 //  MultiDocTest
@@ -50,6 +51,7 @@ class miniAudicle;
 
 @property (retain, nonatomic) miniAudicleDocument* document;
 
+- (void)activate;
 - (IBAction)handleArgumentText:(id)sender;
 
 @end

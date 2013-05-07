@@ -22,6 +22,7 @@
  U.S.A.
  -----------------------------------------------------------------------------*/
 
+/* Based in part on: */
 //
 //  DocumentViewController.m
 //  MultiDocTest
@@ -79,6 +80,12 @@ using namespace std;
         [[text_view textView] setString:self.document.data];
         [text_view setSmartIndentationEnabled:esi];
     }
+}
+
+
+- (void)activate
+{
+    [[self.view window] makeFirstResponder:text_view];
 }
 
 

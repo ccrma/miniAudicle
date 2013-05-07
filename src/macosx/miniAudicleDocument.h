@@ -94,9 +94,6 @@ class miniAudicle;
 - (void)saveBackup:(id)sender;
 
 - (void)setMiniAudicle:(miniAudicle *)t_ma;
-- (void)setVMOn:(BOOL)t_vm_on;
-- (void)vm_on;
-- (void)vm_off;
 
 - (void)setShowsArguments:(BOOL)_shows_arguments;
 - (BOOL)showsArguments;

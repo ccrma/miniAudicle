@@ -22,6 +22,7 @@
  U.S.A.
  -----------------------------------------------------------------------------*/
 
+/* Based in part on: */
 //
 //  MultiDocWindowController.h
 //  MultiDocTest
@@ -51,5 +52,9 @@
 
 -(void)addDocument:(NSDocument *)docToAdd;
 -(void)removeDocument:(NSDocument *)docToRemove;
+
+
+- (void)vm_on;
+- (void)vm_off;
 
 @end

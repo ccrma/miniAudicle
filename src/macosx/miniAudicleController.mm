@@ -293,7 +293,6 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 {
     [doc retain];
     [( miniAudicleDocument * )doc setMiniAudicle:ma];
-    [( miniAudicleDocument * )doc setVMOn:vm_on];
     [madv addObject:doc];
     
     [super addDocument:doc];
@@ -841,7 +840,7 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
 {
     if( vm_on )
     {
-        [madv makeObjectsPerformSelector:@selector(vm_off)];
+//        [madv makeObjectsPerformSelector:@selector(vm_off)];
         [vm_monitor vm_off];
         [m_windowController vm_off];
         
@@ -1024,7 +1023,7 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
 {
     [self setLockdown:NO];
     
-    [madv makeObjectsPerformSelector:@selector(vm_on)];
+//    [madv makeObjectsPerformSelector:@selector(vm_on)];
     [m_windowController vm_on];
     [vm_monitor vm_on];
     [[NSNotificationCenter defaultCenter] postNotificationName:mAVirtualMachineDidTurnOnNotification
