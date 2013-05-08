@@ -103,6 +103,19 @@ using namespace std;
     return [[[text_view textView] textStorage] length] == 0;
 }
 
+- (NSString *)content
+{
+    return [[text_view textView] string];
+}
+
+- (void)setContent:(NSString *)_content
+{
+    BOOL esi = [text_view smartIndentationEnabled];
+    [text_view setSmartIndentationEnabled:NO];
+    [[text_view textView] setString:_content];
+    [text_view setSmartIndentationEnabled:esi];
+}
+
 - (void)handleArgumentText:(id)sender
 {
     NSMutableString * arg_text = [NSMutableString stringWithString:[sender stringValue]];

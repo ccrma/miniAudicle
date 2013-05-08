@@ -55,7 +55,9 @@
 
 - (void)addDocument:(NSDocument *)docToAdd;
 - (void)removeDocument:(NSDocument *)docToRemove;
-- (void)documentWasEdited:(NSDocument *)doc;
+- (void)document:(NSDocument *)doc wasEdited:(BOOL)edited;
+
+- (void)updateTitles;
 
 - (void)vm_on;
 - (void)vm_off;

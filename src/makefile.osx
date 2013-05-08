@@ -200,7 +200,7 @@ $(BUNDLE_DATA): $(BIN_DIR)/miniAudicle.app/Contents/%: $(OSX_DIR)/%
 
 $(BUNDLE_FRAMEWORKS_IN_BUNDLE): $(BIN_DIR)/miniAudicle.app/Contents/Frameworks/%: $(OSX_DIR)/Frameworks/%
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/Frameworks
-	cp -r $< $@
+	cp -a $< $@
 	touch $(BIN_DIR)/miniAudicle.app
 
 $(filter %.strings,$(NIBS)): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/%: $(OSX_DIR)/Resources/$(LANGUAGE).lproj/%

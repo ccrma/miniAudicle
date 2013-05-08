@@ -231,11 +231,20 @@
     [documents removeObject:docToRemove];
 }
 
-- (void)documentWasEdited:(NSDocument *)doc
+- (void)document:(NSDocument *)doc wasEdited:(BOOL)edited;
 {
     mADocumentViewController *viewController = [(miniAudicleDocument *)doc viewController];
     if(viewController == (mADocumentViewController *)[[tabView selectedTabViewItem] identifier])
-        [[self window] setDocumentEdited:YES];
+        [[self window] setDocumentEdited:edited];
+}
+
+- (void)updateTitles
+{
+    NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
+    NSViewController* ctrl = (NSViewController*)[tabViewItem identifier];
+    NSDocument* doc = [(id)ctrl document];
+    [[self window] setTitle:[doc displayName]];
+    [tabViewItem setLabel:[doc displayName]];
 }
 
 - (void)setDocument:(NSDocument *)document
@@ -475,6 +484,11 @@
                                                            blue:223.0/255.0
                                                           alpha:1.0]];
     [tabBar setNeedsDisplay];
+}
+
+- (BOOL)windowShouldClose:(id)sender
+{
+    return YES;
 }
 
 - (void)vm_on

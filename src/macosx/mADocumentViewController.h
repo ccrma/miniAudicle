@@ -61,6 +61,8 @@ class miniAudicle;
 - (void)activate;
 - (IBAction)handleArgumentText:(id)sender;
 - (BOOL)isEmpty;
+- (NSString *)content;
+- (void)setContent:(NSString *)_content;
 
 - (void)setMiniAudicle:(miniAudicle *)_ma;
 

@@ -125,20 +125,14 @@ U.S.A.
 
 - (NSData *)dataRepresentationOfType:(NSString *)type
 {
-    return [[[text_view textView] string] dataUsingEncoding:NSASCIIStringEncoding
-                                       allowLossyConversion:YES];
+    return [[_viewController content] dataUsingEncoding:NSASCIIStringEncoding
+                                   allowLossyConversion:YES];
 }
 
-- (BOOL)loadDataRepresentation:(NSData *)t_data ofType:(NSString *)type
+- (BOOL)loadDataRepresentation:(NSData *)_data ofType:(NSString *)type
 {
-    data = [[NSString alloc] initWithData:t_data encoding:NSASCIIStringEncoding];
-    if( text_view != nil )
-    {
-        BOOL esi = [text_view smartIndentationEnabled];
-        [text_view setSmartIndentationEnabled:NO];
-        [[text_view textView] setString:data];
-        [text_view setSmartIndentationEnabled:esi];
-    }
+    data = [[NSString alloc] initWithData:_data encoding:NSASCIIStringEncoding];
+    [_viewController setContent:data];
     
     return YES;
 }
@@ -151,8 +145,18 @@ U.S.A.
 - (void)updateChangeCount:(NSDocumentChangeType)changeType
 {
     [super updateChangeCount:changeType];
-    _viewController.isEdited = YES;
-    [_windowController documentWasEdited:self];
+    
+    if(changeType == NSChangeCleared)
+    {
+        _viewController.isEdited = NO;
+        [_windowController document:self wasEdited:NO];
+        [_windowController updateTitles];
+    }
+    else
+    {
+        _viewController.isEdited = YES;
+        [_windowController document:self wasEdited:YES];
+    }
 }
 
 - (void)userDefaultsDidChange:(NSNotification *)n
