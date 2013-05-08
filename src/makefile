@@ -42,7 +42,7 @@ win32:
 	-+make -f makefile.win32 $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
 clean: 
-	rm -rf *.o wxw/*.o wxw/miniAudicle wxw/miniAudicle.exe macosx/*.o macosx/miniAudicle.app macosx/English.lproj/*.nib
+	rm -rf *.{o,d} wxw/*.o wxw/miniAudicle wxw/miniAudicle.exe macosx/*.{o,d} macosx/miniAudicle.app macosx/Resources/English.lproj/*.nib
 	-make -C $(CHUCK_SRC_DIR) clean
 
 endif

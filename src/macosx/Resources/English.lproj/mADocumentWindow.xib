@@ -228,7 +228,7 @@
 							</object>
 						</object>
 					</dictionary>
-					<array class="NSMutableArray" key="NSToolbarIBAllowedItems">
+					<array key="NSToolbarIBAllowedItems">
 						<reference ref="49704882"/>
 						<reference ref="529384363"/>
 						<reference ref="433013610"/>
