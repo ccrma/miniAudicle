@@ -550,75 +550,18 @@
 }
 
 
+#pragma mark NSMenuValidation
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem
+{
+    if([[menuItem title] isEqualToString:@"Close Tab"])
+        return [[self window] isKeyWindow];
+    else
+        return YES;
+}
+
+
 #pragma mark NSToolbarDelegate implementation
-
-- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar
-     itemForItemIdentifier:(NSString *)itemIdentifier
- willBeInsertedIntoToolbar:(BOOL)flag
-{
-    NSToolbarItem * toolbar_item;
-    
-    if( [itemIdentifier isEqual:@"add"] )
-    {
-        toolbar_item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-        [toolbar_item setLabel:@"Add Shred"];
-        [toolbar_item setAction:@selector(add:)];
-        [toolbar_item setImage:[NSImage imageNamed:@"add.png"]];
-    }
-    
-    else if( [itemIdentifier isEqual:@"remove"] )
-    {
-        toolbar_item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-        [toolbar_item setLabel:@"Remove Shred"];
-        [toolbar_item setAction:@selector(remove:)];
-        [toolbar_item setImage:[NSImage imageNamed:@"remove.png"]];
-    }
-    
-    else if( [itemIdentifier isEqual:@"replace"] )
-    {
-        toolbar_item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-        [toolbar_item setLabel:@"Replace Shred"];
-        [toolbar_item setAction:@selector(replace:)];
-        [toolbar_item setImage:[NSImage imageNamed:@"replace.png"]];
-    }
-    
-    else if( [itemIdentifier isEqual:@"removeall"] )
-    {
-        toolbar_item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-        [toolbar_item setLabel:@"Remove All Shreds"];
-        [toolbar_item setAction:@selector(removeall:)];
-        [toolbar_item setImage:[NSImage imageNamed:@"removeall.png"]];
-    }
-    
-    else if( [itemIdentifier isEqual:@"removelast"] )
-    {
-        toolbar_item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-        [toolbar_item setLabel:@"Remove Last Shred"];
-        [toolbar_item setAction:@selector(removelast:)];
-        [toolbar_item setImage:[NSImage imageNamed:@"removelast.png"]];
-    }
-    
-    [toolbar_item autorelease];
-    
-    [toolbar_item setEnabled:_vm_on];
-    
-    [toolbar_item setTag:1];
-    [toolbar_item setTarget:self];
-    
-    return toolbar_item;
-}
-
-- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
-{
-    return [NSArray arrayWithObjects:@"add", @"remove", @"removelast",
-            @"removeall", NSToolbarFlexibleSpaceItemIdentifier, @"replace", nil];
-}
-
-- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar
-{
-    return [NSArray arrayWithObjects:@"add", @"replace", @"remove",
-            NSToolbarFlexibleSpaceItemIdentifier, @"removelast", @"removeall", nil];
-}
 
 - (BOOL)validateToolbarItem:(NSToolbarItem *)toolbar_item
 {

@@ -218,8 +218,8 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     [about_text setStringValue:t_string];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(windowDidBecomeMain:)
-                                                 name:NSWindowDidBecomeMainNotification
+                                             selector:@selector(windowDidBecomeKey:)
+                                                 name:NSWindowDidBecomeKeyNotification
                                                object:nil];
         
     // init preferences
@@ -249,6 +249,8 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 {
     mAMultiDocWindowController * windowController = [[[mAMultiDocWindowController alloc] initWithWindowNibName:@"mADocumentWindow"] autorelease];
     [_windowControllers addObject:windowController];
+    if(vm_on)
+        [windowController vm_on];
     return windowController;
 }
 
@@ -400,32 +402,14 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     last_window_tlc = p;
 }
 
-- (void)windowDidBecomeMain:(NSNotification *)n
+- (void)windowDidBecomeKey:(NSNotification *)n
 {
     NSWindow * window = [n object];
     
-    if( [window windowController] == nil || 
-        [[window windowController] document] == nil )
+    if([window windowController] != nil &&
+       [[window windowController] isKindOfClass:[mAMultiDocWindowController class]])
     {
-        if( vm_on )
-        {
-            NSMenu * ckmenu = [[[NSApp mainMenu] itemWithTitle:@"ChucK"] submenu];
-            
-            NSEnumerator * menu_items = [[ckmenu itemArray] objectEnumerator];
-            NSMenuItem * mi;
-            while( mi = [menu_items nextObject] )
-                if( [mi tag] & 2 )
-                    [mi setEnabled:NO];
-        }
-        
-        NSMenu * edit_menu = [[[NSApp mainMenu] itemWithTitle:@"Edit"] submenu];
-        [[edit_menu itemWithTag:2] setTitle:@"Lock Editing"];
-        [[edit_menu itemWithTag:2] setEnabled:NO];
-    }
-    else
-    {
-        if([[window windowController] isKindOfClass:[mAMultiDocWindowController class]])
-            _topWindowController = [window windowController];
+        _topWindowController = [window windowController];
         
         if( vm_on )
         {
@@ -439,6 +423,13 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
         }
         
         main_document = [[window windowController] document];
+        
+        [closeTabMenuItem setKeyEquivalent:@"w"];
+        [closeTabMenuItem setEnabled:YES];
+        [closeTabMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask];
+        [closeWindowMenuItem setKeyEquivalent:@"w"];
+        [closeWindowMenuItem setEnabled:YES];
+        [closeWindowMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask | NSShiftKeyMask];
         
 //        NSMenu * edit_menu = [[[NSApp mainMenu] itemWithTitle:@"Edit"] submenu];
 //        if( [main_document lockEditing] )
@@ -455,6 +446,29 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 //        [[view_menu itemWithTag:105] setTitle: [main_document showsLineNumbers] ? @"Hide All Line Numbers" : @"Show All Line Numbers" ];
 //        [[view_menu itemWithTag:106] setTitle: [main_document showsStatusBar] ? @"Hide Status Bar" : @"Show Status Bar" ];
 //        [[view_menu itemWithTag:107] setTitle: [main_document showsStatusBar] ? @"Hide All Status Bars" : @"Show All Status Bars" ];
+    }
+    else
+    {
+        if( vm_on )
+        {
+            NSMenu * ckmenu = [[[NSApp mainMenu] itemWithTitle:@"ChucK"] submenu];
+            
+            NSEnumerator * menu_items = [[ckmenu itemArray] objectEnumerator];
+            NSMenuItem * mi;
+            while( mi = [menu_items nextObject] )
+                if( [mi tag] & 2 )
+                    [mi setEnabled:NO];
+        }
+        
+        NSMenu * edit_menu = [[[NSApp mainMenu] itemWithTitle:@"Edit"] submenu];
+        [[edit_menu itemWithTag:2] setTitle:@"Lock Editing"];
+        [[edit_menu itemWithTag:2] setEnabled:NO];
+        
+        [closeTabMenuItem setKeyEquivalent:@""];
+        [closeTabMenuItem setEnabled:NO];
+        [closeWindowMenuItem setKeyEquivalent:@"w"];
+        [closeWindowMenuItem setEnabled:YES];
+        [closeWindowMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask];
     }
 }
 

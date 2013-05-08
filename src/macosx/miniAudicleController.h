@@ -80,6 +80,8 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
     BOOL in_lockdown;
     
     IBOutlet NSMenuItem *startVMMenuItem;
+    IBOutlet NSMenuItem *closeWindowMenuItem;
+    IBOutlet NSMenuItem *closeTabMenuItem;
     
     BOOL _didCloseAll;
 }

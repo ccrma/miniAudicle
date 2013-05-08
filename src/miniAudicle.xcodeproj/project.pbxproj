@@ -187,7 +187,6 @@
 		098E28B0173A06600044336B /* mADocumentWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A6173A06600044336B /* mADocumentWindow.xib */; };
 		098E28B1173A06600044336B /* mARecordSession.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A8173A06600044336B /* mARecordSession.xib */; };
 		098E28B2173A06600044336B /* miniAudicle.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28AA173A06600044336B /* miniAudicle.xib */; };
-		098E28B3173A06600044336B /* miniAudicleDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28AC173A06600044336B /* miniAudicleDocument.xib */; };
 		09A40B680A9A54DA007604EA /* chuck_absyn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B060A9A54DA007604EA /* chuck_absyn.cpp */; };
 		09A40B690A9A54DA007604EA /* chuck_bbq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B080A9A54DA007604EA /* chuck_bbq.cpp */; };
 		09A40B6A0A9A54DA007604EA /* chuck_compile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B0A0A9A54DA007604EA /* chuck_compile.cpp */; };
@@ -479,7 +478,6 @@
 		098E28A7173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mADocumentWindow.xib; sourceTree = "<group>"; };
 		098E28A9173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mARecordSession.xib; sourceTree = "<group>"; };
 		098E28AB173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/miniAudicle.xib; sourceTree = "<group>"; };
-		098E28AD173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/miniAudicleDocument.xib; sourceTree = "<group>"; };
 		0991F48F128AA4830067C31C /* dct.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dct.ck; sourceTree = "<group>"; };
 		0991F491128AA4830067C31C /* centroid.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = centroid.ck; sourceTree = "<group>"; };
 		0991F492128AA4830067C31C /* flux.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flux.ck; sourceTree = "<group>"; };
@@ -1930,7 +1928,6 @@
 				098E28A6173A06600044336B /* mADocumentWindow.xib */,
 				098E28A8173A06600044336B /* mARecordSession.xib */,
 				098E28AA173A06600044336B /* miniAudicle.xib */,
-				098E28AC173A06600044336B /* miniAudicleDocument.xib */,
 				0964A396172F976F00043ABA /* ChucK Scripts */,
 				0964A38C172F8DC800043ABA /* record.png */,
 				0964A38D172F8DC800043ABA /* stop.png */,
@@ -2136,7 +2133,6 @@
 				098E28B0173A06600044336B /* mADocumentWindow.xib in Resources */,
 				098E28B1173A06600044336B /* mARecordSession.xib in Resources */,
 				098E28B2173A06600044336B /* miniAudicle.xib in Resources */,
-				098E28B3173A06600044336B /* miniAudicleDocument.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2512,14 +2508,6 @@
 				098E28AB173A06600044336B /* English */,
 			);
 			name = miniAudicle.xib;
-			sourceTree = "<group>";
-		};
-		098E28AC173A06600044336B /* miniAudicleDocument.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				098E28AD173A06600044336B /* English */,
-			);
-			name = miniAudicleDocument.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
