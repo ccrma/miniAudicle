@@ -41,20 +41,9 @@ class miniAudicle;
 
 @interface miniAudicleDocument : NSDocument <NSToolbarDelegate>
 {
-    IBOutlet NSWindow * window;
-    IBOutlet NumberedTextView * text_view;
-    IBOutlet NSTextField * status_text;
-    IBOutlet NSTextField * argument_text;
-    IBOutlet NSView * argument_view;
-    IBOutlet NSView * view;
-    
     mADocumentViewController * _viewController;
     mAMultiDocWindowController * _windowController;
     
-    NSMutableArray * arguments;
-    BOOL reject_argument_edits;
-
-    NSToolbar * toolbar;
     NSString * data;
     
     miniAudicle * ma;
@@ -83,25 +72,26 @@ class miniAudicle;
 - (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type;
 - (BOOL)isEmpty;
 
-- (void)setLockEditing:(BOOL)lock;
-- (BOOL)lockEditing;
-
-- (void)commentOut:(id)sender;
-
-- (void)saveBackup:(id)sender;
-
 - (void)setMiniAudicle:(miniAudicle *)t_ma;
 
-- (void)setShowsArguments:(BOOL)_shows_arguments;
-- (BOOL)showsArguments;
-
-- (void)setShowsToolbar:(BOOL)_shows_toolbar;
-- (BOOL)showsToolbar;
-
-- (void)setShowsLineNumbers:(BOOL)_shows_line_numbers;
-- (BOOL)showsLineNumbers;
-
-- (void)setShowsStatusBar:(BOOL)_shows_status_bar;
-- (BOOL)showsStatusBar;
+//- (void)setLockEditing:(BOOL)lock;
+//- (BOOL)lockEditing;
+//
+//- (void)commentOut:(id)sender;
+//
+//- (void)saveBackup:(id)sender;
+//
+//
+//- (void)setShowsArguments:(BOOL)_shows_arguments;
+//- (BOOL)showsArguments;
+//
+//- (void)setShowsToolbar:(BOOL)_shows_toolbar;
+//- (BOOL)showsToolbar;
+//
+//- (void)setShowsLineNumbers:(BOOL)_shows_line_numbers;
+//- (BOOL)showsLineNumbers;
+//
+//- (void)setShowsStatusBar:(BOOL)_shows_status_bar;
+//- (BOOL)showsStatusBar;
 
 @end

@@ -440,21 +440,21 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
         
         main_document = [[window windowController] document];
         
-        NSMenu * edit_menu = [[[NSApp mainMenu] itemWithTitle:@"Edit"] submenu];
-        if( [main_document lockEditing] )
-            [[edit_menu itemWithTag:2] setTitle:@"Unlock Editing"];
-        else
-            [[edit_menu itemWithTag:2] setTitle:@"Lock Editing"];
+//        NSMenu * edit_menu = [[[NSApp mainMenu] itemWithTitle:@"Edit"] submenu];
+//        if( [main_document lockEditing] )
+//            [[edit_menu itemWithTag:2] setTitle:@"Unlock Editing"];
+//        else
+//            [[edit_menu itemWithTag:2] setTitle:@"Lock Editing"];
         
-        NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
-        [[view_menu itemWithTag:100] setTitle: [main_document showsToolbar] ? @"Hide Toolbar" : @"Show Toolbar" ];
-        [[view_menu itemWithTag:101] setTitle: [main_document showsToolbar] ? @"Hide All Toolbars" : @"Show All Toolbars" ];
-        [[view_menu itemWithTag:102] setTitle: [main_document showsArguments] ? @"Hide Arguments" : @"Show Arguments" ];
-        [[view_menu itemWithTag:103] setTitle: [main_document showsArguments] ? @"Hide All Arguments" : @"Show All Arguments" ];
-        [[view_menu itemWithTag:104] setTitle: [main_document showsLineNumbers] ? @"Hide Line Numbers" : @"Show Line Numbers" ];
-        [[view_menu itemWithTag:105] setTitle: [main_document showsLineNumbers] ? @"Hide All Line Numbers" : @"Show All Line Numbers" ];
-        [[view_menu itemWithTag:106] setTitle: [main_document showsStatusBar] ? @"Hide Status Bar" : @"Show Status Bar" ];
-        [[view_menu itemWithTag:107] setTitle: [main_document showsStatusBar] ? @"Hide All Status Bars" : @"Show All Status Bars" ];
+//        NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
+//        [[view_menu itemWithTag:100] setTitle: [main_document showsToolbar] ? @"Hide Toolbar" : @"Show Toolbar" ];
+//        [[view_menu itemWithTag:101] setTitle: [main_document showsToolbar] ? @"Hide All Toolbars" : @"Show All Toolbars" ];
+//        [[view_menu itemWithTag:102] setTitle: [main_document showsArguments] ? @"Hide Arguments" : @"Show Arguments" ];
+//        [[view_menu itemWithTag:103] setTitle: [main_document showsArguments] ? @"Hide All Arguments" : @"Show All Arguments" ];
+//        [[view_menu itemWithTag:104] setTitle: [main_document showsLineNumbers] ? @"Hide Line Numbers" : @"Show Line Numbers" ];
+//        [[view_menu itemWithTag:105] setTitle: [main_document showsLineNumbers] ? @"Hide All Line Numbers" : @"Show All Line Numbers" ];
+//        [[view_menu itemWithTag:106] setTitle: [main_document showsStatusBar] ? @"Hide Status Bar" : @"Show Status Bar" ];
+//        [[view_menu itemWithTag:107] setTitle: [main_document showsStatusBar] ? @"Hide All Status Bars" : @"Show All Status Bars" ];
     }
 }
 
@@ -499,14 +499,14 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 
 - (void)lockEditing:(id)sender
 {
-    miniAudicleDocument * doc = [self currentDocument];
-    
-    [doc setLockEditing:![doc lockEditing]];
-    
-    if( [doc lockEditing] )
-        [sender setTitle:@"Unlock Editing"];
-    else
-        [sender setTitle:@"Lock Editing"];
+//    miniAudicleDocument * doc = [self currentDocument];
+//    
+//    [doc setLockEditing:![doc lockEditing]];
+//    
+//    if( [doc lockEditing] )
+//        [sender setTitle:@"Unlock Editing"];
+//    else
+//        [sender setTitle:@"Lock Editing"];
 }
 
 //-----------------------------------------------------------------------------
@@ -653,11 +653,11 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     if( !doc )
         return;
 
-    [doc setShowsToolbar:![doc showsToolbar]];
-    
-    NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
-    [[view_menu itemWithTag:HIDE_TOOLBAR_TAG] setTitle: [doc showsToolbar] ? @"Hide Toolbar" : @"Show Toolbar" ];
-    [[view_menu itemWithTag:HIDE_ALL_TOOLBARS_TAG] setTitle: [doc showsToolbar] ? @"Hide All Toolbars" : @"Show All Toolbars" ];
+//    [doc setShowsToolbar:![doc showsToolbar]];
+//    
+//    NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
+//    [[view_menu itemWithTag:HIDE_TOOLBAR_TAG] setTitle: [doc showsToolbar] ? @"Hide Toolbar" : @"Show Toolbar" ];
+//    [[view_menu itemWithTag:HIDE_ALL_TOOLBARS_TAG] setTitle: [doc showsToolbar] ? @"Hide All Toolbars" : @"Show All Toolbars" ];
 }
 
 - (void)hideAllToolbars:(id)sender
@@ -674,10 +674,10 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     else
         hide = NO;
     
-    NSEnumerator * doc_enum = [madv objectEnumerator];
-    miniAudicleDocument * doc;
-    while( doc = [doc_enum nextObject] )
-        [doc setShowsToolbar:!hide];
+//    NSEnumerator * doc_enum = [madv objectEnumerator];
+//    miniAudicleDocument * doc;
+//    while( doc = [doc_enum nextObject] )
+//        [doc setShowsToolbar:!hide];
     
     [[view_menu itemWithTag:HIDE_TOOLBAR_TAG] setTitle: !hide ? @"Hide Toolbar" : @"Show Toolbar" ];
     [item setTitle: !hide ? @"Hide All Toolbars" : @"Show All Toolbars" ];
@@ -689,11 +689,11 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     if( !doc )
         return;
 
-    [doc setShowsArguments:![doc showsArguments]];
-    
-    NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
-    [[view_menu itemWithTag:HIDE_ARGUMENTS_TAG] setTitle: [doc showsArguments] ? @"Hide Arguments" : @"Show Arguments" ];
-    [[view_menu itemWithTag:HIDE_ALL_ARGUMENTS_TAG] setTitle: [doc showsArguments] ? @"Hide All Arguments" : @"Show All Arguments" ];
+//    [doc setShowsArguments:![doc showsArguments]];
+//    
+//    NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
+//    [[view_menu itemWithTag:HIDE_ARGUMENTS_TAG] setTitle: [doc showsArguments] ? @"Hide Arguments" : @"Show Arguments" ];
+//    [[view_menu itemWithTag:HIDE_ALL_ARGUMENTS_TAG] setTitle: [doc showsArguments] ? @"Hide All Arguments" : @"Show All Arguments" ];
 }
 
 - (void)hideAllArguments:(id)sender
@@ -710,10 +710,10 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     else
         hide = NO;
     
-    NSEnumerator * doc_enum = [madv objectEnumerator];
-    miniAudicleDocument * doc;
-    while( doc = [doc_enum nextObject] )
-        [doc setShowsArguments:!hide];
+//    NSEnumerator * doc_enum = [madv objectEnumerator];
+//    miniAudicleDocument * doc;
+//    while( doc = [doc_enum nextObject] )
+//        [doc setShowsArguments:!hide];
     
     [[view_menu itemWithTag:HIDE_ARGUMENTS_TAG] setTitle: !hide ? @"Hide Arguments" : @"Show Arguments" ];
     [item setTitle: !hide ? @"Hide All Arguments" : @"Show All Arguments" ];
@@ -725,11 +725,11 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     if( !doc )
         return;
     
-    [doc setShowsLineNumbers:![doc showsLineNumbers]];
-    
-    NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
-    [[view_menu itemWithTag:HIDE_LINE_NUMBERS_TAG] setTitle: [doc showsLineNumbers] ? @"Hide Line Numbers" : @"Show Line Numbers" ];
-    [[view_menu itemWithTag:HIDE_ALL_LINE_NUMBERS_TAG] setTitle: [doc showsLineNumbers] ? @"Hide All Line Numbers" : @"Show All Line Numbers" ];
+//    [doc setShowsLineNumbers:![doc showsLineNumbers]];
+//    
+//    NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
+//    [[view_menu itemWithTag:HIDE_LINE_NUMBERS_TAG] setTitle: [doc showsLineNumbers] ? @"Hide Line Numbers" : @"Show Line Numbers" ];
+//    [[view_menu itemWithTag:HIDE_ALL_LINE_NUMBERS_TAG] setTitle: [doc showsLineNumbers] ? @"Hide All Line Numbers" : @"Show All Line Numbers" ];
 }
 
 - (void)hideAllLineNumbers:(id)sender
@@ -746,10 +746,10 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     else
         hide = NO;
     
-    NSEnumerator * doc_enum = [madv objectEnumerator];
-    miniAudicleDocument * doc;
-    while( doc = [doc_enum nextObject] )
-        [doc setShowsLineNumbers:!hide];
+//    NSEnumerator * doc_enum = [madv objectEnumerator];
+//    miniAudicleDocument * doc;
+//    while( doc = [doc_enum nextObject] )
+//        [doc setShowsLineNumbers:!hide];
     
     [[view_menu itemWithTag:HIDE_LINE_NUMBERS_TAG] setTitle: !hide ? @"Hide Line Numbers" : @"Show Line Numbers" ];
     [item setTitle: !hide ? @"Hide All Line Numbers" : @"Show All Line Numbers" ];
@@ -761,11 +761,11 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     if( !doc )
         return;
     
-    [doc setShowsStatusBar:![doc showsStatusBar]];
-    
-    NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
-    [[view_menu itemWithTag:HIDE_STATUS_BAR_TAG] setTitle: [doc showsStatusBar] ? @"Hide Status Bar" : @"Show Status Bar" ];
-    [[view_menu itemWithTag:HIDE_ALL_STATUS_BARS_TAG] setTitle: [doc showsStatusBar] ? @"Hide All Status Bars" : @"Show All Status Bars" ];
+//    [doc setShowsStatusBar:![doc showsStatusBar]];
+//    
+//    NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
+//    [[view_menu itemWithTag:HIDE_STATUS_BAR_TAG] setTitle: [doc showsStatusBar] ? @"Hide Status Bar" : @"Show Status Bar" ];
+//    [[view_menu itemWithTag:HIDE_ALL_STATUS_BARS_TAG] setTitle: [doc showsStatusBar] ? @"Hide All Status Bars" : @"Show All Status Bars" ];
 }
 
 - (void)hideAllStatusBars:(id)sender
@@ -782,10 +782,10 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     else
         hide = NO;
     
-    NSEnumerator * doc_enum = [madv objectEnumerator];
-    miniAudicleDocument * doc;
-    while( doc = [doc_enum nextObject] )
-        [doc setShowsStatusBar:!hide];
+//    NSEnumerator * doc_enum = [madv objectEnumerator];
+//    miniAudicleDocument * doc;
+//    while( doc = [doc_enum nextObject] )
+//        [doc setShowsStatusBar:!hide];
     
     [[view_menu itemWithTag:HIDE_STATUS_BAR_TAG] setTitle: !hide ? @"Hide Status Bar" : @"Show Status Bar" ];
     [item setTitle: !hide ? @"Hide All Status Bars" : @"Show All Status Bars" ];

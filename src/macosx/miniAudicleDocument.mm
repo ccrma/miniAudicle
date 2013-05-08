@@ -163,10 +163,10 @@ U.S.A.
 {
     if( !has_customized_appearance )
     {
-        [self setShowsArguments:[[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowArguments]];
-        [self setShowsLineNumbers:[[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesDisplayLineNumbers]];
-        [self setShowsToolbar:[[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowToolbar]];
-        [self setShowsStatusBar:[[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowStatusBar]];
+//        [self setShowsArguments:[[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowArguments]];
+//        [self setShowsLineNumbers:[[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesDisplayLineNumbers]];
+//        [self setShowsToolbar:[[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowToolbar]];
+//        [self setShowsStatusBar:[[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowStatusBar]];
         has_customized_appearance = NO;
     }
 }
@@ -177,140 +177,140 @@ U.S.A.
     docid = ma->allocate_document_id();
 }
 
-- (void)setLockEditing:(BOOL)lock
-{
-    [[text_view textView] setEditable:!lock];
-}
-
-- (BOOL)lockEditing
-{
-    return ![[text_view textView] isEditable];
-}
-
-- (void)commentOut:(id)sender
-{
-    
-}
-
-- (void)saveBackup:(id)sender
-{
-    //NSString * backup_name = [[NSUserDefaults standardUserDefaults] stringForKey:];
-}
-
-#define __MA_ARGUMENTS_TEXT_HEIGHT__ 24
-- (void)setShowsArguments:(BOOL)_shows_arguments
-{
-    if( _shows_arguments != shows_arguments )
-    {
-        if( !_shows_arguments )
-        {
-            //printf( "hiding arguments\n" );
-            [argument_text removeFromSuperview];
-            
-            NSRect frame_rect = [text_view frame];
-            frame_rect.size.height += __MA_ARGUMENTS_TEXT_HEIGHT__;
-            //frame_rect.origin.y += __MA_ARGUMENTS_TEXT_HEIGHT__;
-            [text_view setFrame:frame_rect];
-        }
-    
-        else
-        {
-            //printf( "showing arguments\n" );
-            NSRect frame_rect = [text_view frame];
-            frame_rect.size.height -= __MA_ARGUMENTS_TEXT_HEIGHT__;
-            //frame_rect.origin.y -= __MA_ARGUMENTS_TEXT_HEIGHT__;
-            [text_view setFrame:frame_rect];
-            
-            [[window contentView] addSubview:argument_text];
-            
-            // redisplay the arguments bar area
-            [[window contentView] setNeedsDisplayInRect:NSMakeRect( 0, frame_rect.size.height, 
-                                                                    frame_rect.size.width,
-                                                                    frame_rect.size.height - __MA_ARGUMENTS_TEXT_HEIGHT__ )];
-        }
-        
-        shows_arguments = _shows_arguments;
-    }
-}
-
-- (BOOL)showsArguments
-{
-    return shows_arguments;
-}
-
-
-
-- (void)setShowsToolbar:(BOOL)_shows_toolbar
-{
-    if( shows_toolbar != _shows_toolbar )
-    {
-        [toolbar setVisible:_shows_toolbar];
-        shows_toolbar = _shows_toolbar;
-    }
-    
-    //has_customized_appearance = YES;
-}
-
-- (BOOL)showsToolbar
-{
-    return shows_toolbar;
-}
-
-- (void)setShowsLineNumbers:(BOOL)_shows_line_numbers
-{
-    if( shows_line_numbers != _shows_line_numbers )
-    {
-        [text_view enableLineNumbers:_shows_line_numbers];
-        shows_line_numbers = _shows_line_numbers;
-    }
-    
-    //has_customized_appearance = YES;
-}
-
-- (BOOL)showsLineNumbers
-{
-    return shows_line_numbers;
-}
-
-
-- (void)setShowsStatusBar:(BOOL)_shows_status_bar
-{
-    if( shows_status_bar != _shows_status_bar )
-    {
-        if( !_shows_status_bar )
-        {
-            [status_text removeFromSuperview];
-            
-            NSRect frame_rect = [text_view frame];
-            frame_rect.origin.y -= [status_text frame].size.height;
-            frame_rect.size.height += [status_text frame].size.height;
-            [text_view setFrame:frame_rect];
-        }
-        
-        else
-        {
-            NSRect frame_rect = [text_view frame];
-            frame_rect.origin.y += [status_text frame].size.height;
-            frame_rect.size.height -= [status_text frame].size.height;
-            [text_view setFrame:frame_rect];
-            
-            [[window contentView] addSubview:status_text];
-            
-            // redisplay the arguments bar area
-            [[window contentView] setNeedsDisplayInRect:NSMakeRect( 0, 0, 
-                                                                    frame_rect.size.width,
-                                                                    frame_rect.size.height - [status_text frame].size.height )];
-        }
-        
-        shows_status_bar = _shows_status_bar;
-    }
-    
-    //has_customized_appearance = YES;
-}
-
-- (BOOL)showsStatusBar
-{
-    return shows_status_bar;
-}
+//- (void)setLockEditing:(BOOL)lock
+//{
+//    [[text_view textView] setEditable:!lock];
+//}
+//
+//- (BOOL)lockEditing
+//{
+//    return ![[text_view textView] isEditable];
+//}
+//
+//- (void)commentOut:(id)sender
+//{
+//    
+//}
+//
+//- (void)saveBackup:(id)sender
+//{
+//    //NSString * backup_name = [[NSUserDefaults standardUserDefaults] stringForKey:];
+//}
+//
+//#define __MA_ARGUMENTS_TEXT_HEIGHT__ 24
+//- (void)setShowsArguments:(BOOL)_shows_arguments
+//{
+//    if( _shows_arguments != shows_arguments )
+//    {
+//        if( !_shows_arguments )
+//        {
+//            //printf( "hiding arguments\n" );
+//            [argument_text removeFromSuperview];
+//            
+//            NSRect frame_rect = [text_view frame];
+//            frame_rect.size.height += __MA_ARGUMENTS_TEXT_HEIGHT__;
+//            //frame_rect.origin.y += __MA_ARGUMENTS_TEXT_HEIGHT__;
+//            [text_view setFrame:frame_rect];
+//        }
+//    
+//        else
+//        {
+//            //printf( "showing arguments\n" );
+//            NSRect frame_rect = [text_view frame];
+//            frame_rect.size.height -= __MA_ARGUMENTS_TEXT_HEIGHT__;
+//            //frame_rect.origin.y -= __MA_ARGUMENTS_TEXT_HEIGHT__;
+//            [text_view setFrame:frame_rect];
+//            
+//            [[window contentView] addSubview:argument_text];
+//            
+//            // redisplay the arguments bar area
+//            [[window contentView] setNeedsDisplayInRect:NSMakeRect( 0, frame_rect.size.height, 
+//                                                                    frame_rect.size.width,
+//                                                                    frame_rect.size.height - __MA_ARGUMENTS_TEXT_HEIGHT__ )];
+//        }
+//        
+//        shows_arguments = _shows_arguments;
+//    }
+//}
+//
+//- (BOOL)showsArguments
+//{
+//    return shows_arguments;
+//}
+//
+//
+//
+//- (void)setShowsToolbar:(BOOL)_shows_toolbar
+//{
+//    if( shows_toolbar != _shows_toolbar )
+//    {
+//        [toolbar setVisible:_shows_toolbar];
+//        shows_toolbar = _shows_toolbar;
+//    }
+//    
+//    //has_customized_appearance = YES;
+//}
+//
+//- (BOOL)showsToolbar
+//{
+//    return shows_toolbar;
+//}
+//
+//- (void)setShowsLineNumbers:(BOOL)_shows_line_numbers
+//{
+//    if( shows_line_numbers != _shows_line_numbers )
+//    {
+//        [text_view enableLineNumbers:_shows_line_numbers];
+//        shows_line_numbers = _shows_line_numbers;
+//    }
+//    
+//    //has_customized_appearance = YES;
+//}
+//
+//- (BOOL)showsLineNumbers
+//{
+//    return shows_line_numbers;
+//}
+//
+//
+//- (void)setShowsStatusBar:(BOOL)_shows_status_bar
+//{
+//    if( shows_status_bar != _shows_status_bar )
+//    {
+//        if( !_shows_status_bar )
+//        {
+//            [status_text removeFromSuperview];
+//            
+//            NSRect frame_rect = [text_view frame];
+//            frame_rect.origin.y -= [status_text frame].size.height;
+//            frame_rect.size.height += [status_text frame].size.height;
+//            [text_view setFrame:frame_rect];
+//        }
+//        
+//        else
+//        {
+//            NSRect frame_rect = [text_view frame];
+//            frame_rect.origin.y += [status_text frame].size.height;
+//            frame_rect.size.height -= [status_text frame].size.height;
+//            [text_view setFrame:frame_rect];
+//            
+//            [[window contentView] addSubview:status_text];
+//            
+//            // redisplay the arguments bar area
+//            [[window contentView] setNeedsDisplayInRect:NSMakeRect( 0, 0, 
+//                                                                    frame_rect.size.width,
+//                                                                    frame_rect.size.height - [status_text frame].size.height )];
+//        }
+//        
+//        shows_status_bar = _shows_status_bar;
+//    }
+//    
+//    //has_customized_appearance = YES;
+//}
+//
+//- (BOOL)showsStatusBar
+//{
+//    return shows_status_bar;
+//}
 
 @end
