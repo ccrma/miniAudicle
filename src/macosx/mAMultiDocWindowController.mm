@@ -131,10 +131,20 @@
 //    [toolbar_pill setTarget:self];
 //    [toolbar_pill setAction:@selector(toggleToolbar:)];
     
-    [[self window] setBackgroundColor:[NSColor colorWithSRGBRed:175.0/255.0
-                                                          green:175.0/255.0
-                                                           blue:175.0/255.0
-                                                          alpha:1.0]];
+    if([[self window] isMainWindow])
+    {
+        [[self window] setBackgroundColor:[NSColor colorWithSRGBRed:175.0/255.0
+                                                              green:175.0/255.0
+                                                               blue:175.0/255.0
+                                                              alpha:1.0]];
+    }
+    else
+    {
+        [[self window] setBackgroundColor:[NSColor colorWithSRGBRed:223.0/255.0
+                                                              green:223.0/255.0
+                                                               blue:223.0/255.0
+                                                              alpha:1.0]];
+    }
 }
 
 - (void)addViewWithDocument:(NSDocument*)document tabViewItem:(NSTabViewItem *)tabViewItem
@@ -258,20 +268,20 @@
         [document close];
 }
 
-
-#pragma mark NSTabView + PSMTabBarControl delegate methods
-
 - (void)newDocument:(id)sender
 {
     [[self window] makeKeyAndOrderFront:sender];
     [[NSDocumentController sharedDocumentController] newDocument:sender];
 }
 
+#pragma mark NSTabView + PSMTabBarControl delegate methods
+
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem
 {
     NSViewController* ctrl = (NSViewController*)[tabViewItem identifier];
     NSDocument* doc = [(id)ctrl document];
     [[self window] setDocumentEdited:[doc isDocumentEdited]];
+    [[self window] setTitle:[doc displayName]];
 }
 
 - (BOOL)tabView:(NSTabView *)aTabView shouldCloseTabViewItem:(NSTabViewItem *)tabViewItem
@@ -406,11 +416,6 @@
 	[[newWindowController window] setFrameTopLeftPoint:point];
 	[[newWindowController tabBar] setStyle:style];
 	
-//    mADocumentViewController *ctrl = (mADocumentViewController *)[tabViewItem identifier];
-//    miniAudicleDocument *doc = [ctrl document];
-
-//    [newWindowController addDocument:doc tabViewItem:tabViewItem];
-    
 	return [newWindowController tabBar];
 }
 
@@ -452,6 +457,24 @@
         [doc removeWindowController:me];
     }
     [me.documents removeAllObjects];
+}
+
+- (void)windowDidBecomeMain:(NSNotification *)notification
+{
+    [[self window] setBackgroundColor:[NSColor colorWithSRGBRed:175.0/255.0
+                                                          green:175.0/255.0
+                                                           blue:175.0/255.0
+                                                          alpha:1.0]];
+    [tabBar setNeedsDisplay];
+}
+
+- (void)windowDidResignMain:(NSNotification *)notification
+{
+    [[self window] setBackgroundColor:[NSColor colorWithSRGBRed:223.0/255.0
+                                                          green:223.0/255.0
+                                                           blue:223.0/255.0
+                                                          alpha:1.0]];
+    [tabBar setNeedsDisplay];
 }
 
 - (void)vm_on
