@@ -102,7 +102,7 @@ U.S.A.
     miniAudicleController * mac = [NSDocumentController sharedDocumentController];
     [[mac topWindowController] addDocument:self];
     [[[mac topWindowController] window] makeKeyAndOrderFront:self];
-    self.windowController = [mac topWindowController];
+//    self.windowController = [mac topWindowController];
 }
 
 - (NSString *)windowNibName

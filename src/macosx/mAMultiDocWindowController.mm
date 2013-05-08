@@ -163,7 +163,7 @@
     [ctrl activate];
     
     [document setWindow:self.window];
-    [document addWindowController:self];
+    [(miniAudicleDocument *)document setWindowController:self];
 }
 
 - (void)addDocument:(NSDocument *)docToAdd
@@ -288,11 +288,6 @@
 - (void)tabView:(NSTabView *)aTabView willCloseTabViewItem:(NSTabViewItem *)tabViewItem
 {
     NSLog(@"tabView willCloseTabViewItem");
-
-//    NSViewController* ctrl = (NSViewController*)[[tabView selectedTabViewItem] identifier];
-//    NSDocument* doc = [(id)ctrl document];
-//    
-//    [doc close];
 }
 
 - (void)tabView:(NSTabView *)aTabView didCloseTabViewItem:(NSTabViewItem *)tabViewItem
@@ -317,6 +312,8 @@
 
 - (BOOL)tabView:(NSTabView*)aTabView shouldDropTabViewItem:(NSTabViewItem *)tabViewItem inTabBar:(PSMTabBarControl *)tabBarControl
 {
+//    NSLog(@"shouldDropTabViewItem: %@ inTabBar: %@", [tabViewItem label], tabBarControl);
+    
 	return YES;
 }
 
@@ -330,6 +327,12 @@
     [self.contentViewControllers removeObject:ctrl];
     [self.documents removeObject:doc];
     [doc removeWindowController:self];
+    
+    mAMultiDocWindowController * newWindowController = [[tabBarControl window] windowController];
+    [newWindowController addDocument:doc tabViewItem:tabViewItem];
+    [[tabBarControl window] makeKeyAndOrderFront:self];
+    [ctrl activate];
+    [[tabBarControl window] setDocumentEdited:[doc isDocumentEdited]];
 }
 
 - (NSImage *)tabView:(NSTabView *)aTabView imageForTabViewItem:(NSTabViewItem *)tabViewItem offset:(NSSize *)offset styleMask:(unsigned int *)styleMask
@@ -403,10 +406,10 @@
 	[[newWindowController window] setFrameTopLeftPoint:point];
 	[[newWindowController tabBar] setStyle:style];
 	
-    mADocumentViewController *ctrl = (mADocumentViewController *)[tabViewItem identifier];
-    miniAudicleDocument *doc = [ctrl document];
+//    mADocumentViewController *ctrl = (mADocumentViewController *)[tabViewItem identifier];
+//    miniAudicleDocument *doc = [ctrl document];
 
-    [newWindowController addDocument:doc tabViewItem:tabViewItem];
+//    [newWindowController addDocument:doc tabViewItem:tabViewItem];
     
 	return [newWindowController tabBar];
 }
