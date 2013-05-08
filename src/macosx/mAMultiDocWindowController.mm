@@ -86,6 +86,12 @@
 
 - (void)dealloc
 {
+    for(miniAudicleDocument * doc in self.documents)
+    {
+        [doc removeWindowController:self];
+        [doc setWindowController:nil];
+    }
+    
     [_documents release];
     _documents = nil;
     [_contentViewControllers release];
@@ -228,6 +234,7 @@
     
     // finally detach the document from the window controller
     [docToRemove removeWindowController:self];
+    [(miniAudicleDocument *)docToRemove setWindowController:nil];
     [documents removeObject:docToRemove];
 }
 
@@ -488,8 +495,43 @@
 
 - (BOOL)windowShouldClose:(id)sender
 {
-    return YES;
+    NSAlert * alert = [NSAlert alertWithMessageText:@"You have 2 miniAudicle documents with unsaved changes. Do you want to review these changes before quitting?"
+                                      defaultButton:@"Review Changes..."
+                                    alternateButton:@"Cancel"
+                                        otherButton:@"Discard Changes"
+                          informativeTextWithFormat:@"If you don’t review your documents, all your changes will be lost."];
+    
+    [alert beginSheetModalForWindow:[self window]
+                      modalDelegate:self
+                     didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:)
+                        contextInfo:nil];
+    
+    return NO;
 }
+
+- (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
+{
+    [[alert window] orderOut:self];
+    
+    if(returnCode == NSAlertDefaultReturn)
+    {
+        NSSet *documentsCopy = [[self.documents copy] autorelease];
+        for(NSDocument * doc in documentsCopy)
+        {
+            [doc canCloseDocumentWithDelegate:self
+                          shouldCloseSelector:@selector(document:shouldClose:contextInfo:)
+                                  contextInfo:nil];
+        }
+    }
+    else if(returnCode == NSAlertAlternateReturn)
+    {
+    }
+    else if(returnCode == NSAlertOtherReturn)
+    {
+        [[self window] close];
+    }
+}
+
 
 - (void)vm_on
 {

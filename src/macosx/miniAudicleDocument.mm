@@ -78,8 +78,14 @@ U.S.A.
 - (void)dealloc
 {
     [data release];
+    data = nil;
+    
     if( ma != nil )
+    {
         ma->free_document_id( docid );
+        docid = 0;
+        ma = nil;
+    }
     
     _viewController.document = nil;
     [_viewController release];

@@ -425,10 +425,8 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
         main_document = [[window windowController] document];
         
         [closeTabMenuItem setKeyEquivalent:@"w"];
-        [closeTabMenuItem setEnabled:YES];
         [closeTabMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask];
         [closeWindowMenuItem setKeyEquivalent:@"w"];
-        [closeWindowMenuItem setEnabled:YES];
         [closeWindowMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask | NSShiftKeyMask];
         
 //        NSMenu * edit_menu = [[[NSApp mainMenu] itemWithTitle:@"Edit"] submenu];
@@ -465,9 +463,7 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
         [[edit_menu itemWithTag:2] setEnabled:NO];
         
         [closeTabMenuItem setKeyEquivalent:@""];
-        [closeTabMenuItem setEnabled:NO];
         [closeWindowMenuItem setKeyEquivalent:@"w"];
-        [closeWindowMenuItem setEnabled:YES];
         [closeWindowMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask];
     }
 }
