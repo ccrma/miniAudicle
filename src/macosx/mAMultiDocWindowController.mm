@@ -546,6 +546,12 @@
     }
     else
     {
+        NSSet *documentsCopy = [[self.documents copy] autorelease];
+        for(NSDocument * doc in documentsCopy)
+        {
+            [doc close];
+        }
+        
         return YES;
     }
 }
@@ -569,6 +575,12 @@
     }
     else if(returnCode == NSAlertOtherReturn)
     {
+        NSSet *documentsCopy = [[self.documents copy] autorelease];
+        for(NSDocument * doc in documentsCopy)
+        {
+            [doc close];
+        }
+
         [[self window] close];
     }
 }
