@@ -2,7 +2,7 @@
   miniAudicle
   Graphical ChucK audio programming environment
 
-  Copyright (c) 2005 Spencer Salazar.  All rights reserved.
+  Copyright (c) 2005-2013 Spencer Salazar.  All rights reserved.
     http://chuck.cs.princeton.edu/
     http://soundlab.cs.princeton.edu/
 
@@ -26,7 +26,7 @@
 // file: miniAudicle_ui_elements.h
 // desc: for supporting UI controls defined in ChucK code
 //
-// author: Spencer Salazar (ssalazar@princeton.edu)
+// author: Spencer Salazar (spencer@ccrma.stanford.edu)
 // date: Autumn 2005
 //-----------------------------------------------------------------------------
 #ifndef __MINIAUDICLE_UI_ELEMENTS_H__

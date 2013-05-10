@@ -2,7 +2,7 @@
 miniAudicle
 Cocoa GUI to chuck audio programming environment
 
-Copyright (c) 2005 Spencer Salazar.  All rights reserved.
+Copyright (c) 2005-2013 Spencer Salazar.  All rights reserved.
 http://chuck.cs.princeton.edu/
 http://soundlab.cs.princeton.edu/
 
@@ -26,7 +26,7 @@ U.S.A.
 // file: miniAudicleShellTextView.mm
 // desc: NSTextView subclass to support console-like text I/O in a text view
 //
-// author: Spencer Salazar (ssalazar@princeton.edu)
+// author: Spencer Salazar (spencer@ccrma.stanford.edu)
 // date: Autumn 2005
 //-----------------------------------------------------------------------------
 
