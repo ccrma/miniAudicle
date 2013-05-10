@@ -161,7 +161,7 @@ OBJS=$(COBJS) $(CXXOBJS) $(OBJCOBJS) $(OBJCXXOBJS)
 # place all images in macosx/icon here
 IMAGES=led-red.png led-green.png led-blue.png led-off.png \
        add.png remove.png replace.png removeall.png removelast.png error.png \
-       miniAudicle.icns ck.icns Thumb9.png lock.png
+       miniAudicle.icns ck.icns Thumb9.png lock.png record.png stop.png
 
 IMAGES:=$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/Resources/,$(IMAGES))
 

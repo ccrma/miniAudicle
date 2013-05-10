@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0907BB06173D04770065B860 /* PSMTabBarControl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0916F980173AF0D20055956C /* PSMTabBarControl.framework */; };
 		09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09087C6414A4F5F600AD2633 /* mAVMMonitorCellController.mm */; };
 		09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09087C6714A4F61700AD2633 /* mAVMMonitorCell.xib */; };
 		09087C6B14A4F67100AD2633 /* UIRemoveControlMinus.png in Resources */ = {isa = PBXBuildFile; fileRef = 09087C6A14A4F67100AD2633 /* UIRemoveControlMinus.png */; };
@@ -379,6 +380,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				0907BB06173D04770065B860 /* PSMTabBarControl.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2536,7 +2538,6 @@
 					__MACOSX_CORE__,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				HEADER_SEARCH_PATHS = ios;
 				INFOPLIST_FILE = "ios/miniAudicle iOS-Info.plist";
@@ -2567,7 +2568,6 @@
 					__CHIP_MODE__,
 					__MACOSX_CORE__,
 				);
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				HEADER_SEARCH_PATHS = ios;
 				INFOPLIST_FILE = "ios/miniAudicle iOS-Info.plist";
@@ -2685,8 +2685,6 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=*]" = "3rd Party Mac Developer Application";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2712,8 +2710,6 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = miniAudicle;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2721,7 +2717,6 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
@@ -2745,7 +2740,6 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = miniAudicle;
-				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
