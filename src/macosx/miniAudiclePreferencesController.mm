@@ -152,6 +152,9 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesShowStatusBar];
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesEnableOTFVisuals];
         
+        [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesShowTabBar];
+        [defaults setObject:[NSNumber numberWithInt:0] forKey:mAPreferencesOpenDocumentsInNewTab];
+        
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesEnableChugins];
         
         std::list<std::string> default_chugin_pathv;

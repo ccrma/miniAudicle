@@ -55,7 +55,7 @@ NSString * const mAChuginExtension = @"chug";
 
 const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcartwright.MultiWindowDocumentControllerCloseAllContext";
 
-@interface miniAudicleController (Private)
+@interface miniAudicleController ()
 - (void)adjustChucKMenuItems;
 - (void)applicationWillTerminate:(NSNotification *)n;
 
@@ -200,6 +200,10 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     [m_recordSessionController release];
     [_windowControllers release];
     
+    [[NSUserDefaultsController sharedUserDefaultsController]
+     removeObserver:self
+     forKeyPath:[@"values." stringByAppendingString:mAPreferencesOpenDocumentsInNewTab]];
+    
     [super dealloc];
 }
 
@@ -221,7 +225,13 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
                                              selector:@selector(windowDidBecomeKey:)
                                                  name:NSWindowDidBecomeKeyNotification
                                                object:nil];
-        
+    
+    [[NSUserDefaultsController sharedUserDefaultsController]
+     addObserver:self
+     forKeyPath:[@"values." stringByAppendingString:mAPreferencesOpenDocumentsInNewTab]
+     options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+     context:nil];
+    
     // init preferences
     // [mapc initDefaults];
     [self newDocument:self];
@@ -239,10 +249,25 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 
 - (mAMultiDocWindowController *)windowControllerForNewDocument
 {
-    if([[NSUserDefaults standardUserDefaults] integerForKey:mAPreferencesOpenDocumentsInNewTab])
-        return [self topWindowController];
+    mAMultiDocWindowController * _wc;
+    BOOL openDocsInNewTab = [[NSUserDefaults standardUserDefaults] integerForKey:mAPreferencesOpenDocumentsInNewTab];
+    
+    if(_forceDocumentInTab)
+        _wc = [self topWindowController];
+    else if(_forceDocumentInWindow)
+        _wc = [self newWindowController];
     else
-        return [self newWindowController];
+    {
+        if(openDocsInNewTab)
+            _wc = [self topWindowController];
+        else
+            _wc = [self newWindowController];
+    }
+    
+    _forceDocumentInWindow = NO;
+    _forceDocumentInTab = NO;
+    
+    return _wc;
 }
 
 - (mAMultiDocWindowController *)topWindowController
@@ -279,7 +304,7 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 - (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose contextInfo:(void  *)contextInfo
 {
     if (contextInfo == MultiWindowDocumentControllerCloseAllContext) {
-        NSLog(@"in close all. should close: %@",@(shouldClose));
+//        NSLog(@"in close all. should close: %@",@(shouldClose));
         if (shouldClose) {
             // work on a copy of the window controllers array so that the doc can mutate its own array.
             NSArray* windowCtrls = [doc.windowControllers copy];
@@ -303,7 +328,7 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 
 - (void)closeAllDocumentsWithDelegate:(id)delegate didCloseAllSelector:(SEL)didCloseAllSelector contextInfo:(void *)contextInfo
 {
-    NSLog(@"Closing all documents");
+//    NSLog(@"Closing all documents");
     _didCloseAll = YES;
     for (NSDocument* currentDocument in self.documents) {
         [currentDocument canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(document:shouldClose:contextInfo:) contextInfo:(void*)MultiWindowDocumentControllerCloseAllContext];
@@ -513,6 +538,25 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
         return [NSColor colorWithHTML:[[[NSUserDefaults standardUserDefaults] objectForKey:IDEKit_TextColorsPrefKey] objectForKey:IDEKit_NameForColor( IDEKit_kLangColor_Classes )]];
     
     return nil;//[NSColor redColor];
+}
+
+
+#pragma mark IBActions
+
+- (IBAction)newWindow:(id)sender
+{
+    _forceDocumentInWindow = YES;
+    _forceDocumentInTab = NO;
+    
+    [self newDocument:sender];
+}
+
+- (IBAction)newTab:(id)sender
+{
+    _forceDocumentInWindow = NO;
+    _forceDocumentInTab = YES;
+    
+    [self newDocument:sender];
 }
 
 - (void)lockEditing:(id)sender
@@ -989,10 +1033,34 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
 }
 
 
+#pragma mark NSKeyValueObserving
 
-@end
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    //    NSLog(@"observeValueForKeyPath %@", keyPath);
+    if([keyPath isEqualToString:[@"values." stringByAppendingString:mAPreferencesOpenDocumentsInNewTab]])
+    {
+        bool openInNewTab = [[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesOpenDocumentsInNewTab];
+        if(openInNewTab)
+        {
+            [newTabMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask];
+            [newWindowMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask | NSAlternateKeyMask];
+        }
+        else
+        {
+            [newTabMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask | NSAlternateKeyMask];
+            [newWindowMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask];
+        }
+    }
+    else
+    {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
 
-@implementation miniAudicleController (Private)
 
 - (void)adjustChucKMenuItems
 {

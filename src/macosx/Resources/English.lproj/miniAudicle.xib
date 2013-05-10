@@ -1435,7 +1435,7 @@
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<string key="NSWindowContentMinSize">{250, 294}</string>
 				<object class="NSView" key="NSWindowView" id="971251188">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1444,7 +1444,6 @@
 							<int key="NSvFlags">261</int>
 							<string key="NSFrame">{{54, 12}, {194, 32}}</string>
 							<reference key="NSSuperview" ref="971251188"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="879478205">
 								<int key="NSCellFlags">67108864</int>
@@ -1481,7 +1480,7 @@
 											<int key="NSvFlags">4370</int>
 											<string key="NSFrameSize">{264, 220}</string>
 											<reference key="NSSuperview" ref="775716931"/>
-											<reference key="NSNextKeyView" ref="997291959"/>
+											<reference key="NSNextKeyView" ref="716189630"/>
 											<bool key="NSEnabled">YES</bool>
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 											<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -1747,7 +1746,7 @@
 							</object>
 							<string key="NSFrame">{{20, 58}, {266, 238}}</string>
 							<reference key="NSSuperview" ref="971251188"/>
-							<reference key="NSNextKeyView" ref="716189630"/>
+							<reference key="NSNextKeyView" ref="775716931"/>
 							<int key="NSsFlags">133138</int>
 							<reference key="NSVScroller" ref="997291959"/>
 							<reference key="NSHScroller" ref="716189630"/>
@@ -1891,7 +1890,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{306, 372}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="871928600"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
@@ -1921,7 +1919,7 @@
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<string key="NSWindowContentMinSize">{213, 107}</string>
 				<object class="NSView" key="NSWindowView" id="59802511">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1940,7 +1938,7 @@
 											<int key="NSvFlags">2322</int>
 											<string key="NSFrameSize">{432, 320}</string>
 											<reference key="NSSuperview" ref="727284976"/>
-											<reference key="NSNextKeyView" ref="435978510"/>
+											<reference key="NSNextKeyView" ref="168931709"/>
 											<object class="NSTextContainer" key="NSTextContainer" id="735547672">
 												<object class="NSLayoutManager" key="NSLayoutManager">
 													<object class="NSTextStorage" key="NSTextStorage">
@@ -2053,7 +2051,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 									<int key="NSvFlags">256</int>
 									<string key="NSFrame">{{431, 0}, {16, 320}}</string>
 									<reference key="NSSuperview" ref="367289449"/>
-									<reference key="NSNextKeyView"/>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<reference key="NSTarget" ref="367289449"/>
 									<string key="NSAction">_doScroller:</string>
@@ -2075,7 +2072,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							</object>
 							<string key="NSFrameSize">{447, 320}</string>
 							<reference key="NSSuperview" ref="59802511"/>
-							<reference key="NSNextKeyView" ref="168931709"/>
+							<reference key="NSNextKeyView" ref="727284976"/>
 							<int key="NSsFlags">133136</int>
 							<reference key="NSVScroller" ref="435978510"/>
 							<reference key="NSHScroller" ref="168931709"/>
@@ -2086,7 +2083,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 					</object>
 					<string key="NSFrameSize">{447, 320}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="367289449"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
@@ -2351,7 +2347,7 @@ cHJpbmNldG9uLmVkdS8</string>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<string key="NSWindowContentMinSize">{213, 107}</string>
 				<object class="NSView" key="NSWindowView" id="904696068">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2360,7 +2356,6 @@ cHJpbmNldG9uLmVkdS8</string>
 							<int key="NSvFlags">282</int>
 							<string key="NSFrame">{{13, 44}, {424, 375}}</string>
 							<reference key="NSSuperview" ref="904696068"/>
-							<reference key="NSNextKeyView" ref="395977431"/>
 							<object class="NSMutableArray" key="NSTabViewItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
 								<object class="NSTabViewItem" id="497627721">
@@ -3392,7 +3387,7 @@ cyByZXN0YXJ0ZWQuCg</string>
 																<int key="NSvFlags">256</int>
 																<string key="NSFrameSize">{368, 223}</string>
 																<reference key="NSSuperview" ref="344600404"/>
-																<reference key="NSNextKeyView" ref="626593170"/>
+																<reference key="NSNextKeyView" ref="175721181"/>
 																<bool key="NSEnabled">YES</bool>
 																<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 																<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -3536,7 +3531,7 @@ cyByZXN0YXJ0ZWQuCg</string>
 												</object>
 												<string key="NSFrame">{{17, 46}, {370, 241}}</string>
 												<reference key="NSSuperview" ref="229793244"/>
-												<reference key="NSNextKeyView" ref="175721181"/>
+												<reference key="NSNextKeyView" ref="344600404"/>
 												<int key="NSsFlags">133682</int>
 												<reference key="NSVScroller" ref="626593170"/>
 												<reference key="NSHScroller" ref="1055974324"/>
@@ -4344,7 +4339,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 					</object>
 					<string key="NSFrameSize">{450, 426}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="891674981"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
@@ -4879,7 +4873,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<string key="NSWindowContentMinSize">{213, 107}</string>
 				<object class="NSView" key="NSWindowView" id="391068838">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -4898,7 +4892,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 											<int key="NSvFlags">258</int>
 											<string key="NSFrameSize">{1, 1}</string>
 											<reference key="NSSuperview" ref="521705560"/>
-											<reference key="NSNextKeyView" ref="795346802"/>
+											<reference key="NSNextKeyView" ref="971327458"/>
 											<string key="NSClassName">mAConsoleMonitorView</string>
 											<string key="NSExtension">NSView</string>
 										</object>
@@ -4918,7 +4912,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 									<int key="NSvFlags">256</int>
 									<string key="NSFrame">{{431, 0}, {16, 320}}</string>
 									<reference key="NSSuperview" ref="297720081"/>
-									<reference key="NSNextKeyView"/>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<reference key="NSTarget" ref="297720081"/>
 									<string key="NSAction">_doScroller:</string>
@@ -4940,7 +4933,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							</object>
 							<string key="NSFrameSize">{447, 320}</string>
 							<reference key="NSSuperview" ref="391068838"/>
-							<reference key="NSNextKeyView" ref="971327458"/>
+							<reference key="NSNextKeyView" ref="521705560"/>
 							<int key="NSsFlags">133136</int>
 							<reference key="NSVScroller" ref="795346802"/>
 							<reference key="NSHScroller" ref="971327458"/>
@@ -4952,7 +4945,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 					</object>
 					<string key="NSFrameSize">{447, 320}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="297720081"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
@@ -5611,14 +5603,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">newDocument:</string>
-						<reference key="source" ref="990087552"/>
-						<reference key="destination" ref="1062965729"/>
-					</object>
-					<int key="connectionID">326</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">openDocument:</string>
 						<reference key="source" ref="990087552"/>
 						<reference key="destination" ref="450733317"/>
@@ -5800,14 +5784,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="destination" ref="20429739"/>
 					</object>
 					<int key="connectionID">1461</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">newDocument:</string>
-						<reference key="source" ref="990087552"/>
-						<reference key="destination" ref="606219850"/>
-					</object>
-					<int key="connectionID">1465</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -6344,6 +6320,38 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="destination" ref="80724760"/>
 					</object>
 					<int key="connectionID">1205</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">newWindowMenuItem</string>
+						<reference key="source" ref="813931230"/>
+						<reference key="destination" ref="1062965729"/>
+					</object>
+					<int key="connectionID">1494</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">newTabMenuItem</string>
+						<reference key="source" ref="813931230"/>
+						<reference key="destination" ref="606219850"/>
+					</object>
+					<int key="connectionID">1495</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">newTab:</string>
+						<reference key="source" ref="813931230"/>
+						<reference key="destination" ref="606219850"/>
+					</object>
+					<int key="connectionID">1496</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">newWindow:</string>
+						<reference key="source" ref="813931230"/>
+						<reference key="destination" ref="1062965729"/>
+					</object>
+					<int key="connectionID">1497</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -11262,7 +11270,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1493</int>
+			<int key="maxID">1497</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -11449,14 +11457,203 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<string key="className">miniAudicleController</string>
 					<string key="superclassName">NSDocumentController</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">recordSession:</string>
-						<string key="NS.object.0">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>addOpenDocuments:</string>
+							<string>addShred:</string>
+							<string>connectToLocalVM:</string>
+							<string>connectToRemoteVM:</string>
+							<string>doConnectToRemoteVMDialog:</string>
+							<string>hideAllArguments:</string>
+							<string>hideAllLineNumbers:</string>
+							<string>hideAllStatusBars:</string>
+							<string>hideAllToolbars:</string>
+							<string>hideArguments:</string>
+							<string>hideLineNumbers:</string>
+							<string>hideStatusBar:</string>
+							<string>hideToolbar:</string>
+							<string>newTab:</string>
+							<string>newWindow:</string>
+							<string>openMiniAudicleWebsite:</string>
+							<string>recordSession:</string>
+							<string>removeAllShreds:</string>
+							<string>removeLastShred:</string>
+							<string>removeOpenDocuments:</string>
+							<string>removeShred:</string>
+							<string>replaceOpenDocuments:</string>
+							<string>replaceShred:</string>
+							<string>setLogLevel:</string>
+							<string>tileDocumentWindows:</string>
+							<string>toggleVM:</string>
+						</object>
+						<object class="NSArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">recordSession:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">recordSession:</string>
-							<string key="candidateClassName">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>addOpenDocuments:</string>
+							<string>addShred:</string>
+							<string>connectToLocalVM:</string>
+							<string>connectToRemoteVM:</string>
+							<string>doConnectToRemoteVMDialog:</string>
+							<string>hideAllArguments:</string>
+							<string>hideAllLineNumbers:</string>
+							<string>hideAllStatusBars:</string>
+							<string>hideAllToolbars:</string>
+							<string>hideArguments:</string>
+							<string>hideLineNumbers:</string>
+							<string>hideStatusBar:</string>
+							<string>hideToolbar:</string>
+							<string>newTab:</string>
+							<string>newWindow:</string>
+							<string>openMiniAudicleWebsite:</string>
+							<string>recordSession:</string>
+							<string>removeAllShreds:</string>
+							<string>removeLastShred:</string>
+							<string>removeOpenDocuments:</string>
+							<string>removeShred:</string>
+							<string>replaceOpenDocuments:</string>
+							<string>replaceShred:</string>
+							<string>setLogLevel:</string>
+							<string>tileDocumentWindows:</string>
+							<string>toggleVM:</string>
+						</object>
+						<object class="NSArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">addOpenDocuments:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">addShred:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">connectToLocalVM:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">connectToRemoteVM:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">doConnectToRemoteVMDialog:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">hideAllArguments:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">hideAllLineNumbers:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">hideAllStatusBars:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">hideAllToolbars:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">hideArguments:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">hideLineNumbers:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">hideStatusBar:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">hideToolbar:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">newTab:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">newWindow:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">openMiniAudicleWebsite:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">recordSession:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">removeAllShreds:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">removeLastShred:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">removeOpenDocuments:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">removeShred:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">replaceOpenDocuments:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">replaceShred:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">setLogLevel:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">tileDocumentWindows:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">toggleVM:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -11465,17 +11662,23 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>closeTabMenuItem</string>
 							<string>closeWindowMenuItem</string>
+							<string>console_monitor</string>
+							<string>mapc</string>
 							<string>newTabMenuItem</string>
 							<string>newWindowMenuItem</string>
 							<string>startVMMenuItem</string>
+							<string>vm_monitor</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
+							<string>miniAudicleConsoleMonitor</string>
+							<string>miniAudiclePreferencesController</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
+							<string>miniAudicleVMMonitor</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -11484,9 +11687,12 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>closeTabMenuItem</string>
 							<string>closeWindowMenuItem</string>
+							<string>console_monitor</string>
+							<string>mapc</string>
 							<string>newTabMenuItem</string>
 							<string>newWindowMenuItem</string>
 							<string>startVMMenuItem</string>
+							<string>vm_monitor</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -11499,6 +11705,14 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">console_monitor</string>
+								<string key="candidateClassName">miniAudicleConsoleMonitor</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">mapc</string>
+								<string key="candidateClassName">miniAudiclePreferencesController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">newTabMenuItem</string>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
@@ -11509,6 +11723,10 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<object class="IBToOneOutletInfo">
 								<string key="name">startVMMenuItem</string>
 								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">vm_monitor</string>
+								<string key="candidateClassName">miniAudicleVMMonitor</string>
 							</object>
 						</object>
 					</object>

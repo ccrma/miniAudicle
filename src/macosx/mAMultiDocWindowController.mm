@@ -308,7 +308,7 @@
 - (void)newDocument:(id)sender
 {
     [[self window] makeKeyAndOrderFront:sender];
-    [[NSDocumentController sharedDocumentController] newDocument:sender];
+    [[NSDocumentController sharedDocumentController] newTab:sender];
 }
 
 #pragma mark NSTabView + PSMTabBarControl delegate methods
@@ -339,7 +339,7 @@
 
 - (void)tabView:(NSTabView *)aTabView didCloseTabViewItem:(NSTabViewItem *)tabViewItem
 {
-    NSLog(@"tabView didCloseTabViewItem");
+//    NSLog(@"tabView didCloseTabViewItem");
 }
 
 - (void)tabView:(NSTabView *)aTabView didDetachTabViewItem:(NSTabViewItem *)tabViewItem
@@ -349,7 +349,7 @@
 
 - (void)tabView:(NSTabView *)aTabView acceptedDraggingInfo:(id <NSDraggingInfo>)draggingInfo onTabViewItem:(NSTabViewItem *)tabViewItem
 {
-	NSLog(@"acceptedDraggingInfo: %@ onTabViewItem: %@", [[draggingInfo draggingPasteboard] stringForType:[[[draggingInfo draggingPasteboard] types] objectAtIndex:0]], [tabViewItem label]);
+//	NSLog(@"acceptedDraggingInfo: %@ onTabViewItem: %@", [[draggingInfo draggingPasteboard] stringForType:[[[draggingInfo draggingPasteboard] types] objectAtIndex:0]], [tabViewItem label]);
 }
 
 - (BOOL)tabView:(NSTabView*)aTabView shouldDragTabViewItem:(NSTabViewItem *)tabViewItem fromTabBar:(PSMTabBarControl *)tabBarControl
@@ -366,7 +366,7 @@
 
 - (void)tabView:(NSTabView*)aTabView didDropTabViewItem:(NSTabViewItem *)tabViewItem inTabBar:(PSMTabBarControl *)tabBarControl
 {
-	NSLog(@"didDropTabViewItem: %@ inTabBar: %@", [tabViewItem label], tabBarControl);
+//	NSLog(@"didDropTabViewItem: %@ inTabBar: %@", [tabViewItem label], tabBarControl);
     
     mADocumentViewController *ctrl = (mADocumentViewController *)[tabViewItem identifier];
     miniAudicleDocument *doc = [ctrl document];
@@ -440,7 +440,7 @@
 
 - (PSMTabBarControl *)tabView:(NSTabView *)aTabView newTabBarForDraggedTabViewItem:(NSTabViewItem *)tabViewItem atPoint:(NSPoint)point
 {
-	NSLog(@"newTabBarForDraggedTabViewItem: %@ atPoint: %@", [tabViewItem label], NSStringFromPoint(point));
+//	NSLog(@"newTabBarForDraggedTabViewItem: %@ atPoint: %@", [tabViewItem label], NSStringFromPoint(point));
 	
 	//create a new window controller with no tab items
 	mAMultiDocWindowController *newWindowController = [(miniAudicleController *)[NSDocumentController sharedDocumentController] newWindowController];
@@ -581,7 +581,7 @@
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-    NSLog(@"observeValueForKeyPath %@", keyPath);
+//    NSLog(@"observeValueForKeyPath %@", keyPath);
     if([keyPath isEqualToString:[NSString stringWithFormat:@"values.%@", mAPreferencesShowTabBar]])
     {
         BOOL show = [[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowTabBar];
@@ -591,6 +591,10 @@
     {
         BOOL show = [[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowToolbar];
         [self setShowsToolbar:show];
+    }
+    else
+    {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
@@ -657,7 +661,8 @@
 {
     _showsTabBar = _stb;
     [tabBar setHideForSingleTab:!_showsTabBar];
-    [tabBar hideTabBar:!_showsTabBar animate:YES];
+    [tabBar hideTabBar:(!_showsTabBar && [tabView numberOfTabViewItems] == 1)
+                        animate:YES];
 }
 
 - (BOOL)showsToolbar

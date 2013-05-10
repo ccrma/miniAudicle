@@ -355,7 +355,7 @@ using namespace std;
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-    NSLog(@"observeValueForKeyPath %@", keyPath);
+//    NSLog(@"observeValueForKeyPath %@", keyPath);
 
     if([keyPath isEqualToString:[@"values." stringByAppendingString:mAPreferencesDisplayLineNumbers]])
     {
@@ -371,6 +371,10 @@ using namespace std;
     {
         BOOL show = [[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowStatusBar];
         [self setShowsStatusBar:show];
+    }
+    else
+    {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
