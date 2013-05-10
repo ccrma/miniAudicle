@@ -46,7 +46,6 @@
 #import "mADocumentViewController.h"
 #import "miniAudiclePreferencesController.h"
 #import <PSMTabBarControl/PSMTabStyle.h>
-#import "NSView+Subsume.h"
 
 @interface mAMultiDocWindowController ()
 
@@ -98,6 +97,9 @@
     [[NSUserDefaultsController sharedUserDefaultsController]
      removeObserver:self
      forKeyPath:[NSString stringWithFormat:@"values.%@", mAPreferencesShowTabBar]];
+    [[NSUserDefaultsController sharedUserDefaultsController]
+     removeObserver:self
+     forKeyPath:[NSString stringWithFormat:@"values.%@", mAPreferencesShowToolbar]];
 
     [_documents release];
     _documents = nil;
@@ -138,6 +140,11 @@
     [[NSUserDefaultsController sharedUserDefaultsController]
      addObserver:self
      forKeyPath:[NSString stringWithFormat:@"values.%@", mAPreferencesShowTabBar]
+     options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
+     context:nil];
+    [[NSUserDefaultsController sharedUserDefaultsController]
+     addObserver:self
+     forKeyPath:[NSString stringWithFormat:@"values.%@", mAPreferencesShowToolbar]
      options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
      context:nil];
     
@@ -574,12 +581,16 @@
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-    NSLog(@"observeValueForKeyPath");
+    NSLog(@"observeValueForKeyPath %@", keyPath);
     if([keyPath isEqualToString:[NSString stringWithFormat:@"values.%@", mAPreferencesShowTabBar]])
     {
         BOOL show = [[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowTabBar];
-        NSLog(@"%@: %@", mAPreferencesShowTabBar, show ? @"true" : @"false");
         [self setShowsTabBar:show];
+    }
+    else if([keyPath isEqualToString:[NSString stringWithFormat:@"values.%@", mAPreferencesShowToolbar]])
+    {
+        BOOL show = [[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowToolbar];
+        [self setShowsToolbar:show];
     }
 }
 
@@ -644,25 +655,20 @@
 
 - (void)setShowsTabBar:(BOOL)_stb
 {
-//    if(_showsTabBar)
-//    {
-//        if(![self showsTabBar])
-//        {
-//            NSRect rect = [tabView frame];
-//            rect.size.height -= tabBar.frame.size.height;
-//            [tabView setFrame:rect];
-//            [[tabView superview] addSubview:tabBar];
-//        }
-//    }
-//    else
-//    {
-//        if([self showsTabBar])
-//            [tabView subsumeView:tabBar animate:YES];
-//    }
-    
     _showsTabBar = _stb;
     [tabBar setHideForSingleTab:!_showsTabBar];
     [tabBar hideTabBar:!_showsTabBar animate:YES];
+}
+
+- (BOOL)showsToolbar
+{
+    return _showsToolbar;
+}
+
+- (void)setShowsToolbar:(BOOL)_stb
+{
+    _showsToolbar = _stb;
+    [_toolbar setVisible:_showsToolbar];
 }
 
 - (BOOL)showsTabBar

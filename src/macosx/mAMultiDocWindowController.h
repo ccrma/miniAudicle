@@ -38,11 +38,10 @@
 {
     IBOutlet NSTabView *tabView;
 	IBOutlet PSMTabBarControl *tabBar;
+    IBOutlet NSToolbar * _toolbar;
     
     NSMutableSet* _documents;
     NSMutableSet* _contentViewControllers;
-    
-    NSToolbar * _toolbar;
     
     BOOL _vm_on;
     BOOL _showsToolbar;

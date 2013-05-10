@@ -35,11 +35,12 @@
 #import "NumberedTextView.h"
 #import "miniAudicleDocument.h"
 #import "miniAudicleController.h"
+#import "NSString+STLString.h"
+#import "miniAudiclePreferencesController.h"
+
 #import "miniAudicle.h"
 #import "chuck_parse.h"
 #import "util_string.h"
-#import "NSString+STLString.h"
-#import "miniAudicle.h"
 
 using namespace std;
 
@@ -57,6 +58,9 @@ using namespace std;
         // Initialization code here.
         arguments = [NSMutableArray new];
         self.isEdited = NO;
+        _showsLineNumbers = YES;
+        _showsArguments = YES;
+        _showsStatusBar = YES;
     }
     
     return self;
@@ -66,6 +70,16 @@ using namespace std;
 {
     [arguments release];
     
+    [[NSUserDefaultsController sharedUserDefaultsController]
+     removeObserver:self
+     forKeyPath:[@"values." stringByAppendingString:mAPreferencesShowStatusBar]];
+    [[NSUserDefaultsController sharedUserDefaultsController]
+     removeObserver:self
+     forKeyPath:[@"values." stringByAppendingString:mAPreferencesDisplayLineNumbers]];
+    [[NSUserDefaultsController sharedUserDefaultsController]
+     removeObserver:self
+     forKeyPath:[@"values." stringByAppendingString:mAPreferencesShowArguments]];
+
     [super dealloc];
 }
 
@@ -73,6 +87,9 @@ using namespace std;
 {
     miniAudicleController * mac = [NSDocumentController sharedDocumentController];
 //    [mac setLastWindowTopLeftCorner:[window cascadeTopLeftFromPoint:[mac lastWindowTopLeftCorner]]];
+    
+    _argumentsViewFrame = argument_view.frame;
+    _statusBarViewFrame = status_text.frame;
 
     // set text view syntax highlighter
     [text_view setSyntaxHighlighter:[mac syntaxHighlighter] colorer:mac];
@@ -83,6 +100,22 @@ using namespace std;
         [[text_view textView] setString:self.document.data];
         [text_view setSmartIndentationEnabled:esi];
     }
+    
+    [[NSUserDefaultsController sharedUserDefaultsController]
+     addObserver:self
+     forKeyPath:[@"values." stringByAppendingString:mAPreferencesShowStatusBar]
+     options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+     context:nil];
+    [[NSUserDefaultsController sharedUserDefaultsController]
+     addObserver:self
+     forKeyPath:[@"values." stringByAppendingString:mAPreferencesDisplayLineNumbers]
+     options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+     context:nil];
+    [[NSUserDefaultsController sharedUserDefaultsController]
+     addObserver:self
+     forKeyPath:[@"values." stringByAppendingString:mAPreferencesShowArguments]
+     options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+     context:nil];
 }
 
 
@@ -315,6 +348,124 @@ using namespace std;
 }
 
 
+#pragma mark NSKeyValueObserving
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    NSLog(@"observeValueForKeyPath %@", keyPath);
+
+    if([keyPath isEqualToString:[@"values." stringByAppendingString:mAPreferencesDisplayLineNumbers]])
+    {
+        BOOL show = [[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesDisplayLineNumbers];
+        [self setShowsLineNumbers:show];
+    }
+    else if([keyPath isEqualToString:[@"values." stringByAppendingString:mAPreferencesShowArguments]])
+    {
+        BOOL show = [[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowArguments];
+        [self setShowsArguments:show];
+    }
+    else if([keyPath isEqualToString:[@"values." stringByAppendingString:mAPreferencesShowStatusBar]])
+    {
+        BOOL show = [[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowStatusBar];
+        [self setShowsStatusBar:show];
+    }
+}
+
+- (void)setShowsArguments:(BOOL)_sa
+{
+    _showsArguments = _sa;
+    
+    if(_showsArguments)
+    {
+        if(argument_view.frame.size.height == 0)
+        {
+            _argumentsViewFrame.size.width = self.view.bounds.size.width;
+            _argumentsViewFrame.origin.y = self.view.bounds.origin.y + self.view.bounds.size.height;
+            argument_view.frame = _argumentsViewFrame;
+            
+            NSRect textViewFrame = text_view.frame;
+            textViewFrame.size.height -= _argumentsViewFrame.size.height;
+            text_view.frame = textViewFrame;
+        }
+    }
+    else
+    {
+        if(argument_view.frame.size.height > 0)
+        {
+            // cache original size
+            _argumentsViewFrame = argument_view.frame;
+            // collapse vertical dimension
+            argument_view.frame = NSMakeRect(_argumentsViewFrame.origin.x, _argumentsViewFrame.origin.y,
+                                             _argumentsViewFrame.size.width, 0);
+            
+            // expand in vertical direction
+            NSRect textViewFrame = text_view.frame;
+            textViewFrame.size.height += _argumentsViewFrame.size.height;
+            text_view.frame = textViewFrame;
+        }
+    }
+}
+
+- (BOOL)showsArguments
+{
+    return _showsArguments;
+}
+
+- (void)setShowsLineNumbers:(BOOL)_sln
+{
+    _showsLineNumbers = _sln;
+    [text_view enableLineNumbers:_sln];
+}
+
+- (BOOL)showsLineNumbers
+{
+    return _showsLineNumbers;
+}
+
+- (void)setShowsStatusBar:(BOOL)_ssb
+{
+    _showsStatusBar = _ssb;
+    
+    if(_showsStatusBar)
+    {
+        if(status_text.frame.size.height == 0)
+        {
+            _statusBarViewFrame.size.width = self.view.bounds.size.width;
+            _statusBarViewFrame.origin.y = self.view.bounds.origin.y;
+            status_text.frame = _statusBarViewFrame;
+            
+            NSRect textViewFrame = text_view.frame;
+            textViewFrame.size.height -= _statusBarViewFrame.size.height;
+            textViewFrame.origin.y = _statusBarViewFrame.origin.y + _statusBarViewFrame.size.height;
+            text_view.frame = textViewFrame;
+        }
+    }
+    else
+    {
+        if(status_text.frame.size.height > 0)
+        {
+            // cache original size
+            _statusBarViewFrame = status_text.frame;
+            // collapse vertical dimension
+            status_text.frame = NSMakeRect(_statusBarViewFrame.origin.x, _statusBarViewFrame.origin.y,
+                                           _statusBarViewFrame.size.width, 0);
+            
+            // expand in vertical direction
+            NSRect textViewFrame = text_view.frame;
+            textViewFrame.size.height += _statusBarViewFrame.size.height;
+            textViewFrame.origin.y = _statusBarViewFrame.origin.y;
+            text_view.frame = textViewFrame;
+        }
+    }
+}
+
+- (BOOL)showsStatusBar
+{
+    return _showsStatusBar;
+}
 
 
 @end

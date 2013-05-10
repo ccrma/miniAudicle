@@ -53,6 +53,11 @@ class miniAudicle;
     t_CKUINT docid;
     
     BOOL _edited;
+    BOOL _showsArguments;
+    NSRect _argumentsViewFrame;
+    BOOL _showsLineNumbers;
+    BOOL _showsStatusBar;
+    NSRect _statusBarViewFrame;
 }
 
 @property (assign, nonatomic) miniAudicleDocument* document;
@@ -74,8 +79,6 @@ class miniAudicle;
 
 - (void)setShowsArguments:(BOOL)_showsArguments;
 - (BOOL)showsArguments;
-- (void)setShowsToolbar:(BOOL)_showsToolbar;
-- (BOOL)showsToolbar;
 - (void)setShowsLineNumbers:(BOOL)_showsLineNumbers;
 - (BOOL)showsLineNumbers;
 - (void)setShowsStatusBar:(BOOL)_showsStatusBar;

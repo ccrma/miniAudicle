@@ -332,7 +332,6 @@
 		09E482A30B1CF12E002087DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		09E482A40B1CF12E002087DF /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A40BD70A9A57C6007604EA /* IOKit.framework */; };
 		09E482BE0B1CF292002087DF /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
-		09F0A7AE173C6BB900A675D8 /* NSView+Subsume.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F0A7AD173C6BB900A675D8 /* NSView+Subsume.m */; };
 		09F376EB0BBC97D6005931F6 /* removelast.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E60BBC97D6005931F6 /* removelast.png */; };
 		09F376EC0BBC97D6005931F6 /* removeall.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E70BBC97D6005931F6 /* removeall.png */; };
 		09F376ED0BBC97D6005931F6 /* replace.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E80BBC97D6005931F6 /* replace.png */; };
@@ -929,8 +928,6 @@
 		09E482B00B1CF16F002087DF /* remove.xpm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = remove.xpm; path = wxw/icons/remove.xpm; sourceTree = SOURCE_ROOT; };
 		09E482B10B1CF16F002087DF /* replace.xpm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = replace.xpm; path = wxw/icons/replace.xpm; sourceTree = SOURCE_ROOT; };
 		09E5546D0DA61CB700F1A6C8 /* miniAudicle_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = miniAudicle_debug.h; sourceTree = "<group>"; };
-		09F0A7AC173C6BB900A675D8 /* NSView+Subsume.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+Subsume.h"; path = "macosx/NSView+Subsume.h"; sourceTree = "<group>"; };
-		09F0A7AD173C6BB900A675D8 /* NSView+Subsume.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSView+Subsume.m"; path = "macosx/NSView+Subsume.m"; sourceTree = "<group>"; };
 		09F376E60BBC97D6005931F6 /* removelast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = removelast.png; path = macosx/icon/removelast.png; sourceTree = SOURCE_ROOT; };
 		09F376E70BBC97D6005931F6 /* removeall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = removeall.png; path = macosx/icon/removeall.png; sourceTree = SOURCE_ROOT; };
 		09F376E80BBC97D6005931F6 /* replace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = replace.png; path = macosx/icon/replace.png; sourceTree = SOURCE_ROOT; };
@@ -1051,8 +1048,6 @@
 				0964A394172F8FD800043ABA /* mARecordSessionController.mm */,
 				0962903117323065007CADBA /* NSString+STLString.h */,
 				0962903217323065007CADBA /* NSString+STLString.mm */,
-				09F0A7AC173C6BB900A675D8 /* NSView+Subsume.h */,
-				09F0A7AD173C6BB900A675D8 /* NSView+Subsume.m */,
 			);
 			name = "miniAudicle OS X";
 			sourceTree = "<group>";
@@ -2429,7 +2424,6 @@
 				0962903317323065007CADBA /* NSString+STLString.mm in Sources */,
 				091433001738C16A00666F0D /* mAMultiDocWindowController.mm in Sources */,
 				091433031738C17C00666F0D /* mADocumentViewController.mm in Sources */,
-				09F0A7AE173C6BB900A675D8 /* NSView+Subsume.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
