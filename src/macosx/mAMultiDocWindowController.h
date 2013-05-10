@@ -46,6 +46,7 @@
     
     BOOL _vm_on;
     BOOL _showsToolbar;
+    BOOL _showsTabBar;
 }
 
 - (IBAction)closeTab:(id)sender;
@@ -67,5 +68,8 @@
 - (IBAction)replace:(id)sender;
 - (IBAction)removeall:(id)sender;
 - (IBAction)removelast:(id)sender;
+
+- (void)setShowsTabBar:(BOOL)_showsTabBar;
+- (BOOL)showsTabBar;
 
 @end

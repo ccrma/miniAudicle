@@ -44,7 +44,9 @@
 #import "miniAudicleDocument.h"
 #import "miniAudicleController.h"
 #import "mADocumentViewController.h"
+#import "miniAudiclePreferencesController.h"
 #import <PSMTabBarControl/PSMTabStyle.h>
+#import "NSView+Subsume.h"
 
 @interface mAMultiDocWindowController ()
 
@@ -78,6 +80,7 @@
     if (self) {
         // Initialization code here.
         _showsToolbar = YES;
+        _showsTabBar = YES;
         _vm_on = NO;
     }
     
@@ -92,6 +95,10 @@
         [doc setWindowController:nil];
     }
     
+    [[NSUserDefaultsController sharedUserDefaultsController]
+     removeObserver:self
+     forKeyPath:[NSString stringWithFormat:@"values.%@", mAPreferencesShowTabBar]];
+
     [_documents release];
     _documents = nil;
     [_contentViewControllers release];
@@ -114,9 +121,10 @@
 {
     [super windowDidLoad];
     
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
-//    [tabBar hideTabBar:YES animate:NO];
-    [tabBar setHideForSingleTab:NO];
+//    [tabBar retain];
+    
+    [tabBar hideTabBar:!_showsTabBar animate:NO];
+    [tabBar setHideForSingleTab:!_showsTabBar];
     [tabBar setCanCloseOnlyTab:YES];
     [tabBar setSizeCellsToFit:YES];
     [tabBar setAllowsResizing:YES];
@@ -127,7 +135,13 @@
     [[tabBar addTabButton] setTarget:self];
     [[tabBar addTabButton] setAction:@selector(newDocument:)];
     
-    // add views for any documents that were added before the window was created
+    [[NSUserDefaultsController sharedUserDefaultsController]
+     addObserver:self
+     forKeyPath:[NSString stringWithFormat:@"values.%@", mAPreferencesShowTabBar]
+     options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
+     context:nil];
+    
+// add views for any documents that were added before the window was created
     for(NSDocument* document in self.documents)
         [self addViewWithDocument:document tabViewItem:nil];
     
@@ -436,6 +450,8 @@
 }
 
 
+#pragma mark NSWindowDelegate
+
 // Each document needs to be detached from the window controller before the window closes.
 // In addition, any references to those documents from any child view controllers will also
 // need to be cleared in order to ensure a proper cleanup.
@@ -495,18 +511,36 @@
 
 - (BOOL)windowShouldClose:(id)sender
 {
-    NSAlert * alert = [NSAlert alertWithMessageText:@"You have 2 miniAudicle documents with unsaved changes. Do you want to review these changes before quitting?"
-                                      defaultButton:@"Review Changes..."
-                                    alternateButton:@"Cancel"
-                                        otherButton:@"Discard Changes"
-                          informativeTextWithFormat:@"If you don’t review your documents, all your changes will be lost."];
+    int numUnsaved = 0;
     
-    [alert beginSheetModalForWindow:[self window]
-                      modalDelegate:self
-                     didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:)
-                        contextInfo:nil];
+    for(NSDocument * doc in self.documents)
+    {
+        if([doc isDocumentEdited])
+            numUnsaved++;
+    }
     
-    return NO;
+    if(numUnsaved > 0)
+    {
+        NSString *messageText = [NSString stringWithFormat:@"You have %i miniAudicle documents with unsaved changes. Do you want to review these changes before quitting?",
+                                 numUnsaved];
+        
+        NSAlert * alert = [NSAlert alertWithMessageText:messageText
+                                          defaultButton:@"Review Changes..."
+                                        alternateButton:@"Cancel"
+                                            otherButton:@"Discard Changes"
+                              informativeTextWithFormat:@"If you don’t review your documents, all your changes will be lost."];
+        
+        [alert beginSheetModalForWindow:[self window]
+                          modalDelegate:self
+                         didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:)
+                            contextInfo:nil];
+        
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
 }
 
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
@@ -529,6 +563,23 @@
     else if(returnCode == NSAlertOtherReturn)
     {
         [[self window] close];
+    }
+}
+
+
+#pragma mark NSKeyValueObserving
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    NSLog(@"observeValueForKeyPath");
+    if([keyPath isEqualToString:[NSString stringWithFormat:@"values.%@", mAPreferencesShowTabBar]])
+    {
+        BOOL show = [[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowTabBar];
+        NSLog(@"%@: %@", mAPreferencesShowTabBar, show ? @"true" : @"false");
+        [self setShowsTabBar:show];
     }
 }
 
@@ -589,6 +640,34 @@
     NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
     mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
     [vc removelast:sender];
+}
+
+- (void)setShowsTabBar:(BOOL)_stb
+{
+//    if(_showsTabBar)
+//    {
+//        if(![self showsTabBar])
+//        {
+//            NSRect rect = [tabView frame];
+//            rect.size.height -= tabBar.frame.size.height;
+//            [tabView setFrame:rect];
+//            [[tabView superview] addSubview:tabBar];
+//        }
+//    }
+//    else
+//    {
+//        if([self showsTabBar])
+//            [tabView subsumeView:tabBar animate:YES];
+//    }
+    
+    _showsTabBar = _stb;
+    [tabBar setHideForSingleTab:!_showsTabBar];
+    [tabBar hideTabBar:!_showsTabBar animate:YES];
+}
+
+- (BOOL)showsTabBar
+{
+    return _showsTabBar;
 }
 
 

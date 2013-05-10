@@ -62,8 +62,10 @@ extern NSString * mAPreferencesDisplayLineNumbers;
 extern NSString * mAPreferencesShowArguments;
 extern NSString * mAPreferencesShowToolbar;
 extern NSString * mAPreferencesShowStatusBar;
+extern NSString * mAPreferencesShowTabBar;
 extern NSString * mAPreferencesEnableOTFVisuals;
 extern NSString * mAPreferencesSoundfilesDirectory;
+extern NSString * mAPreferencesOpenDocumentsInNewTab;
 extern NSString * mAPreferencesBackupSuffix;
 
 extern NSString * mAPreferencesLibraryPath;

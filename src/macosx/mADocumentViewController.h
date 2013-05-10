@@ -72,4 +72,13 @@ class miniAudicle;
 - (void)removeall:(id)sender;
 - (void)removelast:(id)sender;
 
+- (void)setShowsArguments:(BOOL)_showsArguments;
+- (BOOL)showsArguments;
+- (void)setShowsToolbar:(BOOL)_showsToolbar;
+- (BOOL)showsToolbar;
+- (void)setShowsLineNumbers:(BOOL)_showsLineNumbers;
+- (BOOL)showsLineNumbers;
+- (void)setShowsStatusBar:(BOOL)_showsStatusBar;
+- (BOOL)showsStatusBar;
+
 @end

@@ -237,6 +237,14 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 }
 
 
+- (mAMultiDocWindowController *)windowControllerForNewDocument
+{
+    if([[NSUserDefaults standardUserDefaults] integerForKey:mAPreferencesOpenDocumentsInNewTab])
+        return [self topWindowController];
+    else
+        return [self newWindowController];
+}
+
 - (mAMultiDocWindowController *)topWindowController
 {
     if(_topWindowController == nil)

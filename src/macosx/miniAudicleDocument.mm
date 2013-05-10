@@ -106,8 +106,9 @@ U.S.A.
 -(void)makeWindowControllers
 {
     miniAudicleController * mac = [NSDocumentController sharedDocumentController];
-    [[mac topWindowController] addDocument:self];
-    [[[mac topWindowController] window] makeKeyAndOrderFront:self];
+    mAMultiDocWindowController *_wc = [mac windowControllerForNewDocument];
+    [_wc addDocument:self];
+    [[_wc window] makeKeyAndOrderFront:self];
 //    self.windowController = [mac topWindowController];
 }
 

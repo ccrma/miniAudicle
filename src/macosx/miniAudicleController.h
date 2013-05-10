@@ -83,6 +83,9 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
     IBOutlet NSMenuItem *closeWindowMenuItem;
     IBOutlet NSMenuItem *closeTabMenuItem;
     
+    IBOutlet NSMenuItem *newWindowMenuItem;
+    IBOutlet NSMenuItem *newTabMenuItem;
+    
     BOOL _didCloseAll;
 }
 
@@ -96,6 +99,7 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
 // miniAudicle accessor
 - (miniAudicle *)miniAudicle;
 
+- (mAMultiDocWindowController *)windowControllerForNewDocument;
 - (mAMultiDocWindowController *)topWindowController;
 - (mAMultiDocWindowController *)newWindowController;
 - (void)windowDidCloseForController:(mAMultiDocWindowController *)controller;

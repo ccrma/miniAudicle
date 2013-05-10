@@ -79,9 +79,11 @@ NSString * mAPreferencesDisplayLineNumbers = @"ShowLineNumbers";
 NSString * mAPreferencesShowArguments = @"ShowArguments";
 NSString * mAPreferencesShowToolbar = @"ShowToolbar";
 NSString * mAPreferencesShowStatusBar = @"ShowStatusBar";
+NSString * mAPreferencesShowTabBar = @"ShowTabBar";
 NSString * mAPreferencesEnableOTFVisuals = @"EnableOTFVisuals";
 NSString * mAPreferencesLogLevel = @"LogLevel";
 NSString * mAPreferencesSoundfilesDirectory = @"SoundfilesDirectory";
+NSString * mAPreferencesOpenDocumentsInNewTab = @"OpenDocumentsInNewTab";
 NSString * mAPreferencesBackupSuffix = @"BackupSuffix";
 
 NSString * mAPreferencesEnableChugins = @"EnableChugins";
