@@ -317,8 +317,10 @@
 {
     NSViewController* ctrl = (NSViewController*)[tabViewItem identifier];
     NSDocument* doc = [(id)ctrl document];
+    
     [[self window] setDocumentEdited:[doc isDocumentEdited]];
     [[self window] setTitle:[doc displayName]];
+    [[self window] setRepresentedURL:[doc fileURL]];
 }
 
 - (BOOL)tabView:(NSTabView *)aTabView shouldCloseTabViewItem:(NSTabViewItem *)tabViewItem
@@ -329,6 +331,7 @@
     [doc canCloseDocumentWithDelegate:self
                   shouldCloseSelector:@selector(document:shouldClose:contextInfo:)
                           contextInfo:nil];
+    
     return NO;
 }
 

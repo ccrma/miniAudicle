@@ -42,6 +42,8 @@ U.S.A.
 #import "mADocumentViewController.h"
 #import "mAMultiDocWindowController.h"
 
+#import <objc/message.h>
+
 
 @implementation miniAudicleDocument
 
@@ -61,11 +63,6 @@ U.S.A.
         shows_status_bar = YES;
         
         has_customized_appearance = NO;
-        
-        /*[[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector( userDefaultsDidChange: )
-                                                     name:NSUserDefaultsDidChangeNotification
-                                                   object:nil];*/
     }
     
     return self;
@@ -91,19 +88,10 @@ U.S.A.
     [_viewController release];
     _viewController = nil;
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
     [super dealloc];
 }
 
-- (void)windowControllerDidLoadNib:(NSWindowController *)windowController
-{
-    [super windowControllerDidLoadNib:windowController];
-
-    [self userDefaultsDidChange:nil];
-}
-
--(void)makeWindowControllers
+- (void)makeWindowControllers
 {
     miniAudicleController * mac = [NSDocumentController sharedDocumentController];
     mAMultiDocWindowController *_wc = [mac windowControllerForNewDocument];
@@ -112,6 +100,14 @@ U.S.A.
 //    self.windowController = [mac topWindowController];
 }
 
+//- (NSArray *)windowControllers
+//{
+//    if(_windowController != nil)
+//        return @[_windowController];
+//    else
+//        return @[];
+//}
+//
 - (NSString *)windowNibName
 {
     assert(false);
@@ -149,6 +145,7 @@ U.S.A.
     return [self.viewController isEmpty] && ![self isDocumentEdited] && [self fileURL] == nil;
 }
 
+/* override to set edited/unedited state in window/view controllers */
 - (void)updateChangeCount:(NSDocumentChangeType)changeType
 {
     [super updateChangeCount:changeType];
@@ -166,158 +163,20 @@ U.S.A.
     }
 }
 
-- (void)userDefaultsDidChange:(NSNotification *)n
-{
-    if( !has_customized_appearance )
-    {
-//        [self setShowsArguments:[[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowArguments]];
-//        [self setShowsLineNumbers:[[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesDisplayLineNumbers]];
-//        [self setShowsToolbar:[[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowToolbar]];
-//        [self setShowsStatusBar:[[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowStatusBar]];
-        has_customized_appearance = NO;
-    }
-}
+///* override to avoid spurious "save changes?" panel when closing the window */
+//- (void)shouldCloseWindowController:(NSWindowController *)windowController
+//                           delegate:(id)delegate
+//                shouldCloseSelector:(SEL)shouldCloseSelector
+//                        contextInfo:(void *)contextInfo
+//{
+//    objc_msgSend(delegate, shouldCloseSelector, self, YES, contextInfo);
+//}
+
 
 - (void)setMiniAudicle:(miniAudicle *)t_ma
 {
     ma = t_ma;
     docid = ma->allocate_document_id();
 }
-
-//- (void)setLockEditing:(BOOL)lock
-//{
-//    [[text_view textView] setEditable:!lock];
-//}
-//
-//- (BOOL)lockEditing
-//{
-//    return ![[text_view textView] isEditable];
-//}
-//
-//- (void)commentOut:(id)sender
-//{
-//    
-//}
-//
-//- (void)saveBackup:(id)sender
-//{
-//    //NSString * backup_name = [[NSUserDefaults standardUserDefaults] stringForKey:];
-//}
-//
-//#define __MA_ARGUMENTS_TEXT_HEIGHT__ 24
-//- (void)setShowsArguments:(BOOL)_shows_arguments
-//{
-//    if( _shows_arguments != shows_arguments )
-//    {
-//        if( !_shows_arguments )
-//        {
-//            //printf( "hiding arguments\n" );
-//            [argument_text removeFromSuperview];
-//            
-//            NSRect frame_rect = [text_view frame];
-//            frame_rect.size.height += __MA_ARGUMENTS_TEXT_HEIGHT__;
-//            //frame_rect.origin.y += __MA_ARGUMENTS_TEXT_HEIGHT__;
-//            [text_view setFrame:frame_rect];
-//        }
-//    
-//        else
-//        {
-//            //printf( "showing arguments\n" );
-//            NSRect frame_rect = [text_view frame];
-//            frame_rect.size.height -= __MA_ARGUMENTS_TEXT_HEIGHT__;
-//            //frame_rect.origin.y -= __MA_ARGUMENTS_TEXT_HEIGHT__;
-//            [text_view setFrame:frame_rect];
-//            
-//            [[window contentView] addSubview:argument_text];
-//            
-//            // redisplay the arguments bar area
-//            [[window contentView] setNeedsDisplayInRect:NSMakeRect( 0, frame_rect.size.height, 
-//                                                                    frame_rect.size.width,
-//                                                                    frame_rect.size.height - __MA_ARGUMENTS_TEXT_HEIGHT__ )];
-//        }
-//        
-//        shows_arguments = _shows_arguments;
-//    }
-//}
-//
-//- (BOOL)showsArguments
-//{
-//    return shows_arguments;
-//}
-//
-//
-//
-//- (void)setShowsToolbar:(BOOL)_shows_toolbar
-//{
-//    if( shows_toolbar != _shows_toolbar )
-//    {
-//        [toolbar setVisible:_shows_toolbar];
-//        shows_toolbar = _shows_toolbar;
-//    }
-//    
-//    //has_customized_appearance = YES;
-//}
-//
-//- (BOOL)showsToolbar
-//{
-//    return shows_toolbar;
-//}
-//
-//- (void)setShowsLineNumbers:(BOOL)_shows_line_numbers
-//{
-//    if( shows_line_numbers != _shows_line_numbers )
-//    {
-//        [text_view enableLineNumbers:_shows_line_numbers];
-//        shows_line_numbers = _shows_line_numbers;
-//    }
-//    
-//    //has_customized_appearance = YES;
-//}
-//
-//- (BOOL)showsLineNumbers
-//{
-//    return shows_line_numbers;
-//}
-//
-//
-//- (void)setShowsStatusBar:(BOOL)_shows_status_bar
-//{
-//    if( shows_status_bar != _shows_status_bar )
-//    {
-//        if( !_shows_status_bar )
-//        {
-//            [status_text removeFromSuperview];
-//            
-//            NSRect frame_rect = [text_view frame];
-//            frame_rect.origin.y -= [status_text frame].size.height;
-//            frame_rect.size.height += [status_text frame].size.height;
-//            [text_view setFrame:frame_rect];
-//        }
-//        
-//        else
-//        {
-//            NSRect frame_rect = [text_view frame];
-//            frame_rect.origin.y += [status_text frame].size.height;
-//            frame_rect.size.height -= [status_text frame].size.height;
-//            [text_view setFrame:frame_rect];
-//            
-//            [[window contentView] addSubview:status_text];
-//            
-//            // redisplay the arguments bar area
-//            [[window contentView] setNeedsDisplayInRect:NSMakeRect( 0, 0, 
-//                                                                    frame_rect.size.width,
-//                                                                    frame_rect.size.height - [status_text frame].size.height )];
-//        }
-//        
-//        shows_status_bar = _shows_status_bar;
-//    }
-//    
-//    //has_customized_appearance = YES;
-//}
-//
-//- (BOOL)showsStatusBar
-//{
-//    return shows_status_bar;
-//}
 
 @end

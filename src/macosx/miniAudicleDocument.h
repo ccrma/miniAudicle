@@ -64,8 +64,6 @@ class miniAudicle;
 
 - (id)init;
 
-- (void)userDefaultsDidChange:(NSNotification *)n;
-
 - (NSViewController *)newPrimaryViewController;
 
 - (NSData *)dataRepresentationOfType:(NSString *)type;
@@ -73,25 +71,5 @@ class miniAudicle;
 - (BOOL)isEmpty;
 
 - (void)setMiniAudicle:(miniAudicle *)t_ma;
-
-//- (void)setLockEditing:(BOOL)lock;
-//- (BOOL)lockEditing;
-//
-//- (void)commentOut:(id)sender;
-//
-//- (void)saveBackup:(id)sender;
-//
-//
-//- (void)setShowsArguments:(BOOL)_shows_arguments;
-//- (BOOL)showsArguments;
-//
-//- (void)setShowsToolbar:(BOOL)_shows_toolbar;
-//- (BOOL)showsToolbar;
-//
-//- (void)setShowsLineNumbers:(BOOL)_shows_line_numbers;
-//- (BOOL)showsLineNumbers;
-//
-//- (void)setShowsStatusBar:(BOOL)_shows_status_bar;
-//- (BOOL)showsStatusBar;
 
 @end
