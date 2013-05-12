@@ -38,6 +38,7 @@ class miniAudicle;
 @class NumberedTextView;
 @class mADocumentViewController;
 @class mAMultiDocWindowController;
+@class UKFSEventsWatcher;
 
 @interface miniAudicleDocument : NSDocument <NSToolbarDelegate>
 {
@@ -56,6 +57,8 @@ class miniAudicle;
     BOOL shows_status_bar;
     
     BOOL has_customized_appearance;
+    
+    UKFSEventsWatcher *fsEventsWatcher;
 }
 
 @property (readonly, strong, nonatomic) NSString * data;

@@ -123,6 +123,8 @@
 		0964A38F172F8DC800043ABA /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 0964A38D172F8DC800043ABA /* stop.png */; };
 		0964A395172F8FD800043ABA /* mARecordSessionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0964A394172F8FD800043ABA /* mARecordSessionController.mm */; };
 		0964A399172F9F4C00043ABA /* mA_oscbus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0964A397172F9F4C00043ABA /* mA_oscbus.cpp */; };
+		09678637173F169E003AB462 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678634173F169E003AB462 /* UKFileWatcher.m */; };
+		09678638173F169E003AB462 /* UKFSEventsWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678636173F169E003AB462 /* UKFSEventsWatcher.m */; };
 		096B324C13B573CE008ED860 /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09216C09134ED4A900145064 /* MultitouchSupport.framework */; };
 		096FAB870B56D56B00125FE2 /* mAConsoleMonitorView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 096FAB850B56D56B00125FE2 /* mAConsoleMonitorView.mm */; };
 		09805FFA0AA10D3800915136 /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
@@ -460,6 +462,10 @@
 		0964A394172F8FD800043ABA /* mARecordSessionController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mARecordSessionController.mm; path = macosx/mARecordSessionController.mm; sourceTree = "<group>"; };
 		0964A397172F9F4C00043ABA /* mA_oscbus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mA_oscbus.cpp; sourceTree = "<group>"; };
 		0964A398172F9F4C00043ABA /* mA_oscbus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mA_oscbus.h; sourceTree = "<group>"; };
+		09678633173F169E003AB462 /* UKFileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKFileWatcher.h; sourceTree = "<group>"; };
+		09678634173F169E003AB462 /* UKFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFileWatcher.m; sourceTree = "<group>"; };
+		09678635173F169E003AB462 /* UKFSEventsWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKFSEventsWatcher.h; sourceTree = "<group>"; };
+		09678636173F169E003AB462 /* UKFSEventsWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFSEventsWatcher.m; sourceTree = "<group>"; };
 		096FAB840B56D56B00125FE2 /* mAConsoleMonitorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAConsoleMonitorView.h; path = macosx/mAConsoleMonitorView.h; sourceTree = SOURCE_ROOT; };
 		096FAB850B56D56B00125FE2 /* mAConsoleMonitorView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAConsoleMonitorView.mm; path = macosx/mAConsoleMonitorView.mm; sourceTree = SOURCE_ROOT; };
 		09805FE70AA10D0C00915136 /* chuck */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = chuck; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1014,6 +1020,7 @@
 		080E96DDFE201D6D7F000001 /* miniAudicle OS X */ = {
 			isa = PBXGroup;
 			children = (
+				09678632173F169E003AB462 /* UliKit */,
 				091433011738C17C00666F0D /* mADocumentViewController.h */,
 				091433021738C17C00666F0D /* mADocumentViewController.mm */,
 				091432FE1738C16A00666F0D /* mAMultiDocWindowController.h */,
@@ -1115,6 +1122,18 @@
 			);
 			name = "ChucK Scripts";
 			path = "macosx/ChucK Scripts";
+			sourceTree = "<group>";
+		};
+		09678632173F169E003AB462 /* UliKit */ = {
+			isa = PBXGroup;
+			children = (
+				09678633173F169E003AB462 /* UKFileWatcher.h */,
+				09678634173F169E003AB462 /* UKFileWatcher.m */,
+				09678635173F169E003AB462 /* UKFSEventsWatcher.h */,
+				09678636173F169E003AB462 /* UKFSEventsWatcher.m */,
+			);
+			name = UliKit;
+			path = macosx/UliKit;
 			sourceTree = "<group>";
 		};
 		0980603D0AA158F600915136 /* Examples */ = {
@@ -2426,6 +2445,8 @@
 				0962903317323065007CADBA /* NSString+STLString.mm in Sources */,
 				091433001738C16A00666F0D /* mAMultiDocWindowController.mm in Sources */,
 				091433031738C17C00666F0D /* mADocumentViewController.mm in Sources */,
+				09678637173F169E003AB462 /* UKFileWatcher.m in Sources */,
+				09678638173F169E003AB462 /* UKFSEventsWatcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -41,6 +41,7 @@ U.S.A.
 #import "NSString+STLString.h"
 #import "mADocumentViewController.h"
 #import "mAMultiDocWindowController.h"
+#import "UKFSEventsWatcher.h"
 
 #import <objc/message.h>
 
@@ -63,6 +64,9 @@ U.S.A.
         shows_status_bar = YES;
         
         has_customized_appearance = NO;
+        
+        fsEventsWatcher = [UKFSEventsWatcher new];
+        fsEventsWatcher.delegate = self;
     }
     
     return self;
@@ -87,6 +91,8 @@ U.S.A.
     _viewController.document = nil;
     [_viewController release];
     _viewController = nil;
+    
+    [fsEventsWatcher release];
     
     [super dealloc];
 }
@@ -140,6 +146,14 @@ U.S.A.
     return YES;
 }
 
+- (void)setFileURL:(NSURL *)url
+{
+    [super setFileURL:url];
+    
+    [fsEventsWatcher removeAllPaths];
+    [fsEventsWatcher addPath:[url path]];
+}
+
 - (BOOL)isEmpty
 {
     return [self.viewController isEmpty] && ![self isDocumentEdited] && [self fileURL] == nil;
@@ -178,5 +192,54 @@ U.S.A.
     ma = t_ma;
     docid = ma->allocate_document_id();
 }
+
+
+#pragma mark UKFileWatcherDelegate
+
+- (void)watcher:(id<UKFileWatcher>)kq receivedNotification:(NSString*)nm forPath:(NSString*)fpath
+{
+    if([nm isEqualToString:UKFileWatcherWriteNotification])
+    {
+        if([self isDocumentEdited])
+        {
+            NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"The document \"%@\" has been changed by another application.",
+                                                            [self displayName]]
+                                             defaultButton:@"Save Anyway"
+                                           alternateButton:@"Revert"
+                                               otherButton:@""
+                                 informativeTextWithFormat:@"Click Save Anyway to overwrite these changes and save your changes. Click Revert to discard your changes and keep the changes from the other appliction."];
+            [alert beginSheetModalForWindow:[_windowController window]
+                              modalDelegate:self
+                             didEndSelector:@selector(documentChangedByAnotherApplictionAlertDidEnd:returnCode:contextInfo:)
+                                contextInfo:nil];
+        }
+        else
+        {
+            NSError *error;
+            if(![self revertToContentsOfURL:[self fileURL] ofType:[self fileType] error:&error])
+                [[NSAlert alertWithError:error] beginSheetModalForWindow:[_windowController window] modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        }
+    }
+}
+
+- (void)documentChangedByAnotherApplictionAlertDidEnd:(NSAlert *)alert
+                                           returnCode:(NSInteger)returnCode
+                                          contextInfo:(void *)contextInfo
+{
+    if(returnCode == NSAlertDefaultReturn)
+    {
+        NSError *error;
+        if(![self saveToURL:[self fileURL] ofType:[self fileType] forSaveOperation:NSSaveOperation error:&error])
+            [[NSAlert alertWithError:error] beginSheetModalForWindow:[_windowController window] modalDelegate:nil didEndSelector:nil contextInfo:nil];
+    }
+    else if(returnCode == NSAlertAlternateReturn)
+    {
+        NSError *error;
+        if(![self revertToContentsOfURL:[self fileURL] ofType:[self fileType] error:&error])
+            [[NSAlert alertWithError:error] beginSheetModalForWindow:[_windowController window] modalDelegate:nil didEndSelector:nil contextInfo:nil];
+    }
+}
+
+
 
 @end
