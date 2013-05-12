@@ -94,7 +94,9 @@ SOURCES += \
     miniAudicle_shell.cpp \
     miniAudicle_log.cpp \
     qt/mAConsoleMonitor.cpp \
-    qt/mAVMMonitor.cpp
+    qt/mAVMMonitor.cpp \
+    chuck/src/util_serial.cpp \
+    chuck/src/chuck_io.cpp
 
 macx {
     SOURCES += chuck/src/util_sndfile.c
@@ -166,7 +168,9 @@ HEADERS  += qt/mAMainWindow.h \
     miniAudicle_import.h \
     miniAudicle_debug.h \
     qt/mAConsoleMonitor.h \
-    qt/mAVMMonitor.h
+    qt/mAVMMonitor.h \
+    chuck/src/util_serial.h \
+    chuck/src/chuck_io.h
 
 FORMS += \
     qt/mAMainWindow.ui \
