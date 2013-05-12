@@ -2,7 +2,7 @@
   miniAudicle
   Graphical ChucK audio programming environment
 
-  Copyright (c) 2005 Spencer Salazar.  All rights reserved.
+  Copyright (c) 2005-2013 Spencer Salazar.  All rights reserved.
     http://chuck.cs.princeton.edu/
     http://soundlab.cs.princeton.edu/
 
@@ -121,6 +121,12 @@ CK_DLL_CTOR( mauigauge_ctor );
 CK_DLL_DTOR( mauigauge_dtor );
 CK_DLL_MFUN( mauigauge_set_value );
 CK_DLL_MFUN( mauigauge_get_value );
+
+//-----------------------------------------------------------------------------
+// Record Session VUs
+//-----------------------------------------------------------------------------
+extern t_CKFLOAT marecordsession_leftVU;
+extern t_CKFLOAT marecordsession_rightVU;
 
 //}
 

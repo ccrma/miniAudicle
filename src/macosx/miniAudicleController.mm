@@ -2,7 +2,7 @@
 miniAudicle
 Cocoa GUI to chuck audio programming environment
 
-Copyright (c) 2005 Spencer Salazar.  All rights reserved.
+Copyright (c) 2005-2013 Spencer Salazar.  All rights reserved.
 http://chuck.cs.princeton.edu/
 http://soundlab.cs.princeton.edu/
 
@@ -26,7 +26,7 @@ U.S.A.
 // file: miniAudicleController.mm
 // desc: controller class for miniAudicle GUI
 //
-// author: Spencer Salazar (ssalazar@princeton.edu)
+// author: Spencer Salazar (spencer@ccrma.stanford.edu)
 // date: Autumn 2005
 //-----------------------------------------------------------------------------
 
@@ -39,6 +39,10 @@ U.S.A.
 #import "mAChuginManager.h"
 #import "chuck_shell.h"
 #import "miniAudicle.h"
+#import "mARecordSessionController.h"
+#import "mAMultiDocWindowController.h"
+#import <objc/message.h>
+
 
 extern const char MA_VERSION[];
 extern const char CK_VERSION[];
@@ -49,7 +53,9 @@ NSString * const mAVirtualMachineDidTurnOffNotification = @"VirtualMachineDidTur
 
 NSString * const mAChuginExtension = @"chug";
 
-@interface miniAudicleController (Private)
+const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcartwright.MultiWindowDocumentControllerCloseAllContext";
+
+@interface miniAudicleController ()
 - (void)adjustChucKMenuItems;
 - (void)applicationWillTerminate:(NSNotification *)n;
 
@@ -81,6 +87,11 @@ NSString * const mAChuginExtension = @"chug";
                                                  selector:@selector(applicationWillTerminate:)
                                                      name:NSApplicationWillTerminateNotification
                                                    object:NSApp];
+        
+        m_recordSessionController = [[mARecordSessionController alloc] initWithWindowNibName:@"mARecordSession"];
+        m_recordSessionController.controller = self;
+        
+        _windowControllers = [NSMutableArray new];
         
         // initialize syntax highlighting
         syntax_highlighter = [[IDEKit_LexParser alloc] init];
@@ -147,14 +158,24 @@ NSString * const mAChuginExtension = @"chug";
         [syntax_highlighter addCommentStart: @"/*" end: @"*/"];
         [syntax_highlighter addSingleComment: @"//"];        
         [syntax_highlighter addSingleComment: @"<--"];        
-                
-        [syntax_highlighter setIdentifierChars:[NSCharacterSet characterSetWithCharactersInString: @"_"]];
+        
+        [syntax_highlighter setIdentifierChars:[NSCharacterSet characterSetWithCharactersInString:@"_"]];
+        
+        for(id class_name in [mASyntaxHighlighting defaultClasses])
+        {
+            [syntax_highlighter addKeyword:class_name color:IDEKit_kLangColor_Classes lexID:0];
+        }
+        
+        for(id ugen_name in [mASyntaxHighlighting defaultUGens])
+        {
+            [syntax_highlighter addKeyword:ugen_name color:IDEKit_kLangColor_OtherSymbol1 lexID:0];
+        }
         
         // detach one empty NSThread to put Cocoa into multithreaded mode
         [NSThread detachNewThreadSelector:@selector(nop:) 
                                  toTarget:self withObject:nil];
         
-        [self adjustChucKMenuItems];
+        [self adjustChucKMenuItems];        
     }
     
     return self;
@@ -172,13 +193,16 @@ NSString * const mAChuginExtension = @"chug";
         delete ma;
     }
     
-    if( syntax_highlighter )
-        [syntax_highlighter release];
-    
-    if( class_names )
-        [class_names release];
-    
+    [syntax_highlighter release];
+    [class_names release];
     [madv autorelease];
+    m_recordSessionController.controller = nil;
+    [m_recordSessionController release];
+    [_windowControllers release];
+    
+    [[NSUserDefaultsController sharedUserDefaultsController]
+     removeObserver:self
+     forKeyPath:[@"values." stringByAppendingString:mAPreferencesOpenDocumentsInNewTab]];
     
     [super dealloc];
 }
@@ -198,12 +222,19 @@ NSString * const mAChuginExtension = @"chug";
     [about_text setStringValue:t_string];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(windowDidBecomeMain:)
-                                                 name:NSWindowDidBecomeMainNotification
+                                             selector:@selector(windowDidBecomeKey:)
+                                                 name:NSWindowDidBecomeKeyNotification
                                                object:nil];
-        
+    
+    [[NSUserDefaultsController sharedUserDefaultsController]
+     addObserver:self
+     forKeyPath:[@"values." stringByAppendingString:mAPreferencesOpenDocumentsInNewTab]
+     options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+     context:nil];
+    
     // init preferences
     // [mapc initDefaults];
+    [self newDocument:self];
 }
 
 //-----------------------------------------------------------------------------
@@ -215,15 +246,101 @@ NSString * const mAChuginExtension = @"chug";
     return ma;
 }
 
-//-----------------------------------------------------------------------------
-// name: addDocument
-// desc: creates a new "Document", typically creating a new window for it.  
-//-----------------------------------------------------------------------------
+
+- (mAMultiDocWindowController *)windowControllerForNewDocument
+{
+    mAMultiDocWindowController * _wc;
+    BOOL openDocsInNewTab = [[NSUserDefaults standardUserDefaults] integerForKey:mAPreferencesOpenDocumentsInNewTab];
+    
+    if(_forceDocumentInTab)
+        _wc = [self topWindowController];
+    else if(_forceDocumentInWindow)
+        _wc = [self newWindowController];
+    else
+    {
+        if(openDocsInNewTab)
+            _wc = [self topWindowController];
+        else
+            _wc = [self newWindowController];
+    }
+    
+    _forceDocumentInWindow = NO;
+    _forceDocumentInTab = NO;
+    
+    return _wc;
+}
+
+- (mAMultiDocWindowController *)topWindowController
+{
+    if(_topWindowController == nil)
+        _topWindowController = [self newWindowController];
+    return _topWindowController;
+}
+
+
+- (mAMultiDocWindowController *)newWindowController
+{
+    mAMultiDocWindowController * windowController = [[[mAMultiDocWindowController alloc] initWithWindowNibName:@"mADocumentWindow"] autorelease];
+    [_windowControllers addObject:windowController];
+    if(vm_on)
+        [windowController vm_on];
+    return windowController;
+}
+
+- (void)windowDidCloseForController:(mAMultiDocWindowController *)controller
+{
+    [_windowControllers removeObject:controller];
+    if(controller == _topWindowController)
+        _topWindowController = nil;
+}
+
+
+#pragma mark NSDocument Delegate
+
+// We want a custom subclass of NSDocumentController to handle document closure.
+// The object is instantiated in Window.xib and becomes the application-global document
+// controller, overriding NSDocumentControllerÔs default instance.
+
+- (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose contextInfo:(void  *)contextInfo
+{
+    if (contextInfo == MultiWindowDocumentControllerCloseAllContext) {
+//        NSLog(@"in close all. should close: %@",@(shouldClose));
+        if (shouldClose) {
+            // work on a copy of the window controllers array so that the doc can mutate its own array.
+            NSArray* windowCtrls = [doc.windowControllers copy];
+            for (NSWindowController* windowCtrl in windowCtrls) {
+                if ([windowCtrl respondsToSelector:@selector(removeDocument:)]) {
+                    [(id)windowCtrl removeDocument:doc];
+                }
+            }
+            
+            [windowCtrls release];
+            [doc close];
+            [self removeDocument:doc];
+        } else {
+            _didCloseAll = NO;
+        }
+    }
+}
+
+
+#pragma mark NSDocumentController
+
+- (void)closeAllDocumentsWithDelegate:(id)delegate didCloseAllSelector:(SEL)didCloseAllSelector contextInfo:(void *)contextInfo
+{
+//    NSLog(@"Closing all documents");
+    _didCloseAll = YES;
+    for (NSDocument* currentDocument in self.documents) {
+        [currentDocument canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(document:shouldClose:contextInfo:) contextInfo:(void*)MultiWindowDocumentControllerCloseAllContext];
+    }
+    
+    objc_msgSend(delegate,didCloseAllSelector,self,_didCloseAll,contextInfo);
+}
+
 - (void)addDocument:(NSDocument *)doc
 {
     [doc retain];
-    [( miniAudicleDocument * )doc setMiniAudicle:ma];
-    [( miniAudicleDocument * )doc setVMOn:vm_on];
+    [(miniAudicleDocument *)doc setMiniAudicle:ma];
     [madv addObject:doc];
     
     [super addDocument:doc];
@@ -232,8 +349,36 @@ NSString * const mAChuginExtension = @"chug";
 - (void)removeDocument:(NSDocument *)doc
 {
     [super removeDocument:doc];
-    
+
     [madv removeObject:doc];
+    
+    mAMultiDocWindowController * windowController = (mAMultiDocWindowController *)[(miniAudicleDocument *)doc windowController];
+    [windowController removeDocument:doc];
+    if([windowController numberOfTabs] == 0)
+    {
+        [self windowDidCloseForController:windowController];
+        [[windowController window] close];
+    }
+}
+
+
+- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL
+                            display:(BOOL)displayDocument
+                              error:(NSError **)outError
+{
+    NSDocument * docToClose = nil;
+    
+    if([[self currentDocument] isEmpty])
+        docToClose = [self currentDocument];
+    
+    id r = [super openDocumentWithContentsOfURL:absoluteURL
+                                        display:displayDocument
+                                          error:outError];
+    
+    if(docToClose && r)
+        [docToClose close];
+    
+    return r;
 }
 
 
@@ -271,25 +416,6 @@ NSString * const mAChuginExtension = @"chug";
 }
 
 
-- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL
-                            display:(BOOL)displayDocument
-                              error:(NSError **)outError
-{
-    NSWindow * doc_window = nil;
-    
-    if( [madv count] == 1 && [[madv objectAtIndex:0] isEmpty] )
-        doc_window = [[[[madv objectAtIndex:0] windowControllers] objectAtIndex:0] window];
-    
-    id r = [super openDocumentWithContentsOfURL:absoluteURL
-                                        display:displayDocument
-                                          error:outError];
-    
-    if( doc_window && r )
-        [doc_window close];
-    
-    return r;
-}
-
 //-----------------------------------------------------------------------------
 // name: lastWindowTopLeftCorner
 // desc: returns the last top-left corner that a new document window was created
@@ -309,12 +435,50 @@ NSString * const mAChuginExtension = @"chug";
     last_window_tlc = p;
 }
 
-- (void)windowDidBecomeMain:(NSNotification *)n
+- (void)windowDidBecomeKey:(NSNotification *)n
 {
     NSWindow * window = [n object];
     
-    if( [window windowController] == nil || 
-        [[window windowController] document] == nil )
+    if([window windowController] != nil &&
+       [[window windowController] isKindOfClass:[mAMultiDocWindowController class]])
+    {
+        _topWindowController = [window windowController];
+        
+        if( vm_on )
+        {
+            NSMenu * ckmenu = [[[NSApp mainMenu] itemWithTitle:@"ChucK"] submenu];
+            
+            NSEnumerator * menu_items = [[ckmenu itemArray] objectEnumerator];
+            NSMenuItem * mi;
+            while( mi = [menu_items nextObject] )
+                if( [mi tag] & 2 )
+                    [mi setEnabled:YES];
+        }
+        
+        main_document = [[window windowController] document];
+        
+        [closeTabMenuItem setKeyEquivalent:@"w"];
+        [closeTabMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask];
+        [closeWindowMenuItem setKeyEquivalent:@"w"];
+        [closeWindowMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask | NSShiftKeyMask];
+        
+//        NSMenu * edit_menu = [[[NSApp mainMenu] itemWithTitle:@"Edit"] submenu];
+//        if( [main_document lockEditing] )
+//            [[edit_menu itemWithTag:2] setTitle:@"Unlock Editing"];
+//        else
+//            [[edit_menu itemWithTag:2] setTitle:@"Lock Editing"];
+        
+//        NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
+//        [[view_menu itemWithTag:100] setTitle: [main_document showsToolbar] ? @"Hide Toolbar" : @"Show Toolbar" ];
+//        [[view_menu itemWithTag:101] setTitle: [main_document showsToolbar] ? @"Hide All Toolbars" : @"Show All Toolbars" ];
+//        [[view_menu itemWithTag:102] setTitle: [main_document showsArguments] ? @"Hide Arguments" : @"Show Arguments" ];
+//        [[view_menu itemWithTag:103] setTitle: [main_document showsArguments] ? @"Hide All Arguments" : @"Show All Arguments" ];
+//        [[view_menu itemWithTag:104] setTitle: [main_document showsLineNumbers] ? @"Hide Line Numbers" : @"Show Line Numbers" ];
+//        [[view_menu itemWithTag:105] setTitle: [main_document showsLineNumbers] ? @"Hide All Line Numbers" : @"Show All Line Numbers" ];
+//        [[view_menu itemWithTag:106] setTitle: [main_document showsStatusBar] ? @"Hide Status Bar" : @"Show Status Bar" ];
+//        [[view_menu itemWithTag:107] setTitle: [main_document showsStatusBar] ? @"Hide All Status Bars" : @"Show All Status Bars" ];
+    }
+    else
     {
         if( vm_on )
         {
@@ -330,38 +494,10 @@ NSString * const mAChuginExtension = @"chug";
         NSMenu * edit_menu = [[[NSApp mainMenu] itemWithTitle:@"Edit"] submenu];
         [[edit_menu itemWithTag:2] setTitle:@"Lock Editing"];
         [[edit_menu itemWithTag:2] setEnabled:NO];
-    }
-    
-    else
-    {
-        if( vm_on )
-        {
-            NSMenu * ckmenu = [[[NSApp mainMenu] itemWithTitle:@"ChucK"] submenu];
-            
-            NSEnumerator * menu_items = [[ckmenu itemArray] objectEnumerator];
-            NSMenuItem * mi;
-            while( mi = [menu_items nextObject] )
-                if( [mi tag] & 2 )
-                    [mi setEnabled:YES];
-        }
         
-        main_document = [[window windowController] document];
-        
-        NSMenu * edit_menu = [[[NSApp mainMenu] itemWithTitle:@"Edit"] submenu];
-        if( [main_document lockEditing] )
-            [[edit_menu itemWithTag:2] setTitle:@"Unlock Editing"];
-        else
-            [[edit_menu itemWithTag:2] setTitle:@"Lock Editing"];
-        
-        NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
-        [[view_menu itemWithTag:100] setTitle: [main_document showsToolbar] ? @"Hide Toolbar" : @"Show Toolbar" ];
-        [[view_menu itemWithTag:101] setTitle: [main_document showsToolbar] ? @"Hide All Toolbars" : @"Show All Toolbars" ];
-        [[view_menu itemWithTag:102] setTitle: [main_document showsArguments] ? @"Hide Arguments" : @"Show Arguments" ];
-        [[view_menu itemWithTag:103] setTitle: [main_document showsArguments] ? @"Hide All Arguments" : @"Show All Arguments" ];
-        [[view_menu itemWithTag:104] setTitle: [main_document showsLineNumbers] ? @"Hide Line Numbers" : @"Show Line Numbers" ];
-        [[view_menu itemWithTag:105] setTitle: [main_document showsLineNumbers] ? @"Hide All Line Numbers" : @"Show All Line Numbers" ];
-        [[view_menu itemWithTag:106] setTitle: [main_document showsStatusBar] ? @"Hide Status Bar" : @"Show Status Bar" ];
-        [[view_menu itemWithTag:107] setTitle: [main_document showsStatusBar] ? @"Hide All Status Bars" : @"Show All Status Bars" ];
+        [closeTabMenuItem setKeyEquivalent:@""];
+        [closeWindowMenuItem setKeyEquivalent:@"w"];
+        [closeWindowMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask];
     }
 }
 
@@ -404,16 +540,35 @@ NSString * const mAChuginExtension = @"chug";
     return nil;//[NSColor redColor];
 }
 
+
+#pragma mark IBActions
+
+- (IBAction)newWindow:(id)sender
+{
+    _forceDocumentInWindow = YES;
+    _forceDocumentInTab = NO;
+    
+    [self newDocument:sender];
+}
+
+- (IBAction)newTab:(id)sender
+{
+    _forceDocumentInWindow = NO;
+    _forceDocumentInTab = YES;
+    
+    [self newDocument:sender];
+}
+
 - (void)lockEditing:(id)sender
 {
-    miniAudicleDocument * doc = [self currentDocument];
-    
-    [doc setLockEditing:![doc lockEditing]];
-    
-    if( [doc lockEditing] )
-        [sender setTitle:@"Unlock Editing"];
-    else
-        [sender setTitle:@"Lock Editing"];
+//    miniAudicleDocument * doc = [self currentDocument];
+//    
+//    [doc setLockEditing:![doc lockEditing]];
+//    
+//    if( [doc lockEditing] )
+//        [sender setTitle:@"Unlock Editing"];
+//    else
+//        [sender setTitle:@"Lock Editing"];
 }
 
 //-----------------------------------------------------------------------------
@@ -422,7 +577,7 @@ NSString * const mAChuginExtension = @"chug";
 //-----------------------------------------------------------------------------
 - (void)addShred:(id)sender
 {
-    [[self currentDocument] add:sender];
+    [[(id)[self currentDocument] viewController] add:sender];
 }
 
 //-----------------------------------------------------------------------------
@@ -431,7 +586,7 @@ NSString * const mAChuginExtension = @"chug";
 //-----------------------------------------------------------------------------
 - (void)removeShred:(id)sender
 {
-    [[self currentDocument] remove:sender];
+    [[(id)[self currentDocument] viewController] remove:sender];
 }
 
 //-----------------------------------------------------------------------------
@@ -440,7 +595,7 @@ NSString * const mAChuginExtension = @"chug";
 //-----------------------------------------------------------------------------
 - (void)replaceShred:(id)sender
 {
-    [[self currentDocument] replace:sender];
+    [[(id)[self currentDocument] viewController] replace:sender];
 }
 
 //-----------------------------------------------------------------------------
@@ -449,7 +604,10 @@ NSString * const mAChuginExtension = @"chug";
 //-----------------------------------------------------------------------------
 - (void)addOpenDocuments:(id)sender
 {
-    [madv makeObjectsPerformSelector:@selector(add:) withObject:sender];
+    for(NSDocument * doc in madv)
+    {
+        [[(id)doc viewController] add:sender];
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -458,7 +616,10 @@ NSString * const mAChuginExtension = @"chug";
 //-----------------------------------------------------------------------------
 - (void)replaceOpenDocuments:(id)sender
 {
-    [madv makeObjectsPerformSelector:@selector(replace:) withObject:sender];
+    for(NSDocument * doc in madv)
+    {
+        [[(id)doc viewController] replace:sender];
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -467,7 +628,10 @@ NSString * const mAChuginExtension = @"chug";
 //-----------------------------------------------------------------------------
 - (void)removeOpenDocuments:(id)sender
 {
-    [madv makeObjectsPerformSelector:@selector(remove:) withObject:sender];
+    for(NSDocument * doc in madv)
+    {
+        [[(id)doc viewController] remove:sender];
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -476,13 +640,13 @@ NSString * const mAChuginExtension = @"chug";
 //-----------------------------------------------------------------------------
 - (void)removeAllShreds:(id)sender
 {
-    if( [self currentDocument] )
-        [[self currentDocument] removeall:sender];
-    else
-    {
-        string result;
-        ma->removeall( docid, result );
-    }   
+//    if( [self currentDocument] )
+//        [[self currentDocument] removeall:sender];
+//    else
+//    {
+    string result;
+    ma->removeall( docid, result );
+//    }
 }
 
 - (void)commentOut:(id)sender
@@ -493,13 +657,13 @@ NSString * const mAChuginExtension = @"chug";
 
 - (void)removeLastShred:(id)sender
 {
-    if( [self currentDocument] )
-        [[self currentDocument] removelast:sender];
-    else
-    {
-        string result;
-        ma->removelast( docid, result );
-    }
+//    if( [self currentDocument] )
+//        [[self currentDocument] removelast:sender];
+//    else
+//    {
+    string result;
+    ma->removelast( docid, result );
+//    }
 }
 
 - (void)abortCurrentShred:(id)sender
@@ -551,11 +715,11 @@ NSString * const mAChuginExtension = @"chug";
     if( !doc )
         return;
 
-    [doc setShowsToolbar:![doc showsToolbar]];
-    
-    NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
-    [[view_menu itemWithTag:HIDE_TOOLBAR_TAG] setTitle: [doc showsToolbar] ? @"Hide Toolbar" : @"Show Toolbar" ];
-    [[view_menu itemWithTag:HIDE_ALL_TOOLBARS_TAG] setTitle: [doc showsToolbar] ? @"Hide All Toolbars" : @"Show All Toolbars" ];
+//    [doc setShowsToolbar:![doc showsToolbar]];
+//    
+//    NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
+//    [[view_menu itemWithTag:HIDE_TOOLBAR_TAG] setTitle: [doc showsToolbar] ? @"Hide Toolbar" : @"Show Toolbar" ];
+//    [[view_menu itemWithTag:HIDE_ALL_TOOLBARS_TAG] setTitle: [doc showsToolbar] ? @"Hide All Toolbars" : @"Show All Toolbars" ];
 }
 
 - (void)hideAllToolbars:(id)sender
@@ -572,10 +736,10 @@ NSString * const mAChuginExtension = @"chug";
     else
         hide = NO;
     
-    NSEnumerator * doc_enum = [madv objectEnumerator];
-    miniAudicleDocument * doc;
-    while( doc = [doc_enum nextObject] )
-        [doc setShowsToolbar:!hide];
+//    NSEnumerator * doc_enum = [madv objectEnumerator];
+//    miniAudicleDocument * doc;
+//    while( doc = [doc_enum nextObject] )
+//        [doc setShowsToolbar:!hide];
     
     [[view_menu itemWithTag:HIDE_TOOLBAR_TAG] setTitle: !hide ? @"Hide Toolbar" : @"Show Toolbar" ];
     [item setTitle: !hide ? @"Hide All Toolbars" : @"Show All Toolbars" ];
@@ -587,11 +751,11 @@ NSString * const mAChuginExtension = @"chug";
     if( !doc )
         return;
 
-    [doc setShowsArguments:![doc showsArguments]];
-    
-    NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
-    [[view_menu itemWithTag:HIDE_ARGUMENTS_TAG] setTitle: [doc showsArguments] ? @"Hide Arguments" : @"Show Arguments" ];
-    [[view_menu itemWithTag:HIDE_ALL_ARGUMENTS_TAG] setTitle: [doc showsArguments] ? @"Hide All Arguments" : @"Show All Arguments" ];
+//    [doc setShowsArguments:![doc showsArguments]];
+//    
+//    NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
+//    [[view_menu itemWithTag:HIDE_ARGUMENTS_TAG] setTitle: [doc showsArguments] ? @"Hide Arguments" : @"Show Arguments" ];
+//    [[view_menu itemWithTag:HIDE_ALL_ARGUMENTS_TAG] setTitle: [doc showsArguments] ? @"Hide All Arguments" : @"Show All Arguments" ];
 }
 
 - (void)hideAllArguments:(id)sender
@@ -608,10 +772,10 @@ NSString * const mAChuginExtension = @"chug";
     else
         hide = NO;
     
-    NSEnumerator * doc_enum = [madv objectEnumerator];
-    miniAudicleDocument * doc;
-    while( doc = [doc_enum nextObject] )
-        [doc setShowsArguments:!hide];
+//    NSEnumerator * doc_enum = [madv objectEnumerator];
+//    miniAudicleDocument * doc;
+//    while( doc = [doc_enum nextObject] )
+//        [doc setShowsArguments:!hide];
     
     [[view_menu itemWithTag:HIDE_ARGUMENTS_TAG] setTitle: !hide ? @"Hide Arguments" : @"Show Arguments" ];
     [item setTitle: !hide ? @"Hide All Arguments" : @"Show All Arguments" ];
@@ -623,11 +787,11 @@ NSString * const mAChuginExtension = @"chug";
     if( !doc )
         return;
     
-    [doc setShowsLineNumbers:![doc showsLineNumbers]];
-    
-    NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
-    [[view_menu itemWithTag:HIDE_LINE_NUMBERS_TAG] setTitle: [doc showsLineNumbers] ? @"Hide Line Numbers" : @"Show Line Numbers" ];
-    [[view_menu itemWithTag:HIDE_ALL_LINE_NUMBERS_TAG] setTitle: [doc showsLineNumbers] ? @"Hide All Line Numbers" : @"Show All Line Numbers" ];
+//    [doc setShowsLineNumbers:![doc showsLineNumbers]];
+//    
+//    NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
+//    [[view_menu itemWithTag:HIDE_LINE_NUMBERS_TAG] setTitle: [doc showsLineNumbers] ? @"Hide Line Numbers" : @"Show Line Numbers" ];
+//    [[view_menu itemWithTag:HIDE_ALL_LINE_NUMBERS_TAG] setTitle: [doc showsLineNumbers] ? @"Hide All Line Numbers" : @"Show All Line Numbers" ];
 }
 
 - (void)hideAllLineNumbers:(id)sender
@@ -644,10 +808,10 @@ NSString * const mAChuginExtension = @"chug";
     else
         hide = NO;
     
-    NSEnumerator * doc_enum = [madv objectEnumerator];
-    miniAudicleDocument * doc;
-    while( doc = [doc_enum nextObject] )
-        [doc setShowsLineNumbers:!hide];
+//    NSEnumerator * doc_enum = [madv objectEnumerator];
+//    miniAudicleDocument * doc;
+//    while( doc = [doc_enum nextObject] )
+//        [doc setShowsLineNumbers:!hide];
     
     [[view_menu itemWithTag:HIDE_LINE_NUMBERS_TAG] setTitle: !hide ? @"Hide Line Numbers" : @"Show Line Numbers" ];
     [item setTitle: !hide ? @"Hide All Line Numbers" : @"Show All Line Numbers" ];
@@ -659,11 +823,11 @@ NSString * const mAChuginExtension = @"chug";
     if( !doc )
         return;
     
-    [doc setShowsStatusBar:![doc showsStatusBar]];
-    
-    NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
-    [[view_menu itemWithTag:HIDE_STATUS_BAR_TAG] setTitle: [doc showsStatusBar] ? @"Hide Status Bar" : @"Show Status Bar" ];
-    [[view_menu itemWithTag:HIDE_ALL_STATUS_BARS_TAG] setTitle: [doc showsStatusBar] ? @"Hide All Status Bars" : @"Show All Status Bars" ];
+//    [doc setShowsStatusBar:![doc showsStatusBar]];
+//    
+//    NSMenu * view_menu = [[[NSApp mainMenu] itemWithTitle:@"View"] submenu];
+//    [[view_menu itemWithTag:HIDE_STATUS_BAR_TAG] setTitle: [doc showsStatusBar] ? @"Hide Status Bar" : @"Show Status Bar" ];
+//    [[view_menu itemWithTag:HIDE_ALL_STATUS_BARS_TAG] setTitle: [doc showsStatusBar] ? @"Hide All Status Bars" : @"Show All Status Bars" ];
 }
 
 - (void)hideAllStatusBars:(id)sender
@@ -680,10 +844,10 @@ NSString * const mAChuginExtension = @"chug";
     else
         hide = NO;
     
-    NSEnumerator * doc_enum = [madv objectEnumerator];
-    miniAudicleDocument * doc;
-    while( doc = [doc_enum nextObject] )
-        [doc setShowsStatusBar:!hide];
+//    NSEnumerator * doc_enum = [madv objectEnumerator];
+//    miniAudicleDocument * doc;
+//    while( doc = [doc_enum nextObject] )
+//        [doc setShowsStatusBar:!hide];
     
     [[view_menu itemWithTag:HIDE_STATUS_BAR_TAG] setTitle: !hide ? @"Hide Status Bar" : @"Show Status Bar" ];
     [item setTitle: !hide ? @"Hide All Status Bars" : @"Show All Status Bars" ];
@@ -771,16 +935,18 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
 {
     if( vm_on )
     {
-        [madv makeObjectsPerformSelector:@selector(vm_off)];
+//        [madv makeObjectsPerformSelector:@selector(vm_off)];
         [vm_monitor vm_off];
-        [[NSNotificationCenter defaultCenter] postNotificationName:mAVirtualMachineDidTurnOffNotification
-                                                            object:self];
+        [_windowControllers makeObjectsPerformSelector:@selector(vm_off)];
         
         vm_on = NO;
 
         [self adjustChucKMenuItems];
         
         ma->stop_vm();
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:mAVirtualMachineDidTurnOffNotification
+                                                            object:self];
     }
     
     else
@@ -839,6 +1005,13 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
     return in_lockdown;
 }
 
+
+- (IBAction)recordSession:(id)sender
+{
+    [[m_recordSessionController window] makeKeyAndOrderFront:sender];
+}
+
+
 - (BOOL)validateMenuItem:(NSMenuItem *)menu_item
 {
     BOOL r = YES;
@@ -860,10 +1033,34 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
 }
 
 
+#pragma mark NSKeyValueObserving
 
-@end
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    //    NSLog(@"observeValueForKeyPath %@", keyPath);
+    if([keyPath isEqualToString:[@"values." stringByAppendingString:mAPreferencesOpenDocumentsInNewTab]])
+    {
+        bool openInNewTab = [[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesOpenDocumentsInNewTab];
+        if(openInNewTab)
+        {
+            [newTabMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask];
+            [newWindowMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask | NSAlternateKeyMask];
+        }
+        else
+        {
+            [newTabMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask | NSAlternateKeyMask];
+            [newWindowMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask];
+        }
+    }
+    else
+    {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
 
-@implementation miniAudicleController (Private)
 
 - (void)adjustChucKMenuItems
 {
@@ -945,7 +1142,8 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
 {
     [self setLockdown:NO];
     
-    [madv makeObjectsPerformSelector:@selector(vm_on)];
+//    [madv makeObjectsPerformSelector:@selector(vm_on)];
+    [_windowControllers makeObjectsPerformSelector:@selector(vm_on)];
     [vm_monitor vm_on];
     [[NSNotificationCenter defaultCenter] postNotificationName:mAVirtualMachineDidTurnOnNotification
                                                         object:self];

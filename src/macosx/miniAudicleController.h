@@ -2,7 +2,7 @@
 miniAudicle
 Cocoa GUI to chuck audio programming environment
 
-Copyright (c) 2005 Spencer Salazar.  All rights reserved.
+Copyright (c) 2005-2013 Spencer Salazar.  All rights reserved.
 http://chuck.cs.princeton.edu/
 http://soundlab.cs.princeton.edu/
 
@@ -26,7 +26,7 @@ U.S.A.
 // file: miniAudicleController.h
 // desc: controller class for miniAudicle GUI
 //
-// author: Spencer Salazar (ssalazar@princeton.edu)
+// author: Spencer Salazar (spencer@ccrma.stanford.edu)
 // date: Autumn 2005
 //-----------------------------------------------------------------------------
 
@@ -42,6 +42,8 @@ class miniAudicle;
 @class miniAudiclePreferencesController;
 @class IDEKit_LexParser;
 @class miniAudicleDocument;
+@class mARecordSessionController;
+@class mAMultiDocWindowController;
 
 extern NSString * const mAVirtualMachineDidTurnOnNotification;
 extern NSString * const mAVirtualMachineDidTurnOffNotification;
@@ -51,15 +53,19 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
     miniAudicle * ma;
     t_CKUINT docid;
     NSMutableArray * madv;
-    miniAudicleVMMonitor * vm_monitor;
-    miniAudicleConsoleMonitor * console_monitor;
+    IBOutlet miniAudicleVMMonitor * vm_monitor;
+    IBOutlet miniAudicleConsoleMonitor * console_monitor;
     NSPoint last_window_tlc;
     //NSWindow * chuck_shell_window;
     NSDrawer * document_drawer;
     NSTextField * about_text;
-    miniAudiclePreferencesController * mapc;
+    IBOutlet miniAudiclePreferencesController * mapc;
+    mARecordSessionController * m_recordSessionController;
     
     miniAudicleDocument * main_document;
+    
+    mAMultiDocWindowController * _topWindowController;
+    NSMutableArray * _windowControllers;
     
     NSWindow * remote_vm_dialog;
     NSTextField * remote_vm_host;
@@ -73,7 +79,16 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
     
     BOOL in_lockdown;
     
+    BOOL _forceDocumentInTab, _forceDocumentInWindow;
+    
     IBOutlet NSMenuItem *startVMMenuItem;
+    IBOutlet NSMenuItem *closeWindowMenuItem;
+    IBOutlet NSMenuItem *closeTabMenuItem;
+    
+    IBOutlet NSMenuItem *newWindowMenuItem;
+    IBOutlet NSMenuItem *newTabMenuItem;
+    
+    BOOL _didCloseAll;
 }
 
 // static/non-static initializers
@@ -85,6 +100,11 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
 
 // miniAudicle accessor
 - (miniAudicle *)miniAudicle;
+
+- (mAMultiDocWindowController *)windowControllerForNewDocument;
+- (mAMultiDocWindowController *)topWindowController;
+- (mAMultiDocWindowController *)newWindowController;
+- (void)windowDidCloseForController:(mAMultiDocWindowController *)controller;
 
 // overridden NSDocumentController functions
 - (void)addDocument:(NSDocument *)doc;
@@ -100,31 +120,34 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
 - (void)setLastWindowTopLeftCorner:(NSPoint)p;
 
 // UI callbacks
-- (void)addShred:(id)sender;
-- (void)removeShred:(id)sender;
-- (void)replaceShred:(id)sender;
-- (void)addOpenDocuments:(id)sender;
-- (void)replaceOpenDocuments:(id)sender;
-- (void)removeOpenDocuments:(id)sender;
-- (void)removeAllShreds:(id)sender;
-- (void)removeLastShred:(id)sender;
-- (void)setLogLevel:(id)sender;
-- (void)openMiniAudicleWebsite:(id)sender;
-- (void)hideToolbar:(id)sender;
-- (void)hideAllToolbars:(id)sender;
-- (void)hideArguments:(id)sender;
-- (void)hideAllArguments:(id)sender;
-- (void)hideLineNumbers:(id)sender;
-- (void)hideAllLineNumbers:(id)sender;
-- (void)hideStatusBar:(id)sender;
-- (void)hideAllStatusBars:(id)sender;
-- (void)tileDocumentWindows:(id)sender;
-- (void)doConnectToRemoteVMDialog:(id)sender;
-- (void)connectToRemoteVM:(id)sender;
-- (void)connectToLocalVM:(id)sender;
-- (void)toggleVM:(id)sender;
-- (void)setLockdown:(BOOL)_lockdown;
+- (IBAction)newWindow:(id)sender;
+- (IBAction)newTab:(id)sender;
+- (IBAction)addShred:(id)sender;
+- (IBAction)removeShred:(id)sender;
+- (IBAction)replaceShred:(id)sender;
+- (IBAction)addOpenDocuments:(id)sender;
+- (IBAction)replaceOpenDocuments:(id)sender;
+- (IBAction)removeOpenDocuments:(id)sender;
+- (IBAction)removeAllShreds:(id)sender;
+- (IBAction)removeLastShred:(id)sender;
+- (IBAction)setLogLevel:(id)sender;
+- (IBAction)openMiniAudicleWebsite:(id)sender;
+- (IBAction)hideToolbar:(id)sender;
+- (IBAction)hideAllToolbars:(id)sender;
+- (IBAction)hideArguments:(id)sender;
+- (IBAction)hideAllArguments:(id)sender;
+- (IBAction)hideLineNumbers:(id)sender;
+- (IBAction)hideAllLineNumbers:(id)sender;
+- (IBAction)hideStatusBar:(id)sender;
+- (IBAction)hideAllStatusBars:(id)sender;
+- (IBAction)tileDocumentWindows:(id)sender;
+- (IBAction)doConnectToRemoteVMDialog:(id)sender;
+- (IBAction)connectToRemoteVM:(id)sender;
+- (IBAction)connectToLocalVM:(id)sender;
+- (IBAction)toggleVM:(id)sender;
+- (IBAction)setLockdown:(BOOL)_lockdown;
 - (BOOL)isInLockdown;
+- (IBAction)recordSession:(id)sender;
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menu_item;
 

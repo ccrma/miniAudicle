@@ -25,12 +25,17 @@ CC=clang
 CXX=clang++
 endif
 
-INCLUDES=-I$(CHUCK_SRC_DIR) -I$(OSX_DIR) -I.
-CFLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH $(INCLUDES)
+BUNDLE_FRAMEWORKS=PSMTabBarControl
+BUNDLE_FRAMEWORKS_DIR=$(OSX_DIR)/Frameworks
 
-FRAMEWORKS=Cocoa CoreAudio CoreMIDI CoreFoundation Carbon IOKit Security
-LIBS=$(addprefix -framework ,$(FRAMEWORKS)) $(LINK_EXTRAS) -lstdc++ -lm
-LDFLAGS=$(LIBS)
+INCLUDES=-I$(CHUCK_SRC_DIR) -I$(OSX_DIR) -I. -F$(BUNDLE_FRAMEWORKS_DIR)
+CFLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH $(INCLUDES) -mmacosx-version-min=10.5
+
+FRAMEWORKS=Cocoa CoreAudio CoreMIDI CoreFoundation Carbon IOKit Security PSMTabBarControl
+LIBS=-F$(BUNDLE_FRAMEWORKS_DIR) \
+    $(addprefix -framework ,$(FRAMEWORKS)) \
+    $(LINK_EXTRAS) -lstdc++ -lm
+LDFLAGS=$(LIBS) -mmacosx-version-min=10.5
 
 ARCHOPTS=$(addprefix -arch ,$(ARCHS))
 
@@ -62,7 +67,7 @@ endif
 CFLAGSDEPEND?=$(patsubst -arch %,,$(CFLAGS))
 
 # distribution target presets
-VERSION?=0.2.2c
+VERSION?=0.2.3-beta-2
 
 DIST_DIR=miniAudicle-$(VERSION)
 
@@ -101,6 +106,7 @@ CHUCK_CXXSRCS= $(CHUCK_SRC_DIR)/chuck_absyn.cpp $(CHUCK_SRC_DIR)/chuck_parse.cpp
 	$(CHUCK_SRC_DIR)/chuck_ugen.cpp $(CHUCK_SRC_DIR)/chuck_globals.cpp \
 	$(CHUCK_SRC_DIR)/chuck_otf.cpp $(CHUCK_SRC_DIR)/chuck_stats.cpp \
 	$(CHUCK_SRC_DIR)/chuck_bbq.cpp $(CHUCK_SRC_DIR)/chuck_shell.cpp \
+    $(CHUCK_SRC_DIR)/chuck_io.cpp \
 	$(CHUCK_SRC_DIR)/chuck_console.cpp $(CHUCK_SRC_DIR)/digiio_rtaudio.cpp \
 	$(CHUCK_SRC_DIR)/hidio_sdl.cpp \
 	$(CHUCK_SRC_DIR)/midiio_rtmidi.cpp $(CHUCK_SRC_DIR)/RtAudio/RtAudio.cpp \
@@ -113,7 +119,8 @@ CHUCK_CXXSRCS= $(CHUCK_SRC_DIR)/chuck_absyn.cpp $(CHUCK_SRC_DIR)/chuck_parse.cpp
 	$(CHUCK_SRC_DIR)/util_buffers.cpp $(CHUCK_SRC_DIR)/util_console.cpp \
 	$(CHUCK_SRC_DIR)/util_string.cpp \
 	$(CHUCK_SRC_DIR)/util_thread.cpp \
-	$(CHUCK_SRC_DIR)/util_opsc.cpp $(CHUCK_SRC_DIR)/util_hid.cpp
+	$(CHUCK_SRC_DIR)/util_opsc.cpp $(CHUCK_SRC_DIR)/util_hid.cpp \
+    $(CHUCK_SRC_DIR)/util_serial.cpp
 
 CHUCK_COBJS=$(CHUCK_CSRCS:.c=.o)
 CHUCK_CXXOBJS=$(CHUCK_CXXSRCS:.cpp=.o)
@@ -139,7 +146,11 @@ OBJCXXSRCS+= $(OSX_DIR)/miniAudicleController.mm \
 	$(OSX_DIR)/miniAudiclePreferencesController.mm \
 	$(OSX_DIR)/mABrowserController.mm \
     $(OSX_DIR)/mASyntaxHighlighter.mm \
-	$(OSX_DIR)/mAChuginManager.mm
+	$(OSX_DIR)/mAChuginManager.mm \
+    $(OSX_DIR)/mADocumentViewController.mm \
+    $(OSX_DIR)/mAMultiDocWindowController.mm \
+    $(OSX_DIR)/mARecordSessionController.mm \
+    $(OSX_DIR)/NSString+STLString.mm
 
 COBJS=$(CSRCS:.c=.o)
 CXXOBJS=$(CXXSRCS:.cpp=.o)
@@ -150,7 +161,7 @@ OBJS=$(COBJS) $(CXXOBJS) $(OBJCOBJS) $(OBJCXXOBJS)
 # place all images in macosx/icon here
 IMAGES=led-red.png led-green.png led-blue.png led-off.png \
        add.png remove.png replace.png removeall.png removelast.png error.png \
-       miniAudicle.icns ck.icns Thumb9.png lock.png
+       miniAudicle.icns ck.icns Thumb9.png lock.png record.png stop.png
 
 IMAGES:=$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/Resources/,$(IMAGES))
 
@@ -158,8 +169,10 @@ BUNDLE_DATA=Info.plist PkgInfo
 
 BUNDLE_DATA:=$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/,$(BUNDLE_DATA))
 
-NIBS_BASE=miniAudicle miniAudicleDocument
-XIBS=$(addprefix $(OSX_DIR)/$(LANGUAGE).lproj/,$(addsuffix .xib,$(NIBS_BASE)))
+BUNDLE_FRAMEWORKS_IN_BUNDLE=$(addsuffix .framework,$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/Frameworks/,$(BUNDLE_FRAMEWORKS)))
+
+NIBS_BASE=miniAudicle mADocumentView mADocumentWindow mARecordSession
+XIBS=$(addprefix $(OSX_DIR)/Resources/$(LANGUAGE).lproj/,$(addsuffix .xib,$(NIBS_BASE)))
 NIBS=$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/,$(addsuffix .nib,$(NIBS_BASE)) InfoPlist.strings)
 
 CHUGINS=ABSaturator Bitcrusher FIR KasFilter PanN
@@ -169,7 +182,7 @@ CHUGS=$(foreach CHUG,$(CHUGINS),$(CHUGIN_DIR)/$(CHUG)/$(CHUG).chug)
 COPIED_CHUGS=$(foreach CHUG,$(CHUGINS),$(BIN_DIR)/miniAudicle.app/Contents/$(CHUGIN_BUNDLE_DIR)/$(CHUG).chug)
 
 .PHONY: miniAudicle
-miniAudicle: $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(IMAGES) $(NIBS) $(BUNDLE_DATA) chugins
+miniAudicle: $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(IMAGES) $(NIBS) $(BUNDLE_DATA) chugins $(BUNDLE_FRAMEWORKS_IN_BUNDLE)
 
 $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle: $(OBJS) chuck
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/MacOS/
@@ -185,11 +198,16 @@ $(BUNDLE_DATA): $(BIN_DIR)/miniAudicle.app/Contents/%: $(OSX_DIR)/%
 	cp $< $@
 	touch $(BIN_DIR)/miniAudicle.app
 
-$(filter %.strings,$(NIBS)): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/%: $(OSX_DIR)/$(LANGUAGE).lproj/%
+$(BUNDLE_FRAMEWORKS_IN_BUNDLE): $(BIN_DIR)/miniAudicle.app/Contents/Frameworks/%: $(OSX_DIR)/Frameworks/%
+	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/Frameworks
+	cp -a $< $@
+	touch $(BIN_DIR)/miniAudicle.app
+
+$(filter %.strings,$(NIBS)): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/%: $(OSX_DIR)/Resources/$(LANGUAGE).lproj/%
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/
 	cp $< $@
 
-$(filter %.nib,$(NIBS)): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/%.nib: $(OSX_DIR)/$(LANGUAGE).lproj/%.xib
+$(filter %.nib,$(NIBS)): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/%.nib: $(OSX_DIR)/Resources/$(LANGUAGE).lproj/%.xib
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/
 	ibtool --errors --warnings --notices --output-format human-readable-text --compile $@ $<
 
@@ -256,4 +274,4 @@ dist: miniAudicle
 	cp -r $(CHUCK_MANUAL) $(DIST_DIR)/documentation/
 	rm -rf `find $(DIST_DIR)/ -name .DS_Store` `find $(DIST_DIR)/ -name .svn`
 	hdiutil create -srcfolder $(DIST_DIR) miniAudicle-$(VERSION).dmg -format UDZO -imagekey zlib-level=9
-	rm -r $(DIST_DIR)/
+	rm -rf $(DIST_DIR)/

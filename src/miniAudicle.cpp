@@ -2,7 +2,7 @@
 miniAudicle
 Cocoa GUI to chuck audio programming environment
 
-Copyright (c) 2005 Spencer Salazar.  All rights reserved.
+Copyright (c) 2005-2013 Spencer Salazar.  All rights reserved.
 http://chuck.cs.princeton.edu/
 http://soundlab.cs.princeton.edu/
 
@@ -26,7 +26,7 @@ U.S.A.
 // file: miniaudicle.cpp
 // desc: Platform independent miniAudicle interface
 //
-// author: Spencer Salazar (ssalazar@princeton.edu)
+// author: Spencer Salazar (spencer@ccrma.stanford.edu)
 // date: Autumn 2005
 //-----------------------------------------------------------------------------
 #include <stdio.h>
@@ -76,7 +76,7 @@ t_CKINT priority = 0x7fffffff;
 t_CKINT priority_low = 0x7fffffff;
 #endif
 
-extern const char MA_VERSION[] = "0.2.2c (gidora)\0";
+extern const char MA_VERSION[] = "0.2.3-beta-2 (gidora)\0";
 extern const char MA_ABOUT[] = "version %s\n\
 Copyright (c) Spencer Salazar\n\n\
 ChucK: version %s %lu-bit \n\

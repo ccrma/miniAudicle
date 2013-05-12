@@ -2,7 +2,7 @@
 miniAudicle
 Cocoa GUI to chuck audio programming environment
 
-Copyright (c) 2005 Spencer Salazar.  All rights reserved.
+Copyright (c) 2005-2013 Spencer Salazar.  All rights reserved.
 http://chuck.cs.princeton.edu/
 http://soundlab.cs.princeton.edu/
 
@@ -26,7 +26,7 @@ U.S.A.
 // file: miniAudiclePreferencesController.m
 // desc: controller class for miniAudicle GUI
 //
-// author: Spencer Salazar (ssalazar@princeton.edu)
+// author: Spencer Salazar (spencer@ccrma.stanford.edu)
 // date: Spring 2006
 //-----------------------------------------------------------------------------
 
@@ -43,7 +43,8 @@ static int sh_tokens[] =
 { 
     IDEKit_kLangColor_NormalText, 
     IDEKit_kLangColor_Keywords,
-//    IDEKit_kLangColor_Classes,
+    IDEKit_kLangColor_Classes,
+    IDEKit_kLangColor_OtherSymbol1,
     IDEKit_kLangColor_Comments,
     IDEKit_kLangColor_Strings,
     IDEKit_kLangColor_Numbers,
@@ -78,9 +79,11 @@ NSString * mAPreferencesDisplayLineNumbers = @"ShowLineNumbers";
 NSString * mAPreferencesShowArguments = @"ShowArguments";
 NSString * mAPreferencesShowToolbar = @"ShowToolbar";
 NSString * mAPreferencesShowStatusBar = @"ShowStatusBar";
+NSString * mAPreferencesShowTabBar = @"ShowTabBar";
 NSString * mAPreferencesEnableOTFVisuals = @"EnableOTFVisuals";
 NSString * mAPreferencesLogLevel = @"LogLevel";
 NSString * mAPreferencesSoundfilesDirectory = @"SoundfilesDirectory";
+NSString * mAPreferencesOpenDocumentsInNewTab = @"OpenDocumentsInNewTab";
 NSString * mAPreferencesBackupSuffix = @"BackupSuffix";
 
 NSString * mAPreferencesEnableChugins = @"EnableChugins";
@@ -128,7 +131,8 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
         [default_sh setObject:@"#ffffff" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Background )];
         [default_sh setObject:@"#000000" forKey:IDEKit_NameForColor( IDEKit_kLangColor_NormalText )];
         [default_sh setObject:@"#0000ff" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Keywords )];
-        [default_sh setObject:@"#009900" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Classes )];
+        [default_sh setObject:@"#800023" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Classes )];
+        [default_sh setObject:@"#A200EC" forKey:IDEKit_NameForColor( IDEKit_kLangColor_OtherSymbol1 )];
         [default_sh setObject:@"#609010" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Comments )];
         [default_sh setObject:@"#404040" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Strings )];
         [default_sh setObject:@"#D48010" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Numbers )];
@@ -148,6 +152,9 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesShowStatusBar];
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesEnableOTFVisuals];
         
+        [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesShowTabBar];
+        [defaults setObject:[NSNumber numberWithInt:0] forKey:mAPreferencesOpenDocumentsInNewTab];
+        
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesEnableChugins];
         
         std::list<std::string> default_chugin_pathv;
@@ -165,6 +172,22 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
         [defaults setObject:chugin_path_array forKey:mAPreferencesChuginPaths];
         
         [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
+        
+        // spencer: 0.2.3: add extra syntax color keys if missing
+        NSDictionary * actualSH = [[NSUserDefaults standardUserDefaults] objectForKey:IDEKit_TextColorsPrefKey];
+        NSMutableDictionary * newSH = nil;
+        if([actualSH objectForKey:IDEKit_NameForColor( IDEKit_kLangColor_Classes )] == nil)
+        {
+            if(newSH == nil) newSH = [NSMutableDictionary dictionaryWithDictionary:actualSH];
+            [newSH setObject:@"#800023" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Classes )];
+        }
+        if([actualSH objectForKey:IDEKit_NameForColor( IDEKit_kLangColor_OtherSymbol1 )] == nil)
+        {
+            if(newSH == nil) newSH = [NSMutableDictionary dictionaryWithDictionary:actualSH];
+            [newSH setObject:@"#A200EC" forKey:IDEKit_NameForColor( IDEKit_kLangColor_OtherSymbol1 )];
+        }
+        if(newSH != nil)
+            [[NSUserDefaults standardUserDefaults] setObject:newSH forKey:IDEKit_TextColorsPrefKey];
         
         // TODO: apparently this needs to happen before awakeFromNib
         [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:defaults];

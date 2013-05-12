@@ -1,0 +1,4 @@
+﻿/* Localized versions of Info.plist keys */
+
+CFBundleName = "miniAudicle";
+NSHumanReadableCopyright = "© Spencer Salazar\nChucK © Ge Wang and Perry Cook";

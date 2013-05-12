@@ -2,7 +2,7 @@
 miniAudicle
 Cocoa GUI to chuck audio programming environment
 
-Copyright (c) 2005 Spencer Salazar.  All rights reserved.
+Copyright (c) 2005-2013 Spencer Salazar.  All rights reserved.
 http://chuck.cs.princeton.edu/
 http://soundlab.cs.princeton.edu/
 
@@ -26,7 +26,7 @@ U.S.A.
 // file: miniAudiclePreferencesController.h
 // desc: controller class for miniAudicle GUI
 //
-// author: Spencer Salazar (ssalazar@princeton.edu)
+// author: Spencer Salazar (spencer@ccrma.stanford.edu)
 // date: Spring 2006
 //-----------------------------------------------------------------------------
 
@@ -62,8 +62,10 @@ extern NSString * mAPreferencesDisplayLineNumbers;
 extern NSString * mAPreferencesShowArguments;
 extern NSString * mAPreferencesShowToolbar;
 extern NSString * mAPreferencesShowStatusBar;
+extern NSString * mAPreferencesShowTabBar;
 extern NSString * mAPreferencesEnableOTFVisuals;
 extern NSString * mAPreferencesSoundfilesDirectory;
+extern NSString * mAPreferencesOpenDocumentsInNewTab;
 extern NSString * mAPreferencesBackupSuffix;
 
 extern NSString * mAPreferencesLibraryPath;

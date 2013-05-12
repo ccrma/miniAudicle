@@ -2,7 +2,7 @@
 miniAudicle
 Cocoa GUI to chuck audio programming environment
 
-Copyright (c) 2005 Spencer Salazar.  All rights reserved.
+Copyright (c) 2005-2013 Spencer Salazar.  All rights reserved.
 http://chuck.cs.princeton.edu/
 http://soundlab.cs.princeton.edu/
 
@@ -27,7 +27,7 @@ U.S.A.
 // desc: Document class, creates a new window for each new document and manages
 //       document-level connections to miniAudicle
 //
-// author: Spencer Salazar (ssalazar@princeton.edu)
+// author: Spencer Salazar (spencer@ccrma.stanford.edu)
 // date: Autumn 2005
 //-----------------------------------------------------------------------------
 
@@ -36,32 +36,17 @@ U.S.A.
 
 class miniAudicle;
 @class NumberedTextView;
-@class RBSplitSubview;
-@class mAArgumentsTableView;
+@class mADocumentViewController;
+@class mAMultiDocWindowController;
+@class UKFSEventsWatcher;
 
 @interface miniAudicleDocument : NSDocument <NSToolbarDelegate>
 {
-    IBOutlet NSWindow * window;
-    IBOutlet NumberedTextView * text_view;
-    IBOutlet NSTextField * status_text;
-    IBOutlet NSTextField * argument_text;
-    IBOutlet NSButton * toggle_argument_subview;
-    IBOutlet NSButton * button_bar;
-    IBOutlet NSTableView * argument_table;
+    mADocumentViewController * _viewController;
+    mAMultiDocWindowController * _windowController;
     
-    NSMutableArray * arguments;
-    BOOL reject_argument_edits;
-
-    NSToolbar * toolbar;
     NSString * data;
-        
-    //NSDrawer * shred_drawer;
-    //NSDrawer * document_drawer;
-    NSDrawer * argument_drawer;
     
-    NSMenu * remove_menu;
-    NSMenu * replace_menu;
-        
     miniAudicle * ma;
     t_CKUINT docid;
     BOOL vm_on;
@@ -72,51 +57,22 @@ class miniAudicle;
     BOOL shows_status_bar;
     
     BOOL has_customized_appearance;
+    
+    UKFSEventsWatcher *fsEventsWatcher;
 }
+
+@property (readonly, strong, nonatomic) NSString * data;
+@property (readonly, strong, nonatomic) mADocumentViewController * viewController;
+@property (weak, nonatomic) NSWindowController * windowController;
 
 - (id)init;
 
-- (void)userDefaultsDidChange:(NSNotification *)n;
+- (NSViewController *)newPrimaryViewController;
 
 - (NSData *)dataRepresentationOfType:(NSString *)type;
 - (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type;
 - (BOOL)isEmpty;
 
-- (void)add:(id)sender;
-- (void)remove:(id)sender;
-- (void)replace:(id)sender;
-- (void)removeall:(id)sender;
-- (void)removelast:(id)sender;
-
-- (void)removeShred:(id)sender;
-- (void)replaceShred:(id)sender;
-
-- (void)setLockEditing:(BOOL)lock;
-- (BOOL)lockEditing;
-
-- (void)commentOut:(id)sender;
-
-- (void)saveBackup:(id)sender;
-
 - (void)setMiniAudicle:(miniAudicle *)t_ma;
-- (void)setVMOn:(BOOL)t_vm_on;
-- (void)vm_on;
-- (void)vm_off;
 
-- (void)setShowsArguments:(BOOL)_shows_arguments;
-- (BOOL)showsArguments;
-
-- (void)setShowsToolbar:(BOOL)_shows_toolbar;
-- (BOOL)showsToolbar;
-
-- (void)setShowsLineNumbers:(BOOL)_shows_line_numbers;
-- (BOOL)showsLineNumbers;
-
-- (void)setShowsStatusBar:(BOOL)_shows_status_bar;
-- (BOOL)showsStatusBar;
-
-- (IBAction)handleArgumentText:(id)sender;
-
-- (void)argumentsTableView:(mAArgumentsTableView *)atv 
-                deleteRows:(NSIndexSet *)is;
 @end

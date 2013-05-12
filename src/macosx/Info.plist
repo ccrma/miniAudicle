@@ -32,7 +32,7 @@
 	<key>CFBundleExecutable</key>
 	<string>miniAudicle</string>
 	<key>CFBundleGetInfoString</key>
-	<string>miniAudicle 0.2.2c</string>
+	<string>miniAudicle 0.2.3-beta-2</string>
 	<key>CFBundleIconFile</key>
 	<string>miniAudicle</string>
 	<key>CFBundleIdentifier</key>
@@ -42,14 +42,38 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.2.2c</string>
+	<string>0.2.3-beta-2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>0.2.2c</string>
+	<string>0.2.3-beta-2</string>
 	<key>NSMainNibFile</key>
 	<string>miniAudicle</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.utf8-plain-text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>ChucK Script</string>
+			<key>UTTypeIconFile</key>
+			<string>ck</string>
+			<key>UTTypeIdentifier</key>
+			<string>edu.stanford.chuck</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://chuck.stanford.edu/</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ck</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0907BB06173D04770065B860 /* PSMTabBarControl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0916F980173AF0D20055956C /* PSMTabBarControl.framework */; };
 		09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09087C6414A4F5F600AD2633 /* mAVMMonitorCellController.mm */; };
 		09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09087C6714A4F61700AD2633 /* mAVMMonitorCell.xib */; };
 		09087C6B14A4F67100AD2633 /* UIRemoveControlMinus.png in Resources */ = {isa = PBXBuildFile; fileRef = 09087C6A14A4F67100AD2633 /* UIRemoveControlMinus.png */; };
@@ -15,8 +16,17 @@
 		090B4B1C0C4F038E00DF5577 /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
 		090B4B1D0C4F038E00DF5577 /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */; };
 		090B4B1E0C4F038E00DF5577 /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */; };
+		090F4B41171C61A700530FC7 /* chuck_io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090F4B3D171C61A700530FC7 /* chuck_io.cpp */; };
+		090F4B42171C61A700530FC7 /* chuck_io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090F4B3D171C61A700530FC7 /* chuck_io.cpp */; };
+		090F4B43171C61A700530FC7 /* chuck_io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090F4B3D171C61A700530FC7 /* chuck_io.cpp */; };
+		090F4B44171C61A700530FC7 /* util_serial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090F4B3F171C61A700530FC7 /* util_serial.cpp */; };
+		090F4B45171C61A700530FC7 /* util_serial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090F4B3F171C61A700530FC7 /* util_serial.cpp */; };
+		090F4B46171C61A700530FC7 /* util_serial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090F4B3F171C61A700530FC7 /* util_serial.cpp */; };
 		0910DF7A0B1D0D0800BBC2B8 /* mAParentFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0910DF790B1D0D0800BBC2B8 /* mAParentFrame.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -I$(WX_INCLUDE_DIR) -I$(WX_SETUP_INCLUDE_DIR) -D__WXGTK__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA -D__WXDEBUG__"; }; };
 		0913D8291654CBC000210436 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0913D8281654CBC000210436 /* QuartzCore.framework */; };
+		091433001738C16A00666F0D /* mAMultiDocWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 091432FF1738C16A00666F0D /* mAMultiDocWindowController.mm */; };
+		091433031738C17C00666F0D /* mADocumentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 091433021738C17C00666F0D /* mADocumentViewController.mm */; };
+		0916F981173AF0D20055956C /* PSMTabBarControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0916F980173AF0D20055956C /* PSMTabBarControl.framework */; };
 		09216C0A134ED4A900145064 /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09216C09134ED4A900145064 /* MultitouchSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		09297A160B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
 		09297A170B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
@@ -106,6 +116,15 @@
 		095B59720BC6D0F900E8759D /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 095B59710BC6D0F900E8759D /* error.png */; };
 		09608ADF14B40DE4009450FE /* mAConsoleMonitorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09608ADD14B40DE4009450FE /* mAConsoleMonitorController.mm */; };
 		09608AE014B40DE4009450FE /* mAConsoleMonitor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09608ADE14B40DE4009450FE /* mAConsoleMonitor.xib */; };
+		0962902F1731CCD1007CADBA /* record.ck in Resources */ = {isa = PBXBuildFile; fileRef = 0962902D1731CCD1007CADBA /* record.ck */; };
+		096290301731CCD1007CADBA /* recordvu.ck in Resources */ = {isa = PBXBuildFile; fileRef = 0962902E1731CCD1007CADBA /* recordvu.ck */; };
+		0962903317323065007CADBA /* NSString+STLString.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0962903217323065007CADBA /* NSString+STLString.mm */; };
+		0964A38E172F8DC800043ABA /* record.png in Resources */ = {isa = PBXBuildFile; fileRef = 0964A38C172F8DC800043ABA /* record.png */; };
+		0964A38F172F8DC800043ABA /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 0964A38D172F8DC800043ABA /* stop.png */; };
+		0964A395172F8FD800043ABA /* mARecordSessionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0964A394172F8FD800043ABA /* mARecordSessionController.mm */; };
+		0964A399172F9F4C00043ABA /* mA_oscbus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0964A397172F9F4C00043ABA /* mA_oscbus.cpp */; };
+		09678637173F169E003AB462 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678634173F169E003AB462 /* UKFileWatcher.m */; };
+		09678638173F169E003AB462 /* UKFSEventsWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678636173F169E003AB462 /* UKFSEventsWatcher.m */; };
 		096B324C13B573CE008ED860 /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09216C09134ED4A900145064 /* MultitouchSupport.framework */; };
 		096FAB870B56D56B00125FE2 /* mAConsoleMonitorView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 096FAB850B56D56B00125FE2 /* mAConsoleMonitorView.mm */; };
 		09805FFA0AA10D3800915136 /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
@@ -166,8 +185,11 @@
 		09812B9C0C6E394A00D1D68C /* uana_extract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09812B980C6E394A00D1D68C /* uana_extract.cpp */; };
 		09820BA110941F7F001F662E /* miniAudicle_log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09820BA010941F7F001F662E /* miniAudicle_log.cpp */; };
 		09820BA210941F7F001F662E /* miniAudicle_log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09820BA010941F7F001F662E /* miniAudicle_log.cpp */; };
-		098C3BD6110DBEAB00772EBB /* miniAudicle.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098C3BD4110DBEAB00772EBB /* miniAudicle.xib */; };
-		098C3BDA110DBEE800772EBB /* miniAudicleDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098C3BD8110DBEE800772EBB /* miniAudicleDocument.xib */; };
+		098E28AE173A06600044336B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A2173A06600044336B /* InfoPlist.strings */; };
+		098E28AF173A06600044336B /* mADocumentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A4173A06600044336B /* mADocumentView.xib */; };
+		098E28B0173A06600044336B /* mADocumentWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A6173A06600044336B /* mADocumentWindow.xib */; };
+		098E28B1173A06600044336B /* mARecordSession.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A8173A06600044336B /* mARecordSession.xib */; };
+		098E28B2173A06600044336B /* miniAudicle.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28AA173A06600044336B /* miniAudicle.xib */; };
 		09A40B680A9A54DA007604EA /* chuck_absyn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B060A9A54DA007604EA /* chuck_absyn.cpp */; };
 		09A40B690A9A54DA007604EA /* chuck_bbq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B080A9A54DA007604EA /* chuck_bbq.cpp */; };
 		09A40B6A0A9A54DA007604EA /* chuck_compile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B0A0A9A54DA007604EA /* chuck_compile.cpp */; };
@@ -214,7 +236,6 @@
 		09A40B960A9A54DA007604EA /* util_string.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B620A9A54DA007604EA /* util_string.cpp */; };
 		09A40B970A9A54DA007604EA /* util_thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B640A9A54DA007604EA /* util_thread.cpp */; };
 		09A40B980A9A54DA007604EA /* util_xforms.c in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B660A9A54DA007604EA /* util_xforms.c */; };
-		09A40BA70A9A5588007604EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09A40BA30A9A5588007604EA /* InfoPlist.strings */; };
 		09A40BBE0A9A55EC007604EA /* mASyntaxHighlighter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09A40BAC0A9A55EC007604EA /* mASyntaxHighlighter.mm */; };
 		09A40BBF0A9A55EC007604EA /* miniAudicle_ui_elements.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09A40BAD0A9A55EC007604EA /* miniAudicle_ui_elements.mm */; };
 		09A40BC00A9A55EC007604EA /* miniAudicleConsoleMonitor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09A40BAF0A9A55EC007604EA /* miniAudicleConsoleMonitor.mm */; };
@@ -354,6 +375,19 @@
 		};
 /* End PBXBuildRule section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		091433061738C87C00666F0D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0907BB06173D04770065B860 /* PSMTabBarControl.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		09087C6314A4F5F600AD2633 /* mAVMMonitorCellController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAVMMonitorCellController.h; sourceTree = "<group>"; };
 		09087C6414A4F5F600AD2633 /* mAVMMonitorCellController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAVMMonitorCellController.mm; sourceTree = "<group>"; };
@@ -362,8 +396,17 @@
 		090A5BE70AA75AEA005DC04D /* util_hid.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = util_hid.cpp; sourceTree = "<group>"; };
 		090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = uana_xform.cpp; sourceTree = "<group>"; };
 		090B4B1B0C4F038E00DF5577 /* uana_xform.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = uana_xform.h; sourceTree = "<group>"; };
+		090F4B3D171C61A700530FC7 /* chuck_io.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_io.cpp; sourceTree = "<group>"; };
+		090F4B3E171C61A700530FC7 /* chuck_io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chuck_io.h; sourceTree = "<group>"; };
+		090F4B3F171C61A700530FC7 /* util_serial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util_serial.cpp; sourceTree = "<group>"; };
+		090F4B40171C61A700530FC7 /* util_serial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util_serial.h; sourceTree = "<group>"; };
 		0910DF790B1D0D0800BBC2B8 /* mAParentFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 30; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = mAParentFrame.cpp; path = wxw/mAParentFrame.cpp; sourceTree = SOURCE_ROOT; tabWidth = 4; usesTabs = 0; };
 		0913D8281654CBC000210436 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		091432FE1738C16A00666F0D /* mAMultiDocWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAMultiDocWindowController.h; path = macosx/mAMultiDocWindowController.h; sourceTree = "<group>"; };
+		091432FF1738C16A00666F0D /* mAMultiDocWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAMultiDocWindowController.mm; path = macosx/mAMultiDocWindowController.mm; sourceTree = "<group>"; };
+		091433011738C17C00666F0D /* mADocumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mADocumentViewController.h; path = macosx/mADocumentViewController.h; sourceTree = "<group>"; };
+		091433021738C17C00666F0D /* mADocumentViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mADocumentViewController.mm; path = macosx/mADocumentViewController.mm; sourceTree = "<group>"; };
+		0916F980173AF0D20055956C /* PSMTabBarControl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PSMTabBarControl.framework; path = macosx/Frameworks/PSMTabBarControl.framework; sourceTree = "<group>"; };
 		09216C09134ED4A900145064 /* MultitouchSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultitouchSupport.framework; path = System/Library/PrivateFrameworks/MultitouchSupport.framework; sourceTree = SDKROOT; };
 		092979FB0B4DED60005C3B7A /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = /System/Library/Frameworks/IOBluetooth.framework; sourceTree = "<absolute>"; };
 		093A212A14BF587500497856 /* mAChuginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAChuginManager.h; path = macosx/mAChuginManager.h; sourceTree = "<group>"; };
@@ -409,6 +452,20 @@
 		09608ADC14B40DE4009450FE /* mAConsoleMonitorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAConsoleMonitorController.h; sourceTree = "<group>"; };
 		09608ADD14B40DE4009450FE /* mAConsoleMonitorController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAConsoleMonitorController.mm; sourceTree = "<group>"; };
 		09608ADE14B40DE4009450FE /* mAConsoleMonitor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAConsoleMonitor.xib; sourceTree = "<group>"; };
+		0962902D1731CCD1007CADBA /* record.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = record.ck; sourceTree = "<group>"; };
+		0962902E1731CCD1007CADBA /* recordvu.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = recordvu.ck; sourceTree = "<group>"; };
+		0962903117323065007CADBA /* NSString+STLString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+STLString.h"; path = "macosx/NSString+STLString.h"; sourceTree = "<group>"; };
+		0962903217323065007CADBA /* NSString+STLString.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "NSString+STLString.mm"; path = "macosx/NSString+STLString.mm"; sourceTree = "<group>"; };
+		0964A38C172F8DC800043ABA /* record.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = record.png; path = macosx/icon/record.png; sourceTree = "<group>"; };
+		0964A38D172F8DC800043ABA /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stop.png; path = macosx/icon/stop.png; sourceTree = "<group>"; };
+		0964A393172F8FD800043ABA /* mARecordSessionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mARecordSessionController.h; path = macosx/mARecordSessionController.h; sourceTree = "<group>"; };
+		0964A394172F8FD800043ABA /* mARecordSessionController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mARecordSessionController.mm; path = macosx/mARecordSessionController.mm; sourceTree = "<group>"; };
+		0964A397172F9F4C00043ABA /* mA_oscbus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mA_oscbus.cpp; sourceTree = "<group>"; };
+		0964A398172F9F4C00043ABA /* mA_oscbus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mA_oscbus.h; sourceTree = "<group>"; };
+		09678633173F169E003AB462 /* UKFileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKFileWatcher.h; sourceTree = "<group>"; };
+		09678634173F169E003AB462 /* UKFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFileWatcher.m; sourceTree = "<group>"; };
+		09678635173F169E003AB462 /* UKFSEventsWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKFSEventsWatcher.h; sourceTree = "<group>"; };
+		09678636173F169E003AB462 /* UKFSEventsWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFSEventsWatcher.m; sourceTree = "<group>"; };
 		096FAB840B56D56B00125FE2 /* mAConsoleMonitorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAConsoleMonitorView.h; path = macosx/mAConsoleMonitorView.h; sourceTree = SOURCE_ROOT; };
 		096FAB850B56D56B00125FE2 /* mAConsoleMonitorView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAConsoleMonitorView.mm; path = macosx/mAConsoleMonitorView.mm; sourceTree = SOURCE_ROOT; };
 		09805FE70AA10D0C00915136 /* chuck */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = chuck; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -424,8 +481,11 @@
 		09812B990C6E394A00D1D68C /* uana_extract.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = uana_extract.h; sourceTree = "<group>"; };
 		09820B9F10941F7F001F662E /* miniAudicle_log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = miniAudicle_log.h; sourceTree = "<group>"; };
 		09820BA010941F7F001F662E /* miniAudicle_log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = miniAudicle_log.cpp; sourceTree = "<group>"; };
-		098C3BD5110DBEAB00772EBB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/English.lproj/miniAudicle.xib; sourceTree = "<group>"; };
-		098C3BD9110DBEE800772EBB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/English.lproj/miniAudicleDocument.xib; sourceTree = "<group>"; };
+		098E28A3173A06600044336B /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = macosx/Resources/English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		098E28A5173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mADocumentView.xib; sourceTree = "<group>"; };
+		098E28A7173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mADocumentWindow.xib; sourceTree = "<group>"; };
+		098E28A9173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mARecordSession.xib; sourceTree = "<group>"; };
+		098E28AB173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/miniAudicle.xib; sourceTree = "<group>"; };
 		0991F48F128AA4830067C31C /* dct.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dct.ck; sourceTree = "<group>"; };
 		0991F491128AA4830067C31C /* centroid.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = centroid.ck; sourceTree = "<group>"; };
 		0991F492128AA4830067C31C /* flux.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flux.ck; sourceTree = "<group>"; };
@@ -776,7 +836,6 @@
 		09A40B650A9A54DA007604EA /* util_thread.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = util_thread.h; sourceTree = "<group>"; };
 		09A40B660A9A54DA007604EA /* util_xforms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = util_xforms.c; sourceTree = "<group>"; };
 		09A40B670A9A54DA007604EA /* util_xforms.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = util_xforms.h; sourceTree = "<group>"; };
-		09A40BA40A9A5588007604EA /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = macosx/English.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		09A40BAB0A9A55EC007604EA /* mASyntaxHighlighter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = mASyntaxHighlighter.h; path = macosx/mASyntaxHighlighter.h; sourceTree = SOURCE_ROOT; };
 		09A40BAC0A9A55EC007604EA /* mASyntaxHighlighter.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; name = mASyntaxHighlighter.mm; path = macosx/mASyntaxHighlighter.mm; sourceTree = SOURCE_ROOT; };
 		09A40BAD0A9A55EC007604EA /* miniAudicle_ui_elements.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; name = miniAudicle_ui_elements.mm; path = macosx/miniAudicle_ui_elements.mm; sourceTree = SOURCE_ROOT; };
@@ -951,6 +1010,7 @@
 				09A40BDB0A9A57C6007604EA /* IOKit.framework in Frameworks */,
 				09A40D860A9AC579007604EA /* Foundation.framework in Frameworks */,
 				09297A160B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */,
+				0916F981173AF0D20055956C /* PSMTabBarControl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -960,6 +1020,17 @@
 		080E96DDFE201D6D7F000001 /* miniAudicle OS X */ = {
 			isa = PBXGroup;
 			children = (
+				09678632173F169E003AB462 /* UliKit */,
+				091433011738C17C00666F0D /* mADocumentViewController.h */,
+				091433021738C17C00666F0D /* mADocumentViewController.mm */,
+				091432FE1738C16A00666F0D /* mAMultiDocWindowController.h */,
+				091432FF1738C16A00666F0D /* mAMultiDocWindowController.mm */,
+				09A40BB20A9A55EC007604EA /* miniAudicleDocument.h */,
+				09A40BB30A9A55EC007604EA /* miniAudicleDocument.mm */,
+				09A40BB00A9A55EC007604EA /* miniAudicleController.h */,
+				09A40BB10A9A55EC007604EA /* miniAudicleController.mm */,
+				09A40BBC0A9A55EC007604EA /* NumberedTextView.h */,
+				09A40BBD0A9A55EC007604EA /* NumberedTextView.mm */,
 				09F37B060BC075AC005931F6 /* mABrowserController.h */,
 				09F37B050BC075AC005931F6 /* mABrowserController.mm */,
 				096FAB840B56D56B00125FE2 /* mAConsoleMonitorView.h */,
@@ -970,10 +1041,6 @@
 				09A40BAD0A9A55EC007604EA /* miniAudicle_ui_elements.mm */,
 				09A40BAE0A9A55EC007604EA /* miniAudicleConsoleMonitor.h */,
 				09A40BAF0A9A55EC007604EA /* miniAudicleConsoleMonitor.mm */,
-				09A40BB00A9A55EC007604EA /* miniAudicleController.h */,
-				09A40BB10A9A55EC007604EA /* miniAudicleController.mm */,
-				09A40BB20A9A55EC007604EA /* miniAudicleDocument.h */,
-				09A40BB30A9A55EC007604EA /* miniAudicleDocument.mm */,
 				09A40BB40A9A55EC007604EA /* miniAudiclePreferencesController.h */,
 				09A40BB50A9A55EC007604EA /* miniAudiclePreferencesController.mm */,
 				09A40BB60A9A55EC007604EA /* miniAudicleShellController.h */,
@@ -982,12 +1049,14 @@
 				09A40BB90A9A55EC007604EA /* miniAudicleShellTextView.mm */,
 				09A40BBA0A9A55EC007604EA /* miniAudicleVMMonitor.h */,
 				09A40BBB0A9A55EC007604EA /* miniAudicleVMMonitor.mm */,
-				09A40BBC0A9A55EC007604EA /* NumberedTextView.h */,
-				09A40BBD0A9A55EC007604EA /* NumberedTextView.mm */,
 				093A212F14BFF5DC00497856 /* BLAuthentication.h */,
 				093A213014BFF5DC00497856 /* BLAuthentication.m */,
 				093A212A14BF587500497856 /* mAChuginManager.h */,
 				093A212B14BF587500497856 /* mAChuginManager.mm */,
+				0964A393172F8FD800043ABA /* mARecordSessionController.h */,
+				0964A394172F8FD800043ABA /* mARecordSessionController.mm */,
+				0962903117323065007CADBA /* NSString+STLString.h */,
+				0962903217323065007CADBA /* NSString+STLString.mm */,
 			);
 			name = "miniAudicle OS X";
 			sourceTree = "<group>";
@@ -1043,6 +1112,28 @@
 				093E262114A108C8008694BC /* miniAudicle iOS-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0964A396172F976F00043ABA /* ChucK Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				0962902D1731CCD1007CADBA /* record.ck */,
+				0962902E1731CCD1007CADBA /* recordvu.ck */,
+			);
+			name = "ChucK Scripts";
+			path = "macosx/ChucK Scripts";
+			sourceTree = "<group>";
+		};
+		09678632173F169E003AB462 /* UliKit */ = {
+			isa = PBXGroup;
+			children = (
+				09678633173F169E003AB462 /* UKFileWatcher.h */,
+				09678634173F169E003AB462 /* UKFileWatcher.m */,
+				09678635173F169E003AB462 /* UKFSEventsWatcher.h */,
+				09678636173F169E003AB462 /* UKFSEventsWatcher.m */,
+			);
+			name = UliKit;
+			path = macosx/UliKit;
 			sourceTree = "<group>";
 		};
 		0980603D0AA158F600915136 /* Examples */ = {
@@ -1555,6 +1646,10 @@
 		09A40B000A9A52FC007604EA /* ChucK */ = {
 			isa = PBXGroup;
 			children = (
+				090F4B3D171C61A700530FC7 /* chuck_io.cpp */,
+				090F4B3E171C61A700530FC7 /* chuck_io.h */,
+				090F4B3F171C61A700530FC7 /* util_serial.cpp */,
+				090F4B40171C61A700530FC7 /* util_serial.h */,
 				093E267714A12E3B008694BC /* mo_audio.mm */,
 				09812B980C6E394A00D1D68C /* uana_extract.cpp */,
 				09812B990C6E394A00D1D68C /* uana_extract.h */,
@@ -1675,6 +1770,8 @@
 				09E5546D0DA61CB700F1A6C8 /* miniAudicle_debug.h */,
 				09820B9F10941F7F001F662E /* miniAudicle_log.h */,
 				09820BA010941F7F001F662E /* miniAudicle_log.cpp */,
+				0964A397172F9F4C00043ABA /* mA_oscbus.cpp */,
+				0964A398172F9F4C00043ABA /* mA_oscbus.h */,
 			);
 			name = miniAudicle;
 			sourceTree = "<group>";
@@ -1847,11 +1944,17 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				098E28A2173A06600044336B /* InfoPlist.strings */,
+				098E28A4173A06600044336B /* mADocumentView.xib */,
+				098E28A6173A06600044336B /* mADocumentWindow.xib */,
+				098E28A8173A06600044336B /* mARecordSession.xib */,
+				098E28AA173A06600044336B /* miniAudicle.xib */,
+				0964A396172F976F00043ABA /* ChucK Scripts */,
+				0964A38C172F8DC800043ABA /* record.png */,
+				0964A38D172F8DC800043ABA /* stop.png */,
 				095A779914C0336E003E53EC /* chugin.icns */,
 				0942B6F51362466700C870F2 /* chugin-mini.png */,
 				0942B6F61362466700C870F2 /* folder.png */,
-				098C3BD8110DBEE800772EBB /* miniAudicleDocument.xib */,
-				098C3BD4110DBEAB00772EBB /* miniAudicle.xib */,
 				09594C330BD56E6F00336A56 /* led-red.xpm */,
 				09594C340BD56E6F00336A56 /* led-green.xpm */,
 				09594C350BD56E6F00336A56 /* led-blue.xpm */,
@@ -1874,7 +1977,6 @@
 				09A40C660A9A57FA007604EA /* led-blue.png */,
 				09A40C670A9A57FA007604EA /* miniAudicle.icns */,
 				09A40C7A0A9A58A0007604EA /* Info.plist */,
-				09A40BA30A9A5588007604EA /* InfoPlist.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1882,6 +1984,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0916F980173AF0D20055956C /* PSMTabBarControl.framework */,
 				0913D8281654CBC000210436 /* QuartzCore.framework */,
 				093A212D14BFEF7F00497856 /* Security.framework */,
 				093E267514A12A89008694BC /* AudioToolbox.framework */,
@@ -1954,6 +2057,7 @@
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "miniAudicle" */;
 			buildPhases = (
 				8D1107290486CEB800E47090 /* Resources */,
+				091433061738C87C00666F0D /* CopyFiles */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 			);
@@ -2025,7 +2129,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09A40BA70A9A5588007604EA /* InfoPlist.strings in Resources */,
 				09A40C6D0A9A57FA007604EA /* led-green.png in Resources */,
 				09A40C6E0A9A57FA007604EA /* led-off.png in Resources */,
 				09A40C6F0A9A57FA007604EA /* led-red.png in Resources */,
@@ -2039,11 +2142,18 @@
 				09F376EE0BBC97D6005931F6 /* remove.png in Resources */,
 				09F376EF0BBC97D6005931F6 /* add.png in Resources */,
 				095B59720BC6D0F900E8759D /* error.png in Resources */,
-				098C3BD6110DBEAB00772EBB /* miniAudicle.xib in Resources */,
-				098C3BDA110DBEE800772EBB /* miniAudicleDocument.xib in Resources */,
 				0942B6F71362466700C870F2 /* chugin-mini.png in Resources */,
 				0942B6F81362466700C870F2 /* folder.png in Resources */,
 				095A779A14C0336E003E53EC /* chugin.icns in Resources */,
+				0964A38E172F8DC800043ABA /* record.png in Resources */,
+				0964A38F172F8DC800043ABA /* stop.png in Resources */,
+				0962902F1731CCD1007CADBA /* record.ck in Resources */,
+				096290301731CCD1007CADBA /* recordvu.ck in Resources */,
+				098E28AE173A06600044336B /* InfoPlist.strings in Resources */,
+				098E28AF173A06600044336B /* mADocumentView.xib in Resources */,
+				098E28B0173A06600044336B /* mADocumentWindow.xib in Resources */,
+				098E28B1173A06600044336B /* mARecordSession.xib in Resources */,
+				098E28B2173A06600044336B /* miniAudicle.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2116,6 +2226,8 @@
 				09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */,
 				09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.mm in Sources */,
 				09608ADF14B40DE4009450FE /* mAConsoleMonitorController.mm in Sources */,
+				090F4B43171C61A700530FC7 /* chuck_io.cpp in Sources */,
+				090F4B46171C61A700530FC7 /* util_serial.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2175,6 +2287,8 @@
 				090B4B1E0C4F038E00DF5577 /* uana_xform.cpp in Sources */,
 				09812B9C0C6E394A00D1D68C /* uana_extract.cpp in Sources */,
 				09D9D910164359EC00E6CC4E /* RtAudio.cpp in Sources */,
+				090F4B41171C61A700530FC7 /* chuck_io.cpp in Sources */,
+				090F4B44171C61A700530FC7 /* util_serial.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2324,6 +2438,15 @@
 				09AC749A13E36A970015CC99 /* RtAudio.cpp in Sources */,
 				093A212C14BF587500497856 /* mAChuginManager.mm in Sources */,
 				093A213114BFF5DC00497856 /* BLAuthentication.m in Sources */,
+				090F4B42171C61A700530FC7 /* chuck_io.cpp in Sources */,
+				090F4B45171C61A700530FC7 /* util_serial.cpp in Sources */,
+				0964A395172F8FD800043ABA /* mARecordSessionController.mm in Sources */,
+				0964A399172F9F4C00043ABA /* mA_oscbus.cpp in Sources */,
+				0962903317323065007CADBA /* NSString+STLString.mm in Sources */,
+				091433001738C16A00666F0D /* mAMultiDocWindowController.mm in Sources */,
+				091433031738C17C00666F0D /* mADocumentViewController.mm in Sources */,
+				09678637173F169E003AB462 /* UKFileWatcher.m in Sources */,
+				09678638173F169E003AB462 /* UKFSEventsWatcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2370,29 +2493,45 @@
 			name = mADetailViewController_iPad.xib;
 			sourceTree = "<group>";
 		};
-		098C3BD4110DBEAB00772EBB /* miniAudicle.xib */ = {
+		098E28A2173A06600044336B /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				098C3BD5110DBEAB00772EBB /* English */,
+				098E28A3173A06600044336B /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		098E28A4173A06600044336B /* mADocumentView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				098E28A5173A06600044336B /* English */,
+			);
+			name = mADocumentView.xib;
+			sourceTree = "<group>";
+		};
+		098E28A6173A06600044336B /* mADocumentWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				098E28A7173A06600044336B /* English */,
+			);
+			name = mADocumentWindow.xib;
+			sourceTree = "<group>";
+		};
+		098E28A8173A06600044336B /* mARecordSession.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				098E28A9173A06600044336B /* English */,
+			);
+			name = mARecordSession.xib;
+			sourceTree = "<group>";
+		};
+		098E28AA173A06600044336B /* miniAudicle.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				098E28AB173A06600044336B /* English */,
 			);
 			name = miniAudicle.xib;
 			sourceTree = "<group>";
-		};
-		098C3BD8110DBEE800772EBB /* miniAudicleDocument.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				098C3BD9110DBEE800772EBB /* English */,
-			);
-			name = miniAudicleDocument.xib;
-			sourceTree = "<group>";
-		};
-		09A40BA30A9A5588007604EA /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				09A40BA40A9A5588007604EA /* English */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXVariantGroup section */
 
@@ -2420,7 +2559,6 @@
 					__MACOSX_CORE__,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				HEADER_SEARCH_PATHS = ios;
 				INFOPLIST_FILE = "ios/miniAudicle iOS-Info.plist";
@@ -2451,7 +2589,6 @@
 					__CHIP_MODE__,
 					__MACOSX_CORE__,
 				);
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				HEADER_SEARCH_PATHS = ios;
 				INFOPLIST_FILE = "ios/miniAudicle iOS-Info.plist";
@@ -2569,14 +2706,13 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=*]" = "3rd Party Mac Developer Application";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 					"\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
+					"\"$(SRCROOT)/macosx/Frameworks\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2585,19 +2721,16 @@
 					__CK_DEBUG__,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = "";
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				HEADER_SEARCH_PATHS = chuck/src;
 				INFOPLIST_FILE = macosx/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				OTHER_LDFLAGS = (
 					"-lm",
 					"-lstdc++",
 				);
 				PRODUCT_NAME = miniAudicle;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2605,13 +2738,12 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 					"\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
+					"\"$(SRCROOT)/macosx/Frameworks\"",
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -2620,17 +2752,15 @@
 					GCC_FAST_OBJC_DISPATCH_i386,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = chuck/src;
 				INFOPLIST_FILE = macosx/Info.plist;
 				INSTALL_PATH = /Applications;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				OTHER_LDFLAGS = (
 					"-lm",
 					"-lstdc++",
 				);
 				PRODUCT_NAME = miniAudicle;
-				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2638,11 +2768,12 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				YACC_GENERATED_FILE_STEM = InputFileStem;
 			};
@@ -2651,14 +2782,10 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_VERSION = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				SDKROOT = macosx;

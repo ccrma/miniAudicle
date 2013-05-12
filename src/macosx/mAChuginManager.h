@@ -2,7 +2,7 @@
  miniAudicle
  Cocoa GUI to chuck audio programming environment
  
- Copyright (c) 2005 Spencer Salazar.  All rights reserved.
+ Copyright (c) 2005-2013 Spencer Salazar.  All rights reserved.
  http://chuck.cs.princeton.edu/
  http://soundlab.cs.princeton.edu/
  
