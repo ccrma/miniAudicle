@@ -122,7 +122,6 @@
 		0964A38E172F8DC800043ABA /* record.png in Resources */ = {isa = PBXBuildFile; fileRef = 0964A38C172F8DC800043ABA /* record.png */; };
 		0964A38F172F8DC800043ABA /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 0964A38D172F8DC800043ABA /* stop.png */; };
 		0964A395172F8FD800043ABA /* mARecordSessionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0964A394172F8FD800043ABA /* mARecordSessionController.mm */; };
-		0964A399172F9F4C00043ABA /* mA_oscbus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0964A397172F9F4C00043ABA /* mA_oscbus.cpp */; };
 		09678637173F169E003AB462 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678634173F169E003AB462 /* UKFileWatcher.m */; };
 		09678638173F169E003AB462 /* UKFSEventsWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678636173F169E003AB462 /* UKFSEventsWatcher.m */; };
 		096B324C13B573CE008ED860 /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09216C09134ED4A900145064 /* MultitouchSupport.framework */; };
@@ -460,8 +459,6 @@
 		0964A38D172F8DC800043ABA /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stop.png; path = macosx/icon/stop.png; sourceTree = "<group>"; };
 		0964A393172F8FD800043ABA /* mARecordSessionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mARecordSessionController.h; path = macosx/mARecordSessionController.h; sourceTree = "<group>"; };
 		0964A394172F8FD800043ABA /* mARecordSessionController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mARecordSessionController.mm; path = macosx/mARecordSessionController.mm; sourceTree = "<group>"; };
-		0964A397172F9F4C00043ABA /* mA_oscbus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mA_oscbus.cpp; sourceTree = "<group>"; };
-		0964A398172F9F4C00043ABA /* mA_oscbus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mA_oscbus.h; sourceTree = "<group>"; };
 		09678633173F169E003AB462 /* UKFileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKFileWatcher.h; sourceTree = "<group>"; };
 		09678634173F169E003AB462 /* UKFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFileWatcher.m; sourceTree = "<group>"; };
 		09678635173F169E003AB462 /* UKFSEventsWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKFSEventsWatcher.h; sourceTree = "<group>"; };
@@ -1770,8 +1767,6 @@
 				09E5546D0DA61CB700F1A6C8 /* miniAudicle_debug.h */,
 				09820B9F10941F7F001F662E /* miniAudicle_log.h */,
 				09820BA010941F7F001F662E /* miniAudicle_log.cpp */,
-				0964A397172F9F4C00043ABA /* mA_oscbus.cpp */,
-				0964A398172F9F4C00043ABA /* mA_oscbus.h */,
 			);
 			name = miniAudicle;
 			sourceTree = "<group>";
@@ -2441,7 +2436,6 @@
 				090F4B42171C61A700530FC7 /* chuck_io.cpp in Sources */,
 				090F4B45171C61A700530FC7 /* util_serial.cpp in Sources */,
 				0964A395172F8FD800043ABA /* mARecordSessionController.mm in Sources */,
-				0964A399172F9F4C00043ABA /* mA_oscbus.cpp in Sources */,
 				0962903317323065007CADBA /* NSString+STLString.mm in Sources */,
 				091433001738C16A00666F0D /* mAMultiDocWindowController.mm in Sources */,
 				091433031738C17C00666F0D /* mADocumentViewController.mm in Sources */,
