@@ -160,17 +160,26 @@
     
     if([[self window] isMainWindow])
     {
-        [[self window] setBackgroundColor:[NSColor colorWithSRGBRed:175.0/255.0
-                                                              green:175.0/255.0
-                                                               blue:175.0/255.0
-                                                              alpha:1.0]];
+//        [[self window] setBackgroundColor:[NSColor colorWithSRGBRed:175.0/255.0
+//                                                              green:175.0/255.0
+//                                                               blue:175.0/255.0
+//                                                              alpha:1.0]];
+        CGFloat colors[] = { 175.0/255.0, 175.0/255.0, 175.0/255.0, 1.0 };
+        [[self window] setBackgroundColor:[NSColor colorWithColorSpace:[NSColorSpace sRGBColorSpace]
+                                                            components:colors
+                                                                 count:4]];
     }
     else
     {
-        [[self window] setBackgroundColor:[NSColor colorWithSRGBRed:223.0/255.0
-                                                              green:223.0/255.0
-                                                               blue:223.0/255.0
-                                                              alpha:1.0]];
+//        [[self window] setBackgroundColor:[NSColor colorWithSRGBRed:223.0/255.0
+//                                                              green:223.0/255.0
+//                                                               blue:223.0/255.0
+//                                                              alpha:1.0]];
+        CGFloat colors[] = { 223.0/255.0, 223.0/255.0, 223.0/255.0, 1.0 };
+        [[self window] setBackgroundColor:[NSColor colorWithColorSpace:[NSColorSpace sRGBColorSpace]
+                                                            components:colors
+                                                                 count:4]];
+
     }
 }
 
@@ -503,19 +512,19 @@
 
 - (void)windowDidBecomeMain:(NSNotification *)notification
 {
-    [[self window] setBackgroundColor:[NSColor colorWithSRGBRed:175.0/255.0
-                                                          green:175.0/255.0
-                                                           blue:175.0/255.0
-                                                          alpha:1.0]];
+    CGFloat colors[] = { 175.0/255.0, 175.0/255.0, 175.0/255.0, 1.0 };
+    [[self window] setBackgroundColor:[NSColor colorWithColorSpace:[NSColorSpace sRGBColorSpace]
+                                                        components:colors
+                                                             count:4]];
     [tabBar setNeedsDisplay];
 }
 
 - (void)windowDidResignMain:(NSNotification *)notification
 {
-    [[self window] setBackgroundColor:[NSColor colorWithSRGBRed:223.0/255.0
-                                                          green:223.0/255.0
-                                                           blue:223.0/255.0
-                                                          alpha:1.0]];
+    CGFloat colors[] = { 223.0/255.0, 223.0/255.0, 223.0/255.0, 1.0 };
+    [[self window] setBackgroundColor:[NSColor colorWithColorSpace:[NSColorSpace sRGBColorSpace]
+                                                        components:colors
+                                                             count:4]];
     [tabBar setNeedsDisplay];
 }
 
