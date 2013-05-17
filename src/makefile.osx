@@ -28,7 +28,7 @@ endif
 BUNDLE_FRAMEWORKS=PSMTabBarControl
 BUNDLE_FRAMEWORKS_DIR=$(OSX_DIR)/Frameworks
 
-INCLUDES=-I$(CHUCK_SRC_DIR) -I$(OSX_DIR) -I. -F$(BUNDLE_FRAMEWORKS_DIR)
+INCLUDES=-I$(CHUCK_SRC_DIR) -I$(OSX_DIR) -I$(OSX_DIR)/UliKit -I. -F$(BUNDLE_FRAMEWORKS_DIR)
 CFLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH $(INCLUDES) -mmacosx-version-min=10.5
 
 FRAMEWORKS=Cocoa CoreAudio CoreMIDI CoreFoundation Carbon IOKit Security PSMTabBarControl
@@ -133,7 +133,9 @@ CXXSRCS+= miniAudicle.cpp \
 	miniAudicle_import.cpp \
     miniAudicle_ui_elements.cpp
 OBJCSRCS+= $(OSX_DIR)/main.m \
-    $(OSX_DIR)/BLAuthentication.m
+    $(OSX_DIR)/BLAuthentication.m \
+    $(OSX_DIR)/UliKit/UKFileWatcher.m \
+    $(OSX_DIR)/UliKit/UKFSEventsWatcher.m
 OBJCXXSRCS+= $(OSX_DIR)/miniAudicleController.mm \
 	$(OSX_DIR)/miniAudicleVMMonitor.mm \
 	$(OSX_DIR)/miniAudicleDocument.mm \
