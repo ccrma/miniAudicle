@@ -177,6 +177,10 @@ NIBS_BASE=miniAudicle mADocumentView mADocumentWindow mARecordSession
 XIBS=$(addprefix $(OSX_DIR)/Resources/$(LANGUAGE).lproj/,$(addsuffix .xib,$(NIBS_BASE)))
 NIBS=$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/,$(addsuffix .nib,$(NIBS_BASE)) InfoPlist.strings)
 
+CHUCK_SCRIPTS=record.ck recordvu.ck
+CHUCK_SCRIPTS_DIR=$(OSX_DIR)/Chuck\ Scripts
+CHUCK_SCRIPTS_IN_BUNDLE=$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/Resources/,$(CHUCK_SCRIPTS))
+
 CHUGINS=ABSaturator Bitcrusher FIR KasFilter PanN
 CHUGIN_DIR=chugins
 CHUGIN_BUNDLE_DIR=Resources/ChuGins
@@ -184,7 +188,9 @@ CHUGS=$(foreach CHUG,$(CHUGINS),$(CHUGIN_DIR)/$(CHUG)/$(CHUG).chug)
 COPIED_CHUGS=$(foreach CHUG,$(CHUGINS),$(BIN_DIR)/miniAudicle.app/Contents/$(CHUGIN_BUNDLE_DIR)/$(CHUG).chug)
 
 .PHONY: miniAudicle
-miniAudicle: $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(IMAGES) $(NIBS) $(BUNDLE_DATA) chugins $(BUNDLE_FRAMEWORKS_IN_BUNDLE)
+miniAudicle: $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(IMAGES) \
+    $(NIBS) $(BUNDLE_DATA) $(COPIED_CHUGS) $(BUNDLE_FRAMEWORKS_IN_BUNDLE) \
+    $(CHUCK_SCRIPTS_IN_BUNDLE)
 
 $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle: $(OBJS) chuck
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/MacOS/
@@ -205,6 +211,9 @@ $(BUNDLE_FRAMEWORKS_IN_BUNDLE): $(BIN_DIR)/miniAudicle.app/Contents/Frameworks/%
 	cp -a $< $@
 	touch $(BIN_DIR)/miniAudicle.app
 
+$(CHUCK_SCRIPTS_IN_BUNDLE): $(addprefix $(CHUCK_SCRIPTS_DIR)/,$(CHUCK_SCRIPTS))
+	cp $(addprefix $(CHUCK_SCRIPTS_DIR)/,$(CHUCK_SCRIPTS)) $(BIN_DIR)/miniAudicle.app/Contents/Resources/
+
 $(filter %.strings,$(NIBS)): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/%: $(OSX_DIR)/Resources/$(LANGUAGE).lproj/%
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/
 	cp $< $@
@@ -213,7 +222,7 @@ $(filter %.nib,$(NIBS)): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAG
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/
 	ibtool --errors --warnings --notices --output-format human-readable-text --compile $@ $<
 
-chugins: $(CHUGS)
+$(COPIED_CHUGS): $(CHUGS)
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/$(CHUGIN_BUNDLE_DIR)/
 	cp $^ $(BIN_DIR)/miniAudicle.app/Contents/$(CHUGIN_BUNDLE_DIR)/
 
@@ -246,7 +255,8 @@ $(OBJCXXOBJS): %.o: %.mm
 
 .PHONY: clean
 clean: 
-	rm -rf *.o $(OSX_DIR)/*.o $(BIN_DIR)/miniAudicle.app $(DIST_DIR).dmg
+	rm -rf $(OBJS) $(OBJS:.o=.d) $(CHUCK_OBJS) $(CHUCK_OBJS:.o=.d) \
+        $(BIN_DIR)/miniAudicle.app $(DIST_DIR).dmg
 
 .PHONY: clean-all
 clean-all: 

@@ -871,7 +871,6 @@
 		09A40C660A9A57FA007604EA /* led-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "led-blue.png"; path = "macosx/icon/led-blue.png"; sourceTree = SOURCE_ROOT; };
 		09A40C670A9A57FA007604EA /* miniAudicle.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = miniAudicle.icns; path = macosx/icon/miniAudicle.icns; sourceTree = SOURCE_ROOT; };
 		09A40C7A0A9A58A0007604EA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; name = Info.plist; path = macosx/Info.plist; sourceTree = SOURCE_ROOT; };
-		09A40DC60A9AC659007604EA /* makefile.osx-ub */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = "makefile.osx-ub"; sourceTree = SOURCE_ROOT; };
 		09A40DC80A9AC677007604EA /* makefile.osx */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; indentWidth = 4; path = makefile.osx; sourceTree = SOURCE_ROOT; tabWidth = 4; usesTabs = 0; xcLanguageSpecificationIdentifier = xcode.lang.csh; };
 		09A40DD20A9AC6D3007604EA /* makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = makefile; sourceTree = SOURCE_ROOT; };
 		09A40DED0A9AC8C8007604EA /* chuckula_blood.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = chuckula_blood.jpg; path = ../docs/web/images/chuckula_blood.jpg; sourceTree = SOURCE_ROOT; };
@@ -1804,7 +1803,6 @@
 				09A1E6170CBA1AEC001FAD6F /* makefile.win32 */,
 				09A40DD20A9AC6D3007604EA /* makefile */,
 				09A40DC80A9AC677007604EA /* makefile.osx */,
-				09A40DC60A9AC659007604EA /* makefile.osx-ub */,
 			);
 			name = Makefiles;
 			sourceTree = "<group>";
