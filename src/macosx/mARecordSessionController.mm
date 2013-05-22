@@ -308,8 +308,8 @@ NSString * const mARecordSessionSaveToKey = @"mARecordSessionSaveToKey";
 
 - (void)updateVU:(NSTimer *)timer
 {
-    [leftChannel setFloatValue:marecordsession_leftVU*[leftChannel maxValue]];
-    [rightChannel setFloatValue:marecordsession_rightVU*[rightChannel maxValue]];
+    [leftChannel setFloatValue:[leftChannel minValue] + marecordsession_leftVU*[leftChannel maxValue]];
+    [rightChannel setFloatValue:[rightChannel minValue] + marecordsession_rightVU*[rightChannel maxValue]];
 }
 
 - (void)updateStatus
