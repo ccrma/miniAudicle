@@ -19,6 +19,8 @@ INSTALL_DIR=/Applications
 # compilation/linking presets
 CC=gcc
 CXX=g++
+LEX=flex
+YACC=bison
 
 ifneq ($(shell sw_vers -productVersion | egrep '10\.[78](\.[0-9]+)?'),)
 CC=clang
@@ -192,11 +194,13 @@ miniAudicle: $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(IMAGES) \
     $(NIBS) $(BUNDLE_DATA) $(COPIED_CHUGS) $(BUNDLE_FRAMEWORKS_IN_BUNDLE) \
     $(CHUCK_SCRIPTS_IN_BUNDLE)
 
-$(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle: $(OBJS) chuck
-	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/MacOS/
+$(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle: $(OBJS) $(CHUCK_OBJS) $(BIN_DIR)/miniAudicle.app/Contents/MacOS/
 	$(CXX) -o $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(OBJS) $(CHUCK_OBJS) $(LDFLAGS) $(ARCHOPTS)
 
-$(IMAGES): $(BIN_DIR)/miniAudicle.app/Contents/Resources/%: $(OSX_DIR)/icon/% 
+$(BIN_DIR)/miniAudicle.app/Contents/MacOS/:
+	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/MacOS/
+
+$(IMAGES): $(BIN_DIR)/miniAudicle.app/Contents/Resources/%: $(OSX_DIR)/icon/%
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/Resources/
 	cp $< $@
 	touch $(BIN_DIR)/miniAudicle.app
@@ -230,23 +234,33 @@ $(CHUGS):
 	make -C $(dir $@) osx
 
 # build the core chuck code
-.PHONY: chuck
-chuck:
-#	echo $(CHUCK_SRCS) &> /dev/null
-	ARCHS='$(ARCHS)' make -C $(CHUCK_SRC_DIR) osx
+#.PHONY: chuck
+$(CHUCK_COBJS): %.o: %.c
+	$(CC) $(CFLAGS) $(ARCHOPTS) -c $< -o $@
+	@$(CC) -MM $(CFLAGSDEPEND) $< > $*.d
+
+$(CHUCK_CXXOBJS): %.o: %.cpp
+	$(CXX) $(CFLAGS) $(ARCHOPTS) -c $< -o $@
+	@$(CXX) -MM $(CFLAGSDEPEND) $< > $*.d
+
+$(CHUCK_SRC_DIR)/chuck.tab.c $(CHUCK_SRC_DIR)/chuck.tab.h: $(CHUCK_SRC_DIR)/chuck.y
+	$(YACC) -dv -b $(CHUCK_SRC_DIR)/chuck $(CHUCK_SRC_DIR)/chuck.y
+
+$(CHUCK_SRC_DIR)/chuck.yy.c: $(CHUCK_SRC_DIR)/chuck.lex
+	$(LEX) -o$(CHUCK_SRC_DIR)/chuck.yy.c $(CHUCK_SRC_DIR)/chuck.lex
 
 # now build miniAudicle files
 $(COBJS): %.o: %.c
-	$(CXX) $(CFLAGS) $(ARCHOPTS) -c $< -o $@
-	@$(CXX) -MM $(CFLAGSDEPEND) $< > $*.d
+	$(CC) $(CFLAGS) $(ARCHOPTS) -c $< -o $@
+	@$(CC) -MM $(CFLAGSDEPEND) $< > $*.d
 
 $(CXXOBJS): %.o: %.cpp
 	$(CXX) $(CFLAGS) $(ARCHOPTS) -c $< -o $@
 	@$(CXX) -MM $(CFLAGSDEPEND) $< > $*.d
 
 $(OBJCOBJS): %.o: %.m
-	$(CXX) $(CFLAGS) $(ARCHOPTS) -c $< -o $@
-	@$(CXX) -MM $(CFLAGSDEPEND) $< > $*.d
+	$(CC) $(CFLAGS) $(ARCHOPTS) -c $< -o $@
+	@$(CC) -MM $(CFLAGSDEPEND) $< > $*.d
 
 $(OBJCXXOBJS): %.o: %.mm
 	$(CXX) $(CFLAGS) $(ARCHOPTS) -c $< -o $@
@@ -256,6 +270,7 @@ $(OBJCXXOBJS): %.o: %.mm
 .PHONY: clean
 clean: 
 	rm -rf $(OBJS) $(OBJS:.o=.d) $(CHUCK_OBJS) $(CHUCK_OBJS:.o=.d) \
+        chuck.tab.h chuck.tab.c chuck.yy.c \
         $(BIN_DIR)/miniAudicle.app $(DIST_DIR).dmg
 
 .PHONY: clean-all
