@@ -40,6 +40,10 @@
 	IBOutlet PSMTabBarControl *tabBar;
     IBOutlet NSToolbar * _toolbar;
     
+    IBOutlet NSToolbarItem * _addShredToolbarItem;
+    IBOutlet NSToolbarItem * _replaceShredToolbarItem;
+    IBOutlet NSToolbarItem * _removeShredToolbarItem;
+    
     NSMutableSet* _documents;
     NSMutableSet* _contentViewControllers;
     
@@ -70,5 +74,7 @@
 
 - (void)setShowsTabBar:(BOOL)_showsTabBar;
 - (BOOL)showsTabBar;
+
+- (NSViewController *)currentViewController;
 
 @end

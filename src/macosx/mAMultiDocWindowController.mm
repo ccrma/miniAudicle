@@ -160,10 +160,6 @@
     
     if([[self window] isMainWindow])
     {
-//        [[self window] setBackgroundColor:[NSColor colorWithSRGBRed:175.0/255.0
-//                                                              green:175.0/255.0
-//                                                               blue:175.0/255.0
-//                                                              alpha:1.0]];
         CGFloat colors[] = { 175.0/255.0, 175.0/255.0, 175.0/255.0, 1.0 };
         [[self window] setBackgroundColor:[NSColor colorWithColorSpace:[NSColorSpace sRGBColorSpace]
                                                             components:colors
@@ -171,10 +167,6 @@
     }
     else
     {
-//        [[self window] setBackgroundColor:[NSColor colorWithSRGBRed:223.0/255.0
-//                                                              green:223.0/255.0
-//                                                               blue:223.0/255.0
-//                                                              alpha:1.0]];
         CGFloat colors[] = { 223.0/255.0, 223.0/255.0, 223.0/255.0, 1.0 };
         [[self window] setBackgroundColor:[NSColor colorWithColorSpace:[NSColorSpace sRGBColorSpace]
                                                             components:colors
@@ -204,6 +196,7 @@
         ctrl = (mADocumentViewController *)[tabViewItem identifier];
     }
     
+    ctrl.windowController = self;
     [self.contentViewControllers addObject:ctrl];
     
     [ctrl activate];
@@ -247,6 +240,7 @@
     
     // remove the document's view controller and view
     [ctrl.view removeFromSuperview];
+    [ctrl setWindowController:nil];
     if ([ctrl respondsToSelector:@selector(setDocument:)])
         [(id)ctrl setDocument: nil];
     [ctrl release];
@@ -318,6 +312,11 @@
 {
     [[self window] makeKeyAndOrderFront:sender];
     [[NSDocumentController sharedDocumentController] newTab:sender];
+}
+
+- (NSViewController *)currentViewController
+{
+    return (NSViewController*)[[tabView selectedTabViewItem] identifier];
 }
 
 #pragma mark NSTabView + PSMTabBarControl delegate methods
@@ -598,6 +597,25 @@
 }
 
 
+- (void)flagsChanged:(NSEvent *)theEvent
+{
+    if([NSEvent modifierFlags] & NSAlternateKeyMask)
+    {
+        [_addShredToolbarItem setLabel:@"Add Tabs "];
+        [_replaceShredToolbarItem setLabel:@"Replace Tabs "];
+        [_removeShredToolbarItem setLabel:@"Remove Tabs "];
+    }
+    else
+    {
+        [_addShredToolbarItem setLabel:@"Add Shred"];
+        [_replaceShredToolbarItem setLabel:@"Replace Shred"];
+        [_removeShredToolbarItem setLabel:@"Remove Shred"];
+    }
+    
+    [super flagsChanged:theEvent];
+}
+
+
 #pragma mark NSKeyValueObserving
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -648,23 +666,47 @@
 
 - (void)add:(id)sender
 {
-    NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
-    mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
-    [vc add:sender];
+    if([NSEvent modifierFlags] & NSAlternateKeyMask)
+    {
+        for(mADocumentViewController *vc in self.contentViewControllers)
+            [vc add:sender];
+    }
+    else
+    {
+        NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
+        mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
+        [vc add:sender];
+    }
 }
 
 - (void)remove:(id)sender
 {
-    NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
-    mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
-    [vc remove:sender];
+    if([NSEvent modifierFlags] & NSAlternateKeyMask)
+    {
+        for(mADocumentViewController *vc in self.contentViewControllers)
+            [vc remove:sender];
+    }
+    else
+    {
+        NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
+        mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
+        [vc remove:sender];
+    }
 }
 
 - (void)replace:(id)sender
 {
-    NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
-    mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
-    [vc replace:sender];
+    if([NSEvent modifierFlags] & NSAlternateKeyMask)
+    {
+        for(mADocumentViewController *vc in self.contentViewControllers)
+            [vc replace:sender];
+    }
+    else
+    {
+        NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
+        mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
+        [vc replace:sender];
+    }
 }
 
 - (void)removeall:(id)sender
@@ -722,9 +764,13 @@
 - (BOOL)validateToolbarItem:(NSToolbarItem *)toolbar_item
 {
     if( [toolbar_item tag] == 1 )
+    {        
         return _vm_on;
+    }
     else
+    {
         return YES;
+    }
 }
 
 - (void)toggleToolbar:(id)sender

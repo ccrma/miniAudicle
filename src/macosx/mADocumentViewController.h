@@ -37,6 +37,7 @@
 class miniAudicle;
 @class NumberedTextView;
 @class miniAudicleDocument;
+@class mAMultiDocWindowController;
 
 @interface mADocumentViewController : NSViewController {
 @private
@@ -61,6 +62,7 @@ class miniAudicle;
 }
 
 @property (assign, nonatomic) miniAudicleDocument* document;
+@property (assign, nonatomic) mAMultiDocWindowController* windowController;
 @property (nonatomic) BOOL isEdited;
 
 - (void)activate;

@@ -37,6 +37,7 @@
 #import "miniAudicleController.h"
 #import "NSString+STLString.h"
 #import "miniAudiclePreferencesController.h"
+#import "mAMultiDocWindowController.h"
 
 #import "miniAudicle.h"
 #import "chuck_parse.h"
@@ -49,6 +50,7 @@ using namespace std;
 
 @synthesize isEdited = _edited;
 @synthesize document = _document;
+@synthesize windowController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -199,7 +201,8 @@ using namespace std;
     {
         [status_text setStringValue:@""];
         
-        [[text_view textView] animateAdd];
+        if([self.windowController currentViewController] == self)
+            [[text_view textView] animateAdd];
         [text_view setShowsErrorLine:NO];
     }
     
@@ -218,14 +221,16 @@ using namespace std;
             [text_view setErrorLine:error_line];
         }
         
-        [[text_view textView] animateError];
+        if([self.windowController currentViewController] == self)
+            [[text_view textView] animateError];
         
         [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
     }
     
     else
     {
-        [[text_view textView] animateError];
+        if([self.windowController currentViewController] == self)
+            [[text_view textView] animateError];
         
         [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
     }
@@ -261,7 +266,8 @@ using namespace std;
     {
         [status_text setStringValue:@""];
         
-        [[text_view textView] animateReplace];
+        if([self.windowController currentViewController] == self)
+            [[text_view textView] animateReplace];
         [text_view setShowsErrorLine:NO];
     }
     
@@ -280,14 +286,16 @@ using namespace std;
             [text_view setErrorLine:error_line];
         }
         
-        [[text_view textView] animateError];
+        if([self.windowController currentViewController] == self)
+            [[text_view textView] animateError];
         
         [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
     }
     
     else
     {
-        [[text_view textView] animateError];
+        if([self.windowController currentViewController] == self)
+            [[text_view textView] animateError];
         [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
     }
     
@@ -306,7 +314,8 @@ using namespace std;
     {
         [status_text setStringValue:@""];
         
-        [[text_view textView] animateRemove];
+        if([self.windowController currentViewController] == self)
+            [[text_view textView] animateRemove];
         [text_view setShowsErrorLine:NO];
     }
     
@@ -318,7 +327,8 @@ using namespace std;
     
     else
     {
-        [[text_view textView] animateError];
+        if([self.windowController currentViewController] == self)
+            [[text_view textView] animateError];
         [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
     }
 }
@@ -328,7 +338,8 @@ using namespace std;
     string result;
     if( !ma->removeall( docid, result ) )
     {
-        [[text_view textView] animateRemoveAll];
+        if([self.windowController currentViewController] == self)
+            [[text_view textView] animateRemoveAll];
         [text_view setShowsErrorLine:NO];
     }
     
@@ -340,7 +351,8 @@ using namespace std;
     string result;
     if( !ma->removelast( docid, result ) )
     {
-        [[text_view textView] animateRemoveLast];
+        if([self.windowController currentViewController] == self)
+            [[text_view textView] animateRemoveLast];
         [text_view setShowsErrorLine:NO];
     }
     
