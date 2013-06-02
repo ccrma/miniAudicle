@@ -245,6 +245,16 @@
 									<reference key="NSOnImage" ref="142581069"/>
 									<reference key="NSMixedImage" ref="954038292"/>
 								</object>
+								<object class="NSMenuItem" id="663952572">
+									<reference key="NSMenu" ref="413252213"/>
+									<bool key="NSIsAlternate">YES</bool>
+									<string key="NSTitle">Open in Tab...</string>
+									<string key="NSKeyEquiv">o</string>
+									<int key="NSKeyEquivModMask">1572864</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="142581069"/>
+									<reference key="NSMixedImage" ref="954038292"/>
+								</object>
 								<object class="NSMenuItem" id="564241019">
 									<reference key="NSMenu" ref="413252213"/>
 									<string key="NSTitle">Open Recent</string>
@@ -5830,6 +5840,14 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<int key="connectionID">1502</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">openDocumentInTab:</string>
+						<reference key="source" ref="990087552"/>
+						<reference key="destination" ref="663952572"/>
+					</object>
+					<int key="connectionID">1506</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">initialFirstResponder</string>
 						<reference key="source" ref="680328941"/>
@@ -7439,6 +7457,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<reference ref="228363411"/>
 							<reference ref="20429739"/>
 							<reference ref="606219850"/>
+							<reference ref="663952572"/>
 						</object>
 						<reference key="parent" ref="1006639319"/>
 					</object>
@@ -10391,6 +10410,11 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="object" ref="598918574"/>
 						<reference key="parent" ref="116967823"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1503</int>
+						<reference key="object" ref="663952572"/>
+						<reference key="parent" ref="413252213"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -10598,6 +10622,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<string>1499.IBPluginDependency</string>
 					<string>150.IBPluginDependency</string>
 					<string>1500.IBPluginDependency</string>
+					<string>1503.IBPluginDependency</string>
 					<string>154.IBPluginDependency</string>
 					<string>155.IBPluginDependency</string>
 					<string>156.IBPluginDependency</string>
@@ -11092,6 +11117,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{21, 1139}, {306, 372}}</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -11338,7 +11364,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1502</int>
+			<int key="maxID">1506</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -11473,12 +11499,18 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_addShredToolbarItem</string>
+							<string>_removeShredToolbarItem</string>
+							<string>_replaceShredToolbarItem</string>
 							<string>_toolbar</string>
 							<string>tabBar</string>
 							<string>tabView</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSToolbarItem</string>
+							<string>NSToolbarItem</string>
+							<string>NSToolbarItem</string>
 							<string>NSToolbar</string>
 							<string>PSMTabBarControl</string>
 							<string>NSTabView</string>
@@ -11488,12 +11520,27 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_addShredToolbarItem</string>
+							<string>_removeShredToolbarItem</string>
+							<string>_replaceShredToolbarItem</string>
 							<string>_toolbar</string>
 							<string>tabBar</string>
 							<string>tabView</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_addShredToolbarItem</string>
+								<string key="candidateClassName">NSToolbarItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_removeShredToolbarItem</string>
+								<string key="candidateClassName">NSToolbarItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_replaceShredToolbarItem</string>
+								<string key="candidateClassName">NSToolbarItem</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">_toolbar</string>
 								<string key="candidateClassName">NSToolbar</string>
@@ -11543,6 +11590,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>hideToolbar:</string>
 							<string>newTab:</string>
 							<string>newWindow:</string>
+							<string>openDocumentInTab:</string>
 							<string>openMiniAudicleWebsite:</string>
 							<string>recordSession:</string>
 							<string>removeAllShreds:</string>
@@ -11551,6 +11599,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>removeShred:</string>
 							<string>replaceOpenDocuments:</string>
 							<string>replaceShred:</string>
+							<string>setLockdown:</string>
 							<string>setLogLevel:</string>
 							<string>tileDocumentWindows:</string>
 							<string>toggleVM:</string>
@@ -11581,6 +11630,8 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>BOOL</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -11604,6 +11655,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>hideToolbar:</string>
 							<string>newTab:</string>
 							<string>newWindow:</string>
+							<string>openDocumentInTab:</string>
 							<string>openMiniAudicleWebsite:</string>
 							<string>recordSession:</string>
 							<string>removeAllShreds:</string>
@@ -11612,6 +11664,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>removeShred:</string>
 							<string>replaceOpenDocuments:</string>
 							<string>replaceShred:</string>
+							<string>setLockdown:</string>
 							<string>setLogLevel:</string>
 							<string>tileDocumentWindows:</string>
 							<string>toggleVM:</string>
@@ -11679,6 +11732,10 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">openDocumentInTab:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">openMiniAudicleWebsite:</string>
 								<string key="candidateClassName">id</string>
 							</object>
@@ -11709,6 +11766,10 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<object class="IBActionInfo">
 								<string key="name">replaceShred:</string>
 								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">setLockdown:</string>
+								<string key="candidateClassName">BOOL</string>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">setLogLevel:</string>

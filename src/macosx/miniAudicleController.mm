@@ -264,8 +264,8 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
             _wc = [self newWindowController];
     }
     
-    _forceDocumentInWindow = NO;
-    _forceDocumentInTab = NO;
+//    _forceDocumentInWindow = NO;
+//    _forceDocumentInTab = NO;
     
     return _wc;
 }
@@ -543,12 +543,36 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 
 #pragma mark IBActions
 
+- (IBAction)openDocumentInTab:(id)sender
+{
+    _forceDocumentInWindow = NO;
+    _forceDocumentInTab = YES;
+    
+    //[self openDocument:sender];
+    NSArray *urls = [self URLsFromRunningOpenPanel];
+    for(NSURL * url in urls)
+    {
+        // TODO: result?
+        NSError * error;
+        id result = [self openDocumentWithContentsOfURL:url
+                                                display:YES
+                                                  error:&error];
+    }
+    
+    _forceDocumentInWindow = NO;
+    _forceDocumentInTab = NO;
+}
+
+
 - (IBAction)newWindow:(id)sender
 {
     _forceDocumentInWindow = YES;
     _forceDocumentInTab = NO;
     
     [self newDocument:sender];
+    
+    _forceDocumentInWindow = NO;
+    _forceDocumentInTab = NO;
 }
 
 - (IBAction)newTab:(id)sender
@@ -557,6 +581,9 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     _forceDocumentInTab = YES;
     
     [self newDocument:sender];
+    
+    _forceDocumentInWindow = NO;
+    _forceDocumentInTab = NO;
 }
 
 - (void)lockEditing:(id)sender

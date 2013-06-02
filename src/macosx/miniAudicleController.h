@@ -120,6 +120,7 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
 - (void)setLastWindowTopLeftCorner:(NSPoint)p;
 
 // UI callbacks
+- (IBAction)openDocumentInTab:(id)sender;
 - (IBAction)newWindow:(id)sender;
 - (IBAction)newTab:(id)sender;
 - (IBAction)addShred:(id)sender;
