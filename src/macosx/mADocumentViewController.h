@@ -42,6 +42,7 @@ class miniAudicle;
 @interface mADocumentViewController : NSViewController {
 @private
     miniAudicleDocument * _document;
+    mAMultiDocWindowController * _windowController;
     
     IBOutlet NumberedTextView * text_view;
     IBOutlet NSTextField * status_text;

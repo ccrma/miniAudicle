@@ -50,7 +50,7 @@ using namespace std;
 
 @synthesize isEdited = _edited;
 @synthesize document = _document;
-@synthesize windowController;
+@synthesize windowController = _windowController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

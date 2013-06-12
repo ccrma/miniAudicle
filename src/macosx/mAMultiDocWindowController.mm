@@ -240,7 +240,7 @@
     
     // remove the document's view controller and view
     [ctrl.view removeFromSuperview];
-    [ctrl setWindowController:nil];
+    [(id)ctrl setWindowController:nil];
     if ([ctrl respondsToSelector:@selector(setDocument:)])
         [(id)ctrl setDocument: nil];
     [ctrl release];
