@@ -76,7 +76,7 @@ t_CKINT priority = 0x7fffffff;
 t_CKINT priority_low = 0x7fffffff;
 #endif
 
-extern const char MA_VERSION[] = "0.2.3-beta-4 (gidora)\0";
+extern const char MA_VERSION[] = "0.2.3-beta-5 (gidora)\0";
 extern const char MA_ABOUT[] = "version %s\n\
 Copyright (c) Spencer Salazar\n\n\
 ChucK: version %s %lu-bit \n\
