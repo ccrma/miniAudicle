@@ -198,28 +198,28 @@ U.S.A.
 
 - (void)watcher:(id<UKFileWatcher>)kq receivedNotification:(NSString*)nm forPath:(NSString*)fpath
 {
-    if([nm isEqualToString:UKFileWatcherWriteNotification])
-    {
-        if([self isDocumentEdited])
-        {
-            NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"The document \"%@\" has been changed by another application.",
-                                                            [self displayName]]
-                                             defaultButton:@"Save Anyway"
-                                           alternateButton:@"Revert"
-                                               otherButton:@""
-                                 informativeTextWithFormat:@"Click Save Anyway to overwrite these changes and save your changes. Click Revert to discard your changes and keep the changes from the other appliction."];
-            [alert beginSheetModalForWindow:[_windowController window]
-                              modalDelegate:self
-                             didEndSelector:@selector(documentChangedByAnotherApplictionAlertDidEnd:returnCode:contextInfo:)
-                                contextInfo:nil];
-        }
-        else
-        {
-            NSError *error;
-            if(![self revertToContentsOfURL:[self fileURL] ofType:[self fileType] error:&error])
-                [[NSAlert alertWithError:error] beginSheetModalForWindow:[_windowController window] modalDelegate:nil didEndSelector:nil contextInfo:nil];
-        }
-    }
+//    if([nm isEqualToString:UKFileWatcherWriteNotification])
+//    {
+//        if([self isDocumentEdited])
+//        {
+//            NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"The document \"%@\" has been changed by another application.",
+//                                                            [self displayName]]
+//                                             defaultButton:@"Save Anyway"
+//                                           alternateButton:@"Revert"
+//                                               otherButton:@""
+//                                 informativeTextWithFormat:@"Click Save Anyway to overwrite these changes and save your changes. Click Revert to discard your changes and keep the changes from the other appliction."];
+//            [alert beginSheetModalForWindow:[_windowController window]
+//                              modalDelegate:self
+//                             didEndSelector:@selector(documentChangedByAnotherApplictionAlertDidEnd:returnCode:contextInfo:)
+//                                contextInfo:nil];
+//        }
+//        else
+//        {
+//            NSError *error;
+//            if(![self revertToContentsOfURL:[self fileURL] ofType:[self fileType] error:&error])
+//                [[NSAlert alertWithError:error] beginSheetModalForWindow:[_windowController window] modalDelegate:nil didEndSelector:nil contextInfo:nil];
+//        }
+//    }
 }
 
 - (void)documentChangedByAnotherApplictionAlertDidEnd:(NSAlert *)alert

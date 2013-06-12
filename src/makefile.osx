@@ -31,13 +31,13 @@ BUNDLE_FRAMEWORKS=PSMTabBarControl
 BUNDLE_FRAMEWORKS_DIR=$(OSX_DIR)/Frameworks
 
 INCLUDES=-I$(CHUCK_SRC_DIR) -I$(OSX_DIR) -I$(OSX_DIR)/UliKit -I. -F$(BUNDLE_FRAMEWORKS_DIR)
-CFLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH $(INCLUDES) -mmacosx-version-min=10.5
+CFLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH $(INCLUDES) -mmacosx-version-min=10.5 $(ISYSROOT)
 
 FRAMEWORKS=Cocoa CoreAudio CoreMIDI CoreFoundation Carbon IOKit Security PSMTabBarControl
 LIBS=-F$(BUNDLE_FRAMEWORKS_DIR) \
     $(addprefix -framework ,$(FRAMEWORKS)) \
     $(LINK_EXTRAS) -lstdc++ -lm
-LDFLAGS=$(LIBS) -mmacosx-version-min=10.5
+LDFLAGS=$(LIBS) -mmacosx-version-min=10.5 $(ISYSROOT)
 
 ARCHOPTS=$(addprefix -arch ,$(ARCHS))
 
