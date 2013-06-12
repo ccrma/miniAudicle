@@ -42,8 +42,20 @@ U.S.A.
 #import "mADocumentViewController.h"
 #import "mAMultiDocWindowController.h"
 #import "UKFSEventsWatcher.h"
+#import "mAExportAsViewController.h"
 
 #import <objc/message.h>
+
+@interface miniAudicleDocument ()
+{
+    NSTask * exportTask;
+    mAExportProgressViewController * exportProgress;
+}
+
+@property (nonatomic, strong) NSTask * exportTask;
+@property (nonatomic, strong) mAExportProgressViewController * exportProgress;
+
+@end
 
 
 @implementation miniAudicleDocument
@@ -51,6 +63,8 @@ U.S.A.
 @synthesize data;
 @synthesize viewController = _viewController;
 @synthesize windowController = _windowController;
+
+@synthesize exportTask, exportProgress;
 
 - (id)init
 {
@@ -192,6 +206,118 @@ U.S.A.
     ma = t_ma;
     docid = ma->allocate_document_id();
 }
+
+
+#pragma mark Exporting
+
+- (IBAction)exportAsWAV:(id)sender
+{
+    NSSavePanel * savePanel = [NSSavePanel savePanel];
+    [savePanel setAllowedFileTypes:@[@"wav"]];
+    [savePanel setTitle:@"Export as WAV"];
+    [savePanel setNameFieldLabel:@"Export to:"];
+    [savePanel setPrompt:@"Export"];
+    
+    NSString * filename;
+    NSString * directory;
+    
+    if([self fileURL] != nil)
+    {
+        filename = [[[[[self fileURL] path] lastPathComponent] stringByDeletingPathExtension] stringByAppendingPathExtension:@"wav"];
+        directory = [[[self fileURL] path] stringByDeletingLastPathComponent];
+    }
+    else
+    {
+        filename = [[self displayName] stringByAppendingPathExtension:@"wav"];
+        directory = [[NSDocumentController sharedDocumentController] currentDirectory];
+    }
+    
+    if([savePanel respondsToSelector:@selector(setNameFieldStringValue:)])
+        [savePanel setNameFieldStringValue:filename];
+    [savePanel setDirectory:directory];
+    
+    [savePanel setExtensionHidden:NO];
+    
+    mAExportAsViewController * viewController = [[mAExportAsViewController alloc] initWithNibName:@"mAExportAs" bundle:nil];
+    [savePanel setAccessoryView:viewController.view];
+
+//    [[NSApplication sharedApplication] beginSheet:savePanel
+//                                   modalForWindow:[self.windowController window]
+//                                    modalDelegate:self
+//                                   didEndSelector:@selector(didEndExportSheet:returnCode:contextInfo:)
+//                                      contextInfo:viewController];
+    
+    [savePanel beginSheetForDirectory:directory
+                                 file:filename
+                       modalForWindow:[self.windowController window]
+                        modalDelegate:self
+                       didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:)
+                          contextInfo:viewController];
+}
+
+- (void)savePanelDidEnd:(NSSavePanel *)sheet
+             returnCode:(int)returnCode
+            contextInfo:(void *)contextInfo;
+{
+    [sheet orderOut:self];
+    
+    mAExportAsViewController * viewController = (mAExportAsViewController *) contextInfo;
+    NSSavePanel * savePanel = (NSSavePanel *) sheet;
+    
+    if(returnCode == NSOKButton)
+    {
+        NSString * arg = [NSString stringWithFormat:@"%@:%@:%@:%i:%f",
+                          [[NSBundle mainBundle] pathForResource:@"export.ck" ofType:nil],
+                          [[[self fileURL] path] substringFromIndex:1], // hack around chuck bug(?) - remove first slash
+                          [[[savePanel URL] path] substringFromIndex:1], // hack around chuck bug(?) - remove first slash
+                          viewController.limitDuration,
+                          viewController.duration];
+        
+//        NSLog(@"/usr/bin/chuck --silent %@", arg);
+        
+        self.exportTask = [[[NSTask alloc] init] autorelease];
+        
+        [self.exportTask setLaunchPath:@"/usr/bin/chuck"];
+        [self.exportTask setArguments:@[@"--silent", arg]];
+        
+        [self.exportTask launch];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(exportTaskDidTerminate:)
+                                                     name:NSTaskDidTerminateNotification
+                                                   object:self.exportTask];
+        
+        self.exportProgress = [[[mAExportProgressViewController alloc] initWithWindowNibName:@"mAExportProgress"] autorelease];
+        self.exportProgress.delegate = self;
+        
+        [[NSApplication sharedApplication] beginSheet:self.exportProgress.window
+                                       modalForWindow:[self.windowController window]
+                                        modalDelegate:nil
+                                       didEndSelector:nil
+                                          contextInfo:nil];
+    }
+    
+    [viewController release];
+}
+
+- (void)exportProgressDidCancel
+{
+    //[self.exportTask terminate];
+    // use SIGINT to ensure proper cleanup
+    kill(self.exportTask.processIdentifier, SIGINT);
+}
+
+- (void)exportTaskDidTerminate:(NSNotification *)n
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSTaskDidTerminateNotification
+                                                  object:self.exportTask];
+    [[NSApplication sharedApplication] endSheet:self.exportProgress.window];
+    [self.exportProgress.window orderOut:self];
+    self.exportProgress = nil;
+    self.exportTask = nil;
+}
+
 
 
 #pragma mark UKFileWatcherDelegate

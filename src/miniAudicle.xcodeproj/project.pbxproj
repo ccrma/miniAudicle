@@ -263,6 +263,11 @@
 		09A40D860A9AC579007604EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		09AC749A13E36A970015CC99 /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09AC749613E36A970015CC99 /* RtAudio.cpp */; };
 		09AF2D1F0BA63F5900B18EC6 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 09AF2D1E0BA63F5900B18EC6 /* lock.png */; };
+		09B66B4B17683C7300A07ADF /* mAExportAs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B4917683C7300A07ADF /* mAExportAs.xib */; };
+		09B66B4E1768460C00A07ADF /* mAExportAsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B66B4D1768460C00A07ADF /* mAExportAsViewController.m */; };
+		09B66B501768A1E400A07ADF /* export.ck in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B4F1768A1E400A07ADF /* export.ck */; };
+		09B66B531768AC6000A07ADF /* mAExportProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B511768AC6000A07ADF /* mAExportProgress.xib */; };
+		09B66B561768AD5C00A07ADF /* mAExportProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B66B551768AD5C00A07ADF /* mAExportProgressViewController.m */; };
 		09D00B8414A3C4010019CD09 /* TitleEditView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */; };
 		09D00B8714A3C44B0019CD09 /* mATitleEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */; };
 		09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8914A44DFA0019CD09 /* mAVMMonitorController.mm */; };
@@ -900,6 +905,13 @@
 		09AC749713E36A970015CC99 /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
 		09AC749813E36A970015CC99 /* RtError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtError.h; sourceTree = "<group>"; };
 		09AF2D1E0BA63F5900B18EC6 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lock.png; path = macosx/icon/lock.png; sourceTree = SOURCE_ROOT; };
+		09B66B4A17683C7300A07ADF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mAExportAs.xib; sourceTree = "<group>"; };
+		09B66B4C1768460C00A07ADF /* mAExportAsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAExportAsViewController.h; path = macosx/mAExportAsViewController.h; sourceTree = "<group>"; };
+		09B66B4D1768460C00A07ADF /* mAExportAsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = mAExportAsViewController.m; path = macosx/mAExportAsViewController.m; sourceTree = "<group>"; };
+		09B66B4F1768A1E400A07ADF /* export.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = export.ck; sourceTree = "<group>"; };
+		09B66B521768AC6000A07ADF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mAExportProgress.xib; sourceTree = "<group>"; };
+		09B66B541768AD5C00A07ADF /* mAExportProgressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAExportProgressViewController.h; path = macosx/mAExportProgressViewController.h; sourceTree = "<group>"; };
+		09B66B551768AD5C00A07ADF /* mAExportProgressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = mAExportProgressViewController.m; path = macosx/mAExportProgressViewController.m; sourceTree = "<group>"; };
 		09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleEditView_iPad.xib; sourceTree = "<group>"; };
 		09D00B8514A3C44A0019CD09 /* mATitleEditorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mATitleEditorController.h; sourceTree = "<group>"; };
 		09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mATitleEditorController.m; sourceTree = "<group>"; };
@@ -1053,6 +1065,10 @@
 				0964A394172F8FD800043ABA /* mARecordSessionController.mm */,
 				0962903117323065007CADBA /* NSString+STLString.h */,
 				0962903217323065007CADBA /* NSString+STLString.mm */,
+				09B66B4C1768460C00A07ADF /* mAExportAsViewController.h */,
+				09B66B4D1768460C00A07ADF /* mAExportAsViewController.m */,
+				09B66B541768AD5C00A07ADF /* mAExportProgressViewController.h */,
+				09B66B551768AD5C00A07ADF /* mAExportProgressViewController.m */,
 			);
 			name = "miniAudicle OS X";
 			sourceTree = "<group>";
@@ -1113,6 +1129,7 @@
 		0964A396172F976F00043ABA /* ChucK Scripts */ = {
 			isa = PBXGroup;
 			children = (
+				09B66B4F1768A1E400A07ADF /* export.ck */,
 				0962902D1731CCD1007CADBA /* record.ck */,
 				0962902E1731CCD1007CADBA /* recordvu.ck */,
 			);
@@ -1941,6 +1958,8 @@
 				098E28A4173A06600044336B /* mADocumentView.xib */,
 				098E28A6173A06600044336B /* mADocumentWindow.xib */,
 				098E28A8173A06600044336B /* mARecordSession.xib */,
+				09B66B4917683C7300A07ADF /* mAExportAs.xib */,
+				09B66B511768AC6000A07ADF /* mAExportProgress.xib */,
 				098E28AA173A06600044336B /* miniAudicle.xib */,
 				0964A396172F976F00043ABA /* ChucK Scripts */,
 				0964A38C172F8DC800043ABA /* record.png */,
@@ -2147,6 +2166,9 @@
 				098E28B0173A06600044336B /* mADocumentWindow.xib in Resources */,
 				098E28B1173A06600044336B /* mARecordSession.xib in Resources */,
 				098E28B2173A06600044336B /* miniAudicle.xib in Resources */,
+				09B66B4B17683C7300A07ADF /* mAExportAs.xib in Resources */,
+				09B66B501768A1E400A07ADF /* export.ck in Resources */,
+				09B66B531768AC6000A07ADF /* mAExportProgress.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2439,6 +2461,8 @@
 				091433031738C17C00666F0D /* mADocumentViewController.mm in Sources */,
 				09678637173F169E003AB462 /* UKFileWatcher.m in Sources */,
 				09678638173F169E003AB462 /* UKFSEventsWatcher.m in Sources */,
+				09B66B4E1768460C00A07ADF /* mAExportAsViewController.m in Sources */,
+				09B66B561768AD5C00A07ADF /* mAExportProgressViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2523,6 +2547,22 @@
 				098E28AB173A06600044336B /* English */,
 			);
 			name = miniAudicle.xib;
+			sourceTree = "<group>";
+		};
+		09B66B4917683C7300A07ADF /* mAExportAs.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				09B66B4A17683C7300A07ADF /* English */,
+			);
+			name = mAExportAs.xib;
+			sourceTree = "<group>";
+		};
+		09B66B511768AC6000A07ADF /* mAExportProgress.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				09B66B521768AC6000A07ADF /* English */,
+			);
+			name = mAExportProgress.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
