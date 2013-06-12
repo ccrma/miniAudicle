@@ -1,4 +1,6 @@
 
+SHELL:=/bin/bash
+
 ifneq ($(shell sw_vers -productVersion | egrep '10\.[678](\.[0-9]+)?'),)
 SDK=$(shell xcodebuild -sdk macosx -version | grep '^Path:' | sed 's/Path: \(.*\)/\1/')
 ISYSROOT=-isysroot $(SDK)
@@ -125,9 +127,14 @@ CHUCK_CXXSRCS= $(CHUCK_SRC_DIR)/chuck_absyn.cpp $(CHUCK_SRC_DIR)/chuck_parse.cpp
 	$(CHUCK_SRC_DIR)/util_opsc.cpp $(CHUCK_SRC_DIR)/util_hid.cpp \
     $(CHUCK_SRC_DIR)/util_serial.cpp
 
+CHUCK_BIN_CXXSRCS=$(CHUCK_SRC_DIR)/chuck_main.cpp
+
 CHUCK_COBJS=$(CHUCK_CSRCS:.c=.o) 
 CHUCK_CXXOBJS=$(CHUCK_CXXSRCS:.cpp=.o)
 CHUCK_OBJS+=$(CHUCK_COBJS) $(CHUCK_CXXOBJS)
+
+CHUCK_BIN_CXXOBJS=$(CHUCK_BIN_CXXSRCS:.cpp=.o)
+CHUCK_BIN_OBJS=$(CHUCK_OBJS) $(CHUCK_BIN_CXXOBJS)
 
 CSRCS+= 
 CXXSRCS+= miniAudicle.cpp \
@@ -137,7 +144,8 @@ CXXSRCS+= miniAudicle.cpp \
 OBJCSRCS+= $(OSX_DIR)/main.m \
     $(OSX_DIR)/BLAuthentication.m \
     $(OSX_DIR)/UliKit/UKFileWatcher.m \
-    $(OSX_DIR)/UliKit/UKFSEventsWatcher.m
+    $(OSX_DIR)/UliKit/UKFSEventsWatcher.m \
+    $(OSX_DIR)/mAExportAsViewController.m $(OSX_DIR)/mAExportProgressViewController.m
 OBJCXXSRCS+= $(OSX_DIR)/miniAudicleController.mm \
 	$(OSX_DIR)/miniAudicleVMMonitor.mm \
 	$(OSX_DIR)/miniAudicleDocument.mm \
@@ -175,11 +183,12 @@ BUNDLE_DATA:=$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/,$(BUNDLE_DATA))
 
 BUNDLE_FRAMEWORKS_IN_BUNDLE=$(addsuffix .framework,$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/Frameworks/,$(BUNDLE_FRAMEWORKS)))
 
-NIBS_BASE=miniAudicle mADocumentView mADocumentWindow mARecordSession
+NIBS_BASE=miniAudicle mADocumentView mADocumentWindow mARecordSession \
+    mAExportProgress mAExportAs
 XIBS=$(addprefix $(OSX_DIR)/Resources/$(LANGUAGE).lproj/,$(addsuffix .xib,$(NIBS_BASE)))
 NIBS=$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/,$(addsuffix .nib,$(NIBS_BASE)) InfoPlist.strings)
 
-CHUCK_SCRIPTS=record.ck recordvu.ck
+CHUCK_SCRIPTS=record.ck recordvu.ck export.ck
 CHUCK_SCRIPTS_DIR=$(OSX_DIR)/Chuck\ Scripts
 CHUCK_SCRIPTS_IN_BUNDLE=$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/Resources/,$(CHUCK_SCRIPTS))
 
@@ -189,10 +198,12 @@ CHUGIN_BUNDLE_DIR=Resources/ChuGins
 CHUGS=$(foreach CHUG,$(CHUGINS),$(CHUGIN_DIR)/$(CHUG)/$(CHUG).chug)
 COPIED_CHUGS=$(foreach CHUG,$(CHUGINS),$(BIN_DIR)/miniAudicle.app/Contents/$(CHUGIN_BUNDLE_DIR)/$(CHUG).chug)
 
+CHUCK_IN_BUNDLE=$(BIN_DIR)/miniAudicle.app/Contents/Resources/chuck
+
 .PHONY: miniAudicle
 miniAudicle: $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(IMAGES) \
     $(NIBS) $(BUNDLE_DATA) $(COPIED_CHUGS) $(BUNDLE_FRAMEWORKS_IN_BUNDLE) \
-    $(CHUCK_SCRIPTS_IN_BUNDLE)
+    $(CHUCK_SCRIPTS_IN_BUNDLE) $(CHUCK_IN_BUNDLE)
 
 $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle: $(OBJS) $(CHUCK_OBJS) $(BIN_DIR)/miniAudicle.app/Contents/MacOS/
 	$(CXX) -o $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(OBJS) $(CHUCK_OBJS) $(LDFLAGS) $(ARCHOPTS)
@@ -218,6 +229,10 @@ $(BUNDLE_FRAMEWORKS_IN_BUNDLE): $(BIN_DIR)/miniAudicle.app/Contents/Frameworks/%
 $(CHUCK_SCRIPTS_IN_BUNDLE): $(addprefix $(CHUCK_SCRIPTS_DIR)/,$(CHUCK_SCRIPTS))
 	cp $(addprefix $(CHUCK_SCRIPTS_DIR)/,$(CHUCK_SCRIPTS)) $(BIN_DIR)/miniAudicle.app/Contents/Resources/
 
+$(CHUCK_IN_BUNDLE): $(CHUCK_BIN_OBJS)
+	mkdir -p $(dir $(CHUCK_IN_BUNDLE))
+	$(CXX) -o $(CHUCK_IN_BUNDLE) $(CHUCK_BIN_OBJS) $(LDFLAGS)
+
 $(filter %.strings,$(NIBS)): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/%: $(OSX_DIR)/Resources/$(LANGUAGE).lproj/%
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/
 	cp $< $@
@@ -240,6 +255,10 @@ $(CHUCK_COBJS): %.o: %.c
 	@$(CC) -MM $(CFLAGSDEPEND) $< > $*.d
 
 $(CHUCK_CXXOBJS): %.o: %.cpp
+	$(CXX) $(CFLAGS) $(ARCHOPTS) -c $< -o $@
+	@$(CXX) -MM $(CFLAGSDEPEND) $< > $*.d
+
+$(CHUCK_BIN_CXXOBJS): %.o: %.cpp
 	$(CXX) $(CFLAGS) $(ARCHOPTS) -c $< -o $@
 	@$(CXX) -MM $(CFLAGSDEPEND) $< > $*.d
 
@@ -272,6 +291,7 @@ clean:
 	rm -rf $(OBJS) $(OBJS:.o=.d) $(CHUCK_OBJS) $(CHUCK_OBJS:.o=.d) \
         chuck.tab.h chuck.tab.c chuck.yy.c \
         $(BIN_DIR)/miniAudicle.app $(DIST_DIR).dmg
+	make -C $(CHUCK_SRC_DIR) clean
 
 .PHONY: clean-all
 clean-all: 

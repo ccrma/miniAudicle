@@ -268,6 +268,8 @@
 		09B66B501768A1E400A07ADF /* export.ck in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B4F1768A1E400A07ADF /* export.ck */; };
 		09B66B531768AC6000A07ADF /* mAExportProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B511768AC6000A07ADF /* mAExportProgress.xib */; };
 		09B66B561768AD5C00A07ADF /* mAExportProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B66B551768AD5C00A07ADF /* mAExportProgressViewController.m */; };
+		09B66B571768D69100A07ADF /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09216C09134ED4A900145064 /* MultitouchSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		09B66B5A1768D6D700A07ADF /* chuck in Resources */ = {isa = PBXBuildFile; fileRef = 09805FE70AA10D0C00915136 /* chuck */; };
 		09D00B8414A3C4010019CD09 /* TitleEditView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */; };
 		09D00B8714A3C44B0019CD09 /* mATitleEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */; };
 		09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8914A44DFA0019CD09 /* mAVMMonitorController.mm */; };
@@ -378,6 +380,16 @@
 			);
 		};
 /* End PBXBuildRule section */
+
+/* Begin PBXContainerItemProxy section */
+		09B66B581768D6C900A07ADF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 09805FE60AA10D0C00915136;
+			remoteInfo = chuck;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		091433061738C87C00666F0D /* CopyFiles */ = {
@@ -982,6 +994,7 @@
 				098060350AA14E8800915136 /* Foundation.framework in Frameworks */,
 				098060360AA14E8900915136 /* IOKit.framework in Frameworks */,
 				09297A180B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */,
+				09B66B571768D69100A07ADF /* MultitouchSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2077,6 +2090,7 @@
 				09A40C870A9A5C2F007604EA /* PBXBuildRule */,
 			);
 			dependencies = (
+				09B66B591768D6C900A07ADF /* PBXTargetDependency */,
 			);
 			name = miniAudicle;
 			productInstallPath = "$(HOME)/Applications";
@@ -2141,6 +2155,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09B66B5A1768D6D700A07ADF /* chuck in Resources */,
 				09A40C6D0A9A57FA007604EA /* led-green.png in Resources */,
 				09A40C6E0A9A57FA007604EA /* led-off.png in Resources */,
 				09A40C6F0A9A57FA007604EA /* led-red.png in Resources */,
@@ -2468,6 +2483,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		09B66B591768D6C900A07ADF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 09805FE60AA10D0C00915136 /* chuck */;
+			targetProxy = 09B66B581768D6C900A07ADF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		093E261C14A108C8008694BC /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -2641,6 +2664,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
+					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Versions/A/Frameworks\"";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2667,6 +2692,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
+					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Versions/A/Frameworks\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;

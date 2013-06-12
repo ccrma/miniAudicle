@@ -277,7 +277,7 @@ U.S.A.
         
         self.exportTask = [[[NSTask alloc] init] autorelease];
         
-        [self.exportTask setLaunchPath:@"/usr/bin/chuck"];
+        [self.exportTask setLaunchPath:[[NSBundle mainBundle] pathForResource:@"chuck" ofType:nil]];
         [self.exportTask setArguments:@[@"--silent", arg]];
         
         [self.exportTask launch];
@@ -303,7 +303,7 @@ U.S.A.
 - (void)exportProgressDidCancel
 {
     //[self.exportTask terminate];
-    // use SIGINT to ensure proper cleanup
+    // use SIGINT to ensure proper cleanup in chuck binary
     kill(self.exportTask.processIdentifier, SIGINT);
 }
 
