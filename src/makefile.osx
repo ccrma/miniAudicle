@@ -300,7 +300,7 @@ clean-all:
 
 .PHONY: install
 install: miniAudicle
-	cp -rf $(BIN_DIR)/miniAudicle.app $(INSTALL_DIR)/
+	cp -af $(BIN_DIR)/miniAudicle.app $(INSTALL_DIR)/
 
 .PHONY: dist
 dist: miniAudicle
@@ -311,7 +311,7 @@ dist: miniAudicle
 	mkdir $(DIST_DIR)/documentation/examples
 	mkdir $(DIST_DIR)/documentation/examples/ui
 	ln -s documentation/examples $(DIST_DIR)/
-	cp -r $(BIN_DIR)/miniAudicle.app $(NOTES) $(DIST_DIR)/
+	cp -a $(BIN_DIR)/miniAudicle.app $(NOTES) $(DIST_DIR)/
 #	strip -u -r $(DIST_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle
 	cp -r $(DOCS) $(DIST_DIR)/documentation/
 	cp -r $(DOC_IMAGES) $(DIST_DIR)/documentation/images/
