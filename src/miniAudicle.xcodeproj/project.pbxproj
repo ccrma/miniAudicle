@@ -270,6 +270,10 @@
 		09B66B561768AD5C00A07ADF /* mAExportProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B66B551768AD5C00A07ADF /* mAExportProgressViewController.m */; };
 		09B66B571768D69100A07ADF /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09216C09134ED4A900145064 /* MultitouchSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		09B66B5A1768D6D700A07ADF /* chuck in Resources */ = {isa = PBXBuildFile; fileRef = 09805FE70AA10D0C00915136 /* chuck */; };
+		09B66B5D1769A5CD00A07ADF /* examples in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B5C1769A5CD00A07ADF /* examples */; };
+		09B66B621769A65C00A07ADF /* mAExampleBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B66B601769A65B00A07ADF /* mAExampleBrowser.m */; };
+		09B66B631769A65C00A07ADF /* mAExampleBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B611769A65B00A07ADF /* mAExampleBrowser.xib */; };
+		09B66B651769DA9200A07ADF /* ckmini.png in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B641769DA9200A07ADF /* ckmini.png */; };
 		09D00B8414A3C4010019CD09 /* TitleEditView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */; };
 		09D00B8714A3C44B0019CD09 /* mATitleEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */; };
 		09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8914A44DFA0019CD09 /* mAVMMonitorController.mm */; };
@@ -500,257 +504,6 @@
 		098E28A7173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mADocumentWindow.xib; sourceTree = "<group>"; };
 		098E28A9173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mARecordSession.xib; sourceTree = "<group>"; };
 		098E28AB173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/miniAudicle.xib; sourceTree = "<group>"; };
-		0991F48F128AA4830067C31C /* dct.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dct.ck; sourceTree = "<group>"; };
-		0991F491128AA4830067C31C /* centroid.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = centroid.ck; sourceTree = "<group>"; };
-		0991F492128AA4830067C31C /* flux.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flux.ck; sourceTree = "<group>"; };
-		0991F493128AA4830067C31C /* flux0.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flux0.ck; sourceTree = "<group>"; };
-		0991F494128AA4830067C31C /* rms.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rms.ck; sourceTree = "<group>"; };
-		0991F495128AA4830067C31C /* rolloff.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rolloff.ck; sourceTree = "<group>"; };
-		0991F496128AA4830067C31C /* rolloff2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rolloff2.ck; sourceTree = "<group>"; };
-		0991F497128AA4830067C31C /* zerox.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = zerox.ck; sourceTree = "<group>"; };
-		0991F498128AA4830067C31C /* fft.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fft.ck; sourceTree = "<group>"; };
-		0991F499128AA4830067C31C /* fft1.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fft1.ck; sourceTree = "<group>"; };
-		0991F49A128AA4830067C31C /* fft2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fft2.ck; sourceTree = "<group>"; };
-		0991F49B128AA4830067C31C /* fft3.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fft3.ck; sourceTree = "<group>"; };
-		0991F49C128AA4830067C31C /* flip.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flip.ck; sourceTree = "<group>"; };
-		0991F49D128AA4830067C31C /* ifft.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ifft.ck; sourceTree = "<group>"; };
-		0991F49E128AA4830067C31C /* ifft2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ifft2.ck; sourceTree = "<group>"; };
-		0991F49F128AA4830067C31C /* ifft3.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ifft3.ck; sourceTree = "<group>"; };
-		0991F4A1128AA4830067C31C /* harm.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = harm.ck; sourceTree = "<group>"; };
-		0991F4A2128AA4830067C31C /* pitch-fifth.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "pitch-fifth.ck"; sourceTree = "<group>"; };
-		0991F4A3128AA4830067C31C /* pitch-seventh.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "pitch-seventh.ck"; sourceTree = "<group>"; };
-		0991F4A4128AA4830067C31C /* pitch-third.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "pitch-third.ck"; sourceTree = "<group>"; };
-		0991F4A5128AA4830067C31C /* pitch-track.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "pitch-track.ck"; sourceTree = "<group>"; };
-		0991F4A6128AA4830067C31C /* Smacking.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Smacking.ck; sourceTree = "<group>"; };
-		0991F4A7128AA4830067C31C /* Tracking.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Tracking.ck; sourceTree = "<group>"; };
-		0991F4A8128AA4830067C31C /* win.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = win.ck; sourceTree = "<group>"; };
-		0991F4A9128AA4830067C31C /* xsynth.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xsynth.ck; sourceTree = "<group>"; };
-		0991F4AB128AA4830067C31C /* array_argument.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = array_argument.ck; sourceTree = "<group>"; };
-		0991F4AC128AA4830067C31C /* array_assign.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = array_assign.ck; sourceTree = "<group>"; };
-		0991F4AD128AA4830067C31C /* array_dynamic.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = array_dynamic.ck; sourceTree = "<group>"; };
-		0991F4AE128AA4830067C31C /* array_mdim.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = array_mdim.ck; sourceTree = "<group>"; };
-		0991F4AF128AA4830067C31C /* array_resize.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = array_resize.ck; sourceTree = "<group>"; };
-		0991F4B0128AA4830067C31C /* array_storage.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = array_storage.ck; sourceTree = "<group>"; };
-		0991F4B1128AA4830067C31C /* array_sub_assign.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = array_sub_assign.ck; sourceTree = "<group>"; };
-		0991F4B3128AA4830067C31C /* adc.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = adc.ck; sourceTree = "<group>"; };
-		0991F4B4128AA4830067C31C /* adsr.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = adsr.ck; sourceTree = "<group>"; };
-		0991F4B5128AA4830067C31C /* alarm.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = alarm.ck; sourceTree = "<group>"; };
-		0991F4B6128AA4830067C31C /* args.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = args.ck; sourceTree = "<group>"; };
-		0991F4B7128AA4830067C31C /* bar.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bar.ck; sourceTree = "<group>"; };
-		0991F4B8128AA4830067C31C /* blit.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blit.ck; sourceTree = "<group>"; };
-		0991F4B9128AA4830067C31C /* blit2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blit2.ck; sourceTree = "<group>"; };
-		0991F4BA128AA4830067C31C /* chirp.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chirp.ck; sourceTree = "<group>"; };
-		0991F4BB128AA4830067C31C /* chirp2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chirp2.ck; sourceTree = "<group>"; };
-		0991F4BC128AA4830067C31C /* comb.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = comb.ck; sourceTree = "<group>"; };
-		0991F4BD128AA4830067C31C /* curly++.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "curly++.ck"; sourceTree = "<group>"; };
-		0991F4BE128AA4830067C31C /* curly.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = curly.ck; sourceTree = "<group>"; };
-		0991F4BF128AA4830067C31C /* delay.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = delay.ck; sourceTree = "<group>"; };
-		0991F4C0128AA4830067C31C /* demo0.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = demo0.ck; sourceTree = "<group>"; };
-		0991F4C1128AA4830067C31C /* demo1.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = demo1.ck; sourceTree = "<group>"; };
-		0991F4C2128AA4830067C31C /* demo2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = demo2.ck; sourceTree = "<group>"; };
-		0991F4C3128AA4830067C31C /* demo3.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = demo3.ck; sourceTree = "<group>"; };
-		0991F4C4128AA4830067C31C /* echo.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = echo.ck; sourceTree = "<group>"; };
-		0991F4C5128AA4830067C31C /* envelope.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = envelope.ck; sourceTree = "<group>"; };
-		0991F4C6128AA4830067C31C /* fm.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fm.ck; sourceTree = "<group>"; };
-		0991F4C7128AA4830067C31C /* fm2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fm2.ck; sourceTree = "<group>"; };
-		0991F4C8128AA4830067C31C /* fm3.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fm3.ck; sourceTree = "<group>"; };
-		0991F4C9128AA4830067C31C /* foo.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = foo.ck; sourceTree = "<group>"; };
-		0991F4CA128AA4830067C31C /* foo2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = foo2.ck; sourceTree = "<group>"; };
-		0991F4CB128AA4830067C31C /* func.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = func.ck; sourceTree = "<group>"; };
-		0991F4CC128AA4830067C31C /* i-robot.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "i-robot.ck"; sourceTree = "<group>"; };
-		0991F4CD128AA4830067C31C /* imp.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = imp.ck; sourceTree = "<group>"; };
-		0991F4CE128AA4830067C31C /* infnan.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = infnan.ck; sourceTree = "<group>"; };
-		0991F4CF128AA4830067C31C /* larry++.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "larry++.ck"; sourceTree = "<group>"; };
-		0991F4D0128AA4830067C31C /* larry.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = larry.ck; sourceTree = "<group>"; };
-		0991F4D1128AA4830067C31C /* lfo.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lfo.ck; sourceTree = "<group>"; };
-		0991F4D2128AA4830067C31C /* moe++.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "moe++.ck"; sourceTree = "<group>"; };
-		0991F4D3128AA4830067C31C /* moe.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = moe.ck; sourceTree = "<group>"; };
-		0991F4D4128AA4830067C31C /* rec-auto.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "rec-auto.ck"; sourceTree = "<group>"; };
-		0991F4D5128AA4830067C31C /* rec.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rec.ck; sourceTree = "<group>"; };
-		0991F4D6128AA4830067C31C /* ring.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ring.ck; sourceTree = "<group>"; };
-		0991F4D7128AA4830067C31C /* sndbuf.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sndbuf.ck; sourceTree = "<group>"; };
-		0991F4D8128AA4830067C31C /* step.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = step.ck; sourceTree = "<group>"; };
-		0991F4D9128AA4830067C31C /* tick.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tick.ck; sourceTree = "<group>"; };
-		0991F4DA128AA4830067C31C /* tick2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tick2.ck; sourceTree = "<group>"; };
-		0991F4DB128AA4830067C31C /* unchuck.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = unchuck.ck; sourceTree = "<group>"; };
-		0991F4DC128AA4830067C31C /* valueat.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = valueat.ck; sourceTree = "<group>"; };
-		0991F4DD128AA4830067C31C /* whirl.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = whirl.ck; sourceTree = "<group>"; };
-		0991F4DE128AA4830067C31C /* whole.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = whole.ck; sourceTree = "<group>"; };
-		0991F4DF128AA4830067C31C /* wind.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wind.ck; sourceTree = "<group>"; };
-		0991F4E0128AA4830067C31C /* wind2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wind2.ck; sourceTree = "<group>"; };
-		0991F4E1128AA4830067C31C /* zerox.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = zerox.ck; sourceTree = "<group>"; };
-		0991F4E3128AA4830067C31C /* dinky.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dinky.ck; sourceTree = "<group>"; };
-		0991F4E4128AA4830067C31C /* try.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = try.ck; sourceTree = "<group>"; };
-		0991F4E6128AA4830067C31C /* ctrl_break.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ctrl_break.ck; sourceTree = "<group>"; };
-		0991F4E7128AA4830067C31C /* ctrl_break_nested.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ctrl_break_nested.ck; sourceTree = "<group>"; };
-		0991F4E8128AA4830067C31C /* ctrl_continue.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ctrl_continue.ck; sourceTree = "<group>"; };
-		0991F4E9128AA4830067C31C /* ctrl_do_until.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ctrl_do_until.ck; sourceTree = "<group>"; };
-		0991F4EA128AA4830067C31C /* ctrl_for_loop.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ctrl_for_loop.ck; sourceTree = "<group>"; };
-		0991F4EB128AA4830067C31C /* ctrl_sequencer.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ctrl_sequencer.ck; sourceTree = "<group>"; };
-		0991F4EC128AA4830067C31C /* ctrl_until.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ctrl_until.ck; sourceTree = "<group>"; };
-		0991F4EE128AA4830067C31C /* hihat-open.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "hihat-open.wav"; sourceTree = "<group>"; };
-		0991F4EF128AA4830067C31C /* hihat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hihat.wav; sourceTree = "<group>"; };
-		0991F4F0128AA4830067C31C /* kick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = kick.wav; sourceTree = "<group>"; };
-		0991F4F1128AA4830067C31C /* snare-chili.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "snare-chili.wav"; sourceTree = "<group>"; };
-		0991F4F2128AA4830067C31C /* snare-hop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "snare-hop.wav"; sourceTree = "<group>"; };
-		0991F4F3128AA4830067C31C /* snare.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = snare.wav; sourceTree = "<group>"; };
-		0991F4F5128AA4830067C31C /* dither.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dither.ck; sourceTree = "<group>"; };
-		0991F4F6128AA4830067C31C /* dtmf.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dtmf.ck; sourceTree = "<group>"; };
-		0991F4F7128AA4830067C31C /* follower.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = follower.ck; sourceTree = "<group>"; };
-		0991F4F8128AA4830067C31C /* plu.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plu.ck; sourceTree = "<group>"; };
-		0991F4F9128AA4830067C31C /* plu2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plu2.ck; sourceTree = "<group>"; };
-		0991F4FA128AA4830067C31C /* plu3.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plu3.ck; sourceTree = "<group>"; };
-		0991F4FB128AA4830067C31C /* say-chu.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "say-chu.ck"; sourceTree = "<group>"; };
-		0991F4FC128AA4830067C31C /* thx.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = thx.ck; sourceTree = "<group>"; };
-		0991F4FD128AA4830067C31C /* unclap.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = unclap.ck; sourceTree = "<group>"; };
-		0991F4FF128AA4830067C31C /* ALSO_SEE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ALSO_SEE; sourceTree = "<group>"; };
-		0991F500128AA4830067C31C /* broadcast.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = broadcast.ck; sourceTree = "<group>"; };
-		0991F501128AA4830067C31C /* clix.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = clix.ck; sourceTree = "<group>"; };
-		0991F502128AA4830067C31C /* clix2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = clix2.ck; sourceTree = "<group>"; };
-		0991F503128AA4830067C31C /* clix3.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = clix3.ck; sourceTree = "<group>"; };
-		0991F504128AA4830067C31C /* event_extend.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = event_extend.ck; sourceTree = "<group>"; };
-		0991F505128AA4830067C31C /* kb.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = kb.ck; sourceTree = "<group>"; };
-		0991F506128AA4830067C31C /* kb2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = kb2.ck; sourceTree = "<group>"; };
-		0991F507128AA4830067C31C /* signal.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = signal.ck; sourceTree = "<group>"; };
-		0991F508128AA4830067C31C /* signal4.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = signal4.ck; sourceTree = "<group>"; };
-		0991F50A128AA4830067C31C /* bp.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bp.ck; sourceTree = "<group>"; };
-		0991F50B128AA4830067C31C /* br.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = br.ck; sourceTree = "<group>"; };
-		0991F50C128AA4830067C31C /* hp.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hp.ck; sourceTree = "<group>"; };
-		0991F50D128AA4830067C31C /* lp.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lp.ck; sourceTree = "<group>"; };
-		0991F50E128AA4830067C31C /* resonz.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = resonz.ck; sourceTree = "<group>"; };
-		0991F50F128AA4830067C31C /* rhp.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rhp.ck; sourceTree = "<group>"; };
-		0991F510128AA4830067C31C /* rlp.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rlp.ck; sourceTree = "<group>"; };
-		0991F512128AA4830067C31C /* func_doozey.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = func_doozey.ck; sourceTree = "<group>"; };
-		0991F513128AA4830067C31C /* func_obj_arg.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = func_obj_arg.ck; sourceTree = "<group>"; };
-		0991F514128AA4830067C31C /* func_overload.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = func_overload.ck; sourceTree = "<group>"; };
-		0991F515128AA4830067C31C /* func_overload_member.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = func_overload_member.ck; sourceTree = "<group>"; };
-		0991F516128AA4830067C31C /* func_overload_multi.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = func_overload_multi.ck; sourceTree = "<group>"; };
-		0991F517128AA4830067C31C /* func_recursion.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = func_recursion.ck; sourceTree = "<group>"; };
-		0991F518128AA4830067C31C /* func_void.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = func_void.ck; sourceTree = "<group>"; };
-		0991F519128AA4830067C31C /* hanoi.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hanoi.ck; path = examples/hanoi.ck; sourceTree = "<group>"; };
-		0991F51A128AA4830067C31C /* hanoi++.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "hanoi++.ck"; path = "examples/hanoi++.ck"; sourceTree = "<group>"; };
-		0991F51C128AA4830067C31C /* joy-fm.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "joy-fm.ck"; sourceTree = "<group>"; };
-		0991F51D128AA4830067C31C /* joy-noise.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "joy-noise.ck"; sourceTree = "<group>"; };
-		0991F51E128AA4830067C31C /* joy-shake.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "joy-shake.ck"; sourceTree = "<group>"; };
-		0991F51F128AA4830067C31C /* joy.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = joy.ck; sourceTree = "<group>"; };
-		0991F520128AA4830067C31C /* kb.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = kb.ck; sourceTree = "<group>"; };
-		0991F521128AA4830067C31C /* keyboard-organ.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "keyboard-organ.ck"; sourceTree = "<group>"; };
-		0991F522128AA4830067C31C /* mouse-fm.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mouse-fm.ck"; sourceTree = "<group>"; };
-		0991F523128AA4830067C31C /* mouse.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mouse.ck; sourceTree = "<group>"; };
-		0991F524128AA4830067C31C /* tilt.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tilt.ck; sourceTree = "<group>"; };
-		0991F526128AA4830067C31C /* chout.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chout.ck; sourceTree = "<group>"; };
-		0991F527128AA4830067C31C /* example.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.txt; sourceTree = "<group>"; };
-		0991F528128AA4830067C31C /* int.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = int.txt; sourceTree = "<group>"; };
-		0991F529128AA4830067C31C /* read-int.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "read-int.ck"; sourceTree = "<group>"; };
-		0991F52A128AA4830067C31C /* read-line.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "read-line.ck"; sourceTree = "<group>"; };
-		0991F52B128AA4830067C31C /* read-str.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "read-str.ck"; sourceTree = "<group>"; };
-		0991F52C128AA4830067C31C /* str.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = str.txt; sourceTree = "<group>"; };
-		0991F52D128AA4830067C31C /* write.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = write.ck; sourceTree = "<group>"; };
-		0991F52E128AA4830067C31C /* write2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = write2.ck; sourceTree = "<group>"; };
-		0991F530128AA4830067C31C /* gomidi.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gomidi.ck; sourceTree = "<group>"; };
-		0991F531128AA4830067C31C /* gomidi2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gomidi2.ck; sourceTree = "<group>"; };
-		0991F532128AA4830067C31C /* polyfony.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = polyfony.ck; sourceTree = "<group>"; };
-		0991F533128AA4830067C31C /* polyfony2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = polyfony2.ck; sourceTree = "<group>"; };
-		0991F535128AA4830067C31C /* i.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = i.ck; sourceTree = "<group>"; };
-		0991F536128AA4830067C31C /* n.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = n.ck; sourceTree = "<group>"; };
-		0991F537128AA4830067C31C /* we-robot.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "we-robot.ck"; sourceTree = "<group>"; };
-		0991F539128AA4830067C31C /* oper_arith_chuck.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = oper_arith_chuck.ck; sourceTree = "<group>"; };
-		0991F53A128AA4830067C31C /* oper_assign.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = oper_assign.ck; sourceTree = "<group>"; };
-		0991F53B128AA4830067C31C /* oper_logic.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = oper_logic.ck; sourceTree = "<group>"; };
-		0991F53C128AA4830067C31C /* oper_post_inc.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = oper_post_inc.ck; sourceTree = "<group>"; };
-		0991F53D128AA4830067C31C /* oper_pre_inc.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = oper_pre_inc.ck; sourceTree = "<group>"; };
-		0991F53F128AA4830067C31C /* OSC_recv.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OSC_recv.ck; sourceTree = "<group>"; };
-		0991F540128AA4830067C31C /* OSC_send.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OSC_send.ck; sourceTree = "<group>"; };
-		0991F541128AA4830067C31C /* OSC_xmit.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OSC_xmit.ck; sourceTree = "<group>"; };
-		0991F542128AA4830067C31C /* r.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = r.ck; sourceTree = "<group>"; };
-		0991F543128AA4830067C31C /* s.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = s.ck; sourceTree = "<group>"; };
-		0991F544128AA4830067C31C /* otf_01.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = otf_01.ck; path = examples/otf_01.ck; sourceTree = "<group>"; };
-		0991F545128AA4830067C31C /* otf_02.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = otf_02.ck; path = examples/otf_02.ck; sourceTree = "<group>"; };
-		0991F546128AA4830067C31C /* otf_03.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = otf_03.ck; path = examples/otf_03.ck; sourceTree = "<group>"; };
-		0991F547128AA4830067C31C /* otf_04.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = otf_04.ck; path = examples/otf_04.ck; sourceTree = "<group>"; };
-		0991F548128AA4830067C31C /* otf_05.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = otf_05.ck; path = examples/otf_05.ck; sourceTree = "<group>"; };
-		0991F549128AA4830067C31C /* otf_06.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = otf_06.ck; path = examples/otf_06.ck; sourceTree = "<group>"; };
-		0991F54A128AA4830067C31C /* otf_07.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = otf_07.ck; path = examples/otf_07.ck; sourceTree = "<group>"; };
-		0991F54D128AA4830067C31C /* machine.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = machine.ck; sourceTree = "<group>"; };
-		0991F54E128AA4830067C31C /* powerup.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = powerup.ck; sourceTree = "<group>"; };
-		0991F54F128AA4830067C31C /* spork.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spork.ck; sourceTree = "<group>"; };
-		0991F550128AA4830067C31C /* spork2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spork2.ck; sourceTree = "<group>"; };
-		0991F552128AA4830067C31C /* Dyno-compress.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Dyno-compress.ck"; sourceTree = "<group>"; };
-		0991F553128AA4830067C31C /* Dyno-duck.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Dyno-duck.ck"; sourceTree = "<group>"; };
-		0991F554128AA4830067C31C /* Dyno-limit.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Dyno-limit.ck"; sourceTree = "<group>"; };
-		0991F555128AA4830067C31C /* Gen10-test.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Gen10-test.ck"; sourceTree = "<group>"; };
-		0991F556128AA4830067C31C /* Gen17-test.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Gen17-test.ck"; sourceTree = "<group>"; };
-		0991F557128AA4830067C31C /* Gen5-test.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Gen5-test.ck"; sourceTree = "<group>"; };
-		0991F558128AA4830067C31C /* Gen7-test.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Gen7-test.ck"; sourceTree = "<group>"; };
-		0991F559128AA4830067C31C /* Gen9-test.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Gen9-test.ck"; sourceTree = "<group>"; };
-		0991F55A128AA4830067C31C /* GenX-CurveTable-test.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "GenX-CurveTable-test.ck"; sourceTree = "<group>"; };
-		0991F55B128AA4830067C31C /* GenX-WarpTable-test.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "GenX-WarpTable-test.ck"; sourceTree = "<group>"; };
-		0991F55C128AA4830067C31C /* LiSa-munger1.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LiSa-munger1.ck"; sourceTree = "<group>"; };
-		0991F55D128AA4830067C31C /* LiSa-munger2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LiSa-munger2.ck"; sourceTree = "<group>"; };
-		0991F55E128AA4830067C31C /* LiSa-munger3.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LiSa-munger3.ck"; sourceTree = "<group>"; };
-		0991F55F128AA4830067C31C /* LiSa-simplelooping.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LiSa-simplelooping.ck"; sourceTree = "<group>"; };
-		0991F560128AA4830067C31C /* LiSa-SndBuf.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LiSa-SndBuf.ck"; sourceTree = "<group>"; };
-		0991F561128AA4830067C31C /* LiSa-track1.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LiSa-track1.ck"; sourceTree = "<group>"; };
-		0991F562128AA4830067C31C /* LiSa-track2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LiSa-track2.ck"; sourceTree = "<group>"; };
-		0991F563128AA4830067C31C /* LiSa-track3.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LiSa-track3.ck"; sourceTree = "<group>"; };
-		0991F564128AA4830067C31C /* LiSa-track4.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LiSa-track4.ck"; sourceTree = "<group>"; };
-		0991F565128AA4830067C31C /* LiSa-track5.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LiSa-track5.ck"; sourceTree = "<group>"; };
-		0991F566128AA4830067C31C /* LiSa-trigger.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LiSa-trigger.ck"; sourceTree = "<group>"; };
-		0991F567128AA4830067C31C /* readme-GenX.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "readme-GenX.ck"; sourceTree = "<group>"; };
-		0991F568128AA4830067C31C /* readme-LiSa1.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "readme-LiSa1.ck"; sourceTree = "<group>"; };
-		0991F569128AA4830067C31C /* readme-LiSa2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "readme-LiSa2.ck"; sourceTree = "<group>"; };
-		0991F56A128AA4830067C31C /* status.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = status.ck; path = examples/status.ck; sourceTree = "<group>"; };
-		0991F56C128AA4830067C31C /* curly2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = curly2.ck; sourceTree = "<group>"; };
-		0991F56D128AA4830067C31C /* larry2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = larry2.ck; sourceTree = "<group>"; };
-		0991F56E128AA4830067C31C /* moe2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = moe2.ck; sourceTree = "<group>"; };
-		0991F56F128AA4830067C31C /* powerup2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = powerup2.ck; sourceTree = "<group>"; };
-		0991F570128AA4830067C31C /* stereo_noise.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stereo_noise.ck; sourceTree = "<group>"; };
-		0991F572128AA4830067C31C /* band-o-matic.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "band-o-matic.ck"; sourceTree = "<group>"; };
-		0991F573128AA4830067C31C /* bandedwg.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bandedwg.ck; sourceTree = "<group>"; };
-		0991F574128AA4830067C31C /* bandedwg2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bandedwg2.ck; sourceTree = "<group>"; };
-		0991F575128AA4830067C31C /* blowbotl.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blowbotl.ck; sourceTree = "<group>"; };
-		0991F576128AA4830067C31C /* blowbotl2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blowbotl2.ck; sourceTree = "<group>"; };
-		0991F577128AA4830067C31C /* blowhole.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blowhole.ck; sourceTree = "<group>"; };
-		0991F578128AA4830067C31C /* blowhole2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blowhole2.ck; sourceTree = "<group>"; };
-		0991F579128AA4830067C31C /* bowed.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bowed.ck; sourceTree = "<group>"; };
-		0991F57A128AA4830067C31C /* bowed2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bowed2.ck; sourceTree = "<group>"; };
-		0991F57B128AA4830067C31C /* brass.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = brass.ck; sourceTree = "<group>"; };
-		0991F57C128AA4830067C31C /* brass2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = brass2.ck; sourceTree = "<group>"; };
-		0991F57D128AA4830067C31C /* clarinet.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = clarinet.ck; sourceTree = "<group>"; };
-		0991F57E128AA4830067C31C /* clarinet2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = clarinet2.ck; sourceTree = "<group>"; };
-		0991F57F128AA4830067C31C /* flute.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flute.ck; sourceTree = "<group>"; };
-		0991F580128AA4830067C31C /* mand-o-matic-simple.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mand-o-matic-simple.ck"; sourceTree = "<group>"; };
-		0991F581128AA4830067C31C /* mand-o-matic.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mand-o-matic.ck"; sourceTree = "<group>"; };
-		0991F582128AA4830067C31C /* mandolin.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mandolin.ck; sourceTree = "<group>"; };
-		0991F583128AA4830067C31C /* modalbar.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = modalbar.ck; sourceTree = "<group>"; };
-		0991F584128AA4830067C31C /* modalbar2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = modalbar2.ck; sourceTree = "<group>"; };
-		0991F585128AA4830067C31C /* mode-o-matic.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mode-o-matic.ck"; sourceTree = "<group>"; };
-		0991F586128AA4830067C31C /* mode-o-test.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mode-o-test.ck"; sourceTree = "<group>"; };
-		0991F587128AA4830067C31C /* modulate.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = modulate.ck; sourceTree = "<group>"; };
-		0991F588128AA4830067C31C /* moog.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = moog.ck; sourceTree = "<group>"; };
-		0991F589128AA4830067C31C /* moog2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = moog2.ck; sourceTree = "<group>"; };
-		0991F58A128AA4830067C31C /* moogie.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = moogie.ck; sourceTree = "<group>"; };
-		0991F58B128AA4830067C31C /* rhodey.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rhodey.ck; sourceTree = "<group>"; };
-		0991F58C128AA4830067C31C /* saxofony.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = saxofony.ck; sourceTree = "<group>"; };
-		0991F58D128AA4830067C31C /* shake-cycle.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shake-cycle.ck"; sourceTree = "<group>"; };
-		0991F58E128AA4830067C31C /* shake-o-matic.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shake-o-matic.ck"; sourceTree = "<group>"; };
-		0991F58F128AA4830067C31C /* sitar.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sitar.ck; sourceTree = "<group>"; };
-		0991F590128AA4830067C31C /* stif-o-karp.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "stif-o-karp.ck"; sourceTree = "<group>"; };
-		0991F591128AA4830067C31C /* stifkarp.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stifkarp.ck; sourceTree = "<group>"; };
-		0991F592128AA4830067C31C /* voic-o-form.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "voic-o-form.ck"; sourceTree = "<group>"; };
-		0991F593128AA4830067C31C /* wurley.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wurley.ck; sourceTree = "<group>"; };
-		0991F594128AA4830067C31C /* wurley2.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wurley2.ck; sourceTree = "<group>"; };
-		0991F595128AA4830067C31C /* wurley3.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wurley3.ck; sourceTree = "<group>"; };
-		0991F597128AA4830067C31C /* escape.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = escape.ck; sourceTree = "<group>"; };
-		0991F598128AA4830067C31C /* readline.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readline.ck; sourceTree = "<group>"; };
-		0991F599128AA4830067C31C /* strops.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = strops.ck; sourceTree = "<group>"; };
-		0991F59A128AA4830067C31C /* token.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = token.ck; sourceTree = "<group>"; };
-		0991F59B128AA4830067C31C /* tostr.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tostr.ck; sourceTree = "<group>"; };
-		0991F59D128AA4830067C31C /* time_operations.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = time_operations.ck; sourceTree = "<group>"; };
-		0991F59E128AA4830067C31C /* time_types.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = time_types.ck; sourceTree = "<group>"; };
-		0991F5A0128AA4830067C31C /* type_analysis.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = type_analysis.ck; sourceTree = "<group>"; };
-		0991F5A1128AA4830067C31C /* type_object.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = type_object.ck; sourceTree = "<group>"; };
-		0991F5A2128AA4830067C31C /* type_primitives.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = type_primitives.ck; sourceTree = "<group>"; };
 		09A1E6120CBA1AEC001FAD6F /* makefile.alsa */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = makefile.alsa; sourceTree = SOURCE_ROOT; };
 		09A1E6130CBA1AEC001FAD6F /* makefile.jack */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = makefile.jack; sourceTree = SOURCE_ROOT; };
 		09A1E6140CBA1AEC001FAD6F /* makefile.oss */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = makefile.oss; sourceTree = SOURCE_ROOT; };
@@ -924,6 +677,11 @@
 		09B66B521768AC6000A07ADF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mAExportProgress.xib; sourceTree = "<group>"; };
 		09B66B541768AD5C00A07ADF /* mAExportProgressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAExportProgressViewController.h; path = macosx/mAExportProgressViewController.h; sourceTree = "<group>"; };
 		09B66B551768AD5C00A07ADF /* mAExportProgressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = mAExportProgressViewController.m; path = macosx/mAExportProgressViewController.m; sourceTree = "<group>"; };
+		09B66B5C1769A5CD00A07ADF /* examples */ = {isa = PBXFileReference; lastKnownFileType = folder; name = examples; path = chuck/src/examples; sourceTree = "<group>"; };
+		09B66B5F1769A65B00A07ADF /* mAExampleBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAExampleBrowser.h; path = macosx/mAExampleBrowser.h; sourceTree = "<group>"; };
+		09B66B601769A65B00A07ADF /* mAExampleBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = mAExampleBrowser.m; path = macosx/mAExampleBrowser.m; sourceTree = "<group>"; };
+		09B66B611769A65B00A07ADF /* mAExampleBrowser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = mAExampleBrowser.xib; path = macosx/Resources/English.lproj/mAExampleBrowser.xib; sourceTree = "<group>"; };
+		09B66B641769DA9200A07ADF /* ckmini.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ckmini.png; path = macosx/icon/ckmini.png; sourceTree = "<group>"; };
 		09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleEditView_iPad.xib; sourceTree = "<group>"; };
 		09D00B8514A3C44A0019CD09 /* mATitleEditorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mATitleEditorController.h; sourceTree = "<group>"; };
 		09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mATitleEditorController.m; sourceTree = "<group>"; };
@@ -1082,6 +840,8 @@
 				09B66B4D1768460C00A07ADF /* mAExportAsViewController.m */,
 				09B66B541768AD5C00A07ADF /* mAExportProgressViewController.h */,
 				09B66B551768AD5C00A07ADF /* mAExportProgressViewController.m */,
+				09B66B5F1769A65B00A07ADF /* mAExampleBrowser.h */,
+				09B66B601769A65B00A07ADF /* mAExampleBrowser.m */,
 			);
 			name = "miniAudicle OS X";
 			sourceTree = "<group>";
@@ -1165,51 +925,10 @@
 		0980603D0AA158F600915136 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				09B66B5E1769A62400A07ADF /* ChucK */,
 				0980603F0AA1591C00915136 /* miniAudicle */,
-				0980603E0AA1590B00915136 /* ChucK */,
 			);
 			name = Examples;
-			sourceTree = "<group>";
-		};
-		0980603E0AA1590B00915136 /* ChucK */ = {
-			isa = PBXGroup;
-			children = (
-				0991F48E128AA4830067C31C /* analysis */,
-				0991F4AA128AA4830067C31C /* array */,
-				0991F4B2128AA4830067C31C /* basic */,
-				0991F4E2128AA4830067C31C /* class */,
-				0991F4E5128AA4830067C31C /* ctrl */,
-				0991F4ED128AA4830067C31C /* data */,
-				0991F4F4128AA4830067C31C /* deep */,
-				0991F4FE128AA4830067C31C /* event */,
-				0991F509128AA4830067C31C /* filter */,
-				0991F511128AA4830067C31C /* func */,
-				0991F519128AA4830067C31C /* hanoi.ck */,
-				0991F51A128AA4830067C31C /* hanoi++.ck */,
-				0991F51B128AA4830067C31C /* hid */,
-				0991F525128AA4830067C31C /* io */,
-				0991F52F128AA4830067C31C /* midi */,
-				0991F534128AA4830067C31C /* multi */,
-				0991F538128AA4830067C31C /* oper */,
-				0991F53E128AA4830067C31C /* osc */,
-				0991F544128AA4830067C31C /* otf_01.ck */,
-				0991F545128AA4830067C31C /* otf_02.ck */,
-				0991F546128AA4830067C31C /* otf_03.ck */,
-				0991F547128AA4830067C31C /* otf_04.ck */,
-				0991F548128AA4830067C31C /* otf_05.ck */,
-				0991F549128AA4830067C31C /* otf_06.ck */,
-				0991F54A128AA4830067C31C /* otf_07.ck */,
-				0991F54C128AA4830067C31C /* shred */,
-				0991F551128AA4830067C31C /* special */,
-				0991F56A128AA4830067C31C /* status.ck */,
-				0991F56B128AA4830067C31C /* stereo */,
-				0991F571128AA4830067C31C /* stk */,
-				0991F596128AA4830067C31C /* string */,
-				0991F59C128AA4830067C31C /* time */,
-				0991F59F128AA4830067C31C /* type */,
-			);
-			name = ChucK;
-			path = chuck/src;
 			sourceTree = "<group>";
 		};
 		0980603F0AA1591C00915136 /* miniAudicle */ = {
@@ -1226,447 +945,6 @@
 				098060460AA1596900915136 /* view01.ck */,
 			);
 			name = miniAudicle;
-			sourceTree = "<group>";
-		};
-		0991F48E128AA4830067C31C /* analysis */ = {
-			isa = PBXGroup;
-			children = (
-				0991F48F128AA4830067C31C /* dct.ck */,
-				0991F490128AA4830067C31C /* features */,
-				0991F498128AA4830067C31C /* fft.ck */,
-				0991F499128AA4830067C31C /* fft1.ck */,
-				0991F49A128AA4830067C31C /* fft2.ck */,
-				0991F49B128AA4830067C31C /* fft3.ck */,
-				0991F49C128AA4830067C31C /* flip.ck */,
-				0991F49D128AA4830067C31C /* ifft.ck */,
-				0991F49E128AA4830067C31C /* ifft2.ck */,
-				0991F49F128AA4830067C31C /* ifft3.ck */,
-				0991F4A0128AA4830067C31C /* tracking */,
-				0991F4A8128AA4830067C31C /* win.ck */,
-				0991F4A9128AA4830067C31C /* xsynth.ck */,
-			);
-			name = analysis;
-			path = examples/analysis;
-			sourceTree = "<group>";
-		};
-		0991F490128AA4830067C31C /* features */ = {
-			isa = PBXGroup;
-			children = (
-				0991F491128AA4830067C31C /* centroid.ck */,
-				0991F492128AA4830067C31C /* flux.ck */,
-				0991F493128AA4830067C31C /* flux0.ck */,
-				0991F494128AA4830067C31C /* rms.ck */,
-				0991F495128AA4830067C31C /* rolloff.ck */,
-				0991F496128AA4830067C31C /* rolloff2.ck */,
-				0991F497128AA4830067C31C /* zerox.ck */,
-			);
-			path = features;
-			sourceTree = "<group>";
-		};
-		0991F4A0128AA4830067C31C /* tracking */ = {
-			isa = PBXGroup;
-			children = (
-				0991F4A1128AA4830067C31C /* harm.ck */,
-				0991F4A2128AA4830067C31C /* pitch-fifth.ck */,
-				0991F4A3128AA4830067C31C /* pitch-seventh.ck */,
-				0991F4A4128AA4830067C31C /* pitch-third.ck */,
-				0991F4A5128AA4830067C31C /* pitch-track.ck */,
-				0991F4A6128AA4830067C31C /* Smacking.ck */,
-				0991F4A7128AA4830067C31C /* Tracking.ck */,
-			);
-			path = tracking;
-			sourceTree = "<group>";
-		};
-		0991F4AA128AA4830067C31C /* array */ = {
-			isa = PBXGroup;
-			children = (
-				0991F4AB128AA4830067C31C /* array_argument.ck */,
-				0991F4AC128AA4830067C31C /* array_assign.ck */,
-				0991F4AD128AA4830067C31C /* array_dynamic.ck */,
-				0991F4AE128AA4830067C31C /* array_mdim.ck */,
-				0991F4AF128AA4830067C31C /* array_resize.ck */,
-				0991F4B0128AA4830067C31C /* array_storage.ck */,
-				0991F4B1128AA4830067C31C /* array_sub_assign.ck */,
-			);
-			name = array;
-			path = examples/array;
-			sourceTree = "<group>";
-		};
-		0991F4B2128AA4830067C31C /* basic */ = {
-			isa = PBXGroup;
-			children = (
-				0991F4B3128AA4830067C31C /* adc.ck */,
-				0991F4B4128AA4830067C31C /* adsr.ck */,
-				0991F4B5128AA4830067C31C /* alarm.ck */,
-				0991F4B6128AA4830067C31C /* args.ck */,
-				0991F4B7128AA4830067C31C /* bar.ck */,
-				0991F4B8128AA4830067C31C /* blit.ck */,
-				0991F4B9128AA4830067C31C /* blit2.ck */,
-				0991F4BA128AA4830067C31C /* chirp.ck */,
-				0991F4BB128AA4830067C31C /* chirp2.ck */,
-				0991F4BC128AA4830067C31C /* comb.ck */,
-				0991F4BD128AA4830067C31C /* curly++.ck */,
-				0991F4BE128AA4830067C31C /* curly.ck */,
-				0991F4BF128AA4830067C31C /* delay.ck */,
-				0991F4C0128AA4830067C31C /* demo0.ck */,
-				0991F4C1128AA4830067C31C /* demo1.ck */,
-				0991F4C2128AA4830067C31C /* demo2.ck */,
-				0991F4C3128AA4830067C31C /* demo3.ck */,
-				0991F4C4128AA4830067C31C /* echo.ck */,
-				0991F4C5128AA4830067C31C /* envelope.ck */,
-				0991F4C6128AA4830067C31C /* fm.ck */,
-				0991F4C7128AA4830067C31C /* fm2.ck */,
-				0991F4C8128AA4830067C31C /* fm3.ck */,
-				0991F4C9128AA4830067C31C /* foo.ck */,
-				0991F4CA128AA4830067C31C /* foo2.ck */,
-				0991F4CB128AA4830067C31C /* func.ck */,
-				0991F4CC128AA4830067C31C /* i-robot.ck */,
-				0991F4CD128AA4830067C31C /* imp.ck */,
-				0991F4CE128AA4830067C31C /* infnan.ck */,
-				0991F4CF128AA4830067C31C /* larry++.ck */,
-				0991F4D0128AA4830067C31C /* larry.ck */,
-				0991F4D1128AA4830067C31C /* lfo.ck */,
-				0991F4D2128AA4830067C31C /* moe++.ck */,
-				0991F4D3128AA4830067C31C /* moe.ck */,
-				0991F4D4128AA4830067C31C /* rec-auto.ck */,
-				0991F4D5128AA4830067C31C /* rec.ck */,
-				0991F4D6128AA4830067C31C /* ring.ck */,
-				0991F4D7128AA4830067C31C /* sndbuf.ck */,
-				0991F4D8128AA4830067C31C /* step.ck */,
-				0991F4D9128AA4830067C31C /* tick.ck */,
-				0991F4DA128AA4830067C31C /* tick2.ck */,
-				0991F4DB128AA4830067C31C /* unchuck.ck */,
-				0991F4DC128AA4830067C31C /* valueat.ck */,
-				0991F4DD128AA4830067C31C /* whirl.ck */,
-				0991F4DE128AA4830067C31C /* whole.ck */,
-				0991F4DF128AA4830067C31C /* wind.ck */,
-				0991F4E0128AA4830067C31C /* wind2.ck */,
-				0991F4E1128AA4830067C31C /* zerox.ck */,
-			);
-			name = basic;
-			path = examples/basic;
-			sourceTree = "<group>";
-		};
-		0991F4E2128AA4830067C31C /* class */ = {
-			isa = PBXGroup;
-			children = (
-				0991F4E3128AA4830067C31C /* dinky.ck */,
-				0991F4E4128AA4830067C31C /* try.ck */,
-			);
-			name = class;
-			path = examples/class;
-			sourceTree = "<group>";
-		};
-		0991F4E5128AA4830067C31C /* ctrl */ = {
-			isa = PBXGroup;
-			children = (
-				0991F4E6128AA4830067C31C /* ctrl_break.ck */,
-				0991F4E7128AA4830067C31C /* ctrl_break_nested.ck */,
-				0991F4E8128AA4830067C31C /* ctrl_continue.ck */,
-				0991F4E9128AA4830067C31C /* ctrl_do_until.ck */,
-				0991F4EA128AA4830067C31C /* ctrl_for_loop.ck */,
-				0991F4EB128AA4830067C31C /* ctrl_sequencer.ck */,
-				0991F4EC128AA4830067C31C /* ctrl_until.ck */,
-			);
-			name = ctrl;
-			path = examples/ctrl;
-			sourceTree = "<group>";
-		};
-		0991F4ED128AA4830067C31C /* data */ = {
-			isa = PBXGroup;
-			children = (
-				0991F4EE128AA4830067C31C /* hihat-open.wav */,
-				0991F4EF128AA4830067C31C /* hihat.wav */,
-				0991F4F0128AA4830067C31C /* kick.wav */,
-				0991F4F1128AA4830067C31C /* snare-chili.wav */,
-				0991F4F2128AA4830067C31C /* snare-hop.wav */,
-				0991F4F3128AA4830067C31C /* snare.wav */,
-			);
-			name = data;
-			path = examples/data;
-			sourceTree = "<group>";
-		};
-		0991F4F4128AA4830067C31C /* deep */ = {
-			isa = PBXGroup;
-			children = (
-				0991F4F5128AA4830067C31C /* dither.ck */,
-				0991F4F6128AA4830067C31C /* dtmf.ck */,
-				0991F4F7128AA4830067C31C /* follower.ck */,
-				0991F4F8128AA4830067C31C /* plu.ck */,
-				0991F4F9128AA4830067C31C /* plu2.ck */,
-				0991F4FA128AA4830067C31C /* plu3.ck */,
-				0991F4FB128AA4830067C31C /* say-chu.ck */,
-				0991F4FC128AA4830067C31C /* thx.ck */,
-				0991F4FD128AA4830067C31C /* unclap.ck */,
-			);
-			name = deep;
-			path = examples/deep;
-			sourceTree = "<group>";
-		};
-		0991F4FE128AA4830067C31C /* event */ = {
-			isa = PBXGroup;
-			children = (
-				0991F4FF128AA4830067C31C /* ALSO_SEE */,
-				0991F500128AA4830067C31C /* broadcast.ck */,
-				0991F501128AA4830067C31C /* clix.ck */,
-				0991F502128AA4830067C31C /* clix2.ck */,
-				0991F503128AA4830067C31C /* clix3.ck */,
-				0991F504128AA4830067C31C /* event_extend.ck */,
-				0991F505128AA4830067C31C /* kb.ck */,
-				0991F506128AA4830067C31C /* kb2.ck */,
-				0991F507128AA4830067C31C /* signal.ck */,
-				0991F508128AA4830067C31C /* signal4.ck */,
-			);
-			name = event;
-			path = examples/event;
-			sourceTree = "<group>";
-		};
-		0991F509128AA4830067C31C /* filter */ = {
-			isa = PBXGroup;
-			children = (
-				0991F50A128AA4830067C31C /* bp.ck */,
-				0991F50B128AA4830067C31C /* br.ck */,
-				0991F50C128AA4830067C31C /* hp.ck */,
-				0991F50D128AA4830067C31C /* lp.ck */,
-				0991F50E128AA4830067C31C /* resonz.ck */,
-				0991F50F128AA4830067C31C /* rhp.ck */,
-				0991F510128AA4830067C31C /* rlp.ck */,
-			);
-			name = filter;
-			path = examples/filter;
-			sourceTree = "<group>";
-		};
-		0991F511128AA4830067C31C /* func */ = {
-			isa = PBXGroup;
-			children = (
-				0991F512128AA4830067C31C /* func_doozey.ck */,
-				0991F513128AA4830067C31C /* func_obj_arg.ck */,
-				0991F514128AA4830067C31C /* func_overload.ck */,
-				0991F515128AA4830067C31C /* func_overload_member.ck */,
-				0991F516128AA4830067C31C /* func_overload_multi.ck */,
-				0991F517128AA4830067C31C /* func_recursion.ck */,
-				0991F518128AA4830067C31C /* func_void.ck */,
-			);
-			name = func;
-			path = examples/func;
-			sourceTree = "<group>";
-		};
-		0991F51B128AA4830067C31C /* hid */ = {
-			isa = PBXGroup;
-			children = (
-				0991F51C128AA4830067C31C /* joy-fm.ck */,
-				0991F51D128AA4830067C31C /* joy-noise.ck */,
-				0991F51E128AA4830067C31C /* joy-shake.ck */,
-				0991F51F128AA4830067C31C /* joy.ck */,
-				0991F520128AA4830067C31C /* kb.ck */,
-				0991F521128AA4830067C31C /* keyboard-organ.ck */,
-				0991F522128AA4830067C31C /* mouse-fm.ck */,
-				0991F523128AA4830067C31C /* mouse.ck */,
-				0991F524128AA4830067C31C /* tilt.ck */,
-			);
-			name = hid;
-			path = examples/hid;
-			sourceTree = "<group>";
-		};
-		0991F525128AA4830067C31C /* io */ = {
-			isa = PBXGroup;
-			children = (
-				0991F526128AA4830067C31C /* chout.ck */,
-				0991F527128AA4830067C31C /* example.txt */,
-				0991F528128AA4830067C31C /* int.txt */,
-				0991F529128AA4830067C31C /* read-int.ck */,
-				0991F52A128AA4830067C31C /* read-line.ck */,
-				0991F52B128AA4830067C31C /* read-str.ck */,
-				0991F52C128AA4830067C31C /* str.txt */,
-				0991F52D128AA4830067C31C /* write.ck */,
-				0991F52E128AA4830067C31C /* write2.ck */,
-			);
-			name = io;
-			path = examples/io;
-			sourceTree = "<group>";
-		};
-		0991F52F128AA4830067C31C /* midi */ = {
-			isa = PBXGroup;
-			children = (
-				0991F530128AA4830067C31C /* gomidi.ck */,
-				0991F531128AA4830067C31C /* gomidi2.ck */,
-				0991F532128AA4830067C31C /* polyfony.ck */,
-				0991F533128AA4830067C31C /* polyfony2.ck */,
-			);
-			name = midi;
-			path = examples/midi;
-			sourceTree = "<group>";
-		};
-		0991F534128AA4830067C31C /* multi */ = {
-			isa = PBXGroup;
-			children = (
-				0991F535128AA4830067C31C /* i.ck */,
-				0991F536128AA4830067C31C /* n.ck */,
-				0991F537128AA4830067C31C /* we-robot.ck */,
-			);
-			name = multi;
-			path = examples/multi;
-			sourceTree = "<group>";
-		};
-		0991F538128AA4830067C31C /* oper */ = {
-			isa = PBXGroup;
-			children = (
-				0991F539128AA4830067C31C /* oper_arith_chuck.ck */,
-				0991F53A128AA4830067C31C /* oper_assign.ck */,
-				0991F53B128AA4830067C31C /* oper_logic.ck */,
-				0991F53C128AA4830067C31C /* oper_post_inc.ck */,
-				0991F53D128AA4830067C31C /* oper_pre_inc.ck */,
-			);
-			name = oper;
-			path = examples/oper;
-			sourceTree = "<group>";
-		};
-		0991F53E128AA4830067C31C /* osc */ = {
-			isa = PBXGroup;
-			children = (
-				0991F53F128AA4830067C31C /* OSC_recv.ck */,
-				0991F540128AA4830067C31C /* OSC_send.ck */,
-				0991F541128AA4830067C31C /* OSC_xmit.ck */,
-				0991F542128AA4830067C31C /* r.ck */,
-				0991F543128AA4830067C31C /* s.ck */,
-			);
-			name = osc;
-			path = examples/osc;
-			sourceTree = "<group>";
-		};
-		0991F54C128AA4830067C31C /* shred */ = {
-			isa = PBXGroup;
-			children = (
-				0991F54D128AA4830067C31C /* machine.ck */,
-				0991F54E128AA4830067C31C /* powerup.ck */,
-				0991F54F128AA4830067C31C /* spork.ck */,
-				0991F550128AA4830067C31C /* spork2.ck */,
-			);
-			name = shred;
-			path = examples/shred;
-			sourceTree = "<group>";
-		};
-		0991F551128AA4830067C31C /* special */ = {
-			isa = PBXGroup;
-			children = (
-				0991F552128AA4830067C31C /* Dyno-compress.ck */,
-				0991F553128AA4830067C31C /* Dyno-duck.ck */,
-				0991F554128AA4830067C31C /* Dyno-limit.ck */,
-				0991F555128AA4830067C31C /* Gen10-test.ck */,
-				0991F556128AA4830067C31C /* Gen17-test.ck */,
-				0991F557128AA4830067C31C /* Gen5-test.ck */,
-				0991F558128AA4830067C31C /* Gen7-test.ck */,
-				0991F559128AA4830067C31C /* Gen9-test.ck */,
-				0991F55A128AA4830067C31C /* GenX-CurveTable-test.ck */,
-				0991F55B128AA4830067C31C /* GenX-WarpTable-test.ck */,
-				0991F55C128AA4830067C31C /* LiSa-munger1.ck */,
-				0991F55D128AA4830067C31C /* LiSa-munger2.ck */,
-				0991F55E128AA4830067C31C /* LiSa-munger3.ck */,
-				0991F55F128AA4830067C31C /* LiSa-simplelooping.ck */,
-				0991F560128AA4830067C31C /* LiSa-SndBuf.ck */,
-				0991F561128AA4830067C31C /* LiSa-track1.ck */,
-				0991F562128AA4830067C31C /* LiSa-track2.ck */,
-				0991F563128AA4830067C31C /* LiSa-track3.ck */,
-				0991F564128AA4830067C31C /* LiSa-track4.ck */,
-				0991F565128AA4830067C31C /* LiSa-track5.ck */,
-				0991F566128AA4830067C31C /* LiSa-trigger.ck */,
-				0991F567128AA4830067C31C /* readme-GenX.ck */,
-				0991F568128AA4830067C31C /* readme-LiSa1.ck */,
-				0991F569128AA4830067C31C /* readme-LiSa2.ck */,
-			);
-			name = special;
-			path = examples/special;
-			sourceTree = "<group>";
-		};
-		0991F56B128AA4830067C31C /* stereo */ = {
-			isa = PBXGroup;
-			children = (
-				0991F56C128AA4830067C31C /* curly2.ck */,
-				0991F56D128AA4830067C31C /* larry2.ck */,
-				0991F56E128AA4830067C31C /* moe2.ck */,
-				0991F56F128AA4830067C31C /* powerup2.ck */,
-				0991F570128AA4830067C31C /* stereo_noise.ck */,
-			);
-			name = stereo;
-			path = examples/stereo;
-			sourceTree = "<group>";
-		};
-		0991F571128AA4830067C31C /* stk */ = {
-			isa = PBXGroup;
-			children = (
-				0991F572128AA4830067C31C /* band-o-matic.ck */,
-				0991F573128AA4830067C31C /* bandedwg.ck */,
-				0991F574128AA4830067C31C /* bandedwg2.ck */,
-				0991F575128AA4830067C31C /* blowbotl.ck */,
-				0991F576128AA4830067C31C /* blowbotl2.ck */,
-				0991F577128AA4830067C31C /* blowhole.ck */,
-				0991F578128AA4830067C31C /* blowhole2.ck */,
-				0991F579128AA4830067C31C /* bowed.ck */,
-				0991F57A128AA4830067C31C /* bowed2.ck */,
-				0991F57B128AA4830067C31C /* brass.ck */,
-				0991F57C128AA4830067C31C /* brass2.ck */,
-				0991F57D128AA4830067C31C /* clarinet.ck */,
-				0991F57E128AA4830067C31C /* clarinet2.ck */,
-				0991F57F128AA4830067C31C /* flute.ck */,
-				0991F580128AA4830067C31C /* mand-o-matic-simple.ck */,
-				0991F581128AA4830067C31C /* mand-o-matic.ck */,
-				0991F582128AA4830067C31C /* mandolin.ck */,
-				0991F583128AA4830067C31C /* modalbar.ck */,
-				0991F584128AA4830067C31C /* modalbar2.ck */,
-				0991F585128AA4830067C31C /* mode-o-matic.ck */,
-				0991F586128AA4830067C31C /* mode-o-test.ck */,
-				0991F587128AA4830067C31C /* modulate.ck */,
-				0991F588128AA4830067C31C /* moog.ck */,
-				0991F589128AA4830067C31C /* moog2.ck */,
-				0991F58A128AA4830067C31C /* moogie.ck */,
-				0991F58B128AA4830067C31C /* rhodey.ck */,
-				0991F58C128AA4830067C31C /* saxofony.ck */,
-				0991F58D128AA4830067C31C /* shake-cycle.ck */,
-				0991F58E128AA4830067C31C /* shake-o-matic.ck */,
-				0991F58F128AA4830067C31C /* sitar.ck */,
-				0991F590128AA4830067C31C /* stif-o-karp.ck */,
-				0991F591128AA4830067C31C /* stifkarp.ck */,
-				0991F592128AA4830067C31C /* voic-o-form.ck */,
-				0991F593128AA4830067C31C /* wurley.ck */,
-				0991F594128AA4830067C31C /* wurley2.ck */,
-				0991F595128AA4830067C31C /* wurley3.ck */,
-			);
-			name = stk;
-			path = examples/stk;
-			sourceTree = "<group>";
-		};
-		0991F596128AA4830067C31C /* string */ = {
-			isa = PBXGroup;
-			children = (
-				0991F597128AA4830067C31C /* escape.ck */,
-				0991F598128AA4830067C31C /* readline.ck */,
-				0991F599128AA4830067C31C /* strops.ck */,
-				0991F59A128AA4830067C31C /* token.ck */,
-				0991F59B128AA4830067C31C /* tostr.ck */,
-			);
-			name = string;
-			path = examples/string;
-			sourceTree = "<group>";
-		};
-		0991F59C128AA4830067C31C /* time */ = {
-			isa = PBXGroup;
-			children = (
-				0991F59D128AA4830067C31C /* time_operations.ck */,
-				0991F59E128AA4830067C31C /* time_types.ck */,
-			);
-			name = time;
-			path = examples/time;
-			sourceTree = "<group>";
-		};
-		0991F59F128AA4830067C31C /* type */ = {
-			isa = PBXGroup;
-			children = (
-				0991F5A0128AA4830067C31C /* type_analysis.ck */,
-				0991F5A1128AA4830067C31C /* type_object.ck */,
-				0991F5A2128AA4830067C31C /* type_primitives.ck */,
-			);
-			name = type;
-			path = examples/type;
 			sourceTree = "<group>";
 		};
 		09A40B000A9A52FC007604EA /* ChucK */ = {
@@ -1884,6 +1162,14 @@
 			path = chuck/src/RtAudio;
 			sourceTree = "<group>";
 		};
+		09B66B5E1769A62400A07ADF /* ChucK */ = {
+			isa = PBXGroup;
+			children = (
+				09B66B5C1769A5CD00A07ADF /* examples */,
+			);
+			name = ChucK;
+			sourceTree = "<group>";
+		};
 		09E482020B1CEEF5002087DF /* miniAudicle GTK */ = {
 			isa = PBXGroup;
 			children = (
@@ -1967,6 +1253,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				09B66B641769DA9200A07ADF /* ckmini.png */,
 				098E28A2173A06600044336B /* InfoPlist.strings */,
 				098E28A4173A06600044336B /* mADocumentView.xib */,
 				098E28A6173A06600044336B /* mADocumentWindow.xib */,
@@ -1974,6 +1261,7 @@
 				09B66B4917683C7300A07ADF /* mAExportAs.xib */,
 				09B66B511768AC6000A07ADF /* mAExportProgress.xib */,
 				098E28AA173A06600044336B /* miniAudicle.xib */,
+				09B66B611769A65B00A07ADF /* mAExampleBrowser.xib */,
 				0964A396172F976F00043ABA /* ChucK Scripts */,
 				0964A38C172F8DC800043ABA /* record.png */,
 				0964A38D172F8DC800043ABA /* stop.png */,
@@ -2184,6 +1472,9 @@
 				09B66B4B17683C7300A07ADF /* mAExportAs.xib in Resources */,
 				09B66B501768A1E400A07ADF /* export.ck in Resources */,
 				09B66B531768AC6000A07ADF /* mAExportProgress.xib in Resources */,
+				09B66B5D1769A5CD00A07ADF /* examples in Resources */,
+				09B66B631769A65C00A07ADF /* mAExampleBrowser.xib in Resources */,
+				09B66B651769DA9200A07ADF /* ckmini.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2478,6 +1769,7 @@
 				09678638173F169E003AB462 /* UKFSEventsWatcher.m in Sources */,
 				09B66B4E1768460C00A07ADF /* mAExportAsViewController.m in Sources */,
 				09B66B561768AD5C00A07ADF /* mAExportProgressViewController.m in Sources */,
+				09B66B621769A65C00A07ADF /* mAExampleBrowser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -44,6 +44,7 @@ class miniAudicle;
 @class miniAudicleDocument;
 @class mARecordSessionController;
 @class mAMultiDocWindowController;
+@class mAExampleBrowser;
 
 extern NSString * const mAVirtualMachineDidTurnOnNotification;
 extern NSString * const mAVirtualMachineDidTurnOffNotification;
@@ -61,6 +62,7 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
     NSTextField * about_text;
     IBOutlet miniAudiclePreferencesController * mapc;
     mARecordSessionController * m_recordSessionController;
+    mAExampleBrowser * _exampleBrowser;
     
     miniAudicleDocument * main_document;
     
@@ -149,6 +151,7 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
 - (IBAction)setLockdown:(BOOL)_lockdown;
 - (BOOL)isInLockdown;
 - (IBAction)recordSession:(id)sender;
+- (IBAction)openExample:(id)sender;
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menu_item;
 

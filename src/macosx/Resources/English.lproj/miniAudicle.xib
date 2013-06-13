@@ -283,6 +283,14 @@
 										<string key="NSName">_NSRecentDocumentsMenu</string>
 									</object>
 								</object>
+								<object class="NSMenuItem" id="937955479">
+									<reference key="NSMenu" ref="413252213"/>
+									<string key="NSTitle">Open Example...</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="142581069"/>
+									<reference key="NSMixedImage" ref="954038292"/>
+								</object>
 								<object class="NSMenuItem" id="549346144">
 									<reference key="NSMenu" ref="413252213"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -356,7 +364,7 @@
 									<reference key="NSOnImage" ref="142581069"/>
 									<reference key="NSMixedImage" ref="954038292"/>
 								</object>
-								<object class="NSMenuItem" id="65553634">
+								<object class="NSMenuItem" id="1057181241">
 									<reference key="NSMenu" ref="413252213"/>
 									<string key="NSTitle">Export as WAV...</string>
 									<string key="NSKeyEquiv">e</string>
@@ -5860,9 +5868,17 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<object class="IBActionConnection" key="connection">
 						<string key="label">exportAsWAV:</string>
 						<reference key="source" ref="990087552"/>
-						<reference key="destination" ref="65553634"/>
+						<reference key="destination" ref="1057181241"/>
 					</object>
 					<int key="connectionID">1509</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">openExample:</string>
+						<reference key="source" ref="990087552"/>
+						<reference key="destination" ref="937955479"/>
+					</object>
+					<int key="connectionID">1516</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -7475,7 +7491,8 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<reference ref="20429739"/>
 							<reference ref="606219850"/>
 							<reference ref="663952572"/>
-							<reference ref="65553634"/>
+							<reference ref="1057181241"/>
+							<reference ref="937955479"/>
 						</object>
 						<reference key="parent" ref="1006639319"/>
 					</object>
@@ -10435,7 +10452,12 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1507</int>
-						<reference key="object" ref="65553634"/>
+						<reference key="object" ref="1057181241"/>
+						<reference key="parent" ref="413252213"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1510</int>
+						<reference key="object" ref="937955479"/>
 						<reference key="parent" ref="413252213"/>
 					</object>
 				</object>
@@ -10647,6 +10669,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<string>1500.IBPluginDependency</string>
 					<string>1503.IBPluginDependency</string>
 					<string>1507.IBPluginDependency</string>
+					<string>1510.IBPluginDependency</string>
 					<string>154.IBPluginDependency</string>
 					<string>155.IBPluginDependency</string>
 					<string>156.IBPluginDependency</string>
@@ -11143,6 +11166,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{21, 1139}, {306, 372}}</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -11389,7 +11413,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1509</int>
+			<int key="maxID">1516</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -11455,6 +11479,46 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/mAConsoleMonitorView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">mAExampleBrowser</string>
+					<string key="superclassName">NSWindowController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>cancel:</string>
+							<string>open:</string>
+						</object>
+						<object class="NSArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>cancel:</string>
+							<string>open:</string>
+						</object>
+						<object class="NSArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">cancel:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">open:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/mAExampleBrowser.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -11616,6 +11680,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>newTab:</string>
 							<string>newWindow:</string>
 							<string>openDocumentInTab:</string>
+							<string>openExample:</string>
 							<string>openMiniAudicleWebsite:</string>
 							<string>recordSession:</string>
 							<string>removeAllShreds:</string>
@@ -11630,6 +11695,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -11679,6 +11745,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>newTab:</string>
 							<string>newWindow:</string>
 							<string>openDocumentInTab:</string>
+							<string>openExample:</string>
 							<string>openMiniAudicleWebsite:</string>
 							<string>recordSession:</string>
 							<string>removeAllShreds:</string>
@@ -11758,6 +11825,10 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">openExample:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">openMiniAudicleWebsite:</string>
 								<string key="candidateClassName">id</string>
 							</object>
@@ -11807,6 +11878,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_exampleBrowser</string>
 							<string>closeTabMenuItem</string>
 							<string>closeWindowMenuItem</string>
 							<string>console_monitor</string>
@@ -11818,6 +11890,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>mAExampleBrowser</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>miniAudicleConsoleMonitor</string>
@@ -11832,6 +11905,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_exampleBrowser</string>
 							<string>closeTabMenuItem</string>
 							<string>closeWindowMenuItem</string>
 							<string>console_monitor</string>
@@ -11843,6 +11917,10 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_exampleBrowser</string>
+								<string key="candidateClassName">mAExampleBrowser</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">closeTabMenuItem</string>
 								<string key="candidateClassName">NSMenuItem</string>

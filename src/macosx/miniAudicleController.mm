@@ -41,6 +41,7 @@ U.S.A.
 #import "miniAudicle.h"
 #import "mARecordSessionController.h"
 #import "mAMultiDocWindowController.h"
+#import "mAExampleBrowser.h"
 #import <objc/message.h>
 
 
@@ -56,6 +57,9 @@ NSString * const mAChuginExtension = @"chug";
 const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcartwright.MultiWindowDocumentControllerCloseAllContext";
 
 @interface miniAudicleController ()
+
+@property (nonatomic, retain) mAExampleBrowser * exampleBrowser;
+
 - (void)adjustChucKMenuItems;
 - (void)applicationWillTerminate:(NSNotification *)n;
 
@@ -65,6 +69,8 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 @end
 
 @implementation miniAudicleController
+
+@synthesize exampleBrowser = _exampleBrowser;
 
 //-----------------------------------------------------------------------------
 // name: init
@@ -90,6 +96,8 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
         
         m_recordSessionController = [[mARecordSessionController alloc] initWithWindowNibName:@"mARecordSession"];
         m_recordSessionController.controller = self;
+        
+        self.exampleBrowser = [[[mAExampleBrowser alloc] initWithWindowNibName:@"mAExampleBrowser"] autorelease];
         
         _windowControllers = [NSMutableArray new];
         
@@ -199,6 +207,8 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     m_recordSessionController.controller = nil;
     [m_recordSessionController release];
     [_windowControllers release];
+    
+    self.exampleBrowser = nil;
     
     [[NSUserDefaultsController sharedUserDefaultsController]
      removeObserver:self
@@ -1036,6 +1046,11 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
 - (IBAction)recordSession:(id)sender
 {
     [[m_recordSessionController window] makeKeyAndOrderFront:sender];
+}
+
+- (IBAction)openExample:(id)sender
+{
+    [[self.exampleBrowser window] makeKeyAndOrderFront:sender];
 }
 
 
