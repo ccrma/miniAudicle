@@ -71,7 +71,7 @@ endif
 CFLAGSDEPEND?=$(patsubst -arch %,,$(CFLAGS))
 
 # distribution target presets
-VERSION?=0.2.3-beta-5
+VERSION?=0.2.3-beta-6
 
 DIST_DIR=miniAudicle-$(VERSION)
 
@@ -145,7 +145,9 @@ OBJCSRCS+= $(OSX_DIR)/main.m \
     $(OSX_DIR)/BLAuthentication.m \
     $(OSX_DIR)/UliKit/UKFileWatcher.m \
     $(OSX_DIR)/UliKit/UKFSEventsWatcher.m \
-    $(OSX_DIR)/mAExportAsViewController.m $(OSX_DIR)/mAExportProgressViewController.m
+    $(OSX_DIR)/mAExportAsViewController.m \
+    $(OSX_DIR)/mAExportProgressViewController.m \
+    $(OSX_DIR)/mAExampleBrowser.m 
 OBJCXXSRCS+= $(OSX_DIR)/miniAudicleController.mm \
 	$(OSX_DIR)/miniAudicleVMMonitor.mm \
 	$(OSX_DIR)/miniAudicleDocument.mm \
@@ -184,7 +186,7 @@ BUNDLE_DATA:=$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/,$(BUNDLE_DATA))
 BUNDLE_FRAMEWORKS_IN_BUNDLE=$(addsuffix .framework,$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/Frameworks/,$(BUNDLE_FRAMEWORKS)))
 
 NIBS_BASE=miniAudicle mADocumentView mADocumentWindow mARecordSession \
-    mAExportProgress mAExportAs
+    mAExportProgress mAExportAs mAExampleBrowser
 XIBS=$(addprefix $(OSX_DIR)/Resources/$(LANGUAGE).lproj/,$(addsuffix .xib,$(NIBS_BASE)))
 NIBS=$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/,$(addsuffix .nib,$(NIBS_BASE)) InfoPlist.strings)
 
