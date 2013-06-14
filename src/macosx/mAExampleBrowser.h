@@ -8,9 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface mAExampleBrowser : NSWindowController <NSBrowserDelegate>
+@interface mAExampleBrowser : NSWindowController <NSBrowserDelegate, NSWindowDelegate, NSUserInterfaceValidations>
 {
     IBOutlet NSBrowser * _browser;
+    IBOutlet NSButton * _openButton;
 }
 
 - (IBAction)open:(id)sender;

@@ -57,15 +57,46 @@
     [_browser setTarget:self];
 }
 
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)item
+{
+    if(item == (id)_openButton)
+    {
+        [_openButton setEnabled:[[_browser selectedCells] count] > 0];
+        
+        if([NSEvent modifierFlags] & NSAlternateKeyMask)
+            [_openButton setTitle:@"Open in Tabs"];
+        else
+            [_openButton setTitle:@"Open"];
+    }
+    
+    return YES;
+}
+
+
+#pragma mark NSWindowDelegate
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+    [_browser selectRowIndexes:[NSIndexSet indexSet] inColumn:[_browser selectedColumn]];
+}
+
+
+#pragma mark IBActions
+
 - (IBAction)open:(id)sender
 {
-    [self.window close];
-    
     NSString * examplePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"examples"];
-    NSString * columnPath = [examplePath stringByAppendingFormat:@"/%@", [_browser path]];
-    [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:[NSURL fileURLWithPath:columnPath]
-                                                                           display:YES
-                                                                             error:nil];
+    NSString * columnPath = [examplePath stringByAppendingFormat:@"/%@", [_browser pathToColumn:[_browser selectedColumn]]];
+    
+    for(NSBrowserCell * cell in [_browser selectedCells])
+    {
+        NSString * filePath = [columnPath stringByAppendingPathComponent:[cell title]];
+        [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:[NSURL fileURLWithPath:filePath]
+                                                                               display:YES
+                                                                                 error:nil];
+    }
+    
+    [self.window close];
 }
 
 - (IBAction)cancel:(id)sender
