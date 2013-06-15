@@ -232,34 +232,47 @@
     [self removeDocument:docToRemove attachedToViewController:[(miniAudicleDocument *)docToRemove viewController]];
 }
 
-- (void)removeDocument:(NSDocument *)docToRemove attachedToViewController:(NSViewController*)ctrl
+- (void)removeDocument:(NSDocument *)_docToRemove attachedToViewController:(NSViewController*)ctrl
 {
+    miniAudicleDocument * docToRemove = (miniAudicleDocument *) _docToRemove;
     NSMutableSet* documents = self.documents;
     if (![documents containsObject:docToRemove])
         return;
     
     // remove the document's view controller and view
-    [ctrl.view removeFromSuperview];
+//    [ctrl.view removeFromSuperview];
     [(id)ctrl setWindowController:nil];
-    if ([ctrl respondsToSelector:@selector(setDocument:)])
-        [(id)ctrl setDocument: nil];
-    [ctrl release];
+//    [ctrl release];
     
     // remove the view from the tab item
     // dont remove the tab view item from the tab view, as this is handled by the framework (when
     // we click on the close button on the tab) - of course it wouldnt be if you closed the document
     // using the menu (TODO)
-    NSTabViewItem* tabViewItem = [tabView tabViewItemAtIndex:[tabView indexOfTabViewItemWithIdentifier:ctrl]];
-    //[tabViewItem setView: nil];
-    [tabView removeTabViewItem:tabViewItem];
+    NSInteger index = [tabView indexOfTabViewItemWithIdentifier:ctrl];
+    if(index != NSNotFound)
+    {
+        //[tabViewItem setView: nil];
+        [tabView removeTabViewItem:[tabView tabViewItemAtIndex:index]];
+    }
     
     // remove the control from the view controllers set
     [self.contentViewControllers removeObject:ctrl];
     
     // finally detach the document from the window controller
     [docToRemove removeWindowController:self];
-    [(miniAudicleDocument *)docToRemove setWindowController:nil];
+    if(docToRemove.windowController == self)
+        [docToRemove setWindowController:nil];
     [documents removeObject:docToRemove];
+    
+//    if([self.documents count] == 0)
+//    {
+//        [(miniAudicleController *)[NSDocumentController sharedDocumentController] windowDidCloseForController:self];
+//        // close after this iteration of the run-loop to prevent drag-n-drop
+//        // handling from freaking out
+//        [self.window performSelector:@selector(close)
+//                          withObject:nil
+//                          afterDelay:0.001];
+//    }
 }
 
 - (void)document:(NSDocument *)doc wasEdited:(BOOL)edited;
@@ -305,7 +318,15 @@
 - (void)document:(NSDocument *)document shouldClose:(BOOL)shouldClose contextInfo:(void *)contextInfo
 {
     if(shouldClose)
+    {
         [document close];
+        
+        if([tabView numberOfTabViewItems] == 0)
+        {
+            [(miniAudicleController *)[NSDocumentController sharedDocumentController] windowDidCloseForController:self];
+            [self.window close];
+        }
+    }
 }
 
 - (void)newDocument:(id)sender
@@ -370,7 +391,7 @@
 
 - (BOOL)tabView:(NSTabView*)aTabView shouldDropTabViewItem:(NSTabViewItem *)tabViewItem inTabBar:(PSMTabBarControl *)tabBarControl
 {
-//    NSLog(@"shouldDropTabViewItem: %@ inTabBar: %@", [tabViewItem label], tabBarControl);
+    //NSLog(@"shouldDropTabViewItem: %@ inTabBar: %@", [tabViewItem label], tabBarControl);
     
 	return YES;
 }
@@ -381,16 +402,28 @@
     
     mADocumentViewController *ctrl = (mADocumentViewController *)[tabViewItem identifier];
     miniAudicleDocument *doc = [ctrl document];
+    
+    // hold on to these for now
+    [[ctrl retain] autorelease];
+    [[doc retain] autorelease];
 
-    [self.contentViewControllers removeObject:ctrl];
-    [self.documents removeObject:doc];
-    [doc removeWindowController:self];
+//    [self.contentViewControllers removeObject:ctrl];
+//    [self.documents removeObject:doc];
+//    [doc removeWindowController:self];
+    
+    [self removeDocument:doc attachedToViewController:ctrl];
     
     mAMultiDocWindowController * newWindowController = [[tabBarControl window] windowController];
     [newWindowController addDocument:doc tabViewItem:tabViewItem];
     [[tabBarControl window] makeKeyAndOrderFront:self];
     [ctrl activate];
     [[tabBarControl window] setDocumentEdited:[doc isDocumentEdited]];
+    
+//    if([self.documents count] == 0)
+//    {
+//        [(miniAudicleController *)[NSDocumentController sharedDocumentController] windowDidCloseForController:self];
+//        [self.window close];
+//    }
 }
 
 - (NSImage *)tabView:(NSTabView *)aTabView imageForTabViewItem:(NSTabViewItem *)tabViewItem offset:(NSSize *)offset styleMask:(unsigned int *)styleMask
@@ -465,6 +498,12 @@
 	[[newWindowController tabBar] setStyle:style];
 	
 	return [newWindowController tabBar];
+}
+
+- (void)tabView:(NSTabView *)aTabView closeWindowForLastTabViewItem:(NSTabViewItem *)tabViewItem
+{
+    [(miniAudicleController *)[NSDocumentController sharedDocumentController] windowDidCloseForController:self];
+    [self.window close];
 }
 
 

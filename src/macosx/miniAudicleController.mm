@@ -356,19 +356,17 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     [super addDocument:doc];
 }
 
-- (void)removeDocument:(NSDocument *)doc
+- (void)removeDocument:(NSDocument *)_doc
 {
+    miniAudicleDocument * doc = (miniAudicleDocument *)_doc;
     [super removeDocument:doc];
 
     [madv removeObject:doc];
     
-    mAMultiDocWindowController * windowController = (mAMultiDocWindowController *)[(miniAudicleDocument *)doc windowController];
+    mAMultiDocWindowController * windowController = (mAMultiDocWindowController *)[doc windowController];
+    mADocumentViewController * viewController = doc.viewController;
     [windowController removeDocument:doc];
-    if([windowController numberOfTabs] == 0)
-    {
-        [self windowDidCloseForController:windowController];
-        [[windowController window] close];
-    }
+    [viewController setDocument:nil];
 }
 
 
