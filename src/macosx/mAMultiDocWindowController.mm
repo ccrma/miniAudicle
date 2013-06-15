@@ -491,49 +491,6 @@
 
 #pragma mark NSWindowDelegate
 
-// Each document needs to be detached from the window controller before the window closes.
-// In addition, any references to those documents from any child view controllers will also
-// need to be cleared in order to ensure a proper cleanup.
-// The windowWillClose: method does just that. One caveat found during debugging was that the
-// window controller’s self pointer may become invalidated at any time within the method as
-// soon as nothing else refers to it (using ARC). Since we’re disconnecting references to
-// documents, there have been cases where the window controller got deallocated mid-way of
-// cleanup. To prevent that, I’ve added a strong pointer to self and use that pointer exclusively
-// in the windowWillClose: method.
-- (void)windowWillClose:(NSNotification *)notification
-{
-    NSWindow * window = self.window;
-    if (notification.object != window) {
-        return;
-    }
-    
-    // all documents should be closed by this point anyways
-    // SPENCERTODO: check this, then remove dead code
-    
-    // let's keep a reference to ourself and not have us thrown away while we clear out references.
-    // uhh this doesn't work without ARC ... -spencer
-    mAMultiDocWindowController* me = self;
-
-    // detach the view controllers from the document first
-    for (NSViewController* ctrl in me.contentViewControllers) {
-        [ctrl.view removeFromSuperview];
-        if ([ctrl respondsToSelector:@selector(setDocument:)]) {
-            [(id) ctrl setDocument:nil];
-            [ctrl release];
-        }
-    }
-    
-    // then any content view
-    [window setContentView:nil];
-    [me.contentViewControllers removeAllObjects];
-       
-    // disassociate this window controller from the document
-    for (NSDocument* doc in me.documents) {
-        [doc removeWindowController:me];
-    }
-    [me.documents removeAllObjects];
-}
-
 - (void)windowDidBecomeMain:(NSNotification *)notification
 {
     CGFloat colors[] = { 175.0/255.0, 175.0/255.0, 175.0/255.0, 1.0 };
