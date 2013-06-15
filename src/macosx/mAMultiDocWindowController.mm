@@ -105,6 +105,10 @@
     _documents = nil;
     [_contentViewControllers release];
     _contentViewControllers = nil;
+
+    tabView = nil;
+    tabBar = nil;
+    _toolbar = nil;
     
     [super dealloc];
 }
@@ -240,9 +244,7 @@
         return;
     
     // remove the document's view controller and view
-//    [ctrl.view removeFromSuperview];
     [(id)ctrl setWindowController:nil];
-//    [ctrl release];
     
     // remove the view from the tab item
     // dont remove the tab view item from the tab view, as this is handled by the framework (when
@@ -263,16 +265,6 @@
     if(docToRemove.windowController == self)
         [docToRemove setWindowController:nil];
     [documents removeObject:docToRemove];
-    
-//    if([self.documents count] == 0)
-//    {
-//        [(miniAudicleController *)[NSDocumentController sharedDocumentController] windowDidCloseForController:self];
-//        // close after this iteration of the run-loop to prevent drag-n-drop
-//        // handling from freaking out
-//        [self.window performSelector:@selector(close)
-//                          withObject:nil
-//                          afterDelay:0.001];
-//    }
 }
 
 - (void)document:(NSDocument *)doc wasEdited:(BOOL)edited;
@@ -407,10 +399,6 @@
     [[ctrl retain] autorelease];
     [[doc retain] autorelease];
 
-//    [self.contentViewControllers removeObject:ctrl];
-//    [self.documents removeObject:doc];
-//    [doc removeWindowController:self];
-    
     [self removeDocument:doc attachedToViewController:ctrl];
     
     mAMultiDocWindowController * newWindowController = [[tabBarControl window] windowController];
@@ -418,12 +406,6 @@
     [[tabBarControl window] makeKeyAndOrderFront:self];
     [ctrl activate];
     [[tabBarControl window] setDocumentEdited:[doc isDocumentEdited]];
-    
-//    if([self.documents count] == 0)
-//    {
-//        [(miniAudicleController *)[NSDocumentController sharedDocumentController] windowDidCloseForController:self];
-//        [self.window close];
-//    }
 }
 
 - (NSImage *)tabView:(NSTabView *)aTabView imageForTabViewItem:(NSTabViewItem *)tabViewItem offset:(NSSize *)offset styleMask:(unsigned int *)styleMask
