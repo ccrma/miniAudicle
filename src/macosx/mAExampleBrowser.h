@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface mAExampleBrowser : NSWindowController <NSBrowserDelegate, NSWindowDelegate, NSUserInterfaceValidations>
+@interface mAExampleBrowser : NSWindowController <NSBrowserDelegate, NSWindowDelegate>
 {
     IBOutlet NSBrowser * _browser;
     IBOutlet NSButton * _openButton;
@@ -16,5 +16,6 @@
 
 - (IBAction)open:(id)sender;
 - (IBAction)cancel:(id)sender;
+- (IBAction)select:(id)sender;
 
 @end

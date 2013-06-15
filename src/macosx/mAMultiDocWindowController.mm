@@ -599,7 +599,7 @@
 
 - (void)flagsChanged:(NSEvent *)theEvent
 {
-    if([NSEvent modifierFlags] & NSAlternateKeyMask)
+    if([theEvent modifierFlags] & NSAlternateKeyMask)
     {
         [_addShredToolbarItem setLabel:@"Add Tabs "];
         [_replaceShredToolbarItem setLabel:@"Replace Tabs "];
@@ -666,6 +666,7 @@
 
 - (void)add:(id)sender
 {
+    // SPENCERTODO: modifierFlags is apparently 10.6 only
     if([NSEvent modifierFlags] & NSAlternateKeyMask)
     {
         for(mADocumentViewController *vc in self.contentViewControllers)
@@ -681,6 +682,7 @@
 
 - (void)remove:(id)sender
 {
+    // SPENCERTODO: modifierFlags is apparently 10.6 only
     if([NSEvent modifierFlags] & NSAlternateKeyMask)
     {
         for(mADocumentViewController *vc in self.contentViewControllers)
@@ -696,6 +698,7 @@
 
 - (void)replace:(id)sender
 {
+    // SPENCERTODO: modifierFlags is apparently 10.6 only
     if([NSEvent modifierFlags] & NSAlternateKeyMask)
     {
         for(mADocumentViewController *vc in self.contentViewControllers)

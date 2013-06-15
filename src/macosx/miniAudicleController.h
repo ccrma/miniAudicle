@@ -111,6 +111,10 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
 // overridden NSDocumentController functions
 - (void)addDocument:(NSDocument *)doc;
 - (void)removeDocument:(NSDocument *)doc;
+- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL
+                            display:(BOOL)displayDocument
+                              error:(NSError **)outError
+                              inTab:(BOOL)inTab;
 
 // syntax highlighting
 - (IDEKit_LexParser *)syntaxHighlighter;

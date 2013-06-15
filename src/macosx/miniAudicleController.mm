@@ -401,6 +401,24 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     return r;
 }
 
+- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL
+                            display:(BOOL)displayDocument
+                              error:(NSError **)outError
+                              inTab:(BOOL)inTab
+{
+    _forceDocumentInTab = inTab;
+    _forceDocumentInWindow = !inTab;
+    
+    id r = [self openDocumentWithContentsOfURL:absoluteURL
+                                       display:displayDocument
+                                         error:outError];
+    
+    _forceDocumentInWindow = NO;
+    _forceDocumentInTab = NO;
+    
+    return r;
+}
+
 
 - (BOOL)application:(NSApplication *)theApplication
            openFile:(NSString *)filename

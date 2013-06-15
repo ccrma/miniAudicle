@@ -8,6 +8,7 @@
 
 #import "mAExampleBrowser.h"
 #import "miniAudicleDocument.h"
+#import "miniAudicleController.h"
 
 
 @interface NSFileManager (isDirectory)
@@ -56,29 +57,28 @@
     
     [_browser setDoubleAction:@selector(open:)];
     [_browser setTarget:self];
+    [_openButton setEnabled:NO];
 }
 
-//- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)item
-//{
-//    if(item == (id)_openButton)
-//    {
-//        [_openButton setEnabled:[[_browser selectedCells] count] > 0];
-//        
-//        if([NSEvent modifierFlags] & NSAlternateKeyMask)
-//            [_openButton setTitle:@"Open in Tabs"];
-//        else
-//            [_openButton setTitle:@"Open"];
-//    }
-//    
-//    return YES;
-//}
+- (void)flagsChanged:(NSEvent *)theEvent
+{
+//    if([theEvent modifierFlags] & NSAlternateKeyMask)
+//        [_openButton setTitle:@"Open in Tab"];
+//    else
+//        [_openButton setTitle:@"Open"];
+    
+    [super flagsChanged:theEvent];
+}
 
 
 #pragma mark NSWindowDelegate
 
 - (void)windowWillClose:(NSNotification *)notification
 {
+    // clear selection
     [_browser selectRowIndexes:[NSIndexSet indexSet] inColumn:[_browser selectedColumn]];
+    // disable open button
+    [_openButton setEnabled:NO];
 }
 
 
@@ -89,13 +89,28 @@
     NSString * examplePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"examples"];
     NSString * columnPath = [examplePath stringByAppendingFormat:@"/%@", [_browser pathToColumn:[_browser selectedColumn]]];
     
+    BOOL inTab = [NSEvent modifierFlags] & NSAlternateKeyMask;
+    miniAudicleController * controller = (miniAudicleController *)[NSDocumentController sharedDocumentController];
+    
     for(NSBrowserCell * cell in [_browser selectedCells])
     {
         NSString * filePath = [columnPath stringByAppendingPathComponent:[cell title]];
-        miniAudicleDocument * doc = [[NSDocumentController sharedDocumentController]
-                                     openDocumentWithContentsOfURL:[NSURL fileURLWithPath:filePath]
-                                     display:YES
-                                     error:nil];
+        miniAudicleDocument * doc;
+        
+//        if(inTab)
+//        {
+//            doc = [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:filePath]
+//                                                    display:YES
+//                                                      error:nil
+//                                                      inTab:YES];
+//        }
+//        else
+        {
+            doc = [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:filePath]
+                                                    display:YES
+                                                      error:nil];
+        }
+        
         doc.readOnly = YES;
     }
     
@@ -105,6 +120,22 @@
 - (IBAction)cancel:(id)sender
 {
     [self.window close];
+}
+
+- (IBAction)select:(id)sender
+{
+    BOOL enable = NO;
+    
+    for(NSBrowserCell * cell in [_browser selectedCells])
+    {
+        if([cell isLeaf])
+        {
+            enable = YES;
+            break;
+        }
+    }
+    
+    [_openButton setEnabled:enable];
 }
 
 
