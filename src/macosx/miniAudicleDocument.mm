@@ -63,6 +63,7 @@ U.S.A.
 @synthesize data;
 @synthesize viewController = _viewController;
 @synthesize windowController = _windowController;
+@synthesize readOnly;
 
 @synthesize exportTask, exportProgress;
 
@@ -79,8 +80,10 @@ U.S.A.
         
         has_customized_appearance = NO;
         
-        fsEventsWatcher = [UKFSEventsWatcher new];
-        fsEventsWatcher.delegate = self;
+//        fsEventsWatcher = [UKFSEventsWatcher new];
+//        fsEventsWatcher.delegate = self;
+        
+        self.readOnly = NO;
     }
     
     return self;
@@ -106,7 +109,7 @@ U.S.A.
     [_viewController release];
     _viewController = nil;
     
-    [fsEventsWatcher release];
+//    [fsEventsWatcher release];
     
     [super dealloc];
 }
@@ -146,6 +149,53 @@ U.S.A.
     return ctrl;
 }
 
+- (void)saveDocument:(id)sender
+{
+    if(self.readOnly)
+    {
+        NSAlert * alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"The document '%@' is read-only.",
+                                                         [self displayName]]
+                                          defaultButton:@"Save As..."
+                                        alternateButton:@"Cancel"
+                                            otherButton:nil
+                              informativeTextWithFormat:@"Click Save As to save the document to a different file. Click Cancel to cancel the save operation."];
+        
+        [alert beginSheetModalForWindow:[_windowController window]
+                          modalDelegate:self
+                         didEndSelector:@selector(documentIsReadOnlyAlertEnded:returnCode:contextInfo:)
+                            contextInfo:nil];
+    }
+    else
+    {
+        [super saveDocument:sender];
+    }
+}
+
+- (void)documentIsReadOnlyAlertEnded:(NSAlert *)alert
+                          returnCode:(NSInteger)returnCode
+                         contextInfo:(void *)contextInfo
+{
+    if(returnCode == NSAlertDefaultReturn)
+    {
+        [[alert window] close];
+        
+        [self saveDocumentAs:self];
+    }
+    else if(returnCode == NSAlertAlternateReturn)
+    {
+    }
+}
+
+- (BOOL)prepareSavePanel:(NSSavePanel *)savePanel
+{
+    BOOL r = [super prepareSavePanel:savePanel];
+    
+    if(self.readOnly)
+        savePanel.directory = NSHomeDirectory();
+    
+    return r;
+}
+
 - (NSData *)dataRepresentationOfType:(NSString *)type
 {
     return [[_viewController content] dataUsingEncoding:NSASCIIStringEncoding
@@ -164,8 +214,8 @@ U.S.A.
 {
     [super setFileURL:url];
     
-    [fsEventsWatcher removeAllPaths];
-    [fsEventsWatcher addPath:[url path]];
+//    [fsEventsWatcher removeAllPaths];
+//    [fsEventsWatcher addPath:[url path]];
 }
 
 - (BOOL)isEmpty
@@ -199,6 +249,11 @@ U.S.A.
 //{
 //    objc_msgSend(delegate, shouldCloseSelector, self, YES, contextInfo);
 //}
+
+- (NSWindow * )windowForSheet
+{
+    return _windowController.window;
+}
 
 
 - (void)setMiniAudicle:(miniAudicle *)t_ma

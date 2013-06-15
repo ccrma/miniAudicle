@@ -271,7 +271,7 @@
 		09B66B571768D69100A07ADF /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09216C09134ED4A900145064 /* MultitouchSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		09B66B5A1768D6D700A07ADF /* chuck in Resources */ = {isa = PBXBuildFile; fileRef = 09805FE70AA10D0C00915136 /* chuck */; };
 		09B66B5D1769A5CD00A07ADF /* examples in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B5C1769A5CD00A07ADF /* examples */; };
-		09B66B621769A65C00A07ADF /* mAExampleBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B66B601769A65B00A07ADF /* mAExampleBrowser.m */; };
+		09B66B621769A65C00A07ADF /* mAExampleBrowser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09B66B601769A65B00A07ADF /* mAExampleBrowser.mm */; };
 		09B66B631769A65C00A07ADF /* mAExampleBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B611769A65B00A07ADF /* mAExampleBrowser.xib */; };
 		09B66B651769DA9200A07ADF /* ckmini.png in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B641769DA9200A07ADF /* ckmini.png */; };
 		09D00B8414A3C4010019CD09 /* TitleEditView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */; };
@@ -679,7 +679,7 @@
 		09B66B551768AD5C00A07ADF /* mAExportProgressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = mAExportProgressViewController.m; path = macosx/mAExportProgressViewController.m; sourceTree = "<group>"; };
 		09B66B5C1769A5CD00A07ADF /* examples */ = {isa = PBXFileReference; lastKnownFileType = folder; name = examples; path = chuck/src/examples; sourceTree = "<group>"; };
 		09B66B5F1769A65B00A07ADF /* mAExampleBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAExampleBrowser.h; path = macosx/mAExampleBrowser.h; sourceTree = "<group>"; };
-		09B66B601769A65B00A07ADF /* mAExampleBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = mAExampleBrowser.m; path = macosx/mAExampleBrowser.m; sourceTree = "<group>"; };
+		09B66B601769A65B00A07ADF /* mAExampleBrowser.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAExampleBrowser.mm; path = macosx/mAExampleBrowser.mm; sourceTree = "<group>"; };
 		09B66B611769A65B00A07ADF /* mAExampleBrowser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = mAExampleBrowser.xib; path = macosx/Resources/English.lproj/mAExampleBrowser.xib; sourceTree = "<group>"; };
 		09B66B641769DA9200A07ADF /* ckmini.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ckmini.png; path = macosx/icon/ckmini.png; sourceTree = "<group>"; };
 		09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleEditView_iPad.xib; sourceTree = "<group>"; };
@@ -841,7 +841,7 @@
 				09B66B541768AD5C00A07ADF /* mAExportProgressViewController.h */,
 				09B66B551768AD5C00A07ADF /* mAExportProgressViewController.m */,
 				09B66B5F1769A65B00A07ADF /* mAExampleBrowser.h */,
-				09B66B601769A65B00A07ADF /* mAExampleBrowser.m */,
+				09B66B601769A65B00A07ADF /* mAExampleBrowser.mm */,
 			);
 			name = "miniAudicle OS X";
 			sourceTree = "<group>";
@@ -1769,7 +1769,7 @@
 				09678638173F169E003AB462 /* UKFSEventsWatcher.m in Sources */,
 				09B66B4E1768460C00A07ADF /* mAExportAsViewController.m in Sources */,
 				09B66B561768AD5C00A07ADF /* mAExportProgressViewController.m in Sources */,
-				09B66B621769A65C00A07ADF /* mAExampleBrowser.m in Sources */,
+				09B66B621769A65C00A07ADF /* mAExampleBrowser.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

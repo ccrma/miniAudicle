@@ -7,6 +7,7 @@
 //
 
 #import "mAExampleBrowser.h"
+#import "miniAudicleDocument.h"
 
 
 @interface NSFileManager (isDirectory)
@@ -57,20 +58,20 @@
     [_browser setTarget:self];
 }
 
-- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)item
-{
-    if(item == (id)_openButton)
-    {
-        [_openButton setEnabled:[[_browser selectedCells] count] > 0];
-        
-        if([NSEvent modifierFlags] & NSAlternateKeyMask)
-            [_openButton setTitle:@"Open in Tabs"];
-        else
-            [_openButton setTitle:@"Open"];
-    }
-    
-    return YES;
-}
+//- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)item
+//{
+//    if(item == (id)_openButton)
+//    {
+//        [_openButton setEnabled:[[_browser selectedCells] count] > 0];
+//        
+//        if([NSEvent modifierFlags] & NSAlternateKeyMask)
+//            [_openButton setTitle:@"Open in Tabs"];
+//        else
+//            [_openButton setTitle:@"Open"];
+//    }
+//    
+//    return YES;
+//}
 
 
 #pragma mark NSWindowDelegate
@@ -91,9 +92,11 @@
     for(NSBrowserCell * cell in [_browser selectedCells])
     {
         NSString * filePath = [columnPath stringByAppendingPathComponent:[cell title]];
-        [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:[NSURL fileURLWithPath:filePath]
-                                                                               display:YES
-                                                                                 error:nil];
+        miniAudicleDocument * doc = [[NSDocumentController sharedDocumentController]
+                                     openDocumentWithContentsOfURL:[NSURL fileURLWithPath:filePath]
+                                     display:YES
+                                     error:nil];
+        doc.readOnly = YES;
     }
     
     [self.window close];
