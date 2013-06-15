@@ -378,12 +378,22 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 {
     NSDocument * docToClose = nil;
     
+    // if the current document is empty, replace it with the opened document
     if([[self currentDocument] isEmpty])
         docToClose = [self currentDocument];
     
-    id r = [super openDocumentWithContentsOfURL:absoluteURL
-                                        display:displayDocument
-                                          error:outError];
+    miniAudicleDocument * r = [super openDocumentWithContentsOfURL:absoluteURL
+                                                           display:displayDocument
+                                                             error:outError];
+    
+    // mark anything in the apps resource path as read-only
+    NSString * resourcePath = [[NSBundle mainBundle] resourcePath];
+    if([[r.fileURL path] compare:resourcePath
+                         options:0
+                           range:NSMakeRange(0, [resourcePath length])] == NSOrderedSame)
+    {
+        r.readOnly = YES;
+    }
     
     if(docToClose && r)
         [docToClose close];
