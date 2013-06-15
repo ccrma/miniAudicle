@@ -349,7 +349,6 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 
 - (void)addDocument:(NSDocument *)doc
 {
-    [doc retain];
     [(miniAudicleDocument *)doc setMiniAudicle:ma];
     [madv addObject:doc];
     

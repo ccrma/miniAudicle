@@ -315,8 +315,8 @@
         
         if([tabView numberOfTabViewItems] == 0)
         {
-            [(miniAudicleController *)[NSDocumentController sharedDocumentController] windowDidCloseForController:self];
             [self.window close];
+            [(miniAudicleController *)[NSDocumentController sharedDocumentController] windowDidCloseForController:self];
         }
     }
 }
@@ -484,8 +484,8 @@
 
 - (void)tabView:(NSTabView *)aTabView closeWindowForLastTabViewItem:(NSTabViewItem *)tabViewItem
 {
-    [(miniAudicleController *)[NSDocumentController sharedDocumentController] windowDidCloseForController:self];
     [self.window close];
+    [(miniAudicleController *)[NSDocumentController sharedDocumentController] windowDidCloseForController:self];
 }
 
 
@@ -507,7 +507,11 @@
         return;
     }
     
+    // all documents should be closed by this point anyways
+    // SPENCERTODO: check this, then remove dead code
+    
     // let's keep a reference to ourself and not have us thrown away while we clear out references.
+    // uhh this doesn't work without ARC ... -spencer
     mAMultiDocWindowController* me = self;
 
     // detach the view controllers from the document first
@@ -584,6 +588,8 @@
             [doc close];
         }
         
+        [(miniAudicleController *)[NSDocumentController sharedDocumentController] windowDidCloseForController:self];
+
         return YES;
     }
 }
@@ -613,7 +619,8 @@
             [doc close];
         }
 
-        [[self window] close];
+        [self.window close];
+        [(miniAudicleController *)[NSDocumentController sharedDocumentController] windowDidCloseForController:self];
     }
 }
 
