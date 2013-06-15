@@ -352,6 +352,8 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     [(miniAudicleDocument *)doc setMiniAudicle:ma];
     [madv addObject:doc];
     
+    //NSLog(@"madv: %@", madv);
+    
     [super addDocument:doc];
 }
 
@@ -361,6 +363,8 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     [super removeDocument:doc];
 
     [madv removeObject:doc];
+    
+    //NSLog(@"madv: %@", madv);
     
     mAMultiDocWindowController * windowController = (mAMultiDocWindowController *)[doc windowController];
     mADocumentViewController * viewController = doc.viewController;

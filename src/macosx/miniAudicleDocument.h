@@ -60,6 +60,10 @@ class miniAudicle;
     BOOL has_customized_appearance;
     
     UKFSEventsWatcher *fsEventsWatcher;
+    
+    NSTask * exportTask;
+    mAExportProgressViewController * exportProgress;
+    BOOL readOnly;
 }
 
 @property (readonly, strong, nonatomic) NSString * data;

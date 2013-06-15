@@ -47,10 +47,6 @@ U.S.A.
 #import <objc/message.h>
 
 @interface miniAudicleDocument ()
-{
-    NSTask * exportTask;
-    mAExportProgressViewController * exportProgress;
-}
 
 @property (nonatomic, strong) NSTask * exportTask;
 @property (nonatomic, strong) mAExportProgressViewController * exportProgress;
