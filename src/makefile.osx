@@ -1,5 +1,5 @@
 
-SHELL:=/bin/bash
+#SHELL:=/bin/bash
 
 ifneq ($(shell sw_vers -productVersion | egrep '10\.[678](\.[0-9]+)?'),)
 SDK=$(shell xcodebuild -sdk macosx -version | grep '^Path:' | sed 's/Path: \(.*\)/\1/')
@@ -175,7 +175,7 @@ OBJS=$(COBJS) $(CXXOBJS) $(OBJCOBJS) $(OBJCXXOBJS)
 
 # example files
 CK_EXAMPLES_DIR=chuck/src/examples
-CK_EXAMPLES=$(shell find $(CK_EXAMPLES_DIR) -type f -exec echo -n {} '' \;)
+CK_EXAMPLES=$(shell find $(CK_EXAMPLES_DIR) -type f -not -name \\\.* -exec echo -n {} '' \;)
 CK_EXAMPLES_IN_BUNDLE=$(patsubst $(CK_EXAMPLES_DIR)/%,$(BIN_DIR)/miniAudicle.app/Contents/Resources/examples/%,$(CK_EXAMPLES))
 
 # place all images in macosx/icon here

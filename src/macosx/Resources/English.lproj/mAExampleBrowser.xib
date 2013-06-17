@@ -73,7 +73,7 @@
 							<int key="NSMinColumnWidth">100</int>
 							<int key="NSNumberOfVisibleColumns">3</int>
 							<int key="NSColumnResizingType">2</int>
-							<double key="NSPreferedColumnWidth">188</double>
+							<double key="NSPreferedColumnWidth">278</double>
 							<bool key="NSAllowsTypeSelect">YES</bool>
 							<int key="NSBrFlags">-1946075134</int>
 							<double key="NSBrowserRowHeight">17</double>
@@ -136,6 +136,7 @@
 							<string key="NSFrame">{{17, 363}, {175, 17}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="397373941"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="178034592">
@@ -169,7 +170,7 @@
 					<string key="NSFrameSize">{600, 400}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
-					<reference key="NSNextKeyView" ref="397373941"/>
+					<reference key="NSNextKeyView" ref="383313838"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
