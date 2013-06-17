@@ -71,7 +71,7 @@ endif
 CFLAGSDEPEND?=$(patsubst -arch %,,$(CFLAGS))
 
 # distribution target presets
-VERSION?=0.2.3-beta-7
+VERSION?=0.2.3-beta-8
 
 DIST_DIR=miniAudicle-$(VERSION)
 
