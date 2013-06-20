@@ -100,6 +100,7 @@ using namespace std;
         BOOL esi = [text_view smartIndentationEnabled];
         [text_view setSmartIndentationEnabled:NO];
         [[text_view textView] setString:self.document.data];
+        [[text_view textView] setSelectedRange:NSMakeRange(0, 0)];
         [text_view setSmartIndentationEnabled:esi];
     }
     
@@ -148,6 +149,7 @@ using namespace std;
     BOOL esi = [text_view smartIndentationEnabled];
     [text_view setSmartIndentationEnabled:NO];
     [[text_view textView] setString:_content];
+    [[text_view textView] setSelectedRange:NSMakeRange(0, 0)];
     [text_view setSmartIndentationEnabled:esi];
 }
 

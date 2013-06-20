@@ -9,6 +9,10 @@
 #import <Cocoa/Cocoa.h>
 
 @interface mAExportAsViewController : NSViewController
+{
+    BOOL limitDuration;
+    CGFloat duration;
+}
 
 @property (nonatomic) BOOL limitDuration;
 @property (nonatomic) CGFloat duration;

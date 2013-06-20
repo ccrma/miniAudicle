@@ -349,26 +349,27 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 
 - (void)addDocument:(NSDocument *)doc
 {
-    [doc retain];
     [(miniAudicleDocument *)doc setMiniAudicle:ma];
     [madv addObject:doc];
+    
+    //NSLog(@"madv: %@", madv);
     
     [super addDocument:doc];
 }
 
-- (void)removeDocument:(NSDocument *)doc
+- (void)removeDocument:(NSDocument *)_doc
 {
+    miniAudicleDocument * doc = (miniAudicleDocument *)_doc;
     [super removeDocument:doc];
 
     [madv removeObject:doc];
     
-    mAMultiDocWindowController * windowController = (mAMultiDocWindowController *)[(miniAudicleDocument *)doc windowController];
+    //NSLog(@"madv: %@", madv);
+    
+    mAMultiDocWindowController * windowController = (mAMultiDocWindowController *)[doc windowController];
+    mADocumentViewController * viewController = doc.viewController;
     [windowController removeDocument:doc];
-    if([windowController numberOfTabs] == 0)
-    {
-        [self windowDidCloseForController:windowController];
-        [[windowController window] close];
-    }
+    [viewController setDocument:nil];
 }
 
 
@@ -378,15 +379,43 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 {
     NSDocument * docToClose = nil;
     
+    // if the current document is empty, replace it with the opened document
     if([[self currentDocument] isEmpty])
         docToClose = [self currentDocument];
     
-    id r = [super openDocumentWithContentsOfURL:absoluteURL
-                                        display:displayDocument
-                                          error:outError];
+    miniAudicleDocument * r = [super openDocumentWithContentsOfURL:absoluteURL
+                                                           display:displayDocument
+                                                             error:outError];
+    
+    // mark anything in the apps resource path as read-only
+    NSString * resourcePath = [[NSBundle mainBundle] resourcePath];
+    if([[r.fileURL path] compare:resourcePath
+                         options:0
+                           range:NSMakeRange(0, [resourcePath length])] == NSOrderedSame)
+    {
+        r.readOnly = YES;
+    }
     
     if(docToClose && r)
         [docToClose close];
+    
+    return r;
+}
+
+- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL
+                            display:(BOOL)displayDocument
+                              error:(NSError **)outError
+                              inTab:(BOOL)inTab
+{
+    _forceDocumentInTab = inTab;
+    _forceDocumentInWindow = !inTab;
+    
+    id r = [self openDocumentWithContentsOfURL:absoluteURL
+                                       display:displayDocument
+                                         error:outError];
+    
+    _forceDocumentInWindow = NO;
+    _forceDocumentInTab = NO;
     
     return r;
 }

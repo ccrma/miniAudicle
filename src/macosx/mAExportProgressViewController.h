@@ -17,6 +17,8 @@
 @interface mAExportProgressViewController : NSWindowController
 {
     IBOutlet NSProgressIndicator * progressIndicator;
+    
+    id<mAExportProgressDelegate> delegate;
 }
 
 @property (nonatomic, assign) id<mAExportProgressDelegate> delegate;
