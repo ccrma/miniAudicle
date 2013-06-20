@@ -43,7 +43,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I ".\\" /I "wxw\\" /I "chuck" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WINDOWS_DS__" /D "__PLATFORM_WIN32__" /FR /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I ".\\" /I "wxw\\" /I "chuck\\src" /I "chuck\\src\\RtAudio" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WINDOWS_DS__" /D "__PLATFORM_WIN32__" /FR /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -69,7 +69,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I ".\\" /I "wxw\\" /I "chuck" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WINDOWS_DS__" /D "__PLATFORM_WIN32__" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I ".\\" /I "wxw\\" /I "chuck\\src" /I "chuck\\src\\RtAudio" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WINDOWS_DS__" /D "__PLATFORM_WIN32__" /FR /YX /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
@@ -95,205 +95,209 @@ LINK32=link.exe
 # PROP Default_Filter "cpp c"
 # Begin Source File
 
-SOURCE=chuck\chuck_absyn.cpp
+SOURCE=chuck\src\chuck_absyn.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_bbq.cpp
+SOURCE=chuck\src\chuck_bbq.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_compile.cpp
+SOURCE=chuck\src\chuck_compile.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_console.cpp
+SOURCE=chuck\src\chuck_console.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_dl.cpp
+SOURCE=chuck\src\chuck_dl.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_emit.cpp
+SOURCE=chuck\src\chuck_emit.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_errmsg.cpp
+SOURCE=chuck\src\chuck_errmsg.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_frame.cpp
+SOURCE=chuck\src\chuck_frame.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_globals.cpp
+SOURCE=chuck\src\chuck_globals.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_instr.cpp
+SOURCE=chuck\src\chuck_instr.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_lang.cpp
+SOURCE=chuck\src\chuck_lang.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_oo.cpp
+SOURCE=chuck\src\chuck_oo.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_otf.cpp
+SOURCE=chuck\src\chuck_otf.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_parse.cpp
+SOURCE=chuck\src\chuck_parse.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_scan.cpp
+SOURCE=chuck\src\chuck_scan.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_shell.cpp
+SOURCE=chuck\src\chuck_shell.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_stats.cpp
+SOURCE=chuck\src\chuck_stats.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_symbol.cpp
+SOURCE=chuck\src\chuck_symbol.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_table.cpp
+SOURCE=chuck\src\chuck_table.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_type.cpp
+SOURCE=chuck\src\chuck_type.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_ugen.cpp
+SOURCE=chuck\src\chuck_ugen.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_utils.cpp
+SOURCE=chuck\src\chuck_utils.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_vm.cpp
+SOURCE=chuck\src\chuck_vm.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_win32.c
+SOURCE=chuck\src\chuck_win32.c
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\digiio_rtaudio.cpp
+SOURCE=chuck\src\digiio_rtaudio.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\hidio_sdl.cpp
+SOURCE=chuck\src\hidio_sdl.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\midiio_rtmidi.cpp
+SOURCE=chuck\src\midiio_rtmidi.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\chuck\RtAudio\RtAudio.cpp
+SOURCE=chuck\src\RtAudio\RtAudio.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\rtmidi.cpp
+SOURCE=chuck\src\rtmidi.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\uana_extract.cpp
+SOURCE=chuck\src\uana_extract.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\uana_xform.cpp
+SOURCE=chuck\src\uana_xform.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\ugen_filter.cpp
+SOURCE=chuck\src\ugen_filter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\ugen_osc.cpp
+SOURCE=chuck\src\ugen_osc.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\ugen_stk.cpp
+SOURCE=chuck\src\ugen_stk.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\ugen_xxx.cpp
+SOURCE=chuck\src\ugen_xxx.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\ulib_machine.cpp
+SOURCE=chuck\src\ulib_machine.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\ulib_math.cpp
+SOURCE=chuck\src\ulib_math.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\ulib_opsc.cpp
+SOURCE=chuck\src\ulib_opsc.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\ulib_std.cpp
+SOURCE=chuck\src\ulib_std.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_buffers.cpp
+SOURCE=chuck\src\util_buffers.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_console.cpp
+SOURCE=chuck\src\util_console.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_hid.cpp
+SOURCE=chuck\src\util_hid.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_math.c
+SOURCE=chuck\src\util_math.c
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_network.c
+SOURCE=chuck\src\util_network.c
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_opsc.cpp
+SOURCE=chuck\src\util_opsc.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_raw.c
+SOURCE=chuck\src\util_raw.c
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_sndfile.c
+SOURCE=chuck\src\util_sndfile.c
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_string.cpp
+SOURCE=chuck\src\util_string.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_thread.cpp
+SOURCE=chuck\src\util_thread.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_xforms.c
+SOURCE=chuck\src\util_xforms.c
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=.\chuck\src\chuck_io.cpp
+# End Source File
 # Begin Source File
 
 SOURCE=.\wxw\mAConfig.cpp
@@ -342,6 +346,10 @@ SOURCE=.\miniAudicle_import.cpp
 
 SOURCE=.\miniAudicle_ui_elements.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=.\chuck\src\util_serial.cpp
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
@@ -351,245 +359,249 @@ SOURCE=.\miniAudicle_ui_elements.cpp
 # PROP Default_Filter "h"
 # Begin Source File
 
-SOURCE=chuck\chuck.tab.h
+SOURCE=chuck\src\chuck.tab.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_absyn.h
+SOURCE=chuck\src\chuck_absyn.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_bbq.h
+SOURCE=chuck\src\chuck_bbq.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_compile.h
+SOURCE=chuck\src\chuck_compile.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_console.h
+SOURCE=chuck\src\chuck_console.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_def.h
+SOURCE=chuck\src\chuck_def.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_dl.h
+SOURCE=chuck\src\chuck_dl.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_emit.h
+SOURCE=chuck\src\chuck_emit.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_errmsg.h
+SOURCE=chuck\src\chuck_errmsg.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_frame.h
+SOURCE=chuck\src\chuck_frame.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_globals.h
+SOURCE=chuck\src\chuck_globals.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_instr.h
+SOURCE=chuck\src\chuck_instr.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_lang.h
+SOURCE=chuck\src\chuck_lang.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_oo.h
+SOURCE=chuck\src\chuck_oo.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_otf.h
+SOURCE=chuck\src\chuck_otf.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_parse.h
+SOURCE=chuck\src\chuck_parse.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_scan.h
+SOURCE=chuck\src\chuck_scan.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_shell.h
+SOURCE=chuck\src\chuck_shell.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_stats.h
+SOURCE=chuck\src\chuck_stats.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_symbol.h
+SOURCE=chuck\src\chuck_symbol.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_table.h
+SOURCE=chuck\src\chuck_table.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_type.h
+SOURCE=chuck\src\chuck_type.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_ugen.h
+SOURCE=chuck\src\chuck_ugen.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_utils.h
+SOURCE=chuck\src\chuck_utils.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_vm.h
+SOURCE=chuck\src\chuck_vm.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\chuck_win32.h
+SOURCE=chuck\src\chuck_win32.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\digiio_rtaudio.h
+SOURCE=chuck\src\digiio_rtaudio.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\hidio_sdl.h
+SOURCE=chuck\src\hidio_sdl.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\midiio_alsa.h
+SOURCE=chuck\src\midiio_alsa.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\midiio_oss.h
+SOURCE=chuck\src\midiio_oss.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\midiio_osx.h
+SOURCE=chuck\src\midiio_osx.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\midiio_rtmidi.h
+SOURCE=chuck\src\midiio_rtmidi.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\midiio_win32.h
+SOURCE=chuck\src\midiio_win32.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\rtaudio.h
+SOURCE=chuck\src\RtAudio\RtAudio.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\rterror.h
+SOURCE=chuck\src\rterror.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\rtmidi.h
+SOURCE=chuck\src\rtmidi.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\skini.h
+SOURCE=chuck\src\skini.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\skiniio_skini.h
+SOURCE=chuck\src\skiniio_skini.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\uana_extract.h
+SOURCE=chuck\src\uana_extract.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\uana_xform.h
+SOURCE=chuck\src\uana_xform.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\ugen_filter.h
+SOURCE=chuck\src\ugen_filter.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\ugen_osc.h
+SOURCE=chuck\src\ugen_osc.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\ugen_stk.h
+SOURCE=chuck\src\ugen_stk.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\ugen_xxx.h
+SOURCE=chuck\src\ugen_xxx.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\ulib_machine.h
+SOURCE=chuck\src\ulib_machine.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\ulib_math.h
+SOURCE=chuck\src\ulib_math.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\ulib_net.h
+SOURCE=chuck\src\ulib_net.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\ulib_opsc.h
+SOURCE=chuck\src\ulib_opsc.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\ulib_std.h
+SOURCE=chuck\src\ulib_std.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_buffers.h
+SOURCE=chuck\src\util_buffers.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_console.h
+SOURCE=chuck\src\util_console.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_hid.h
+SOURCE=chuck\src\util_hid.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_math.h
+SOURCE=chuck\src\util_math.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_network.h
+SOURCE=chuck\src\util_network.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_opsc.h
+SOURCE=chuck\src\util_opsc.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_raw.h
+SOURCE=chuck\src\util_raw.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_sndfile.h
+SOURCE=chuck\src\util_sndfile.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_string.h
+SOURCE=chuck\src\util_string.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_thread.h
+SOURCE=chuck\src\util_thread.h
 # End Source File
 # Begin Source File
 
-SOURCE=chuck\util_xforms.h
+SOURCE=chuck\src\util_xforms.h
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=.\chuck\src\chuck_io.h
+# End Source File
 # Begin Source File
 
 SOURCE=.\wxw\mAConfig.h
@@ -637,6 +649,10 @@ SOURCE=.\miniAudicle_import.h
 # Begin Source File
 
 SOURCE=.\miniAudicle_ui_elements.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\chuck\src\util_serial.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
