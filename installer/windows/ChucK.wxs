@@ -23,6 +23,7 @@
             <Directory Id="bin" Name="bin">
               <Component Id='chuckEXE' Guid='5CFBE8C7-8F1F-4b34-AEB5-691125C5C871'>
                 <File Id='chuckEXE' Name='chuck.exe' DiskId='1' Source='chuck.exe' KeyPath='yes' />
+                <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]/bin" Permanent="no" Part="last" Action="set" System="yes" />
               </Component>
             </Directory>
             <Directory Id="chugins" Name="chugins">
