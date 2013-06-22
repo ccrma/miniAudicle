@@ -71,9 +71,9 @@
 							</object>
 							<string key="NSPathSeparator">/</string>
 							<int key="NSMinColumnWidth">100</int>
-							<int key="NSNumberOfVisibleColumns">3</int>
+							<int key="NSNumberOfVisibleColumns">2</int>
 							<int key="NSColumnResizingType">2</int>
-							<double key="NSPreferedColumnWidth">278</double>
+							<double key="NSPreferedColumnWidth">185</double>
 							<bool key="NSAllowsTypeSelect">YES</bool>
 							<int key="NSBrFlags">-1946075134</int>
 							<double key="NSBrowserRowHeight">17</double>

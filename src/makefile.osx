@@ -308,15 +308,15 @@ dist: miniAudicle
 	mkdir $(DIST_DIR)
 	mkdir $(DIST_DIR)/documentation
 	mkdir $(DIST_DIR)/documentation/images
-	mkdir $(DIST_DIR)/documentation/examples
-	mkdir $(DIST_DIR)/documentation/examples/ui
-	ln -s documentation/examples $(DIST_DIR)/
+#	mkdir $(DIST_DIR)/documentation/examples
+#	mkdir $(DIST_DIR)/documentation/examples/ui
+#	ln -s documentation/examples $(DIST_DIR)/
 	cp -a $(BIN_DIR)/miniAudicle.app $(NOTES) $(DIST_DIR)/
 #	strip -u -r $(DIST_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle
 	cp -r $(DOCS) $(DIST_DIR)/documentation/
 	cp -r $(DOC_IMAGES) $(DIST_DIR)/documentation/images/
-	cp -r $(EXAMPLES) $(DIST_DIR)/documentation/examples/ui
-	cp -r $(CHUCK_SRC_DIR)/examples/* $(DIST_DIR)/documentation/examples/
+#	cp -r $(EXAMPLES) $(DIST_DIR)/documentation/examples/ui
+#	cp -r $(CHUCK_SRC_DIR)/examples/* $(DIST_DIR)/documentation/examples/
 #	make -C $(CHUCK_MANUAL_DIR) > /dev/null
 	cp -r $(CHUCK_MANUAL) $(DIST_DIR)/documentation/
 	rm -rf `find $(DIST_DIR)/ -name .DS_Store` `find $(DIST_DIR)/ -name .svn`
