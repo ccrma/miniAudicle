@@ -8,8 +8,7 @@
       Comments='ChucK is a programming language for real-time computer music and digital signal processing.' Manufacturer='Stanford University CCRMA'
       InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
 
-    <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
-    <Property Id='DiskPrompt' Value="Acme's Foobar 1.0 Installation [1]" />
+    <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder' Name='PFiles'>
@@ -20,6 +19,29 @@
                 <Shortcut Id="startmenuMiniAudicle" Directory="ProgramMenuDir" Name="miniAudicle" WorkingDirectory='INSTALLDIR' Icon="miniAudicle.exe" IconIndex="0" Advertise="yes" />
               </File>
             </Component>
+            
+            <Directory Id="bin" Name="bin">
+              <Component Id='chuckEXE' Guid='5CFBE8C7-8F1F-4b34-AEB5-691125C5C871'>
+                <File Id='chuckEXE' Name='chuck.exe' DiskId='1' Source='chuck.exe' KeyPath='yes' />
+              </Component>
+            </Directory>
+            <Directory Id="chugins" Name="chugins">
+              <Component Id='ABSaturator' Guid='6A3BEC65-62B0-49bf-81BB-9B36D2FF02B1'>
+                <File Id='ABSaturator' Name='ABSaturator.chug' DiskId='1' Source='ABSaturator.chug' KeyPath='yes' />
+              </Component>
+              <Component Id='Bitcrusher' Guid='19FEF87A-4399-4263-B508-08B6CC8496AA'>
+                <File Id='Bitcrusher' Name='Bitcrusher.chug' DiskId='1' Source='Bitcrusher.chug' KeyPath='yes' />
+              </Component>
+              <Component Id='FIR' Guid='7B688BF5-1974-4fe8-9DB0-E71CB749630D'>
+                <File Id='FIR' Name='FIR.chug' DiskId='1' Source='FIR.chug' KeyPath='yes' />
+              </Component>
+              <Component Id='KasFilter' Guid='8AF0BF3A-E7BC-4e61-A1B4-9F7303175726'>
+                <File Id='KasFilter' Name='KasFilter.chug' DiskId='1' Source='KasFilter.chug' KeyPath='yes' />
+              </Component>
+              <Component Id='PanN' Guid='D5D71D69-B054-4b24-9FD4-D90F34FF97A2'>
+                <File Id='PanN' Name='PanN.chug' DiskId='1' Source='PanN.chug' KeyPath='yes' />
+              </Component>
+            </Directory>
           </Directory>
       </Directory>
 
@@ -39,6 +61,19 @@
       <Feature Id='MainProgram' Title='miniAudicle' Description='miniAudicle is an integrated development environment for the ChucK audio programming language. Highly recommended.' Level='1'>
         <ComponentRef Id='MainExecutable' />
         <ComponentRef Id='ProgramMenuDir' />
+      </Feature>
+      <Feature Id='chuckEXE' Title='chuck.exe' Description='chuck.exe command line executable.' Level='1'>
+        <ComponentRef Id='chuckEXE' />
+      </Feature>
+      <Feature Id='chugins' Title='ChuGins' Description='ChuGins extend the native capabilities of ChucK with additional unit generators.' Level='1'>
+        <ComponentRef Id='ABSaturator' />
+        <ComponentRef Id='Bitcrusher' />
+        <ComponentRef Id='FIR' />
+        <ComponentRef Id='KasFilter' />
+        <ComponentRef Id='PanN' />
+      </Feature>
+      <Feature Id='examples' Title='ChucK examples' Description='Example programs demonstrating the ChucK language.' Level='1'>
+        <ComponentGroupRef Id='examples' />
       </Feature>
     </Feature>
 

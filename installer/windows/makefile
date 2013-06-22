@@ -2,25 +2,33 @@
 MINI_SRC_ROOT=../..
 CHUCK_SRC_ROOT=../../../chuck
 CHUGINS_SRC_ROOT=../../../chugins
+CHUCK_EXAMPLES=../../src/chuck/src/examples
 
 CHUGIN_NAMES=ABSaturator Bitcrusher FIR KasFilter PanN
 CHUGINS=$(addsuffix .chug,$(CHUGIN_NAMES))
-CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/$(CHUG).chug)
+CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/Release/$(CHUG).chug)
 
 default: ChucK.msi
 
-ChucK.msi: ChucK.wxs miniAudicle.exe # chuck $(CHUGINS)
-	candle ChucK.wxs
-	light -ext WixUIExtension ChucK.wixobj
+ChucK.msi: ChucK.wxs examples.wxs miniAudicle.exe chuck.exe $(CHUGINS)
+	candle ChucK.wxs examples.wxs
+	light -ext WixUIExtension -out ChucK.msi ChucK.wixobj examples.wixobj
+
+examples.wxs: examples
+	heat dir examples -gg -dr INSTALLDIR -cg examples -out examples.wxs
+	sed -i 's/SourceDir/examples/g' examples.wxs
+
+examples: ../../src/chuck/src/examples
+	cp -arf $< .
 
 miniAudicle.exe: $(MINI_SRC_ROOT)/src/Release/miniAudicle.exe
 	cp -af $< .
 
-chuck: $(CHUCK_SRC_ROOT)/trunk/src/chuck
+chuck.exe: $(CHUCK_SRC_ROOT)/trunk/src/Release/chuck.exe
 	cp -af $< .
 
 $(CHUGINS): $(CHUGINS_ORIGINAL)
-	cp -af $(CHUGINS_SRC_ROOT)/$(basename $@)/$@  .
+	cp -af $(CHUGINS_SRC_ROOT)/$(basename $@)/Release/$@  .
 
 clean: 
-	rm -rf miniAudicle.exe chuck $(CHUGINS) *.wixobj *.wixpdb *.msi
+	rm -rf miniAudicle.exe chuck $(CHUGINS) *.wixobj *.wixpdb *.msi examples examples.wxs
