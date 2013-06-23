@@ -78,10 +78,14 @@
       </Feature>
     </Feature>
 
-    <UIRef Id="WixUI_Mondo" />
+    <UIRef Id="WixUI_InstallDir" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
     <UIRef Id="WixUI_ErrorProgressText" />
 
-    <Icon Id="miniAudicle.exe" SourceFile="miniAudicle.exe" />
+    <Icon Id="miniAudicle.exe" SourceFile="miniAudicle.exe" />    
+    
+    <WixVariable Id="WixUIDialogBmp" Value="ck_dialog.bmp" />
+    <WixVariable Id="WixUIBannerBmp" Value="ck_banner.bmp" />
 
   </Product>
 </Wix>
