@@ -10,7 +10,7 @@ CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/Rele
 
 default: Install\ ChucK.msi
 
-Install\ ChucK.msi: ChucK.wxs examples.wxs miniAudicle.exe chuck.exe $(CHUGINS) ck_dialog.bmp ck_banner.bmp
+Install\ ChucK.msi: ChucK.wxs examples.wxs miniAudicle.exe chuck.exe $(CHUGINS) ck_dialog.bmp ck_banner.bmp gpl2.rtf
 	candle ChucK.wxs examples.wxs
 	light -ext WixUIExtension -out Install\ ChucK.msi ChucK.wixobj examples.wixobj
 

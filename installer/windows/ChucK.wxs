@@ -86,6 +86,7 @@
     
     <WixVariable Id="WixUIDialogBmp" Value="ck_dialog.bmp" />
     <WixVariable Id="WixUIBannerBmp" Value="ck_banner.bmp" />
+    <WixVariable Id="WixUILicenseRtf" Value="gpl2.rtf" />
 
   </Product>
 </Wix>
