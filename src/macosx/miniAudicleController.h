@@ -44,6 +44,7 @@ class miniAudicle;
 @class miniAudicleDocument;
 @class mARecordSessionController;
 @class mAMultiDocWindowController;
+@class mAExampleBrowser;
 
 extern NSString * const mAVirtualMachineDidTurnOnNotification;
 extern NSString * const mAVirtualMachineDidTurnOffNotification;
@@ -61,6 +62,7 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
     NSTextField * about_text;
     IBOutlet miniAudiclePreferencesController * mapc;
     mARecordSessionController * m_recordSessionController;
+    mAExampleBrowser * _exampleBrowser;
     
     miniAudicleDocument * main_document;
     
@@ -109,6 +111,10 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
 // overridden NSDocumentController functions
 - (void)addDocument:(NSDocument *)doc;
 - (void)removeDocument:(NSDocument *)doc;
+- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL
+                            display:(BOOL)displayDocument
+                              error:(NSError **)outError
+                              inTab:(BOOL)inTab;
 
 // syntax highlighting
 - (IDEKit_LexParser *)syntaxHighlighter;
@@ -120,6 +126,7 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
 - (void)setLastWindowTopLeftCorner:(NSPoint)p;
 
 // UI callbacks
+- (IBAction)openDocumentInTab:(id)sender;
 - (IBAction)newWindow:(id)sender;
 - (IBAction)newTab:(id)sender;
 - (IBAction)addShred:(id)sender;
@@ -148,6 +155,7 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
 - (IBAction)setLockdown:(BOOL)_lockdown;
 - (BOOL)isInLockdown;
 - (IBAction)recordSession:(id)sender;
+- (IBAction)openExample:(id)sender;
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menu_item;
 

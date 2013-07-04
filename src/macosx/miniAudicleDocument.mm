@@ -42,8 +42,16 @@ U.S.A.
 #import "mADocumentViewController.h"
 #import "mAMultiDocWindowController.h"
 #import "UKFSEventsWatcher.h"
+#import "mAExportAsViewController.h"
 
 #import <objc/message.h>
+
+@interface miniAudicleDocument ()
+
+@property (nonatomic, strong) NSTask * exportTask;
+@property (nonatomic, strong) mAExportProgressViewController * exportProgress;
+
+@end
 
 
 @implementation miniAudicleDocument
@@ -51,6 +59,9 @@ U.S.A.
 @synthesize data;
 @synthesize viewController = _viewController;
 @synthesize windowController = _windowController;
+@synthesize readOnly;
+
+@synthesize exportTask, exportProgress;
 
 - (id)init
 {
@@ -65,8 +76,10 @@ U.S.A.
         
         has_customized_appearance = NO;
         
-        fsEventsWatcher = [UKFSEventsWatcher new];
-        fsEventsWatcher.delegate = self;
+//        fsEventsWatcher = [UKFSEventsWatcher new];
+//        fsEventsWatcher.delegate = self;
+        
+        self.readOnly = NO;
     }
     
     return self;
@@ -92,7 +105,7 @@ U.S.A.
     [_viewController release];
     _viewController = nil;
     
-    [fsEventsWatcher release];
+//    [fsEventsWatcher release];
     
     [super dealloc];
 }
@@ -132,6 +145,53 @@ U.S.A.
     return ctrl;
 }
 
+- (void)saveDocument:(id)sender
+{
+    if(self.readOnly)
+    {
+        NSAlert * alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"The document '%@' is read-only.",
+                                                         [self displayName]]
+                                          defaultButton:@"Save As..."
+                                        alternateButton:@"Cancel"
+                                            otherButton:nil
+                              informativeTextWithFormat:@"Click Save As to save the document to a different file. Click Cancel to cancel the save operation."];
+        
+        [alert beginSheetModalForWindow:[_windowController window]
+                          modalDelegate:self
+                         didEndSelector:@selector(documentIsReadOnlyAlertEnded:returnCode:contextInfo:)
+                            contextInfo:nil];
+    }
+    else
+    {
+        [super saveDocument:sender];
+    }
+}
+
+- (void)documentIsReadOnlyAlertEnded:(NSAlert *)alert
+                          returnCode:(NSInteger)returnCode
+                         contextInfo:(void *)contextInfo
+{
+    if(returnCode == NSAlertDefaultReturn)
+    {
+        [[alert window] close];
+        
+        [self saveDocumentAs:self];
+    }
+    else if(returnCode == NSAlertAlternateReturn)
+    {
+    }
+}
+
+- (BOOL)prepareSavePanel:(NSSavePanel *)savePanel
+{
+    BOOL r = [super prepareSavePanel:savePanel];
+    
+    if(self.readOnly)
+        savePanel.directory = NSHomeDirectory();
+    
+    return r;
+}
+
 - (NSData *)dataRepresentationOfType:(NSString *)type
 {
     return [[_viewController content] dataUsingEncoding:NSASCIIStringEncoding
@@ -150,8 +210,8 @@ U.S.A.
 {
     [super setFileURL:url];
     
-    [fsEventsWatcher removeAllPaths];
-    [fsEventsWatcher addPath:[url path]];
+//    [fsEventsWatcher removeAllPaths];
+//    [fsEventsWatcher addPath:[url path]];
 }
 
 - (BOOL)isEmpty
@@ -186,6 +246,11 @@ U.S.A.
 //    objc_msgSend(delegate, shouldCloseSelector, self, YES, contextInfo);
 //}
 
+- (NSWindow * )windowForSheet
+{
+    return _windowController.window;
+}
+
 
 - (void)setMiniAudicle:(miniAudicle *)t_ma
 {
@@ -194,32 +259,144 @@ U.S.A.
 }
 
 
+#pragma mark Exporting
+
+- (IBAction)exportAsWAV:(id)sender
+{
+    NSSavePanel * savePanel = [NSSavePanel savePanel];
+    [savePanel setAllowedFileTypes:@[@"wav"]];
+    [savePanel setTitle:@"Export as WAV"];
+    [savePanel setNameFieldLabel:@"Export to:"];
+    [savePanel setPrompt:@"Export"];
+    
+    NSString * filename;
+    NSString * directory;
+    
+    if([self fileURL] != nil)
+    {
+        filename = [[[[[self fileURL] path] lastPathComponent] stringByDeletingPathExtension] stringByAppendingPathExtension:@"wav"];
+        directory = [[[self fileURL] path] stringByDeletingLastPathComponent];
+    }
+    else
+    {
+        filename = [[self displayName] stringByAppendingPathExtension:@"wav"];
+        directory = [[NSDocumentController sharedDocumentController] currentDirectory];
+    }
+    
+    if([savePanel respondsToSelector:@selector(setNameFieldStringValue:)])
+        [savePanel setNameFieldStringValue:filename];
+    [savePanel setDirectory:directory];
+    
+    [savePanel setExtensionHidden:NO];
+    
+    mAExportAsViewController * viewController = [[mAExportAsViewController alloc] initWithNibName:@"mAExportAs" bundle:nil];
+    [savePanel setAccessoryView:viewController.view];
+
+//    [[NSApplication sharedApplication] beginSheet:savePanel
+//                                   modalForWindow:[self.windowController window]
+//                                    modalDelegate:self
+//                                   didEndSelector:@selector(didEndExportSheet:returnCode:contextInfo:)
+//                                      contextInfo:viewController];
+    
+    [savePanel beginSheetForDirectory:directory
+                                 file:filename
+                       modalForWindow:[self.windowController window]
+                        modalDelegate:self
+                       didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:)
+                          contextInfo:viewController];
+}
+
+- (void)savePanelDidEnd:(NSSavePanel *)sheet
+             returnCode:(int)returnCode
+            contextInfo:(void *)contextInfo;
+{
+    [sheet orderOut:self];
+    
+    mAExportAsViewController * viewController = (mAExportAsViewController *) contextInfo;
+    NSSavePanel * savePanel = (NSSavePanel *) sheet;
+    
+    if(returnCode == NSOKButton)
+    {
+        NSString * arg = [NSString stringWithFormat:@"%@:%@:%@:%i:%f",
+                          [[NSBundle mainBundle] pathForResource:@"export.ck" ofType:nil],
+                          [[[self fileURL] path] substringFromIndex:1], // hack around chuck bug(?) - remove first slash
+                          [[[savePanel URL] path] substringFromIndex:1], // hack around chuck bug(?) - remove first slash
+                          viewController.limitDuration,
+                          viewController.duration];
+        
+//        NSLog(@"/usr/bin/chuck --silent %@", arg);
+        
+        self.exportTask = [[[NSTask alloc] init] autorelease];
+        
+        [self.exportTask setLaunchPath:[[NSBundle mainBundle] pathForResource:@"chuck" ofType:nil]];
+        [self.exportTask setArguments:@[@"--silent", arg]];
+        
+        [self.exportTask launch];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(exportTaskDidTerminate:)
+                                                     name:NSTaskDidTerminateNotification
+                                                   object:self.exportTask];
+        
+        self.exportProgress = [[[mAExportProgressViewController alloc] initWithWindowNibName:@"mAExportProgress"] autorelease];
+        self.exportProgress.delegate = self;
+        
+        [[NSApplication sharedApplication] beginSheet:self.exportProgress.window
+                                       modalForWindow:[self.windowController window]
+                                        modalDelegate:nil
+                                       didEndSelector:nil
+                                          contextInfo:nil];
+    }
+    
+    [viewController release];
+}
+
+- (void)exportProgressDidCancel
+{
+    //[self.exportTask terminate];
+    // use SIGINT to ensure proper cleanup in chuck binary
+    kill(self.exportTask.processIdentifier, SIGINT);
+}
+
+- (void)exportTaskDidTerminate:(NSNotification *)n
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSTaskDidTerminateNotification
+                                                  object:self.exportTask];
+    [[NSApplication sharedApplication] endSheet:self.exportProgress.window];
+    [self.exportProgress.window orderOut:self];
+    self.exportProgress = nil;
+    self.exportTask = nil;
+}
+
+
+
 #pragma mark UKFileWatcherDelegate
 
 - (void)watcher:(id<UKFileWatcher>)kq receivedNotification:(NSString*)nm forPath:(NSString*)fpath
 {
-    if([nm isEqualToString:UKFileWatcherWriteNotification])
-    {
-        if([self isDocumentEdited])
-        {
-            NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"The document \"%@\" has been changed by another application.",
-                                                            [self displayName]]
-                                             defaultButton:@"Save Anyway"
-                                           alternateButton:@"Revert"
-                                               otherButton:@""
-                                 informativeTextWithFormat:@"Click Save Anyway to overwrite these changes and save your changes. Click Revert to discard your changes and keep the changes from the other appliction."];
-            [alert beginSheetModalForWindow:[_windowController window]
-                              modalDelegate:self
-                             didEndSelector:@selector(documentChangedByAnotherApplictionAlertDidEnd:returnCode:contextInfo:)
-                                contextInfo:nil];
-        }
-        else
-        {
-            NSError *error;
-            if(![self revertToContentsOfURL:[self fileURL] ofType:[self fileType] error:&error])
-                [[NSAlert alertWithError:error] beginSheetModalForWindow:[_windowController window] modalDelegate:nil didEndSelector:nil contextInfo:nil];
-        }
-    }
+//    if([nm isEqualToString:UKFileWatcherWriteNotification])
+//    {
+//        if([self isDocumentEdited])
+//        {
+//            NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"The document \"%@\" has been changed by another application.",
+//                                                            [self displayName]]
+//                                             defaultButton:@"Save Anyway"
+//                                           alternateButton:@"Revert"
+//                                               otherButton:@""
+//                                 informativeTextWithFormat:@"Click Save Anyway to overwrite these changes and save your changes. Click Revert to discard your changes and keep the changes from the other appliction."];
+//            [alert beginSheetModalForWindow:[_windowController window]
+//                              modalDelegate:self
+//                             didEndSelector:@selector(documentChangedByAnotherApplictionAlertDidEnd:returnCode:contextInfo:)
+//                                contextInfo:nil];
+//        }
+//        else
+//        {
+//            NSError *error;
+//            if(![self revertToContentsOfURL:[self fileURL] ofType:[self fileType] error:&error])
+//                [[NSAlert alertWithError:error] beginSheetModalForWindow:[_windowController window] modalDelegate:nil didEndSelector:nil contextInfo:nil];
+//        }
+//    }
 }
 
 - (void)documentChangedByAnotherApplictionAlertDidEnd:(NSAlert *)alert

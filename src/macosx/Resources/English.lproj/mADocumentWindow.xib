@@ -366,6 +366,30 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
+						<string key="label">_addShredToolbarItem</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="49704882"/>
+					</object>
+					<int key="connectionID">256</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_replaceShredToolbarItem</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="529384363"/>
+					</object>
+					<int key="connectionID">257</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_removeShredToolbarItem</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="433013610"/>
+					</object>
+					<int key="connectionID">258</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="1005"/>
 						<reference key="destination" ref="1001"/>
@@ -536,7 +560,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">255</int>
+			<int key="maxID">258</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -605,11 +629,26 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="_addShredToolbarItem">NSToolbarItem</string>
+						<string key="_removeShredToolbarItem">NSToolbarItem</string>
+						<string key="_replaceShredToolbarItem">NSToolbarItem</string>
 						<string key="_toolbar">NSToolbar</string>
 						<string key="tabBar">PSMTabBarControl</string>
 						<string key="tabView">NSTabView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="_addShredToolbarItem">
+							<string key="name">_addShredToolbarItem</string>
+							<string key="candidateClassName">NSToolbarItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_removeShredToolbarItem">
+							<string key="name">_removeShredToolbarItem</string>
+							<string key="candidateClassName">NSToolbarItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_replaceShredToolbarItem">
+							<string key="name">_replaceShredToolbarItem</string>
+							<string key="candidateClassName">NSToolbarItem</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="_toolbar">
 							<string key="name">_toolbar</string>
 							<string key="candidateClassName">NSToolbar</string>

@@ -41,6 +41,7 @@ U.S.A.
 #import "miniAudicle.h"
 #import "mARecordSessionController.h"
 #import "mAMultiDocWindowController.h"
+#import "mAExampleBrowser.h"
 #import <objc/message.h>
 
 
@@ -56,6 +57,9 @@ NSString * const mAChuginExtension = @"chug";
 const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcartwright.MultiWindowDocumentControllerCloseAllContext";
 
 @interface miniAudicleController ()
+
+@property (nonatomic, retain) mAExampleBrowser * exampleBrowser;
+
 - (void)adjustChucKMenuItems;
 - (void)applicationWillTerminate:(NSNotification *)n;
 
@@ -65,6 +69,8 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 @end
 
 @implementation miniAudicleController
+
+@synthesize exampleBrowser = _exampleBrowser;
 
 //-----------------------------------------------------------------------------
 // name: init
@@ -90,6 +96,8 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
         
         m_recordSessionController = [[mARecordSessionController alloc] initWithWindowNibName:@"mARecordSession"];
         m_recordSessionController.controller = self;
+        
+        self.exampleBrowser = [[[mAExampleBrowser alloc] initWithWindowNibName:@"mAExampleBrowser"] autorelease];
         
         _windowControllers = [NSMutableArray new];
         
@@ -200,6 +208,8 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     [m_recordSessionController release];
     [_windowControllers release];
     
+    self.exampleBrowser = nil;
+    
     [[NSUserDefaultsController sharedUserDefaultsController]
      removeObserver:self
      forKeyPath:[@"values." stringByAppendingString:mAPreferencesOpenDocumentsInNewTab]];
@@ -264,8 +274,8 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
             _wc = [self newWindowController];
     }
     
-    _forceDocumentInWindow = NO;
-    _forceDocumentInTab = NO;
+//    _forceDocumentInWindow = NO;
+//    _forceDocumentInTab = NO;
     
     return _wc;
 }
@@ -339,26 +349,27 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 
 - (void)addDocument:(NSDocument *)doc
 {
-    [doc retain];
     [(miniAudicleDocument *)doc setMiniAudicle:ma];
     [madv addObject:doc];
+    
+    //NSLog(@"madv: %@", madv);
     
     [super addDocument:doc];
 }
 
-- (void)removeDocument:(NSDocument *)doc
+- (void)removeDocument:(NSDocument *)_doc
 {
+    miniAudicleDocument * doc = (miniAudicleDocument *)_doc;
     [super removeDocument:doc];
 
     [madv removeObject:doc];
     
-    mAMultiDocWindowController * windowController = (mAMultiDocWindowController *)[(miniAudicleDocument *)doc windowController];
+    //NSLog(@"madv: %@", madv);
+    
+    mAMultiDocWindowController * windowController = (mAMultiDocWindowController *)[doc windowController];
+    mADocumentViewController * viewController = doc.viewController;
     [windowController removeDocument:doc];
-    if([windowController numberOfTabs] == 0)
-    {
-        [self windowDidCloseForController:windowController];
-        [[windowController window] close];
-    }
+    [viewController setDocument:nil];
 }
 
 
@@ -368,15 +379,43 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 {
     NSDocument * docToClose = nil;
     
+    // if the current document is empty, replace it with the opened document
     if([[self currentDocument] isEmpty])
         docToClose = [self currentDocument];
     
-    id r = [super openDocumentWithContentsOfURL:absoluteURL
-                                        display:displayDocument
-                                          error:outError];
+    miniAudicleDocument * r = [super openDocumentWithContentsOfURL:absoluteURL
+                                                           display:displayDocument
+                                                             error:outError];
+    
+    // mark anything in the apps resource path as read-only
+    NSString * resourcePath = [[NSBundle mainBundle] resourcePath];
+    if([[r.fileURL path] compare:resourcePath
+                         options:0
+                           range:NSMakeRange(0, [resourcePath length])] == NSOrderedSame)
+    {
+        r.readOnly = YES;
+    }
     
     if(docToClose && r)
         [docToClose close];
+    
+    return r;
+}
+
+- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL
+                            display:(BOOL)displayDocument
+                              error:(NSError **)outError
+                              inTab:(BOOL)inTab
+{
+    _forceDocumentInTab = inTab;
+    _forceDocumentInWindow = !inTab;
+    
+    id r = [self openDocumentWithContentsOfURL:absoluteURL
+                                       display:displayDocument
+                                         error:outError];
+    
+    _forceDocumentInWindow = NO;
+    _forceDocumentInTab = NO;
     
     return r;
 }
@@ -543,12 +582,36 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 
 #pragma mark IBActions
 
+- (IBAction)openDocumentInTab:(id)sender
+{
+    _forceDocumentInWindow = NO;
+    _forceDocumentInTab = YES;
+    
+    //[self openDocument:sender];
+    NSArray *urls = [self URLsFromRunningOpenPanel];
+    for(NSURL * url in urls)
+    {
+        // TODO: result?
+        NSError * error;
+        id result = [self openDocumentWithContentsOfURL:url
+                                                display:YES
+                                                  error:&error];
+    }
+    
+    _forceDocumentInWindow = NO;
+    _forceDocumentInTab = NO;
+}
+
+
 - (IBAction)newWindow:(id)sender
 {
     _forceDocumentInWindow = YES;
     _forceDocumentInTab = NO;
     
     [self newDocument:sender];
+    
+    _forceDocumentInWindow = NO;
+    _forceDocumentInTab = NO;
 }
 
 - (IBAction)newTab:(id)sender
@@ -557,6 +620,9 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     _forceDocumentInTab = YES;
     
     [self newDocument:sender];
+    
+    _forceDocumentInWindow = NO;
+    _forceDocumentInTab = NO;
 }
 
 - (void)lockEditing:(id)sender
@@ -1009,6 +1075,11 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
 - (IBAction)recordSession:(id)sender
 {
     [[m_recordSessionController window] makeKeyAndOrderFront:sender];
+}
+
+- (IBAction)openExample:(id)sender
+{
+    [[self.exampleBrowser window] makeKeyAndOrderFront:sender];
 }
 
 

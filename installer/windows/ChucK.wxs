@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+  <Product Name='ChucK' Id='25627CF3-5DD2-4c0b-BAD7-4FDC688F6596' UpgradeCode='5E802F26-D8BC-4db8-97B2-11629D23724E'
+    Language='1033' Codepage='1252' Version='1.3.2.0' Manufacturer='Stanford University CCRMA'>
+
+    <Package Id='*' Keywords='Installer'
+      Description="ChucK Audio Programming Language"
+      Comments='ChucK is a programming language for real-time computer music and digital signal processing.' Manufacturer='Stanford University CCRMA'
+      InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+
+    <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' />
+
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+          <Directory Id='INSTALLDIR' Name='ChucK'>
+
+            <Component Id='MainExecutable' Guid='F69CF6EC-8E1F-4fc1-BD1D-66E286A974F0'>
+              <File Id='miniAudicleEXE' Name='miniAudicle.exe' DiskId='1' Source='miniAudicle.exe' KeyPath='yes'>
+                <Shortcut Id="startmenuMiniAudicle" Directory="ProgramMenuDir" Name="miniAudicle" WorkingDirectory='INSTALLDIR' Icon="miniAudicle.exe" IconIndex="0" Advertise="yes" />
+              </File>
+            </Component>
+            
+            <Directory Id="bin" Name="bin">
+              <Component Id='chuckEXE' Guid='5CFBE8C7-8F1F-4b34-AEB5-691125C5C871'>
+                <File Id='chuckEXE' Name='chuck.exe' DiskId='1' Source='chuck.exe' KeyPath='yes' />
+                <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]/bin" Permanent="no" Part="last" Action="set" System="yes" />
+              </Component>
+            </Directory>
+            <Directory Id="chugins" Name="chugins">
+              <Component Id='ABSaturator' Guid='6A3BEC65-62B0-49bf-81BB-9B36D2FF02B1'>
+                <File Id='ABSaturator' Name='ABSaturator.chug' DiskId='1' Source='ABSaturator.chug' KeyPath='yes' />
+              </Component>
+              <Component Id='Bitcrusher' Guid='19FEF87A-4399-4263-B508-08B6CC8496AA'>
+                <File Id='Bitcrusher' Name='Bitcrusher.chug' DiskId='1' Source='Bitcrusher.chug' KeyPath='yes' />
+              </Component>
+              <Component Id='FIR' Guid='7B688BF5-1974-4fe8-9DB0-E71CB749630D'>
+                <File Id='FIR' Name='FIR.chug' DiskId='1' Source='FIR.chug' KeyPath='yes' />
+              </Component>
+              <Component Id='KasFilter' Guid='8AF0BF3A-E7BC-4e61-A1B4-9F7303175726'>
+                <File Id='KasFilter' Name='KasFilter.chug' DiskId='1' Source='KasFilter.chug' KeyPath='yes' />
+              </Component>
+              <Component Id='PanN' Guid='D5D71D69-B054-4b24-9FD4-D90F34FF97A2'>
+                <File Id='PanN' Name='PanN.chug' DiskId='1' Source='PanN.chug' KeyPath='yes' />
+              </Component>
+            </Directory>
+          </Directory>
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDir" Name="ChucK">
+          <Component Id="ProgramMenuDir" Guid="62F08ECE-5CD5-42dd-8F45-FEC70D6E531C">
+            <RemoveFolder Id='ProgramMenuDir' On='uninstall' />
+            <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
+          </Component>
+        </Directory>
+      </Directory>
+
+    </Directory>
+
+    <Feature Id='Complete' Title='ChucK' Description='The complete ChucK package.'
+      Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
+      <Feature Id='MainProgram' Title='miniAudicle' Description='miniAudicle is an integrated development environment for the ChucK audio programming language. Highly recommended.' Level='1'>
+        <ComponentRef Id='MainExecutable' />
+        <ComponentRef Id='ProgramMenuDir' />
+      </Feature>
+      <Feature Id='chuckEXE' Title='chuck.exe' Description='chuck.exe command line executable.' Level='1'>
+        <ComponentRef Id='chuckEXE' />
+      </Feature>
+      <Feature Id='chugins' Title='ChuGins' Description='ChuGins extend the native capabilities of ChucK with additional unit generators.' Level='1'>
+        <ComponentRef Id='ABSaturator' />
+        <ComponentRef Id='Bitcrusher' />
+        <ComponentRef Id='FIR' />
+        <ComponentRef Id='KasFilter' />
+        <ComponentRef Id='PanN' />
+      </Feature>
+      <Feature Id='examples' Title='ChucK examples' Description='Example programs demonstrating the ChucK language.' Level='1'>
+        <ComponentGroupRef Id='examples' />
+      </Feature>
+    </Feature>
+
+    <UIRef Id="WixUI_InstallDir" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+    <Icon Id="miniAudicle.exe" SourceFile="miniAudicle.exe" />    
+    
+    <WixVariable Id="WixUIDialogBmp" Value="ck_dialog.bmp" />
+    <WixVariable Id="WixUIBannerBmp" Value="ck_banner.bmp" />
+    <WixVariable Id="WixUILicenseRtf" Value="gpl2.rtf" />
+
+  </Product>
+</Wix>

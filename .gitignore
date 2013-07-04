@@ -7,6 +7,11 @@ src/macosx/miniAudicle.app
 src/miniAudicle.xcodeproj/project.xcworkspace
 src/miniAudicle.xcodeproj/xcuserdata
 
+installer/mac/*.pkg
+installer/mac/miniAudicle.app
+installer/mac/chuck
+installer/mac/*.chug
+
 miniAudicle-build-Desktop-Debug
 
 src/miniAudicle.pro.user.*

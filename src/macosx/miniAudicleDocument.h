@@ -33,6 +33,7 @@ U.S.A.
 
 #import <Cocoa/Cocoa.h>
 #import "chuck_def.h"
+#import "mAExportProgressViewController.h"
 
 class miniAudicle;
 @class NumberedTextView;
@@ -40,7 +41,7 @@ class miniAudicle;
 @class mAMultiDocWindowController;
 @class UKFSEventsWatcher;
 
-@interface miniAudicleDocument : NSDocument <NSToolbarDelegate>
+@interface miniAudicleDocument : NSDocument <NSToolbarDelegate, mAExportProgressDelegate>
 {
     mADocumentViewController * _viewController;
     mAMultiDocWindowController * _windowController;
@@ -59,11 +60,16 @@ class miniAudicle;
     BOOL has_customized_appearance;
     
     UKFSEventsWatcher *fsEventsWatcher;
+    
+    NSTask * exportTask;
+    mAExportProgressViewController * exportProgress;
+    BOOL readOnly;
 }
 
 @property (readonly, strong, nonatomic) NSString * data;
 @property (readonly, strong, nonatomic) mADocumentViewController * viewController;
 @property (weak, nonatomic) NSWindowController * windowController;
+@property (nonatomic) BOOL readOnly;
 
 - (id)init;
 
@@ -74,5 +80,7 @@ class miniAudicle;
 - (BOOL)isEmpty;
 
 - (void)setMiniAudicle:(miniAudicle *)t_ma;
+
+- (IBAction)exportAsWAV:(id)sender;
 
 @end

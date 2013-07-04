@@ -105,6 +105,10 @@
     _documents = nil;
     [_contentViewControllers release];
     _contentViewControllers = nil;
+
+    tabView = nil;
+    tabBar = nil;
+    _toolbar = nil;
     
     [super dealloc];
 }
@@ -160,17 +164,18 @@
     
     if([[self window] isMainWindow])
     {
-        [[self window] setBackgroundColor:[NSColor colorWithSRGBRed:175.0/255.0
-                                                              green:175.0/255.0
-                                                               blue:175.0/255.0
-                                                              alpha:1.0]];
+        CGFloat colors[] = { 175.0/255.0, 175.0/255.0, 175.0/255.0, 1.0 };
+        [[self window] setBackgroundColor:[NSColor colorWithColorSpace:[NSColorSpace sRGBColorSpace]
+                                                            components:colors
+                                                                 count:4]];
     }
     else
     {
-        [[self window] setBackgroundColor:[NSColor colorWithSRGBRed:223.0/255.0
-                                                              green:223.0/255.0
-                                                               blue:223.0/255.0
-                                                              alpha:1.0]];
+        CGFloat colors[] = { 223.0/255.0, 223.0/255.0, 223.0/255.0, 1.0 };
+        [[self window] setBackgroundColor:[NSColor colorWithColorSpace:[NSColorSpace sRGBColorSpace]
+                                                            components:colors
+                                                                 count:4]];
+
     }
 }
 
@@ -195,6 +200,7 @@
         ctrl = (mADocumentViewController *)[tabViewItem identifier];
     }
     
+    ctrl.windowController = self;
     [self.contentViewControllers addObject:ctrl];
     
     [ctrl activate];
@@ -230,32 +236,34 @@
     [self removeDocument:docToRemove attachedToViewController:[(miniAudicleDocument *)docToRemove viewController]];
 }
 
-- (void)removeDocument:(NSDocument *)docToRemove attachedToViewController:(NSViewController*)ctrl
+- (void)removeDocument:(NSDocument *)_docToRemove attachedToViewController:(NSViewController*)ctrl
 {
+    miniAudicleDocument * docToRemove = (miniAudicleDocument *) _docToRemove;
     NSMutableSet* documents = self.documents;
     if (![documents containsObject:docToRemove])
         return;
     
     // remove the document's view controller and view
-    [ctrl.view removeFromSuperview];
-    if ([ctrl respondsToSelector:@selector(setDocument:)])
-        [(id)ctrl setDocument: nil];
-    [ctrl release];
+    [(id)ctrl setWindowController:nil];
     
     // remove the view from the tab item
     // dont remove the tab view item from the tab view, as this is handled by the framework (when
     // we click on the close button on the tab) - of course it wouldnt be if you closed the document
     // using the menu (TODO)
-    NSTabViewItem* tabViewItem = [tabView tabViewItemAtIndex:[tabView indexOfTabViewItemWithIdentifier:ctrl]];
-    //[tabViewItem setView: nil];
-    [tabView removeTabViewItem:tabViewItem];
+    NSInteger index = [tabView indexOfTabViewItemWithIdentifier:ctrl];
+    if(index != NSNotFound)
+    {
+        //[tabViewItem setView: nil];
+        [tabView removeTabViewItem:[tabView tabViewItemAtIndex:index]];
+    }
     
     // remove the control from the view controllers set
     [self.contentViewControllers removeObject:ctrl];
     
     // finally detach the document from the window controller
     [docToRemove removeWindowController:self];
-    [(miniAudicleDocument *)docToRemove setWindowController:nil];
+    if(docToRemove.windowController == self)
+        [docToRemove setWindowController:nil];
     [documents removeObject:docToRemove];
 }
 
@@ -302,13 +310,26 @@
 - (void)document:(NSDocument *)document shouldClose:(BOOL)shouldClose contextInfo:(void *)contextInfo
 {
     if(shouldClose)
+    {
         [document close];
+        
+        if([tabView numberOfTabViewItems] == 0)
+        {
+            [self.window close];
+            [(miniAudicleController *)[NSDocumentController sharedDocumentController] windowDidCloseForController:self];
+        }
+    }
 }
 
 - (void)newDocument:(id)sender
 {
     [[self window] makeKeyAndOrderFront:sender];
     [[NSDocumentController sharedDocumentController] newTab:sender];
+}
+
+- (NSViewController *)currentViewController
+{
+    return (NSViewController*)[[tabView selectedTabViewItem] identifier];
 }
 
 #pragma mark NSTabView + PSMTabBarControl delegate methods
@@ -362,7 +383,7 @@
 
 - (BOOL)tabView:(NSTabView*)aTabView shouldDropTabViewItem:(NSTabViewItem *)tabViewItem inTabBar:(PSMTabBarControl *)tabBarControl
 {
-//    NSLog(@"shouldDropTabViewItem: %@ inTabBar: %@", [tabViewItem label], tabBarControl);
+    //NSLog(@"shouldDropTabViewItem: %@ inTabBar: %@", [tabViewItem label], tabBarControl);
     
 	return YES;
 }
@@ -373,10 +394,12 @@
     
     mADocumentViewController *ctrl = (mADocumentViewController *)[tabViewItem identifier];
     miniAudicleDocument *doc = [ctrl document];
+    
+    // hold on to these for now
+    [[ctrl retain] autorelease];
+    [[doc retain] autorelease];
 
-    [self.contentViewControllers removeObject:ctrl];
-    [self.documents removeObject:doc];
-    [doc removeWindowController:self];
+    [self removeDocument:doc attachedToViewController:ctrl];
     
     mAMultiDocWindowController * newWindowController = [[tabBarControl window] windowController];
     [newWindowController addDocument:doc tabViewItem:tabViewItem];
@@ -459,63 +482,30 @@
 	return [newWindowController tabBar];
 }
 
+- (void)tabView:(NSTabView *)aTabView closeWindowForLastTabViewItem:(NSTabViewItem *)tabViewItem
+{
+    [self.window close];
+    [(miniAudicleController *)[NSDocumentController sharedDocumentController] windowDidCloseForController:self];
+}
+
 
 #pragma mark NSWindowDelegate
 
-// Each document needs to be detached from the window controller before the window closes.
-// In addition, any references to those documents from any child view controllers will also
-// need to be cleared in order to ensure a proper cleanup.
-// The windowWillClose: method does just that. One caveat found during debugging was that the
-// window controller’s self pointer may become invalidated at any time within the method as
-// soon as nothing else refers to it (using ARC). Since we’re disconnecting references to
-// documents, there have been cases where the window controller got deallocated mid-way of
-// cleanup. To prevent that, I’ve added a strong pointer to self and use that pointer exclusively
-// in the windowWillClose: method.
-- (void)windowWillClose:(NSNotification *)notification
-{
-    NSWindow * window = self.window;
-    if (notification.object != window) {
-        return;
-    }
-    
-    // let's keep a reference to ourself and not have us thrown away while we clear out references.
-    mAMultiDocWindowController* me = self;
-
-    // detach the view controllers from the document first
-    for (NSViewController* ctrl in me.contentViewControllers) {
-        [ctrl.view removeFromSuperview];
-        if ([ctrl respondsToSelector:@selector(setDocument:)]) {
-            [(id) ctrl setDocument:nil];
-            [ctrl release];
-        }
-    }
-    
-    // then any content view
-    [window setContentView:nil];
-    [me.contentViewControllers removeAllObjects];
-       
-    // disassociate this window controller from the document
-    for (NSDocument* doc in me.documents) {
-        [doc removeWindowController:me];
-    }
-    [me.documents removeAllObjects];
-}
-
 - (void)windowDidBecomeMain:(NSNotification *)notification
 {
-    [[self window] setBackgroundColor:[NSColor colorWithSRGBRed:175.0/255.0
-                                                          green:175.0/255.0
-                                                           blue:175.0/255.0
-                                                          alpha:1.0]];
+    CGFloat colors[] = { 175.0/255.0, 175.0/255.0, 175.0/255.0, 1.0 };
+    [[self window] setBackgroundColor:[NSColor colorWithColorSpace:[NSColorSpace sRGBColorSpace]
+                                                        components:colors
+                                                             count:4]];
     [tabBar setNeedsDisplay];
 }
 
 - (void)windowDidResignMain:(NSNotification *)notification
 {
-    [[self window] setBackgroundColor:[NSColor colorWithSRGBRed:223.0/255.0
-                                                          green:223.0/255.0
-                                                           blue:223.0/255.0
-                                                          alpha:1.0]];
+    CGFloat colors[] = { 223.0/255.0, 223.0/255.0, 223.0/255.0, 1.0 };
+    [[self window] setBackgroundColor:[NSColor colorWithColorSpace:[NSColorSpace sRGBColorSpace]
+                                                        components:colors
+                                                             count:4]];
     [tabBar setNeedsDisplay];
 }
 
@@ -555,6 +545,8 @@
             [doc close];
         }
         
+        [(miniAudicleController *)[NSDocumentController sharedDocumentController] windowDidCloseForController:self];
+
         return YES;
     }
 }
@@ -584,8 +576,28 @@
             [doc close];
         }
 
-        [[self window] close];
+        [self.window close];
+        [(miniAudicleController *)[NSDocumentController sharedDocumentController] windowDidCloseForController:self];
     }
+}
+
+
+- (void)flagsChanged:(NSEvent *)theEvent
+{
+    if([theEvent modifierFlags] & NSAlternateKeyMask)
+    {
+        [_addShredToolbarItem setLabel:@"Add Tabs "];
+        [_replaceShredToolbarItem setLabel:@"Replace Tabs "];
+        [_removeShredToolbarItem setLabel:@"Remove Tabs "];
+    }
+    else
+    {
+        [_addShredToolbarItem setLabel:@"Add Shred"];
+        [_replaceShredToolbarItem setLabel:@"Replace Shred"];
+        [_removeShredToolbarItem setLabel:@"Remove Shred"];
+    }
+    
+    [super flagsChanged:theEvent];
 }
 
 
@@ -639,23 +651,50 @@
 
 - (void)add:(id)sender
 {
-    NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
-    mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
-    [vc add:sender];
+    // SPENCERTODO: modifierFlags is apparently 10.6 only
+    if([NSEvent modifierFlags] & NSAlternateKeyMask)
+    {
+        for(mADocumentViewController *vc in self.contentViewControllers)
+            [vc add:sender];
+    }
+    else
+    {
+        NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
+        mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
+        [vc add:sender];
+    }
 }
 
 - (void)remove:(id)sender
 {
-    NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
-    mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
-    [vc remove:sender];
+    // SPENCERTODO: modifierFlags is apparently 10.6 only
+    if([NSEvent modifierFlags] & NSAlternateKeyMask)
+    {
+        for(mADocumentViewController *vc in self.contentViewControllers)
+            [vc remove:sender];
+    }
+    else
+    {
+        NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
+        mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
+        [vc remove:sender];
+    }
 }
 
 - (void)replace:(id)sender
 {
-    NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
-    mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
-    [vc replace:sender];
+    // SPENCERTODO: modifierFlags is apparently 10.6 only
+    if([NSEvent modifierFlags] & NSAlternateKeyMask)
+    {
+        for(mADocumentViewController *vc in self.contentViewControllers)
+            [vc replace:sender];
+    }
+    else
+    {
+        NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
+        mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
+        [vc replace:sender];
+    }
 }
 
 - (void)removeall:(id)sender
@@ -713,9 +752,13 @@
 - (BOOL)validateToolbarItem:(NSToolbarItem *)toolbar_item
 {
     if( [toolbar_item tag] == 1 )
+    {        
         return _vm_on;
+    }
     else
+    {
         return YES;
+    }
 }
 
 - (void)toggleToolbar:(id)sender

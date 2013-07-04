@@ -76,7 +76,7 @@ t_CKINT priority = 0x7fffffff;
 t_CKINT priority_low = 0x7fffffff;
 #endif
 
-extern const char MA_VERSION[] = "0.2.3-beta-2 (gidora)\0";
+extern const char MA_VERSION[] = "0.2.3-beta-9 (gidora)\0";
 extern const char MA_ABOUT[] = "version %s\n\
 Copyright (c) Spencer Salazar\n\n\
 ChucK: version %s %lu-bit \n\
@@ -877,11 +877,11 @@ t_CKBOOL miniAudicle::start_vm()
         EM_pushlog();
         
         // iterate over list of ck files that the compiler found
-        for( std::list<std::string>::iterator j = compiler->m_cklibs_to_preload.begin();
-            j != compiler->m_cklibs_to_preload.end(); j++)
+        for( std::list<std::string>::iterator fck = compiler->m_cklibs_to_preload.begin();
+            fck != compiler->m_cklibs_to_preload.end(); fck++)
         {
             // the filename
-            std::string filename = *j;
+            std::string filename = *fck;
             
             // log
             EM_log( CK_LOG_SEVERE, "preloading '%s'...", filename.c_str() );
