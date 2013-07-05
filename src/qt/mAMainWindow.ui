@@ -660,6 +660,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionRemove_Last_Shred</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>removeLastShred()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRemove_All_Shreds</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>removeAllShreds()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>exit()</slot>
@@ -672,5 +704,7 @@
   <slot>addCurrentDocument()</slot>
   <slot>replaceCurrentDocument()</slot>
   <slot>removeCurrentDocument()</slot>
+  <slot>removeLastShred()</slot>
+  <slot>removeAllShreds()</slot>
  </slots>
 </ui>

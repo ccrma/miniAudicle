@@ -14,6 +14,8 @@ mAVMMonitor::mAVMMonitor(QWidget *parent, miniAudicle * _ma) :
     timerId = -1;
     vm_stall_count = 0;
 
+    m_docid = ma->allocate_document_id();
+
     ui->tableWidget->setColumnCount(4);
     ui->tableWidget->setShowGrid(true);
     ui->tableWidget->verticalHeader()->setHidden(true);
@@ -29,6 +31,8 @@ mAVMMonitor::mAVMMonitor(QWidget *parent, miniAudicle * _ma) :
 
 mAVMMonitor::~mAVMMonitor()
 {
+    ma->free_document_id(m_docid);
+
     delete ui;
 }
 
@@ -66,11 +70,15 @@ void mAVMMonitor::toggleVM()
 void mAVMMonitor::removeAll()
 {
     mAMainWindow * mainWindow = (mAMainWindow *) this->parent();
+    string result;
+    ma->removeall(m_docid, result);
 }
 
 void mAVMMonitor::removeLast()
 {
     mAMainWindow * mainWindow = (mAMainWindow *) this->parent();
+    string result;
+    ma->removelast(m_docid, result);
 }
 
 void mAVMMonitor::timerEvent(QTimerEvent *event)

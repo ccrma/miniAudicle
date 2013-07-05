@@ -85,7 +85,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="removeLastButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -159,7 +159,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="removeAllButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -228,6 +228,38 @@
     <hint type="sourcelabel">
      <x>145</x>
      <y>344</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>145</x>
+     <y>180</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>removeAllButton</sender>
+   <signal>clicked()</signal>
+   <receiver>mAVMMonitor</receiver>
+   <slot>removeAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>244</x>
+     <y>48</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>145</x>
+     <y>180</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>removeLastButton</sender>
+   <signal>clicked()</signal>
+   <receiver>mAVMMonitor</receiver>
+   <slot>removeLast()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>244</x>
+     <y>13</y>
     </hint>
     <hint type="destinationlabel">
      <x>145</x>

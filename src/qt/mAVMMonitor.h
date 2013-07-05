@@ -27,6 +27,7 @@ private:
     Ui::mAVMMonitor *ui;
 
     miniAudicle * ma;
+    t_CKUINT m_docid;
 
     t_CKUINT vm_stall_count;
     int timerId;

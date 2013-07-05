@@ -15,6 +15,7 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     ma(new miniAudicle)
 {
     vm_on = false;
+    m_docid = ma->allocate_document_id();
 
     ui->setupUi(this);
 
@@ -41,6 +42,8 @@ mAMainWindow::~mAMainWindow()
         ma->stop_vm();
     }
 
+    ma->free_document_id(m_docid);
+
     // manually detach
     // each window has a pointer to the miniAudicle object
     // so we have to detach that object before deleting the miniAudicle
@@ -50,6 +53,8 @@ mAMainWindow::~mAMainWindow()
         view->detach();
     }
 
+    delete m_vmMonitor;
+    m_vmMonitor = NULL;
     delete ui;
     ui = NULL;
     delete ma;
@@ -158,6 +163,18 @@ void mAMainWindow::replaceCurrentDocument()
 void mAMainWindow::removeCurrentDocument()
 {
     ((mADocumentView *) ui->tabWidget->currentWidget())->remove();
+}
+
+void mAMainWindow::removeLastShred()
+{
+    string result;
+    ma->removelast(m_docid, result);
+}
+
+void mAMainWindow::removeAllShreds()
+{
+    string result;
+    ma->removeall(m_docid, result);
 }
 
 void mAMainWindow::toggleVM()

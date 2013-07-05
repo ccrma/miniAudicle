@@ -38,6 +38,8 @@ public slots:
     void addCurrentDocument();
     void replaceCurrentDocument();
     void removeCurrentDocument();
+    void removeLastShred();
+    void removeAllShreds();
     void toggleVM();
 
 private:
@@ -50,6 +52,7 @@ private:
     mAVMMonitor * m_vmMonitor;
 
     miniAudicle * ma;
+    t_CKUINT m_docid;
 };
 
 #endif // MAMAINWINDOW_H
