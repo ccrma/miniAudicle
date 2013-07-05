@@ -11,6 +11,7 @@
 
 class mADocumentView;
 class mAConsoleMonitor;
+class mAVMMonitor;
 
 namespace Ui {
 class mAMainWindow;
@@ -46,6 +47,7 @@ private:
     bool vm_on;
 
     mAConsoleMonitor * m_consoleMonitor;
+    mAVMMonitor * m_vmMonitor;
 
     miniAudicle * ma;
 };

@@ -4,6 +4,7 @@
 
 #include "madocumentview.h"
 #include "mAConsoleMonitor.h"
+#include "mAVMMonitor.h"
 
 #include <QMessageBox>
 
@@ -26,6 +27,9 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     m_consoleMonitor = new mAConsoleMonitor(this);
     m_consoleMonitor->show();
     ma->set_log_level(CK_LOG_SYSTEM);
+
+    m_vmMonitor = new mAVMMonitor(this, ma);
+    m_vmMonitor->show();
 
     this->move(100, 50);
 }
@@ -168,6 +172,8 @@ void mAMainWindow::toggleVM()
             ui->actionRemove_Shred->setEnabled(true);
             ui->actionReplace_Shred->setEnabled(true);
 
+            m_vmMonitor->vmChangedToState(true);
+
             vm_on = true;
         }
     }
@@ -180,6 +186,8 @@ void mAMainWindow::toggleVM()
         ui->actionAdd_Shred->setEnabled(false);
         ui->actionRemove_Shred->setEnabled(false);
         ui->actionReplace_Shred->setEnabled(false);
+
+        m_vmMonitor->vmChangedToState(false);
 
         vm_on = false;
     }
