@@ -23,6 +23,8 @@ public slots:
     void removeLast();
     void removeAll();
 
+    void removeShred();
+
 private:
     Ui::mAVMMonitor *ui;
 
