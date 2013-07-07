@@ -9,4 +9,8 @@
 
 #endif
 
+#ifdef WIN32
+#undef emit
+#endif
+
 #endif // QT_MINIAUDICLE_H

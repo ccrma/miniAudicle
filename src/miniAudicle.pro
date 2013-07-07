@@ -38,6 +38,14 @@ QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LFLAGS += -m32 -lasound -lpthread -lstdc++ -ldl -lm -lsndfile
 }
 
+win32 {
+DEFINES -= UNICODE
+CFLAGS = -D__PLATFORM_WIN32__ -D__WINDOWS_DS__ -I../src -I../src/chuck/src -DWIN32 -D_WINDOWS
+QMAKE_CXXFLAGS += $$CFLAGS
+QMAKE_CFLAGS += $$CFLAGS
+QMAKE_LFLAGS += wsock32.lib dinput.lib kernel32.lib user32.lib gdi32.lib dsound.lib dxguid.lib winmm.lib ole32.lib
+}
+
 SOURCES += \
     qt/mAMainWindow.cpp \
     qt/main.cpp \
@@ -91,14 +99,14 @@ SOURCES += \
     chuck/src/RtAudio/RtAudio.cpp \
     qt/madocumentview.cpp \
     miniAudicle.cpp \
-    miniAudicle_shell.cpp \
+    # miniAudicle_shell.cpp \
     miniAudicle_log.cpp \
     qt/mAConsoleMonitor.cpp \
     qt/mAVMMonitor.cpp \
     chuck/src/util_serial.cpp \
     chuck/src/chuck_io.cpp
 
-macx {
+!linux {
     SOURCES += chuck/src/util_sndfile.c
 }
 
@@ -178,8 +186,10 @@ FORMS += \
     qt/mAConsoleMonitor.ui \
     qt/mAVMMonitor.ui
 
+!win32 {
 FLEXSOURCES = chuck/src/chuck.lex
 BISONSOURCES = chuck/src/chuck.y
+}
 
 flex.commands = flex -o $$OBJECTS_DIR/${QMAKE_FILE_BASE}.yy.c ${QMAKE_FILE_IN}
 flex.input = FLEXSOURCES
