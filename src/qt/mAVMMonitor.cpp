@@ -41,6 +41,8 @@ mAVMMonitor::mAVMMonitor(QWidget *parent, mAMainWindow *mainWindow, miniAudicle 
 
     m_docid = ma->allocate_document_id();
 
+    ui->shredCountLabel->setText("");
+    ui->runningTimeLabel->setText("");
     ui->removeLastButton->setEnabled(false);
     ui->removeAllButton->setEnabled(false);
 
