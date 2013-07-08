@@ -33,14 +33,14 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     QDesktopWidget * desktopWidget = QApplication::desktop();
     QRect available = desktopWidget->availableGeometry(this);
 
-    m_consoleMonitor = new mAConsoleMonitor(this);
+    m_consoleMonitor = new mAConsoleMonitor(NULL);
     // position left edge at 0.2, bottom edge at 0.8
     m_consoleMonitor->move(available.left() + available.width()*0.2,
                            available.top() + available.height()*0.8 - m_consoleMonitor->frameGeometry().height());
     m_consoleMonitor->show();
     ma->set_log_level(CK_LOG_SYSTEM);
 
-    m_vmMonitor = new mAVMMonitor(this, ma);
+    m_vmMonitor = new mAVMMonitor(NULL, this, ma);
     // position right edge at 0.8, center vertically
     m_vmMonitor->move(available.left() + available.width()*0.8 - m_vmMonitor->frameGeometry().width(),
                       available.top() + available.height()*0.2);

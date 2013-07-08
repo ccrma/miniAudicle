@@ -4,9 +4,10 @@
 
 const float VMMONITOR_REFRESH_RATE = 20; // Hz
 
-mAVMMonitor::mAVMMonitor(QWidget *parent, miniAudicle * _ma) :
+mAVMMonitor::mAVMMonitor(QWidget *parent, mAMainWindow *mainWindow, miniAudicle * _ma) :
     QMainWindow(parent),
     ui(new Ui::mAVMMonitor),
+    m_mainWindow(mainWindow),
     ma(_ma)
 {
     ui->setupUi(this);
@@ -69,20 +70,17 @@ void mAVMMonitor::vmChangedToState(bool vmOn)
 
 void mAVMMonitor::toggleVM()
 {
-    mAMainWindow * mainWindow = (mAMainWindow *) this->parent();
-    mainWindow->toggleVM();
+    m_mainWindow->toggleVM();
 }
 
 void mAVMMonitor::removeAll()
 {
-    mAMainWindow * mainWindow = (mAMainWindow *) this->parent();
     string result;
     ma->removeall(m_docid, result);
 }
 
 void mAVMMonitor::removeLast()
 {
-    mAMainWindow * mainWindow = (mAMainWindow *) this->parent();
     string result;
     ma->removelast(m_docid, result);
 }
@@ -184,8 +182,6 @@ void mAVMMonitor::timerEvent(QTimerEvent *event)
         else
             ui->tableWidget->item(i, 2)->setText(time);
 
-//        grid->SetCellValue( i, 3, _T( "-" ) );
-
         // set remove button
         if(ui->tableWidget->cellWidget(i, 3) == NULL)
         {
@@ -199,13 +195,11 @@ void mAVMMonitor::timerEvent(QTimerEvent *event)
         else
             ui->tableWidget->cellWidget(i, 3)->setProperty("shred_id", QVariant((int)shred->xid));
     }
-
-//    grid->ClearSelection();
-//    grid->Refresh();
 }
 
 void mAVMMonitor::removeShred()
 {
+    // signalled from shred table button
     t_CKINT shred_id = this->sender()->property("shred_id").toInt();
     string result;
     ma->remove_shred(m_docid, shred_id, result);

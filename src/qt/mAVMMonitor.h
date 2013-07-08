@@ -8,12 +8,14 @@ namespace Ui {
 class mAVMMonitor;
 }
 
+class mAMainWindow;
+
 class mAVMMonitor : public QMainWindow
 {
     Q_OBJECT
     
 public:
-    explicit mAVMMonitor(QWidget *parent, miniAudicle * ma);
+    explicit mAVMMonitor(QWidget *parent, mAMainWindow *mainWindow, miniAudicle * ma);
     ~mAVMMonitor();
     
     void vmChangedToState(bool on);
@@ -27,8 +29,9 @@ public slots:
 
 private:
     Ui::mAVMMonitor *ui;
+    mAMainWindow * const m_mainWindow;
 
-    miniAudicle * ma;
+    miniAudicle * const ma;
     t_CKUINT m_docid;
 
     t_CKUINT vm_stall_count;
