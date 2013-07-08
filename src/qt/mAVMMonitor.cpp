@@ -16,6 +16,9 @@ mAVMMonitor::mAVMMonitor(QWidget *parent, miniAudicle * _ma) :
 
     m_docid = ma->allocate_document_id();
 
+    ui->removeLastButton->setEnabled(false);
+    ui->removeAllButton->setEnabled(false);
+
     ui->tableWidget->setColumnCount(4);
     ui->tableWidget->setShowGrid(true);
     ui->tableWidget->verticalHeader()->setHidden(true);
@@ -59,6 +62,9 @@ void mAVMMonitor::vmChangedToState(bool vmOn)
 
         ui->tableWidget->setRowCount(0);
     }
+
+    ui->removeLastButton->setEnabled(vmOn);
+    ui->removeAllButton->setEnabled(vmOn);
 }
 
 void mAVMMonitor::toggleVM()

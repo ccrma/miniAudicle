@@ -22,8 +22,12 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     ui->actionAdd_Shred->setEnabled(false);
     ui->actionRemove_Shred->setEnabled(false);
     ui->actionReplace_Shred->setEnabled(false);
+    ui->actionRemove_Last_Shred->setEnabled(false);
+    ui->actionRemove_All_Shreds->setEnabled(false);
 
-    newFile();
+    QWidget * expandingSpace = new QWidget;
+    expandingSpace->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    ui->mainToolBar->insertWidget(ui->actionRemove_Last_Shred, expandingSpace);
 
     m_consoleMonitor = new mAConsoleMonitor(this);
     m_consoleMonitor->show();
@@ -33,6 +37,8 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     m_vmMonitor->show();
 
     this->move(100, 50);
+
+    newFile();
 }
 
 mAMainWindow::~mAMainWindow()
@@ -188,6 +194,8 @@ void mAMainWindow::toggleVM()
             ui->actionAdd_Shred->setEnabled(true);
             ui->actionRemove_Shred->setEnabled(true);
             ui->actionReplace_Shred->setEnabled(true);
+            ui->actionRemove_Last_Shred->setEnabled(true);
+            ui->actionRemove_All_Shreds->setEnabled(true);
 
             m_vmMonitor->vmChangedToState(true);
 
@@ -203,6 +211,8 @@ void mAMainWindow::toggleVM()
         ui->actionAdd_Shred->setEnabled(false);
         ui->actionRemove_Shred->setEnabled(false);
         ui->actionReplace_Shred->setEnabled(false);
+        ui->actionRemove_Last_Shred->setEnabled(false);
+        ui->actionRemove_All_Shreds->setEnabled(false);
 
         m_vmMonitor->vmChangedToState(false);
 

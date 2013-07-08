@@ -151,6 +151,8 @@
    <addaction name="actionAdd_Shred"/>
    <addaction name="actionReplace_Shred"/>
    <addaction name="actionRemove_Shred"/>
+   <addaction name="actionRemove_Last_Shred"/>
+   <addaction name="actionRemove_All_Shreds"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNew">
