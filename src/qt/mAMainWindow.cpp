@@ -118,7 +118,9 @@ void mAMainWindow::about()
 {
     char buf[256];
     snprintf(buf, 256, MA_ABOUT, MA_VERSION, CK_VERSION, sizeof(void*)*8);
-    QMessageBox::about(this, "About miniAudicle", tr("<b>miniAudicle</b>\n") + buf);
+    QString body = QString("<h3>miniAudicle</h3>\n") + buf;
+    body.replace(QRegExp("\n"), "<br />");
+    QMessageBox::about(this, "About miniAudicle", body);
 }
 
 void mAMainWindow::newFile()
