@@ -26,7 +26,7 @@ U.S.A.
 
 mAsciLexerChucK::mAsciLexerChucK() : QsciLexerJava()
 {
-    setFont(QFont("Courier New", 13));
+    setFont(QFont("Courier New", 11));
 
     setColor(QColor(0x00, 0x00, 0xFF), QsciLexerCPP::Keyword);
     setColor(QColor(0x80, 0x00, 0x23), QsciLexerCPP::KeywordSet2);

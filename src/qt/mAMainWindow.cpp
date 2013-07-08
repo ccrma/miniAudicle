@@ -7,6 +7,7 @@
 #include "mAVMMonitor.h"
 
 #include <QMessageBox>
+#include <QDesktopWidget>
 
 
 mAMainWindow::mAMainWindow(QWidget *parent) :
@@ -29,14 +30,25 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     expandingSpace->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     ui->mainToolBar->insertWidget(ui->actionRemove_Last_Shred, expandingSpace);
 
+    QDesktopWidget * desktopWidget = QApplication::desktop();
+    QRect available = desktopWidget->availableGeometry(this);
+
     m_consoleMonitor = new mAConsoleMonitor(this);
+    // position left edge at 0.2, bottom edge at 0.8
+    m_consoleMonitor->move(available.left() + available.width()*0.2,
+                           available.top() + available.height()*0.8 - m_consoleMonitor->frameGeometry().height());
     m_consoleMonitor->show();
     ma->set_log_level(CK_LOG_SYSTEM);
 
     m_vmMonitor = new mAVMMonitor(this, ma);
+    // position right edge at 0.8, center vertically
+    m_vmMonitor->move(available.left() + available.width()*0.8 - m_vmMonitor->frameGeometry().width(),
+                      available.top() + available.height()*0.2);
     m_vmMonitor->show();
 
-    this->move(100, 50);
+    // center horizontally, top 100px down from top
+    this->move(available.left() + available.width()*0.5 - this->frameGeometry().width()/2,
+               100);
 
     newFile();
 }
