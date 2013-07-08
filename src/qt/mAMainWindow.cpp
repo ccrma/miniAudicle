@@ -31,6 +31,7 @@ U.S.A.
 
 #include <QMessageBox>
 #include <QDesktopWidget>
+#include <QSettings>
 
 
 extern const char MA_VERSION[];
@@ -39,12 +40,20 @@ extern const char MA_HELP[];
 extern const char CK_VERSION[];
 
 
+const int MAX_RECENT_FILES = 10;
+
+
 mAMainWindow::mAMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::mAMainWindow),
     ma(new miniAudicle)
 {
     vm_on = false;
+
+    QCoreApplication::setOrganizationName("Stanford CCRMA");
+    QCoreApplication::setOrganizationDomain("ccrma.stanford.edu");
+    QCoreApplication::setApplicationName("miniAudicle");
+
     m_docid = ma->allocate_document_id();
 
     ui->setupUi(this);
@@ -55,6 +64,8 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     ui->actionRemove_Last_Shred->setEnabled(false);
     ui->actionRemove_All_Shreds->setEnabled(false);
 
+    updateRecentFilesMenu();
+    
     QWidget * expandingSpace = new QWidget;
     expandingSpace->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     ui->mainToolBar->insertWidget(ui->actionRemove_Last_Shred, expandingSpace);
@@ -142,7 +153,8 @@ void mAMainWindow::openFile(const QString &path)
         fileName = QFileDialog::getOpenFileName(this,
             tr("Open File"), "", "ChucK Scripts (*.ck)");
 
-    if (!fileName.isEmpty()) {
+    if (!fileName.isEmpty())
+    {
         QFile * file = new QFile(fileName);
         if (file->open(QFile::ReadWrite | QFile::Text))
         {
@@ -154,8 +166,19 @@ void mAMainWindow::openFile(const QString &path)
             ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);
 
             documentView->show();
+            
+            QString path = documentView->filePath();
+            addRecentFile(path);
+            updateRecentFilesMenu();            
         }
     }
+}
+
+void mAMainWindow::openRecent()
+{
+    QAction *action = qobject_cast<QAction *>(sender());
+    if(action)
+        openFile(action->data().toString());
 }
 
 void mAMainWindow::closeFile()
@@ -202,6 +225,10 @@ void mAMainWindow::saveFile()
         return;
 
     view->save();
+
+    QString path = view->filePath();
+    addRecentFile(path);
+    updateRecentFilesMenu();
 }
 
 #pragma mark
@@ -241,12 +268,6 @@ void mAMainWindow::toggleVM()
         {
             ui->actionStart_Virtual_Machine->setText("Stop Virtual Machine");
 
-            ui->actionAdd_Shred->setEnabled(true);
-            ui->actionRemove_Shred->setEnabled(true);
-            ui->actionReplace_Shred->setEnabled(true);
-            ui->actionRemove_Last_Shred->setEnabled(true);
-            ui->actionRemove_All_Shreds->setEnabled(true);
-
             m_vmMonitor->vmChangedToState(true);
 
             vm_on = true;
@@ -258,15 +279,58 @@ void mAMainWindow::toggleVM()
 
         ui->actionStart_Virtual_Machine->setText("Start Virtual Machine");
 
-        ui->actionAdd_Shred->setEnabled(false);
-        ui->actionRemove_Shred->setEnabled(false);
-        ui->actionReplace_Shred->setEnabled(false);
-        ui->actionRemove_Last_Shred->setEnabled(false);
-        ui->actionRemove_All_Shreds->setEnabled(false);
-
         m_vmMonitor->vmChangedToState(false);
 
         vm_on = false;
     }
+
+    ui->actionAdd_Shred->setEnabled(vm_on);
+    ui->actionRemove_Shred->setEnabled(vm_on);
+    ui->actionReplace_Shred->setEnabled(vm_on);
+    ui->actionRemove_Last_Shred->setEnabled(vm_on);
+    ui->actionRemove_All_Shreds->setEnabled(vm_on);
 }
 
+
+void mAMainWindow::addRecentFile(QString &path)
+{
+    QSettings settings;
+    QList<QString> recentFiles;
+    int len = settings.beginReadArray("RecentFiles");
+    int i = 0;
+    for(i = 0; i < len; i++)
+        recentFiles.append(settings.value("path").toString());
+    settings.endArray();
+    
+    while(recentFiles.length() > MAX_RECENT_FILES-1)
+        recentFiles.removeLast();
+    recentFiles.prepend(path);
+    
+    settings.beginWriteArray("RecentFiles", recentFiles.length());
+    len = recentFiles.length();
+    for(i = 0; i < len; i++)
+        settings.setValue("path", recentFiles.at(i));
+    settings.endArray();
+}
+
+void mAMainWindow::updateRecentFilesMenu()
+{
+    ui->menuRecent_Files->clear();
+    
+    QSettings settings;
+    int len = settings.beginReadArray("RecentFiles");
+    int i = 0;
+    for(i = 0; i < len; i++)
+    {
+        QString path = settings.value("path").toString();
+        QAction * action = new QAction(this);
+        action->setText(QString("&%1 %2")
+                        .arg(i+1)
+                        .arg(QFileInfo(path).fileName()));
+        action->setData(path);
+        connect(action, SIGNAL(triggered()), SLOT(openRecent()));
+        
+        ui->menuRecent_Files->addAction(action);
+    }
+    settings.endArray();
+}

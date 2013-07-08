@@ -55,6 +55,7 @@ public slots:
     void about();
 
     void openFile(const QString &path = QString());
+    void openRecent();
     void newFile();
     void closeFile();
     void closeFile(int i);
@@ -78,6 +79,9 @@ private:
 
     miniAudicle * ma;
     t_CKUINT m_docid;
+    
+    void addRecentFile(QString &path);
+    void updateRecentFilesMenu();
 };
 
 #endif // MAMAINWINDOW_H

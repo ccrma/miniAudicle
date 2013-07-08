@@ -54,6 +54,14 @@ public:
     void add();
     void replace();
     void remove();
+    
+    QString filePath()
+    {
+        if(file)
+            return file->fileName();
+        else
+            return "";
+    }
 
 public slots:
     void documentModified(bool modified);
