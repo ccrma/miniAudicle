@@ -94,8 +94,6 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent) :
     m_errNotifier = new QSocketNotifier( err_fd, QSocketNotifier::Read );
     connect(m_errNotifier, SIGNAL(activated(int)), this, SLOT(appendFromFile(int)));
     m_errNotifier->setEnabled(true);
-
-    this->move(50, 200);
 }
 
 mAConsoleMonitor::~mAConsoleMonitor()

@@ -292,6 +292,20 @@ void mAMainWindow::toggleVM()
 }
 
 
+void mAMainWindow::showConsoleMonitor()
+{
+    m_consoleMonitor->show();
+    m_consoleMonitor->raise();
+    m_consoleMonitor->activateWindow();
+}
+
+void mAMainWindow::showVirtualMachineMonitor()
+{
+    m_vmMonitor->show();
+    m_vmMonitor->raise();
+    m_vmMonitor->activateWindow();
+}
+
 void mAMainWindow::addRecentFile(QString &path)
 {
     QSettings settings;

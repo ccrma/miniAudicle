@@ -715,6 +715,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionConsole_Monitor</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>showConsoleMonitor()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionVirtual_Machine_Monitor</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>showVirtualMachineMonitor()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>exit()</slot>
@@ -730,5 +762,7 @@
   <slot>removeLastShred()</slot>
   <slot>removeAllShreds()</slot>
   <slot>about()</slot>
+  <slot>showConsoleMonitor()</slot>
+  <slot>showVirtualMachineMonitor()</slot>
  </slots>
 </ui>
