@@ -33,6 +33,12 @@ U.S.A.
 #include <QDesktopWidget>
 
 
+extern const char MA_VERSION[];
+extern const char MA_ABOUT[];
+extern const char MA_HELP[];
+extern const char CK_VERSION[];
+
+
 mAMainWindow::mAMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::mAMainWindow),
@@ -106,6 +112,13 @@ mAMainWindow::~mAMainWindow()
 void mAMainWindow::exit()
 {
     qApp->exit(0);
+}
+
+void mAMainWindow::about()
+{
+    char buf[256];
+    snprintf(buf, 256, MA_ABOUT, MA_VERSION, CK_VERSION, sizeof(void*)*8);
+    QMessageBox::about(this, "About miniAudicle", tr("<b>miniAudicle</b>\n") + buf);
 }
 
 void mAMainWindow::newFile()

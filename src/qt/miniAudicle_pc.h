@@ -33,6 +33,7 @@ U.S.A.
 
 #endif
 
+// qmake's special "emit" keyword causes problems between chuck_emit.cpp and MSVC
 #ifdef WIN32
 #undef emit
 #endif

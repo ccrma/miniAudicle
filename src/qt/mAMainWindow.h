@@ -52,6 +52,7 @@ public:
 public slots:
 
     void exit();
+    void about();
 
     void openFile(const QString &path = QString());
     void newFile();
