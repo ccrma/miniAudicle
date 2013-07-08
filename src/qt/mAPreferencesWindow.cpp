@@ -7,6 +7,9 @@ mAPreferencesWindow::mAPreferencesWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     
+    //setWindowFlags(windowFlags() & ~(Qt::WindowCloseButtonHint));
+    setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
+    
     ui->tabWidget->setCurrentIndex(0);
 }
 
@@ -17,12 +20,12 @@ mAPreferencesWindow::~mAPreferencesWindow()
 
 void mAPreferencesWindow::ok()
 {
-    
+    close();
 }
 
 void mAPreferencesWindow::cancel()
 {
-    
+    close();
 }
 
 void mAPreferencesWindow::restoreDefaults()
