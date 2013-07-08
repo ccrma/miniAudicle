@@ -5,30 +5,7 @@
 #include <QFileDialog>
 
 #include <Qsci/qsciscintilla.h>
-#include <Qsci/qscilexercpp.h>
-
-
-class mAsciLexerChucK : public QsciLexerCPP
-{
-public:
-    mAsciLexerChucK() : QsciLexerCPP()
-    { }
-
-    const char *keywords(int set) const
-    {
-        if(set == 0)
-            return "int float time dur void same if else while do "
-                   "until for break continue return switch repeat "
-                   "class extends public static pure this "
-                   "super interface implements protected "
-                   "private function fun spork const new now "
-                   "true false maybe null NULL me pi samp ms "
-                   "second minute hour day week dac adc blackhole ";
-        return 0;
-    }
-
-    const char *language() const { return "ChucK"; }
-};
+#include "mAsciLexerChucK.h"
 
 
 mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file, miniAudicle * ma) :
@@ -54,7 +31,6 @@ mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file
     ui->textEdit->setTabWidth(4);
 
     lexer = new mAsciLexerChucK();
-    lexer->setFont(QFont("Courier New", 11));
     ui->textEdit->setLexer(lexer);
 
     ui->textEdit->setBraceMatching(QsciScintilla::SloppyBraceMatch);
@@ -130,15 +106,22 @@ void mADocumentView::save()
     {
         QString fileName = QFileDialog::getSaveFileName(this,
             tr("Save File"), "", "ChucK Scripts (*.ck)");
-        file = new QFile(fileName);
-        if(!file->open(QFile::ReadWrite | QFile::Text))
-        {
-            delete file;
-            file = NULL;
-        }
 
-        QFileInfo fileInfo(fileName);
-        setTitle(fileInfo.fileName().toStdString());
+        if(fileName != NULL && fileName.length() > 0)
+        {
+            file = new QFile(fileName);
+
+            if(file->open(QFile::ReadWrite | QFile::Text))
+            {
+                QFileInfo fileInfo(fileName);
+                setTitle(fileInfo.fileName().toStdString());
+            }
+            else
+            {
+                delete file;
+                file = NULL;
+            }
+        }
     }
 
     if(file != NULL)

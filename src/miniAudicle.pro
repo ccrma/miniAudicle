@@ -104,7 +104,8 @@ SOURCES += \
     qt/mAConsoleMonitor.cpp \
     qt/mAVMMonitor.cpp \
     chuck/src/util_serial.cpp \
-    chuck/src/chuck_io.cpp
+    chuck/src/chuck_io.cpp \
+    qt/mAsciLexerChucK.cpp
 
 !linux {
     SOURCES += chuck/src/util_sndfile.c
@@ -178,7 +179,8 @@ HEADERS  += qt/mAMainWindow.h \
     qt/mAConsoleMonitor.h \
     qt/mAVMMonitor.h \
     chuck/src/util_serial.h \
-    chuck/src/chuck_io.h
+    chuck/src/chuck_io.h \
+    qt/mAsciLexerChucK.h
 
 FORMS += \
     qt/mAMainWindow.ui \
