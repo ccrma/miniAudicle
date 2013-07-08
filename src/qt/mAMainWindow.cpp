@@ -59,7 +59,8 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
 
     m_consoleMonitor = new mAConsoleMonitor(NULL);
     m_vmMonitor = new mAVMMonitor(NULL, this, ma);
-    
+    m_preferencesWindow = NULL;
+
     m_docid = ma->allocate_document_id();
 
     ui->actionAdd_Shred->setEnabled(false);
