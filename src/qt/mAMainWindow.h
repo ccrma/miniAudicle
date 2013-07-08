@@ -36,6 +36,7 @@ U.S.A.
 class mADocumentView;
 class mAConsoleMonitor;
 class mAVMMonitor;
+class mAPreferencesWindow;
 
 namespace Ui {
 class mAMainWindow;
@@ -69,6 +70,8 @@ public slots:
     void toggleVM();
     void setLogLevel();
     
+    void showPreferences();
+    
     void showConsoleMonitor();
     void showVirtualMachineMonitor();
 
@@ -80,6 +83,7 @@ private:
 
     mAConsoleMonitor * m_consoleMonitor;
     mAVMMonitor * m_vmMonitor;
+    mAPreferencesWindow * m_preferencesWindow;
 
     miniAudicle * ma;
     t_CKUINT m_docid;

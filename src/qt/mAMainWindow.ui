@@ -923,6 +923,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionPreferences</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>showPreferences()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>exit()</slot>
@@ -941,5 +957,6 @@
   <slot>showConsoleMonitor()</slot>
   <slot>showVirtualMachineMonitor()</slot>
   <slot>setLogLevel()</slot>
+  <slot>showPreferences()</slot>
  </slots>
 </ui>

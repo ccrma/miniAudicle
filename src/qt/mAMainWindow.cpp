@@ -28,6 +28,7 @@ U.S.A.
 #include "madocumentview.h"
 #include "mAConsoleMonitor.h"
 #include "mAVMMonitor.h"
+#include "mAPreferencesWindow.h"
 
 #include <QMessageBox>
 #include <QDesktopWidget>
@@ -341,6 +342,21 @@ void mAMainWindow::setLogLevel()
     
     QSettings settings;
     settings.setValue("/ChucK/LogLevel", ma->get_log_level());
+}
+
+
+void mAMainWindow::showPreferences()
+{
+    if(m_preferencesWindow == NULL)
+    {
+        m_preferencesWindow = new mAPreferencesWindow();
+        m_preferencesWindow->move(this->pos().x() + this->frameGeometry().width()/2 - m_preferencesWindow->frameGeometry().width()/2,
+                                  this->pos().y() + this->frameGeometry().height()/2 - m_preferencesWindow->frameGeometry().height()/2);
+    }
+    
+    m_preferencesWindow->show();
+    m_preferencesWindow->raise();
+    m_preferencesWindow->activateWindow();
 }
 
 
