@@ -49,14 +49,18 @@ mAVMMonitor::mAVMMonitor(QWidget *parent, mAMainWindow *mainWindow, miniAudicle 
     ui->tableWidget->setColumnCount(4);
     ui->tableWidget->setShowGrid(true);
     ui->tableWidget->verticalHeader()->setHidden(true);
+    
     ui->tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem("shred"));
     ui->tableWidget->setHorizontalHeaderItem(1, new QTableWidgetItem("name"));
     ui->tableWidget->setHorizontalHeaderItem(2, new QTableWidgetItem("time"));
     ui->tableWidget->setHorizontalHeaderItem(3, new QTableWidgetItem("-"));
+    
     ui->tableWidget->setColumnWidth(0, 48);
     ui->tableWidget->setColumnWidth(1, 156);
     ui->tableWidget->setColumnWidth(2, 48);
     ui->tableWidget->setColumnWidth(3, 24);
+    
+    ui->tableWidget->horizontalHeader()->setResizeMode(1, QHeaderView::Stretch);
 }
 
 mAVMMonitor::~mAVMMonitor()
