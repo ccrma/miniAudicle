@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Console</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="miniAudicle.qrc">
+    <normaloff>:/icon/miniAudicle.png</normaloff>:/icon/miniAudicle.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPlainTextEdit" name="plainTextEdit">
     <property name="geometry">
@@ -38,6 +42,8 @@
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="miniAudicle.qrc"/>
+ </resources>
  <connections/>
 </ui>
