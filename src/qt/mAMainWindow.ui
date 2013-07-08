@@ -92,17 +92,17 @@
      <property name="title">
       <string>Log Level</string>
      </property>
-     <addaction name="actionNone"/>
-     <addaction name="actionCore"/>
-     <addaction name="actionSystem"/>
-     <addaction name="actionSevere"/>
-     <addaction name="actionWarning"/>
-     <addaction name="actionInfo"/>
-     <addaction name="actionConfig"/>
-     <addaction name="actionFine"/>
-     <addaction name="actionFiner"/>
-     <addaction name="actionFinest"/>
-     <addaction name="actionCrazy"/>
+     <addaction name="actionLogNone"/>
+     <addaction name="actionLogCore"/>
+     <addaction name="actionLogSystem"/>
+     <addaction name="actionLogSevere"/>
+     <addaction name="actionLogWarning"/>
+     <addaction name="actionLogInfo"/>
+     <addaction name="actionLogConfig"/>
+     <addaction name="actionLogFine"/>
+     <addaction name="actionLogFiner"/>
+     <addaction name="actionLogFinest"/>
+     <addaction name="actionLogCrazy"/>
     </widget>
     <addaction name="actionAdd_Shred"/>
     <addaction name="actionReplace_Shred"/>
@@ -408,7 +408,7 @@
     <string>About miniAudicle</string>
    </property>
   </action>
-  <action name="actionNone">
+  <action name="actionLogNone">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -416,7 +416,7 @@
     <string>None</string>
    </property>
   </action>
-  <action name="actionCore">
+  <action name="actionLogCore">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -424,7 +424,7 @@
     <string>Core</string>
    </property>
   </action>
-  <action name="actionSystem">
+  <action name="actionLogSystem">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -432,7 +432,7 @@
     <string>System</string>
    </property>
   </action>
-  <action name="actionSevere">
+  <action name="actionLogSevere">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -440,7 +440,7 @@
     <string>Severe</string>
    </property>
   </action>
-  <action name="actionWarning">
+  <action name="actionLogWarning">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -448,7 +448,7 @@
     <string>Warning</string>
    </property>
   </action>
-  <action name="actionInfo">
+  <action name="actionLogInfo">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -456,7 +456,7 @@
     <string>Info</string>
    </property>
   </action>
-  <action name="actionConfig">
+  <action name="actionLogConfig">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -464,7 +464,7 @@
     <string>Config</string>
    </property>
   </action>
-  <action name="actionFine">
+  <action name="actionLogFine">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -472,7 +472,7 @@
     <string>Fine</string>
    </property>
   </action>
-  <action name="actionFiner">
+  <action name="actionLogFiner">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -480,7 +480,7 @@
     <string>Finer</string>
    </property>
   </action>
-  <action name="actionFinest">
+  <action name="actionLogFinest">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -488,7 +488,7 @@
     <string>Finest</string>
    </property>
   </action>
-  <action name="actionCrazy">
+  <action name="actionLogCrazy">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -747,6 +747,182 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionLogConfig</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>setLogLevel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLogCore</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>setLogLevel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLogCrazy</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>setLogLevel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLogFine</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>setLogLevel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLogFiner</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>setLogLevel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLogFinest</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>setLogLevel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLogInfo</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>setLogLevel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLogNone</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>setLogLevel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLogSevere</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>setLogLevel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLogSystem</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>setLogLevel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLogWarning</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>setLogLevel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>exit()</slot>
@@ -764,5 +940,6 @@
   <slot>about()</slot>
   <slot>showConsoleMonitor()</slot>
   <slot>showVirtualMachineMonitor()</slot>
+  <slot>setLogLevel()</slot>
  </slots>
 </ui>

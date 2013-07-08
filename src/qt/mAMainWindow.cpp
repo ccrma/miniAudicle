@@ -48,15 +48,18 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     ui(new Ui::mAMainWindow),
     ma(new miniAudicle)
 {
+    ui->setupUi(this);
+    
     vm_on = false;
 
     QCoreApplication::setOrganizationName("Stanford CCRMA");
     QCoreApplication::setOrganizationDomain("ccrma.stanford.edu");
     QCoreApplication::setApplicationName("miniAudicle");
 
+    m_consoleMonitor = new mAConsoleMonitor(NULL);
+    m_vmMonitor = new mAVMMonitor(NULL, this, ma);
+    
     m_docid = ma->allocate_document_id();
-
-    ui->setupUi(this);
 
     ui->actionAdd_Shred->setEnabled(false);
     ui->actionRemove_Shred->setEnabled(false);
@@ -66,6 +69,23 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
 
     updateRecentFilesMenu();
     
+    QSettings settings;
+    ma->set_log_level(settings.value("/ChucK/LogLevel", (int) 2).toInt());
+    switch(ma->get_log_level())
+    {
+    case 0: ui->actionLogNone->setChecked(true); break;
+    case 1: ui->actionLogCore->setChecked(true); break;
+    case 2: ui->actionLogSystem->setChecked(true); break;
+    case 3: ui->actionLogSevere->setChecked(true); break;
+    case 4: ui->actionLogWarning->setChecked(true); break;
+    case 5: ui->actionLogInfo->setChecked(true); break;
+    case 6: ui->actionLogConfig->setChecked(true); break;
+    case 7: ui->actionLogFine->setChecked(true); break;
+    case 8: ui->actionLogFiner->setChecked(true); break;
+    case 9: ui->actionLogFinest->setChecked(true); break;
+    case 10: ui->actionLogCrazy->setChecked(true); break;
+    }
+    
     QWidget * expandingSpace = new QWidget;
     expandingSpace->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     ui->mainToolBar->insertWidget(ui->actionRemove_Last_Shred, expandingSpace);
@@ -73,14 +93,11 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     QDesktopWidget * desktopWidget = QApplication::desktop();
     QRect available = desktopWidget->availableGeometry(this);
 
-    m_consoleMonitor = new mAConsoleMonitor(NULL);
     // position left edge at 0.2, bottom edge at 0.8
     m_consoleMonitor->move(available.left() + available.width()*0.2,
                            available.top() + available.height()*0.8 - m_consoleMonitor->frameGeometry().height());
     m_consoleMonitor->show();
-    ma->set_log_level(CK_LOG_SYSTEM);
 
-    m_vmMonitor = new mAVMMonitor(NULL, this, ma);
     // position right edge at 0.8, center vertically
     m_vmMonitor->move(available.left() + available.width()*0.8 - m_vmMonitor->frameGeometry().width(),
                       available.top() + available.height()*0.2);
@@ -289,6 +306,41 @@ void mAMainWindow::toggleVM()
     ui->actionReplace_Shred->setEnabled(vm_on);
     ui->actionRemove_Last_Shred->setEnabled(vm_on);
     ui->actionRemove_All_Shreds->setEnabled(vm_on);
+}
+
+
+void mAMainWindow::setLogLevel()
+{
+    ui->actionLogNone->setChecked(false);
+    ui->actionLogCore->setChecked(false);
+    ui->actionLogSystem->setChecked(false);
+    ui->actionLogSevere->setChecked(false);
+    ui->actionLogWarning->setChecked(false);
+    ui->actionLogInfo->setChecked(false);
+    ui->actionLogConfig->setChecked(false);
+    ui->actionLogFine->setChecked(false);
+    ui->actionLogFiner->setChecked(false);
+    ui->actionLogFinest->setChecked(false);
+    ui->actionLogCrazy->setChecked(false);
+    
+    QObject *sender = this->sender();
+    if(sender == ui->actionLogNone)         ma->set_log_level(0);
+    else if(sender == ui->actionLogCore)    ma->set_log_level(1);
+    else if(sender == ui->actionLogSystem)  ma->set_log_level(2);
+    else if(sender == ui->actionLogSevere)  ma->set_log_level(3);
+    else if(sender == ui->actionLogWarning) ma->set_log_level(4);
+    else if(sender == ui->actionLogInfo)    ma->set_log_level(5);
+    else if(sender == ui->actionLogConfig)  ma->set_log_level(6);
+    else if(sender == ui->actionLogFine)    ma->set_log_level(7);
+    else if(sender == ui->actionLogFiner)   ma->set_log_level(8);
+    else if(sender == ui->actionLogFinest)  ma->set_log_level(9);
+    else if(sender == ui->actionLogCrazy)   ma->set_log_level(10);
+    
+    QAction * action = qobject_cast<QAction *>(sender);
+    action->setChecked(true);
+    
+    QSettings settings;
+    settings.setValue("/ChucK/LogLevel", ma->get_log_level());
 }
 
 

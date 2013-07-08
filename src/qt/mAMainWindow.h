@@ -67,6 +67,7 @@ public slots:
     void removeLastShred();
     void removeAllShreds();
     void toggleVM();
+    void setLogLevel();
     
     void showConsoleMonitor();
     void showVirtualMachineMonitor();
