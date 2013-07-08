@@ -36,6 +36,7 @@ U.S.A.
 // qmake's special "emit" keyword causes problems between chuck_emit.cpp and MSVC
 #ifdef WIN32
 #undef emit
+#define snprintf _snprintf
 #endif
 
 #endif // QT_MINIAUDICLE_H
