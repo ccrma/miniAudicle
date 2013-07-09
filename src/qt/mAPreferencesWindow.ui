@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>471</width>
+    <width>441</width>
     <height>410</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>471</width>
+    <width>420</width>
     <height>410</height>
    </size>
   </property>
@@ -46,7 +46,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>451</width>
+     <width>421</width>
      <height>361</height>
     </rect>
    </property>
@@ -60,7 +60,7 @@
     <widget class="QCheckBox" name="enableAudio">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>10</x>
        <y>20</y>
        <width>111</width>
        <height>20</height>
@@ -73,9 +73,9 @@
     <widget class="QCheckBox" name="enableNetworkVM">
      <property name="geometry">
       <rect>
-       <x>220</x>
+       <x>230</x>
        <y>20</y>
-       <width>221</width>
+       <width>171</width>
        <height>20</height>
       </rect>
      </property>
@@ -86,9 +86,9 @@
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>10</x>
        <y>60</y>
-       <width>91</width>
+       <width>71</width>
        <height>16</height>
       </rect>
      </property>
@@ -99,9 +99,9 @@
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>10</x>
        <y>90</y>
-       <width>91</width>
+       <width>61</width>
        <height>16</height>
       </rect>
      </property>
@@ -112,7 +112,7 @@
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>10</x>
        <y>120</y>
        <width>111</width>
        <height>16</height>
@@ -125,7 +125,7 @@
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
-       <x>240</x>
+       <x>230</x>
        <y>120</y>
        <width>101</width>
        <height>16</height>
@@ -138,7 +138,7 @@
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>10</x>
        <y>150</y>
        <width>81</width>
        <height>16</height>
@@ -151,7 +151,7 @@
     <widget class="QLabel" name="label_6">
      <property name="geometry">
       <rect>
-       <x>240</x>
+       <x>230</x>
        <y>150</y>
        <width>71</width>
        <height>16</height>
@@ -164,50 +164,50 @@
     <widget class="QComboBox" name="audioOutput">
      <property name="geometry">
       <rect>
-       <x>120</x>
-       <y>50</y>
+       <x>90</x>
+       <y>57</y>
        <width>311</width>
-       <height>26</height>
+       <height>21</height>
       </rect>
      </property>
     </widget>
     <widget class="QComboBox" name="audioInput">
      <property name="geometry">
       <rect>
-       <x>120</x>
-       <y>80</y>
+       <x>90</x>
+       <y>86</y>
        <width>311</width>
-       <height>26</height>
+       <height>21</height>
       </rect>
      </property>
     </widget>
     <widget class="QComboBox" name="outputChannels">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>110</y>
+       <x>100</x>
+       <y>117</y>
        <width>91</width>
-       <height>26</height>
+       <height>21</height>
       </rect>
      </property>
     </widget>
     <widget class="QComboBox" name="inputChannels">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>110</y>
+       <x>310</x>
+       <y>117</y>
        <width>91</width>
-       <height>26</height>
+       <height>21</height>
       </rect>
      </property>
     </widget>
     <widget class="QComboBox" name="bufferSize">
      <property name="geometry">
       <rect>
-       <x>320</x>
-       <y>140</y>
+       <x>290</x>
+       <y>147</y>
        <width>111</width>
-       <height>26</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="currentIndex">
@@ -247,10 +247,10 @@
     <widget class="QComboBox" name="sampleRate">
      <property name="geometry">
       <rect>
-       <x>100</x>
-       <y>140</y>
+       <x>80</x>
+       <y>146</y>
        <width>121</width>
-       <height>26</height>
+       <height>21</height>
       </rect>
      </property>
     </widget>
@@ -274,10 +274,10 @@
   <widget class="QPushButton" name="okButton">
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>340</x>
      <y>380</y>
      <width>91</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -287,10 +287,10 @@
   <widget class="QPushButton" name="cancelButton">
    <property name="geometry">
     <rect>
-     <x>270</x>
+     <x>240</x>
      <y>380</y>
      <width>91</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -303,7 +303,7 @@
      <x>10</x>
      <y>380</y>
      <width>141</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
