@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>521</width>
+    <width>471</width>
     <height>410</height>
    </rect>
   </property>
@@ -18,14 +18,14 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>521</width>
+    <width>471</width>
     <height>410</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>521</width>
-    <height>417</height>
+    <width>471</width>
+    <height>410</height>
    </size>
   </property>
   <property name="baseSize">
@@ -46,7 +46,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>501</width>
+     <width>451</width>
      <height>361</height>
     </rect>
    </property>
@@ -57,6 +57,203 @@
     <attribute name="title">
      <string>Audio</string>
     </attribute>
+    <widget class="QCheckBox" name="enableAudio">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>111</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Enable Audio</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="enableNetworkVM">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>20</y>
+       <width>221</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Accept network VM commands</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>60</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Audio output:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>90</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Audio input:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>120</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Output channels:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>120</y>
+       <width>101</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Input channels:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>150</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Sample rate:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>150</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Buffer size:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="audioOutput">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>50</y>
+       <width>311</width>
+       <height>26</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="audioInput">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>80</y>
+       <width>311</width>
+       <height>26</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="outputChannels">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>110</y>
+       <width>91</width>
+       <height>26</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="inputChannels">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>110</y>
+       <width>91</width>
+       <height>26</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="bufferSize">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>140</y>
+       <width>111</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="currentIndex">
+      <number>3</number>
+     </property>
+     <item>
+      <property name="text">
+       <string>64</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>128</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>256</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>512</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1024</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2048</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="sampleRate">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>140</y>
+       <width>121</width>
+       <height>26</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="editingTab">
     <attribute name="title">
@@ -77,9 +274,9 @@
   <widget class="QPushButton" name="okButton">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>370</x>
      <y>380</y>
-     <width>114</width>
+     <width>91</width>
      <height>21</height>
     </rect>
    </property>
@@ -92,7 +289,7 @@
     <rect>
      <x>270</x>
      <y>380</y>
-     <width>114</width>
+     <width>91</width>
      <height>21</height>
     </rect>
    </property>

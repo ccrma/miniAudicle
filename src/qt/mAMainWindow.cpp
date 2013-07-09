@@ -350,7 +350,7 @@ void mAMainWindow::showPreferences()
 {
     if(m_preferencesWindow == NULL)
     {
-        m_preferencesWindow = new mAPreferencesWindow();
+        m_preferencesWindow = new mAPreferencesWindow(NULL, ma);
         m_preferencesWindow->move(this->pos().x() + this->frameGeometry().width()/2 - m_preferencesWindow->frameGeometry().width()/2,
                                   this->pos().y() + this->frameGeometry().height()/2 - m_preferencesWindow->frameGeometry().height()/2);
     }
