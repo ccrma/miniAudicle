@@ -398,6 +398,8 @@ t_CKBOOL View::destroy()
             elements[i]->remove_parent( this );
     }
     
+    elements.clear();
+    
     [native_view performSelectorOnMainThread:@selector(unlink)
                                   withObject:nil
                                waitUntilDone:YES];
@@ -405,6 +407,8 @@ t_CKBOOL View::destroy()
     [native_view performSelectorOnMainThread:@selector(destroy)
                                   withObject:nil
                                waitUntilDone:YES];
+    
+    native_view = nil;
     
     return TRUE;
 }

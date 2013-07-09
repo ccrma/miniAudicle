@@ -103,8 +103,10 @@ t_CKBOOL Element::pi_destroy()
 {
     if( default_parent && parent != NULL )
     {
-        parent->destroy();
-        delete parent;
+        // cache parent, because it will be set to NULL within
+        View * _parent = parent;
+        _parent->destroy();
+        delete _parent;
         parent = NULL;
         default_parent = FALSE;
     }
@@ -223,24 +225,24 @@ t_CKBOOL Element::pi_set_parent( View * p )
 
 t_CKBOOL Element::pi_remove_parent( View * p )
 {
-    if( default_parent && parent != NULL )
-    {
-        default_parent = FALSE;
-        /* WARNING: HUGE HACKS FOLLOW */
-        /* set this now! so that we dont get infinite recursion when 
-        parent->destroy() calls remove_parent on this
-        */
-        View * _parent = parent;
-        parent = NULL;
-        /* If we don't create a temporary variable to hold parent, we will be 
-        unable to delete parent.  When we call parent->destroy, it will call 
-        remove_parent on this.  that remove_parent will set parent = NULL, so we
-        need to have a temporary variable to hold on to the parent until we can
-        delete it.  
-        */
-        _parent->destroy();
-        delete _parent;
-    }
+//    if( default_parent && parent != NULL )
+//    {
+//        default_parent = FALSE;
+//        /* WARNING: HUGE HACKS FOLLOW */
+//        /* set this now! so that we dont get infinite recursion when 
+//        parent->destroy() calls remove_parent on this
+//        */
+//        View * _parent = parent;
+//        parent = NULL;
+//        /* If we don't create a temporary variable to hold parent, we will be 
+//        unable to delete parent.  When we call parent->destroy, it will call 
+//        remove_parent on this.  that remove_parent will set parent = NULL, so we
+//        need to have a temporary variable to hold on to the parent until we can
+//        delete it.  
+//        */
+//        _parent->destroy();
+//        delete _parent;
+//    }
 
     parent = NULL;
     
