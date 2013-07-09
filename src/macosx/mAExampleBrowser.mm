@@ -89,7 +89,7 @@
     NSString * examplePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"examples"];
     NSString * columnPath = [examplePath stringByAppendingFormat:@"/%@", [_browser pathToColumn:[_browser selectedColumn]]];
     
-    BOOL inTab = [NSEvent modifierFlags] & NSAlternateKeyMask;
+//    BOOL inTab = [NSEvent modifierFlags] & NSAlternateKeyMask;
     miniAudicleController * controller = (miniAudicleController *)[NSDocumentController sharedDocumentController];
     
     for(NSBrowserCell * cell in [_browser selectedCells])
