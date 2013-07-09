@@ -381,7 +381,10 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     
     // if the current document is empty, replace it with the opened document
     if([[self currentDocument] isEmpty])
+    {
+        _forceDocumentInTab = YES;
         docToClose = [self currentDocument];
+    }
     
     miniAudicleDocument * r = [super openDocumentWithContentsOfURL:absoluteURL
                                                            display:displayDocument
@@ -398,6 +401,7 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     
     if(docToClose && r)
     {
+        _forceDocumentInTab = NO;
         [docToClose close];
     }
     
