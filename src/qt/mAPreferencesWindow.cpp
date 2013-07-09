@@ -80,6 +80,25 @@ const QString mAPreferencesEnableNetwork = "/VM/EnableNetworkOTFCommands";
 const QString mAPreferencesEnableAudio = "/VM/EnableAudio";
 
 
+void mAPreferencesWindow::configureDefaults()
+{
+#ifdef __MACOSX_CORE__
+    QSettings globalSettings(QSettings::SystemScope, QCoreApplication::organizationDomain(), QCoreApplication::applicationName());
+#else
+    QSettings globalSettings(QSettings::SystemScope, QCoreApplication::organizationName(), QCoreApplication::applicationName());
+#endif
+    
+    globalSettings.setValue(mAPreferencesEnableAudio, true);
+    globalSettings.setValue(mAPreferencesEnableNetwork, false);
+    globalSettings.setValue(mAPreferencesAudioOutput, 0);
+    globalSettings.setValue(mAPreferencesAudioInput, 0);
+    globalSettings.setValue(mAPreferencesSampleRate, SAMPLING_RATE_DEFAULT);
+    globalSettings.setValue(mAPreferencesOutputChannels, 2);
+    globalSettings.setValue(mAPreferencesInputChannels, 2);
+    
+    globalSettings.sync();
+}
+
 mAPreferencesWindow::mAPreferencesWindow(QWidget *parent, miniAudicle * ma) :
     QDialog(parent),
     ui(new Ui::mAPreferencesWindow),
@@ -89,14 +108,24 @@ mAPreferencesWindow::mAPreferencesWindow(QWidget *parent, miniAudicle * ma) :
     
     setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
     
-    ui->tabWidget->setCurrentIndex(0);
+    loadSettingsToGUI();
     
-    ProbeAudioDevices();
+    ui->tabWidget->setCurrentIndex(0);    
 }
 
 mAPreferencesWindow::~mAPreferencesWindow()
 {
     delete ui;
+}
+
+void mAPreferencesWindow::loadSettingsToGUI()
+{
+    QSettings settings;
+    
+    ui->enableAudio->setChecked(settings.value(mAPreferencesEnableAudio).toBool());
+    ui->enableNetworkVM->setChecked(settings.value(mAPreferencesEnableNetwork).toBool());
+    
+    ProbeAudioDevices();    
 }
 
 void mAPreferencesWindow::ok()
@@ -106,12 +135,16 @@ void mAPreferencesWindow::ok()
 
 void mAPreferencesWindow::cancel()
 {
+    loadSettingsToGUI();    
     close();
 }
 
 void mAPreferencesWindow::restoreDefaults()
 {
+    QSettings settings;
+    settings.clear();
     
+    loadSettingsToGUI();
 }
 
 void mAPreferencesWindow::ProbeAudioDevices()
@@ -126,8 +159,8 @@ void mAPreferencesWindow::ProbeAudioDevices()
     ui->audioOutput->clear();
     ui->audioInput->clear();
 
-    int dac = settings.value(mAPreferencesAudioOutput, 0).toInt();
-    int adc = settings.value(mAPreferencesAudioInput, 0).toInt();
+    int dac = settings.value(mAPreferencesAudioOutput).toInt();
+    int adc = settings.value(mAPreferencesAudioInput).toInt();
     
     // load available audio I/O interfaces into the pop up menus
     for(i = 0; i < len; i++)
@@ -175,7 +208,7 @@ void mAPreferencesWindow::SelectedAudioOutputChanged()
     vector<int>::size_type j, sr_len = interfaces[selected_output].sampleRates.size();
     
     // load available sample rates into the pop up menu
-    int default_sample_rate = settings.value(mAPreferencesSampleRate, SAMPLING_RATE_DEFAULT).toInt();
+    int default_sample_rate = settings.value(mAPreferencesSampleRate).toInt();
     for(j = 0; j < sr_len; j++)
     {
         ui->sampleRate->addItem(QString("%1").arg(interfaces[selected_output].sampleRates[j]),
@@ -196,7 +229,7 @@ void mAPreferencesWindow::SelectedAudioOutputChanged()
     for( k = 0; k < num_channels; k++ )
         ui->outputChannels->addItem(QString("%1").arg(k+1), k+1);
     
-    int default_output_channels = settings.value(mAPreferencesOutputChannels, 2).toInt();
+    int default_output_channels = settings.value(mAPreferencesOutputChannels).toInt();
     if(default_output_channels > num_channels)
         /* as many channels as possible */
         ui->outputChannels->setCurrentIndex(ui->outputChannels->count()-1);
@@ -226,7 +259,7 @@ void mAPreferencesWindow::SelectedAudioInputChanged()
     for( k = 0; k < num_channels; k++ )
         ui->inputChannels->addItem(QString("%1").arg(k+1), k+1);
     
-    int default_input_channels = settings.value(mAPreferencesInputChannels, 2).toInt();
+    int default_input_channels = settings.value(mAPreferencesInputChannels).toInt();
     if(default_input_channels > num_channels)
         /* use as many channels as possible */
         ui->inputChannels->setCurrentIndex(ui->inputChannels->count()-1);

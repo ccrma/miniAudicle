@@ -41,6 +41,8 @@ public:
     explicit mAPreferencesWindow(QWidget *parent, miniAudicle * ma);
     ~mAPreferencesWindow();
     
+    static void configureDefaults();
+    
 public slots:
     
     void ok();
@@ -55,6 +57,8 @@ private:
     Ui::mAPreferencesWindow *ui;
     
     miniAudicle * m_ma;
+    
+    void loadSettingsToGUI();
 };
 
 

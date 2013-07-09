@@ -56,7 +56,9 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     QCoreApplication::setOrganizationName("Stanford CCRMA");
     QCoreApplication::setOrganizationDomain("ccrma.stanford.edu");
     QCoreApplication::setApplicationName("miniAudicle");
-
+    
+    mAPreferencesWindow::configureDefaults();
+    
     m_consoleMonitor = new mAConsoleMonitor(NULL);
     m_vmMonitor = new mAVMMonitor(NULL, this, ma);
     m_preferencesWindow = NULL;
