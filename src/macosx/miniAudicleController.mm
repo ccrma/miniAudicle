@@ -595,9 +595,9 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     {
         // TODO: result?
         NSError * error;
-        id result = [self openDocumentWithContentsOfURL:url
-                                                display:YES
-                                                  error:&error];
+        [self openDocumentWithContentsOfURL:url
+                                    display:YES
+                                      error:&error];
     }
     
     _forceDocumentInWindow = NO;
