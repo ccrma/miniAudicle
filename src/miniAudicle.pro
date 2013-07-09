@@ -44,6 +44,8 @@ CFLAGS = -D__PLATFORM_WIN32__ -D__WINDOWS_DS__ -I../src -I../src/chuck/src -DWIN
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LFLAGS += wsock32.lib dinput.lib kernel32.lib user32.lib gdi32.lib dsound.lib dxguid.lib winmm.lib ole32.lib
+
+RC_FILE = qt/icon/miniAudicle.rc
 }
 
 SOURCES += \
@@ -228,7 +230,8 @@ OTHER_FILES += \
     qt/icon/add.png \
     qt/icon/replace.png \
     qt/icon/removelast.png \
-    qt/icon/removeall.png
+    qt/icon/removeall.png \
+    qt/icon/miniAudicle.rc
 
 
 
