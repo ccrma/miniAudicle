@@ -300,6 +300,7 @@ clean-all:
 
 .PHONY: install
 install: miniAudicle
+	rm -rf $(INSTALL_DIR)/miniAudicle.app
 	cp -af $(BIN_DIR)/miniAudicle.app $(INSTALL_DIR)/
 
 .PHONY: dist
