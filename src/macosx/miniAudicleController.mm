@@ -244,7 +244,7 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     
     // init preferences
     // [mapc initDefaults];
-    [self newDocument:self];
+//    [self newDocument:self];
 }
 
 //-----------------------------------------------------------------------------
@@ -397,7 +397,9 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     }
     
     if(docToClose && r)
+    {
         [docToClose close];
+    }
     
     return r;
 }
@@ -1226,6 +1228,7 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
     
     [self adjustChucKMenuItems];
 }
+
 
 @end
 
