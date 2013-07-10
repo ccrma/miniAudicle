@@ -6,7 +6,7 @@
 
 QT       += core gui
 
-CONFIG += warn_off
+CONFIG += warn_off static
 
 TARGET = miniAudicle
 TEMPLATE = app
@@ -232,19 +232,4 @@ OTHER_FILES += \
     qt/icon/removelast.png \
     qt/icon/removeall.png \
     qt/icon/miniAudicle.rc
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

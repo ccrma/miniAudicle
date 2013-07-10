@@ -29,6 +29,8 @@ U.S.A.
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setStyle("windowsvista");
+
     mAMainWindow w;
     w.show();
 
