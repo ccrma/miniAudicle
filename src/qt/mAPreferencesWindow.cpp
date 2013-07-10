@@ -95,6 +95,7 @@ void mAPreferencesWindow::configureDefaults()
     globalSettings.setValue(mAPreferencesSampleRate, SAMPLING_RATE_DEFAULT);
     globalSettings.setValue(mAPreferencesOutputChannels, 2);
     globalSettings.setValue(mAPreferencesInputChannels, 2);
+    globalSettings.setValue(mAPreferencesBufferSize, BUFFER_SIZE_DEFAULT);
     
     globalSettings.sync();
 }
@@ -125,11 +126,31 @@ void mAPreferencesWindow::loadSettingsToGUI()
     ui->enableAudio->setChecked(settings.value(mAPreferencesEnableAudio).toBool());
     ui->enableNetworkVM->setChecked(settings.value(mAPreferencesEnableNetwork).toBool());
     
-    ProbeAudioDevices();    
+    ui->bufferSize->setCurrentIndex(ui->bufferSize->findText(QString("%1").arg(settings.value(mAPreferencesBufferSize).toInt())));
+    
+    ProbeAudioDevices();
+}
+
+void mAPreferencesWindow::loadGUIToSettings()
+{
+    QSettings settings;
+    
+    settings.setValue(mAPreferencesEnableAudio, ui->enableAudio->isChecked());
+    settings.setValue(mAPreferencesEnableNetwork, ui->enableNetworkVM->isChecked());
+    
+    settings.setValue(mAPreferencesAudioOutput, ui->audioOutput->itemData(ui->audioOutput->currentIndex()));
+    settings.setValue(mAPreferencesAudioInput, ui->audioInput->itemData(ui->audioInput->currentIndex()));
+    
+    settings.setValue(mAPreferencesInputChannels, ui->inputChannels->itemData(ui->inputChannels->currentIndex()));
+    settings.setValue(mAPreferencesOutputChannels, ui->outputChannels->itemData(ui->outputChannels->currentIndex()));
+    
+    settings.setValue(mAPreferencesSampleRate, ui->sampleRate->itemData(ui->sampleRate->currentIndex()));
+    settings.setValue(mAPreferencesBufferSize, ui->bufferSize->currentText().toInt());
 }
 
 void mAPreferencesWindow::ok()
 {
+    loadGUIToSettings();
     close();
 }
 
@@ -169,21 +190,25 @@ void mAPreferencesWindow::ProbeAudioDevices()
         {
             ui->audioOutput->addItem(interfaces[i].name.c_str(), int(i+1));
             if(i + 1 == dac)
-                ui->audioOutput->setCurrentIndex(i);
+                ui->audioOutput->setCurrentIndex(ui->audioOutput->count()-1);
+            if(dac == 0 && interfaces[i].isDefaultOutput)
+                ui->audioOutput->setCurrentIndex(ui->audioOutput->count()-1);
         }
 
         if(interfaces[i].inputChannels > 0 || interfaces[i].duplexChannels > 0)
         {
             ui->audioInput->addItem(interfaces[i].name.c_str(), int(i+1));
             if(i + 1 == adc)
-                ui->audioInput->setCurrentIndex(i);
+                ui->audioInput->setCurrentIndex(ui->audioInput->count()-1);
+            if(dac == 0 && interfaces[i].isDefaultInput)
+                ui->audioOutput->setCurrentIndex(ui->audioInput->count()-1);            
         }
     }
     
-    if( dac == 0 )
-        ui->audioOutput->setCurrentIndex( 0 );
-    if( adc == 0 )
-        ui->audioInput->setCurrentIndex( 0 );
+//    if( dac == 0 )
+//        ui->audioOutput->setCurrentIndex( 0 );
+//    if( adc == 0 )
+//        ui->audioInput->setCurrentIndex( 0 );
     
     this->SelectedAudioInputChanged();
     this->SelectedAudioOutputChanged();

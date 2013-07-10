@@ -283,8 +283,19 @@ void mAMainWindow::removeAllShreds()
 
 void mAMainWindow::toggleVM()
 {
+    QSettings settings;
+    
     if(!vm_on)
     {
+        ma->set_enable_audio(settings.value(mAPreferencesEnableAudio).toBool());
+        ma->set_enable_network_thread(settings.value(mAPreferencesEnableNetwork).toBool());
+        ma->set_adc(settings.value(mAPreferencesAudioInput).toInt());
+        ma->set_dac(settings.value(mAPreferencesAudioOutput).toInt());
+        ma->set_num_inputs(settings.value(mAPreferencesInputChannels).toInt());
+        ma->set_num_outputs(settings.value(mAPreferencesOutputChannels).toInt());
+        ma->set_sample_rate(settings.value(mAPreferencesSampleRate).toInt());
+        ma->set_buffer_size(settings.value(mAPreferencesBufferSize).toInt());
+        
         if(ma->start_vm())
         {
             ui->actionStart_Virtual_Machine->setText("Stop Virtual Machine");

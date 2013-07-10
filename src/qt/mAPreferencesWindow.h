@@ -59,6 +59,7 @@ private:
     miniAudicle * m_ma;
     
     void loadSettingsToGUI();
+    void loadGUIToSettings();
 };
 
 

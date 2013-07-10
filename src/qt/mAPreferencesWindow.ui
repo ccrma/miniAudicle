@@ -363,10 +363,44 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>audioInput</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>mAPreferencesWindow</receiver>
+   <slot>SelectedAudioInputChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>258</x>
+     <y>132</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>audioOutput</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>mAPreferencesWindow</receiver>
+   <slot>SelectedAudioOutputChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>258</x>
+     <y>103</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ok()</slot>
   <slot>cancel()</slot>
   <slot>restoreDefaults()</slot>
+  <slot>SelectedAudioOutputChanged()</slot>
+  <slot>SelectedAudioInputChanged()</slot>
  </slots>
 </ui>
