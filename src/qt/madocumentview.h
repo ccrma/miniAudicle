@@ -65,6 +65,7 @@ public:
 
 public slots:
     void documentModified(bool modified);
+    void preferencesChanged();
 
 protected:
     void showEvent( QShowEvent * event );

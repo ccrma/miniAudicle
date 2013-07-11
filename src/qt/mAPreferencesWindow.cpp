@@ -29,6 +29,7 @@ U.S.A.
 #include <vector>
 #include "miniAudicle.h"
 #include "chuck_def.h"
+#include "chuck_dl.h"
 #include "digiio_rtaudio.h"
 
 
@@ -54,6 +55,8 @@ const QString mAPreferencesFontSize = "/GUI/Editing/FontSize";
 const QString mAPreferencesSyntaxColoringEnabled = "/GUI/Editing/SyntaxColoringEnabled";
 const QString mAPreferencesSyntaxColoringNormalText = "/GUI/Editing/SyntaxColoring/NormalText";
 const QString mAPreferencesSyntaxColoringKeywords = "/GUI/Editing/SyntaxColoring/Keywords";
+const QString mAPreferencesSyntaxColoringUGens = "/GUI/Editing/SyntaxColoring/UGens";
+const QString mAPreferencesSyntaxColoringClasses = "/GUI/Editing/SyntaxColoring/Classes";
 const QString mAPreferencesSyntaxColoringComments = "/GUI/Editing/SyntaxColoring/Comments";
 const QString mAPreferencesSyntaxColoringStrings = "/GUI/Editing/SyntaxColoring/Strings";
 const QString mAPreferencesSyntaxColoringNumbers = "/GUI/Editing/SyntaxColoring/Numbers";
@@ -97,6 +100,34 @@ void mAPreferencesWindow::configureDefaults()
     globalSettings.setValue(mAPreferencesInputChannels, 2);
     globalSettings.setValue(mAPreferencesBufferSize, BUFFER_SIZE_DEFAULT);
     
+    globalSettings.setValue(mAPreferencesFontName, "Courier");
+    globalSettings.setValue(mAPreferencesFontSize, 9);
+    
+    globalSettings.setValue(mAPreferencesSyntaxColoringEnabled, true);
+    globalSettings.setValue(mAPreferencesSyntaxColoringNormalText, qRgb(0x00, 0x00, 0x00));
+    globalSettings.setValue(mAPreferencesSyntaxColoringBackground, qRgb(0xFF, 0xFF, 0xFF));
+    globalSettings.setValue(mAPreferencesSyntaxColoringKeywords, qRgb(0x00, 0x00, 0xFF));
+    globalSettings.setValue(mAPreferencesSyntaxColoringClasses, qRgb(0x80, 0x00, 0x23));
+    globalSettings.setValue(mAPreferencesSyntaxColoringUGens, qRgb(0xA2, 0x00, 0xEC));
+    globalSettings.setValue(mAPreferencesSyntaxColoringComments, qRgb(0x60, 0x90, 0x10));
+    globalSettings.setValue(mAPreferencesSyntaxColoringStrings, qRgb(0x40, 0x40, 0x40));
+    globalSettings.setValue(mAPreferencesSyntaxColoringNumbers, qRgb(0xD4, 0x80, 0x10));
+
+    globalSettings.setValue(mAPreferencesUseTabs, false);
+    globalSettings.setValue(mAPreferencesTabSize, 4);
+//    globalSettings.setValue(mAPreferences)
+    
+    globalSettings.setValue(mAPreferencesEnableChuGins, true);
+    
+    QStringList paths;
+#ifdef __PLATFORM_WIN32__
+    paths = QString(g_default_chugin_path).split(";");
+    path.append(QCoreApplication::applicationDirPath() + "/ChuGins"));
+#else
+    paths = QString(g_default_chugin_path).split(":");
+#endif
+    globalSettings.setValue(mAPreferencesChuGinPaths, paths);
+    
     globalSettings.sync();
 }
 
@@ -128,12 +159,26 @@ void mAPreferencesWindow::loadSettingsToGUI()
     
     ui->bufferSize->setCurrentIndex(ui->bufferSize->findText(QString("%1").arg(settings.value(mAPreferencesBufferSize).toInt())));
     
+    // sets GUI for audio input/output, num channels, and sample rate
     ProbeAudioDevices();
+    
+    ui->font->setCurrentFont(QFont(settings.value(mAPreferencesFontName).toString()));
+    ui->fontSize->setValue(settings.value(mAPreferencesFontSize).toInt());
+    
+    ui->enableSyntaxColoring->setChecked(settings.value(mAPreferencesSyntaxColoringEnabled).toBool());
+    
+    ui->editorUsesTabs->setChecked(settings.value(mAPreferencesUseTabs).toBool());
+    ui->tabWidth->setValue(settings.value(mAPreferencesTabSize).toInt());
+    
+    ui->enableChugins->setChecked(settings.value(mAPreferencesEnableChuGins).toBool());
+    ui->chuginsList->clear();
+    ui->chuginsList->addItems(settings.value(mAPreferencesChuGinPaths).toStringList());
 }
 
 void mAPreferencesWindow::loadGUIToSettings()
 {
     QSettings settings;
+    int i;    
     
     settings.setValue(mAPreferencesEnableAudio, ui->enableAudio->isChecked());
     settings.setValue(mAPreferencesEnableNetwork, ui->enableNetworkVM->isChecked());
@@ -146,11 +191,29 @@ void mAPreferencesWindow::loadGUIToSettings()
     
     settings.setValue(mAPreferencesSampleRate, ui->sampleRate->itemData(ui->sampleRate->currentIndex()));
     settings.setValue(mAPreferencesBufferSize, ui->bufferSize->currentText().toInt());
+    
+    settings.setValue(mAPreferencesFontName, ui->font->currentFont().family());
+    settings.setValue(mAPreferencesFontSize, ui->fontSize->value());
+    
+    settings.setValue(mAPreferencesSyntaxColoringEnabled, ui->enableSyntaxColoring->isChecked());
+    
+    settings.setValue(mAPreferencesUseTabs, ui->editorUsesTabs->isChecked());
+    settings.setValue(mAPreferencesTabSize, ui->tabWidth->value());
+    
+    settings.setValue(mAPreferencesEnableChuGins, ui->enableChugins->isChecked());
+    
+    QStringList paths;
+    for(i = 0; i < ui->chuginsList->count(); i++)
+    {
+        paths.append(ui->chuginsList->item(i)->text());
+    }
+    settings.setValue(mAPreferencesChuGinPaths, paths);
 }
 
 void mAPreferencesWindow::ok()
 {
     loadGUIToSettings();
+    preferencesChanged();
     close();
 }
 
@@ -166,6 +229,7 @@ void mAPreferencesWindow::restoreDefaults()
     settings.clear();
     
     loadSettingsToGUI();
+    preferencesChanged();    
 }
 
 void mAPreferencesWindow::ProbeAudioDevices()

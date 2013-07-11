@@ -53,6 +53,9 @@ public slots:
     void SelectedAudioOutputChanged();
     void SelectedAudioInputChanged();
     
+signals:
+    void preferencesChanged();
+    
 private:
     Ui::mAPreferencesWindow *ui;
     
@@ -89,6 +92,8 @@ extern const QString mAPreferencesSyntaxColoringComments;
 extern const QString mAPreferencesSyntaxColoringStrings;
 extern const QString mAPreferencesSyntaxColoringNumbers;
 extern const QString mAPreferencesSyntaxColoringBackground;
+extern const QString mAPreferencesSyntaxColoringUGens;
+extern const QString mAPreferencesSyntaxColoringClasses;
 
 extern const QString mAPreferencesUseTabs;
 extern const QString mAPreferencesTabSize;

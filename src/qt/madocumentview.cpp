@@ -49,6 +49,7 @@ mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file
     ui->textEdit->setMarginsFont(QFont("Courier New", 9));
     ui->textEdit->setMarginWidth(1, "     ");
 
+    ui->textEdit->setAutoIndent(true);
     ui->textEdit->setTabIndents(true);
     ui->textEdit->setIndentationsUseTabs(false);
     ui->textEdit->setTabWidth(4);
@@ -70,6 +71,12 @@ mADocumentView::~mADocumentView()
     ui = NULL;
     delete lexer;
     lexer = NULL;
+}
+
+void mADocumentView::preferencesChanged()
+{
+    ((mAsciLexerChucK *)ui->textEdit->lexer())->preferencesChanged();
+//    ui->textEdit->recolor();
 }
 
 void mADocumentView::detach()
@@ -160,6 +167,7 @@ void mADocumentView::add()
     vector<string> args;
     string filepath;
     if(file != NULL) filepath = file->fileName().toStdString();
+    else filepath = QDir::currentPath().toStdString();
     string output;
     t_CKUINT shred_id;
     string code = ui->textEdit->text().toStdString();
@@ -173,6 +181,7 @@ void mADocumentView::replace()
     vector<string> args;
     string filepath;
     if(file != NULL) filepath = file->fileName().toStdString();
+    else filepath = QDir::currentPath().toStdString();
     string output;
     t_CKUINT shred_id;
     string code = ui->textEdit->text().toStdString();

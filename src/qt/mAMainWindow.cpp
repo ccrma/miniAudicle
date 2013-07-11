@@ -106,6 +106,10 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     m_vmMonitor->move(available.left() + available.width()*0.8 - m_vmMonitor->frameGeometry().width(),
                       available.top() + available.height()*0.2);
     m_vmMonitor->show();
+    
+    m_preferencesWindow = new mAPreferencesWindow(NULL, ma);
+    m_preferencesWindow->move(this->pos().x() + this->frameGeometry().width()/2 - m_preferencesWindow->frameGeometry().width()/2,
+                              this->pos().y() + this->frameGeometry().height()/2 - m_preferencesWindow->frameGeometry().height()/2);    
 
     // center horizontally, top 100px down from top
     this->move(available.left() + available.width()*0.5 - this->frameGeometry().width()/2,
@@ -134,6 +138,10 @@ mAMainWindow::~mAMainWindow()
 
     delete m_vmMonitor;
     m_vmMonitor = NULL;
+    delete m_consoleMonitor;
+    m_consoleMonitor = NULL;
+    delete m_preferencesWindow;
+    m_preferencesWindow = NULL;
     delete ui;
     ui = NULL;
     delete ma;
@@ -159,6 +167,8 @@ void mAMainWindow::newFile()
 {
     mADocumentView * documentView = new mADocumentView(0, "untitled", NULL, ma);
     documentView->setTabWidget(ui->tabWidget);
+    QObject::connect(m_preferencesWindow, SIGNAL(preferencesChanged()),
+                     documentView, SLOT(preferencesChanged()));
 
     ui->tabWidget->addTab(documentView, QIcon(), "untitled");
     ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);
@@ -182,6 +192,8 @@ void mAMainWindow::openFile(const QString &path)
             QFileInfo fileInfo(fileName);
             mADocumentView * documentView = new mADocumentView(0, fileInfo.fileName().toStdString(), file, ma);
             documentView->setTabWidget(ui->tabWidget);
+            QObject::connect(m_preferencesWindow, SIGNAL(preferencesChanged()),
+                             documentView, SLOT(preferencesChanged()));
 
             ui->tabWidget->addTab(documentView, QIcon(), fileInfo.fileName());
             ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);

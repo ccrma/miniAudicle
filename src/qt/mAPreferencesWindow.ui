@@ -51,7 +51,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="audioTab">
     <attribute name="title">
@@ -264,7 +264,7 @@
       <rect>
        <x>90</x>
        <y>22</y>
-       <width>181</width>
+       <width>191</width>
        <height>30</height>
       </rect>
      </property>
@@ -291,7 +291,7 @@
     <widget class="QSpinBox" name="fontSize">
      <property name="geometry">
       <rect>
-       <x>280</x>
+       <x>290</x>
        <y>25</y>
        <width>57</width>
        <height>25</height>
@@ -310,7 +310,7 @@
     <widget class="QLabel" name="label_8">
      <property name="geometry">
       <rect>
-       <x>340</x>
+       <x>350</x>
        <y>30</y>
        <width>21</width>
        <height>16</height>
@@ -456,7 +456,7 @@
       <rect>
        <x>30</x>
        <y>220</y>
-       <width>361</width>
+       <width>341</width>
        <height>20</height>
       </rect>
      </property>
@@ -469,7 +469,7 @@
     <attribute name="title">
      <string>ChuGins</string>
     </attribute>
-    <widget class="QCheckBox" name="checkBox">
+    <widget class="QCheckBox" name="enableChugins">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -482,11 +482,98 @@
       <string>Enable ChuGins</string>
      </property>
     </widget>
+    <widget class="QListWidget" name="chuginsList">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>48</y>
+       <width>391</width>
+       <height>241</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="toolButton">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>300</y>
+       <width>27</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>+</string>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="toolButton_2">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>300</y>
+       <width>27</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>-</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="miscTab">
     <attribute name="title">
      <string>Miscellaneous</string>
     </attribute>
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>10</y>
+       <width>114</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Select...</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Current Directory:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>50</y>
+       <width>381</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QPushButton" name="okButton">

@@ -35,6 +35,9 @@ public:
     const char *keywords(int set) const;
 
     const char *language() const { return "ChucK"; }
+    
+public slots:
+    void preferencesChanged();
 };
 
 

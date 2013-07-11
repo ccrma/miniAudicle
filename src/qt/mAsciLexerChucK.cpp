@@ -23,18 +23,39 @@ U.S.A.
 -----------------------------------------------------------------------------*/
 
 #include "mAsciLexerChucK.h"
+#include "mAPreferencesWindow.h"
+
+#include <QSettings>
 
 mAsciLexerChucK::mAsciLexerChucK() : QsciLexerJava()
 {
-    setFont(QFont("Courier New", 11));
+    preferencesChanged();
+}
 
-    setColor(QColor(0x00, 0x00, 0xFF), QsciLexerCPP::Keyword);
-    setColor(QColor(0x80, 0x00, 0x23), QsciLexerCPP::KeywordSet2);
-    setColor(QColor(0xA2, 0x00, 0xEC), QsciLexerCPP::GlobalClass);
-    setColor(QColor(0x60, 0x90, 0x10), QsciLexerCPP::Comment);
-    setColor(QColor(0x60, 0x90, 0x10), QsciLexerCPP::CommentLine);
-    setColor(QColor(0x40, 0x40, 0x40), QsciLexerCPP::DoubleQuotedString);
-    setColor(QColor(0xD4, 0x80, 0x10), QsciLexerCPP::Number);
+void mAsciLexerChucK::preferencesChanged()
+{
+    QSettings settings;
+        
+    setPaper(QColor(settings.value(mAPreferencesSyntaxColoringBackground).toUInt()));
+    
+    if(settings.value(mAPreferencesSyntaxColoringEnabled).toBool())
+    {
+        setColor(QColor(settings.value(mAPreferencesSyntaxColoringNormalText).toUInt()), QsciLexerCPP::Default);
+        setColor(QColor(settings.value(mAPreferencesSyntaxColoringKeywords).toUInt()), QsciLexerCPP::Keyword);
+        setColor(QColor(settings.value(mAPreferencesSyntaxColoringClasses).toUInt()), QsciLexerCPP::KeywordSet2);
+        setColor(QColor(settings.value(mAPreferencesSyntaxColoringUGens).toUInt()), QsciLexerCPP::GlobalClass);
+        setColor(QColor(settings.value(mAPreferencesSyntaxColoringComments).toUInt()), QsciLexerCPP::Comment);
+        setColor(QColor(settings.value(mAPreferencesSyntaxColoringComments).toUInt()), QsciLexerCPP::CommentLine);
+        setColor(QColor(settings.value(mAPreferencesSyntaxColoringStrings).toUInt()), QsciLexerCPP::DoubleQuotedString);
+        setColor(QColor(settings.value(mAPreferencesSyntaxColoringNumbers).toUInt()), QsciLexerCPP::Number);
+    }
+    else
+    {
+        setColor(QColor(settings.value(mAPreferencesSyntaxColoringNormalText).toUInt()), -1);
+    }
+    
+    setFont(QFont(settings.value(mAPreferencesFontName).toString(), 
+                  settings.value(mAPreferencesFontSize).toInt()));    
 }
 
 
@@ -48,7 +69,7 @@ const char *mAsciLexerChucK::keywords(int set) const
                "private function fun spork const new now "
                "true false maybe null NULL me pi samp ms "
                "second minute hour day week dac adc blackhole ";
-    if(set == 2) // objects
+    if(set == 2) // class names
         return "Object "
                 "string "
                 "UAnaBlob "
