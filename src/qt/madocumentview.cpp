@@ -26,6 +26,7 @@ U.S.A.
 #include "ui_madocumentview.h"
 
 #include <QFileDialog>
+#include <QMessageBox>
 
 #include <Qsci/qsciscintilla.h>
 #include "mAsciLexerChucK.h"
@@ -43,7 +44,9 @@ mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file
 
     if(file != NULL)
         ui->textEdit->read(file);
+    ui->textEdit->setModified(false);
     this->file = file;
+    m_readOnly = false;
 
     ui->textEdit->setMarginLineNumbers(1, true);
     ui->textEdit->setMarginsFont(QFont("Courier New", 9));
@@ -67,6 +70,8 @@ mADocumentView::~mADocumentView()
 {
     detach();
 
+    delete file;
+    file = NULL;
     delete ui;
     ui = NULL;
     delete lexer;
@@ -132,6 +137,27 @@ void mADocumentView::documentModified(bool modified)
 
 void mADocumentView::save()
 {
+    if(m_readOnly)
+    {
+        QMessageBox * messageBox = new QMessageBox(this);
+        QString qtitle = QString(this->title.c_str());
+//        messageBox->window()->setWindowTitle();
+        messageBox->window()->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
+        messageBox->window()->setAttribute(Qt::WA_DeleteOnClose);
+        messageBox->setIcon(QMessageBox::Warning);
+        messageBox->setText(QString("<b>The document %1 is read-only.</b><br /><br /> Click Save As to save the document to a different file. Click Cancel to cancel the save operation.").arg(qtitle));
+        
+        messageBox->setDefaultButton(messageBox->addButton("Save As...", QMessageBox::AcceptRole));
+        messageBox->addButton("Cancel", QMessageBox::RejectRole);
+        
+        QObject::connect(messageBox, SIGNAL(buttonClicked(QAbstractButton*)),
+                         this, SLOT(readOnlySaveDialogClicked(QAbstractButton*)));
+                                            
+        messageBox->show();
+        
+        return;
+    }
+    
     if(file == NULL)
     {
         QString fileName = QFileDialog::getSaveFileName(this,
@@ -161,6 +187,50 @@ void mADocumentView::save()
         documentModified(false);
     }
 }
+
+
+void mADocumentView::readOnlySaveDialogClicked(QAbstractButton *button)
+{
+    QMessageBox * messageBox = (QMessageBox *) sender();
+    if(messageBox->buttonRole(button) == QMessageBox::AcceptRole)
+        this->saveAs();
+}
+
+void mADocumentView::saveAs()
+{
+    if(file != NULL)
+    {
+        delete file;
+        file = NULL;
+    }
+    
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), "", "ChucK Scripts (*.ck)");
+    
+    if(fileName != NULL && fileName.length() > 0)
+    {
+        file = new QFile(fileName);
+        
+        if(file->open(QFile::ReadWrite | QFile::Text))
+        {
+            QFileInfo fileInfo(fileName);
+            setTitle(fileInfo.fileName().toStdString());
+        }
+        else
+        {
+            delete file;
+            file = NULL;
+        }
+    }
+
+    if(file != NULL)
+    {
+        ui->textEdit->write(file);
+        ui->textEdit->setModified(false);
+        documentModified(false);
+    }
+}
+
+
 
 void mADocumentView::add()
 {

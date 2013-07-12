@@ -51,7 +51,7 @@ void mAsciLexerChucK::preferencesChanged()
     }
     
     setFont(QFont(settings.value(mAPreferencesFontName).toString(), 
-                  settings.value(mAPreferencesFontSize).toInt()));    
+                  settings.value(mAPreferencesFontSize).toInt()));
 }
 
 

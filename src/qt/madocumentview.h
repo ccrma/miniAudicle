@@ -29,6 +29,7 @@ U.S.A.
 #include <QTabWidget>
 #include <QFile>
 #include <Qsci/qscilexer.h>
+#include <QAbstractButton>
 
 #include "miniAudicle.h"
 
@@ -50,6 +51,7 @@ public:
     bool isDocumentModified();
 
     void save();
+    void saveAs();
 
     void add();
     void replace();
@@ -62,9 +64,13 @@ public:
         else
             return "";
     }
+    
+    void setReadOnly(bool _readOnly) { m_readOnly = _readOnly; }
+    bool isReadOnly() { return m_readOnly; }
 
 public slots:
     void documentModified(bool modified);
+    void readOnlySaveDialogClicked(QAbstractButton *button);    
     void preferencesChanged();
 
 protected:
@@ -85,6 +91,7 @@ private:
 
     miniAudicle * m_ma;
     t_CKUINT m_docid;
+    bool m_readOnly;
 };
 
 #endif // MADOCUMENTVIEW_H

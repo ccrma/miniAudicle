@@ -60,6 +60,7 @@
     </widget>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
+    <addaction name="actionOpen_Example"/>
     <addaction name="actionClose"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
@@ -501,6 +502,11 @@
     <string>Recent</string>
    </property>
   </action>
+  <action name="actionOpen_Example">
+   <property name="text">
+    <string>Open Example...</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -939,6 +945,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionOpen_Example</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>openExample()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>exit()</slot>
@@ -958,5 +980,6 @@
   <slot>showVirtualMachineMonitor()</slot>
   <slot>setLogLevel()</slot>
   <slot>showPreferences()</slot>
+  <slot>openExample()</slot>
  </slots>
 </ui>

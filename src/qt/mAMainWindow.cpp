@@ -207,6 +207,39 @@ void mAMainWindow::openFile(const QString &path)
     }
 }
 
+void mAMainWindow::openExample()
+{
+    QString examplesDir;
+#ifdef __PLATFORM_WIN32__
+    examplesDir = QCoreApplication::applicationDirPath() + "/examples";
+#endif
+    
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), examplesDir, "ChucK Scripts (*.ck)");
+
+    if(!fileName.isEmpty())
+    {
+        QFile * file = new QFile(fileName);
+        if (file->open(QFile::ReadWrite | QFile::Text))
+        {
+            QFileInfo fileInfo(fileName);
+            mADocumentView * documentView = new mADocumentView(0, fileInfo.fileName().toStdString(), file, ma);
+            documentView->setTabWidget(ui->tabWidget);
+            QObject::connect(m_preferencesWindow, SIGNAL(preferencesChanged()),
+                             documentView, SLOT(preferencesChanged()));
+            documentView->setReadOnly(true);
+
+            ui->tabWidget->addTab(documentView, QIcon(), fileInfo.fileName());
+            ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);
+
+            documentView->show();
+            
+            QString path = documentView->filePath();
+            addRecentFile(path);
+            updateRecentFilesMenu();            
+        }
+    }
+}
+
 void mAMainWindow::openRecent()
 {
     QAction *action = qobject_cast<QAction *>(sender());

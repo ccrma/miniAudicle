@@ -101,7 +101,7 @@ void mAPreferencesWindow::configureDefaults()
     globalSettings.setValue(mAPreferencesBufferSize, BUFFER_SIZE_DEFAULT);
     
     globalSettings.setValue(mAPreferencesFontName, "Courier");
-    globalSettings.setValue(mAPreferencesFontSize, 9);
+    globalSettings.setValue(mAPreferencesFontSize, 10);
     
     globalSettings.setValue(mAPreferencesSyntaxColoringEnabled, true);
     globalSettings.setValue(mAPreferencesSyntaxColoringNormalText, qRgb(0x00, 0x00, 0x00));

@@ -57,6 +57,7 @@ public slots:
 
     void openFile(const QString &path = QString());
     void openRecent();
+    void openExample();
     void newFile();
     void closeFile();
     void closeFile(int i);
