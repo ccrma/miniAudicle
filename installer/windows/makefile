@@ -21,7 +21,7 @@ examples.wxs: examples
 examples: ../../src/chuck/src/examples
 	cp -arf $< .
 
-miniAudicle.exe: $(MINI_SRC_ROOT)/src/Release/miniAudicle.exe
+miniAudicle.exe: $(MINI_SRC_ROOT)/build-miniAudicle-Static-Release/release/miniAudicle.exe
 	cp -af $< .
 
 chuck.exe: $(CHUCK_SRC_ROOT)/trunk/src/Release/chuck.exe
