@@ -34,6 +34,8 @@ U.S.A.
 #include <QDesktopWidget>
 #include <QSettings>
 
+#include <list>
+
 
 extern const char MA_VERSION[];
 extern const char MA_ABOUT[];
@@ -214,7 +216,7 @@ void mAMainWindow::openExample()
     examplesDir = QCoreApplication::applicationDirPath() + "/examples";
 #endif
     
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), examplesDir, "ChucK Scripts (*.ck)");
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Example"), examplesDir, "ChucK Scripts (*.ck)");
 
     if(!fileName.isEmpty())
     {
@@ -341,6 +343,26 @@ void mAMainWindow::toggleVM()
         ma->set_sample_rate(settings.value(mAPreferencesSampleRate).toInt());
         ma->set_buffer_size(settings.value(mAPreferencesBufferSize).toInt());
         
+        list<string> chuginDirs;
+        list<string> chuginFiles;
+        
+        if(settings.value(mAPreferencesEnableChuGins).toBool())
+        {
+            QStringList chuginPaths = settings.value(mAPreferencesChuGinPaths).toStringList();
+            for(int i = 0; i < chuginPaths.length(); i++)
+            {
+                QString path = chuginPaths.at(i);
+                QFileInfo fileInfo(path);
+                if(fileInfo.isDir())
+                    chuginDirs.push_back(path.toStdString());
+                else
+                    chuginFiles.push_back(path.toStdString());
+            }
+        }
+        
+        ma->set_library_paths(chuginDirs);
+        ma->set_named_chugins(chuginFiles);
+        
         if(ma->start_vm())
         {
             ui->actionStart_Virtual_Machine->setText("Stop Virtual Machine");
@@ -436,22 +458,14 @@ void mAMainWindow::showVirtualMachineMonitor()
 void mAMainWindow::addRecentFile(QString &path)
 {
     QSettings settings;
-    QList<QString> recentFiles;
-    int len = settings.beginReadArray("RecentFiles");
-    int i = 0;
-    for(i = 0; i < len; i++)
-        recentFiles.append(settings.value("path").toString());
-    settings.endArray();
+    QStringList recentFiles = settings.value("/GUI/RecentFiles").toStringList();
     
+    recentFiles.removeAll(path);
     while(recentFiles.length() > MAX_RECENT_FILES-1)
         recentFiles.removeLast();
     recentFiles.prepend(path);
     
-    settings.beginWriteArray("RecentFiles", recentFiles.length());
-    len = recentFiles.length();
-    for(i = 0; i < len; i++)
-        settings.setValue("path", recentFiles.at(i));
-    settings.endArray();
+    settings.setValue("/GUI/RecentFiles", recentFiles);
 }
 
 void mAMainWindow::updateRecentFilesMenu()
@@ -459,13 +473,14 @@ void mAMainWindow::updateRecentFilesMenu()
     ui->menuRecent_Files->clear();
     
     QSettings settings;
-    int len = settings.beginReadArray("RecentFiles");
-    int i = 0;
-    for(i = 0; i < len; i++)
+    
+    QStringList recentFiles = settings.value("/GUI/RecentFiles").toStringList();
+    
+    for(int i = 0; i < recentFiles.length(); i++)
     {
-        QString path = settings.value("path").toString();
+        QString path = recentFiles.at(i);
         QAction * action = new QAction(this);
-        action->setText(QString("&%1 %2")
+        action->setText(QString("&%1   %2")
                         .arg(i+1)
                         .arg(QFileInfo(path).fileName()));
         action->setData(path);
@@ -473,5 +488,4 @@ void mAMainWindow::updateRecentFilesMenu()
         
         ui->menuRecent_Files->addAction(action);
     }
-    settings.endArray();
 }
