@@ -36,11 +36,11 @@ void mAsciLexerChucK::preferencesChanged()
 {
     QSettings settings;
         
-    setPaper(QColor(settings.value(mAPreferencesSyntaxColoringBackground).toUInt()));
+    setPaper(QColor(settings.value(mAPreferencesSyntaxColoringBackground).toUInt()));    
+    setColor(QColor(settings.value(mAPreferencesSyntaxColoringNormalText).toUInt()));
     
     if(settings.value(mAPreferencesSyntaxColoringEnabled).toBool())
     {
-        setColor(QColor(settings.value(mAPreferencesSyntaxColoringNormalText).toUInt()), QsciLexerCPP::Default);
         setColor(QColor(settings.value(mAPreferencesSyntaxColoringKeywords).toUInt()), QsciLexerCPP::Keyword);
         setColor(QColor(settings.value(mAPreferencesSyntaxColoringClasses).toUInt()), QsciLexerCPP::KeywordSet2);
         setColor(QColor(settings.value(mAPreferencesSyntaxColoringUGens).toUInt()), QsciLexerCPP::GlobalClass);
@@ -48,10 +48,6 @@ void mAsciLexerChucK::preferencesChanged()
         setColor(QColor(settings.value(mAPreferencesSyntaxColoringComments).toUInt()), QsciLexerCPP::CommentLine);
         setColor(QColor(settings.value(mAPreferencesSyntaxColoringStrings).toUInt()), QsciLexerCPP::DoubleQuotedString);
         setColor(QColor(settings.value(mAPreferencesSyntaxColoringNumbers).toUInt()), QsciLexerCPP::Number);
-    }
-    else
-    {
-        setColor(QColor(settings.value(mAPreferencesSyntaxColoringNormalText).toUInt()), -1);
     }
     
     setFont(QFont(settings.value(mAPreferencesFontName).toString(), 

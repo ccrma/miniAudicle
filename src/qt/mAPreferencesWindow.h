@@ -26,6 +26,10 @@ U.S.A.
 #define MAPREFERENCESWINDOW_H
 
 #include <QDialog>
+#include <QColorDialog>
+#include <vector>
+
+using namespace std;
 
 namespace Ui {
 class mAPreferencesWindow;
@@ -53,6 +57,10 @@ public slots:
     void SelectedAudioOutputChanged();
     void SelectedAudioInputChanged();
     
+    void syntaxColoringTypeChanged();
+    void syntaxColoringChangeColor();
+    void syntaxColorChanged();
+    
 signals:
     void preferencesChanged();
     
@@ -60,6 +68,12 @@ private:
     Ui::mAPreferencesWindow *ui;
     
     miniAudicle * m_ma;
+    
+    vector<QString> m_indexToLabel;
+    vector<QString> m_indexToPref;
+    vector<QColor> m_indexToColor;
+    
+    QColorDialog * m_colorDialog;
     
     void loadSettingsToGUI();
     void loadGUIToSettings();

@@ -140,6 +140,21 @@ mAPreferencesWindow::mAPreferencesWindow(QWidget *parent, miniAudicle * ma) :
     
     setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
     
+    m_colorDialog = NULL;
+    
+    m_indexToLabel.push_back("Normal Text"); m_indexToPref.push_back(mAPreferencesSyntaxColoringNormalText);
+    m_indexToLabel.push_back("Keywords");    m_indexToPref.push_back(mAPreferencesSyntaxColoringKeywords);
+    m_indexToLabel.push_back("Classes");     m_indexToPref.push_back(mAPreferencesSyntaxColoringClasses);
+    m_indexToLabel.push_back("UGens");       m_indexToPref.push_back(mAPreferencesSyntaxColoringUGens);
+    m_indexToLabel.push_back("Comments");    m_indexToPref.push_back(mAPreferencesSyntaxColoringComments);
+    m_indexToLabel.push_back("Strings");     m_indexToPref.push_back(mAPreferencesSyntaxColoringStrings);
+    m_indexToLabel.push_back("Numbers");     m_indexToPref.push_back(mAPreferencesSyntaxColoringNumbers);
+    m_indexToLabel.push_back("Background");  m_indexToPref.push_back(mAPreferencesSyntaxColoringBackground);
+    m_indexToColor.resize(m_indexToLabel.size());
+    
+    for(int i = 0; i < m_indexToLabel.size(); i++)
+        ui->syntaxColoringType->addItem(m_indexToLabel[i]);
+    
     loadSettingsToGUI();
     
     ui->tabWidget->setCurrentIndex(0);    
@@ -166,7 +181,10 @@ void mAPreferencesWindow::loadSettingsToGUI()
     ui->fontSize->setValue(settings.value(mAPreferencesFontSize).toInt());
     
     ui->enableSyntaxColoring->setChecked(settings.value(mAPreferencesSyntaxColoringEnabled).toBool());
-    
+    for(int i = 0; i < m_indexToColor.size(); i++)
+        m_indexToColor[i] = QColor(settings.value(m_indexToPref[i]).toUInt());
+    syntaxColoringTypeChanged();
+   
     ui->editorUsesTabs->setChecked(settings.value(mAPreferencesUseTabs).toBool());
     ui->tabWidth->setValue(settings.value(mAPreferencesTabSize).toInt());
     
@@ -196,6 +214,8 @@ void mAPreferencesWindow::loadGUIToSettings()
     settings.setValue(mAPreferencesFontSize, ui->fontSize->value());
     
     settings.setValue(mAPreferencesSyntaxColoringEnabled, ui->enableSyntaxColoring->isChecked());
+    for(i = 0; i < m_indexToColor.size(); i++)
+        settings.setValue(m_indexToPref[i], m_indexToColor[i].rgb());
     
     settings.setValue(mAPreferencesUseTabs, ui->editorUsesTabs->isChecked());
     settings.setValue(mAPreferencesTabSize, ui->tabWidth->value());
@@ -354,4 +374,30 @@ void mAPreferencesWindow::SelectedAudioInputChanged()
         ui->inputChannels->setCurrentIndex(ui->inputChannels->count()-1);
     else
         ui->inputChannels->setCurrentIndex(default_input_channels-1);
+}
+
+
+void mAPreferencesWindow::syntaxColoringTypeChanged()
+{
+    QColor color = m_indexToColor[ui->syntaxColoringType->currentIndex()];
+    ui->syntaxColoringChangeButton->setStyleSheet("background: " + color.name());
+}
+
+
+void mAPreferencesWindow::syntaxColoringChangeColor()
+{
+    if(m_colorDialog == NULL)
+    {
+        m_colorDialog = new QColorDialog(this);
+    }
+    
+    m_colorDialog->setCurrentColor(m_indexToColor[ui->syntaxColoringType->currentIndex()]);
+    m_colorDialog->open(this, SLOT(syntaxColorChanged()));
+}
+
+void mAPreferencesWindow::syntaxColorChanged()
+{
+    QColor color = m_colorDialog->selectedColor();
+    m_indexToColor[ui->syntaxColoringType->currentIndex()] = color;
+    ui->syntaxColoringChangeButton->setStyleSheet("background: " + color.name());
 }

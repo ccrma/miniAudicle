@@ -343,7 +343,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="syntaxColoringChangeButton">
      <property name="geometry">
       <rect>
        <x>190</x>
@@ -700,6 +700,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>syntaxColoringChangeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>mAPreferencesWindow</receiver>
+   <slot>syntaxColoringChangeColor()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>149</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>syntaxColoringType</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>mAPreferencesWindow</receiver>
+   <slot>syntaxColoringTypeChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>118</x>
+     <y>148</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ok()</slot>
@@ -707,5 +739,7 @@
   <slot>restoreDefaults()</slot>
   <slot>SelectedAudioOutputChanged()</slot>
   <slot>SelectedAudioInputChanged()</slot>
+  <slot>syntaxColoringTypeChanged()</slot>
+  <slot>syntaxColoringChangeColor()</slot>
  </slots>
 </ui>
