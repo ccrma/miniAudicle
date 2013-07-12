@@ -43,13 +43,17 @@ mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file
     title = _title;
 
     if(file != NULL)
+    {
+        file->open(QIODevice::ReadOnly | QIODevice::Text);
         ui->textEdit->read(file);
+        file->close();
+    }
     ui->textEdit->setModified(false);
     this->file = file;
     m_readOnly = false;
 
     ui->textEdit->setMarginLineNumbers(1, true);
-    ui->textEdit->setMarginsFont(QFont("Courier New", 9));
+    ui->textEdit->setMarginsFont(QFont("Courier New", 10));
     ui->textEdit->setMarginWidth(1, "     ");
 
     ui->textEdit->setAutoIndent(true);
@@ -141,11 +145,13 @@ void mADocumentView::save()
     {
         QMessageBox * messageBox = new QMessageBox(this);
         QString qtitle = QString(this->title.c_str());
-//        messageBox->window()->setWindowTitle();
+        
         messageBox->window()->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
         messageBox->window()->setAttribute(Qt::WA_DeleteOnClose);
+        messageBox->window()->setWindowIcon(this->window()->windowIcon());
+        
         messageBox->setIcon(QMessageBox::Warning);
-        messageBox->setText(QString("<b>The document %1 is read-only.</b><br /><br /> Click Save As to save the document to a different file. Click Cancel to cancel the save operation.").arg(qtitle));
+        messageBox->setText(QString("<b>The document '%1' is read-only.</b><br /><br /> Click Save As to save the document to a different file. Click Cancel to cancel the save operation.").arg(qtitle));
         
         messageBox->setDefaultButton(messageBox->addButton("Save As...", QMessageBox::AcceptRole));
         messageBox->addButton("Cancel", QMessageBox::RejectRole);
@@ -163,12 +169,15 @@ void mADocumentView::save()
         QString fileName = QFileDialog::getSaveFileName(this,
             tr("Save File"), "", "ChucK Scripts (*.ck)");
 
+        // SPENCERTODO: note file in Recent Files menu        
         if(fileName != NULL && fileName.length() > 0)
         {
             file = new QFile(fileName);
 
             if(file->open(QFile::ReadWrite | QFile::Text))
             {
+                // don't leave it open -- is reopened for each transaction                
+                file->close();
                 QFileInfo fileInfo(fileName);
                 setTitle(fileInfo.fileName().toStdString());
             }
@@ -182,7 +191,10 @@ void mADocumentView::save()
 
     if(file != NULL)
     {
+        file->open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text);
         ui->textEdit->write(file);
+        file->flush();
+        file->close();
         ui->textEdit->setModified(false);
         documentModified(false);
     }
@@ -198,20 +210,20 @@ void mADocumentView::readOnlySaveDialogClicked(QAbstractButton *button)
 
 void mADocumentView::saveAs()
 {
-    if(file != NULL)
-    {
-        delete file;
-        file = NULL;
-    }
-    
+    QFile * oldFile = NULL;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), "", "ChucK Scripts (*.ck)");
     
     if(fileName != NULL && fileName.length() > 0)
     {
+        oldFile = file;
+        m_readOnly = false;
         file = new QFile(fileName);
         
+        // SPENCERTODO: note file in Recent Files menu
         if(file->open(QFile::ReadWrite | QFile::Text))
         {
+            // don't leave it open -- is reopened for each transaction
+            file->close();
             QFileInfo fileInfo(fileName);
             setTitle(fileInfo.fileName().toStdString());
         }
@@ -224,10 +236,16 @@ void mADocumentView::saveAs()
 
     if(file != NULL)
     {
+        file->open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text);
         ui->textEdit->write(file);
+        file->flush();
+        file->close();
         ui->textEdit->setModified(false);
         documentModified(false);
     }
+    
+    if(oldFile != NULL)
+        delete oldFile;
 }
 
 
