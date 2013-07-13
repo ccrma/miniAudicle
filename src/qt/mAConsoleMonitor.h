@@ -27,6 +27,7 @@ U.S.A.
 
 #include <QMainWindow>
 #include <QSocketNotifier>
+#include <QThread>
 
 #ifdef __PLATFORM_WIN32__
 #include <windows.h>

@@ -152,6 +152,7 @@ void mAConsoleMonitor::dataAvailable()
 
 void mAConsoleMonitorThread::run()
 {
+#ifdef __PLATFORM_WIN32__
     char one;
     DWORD read;
 
@@ -163,5 +164,6 @@ void mAConsoleMonitorThread::run()
         
         QThread::msleep(20);
     }
+#endif
 }
 
