@@ -190,7 +190,13 @@ void mAPreferencesWindow::loadSettingsToGUI()
     
     ui->enableChugins->setChecked(settings.value(mAPreferencesEnableChuGins).toBool());
     ui->chuginsList->clear();
-    ui->chuginsList->addItems(settings.value(mAPreferencesChuGinPaths).toStringList());
+    QStringList chugins = settings.value(mAPreferencesChuGinPaths).toStringList();
+    for(int i = 0; i < chugins.length(); i++)
+    {
+        QListWidgetItem * item = new QListWidgetItem(chugins[i]);
+        item->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        ui->chuginsList->addItem(item);        
+    }
 }
 
 void mAPreferencesWindow::loadGUIToSettings()
@@ -401,3 +407,18 @@ void mAPreferencesWindow::syntaxColorChanged()
     m_indexToColor[ui->syntaxColoringType->currentIndex()] = color;
     ui->syntaxColoringChangeButton->setStyleSheet("background: " + color.name());
 }
+
+void mAPreferencesWindow::addChugin()
+{
+    QListWidgetItem * item = new QListWidgetItem("");
+    item->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    ui->chuginsList->addItem(item);
+    ui->chuginsList->editItem(item);
+}
+
+void mAPreferencesWindow::removeChugin()
+{
+    qDeleteAll(ui->chuginsList->selectedItems());
+}
+
+

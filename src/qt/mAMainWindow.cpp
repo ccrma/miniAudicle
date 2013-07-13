@@ -189,7 +189,7 @@ void mAMainWindow::openFile(const QString &path)
     if (!fileName.isEmpty())
     {
         QFile * file = new QFile(fileName);
-        if (file->open(QFile::ReadWrite | QFile::Text))
+        if (file->open(QFile::ReadWrite))
         {
             // close -- will be reopened as needed by document view
             file->close();            

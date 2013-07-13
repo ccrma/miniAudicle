@@ -61,6 +61,9 @@ public slots:
     void syntaxColoringChangeColor();
     void syntaxColorChanged();
     
+    void addChugin();
+    void removeChugin();
+    
 signals:
     void preferencesChanged();
     

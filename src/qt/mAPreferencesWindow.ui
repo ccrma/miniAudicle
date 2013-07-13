@@ -51,7 +51,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="audioTab">
     <attribute name="title">
@@ -492,7 +492,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QToolButton" name="toolButton">
+    <widget class="QToolButton" name="addChuginButton">
      <property name="geometry">
       <rect>
        <x>12</x>
@@ -511,7 +511,7 @@
       <string>+</string>
      </property>
     </widget>
-    <widget class="QToolButton" name="toolButton_2">
+    <widget class="QToolButton" name="removeChuginButton">
      <property name="geometry">
       <rect>
        <x>40</x>
@@ -732,6 +732,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>addChuginButton</sender>
+   <signal>clicked()</signal>
+   <receiver>mAPreferencesWindow</receiver>
+   <slot>addChugin()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>38</x>
+     <y>347</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>removeChuginButton</sender>
+   <signal>clicked()</signal>
+   <receiver>mAPreferencesWindow</receiver>
+   <slot>removeChugin()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>66</x>
+     <y>347</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ok()</slot>
@@ -741,5 +773,7 @@
   <slot>SelectedAudioInputChanged()</slot>
   <slot>syntaxColoringTypeChanged()</slot>
   <slot>syntaxColoringChangeColor()</slot>
+  <slot>addChugin()</slot>
+  <slot>removeChugin()</slot>
  </slots>
 </ui>
