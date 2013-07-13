@@ -41,13 +41,21 @@ U.S.A.
 #include <stdio.h>
 #endif
 
+#ifndef STDERR_FILENO
+#define STDERR_FILENO 2
+#endif
+#ifndef STDOUT_FILENO
+#define STDOUT_FILENO 1
+#endif
+
+        
 mAConsoleMonitor::mAConsoleMonitor(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::mAConsoleMonitor),
-    m_outNotifier(NULL),
-    m_errNotifier(NULL)
+    m_notifier(NULL)
 {
     ui->setupUi(this);
+    read_fd = 0;
 
 #ifndef __PLATFORM_WIN32__
     int fd[2];
@@ -59,72 +67,51 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent) :
     }
 
     dup2( fd[1], STDOUT_FILENO );
-
-    out_fd = fd[0];
-
-    if( pipe( fd ) )
-    {
-        EM_log( CK_LOG_SEVERE, "(console monitor): pipe error, disabling console monitor" );
-        return;
-    }
-
     dup2( fd[1], STDERR_FILENO );
 
-    err_fd = fd[0];
+    read_fd = fd[0];
 
-    int fd_flags = fcntl( out_fd, F_GETFL );
-    if( fcntl( out_fd, F_SETFL, fd_flags | O_NONBLOCK ) )
+    int fd_flags = fcntl( read_fd, F_GETFL );
+    if( fcntl( read_fd, F_SETFL, fd_flags | O_NONBLOCK ) )
     {
         EM_log( CK_LOG_WARNING, "(console monitor): unable to set stdout to non-blocking" );
     }
 
-    fd_flags = fcntl( err_fd, F_GETFL );
-    if( fcntl( err_fd, F_SETFL, fd_flags | O_NONBLOCK ) )
-    {
-        EM_log( CK_LOG_WARNING, "(console monitor): unable to set stderr to non-blocking" );
-    }
-
     setlinebuf(stdout);
-
+    
+    m_notifier = new QSocketNotifier( read_fd, QSocketNotifier::Read );
+    connect(m_notifier, SIGNAL(activated(int)), this, SLOT(appendFromFile(int)));
+    m_notifier->setEnabled(true);
+    
 #else
     
-    HANDLE hRead, hWrite;
     int fd_read, fd_write;
-    //FILE * stdlib_fd;
 
     if( !CreatePipe( &hRead, &hWrite, NULL, 8192 ) )
     {
         EM_log( CK_LOG_SEVERE, "(console monitor): pipe error %d, disabling console monitor", GetLastError() );
         return;
     }
-    
+        
     /* WARNING: Breaks under Win64! */
     fd_read = _open_osfhandle( ( long ) hRead, _O_RDONLY | _O_TEXT );
     fd_write = _open_osfhandle( ( long ) hWrite, _O_WRONLY | _O_TEXT );
 
-    out_fd = fd_read;
-
-    stdlib_fd = _fdopen( fd_write, "w" );
-
-    setvbuf( stdlib_fd, NULL, _IONBF, 0 );
-    
-    *stderr = *stdlib_fd;
-    *stdout = *stdlib_fd;    
+    _dup2(fd_write, STDERR_FILENO);
+    _dup2(fd_write, STDOUT_FILENO);
+    read_fd = fd_read;
+        
+    mAConsoleMonitorThread * thread = new mAConsoleMonitorThread(this);
+    QObject::connect(thread, SIGNAL(dataAvailable()), 
+                     this, SLOT(dataAvailable()), Qt::BlockingQueuedConnection);
+    thread->start();
     
 #endif
-
-    m_outNotifier = new QSocketNotifier( out_fd, QSocketNotifier::Read );
-    connect(m_outNotifier, SIGNAL(activated(int)), this, SLOT(appendFromFile(int)));
-    m_outNotifier->setEnabled(true);
-    m_errNotifier = new QSocketNotifier( err_fd, QSocketNotifier::Read );
-    connect(m_errNotifier, SIGNAL(activated(int)), this, SLOT(appendFromFile(int)));
-    m_errNotifier->setEnabled(true);
 }
 
 mAConsoleMonitor::~mAConsoleMonitor()
 {
-    delete m_outNotifier;
-    delete m_errNotifier;
+    if(m_notifier) delete m_notifier;
     delete ui;
 }
 
@@ -134,7 +121,11 @@ void mAConsoleMonitor::appendFromFile(int fd)
     static char buf[BUF_SIZE];
     int len = 0;
 
+#ifdef __PLATFORM_WIN32__
+    len = _read( fd, buf, BUF_SIZE-1 );
+#else
     len = read( fd, buf, BUF_SIZE-1 );
+#endif
 
     if(len > 0)
     {
@@ -153,3 +144,24 @@ void mAConsoleMonitor::appendFromFile(int fd)
             verticalScroll->setSliderPosition(verticalScroll->maximum());
     }
 }
+
+void mAConsoleMonitor::dataAvailable()
+{
+    appendFromFile(read_fd);
+}
+
+void mAConsoleMonitorThread::run()
+{
+    char one;
+    DWORD read;
+
+    while(true)
+    {
+        PeekNamedPipe(m_consoleMonitor->hRead, &one, 1, &read, NULL, NULL);
+        if(read)
+            dataAvailable();
+        
+        QThread::msleep(20);
+    }
+}
+

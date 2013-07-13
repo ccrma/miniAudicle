@@ -28,9 +28,15 @@ U.S.A.
 #include <QMainWindow>
 #include <QSocketNotifier>
 
+#ifdef __PLATFORM_WIN32__
+#include <windows.h>
+#endif
+
 namespace Ui {
 class mAConsoleMonitor;
 }
+
+class mAConsoleMonitorThread;
 
 class mAConsoleMonitor : public QMainWindow
 {
@@ -42,14 +48,44 @@ public:
     
 public slots:
     void appendFromFile(int fd);
+    void dataAvailable();
 
 private:
     Ui::mAConsoleMonitor *ui;
 
-    int out_fd;
-    int err_fd;
-
-    QSocketNotifier * m_outNotifier, * m_errNotifier;
+#ifdef __PLATFORM_WIN32__
+    HANDLE hRead, hWrite;
+#endif
+    
+    int read_fd;
+    
+    QSocketNotifier * m_notifier;
+    
+    friend class mAConsoleMonitorThread;
 };
+
+
+class mAConsoleMonitorThread : public QThread
+{
+    Q_OBJECT
+    
+public:
+    mAConsoleMonitorThread(mAConsoleMonitor * _consoleMonitor, QObject *parent = 0) :
+        QThread(parent),
+        m_consoleMonitor(_consoleMonitor)
+    {
+    }
+    
+signals:
+    void dataAvailable();
+    
+protected:
+    mAConsoleMonitor * m_consoleMonitor;
+    
+    virtual void run();
+};
+
+
+
 
 #endif // MACONSOLEMONITOR_H
