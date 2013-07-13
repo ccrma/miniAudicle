@@ -191,6 +191,8 @@ void mAMainWindow::openFile(const QString &path)
         QFile * file = new QFile(fileName);
         if (file->open(QFile::ReadWrite | QFile::Text))
         {
+            // close -- will be reopened as needed by document view
+            file->close();            
             QFileInfo fileInfo(fileName);
             mADocumentView * documentView = new mADocumentView(0, fileInfo.fileName().toStdString(), file, ma);
             documentView->setTabWidget(ui->tabWidget);
@@ -221,8 +223,10 @@ void mAMainWindow::openExample()
     if(!fileName.isEmpty())
     {
         QFile * file = new QFile(fileName);
-        if (file->open(QFile::ReadWrite | QFile::Text))
+        if (file->open(QFile::ReadWrite))
         {
+            // close -- will be reopened as needed by document view
+            file->close();
             QFileInfo fileInfo(fileName);
             mADocumentView * documentView = new mADocumentView(0, fileInfo.fileName().toStdString(), file, ma);
             documentView->setTabWidget(ui->tabWidget);
@@ -295,8 +299,30 @@ void mAMainWindow::saveFile()
     view->save();
 
     QString path = view->filePath();
-    addRecentFile(path);
-    updateRecentFilesMenu();
+    if(path.length())
+    {
+        addRecentFile(path);
+        updateRecentFilesMenu();
+    }
+}
+
+void mAMainWindow::saveAs()
+{
+    mADocumentView * view = (mADocumentView *) ui->tabWidget->currentWidget();
+
+    if(view == NULL)
+        return;
+    
+    // TODO: have saveAs() and save() return true if save was successful
+    // then update recent files according to that
+    view->saveAs();
+
+    QString path = view->filePath();
+    if(path.length())
+    {
+        addRecentFile(path);
+        updateRecentFilesMenu();
+    }
 }
 
 #pragma mark

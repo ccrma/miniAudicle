@@ -44,7 +44,7 @@ mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file
 
     if(file != NULL)
     {
-        file->open(QIODevice::ReadOnly | QIODevice::Text);
+        file->open(QIODevice::ReadOnly);
         ui->textEdit->read(file);
         file->close();
     }
@@ -65,7 +65,6 @@ mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file
     ui->textEdit->setLexer(lexer);
 
     ui->textEdit->setBraceMatching(QsciScintilla::SloppyBraceMatch);
-    ui->textEdit->setAutoIndent(true);
 
     m_docid = m_ma->allocate_document_id();
 }
@@ -174,7 +173,7 @@ void mADocumentView::save()
         {
             file = new QFile(fileName);
 
-            if(file->open(QFile::ReadWrite | QFile::Text))
+            if(file->open(QFile::ReadWrite))
             {
                 // don't leave it open -- is reopened for each transaction                
                 file->close();
@@ -191,7 +190,7 @@ void mADocumentView::save()
 
     if(file != NULL)
     {
-        file->open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text);
+        file->open(QIODevice::WriteOnly | QIODevice::Truncate);
         ui->textEdit->write(file);
         file->flush();
         file->close();
@@ -220,7 +219,7 @@ void mADocumentView::saveAs()
         file = new QFile(fileName);
         
         // SPENCERTODO: note file in Recent Files menu
-        if(file->open(QFile::ReadWrite | QFile::Text))
+        if(file->open(QFile::ReadWrite))
         {
             // don't leave it open -- is reopened for each transaction
             file->close();
@@ -236,7 +235,7 @@ void mADocumentView::saveAs()
 
     if(file != NULL)
     {
-        file->open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text);
+        file->open(QIODevice::WriteOnly | QIODevice::Truncate);
         ui->textEdit->write(file);
         file->flush();
         file->close();

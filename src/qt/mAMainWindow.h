@@ -62,6 +62,7 @@ public slots:
     void closeFile();
     void closeFile(int i);
     void saveFile();
+    void saveAs();
 
     void addCurrentDocument();
     void replaceCurrentDocument();
