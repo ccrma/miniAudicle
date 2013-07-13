@@ -102,16 +102,19 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     // position left edge at 0.2, bottom edge at 0.8
     m_consoleMonitor->move(available.left() + available.width()*0.2,
                            available.top() + available.height()*0.8 - m_consoleMonitor->frameGeometry().height());
+    m_consoleMonitor->setAttribute(Qt::WA_QuitOnClose, false);
     m_consoleMonitor->show();
 
     // position right edge at 0.8, center vertically
     m_vmMonitor->move(available.left() + available.width()*0.8 - m_vmMonitor->frameGeometry().width(),
                       available.top() + available.height()*0.2);
+    m_vmMonitor->setAttribute(Qt::WA_QuitOnClose, false);
     m_vmMonitor->show();
     
     m_preferencesWindow = new mAPreferencesWindow(NULL, ma);
     m_preferencesWindow->move(this->pos().x() + this->frameGeometry().width()/2 - m_preferencesWindow->frameGeometry().width()/2,
                               this->pos().y() + this->frameGeometry().height()/2 - m_preferencesWindow->frameGeometry().height()/2);    
+    m_preferencesWindow->setAttribute(Qt::WA_QuitOnClose, false);
 
     // center horizontally, top 100px down from top
     this->move(available.left() + available.width()*0.5 - this->frameGeometry().width()/2,
