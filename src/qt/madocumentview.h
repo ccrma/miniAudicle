@@ -67,6 +67,8 @@ public:
     
     void setReadOnly(bool _readOnly) { m_readOnly = _readOnly; }
     bool isReadOnly() { return m_readOnly; }
+    
+    std::string lastResult() { return m_lastResult; }
 
 public slots:
     void documentModified(bool modified);
@@ -80,18 +82,19 @@ private:
 
     void setTitle(std::string title);
 
+    QFile * file;
     std::string title;
+    bool m_readOnly;    
     QTabWidget * tabWidget;
 
     Ui::mADocumentView *ui;
 
     QsciLexer * lexer;
-
-    QFile * file;
+    int m_indicator;
 
     miniAudicle * m_ma;
     t_CKUINT m_docid;
-    bool m_readOnly;
+    std::string m_lastResult;
 };
 
 #endif // MADOCUMENTVIEW_H

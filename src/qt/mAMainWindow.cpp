@@ -332,17 +332,41 @@ void mAMainWindow::saveAs()
 
 void mAMainWindow::addCurrentDocument()
 {
-    ((mADocumentView *) ui->tabWidget->currentWidget())->add();
+    mADocumentView *currentDocument = ((mADocumentView *) ui->tabWidget->currentWidget());
+    
+    currentDocument->add();
+    
+    string result = currentDocument->lastResult();
+    if(result.size())
+        statusBar()->showMessage(QString(result.c_str()));
+    else
+        statusBar()->clearMessage();
 }
 
 void mAMainWindow::replaceCurrentDocument()
 {
-    ((mADocumentView *) ui->tabWidget->currentWidget())->replace();
+    mADocumentView *currentDocument = ((mADocumentView *) ui->tabWidget->currentWidget());
+    
+    currentDocument->replace();
+    
+    string result = currentDocument->lastResult();
+    if(result.size())
+        statusBar()->showMessage(QString(result.c_str()));
+    else
+        statusBar()->clearMessage();
 }
 
 void mAMainWindow::removeCurrentDocument()
 {
-    ((mADocumentView *) ui->tabWidget->currentWidget())->remove();
+    mADocumentView *currentDocument = ((mADocumentView *) ui->tabWidget->currentWidget());
+    
+    currentDocument->remove();
+    
+    string result = currentDocument->lastResult();
+    if(result.size())
+        statusBar()->showMessage(QString(result.c_str()));
+    else
+        statusBar()->clearMessage();
 }
 
 void mAMainWindow::removeLastShred()

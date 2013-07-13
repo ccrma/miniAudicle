@@ -65,6 +65,11 @@ mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file
     ui->textEdit->setLexer(lexer);
 
     ui->textEdit->setBraceMatching(QsciScintilla::SloppyBraceMatch);
+    
+//    m_indicator = ui->textEdit->indicatorDefine(QsciScintilla::RoundBoxIndicator);
+//    ui->textEdit->setIndicatorDrawUnder(true, m_indicator);
+//    ui->textEdit->setIndicatorForegroundColor(QColor(0xFF, 0x00, 0x00, 0x40), m_indicator);
+//    ui->textEdit->setIndicatorOutlineColor(QColor(0xFF, 0x00, 0x00, 0x40), m_indicator);
 
     m_docid = m_ma->allocate_document_id();
 }
@@ -259,8 +264,44 @@ void mADocumentView::add()
     t_CKUINT shred_id;
     string code = ui->textEdit->text().toStdString();
 
-    m_ma->run_code(code, this->title, args,
-                   filepath, m_docid, shred_id, output);
+    t_OTF_RESULT otf_result = m_ma->run_code(code, this->title, args,
+                                             filepath, m_docid, shred_id, output);
+    
+    if(otf_result == OTF_SUCCESS)
+    {
+        m_lastResult = "";
+        ui->textEdit->clearIndicatorRange(0, 0, ui->textEdit->lines(), 
+                                          ui->textEdit->lineLength(ui->textEdit->lines()-1)-1,
+                                          m_indicator);
+    }
+    else if( otf_result == OTF_VM_TIMEOUT )
+    {
+//        miniAudicleController * mac = [NSDocumentController sharedDocumentController];
+//        [mac setLockdown:YES];
+    }
+    else if( otf_result == OTF_COMPILE_ERROR )
+    {
+        int error_line;
+        if( m_ma->get_last_result( m_docid, NULL, NULL, &error_line ) )
+        {
+//            ui->textEdit->fillIndicatorRange(error_line, 0, error_line+1, 0,
+//                                             //ui->textEdit->lineLength(error_line)-1,
+//                                             m_indicator);
+        }
+        
+//        if([self.windowController currentViewController] == self)
+//            [[text_view textView] animateError];
+        
+        m_lastResult = output;
+    }
+    
+    else
+    {
+//        if([self.windowController currentViewController] == self)
+//            [[text_view textView] animateError];
+        
+        m_lastResult = output;        
+    }
 }
 
 void mADocumentView::replace()
@@ -273,8 +314,43 @@ void mADocumentView::replace()
     t_CKUINT shred_id;
     string code = ui->textEdit->text().toStdString();
 
-    m_ma->replace_code(code, this->title, args,
-                       filepath, m_docid, shred_id, output);
+    t_OTF_RESULT otf_result = m_ma->replace_code(code, this->title, args,
+                                                 filepath, m_docid, shred_id, output);
+    
+    if(otf_result == OTF_SUCCESS)
+    {
+        m_lastResult = "";
+        ui->textEdit->clearIndicatorRange(0, 0, ui->textEdit->lines()-1, 
+                                          ui->textEdit->lineLength(ui->textEdit->lines()-1)-1,
+                                          m_indicator);        
+    }
+    else if( otf_result == OTF_VM_TIMEOUT )
+    {
+//        miniAudicleController * mac = [NSDocumentController sharedDocumentController];
+//        [mac setLockdown:YES];
+    }
+    else if( otf_result == OTF_COMPILE_ERROR )
+    {
+        int error_line;
+        if( m_ma->get_last_result( m_docid, NULL, NULL, &error_line ) )
+        {
+//            [text_view setShowsErrorLine:YES];
+//            [text_view setErrorLine:error_line];
+        }
+        
+//        if([self.windowController currentViewController] == self)
+//            [[text_view textView] animateError];
+        
+        m_lastResult = output;
+    }
+    
+    else
+    {
+//        if([self.windowController currentViewController] == self)
+//            [[text_view textView] animateError];
+        
+        m_lastResult = output;        
+    }
 }
 
 void mADocumentView::remove()
@@ -282,5 +358,25 @@ void mADocumentView::remove()
     string output;
     t_CKUINT shred_id;
 
-    m_ma->remove_code(m_docid, shred_id, output);
+    t_OTF_RESULT otf_result = m_ma->remove_code(m_docid, shred_id, output);
+    
+    if(otf_result == OTF_SUCCESS)
+    {
+        m_lastResult = "";
+        ui->textEdit->clearIndicatorRange(0, 0, ui->textEdit->lines()-1, 
+                                          ui->textEdit->lineLength(ui->textEdit->lines()-1)-1,
+                                          m_indicator);        
+    }
+    else if( otf_result == OTF_VM_TIMEOUT )
+    {
+//        miniAudicleController * mac = [NSDocumentController sharedDocumentController];
+//        [mac setLockdown:YES];
+    }
+    else
+    {
+//        if([self.windowController currentViewController] == self)
+//            [[text_view textView] animateError];
+        
+        m_lastResult = output;        
+    }    
 }
