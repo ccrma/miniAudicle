@@ -86,6 +86,31 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent) :
 
     setlinebuf(stdout);
 
+#else
+    
+    HANDLE hRead, hWrite;
+    int fd_read, fd_write;
+    //FILE * stdlib_fd;
+
+    if( !CreatePipe( &hRead, &hWrite, NULL, 8192 ) )
+    {
+        EM_log( CK_LOG_SEVERE, "(console monitor): pipe error %d, disabling console monitor", GetLastError() );
+        return;
+    }
+    
+    /* WARNING: Breaks under Win64! */
+    fd_read = _open_osfhandle( ( long ) hRead, _O_RDONLY | _O_TEXT );
+    fd_write = _open_osfhandle( ( long ) hWrite, _O_WRONLY | _O_TEXT );
+
+    out_fd = fd_read;
+
+    stdlib_fd = _fdopen( fd_write, "w" );
+
+    setvbuf( stdlib_fd, NULL, _IONBF, 0 );
+    
+    *stderr = *stdlib_fd;
+    *stdout = *stdlib_fd;    
+    
 #endif
 
     m_outNotifier = new QSocketNotifier( out_fd, QSocketNotifier::Read );
