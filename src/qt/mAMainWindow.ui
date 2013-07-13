@@ -46,7 +46,7 @@
      <x>0</x>
      <y>0</y>
      <width>581</width>
-     <height>22</height>
+     <height>18</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -55,18 +55,17 @@
     </property>
     <widget class="QMenu" name="menuRecent_Files">
      <property name="title">
-      <string>Recent Files</string>
+      <string>Open Recent</string>
      </property>
     </widget>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
     <addaction name="actionOpen_Example"/>
+    <addaction name="menuRecent_Files"/>
     <addaction name="actionClose"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
-    <addaction name="separator"/>
-    <addaction name="menuRecent_Files"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
