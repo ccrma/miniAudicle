@@ -31,6 +31,8 @@ U.S.A.
 #include <Qsci/qsciscintilla.h>
 #include "mAsciLexerChucK.h"
 
+#include "util_string.h"
+
 
 mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file, miniAudicle * ma) :
     QWidget(parent),
@@ -256,7 +258,12 @@ void mADocumentView::saveAs()
 
 void mADocumentView::add()
 {
-    vector<string> args;
+    string argString = (QString("filename:") + ui->arguments->text()).toStdString();
+    string _filename;    
+    vector<string> argv;
+    if(!extract_args(argString, _filename, argv))
+        argv.clear();
+    
     string filepath;
     if(file != NULL) filepath = file->fileName().toStdString();
     else filepath = QDir::currentPath().toStdString();
@@ -264,7 +271,7 @@ void mADocumentView::add()
     t_CKUINT shred_id;
     string code = ui->textEdit->text().toStdString();
 
-    t_OTF_RESULT otf_result = m_ma->run_code(code, this->title, args,
+    t_OTF_RESULT otf_result = m_ma->run_code(code, this->title, argv,
                                              filepath, m_docid, shred_id, output);
     
     if(otf_result == OTF_SUCCESS)
@@ -306,7 +313,12 @@ void mADocumentView::add()
 
 void mADocumentView::replace()
 {
-    vector<string> args;
+    string argString = (QString("filename:") + ui->arguments->text()).toStdString();
+    string _filename;    
+    vector<string> argv;
+    if(!extract_args(argString, _filename, argv))
+        argv.clear();
+    
     string filepath;
     if(file != NULL) filepath = file->fileName().toStdString();
     else filepath = QDir::currentPath().toStdString();
@@ -314,7 +326,7 @@ void mADocumentView::replace()
     t_CKUINT shred_id;
     string code = ui->textEdit->text().toStdString();
 
-    t_OTF_RESULT otf_result = m_ma->replace_code(code, this->title, args,
+    t_OTF_RESULT otf_result = m_ma->replace_code(code, this->title, argv,
                                                  filepath, m_docid, shred_id, output);
     
     if(otf_result == OTF_SUCCESS)
