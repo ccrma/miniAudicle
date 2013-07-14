@@ -63,6 +63,7 @@ public slots:
     void closeFile(int i);
     void saveFile();
     void saveAs();
+    void tabSelected(int index);
 
     void addCurrentDocument();
     void replaceCurrentDocument();

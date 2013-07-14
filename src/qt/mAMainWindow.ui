@@ -46,7 +46,7 @@
      <x>0</x>
      <y>0</y>
      <width>581</width>
-     <height>18</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -976,6 +976,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>tabWidget</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>tabSelected(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>290</x>
+     <y>318</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>exit()</slot>
@@ -997,5 +1013,6 @@
   <slot>showPreferences()</slot>
   <slot>openExample()</slot>
   <slot>saveAs()</slot>
+  <slot>tabSelected(int)</slot>
  </slots>
 </ui>

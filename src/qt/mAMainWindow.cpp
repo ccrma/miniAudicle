@@ -328,6 +328,23 @@ void mAMainWindow::saveAs()
     }
 }
 
+void mAMainWindow::tabSelected(int index)
+{
+    mADocumentView * currentView = (mADocumentView *) ui->tabWidget->currentWidget();
+    
+    if(currentView == NULL)
+    {
+        statusBar()->clearMessage();
+        return;
+    }
+    
+    string result = currentView->lastResult();
+    if(result.size())
+        statusBar()->showMessage(QString(result.c_str()));
+    else
+        statusBar()->clearMessage();
+}
+
 #pragma mark
 
 void mAMainWindow::addCurrentDocument()
