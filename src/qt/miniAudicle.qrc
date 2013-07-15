@@ -6,5 +6,6 @@
         <file>icon/removeall.png</file>
         <file>icon/removelast.png</file>
         <file>icon/replace.png</file>
+        <file>scripts/export.ck</file>
     </qresource>
 </RCC>

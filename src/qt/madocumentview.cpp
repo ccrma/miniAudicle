@@ -27,9 +27,13 @@ U.S.A.
 
 #include <QFileDialog>
 #include <QMessageBox>
-
+#include <QTemporaryFile>
+#include <QResource>
+#include <QProcess>
 #include <Qsci/qsciscintilla.h>
+
 #include "mAsciLexerChucK.h"
+#include "mAExportDialog.h"
 
 #include "util_string.h"
 
@@ -92,6 +96,49 @@ void mADocumentView::preferencesChanged()
 {
     ((mAsciLexerChucK *)ui->textEdit->lexer())->preferencesChanged();
 //    ui->textEdit->recolor();
+}
+
+void mADocumentView::exportAsWav()
+{
+    QString dir;
+    if(file) QFileInfo(*file).dir().absolutePath();
+    QString filename = QFileDialog::getSaveFileName(this, "Export as WAV", dir, "WAV files (*.wav)");
+    
+    if(filename.length() > 0)
+    {
+        mAExportDialog exportDialog;
+        
+        exportDialog.exec();
+        
+        QTemporaryFile exportScript(QDir::tempPath() + "/exportXXXXXX.ck");
+        exportScript.open();
+        QResource exportResource(":/scripts/export.ck");
+        exportScript.write((const char *)exportResource.data(), exportResource.size());
+        exportScript.flush();
+        exportScript.close();
+        
+        QTemporaryFile runScript(QDir::tempPath() + "/runXXXXXX.ck");
+        runScript.open();
+        ui->textEdit->write(&runScript);
+        runScript.flush();
+        runScript.close();
+        
+        QString arg = QString("%1:%2:%3:%4:%5").
+                arg(exportScript.fileName()).
+                arg(runScript.fileName().remove(0,1)).
+                arg(filename.remove(0,1)).
+                arg(exportDialog.doLimit() ? 1 : 0).
+                arg(exportDialog.limitDuration());
+        
+        QProcess process;
+        QStringList args; args.append("--silent"); args.append(arg);
+        process.setProcessChannelMode(QProcess::ForwardedChannels);
+        process.start("chuck", args);
+        
+        process.waitForFinished(-1);
+        
+        //while(true) sleep(1);
+    }
 }
 
 void mADocumentView::detach()

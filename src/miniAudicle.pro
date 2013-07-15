@@ -108,7 +108,8 @@ SOURCES += \
     chuck/src/util_serial.cpp \
     chuck/src/chuck_io.cpp \
     qt/mAsciLexerChucK.cpp \
-    qt/mAPreferencesWindow.cpp
+    qt/mAPreferencesWindow.cpp \
+    qt/mAExportDialog.cpp
 
 !linux {
     SOURCES += chuck/src/util_sndfile.c
@@ -184,14 +185,16 @@ HEADERS  += qt/mAMainWindow.h \
     chuck/src/util_serial.h \
     chuck/src/chuck_io.h \
     qt/mAsciLexerChucK.h \
-    qt/mAPreferencesWindow.h
+    qt/mAPreferencesWindow.h \
+    qt/mAExportDialog.h
 
 FORMS += \
     qt/mAMainWindow.ui \
     qt/madocumentview.ui \
     qt/mAConsoleMonitor.ui \
     qt/mAVMMonitor.ui \
-    qt/mAPreferencesWindow.ui
+    qt/mAPreferencesWindow.ui \
+    qt/mAExportDialog.ui
 
 !win32 {
 FLEXSOURCES = chuck/src/chuck.lex

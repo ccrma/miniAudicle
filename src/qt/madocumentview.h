@@ -76,6 +76,7 @@ public slots:
     void documentModified(bool modified);
     void readOnlySaveDialogClicked(QAbstractButton *button);    
     void preferencesChanged();
+    void exportAsWav();
     
 signals:
     void undo();

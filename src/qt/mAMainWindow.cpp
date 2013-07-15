@@ -437,6 +437,14 @@ void mAMainWindow::tabSelected(int index)
 {
     mADocumentView * currentView = (mADocumentView *) ui->tabWidget->currentWidget();
     
+    ui->actionUndo->disconnect();
+    ui->actionRedo->disconnect();
+    ui->actionCut->disconnect();
+    ui->actionCopy->disconnect();
+    ui->actionPaste->disconnect();
+    ui->actionSelect_All->disconnect();
+    ui->actionExport_as_WAV->disconnect();
+    
     if(currentView == NULL)
     {
         statusBar()->clearMessage();
@@ -449,12 +457,13 @@ void mAMainWindow::tabSelected(int index)
     else
         statusBar()->clearMessage();
     
-    ui->actionUndo->disconnect();       connect(ui->actionUndo, SIGNAL(triggered()), currentView, SIGNAL(undo()));
-    ui->actionRedo->disconnect();       connect(ui->actionRedo, SIGNAL(triggered()), currentView, SIGNAL(redo()));
-    ui->actionCut->disconnect();        connect(ui->actionCut, SIGNAL(triggered()), currentView, SIGNAL(cut()));
-    ui->actionCopy->disconnect();       connect(ui->actionCopy, SIGNAL(triggered()), currentView, SIGNAL(copy()));
-    ui->actionPaste->disconnect();      connect(ui->actionPaste, SIGNAL(triggered()), currentView, SIGNAL(paste()));
-    ui->actionSelect_All->disconnect(); connect(ui->actionSelect_All, SIGNAL(triggered()), currentView, SIGNAL(selectAll()));
+    connect(ui->actionUndo, SIGNAL(triggered()), currentView, SIGNAL(undo()));
+    connect(ui->actionRedo, SIGNAL(triggered()), currentView, SIGNAL(redo()));
+    connect(ui->actionCut, SIGNAL(triggered()), currentView, SIGNAL(cut()));
+    connect(ui->actionCopy, SIGNAL(triggered()), currentView, SIGNAL(copy()));
+    connect(ui->actionPaste, SIGNAL(triggered()), currentView, SIGNAL(paste()));
+    connect(ui->actionSelect_All, SIGNAL(triggered()), currentView, SIGNAL(selectAll()));
+    connect(ui->actionExport_as_WAV, SIGNAL(triggered()), currentView, SLOT(exportAsWav()));
 }
 
 #pragma mark
