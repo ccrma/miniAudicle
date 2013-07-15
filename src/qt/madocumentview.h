@@ -76,6 +76,14 @@ public slots:
     void documentModified(bool modified);
     void readOnlySaveDialogClicked(QAbstractButton *button);    
     void preferencesChanged();
+    
+signals:
+    void undo();
+    void redo();
+    void cut();
+    void copy();
+    void paste();
+    void selectAll();
 
 protected:
     void showEvent( QShowEvent * event );

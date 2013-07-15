@@ -448,6 +448,13 @@ void mAMainWindow::tabSelected(int index)
         statusBar()->showMessage(QString(result.c_str()));
     else
         statusBar()->clearMessage();
+    
+    ui->actionUndo->disconnect();       connect(ui->actionUndo, SIGNAL(triggered()), currentView, SIGNAL(undo()));
+    ui->actionRedo->disconnect();       connect(ui->actionRedo, SIGNAL(triggered()), currentView, SIGNAL(redo()));
+    ui->actionCut->disconnect();        connect(ui->actionCut, SIGNAL(triggered()), currentView, SIGNAL(cut()));
+    ui->actionCopy->disconnect();       connect(ui->actionCopy, SIGNAL(triggered()), currentView, SIGNAL(copy()));
+    ui->actionPaste->disconnect();      connect(ui->actionPaste, SIGNAL(triggered()), currentView, SIGNAL(paste()));
+    ui->actionSelect_All->disconnect(); connect(ui->actionSelect_All, SIGNAL(triggered()), currentView, SIGNAL(selectAll()));
 }
 
 #pragma mark

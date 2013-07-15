@@ -129,6 +129,12 @@
    <container>1</container>
    <slots>
     <signal>modificationChanged(bool)</signal>
+    <slot>undo()</slot>
+    <slot>redo()</slot>
+    <slot>cut()</slot>
+    <slot>copy()</slot>
+    <slot>paste()</slot>
+    <slot>selectAll()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -152,8 +158,110 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>mADocumentView</sender>
+   <signal>cut()</signal>
+   <receiver>textEdit</receiver>
+   <slot>cut()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>259</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>259</x>
+     <y>245</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mADocumentView</sender>
+   <signal>copy()</signal>
+   <receiver>textEdit</receiver>
+   <slot>copy()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>259</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>259</x>
+     <y>245</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mADocumentView</sender>
+   <signal>paste()</signal>
+   <receiver>textEdit</receiver>
+   <slot>paste()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>259</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>259</x>
+     <y>245</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mADocumentView</sender>
+   <signal>selectAll()</signal>
+   <receiver>textEdit</receiver>
+   <slot>selectAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>259</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>259</x>
+     <y>245</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mADocumentView</sender>
+   <signal>undo()</signal>
+   <receiver>textEdit</receiver>
+   <slot>redo()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>259</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>259</x>
+     <y>245</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mADocumentView</sender>
+   <signal>redo()</signal>
+   <receiver>textEdit</receiver>
+   <slot>redo()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>259</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>259</x>
+     <y>245</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
+  <signal>undo()</signal>
+  <signal>redo()</signal>
+  <signal>cut()</signal>
+  <signal>copy()</signal>
+  <signal>paste()</signal>
+  <signal>selectAll()</signal>
   <slot>documentModified(bool)</slot>
  </slots>
 </ui>
