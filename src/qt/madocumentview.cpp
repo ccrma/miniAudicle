@@ -30,6 +30,7 @@ U.S.A.
 #include <QTemporaryFile>
 #include <QResource>
 #include <QProcess>
+#include <QThread>
 #include <Qsci/qsciscintilla.h>
 
 #include "mAsciLexerChucK.h"
@@ -53,9 +54,9 @@ mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file
         file->open(QIODevice::ReadOnly);
         ui->textEdit->read(file);
         file->close();
+        this->file = file;
     }
     ui->textEdit->setModified(false);
-    this->file = file;
     m_readOnly = false;
 
     ui->textEdit->setMarginLineNumbers(1, true);
@@ -101,7 +102,12 @@ void mADocumentView::preferencesChanged()
 void mADocumentView::exportAsWav()
 {
     QString dir;
-    if(file) QFileInfo(*file).dir().absolutePath();
+    if(file)
+    {
+        QFileInfo fileinfo(*file);
+        dir = fileinfo.dir().absolutePath() + "/" + fileinfo.completeBaseName() + ".wav";
+    }
+    
     QString filename = QFileDialog::getSaveFileName(this, "Export as WAV", dir, "WAV files (*.wav)");
     
     if(filename.length() > 0)
@@ -135,9 +141,43 @@ void mADocumentView::exportAsWav()
         process.setProcessChannelMode(QProcess::ForwardedChannels);
         process.start("chuck", args);
         
-        process.waitForFinished(-1);
+        //process.waitForFinished(-1);
         
-        //while(true) sleep(1);
+        QProgressDialog progress("Exporting", "Cancel", 0, 0, this);
+        progress.setWindowModality(Qt::WindowModal);
+        progress.setValue(0);
+        
+        progress.show();
+   
+        bool cancelled = false;
+        while(true)
+        {
+            if(progress.wasCanceled())
+            {
+                cancelled = true;
+                break;
+            }
+            
+            if(process.waitForFinished(10))
+                break;
+            
+            QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
+        }
+        
+        if(cancelled)
+        {
+#ifdef __PLATFORM_WIN32__
+            AttachConsole(process.pid()); // attach to process console
+            SetConsoleCtrlHandler(NULL, TRUE); // disable Control+C handling for our app
+            GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0); // generate Control+C event
+#else
+            kill(process.pid(), SIGINT);
+#endif
+        }
+        
+        process.waitForFinished(1000);
+        
+        progress.hide();        
     }
 }
 

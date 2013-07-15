@@ -30,6 +30,7 @@ U.S.A.
 #include <QFile>
 #include <Qsci/qscilexer.h>
 #include <QAbstractButton>
+#include <QProgressDialog>
 
 #include "miniAudicle.h"
 
