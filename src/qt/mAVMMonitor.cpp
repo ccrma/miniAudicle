@@ -38,6 +38,7 @@ mAVMMonitor::mAVMMonitor(QWidget *parent, mAMainWindow *mainWindow, miniAudicle 
 
     timerId = -1;
     vm_stall_count = 0;
+    vm_max_stalls = 1*VMMONITOR_REFRESH_RATE;
 
     m_docid = ma->allocate_document_id();
 
@@ -133,16 +134,18 @@ void mAVMMonitor::timerEvent(QTimerEvent *event)
     {
         vm_stall_count++;
 
-//        if( vm_stall_count >= vm_max_stalls && !wxGetApp().IsInLockdown() )
-//        {
-//            wxGetApp().SetLockdown( TRUE );
-//        }
+        if( vm_stall_count >= vm_max_stalls && !m_mainWindow->lockdown() )
+        {
+            m_mainWindow->setLockdown(true);
+        }
     }
 
     else
     {
 //        if( wxGetApp().IsInLockdown() )
 //            wxGetApp().SetLockdown( FALSE );
+        if(m_mainWindow->lockdown())
+            m_mainWindow->setLockdown(false);
         vm_stall_count = 0;
     }
 

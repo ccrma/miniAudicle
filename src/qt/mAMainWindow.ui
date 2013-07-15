@@ -992,6 +992,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionAbort_Currently_Running_Shred</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>abortCurrentShred()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>exit()</slot>
@@ -1014,5 +1030,6 @@
   <slot>openExample()</slot>
   <slot>saveAs()</slot>
   <slot>tabSelected(int)</slot>
+  <slot>abortCurrentShred()</slot>
  </slots>
 </ui>

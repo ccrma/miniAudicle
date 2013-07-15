@@ -71,13 +71,19 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     m_vmMonitor = new mAVMMonitor(NULL, this, ma);
     m_preferencesWindow = NULL;
 
+    m_lockdown = false;
+    
     m_docid = ma->allocate_document_id();
 
-    ui->actionAdd_Shred->setEnabled(false);
-    ui->actionRemove_Shred->setEnabled(false);
-    ui->actionReplace_Shred->setEnabled(false);
-    ui->actionRemove_Last_Shred->setEnabled(false);
-    ui->actionRemove_All_Shreds->setEnabled(false);
+    ui->actionAdd_Shred->setEnabled(vm_on);
+    ui->actionRemove_Shred->setEnabled(vm_on);
+    ui->actionReplace_Shred->setEnabled(vm_on);
+    ui->actionRemove_Last_Shred->setEnabled(vm_on);
+    ui->actionRemove_All_Shreds->setEnabled(vm_on);
+    ui->actionAdd_All_Open_Documents->setEnabled(vm_on);
+    ui->actionReplace_All_Open_Documents->setEnabled(vm_on);
+    ui->actionRemove_All_Open_Documents->setEnabled(vm_on);
+    ui->actionAbort_Currently_Running_Shred->setEnabled(vm_on);
 
     updateRecentFilesMenu();
     
@@ -127,6 +133,21 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     m_preferencesWindow->setAttribute(Qt::WA_QuitOnClose, false);
 
     newFile();
+}
+
+void mAMainWindow::setLockdown(bool _lockdown)
+{
+    if(_lockdown && !m_lockdown)
+    {
+        int ret = QMessageBox::warning(this, "", "<b>The Virtual Machine appears to be hanging.</b><br/><br/> This can be caused by a shred running in an infinite loop, or it may simply be a shred performing a finite amount of heavy processing.  If you would like to abort the current shred and unhang the virtual machine, click \"Abort.\"  To leave the current shred running, click \"Cancel.\"  If you choose to leave the current shred running, execution of on-the-fly programming commands may be delayed.<br/><br/>Abort the current shred?",
+                                       "Cancel", "Abort", "", 1);
+        if(ret == QDialog::Accepted)
+        {
+            ma->abort_current_shred();
+        }
+    }
+    
+    m_lockdown = _lockdown;
 }
 
 mAMainWindow::~mAMainWindow()
@@ -482,6 +503,11 @@ void mAMainWindow::removeAllShreds()
     ma->removeall(m_docid, result);
 }
 
+void mAMainWindow::abortCurrentShred()
+{
+    ma->abort_current_shred();
+}
+
 void mAMainWindow::toggleVM()
 {
     QSettings settings;
@@ -542,6 +568,10 @@ void mAMainWindow::toggleVM()
     ui->actionReplace_Shred->setEnabled(vm_on);
     ui->actionRemove_Last_Shred->setEnabled(vm_on);
     ui->actionRemove_All_Shreds->setEnabled(vm_on);
+    ui->actionAdd_All_Open_Documents->setEnabled(vm_on);
+    ui->actionReplace_All_Open_Documents->setEnabled(vm_on);
+    ui->actionRemove_All_Open_Documents->setEnabled(vm_on);
+    ui->actionAbort_Currently_Running_Shred->setEnabled(vm_on);
 }
 
 

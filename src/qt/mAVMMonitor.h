@@ -59,6 +59,7 @@ private:
     t_CKUINT m_docid;
 
     t_CKUINT vm_stall_count;
+    t_CKUINT vm_max_stalls;
     int timerId;
     Chuck_VM_Status status;
 

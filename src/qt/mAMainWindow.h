@@ -49,6 +49,9 @@ class mAMainWindow : public QMainWindow
 public:
     explicit mAMainWindow(QWidget *parent = 0);
     ~mAMainWindow();
+    
+    void setLockdown(bool _lockdowned);
+    bool lockdown() { return m_lockdown; }
 
 public slots:
 
@@ -70,6 +73,7 @@ public slots:
     void removeCurrentDocument();
     void removeLastShred();
     void removeAllShreds();
+    void abortCurrentShred();
     void toggleVM();
     void setLogLevel();
     
@@ -95,6 +99,7 @@ private:
 
     miniAudicle * ma;
     t_CKUINT m_docid;
+    bool m_lockdown;
     
     void addRecentFile(QString &path);
     void updateRecentFilesMenu();
