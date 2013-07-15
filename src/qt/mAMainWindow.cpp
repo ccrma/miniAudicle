@@ -63,6 +63,10 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     
     mAPreferencesWindow::configureDefaults();
     
+    QSettings settings;
+    
+    QDir::setCurrent(settings.value(mAPreferencesCurrentDirectory).toString());
+    
     m_consoleMonitor = new mAConsoleMonitor(NULL);
     m_vmMonitor = new mAVMMonitor(NULL, this, ma);
     m_preferencesWindow = NULL;
@@ -77,7 +81,6 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
 
     updateRecentFilesMenu();
     
-    QSettings settings;
     ma->set_log_level(settings.value("/ChucK/LogLevel", (int) 2).toInt());
     switch(ma->get_log_level())
     {

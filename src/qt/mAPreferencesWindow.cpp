@@ -25,9 +25,13 @@ U.S.A.
 #include "mAPreferencesWindow.h"
 #include "ui_mAPreferencesWindow.h"
 
-#include <QSettings>
-#include <vector>
 #include "miniAudicle.h"
+
+#include <QSettings>
+#include <QFileDialog>
+
+#include <vector>
+
 #include "chuck_def.h"
 #include "chuck_dl.h"
 #include "digiio_rtaudio.h"
@@ -128,6 +132,8 @@ void mAPreferencesWindow::configureDefaults()
 #endif
     globalSettings.setValue(mAPreferencesChuGinPaths, paths);
     
+    globalSettings.setValue(mAPreferencesCurrentDirectory, QDir::homePath());
+    
     globalSettings.sync();
 }
 
@@ -197,6 +203,8 @@ void mAPreferencesWindow::loadSettingsToGUI()
         item->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
         ui->chuginsList->addItem(item);        
     }
+    
+    ui->currentDirectory->setText(settings.value(mAPreferencesCurrentDirectory).toString());
 }
 
 void mAPreferencesWindow::loadGUIToSettings()
@@ -234,6 +242,9 @@ void mAPreferencesWindow::loadGUIToSettings()
         paths.append(ui->chuginsList->item(i)->text());
     }
     settings.setValue(mAPreferencesChuGinPaths, paths);
+    
+    settings.setValue(mAPreferencesCurrentDirectory, ui->currentDirectory->text());
+    QDir::setCurrent(settings.value(mAPreferencesCurrentDirectory).toString());
 }
 
 void mAPreferencesWindow::ok()
@@ -419,6 +430,21 @@ void mAPreferencesWindow::addChugin()
 void mAPreferencesWindow::removeChugin()
 {
     qDeleteAll(ui->chuginsList->selectedItems());
+}
+
+void mAPreferencesWindow::changeCurrentDirectory()
+{
+    QFileDialog fileDialog(this);
+    fileDialog.setFileMode(QFileDialog::Directory);
+    fileDialog.setOption(QFileDialog::ShowDirsOnly, true);
+    fileDialog.setDirectory(ui->currentDirectory->text());
+    
+    int ret = fileDialog.exec();
+    
+    if(ret == QDialog::Accepted)
+    {
+        ui->currentDirectory->setText(fileDialog.selectedFiles()[0]);
+    }
 }
 
 

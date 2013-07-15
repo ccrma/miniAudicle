@@ -509,7 +509,7 @@
     <attribute name="title">
      <string>Miscellaneous</string>
     </attribute>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="currentDirectoryButton">
      <property name="geometry">
       <rect>
        <x>270</x>
@@ -535,7 +535,7 @@
       <string>Current Directory:</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="currentDirectory">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -738,6 +738,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>currentDirectoryButton</sender>
+   <signal>clicked()</signal>
+   <receiver>mAPreferencesWindow</receiver>
+   <slot>changeCurrentDirectory()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>328</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>200</x>
+     <y>181</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ok()</slot>
@@ -749,5 +765,6 @@
   <slot>syntaxColoringChangeColor()</slot>
   <slot>addChugin()</slot>
   <slot>removeChugin()</slot>
+  <slot>changeCurrentDirectory()</slot>
  </slots>
 </ui>

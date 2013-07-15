@@ -64,6 +64,8 @@ public slots:
     void addChugin();
     void removeChugin();
     
+    void changeCurrentDirectory();
+    
 signals:
     void preferencesChanged();
     
