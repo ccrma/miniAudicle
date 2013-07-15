@@ -41,6 +41,8 @@ U.S.A.
 #include <stdio.h>
 #endif
 
+#define DISABLE_CONSOLE_MONITOR 0
+
 #ifndef STDERR_FILENO
 #define STDERR_FILENO 2
 #endif
@@ -56,7 +58,7 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent) :
 {
     ui->setupUi(this);
     read_fd = 0;
-
+#if !DISABLE_CONSOLE_MONITOR
 #ifndef __PLATFORM_WIN32__
     int fd[2];
 
@@ -106,6 +108,7 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent) :
                      this, SLOT(dataAvailable()), Qt::BlockingQueuedConnection);
     thread->start();
     
+#endif
 #endif
 }
 

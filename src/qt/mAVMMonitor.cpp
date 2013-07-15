@@ -78,6 +78,8 @@ void mAVMMonitor::vmChangedToState(bool vmOn)
         ui->toggleVMButton->setText("Stop Virtual Machine");
 
         timerId = startTimer((int)(1000.0/VMMONITOR_REFRESH_RATE));
+        
+        ui->toggleVMButton->setEnabled(false);
     }
     else
     {

@@ -129,12 +129,20 @@ void mADocumentView::exportAsWav()
         runScript.flush();
         runScript.close();
         
+        QString exportScriptFilename = exportScript.fileName().replace(':', "\\:");
+        QString runScriptFilename = runScript.fileName().replace(':', "\\:");
+        filename = filename.replace(':', "\\:");
+        
+        
         QString arg = QString("%1:%2:%3:%4:%5").
-                arg(exportScript.fileName()).
-                arg(runScript.fileName().remove(0,1)).
-                arg(filename.remove(0,1)).
+                arg(exportScriptFilename).
+                arg(runScriptFilename).
+                arg(filename).
                 arg(exportDialog.doLimit() ? 1 : 0).
                 arg(exportDialog.limitDuration());
+        
+        fprintf(stderr, "%s\n", arg.toAscii().constData());
+        fflush(stderr);
         
         QProcess process;
         QStringList args; args.append("--silent"); args.append(arg);
@@ -167,7 +175,7 @@ void mADocumentView::exportAsWav()
         if(cancelled)
         {
 #ifdef __PLATFORM_WIN32__
-            AttachConsole(process.pid()); // attach to process console
+            AttachConsole((DWORD)process.pid()); // attach to process console
             SetConsoleCtrlHandler(NULL, TRUE); // disable Control+C handling for our app
             GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0); // generate Control+C event
 #else
