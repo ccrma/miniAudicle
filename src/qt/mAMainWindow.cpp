@@ -549,6 +549,8 @@ void mAMainWindow::toggleVM()
 
             m_vmMonitor->vmChangedToState(true);
 
+            ui->actionStart_Virtual_Machine->setEnabled(false);
+            
             vm_on = true;
         }
     }
