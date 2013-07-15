@@ -78,6 +78,11 @@ public slots:
     void showConsoleMonitor();
     void showVirtualMachineMonitor();
 
+protected:
+    void closeEvent(QCloseEvent *);
+    bool performClose(int i);
+    bool shouldCloseOrQuit();
+    
 private:
 
     Ui::mAMainWindow *ui;

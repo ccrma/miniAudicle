@@ -69,6 +69,8 @@ public:
     bool isReadOnly() { return m_readOnly; }
     
     std::string lastResult() { return m_lastResult; }
+    
+    std::string title() { return m_title; }
 
 public slots:
     void documentModified(bool modified);
@@ -83,7 +85,7 @@ private:
     void setTitle(std::string title);
 
     QFile * file;
-    std::string title;
+    std::string m_title;
     bool m_readOnly;    
     QTabWidget * tabWidget;
 

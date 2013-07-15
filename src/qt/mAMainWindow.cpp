@@ -33,6 +33,8 @@ U.S.A.
 #include <QMessageBox>
 #include <QDesktopWidget>
 #include <QSettings>
+#include <QCloseEvent>
+#include <QPushButton>
 
 #include <list>
 
@@ -156,7 +158,78 @@ mAMainWindow::~mAMainWindow()
 
 void mAMainWindow::exit()
 {
-    qApp->exit(0);
+    if(shouldCloseOrQuit())
+        qApp->exit(0);
+}
+
+void mAMainWindow::closeEvent(QCloseEvent * event)
+{
+    if(shouldCloseOrQuit())
+        event->accept();
+    else
+        event->ignore();
+}
+
+bool mAMainWindow::shouldCloseOrQuit()
+{
+    list<mADocumentView *> unsavedViews;
+    
+    for(int i = 0; i < ui->tabWidget->count(); i++)
+    {
+        mADocumentView * view = (mADocumentView *) ui->tabWidget->widget(i);
+        if(view->isDocumentModified())
+            unsavedViews.push_back(view);
+    }
+    
+    bool review = false;
+    
+    if(unsavedViews.size() == 1)
+    {
+        review = true;
+    }
+    else if(unsavedViews.size() > 1)
+    {
+        QMessageBox messageBox(this);
+        
+        messageBox.window()->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
+        messageBox.window()->setWindowIcon(this->windowIcon());
+        
+        messageBox.setIcon(QMessageBox::Warning);
+        messageBox.setText(QString("<b>You have %1 documents with unsaved changes. Do you want to review these changes before quitting?</b>").arg(unsavedViews.size()));
+        messageBox.setInformativeText("If you don’t review your documents, all your changes will be lost.");
+        
+        messageBox.setDefaultButton(messageBox.addButton("Review Changes", QMessageBox::AcceptRole));
+        messageBox.setEscapeButton(messageBox.addButton("Cancel", QMessageBox::RejectRole));
+        messageBox.addButton("Discard Changes", QMessageBox::DestructiveRole);
+        
+        int ret = messageBox.exec();
+        
+        QMessageBox::ButtonRole role = messageBox.buttonRole(messageBox.clickedButton());
+        if(role == QMessageBox::AcceptRole)
+        {
+            review = true;
+        }
+        else if(ret == QMessageBox::DestructiveRole)
+        {
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    if(review)
+    {
+        for(int i = ui->tabWidget->count()-1; i >= 0; i--)
+        {
+            if(!performClose(i))
+            {
+                return false;
+            }
+        }
+    }
+    
+    return true;
 }
 
 void mAMainWindow::about()
@@ -263,15 +336,20 @@ void mAMainWindow::closeFile()
 
 void mAMainWindow::closeFile(int i)
 {
+    performClose(i);
+}
+
+bool mAMainWindow::performClose(int i)
+{
     mADocumentView * view = (mADocumentView *) ui->tabWidget->widget(i);
 
     if(view == NULL)
-        return;
+        return true;
 
     if(view->isDocumentModified())
     {
         QMessageBox msgBox;
-        msgBox.setText("The document has been modified.");
+        msgBox.setText(QString("<b>The document '%1' has been modified.</b>").arg(view->title().c_str()));
         msgBox.setInformativeText("Do you want to save your changes?");
         msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
         msgBox.setDefaultButton(QMessageBox::Save);
@@ -284,12 +362,14 @@ void mAMainWindow::closeFile(int i)
         }
         else if(ret == QMessageBox::Cancel)
         {
-            return;
+            return false;
         }
     }
 
     ui->tabWidget->removeTab(i);
     delete view;
+    
+    return true;
 }
 
 void mAMainWindow::saveFile()

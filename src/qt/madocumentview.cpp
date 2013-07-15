@@ -42,7 +42,7 @@ mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file
 {
     ui->setupUi(this);
 
-    title = _title;
+    m_title = _title;
 
     if(file != NULL)
     {
@@ -107,9 +107,9 @@ void mADocumentView::setTabWidget(QTabWidget * _tabWidget)
 {
     tabWidget = _tabWidget;
     if(isDocumentModified())
-        tabWidget->setTabText(tabWidget->indexOf(this), QString(std::string(title + "*").c_str()));
+        tabWidget->setTabText(tabWidget->indexOf(this), QString(std::string(m_title + "*").c_str()));
     else
-        tabWidget->setTabText(tabWidget->indexOf(this), QString(title.c_str()));
+        tabWidget->setTabText(tabWidget->indexOf(this), QString(m_title.c_str()));
 }
 
 void mADocumentView::showEvent( QShowEvent * event )
@@ -124,13 +124,13 @@ bool mADocumentView::isDocumentModified()
 
 void mADocumentView::setTitle(std::string _title)
 {
-    title = _title;
+    m_title = _title;
     if(tabWidget != NULL)
     {
         if(isDocumentModified())
-            tabWidget->setTabText(tabWidget->indexOf(this), QString(std::string(title + "*").c_str()));
+            tabWidget->setTabText(tabWidget->indexOf(this), QString(std::string(m_title + "*").c_str()));
         else
-            tabWidget->setTabText(tabWidget->indexOf(this), QString(title.c_str()));
+            tabWidget->setTabText(tabWidget->indexOf(this), QString(m_title.c_str()));
     }
 }
 
@@ -139,9 +139,9 @@ void mADocumentView::documentModified(bool modified)
     if(tabWidget != NULL)
     {
         if(isDocumentModified())
-            tabWidget->setTabText(tabWidget->indexOf(this), QString(std::string(title + "*").c_str()));
+            tabWidget->setTabText(tabWidget->indexOf(this), QString(std::string(m_title + "*").c_str()));
         else
-            tabWidget->setTabText(tabWidget->indexOf(this), QString(title.c_str()));
+            tabWidget->setTabText(tabWidget->indexOf(this), QString(m_title.c_str()));
     }
 }
 
@@ -150,7 +150,7 @@ void mADocumentView::save()
     if(m_readOnly)
     {
         QMessageBox * messageBox = new QMessageBox(this);
-        QString qtitle = QString(this->title.c_str());
+        QString qtitle = QString(this->m_title.c_str());
         
         messageBox->window()->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
         messageBox->window()->setAttribute(Qt::WA_DeleteOnClose);
@@ -271,7 +271,7 @@ void mADocumentView::add()
     t_CKUINT shred_id;
     string code = ui->textEdit->text().toStdString();
 
-    t_OTF_RESULT otf_result = m_ma->run_code(code, this->title, argv,
+    t_OTF_RESULT otf_result = m_ma->run_code(code, m_title, argv,
                                              filepath, m_docid, shred_id, output);
     
     if(otf_result == OTF_SUCCESS)
@@ -326,7 +326,7 @@ void mADocumentView::replace()
     t_CKUINT shred_id;
     string code = ui->textEdit->text().toStdString();
 
-    t_OTF_RESULT otf_result = m_ma->replace_code(code, this->title, argv,
+    t_OTF_RESULT otf_result = m_ma->replace_code(code, m_title, argv,
                                                  filepath, m_docid, shred_id, output);
     
     if(otf_result == OTF_SUCCESS)
