@@ -549,7 +549,10 @@ void mAMainWindow::toggleVM()
 
             m_vmMonitor->vmChangedToState(true);
 
+#ifdef __PLATFORM_WIN32__
+            // windows only: disable restarting the vm
             ui->actionStart_Virtual_Machine->setEnabled(false);
+#endif
             
             vm_on = true;
         }
