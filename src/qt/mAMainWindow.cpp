@@ -101,6 +101,10 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     QDesktopWidget * desktopWidget = QApplication::desktop();
     QRect available = desktopWidget->availableGeometry(this);
 
+    // center horizontally, top 100px down from top
+    this->move(available.left() + available.width()*0.5 - this->frameGeometry().width()/2,
+               100);
+    
     // position left edge at 0.2, bottom edge at 0.8
     m_consoleMonitor->move(available.left() + available.width()*0.2,
                            available.top() + available.height()*0.8 - m_consoleMonitor->frameGeometry().height());
@@ -114,13 +118,10 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     m_vmMonitor->show();
     
     m_preferencesWindow = new mAPreferencesWindow(NULL, ma);
+    // position in center of main window
     m_preferencesWindow->move(this->pos().x() + this->frameGeometry().width()/2 - m_preferencesWindow->frameGeometry().width()/2,
                               this->pos().y() + this->frameGeometry().height()/2 - m_preferencesWindow->frameGeometry().height()/2);    
     m_preferencesWindow->setAttribute(Qt::WA_QuitOnClose, false);
-
-    // center horizontally, top 100px down from top
-    this->move(available.left() + available.width()*0.5 - this->frameGeometry().width()/2,
-               100);
 
     newFile();
 }

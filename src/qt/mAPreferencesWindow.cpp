@@ -138,7 +138,7 @@ mAPreferencesWindow::mAPreferencesWindow(QWidget *parent, miniAudicle * ma) :
 {
     ui->setupUi(this);
     
-    setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
+    setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint | Qt::WindowSystemMenuHint);
     
     m_colorDialog = NULL;
     
