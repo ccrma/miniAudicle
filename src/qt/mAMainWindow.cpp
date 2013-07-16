@@ -66,6 +66,18 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     ZSettings settings;
 
     QDir::setCurrent(settings.get(mAPreferencesCurrentDirectory).toString());
+    
+    QStringList pathsToOpen;
+    
+    QStringList arguments = QCoreApplication::arguments();
+    for(int i = 0; i < arguments.length(); i++)
+    {
+        QString arg = arguments[i];
+        if(i == 0 && arg.endsWith(QFileInfo(QCoreApplication::applicationFilePath()).fileName()))
+            continue;
+        
+        pathsToOpen.append(arg);
+    }
 
     m_consoleMonitor = new mAConsoleMonitor(NULL);
     m_vmMonitor = new mAVMMonitor(NULL, this, ma);
@@ -132,7 +144,13 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
                               this->pos().y() + this->frameGeometry().height()/2 - m_preferencesWindow->frameGeometry().height()/2);
     m_preferencesWindow->setAttribute(Qt::WA_QuitOnClose, false);
 
-    newFile();
+    if(pathsToOpen.length() == 0)
+        newFile();
+    else
+    {
+        for(int i = 0; i < pathsToOpen.length(); i++)
+            openFile(pathsToOpen[i]);
+    }
 }
 
 void mAMainWindow::setLockdown(bool _lockdown)
