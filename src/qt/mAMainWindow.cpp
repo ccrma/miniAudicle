@@ -308,7 +308,7 @@ void mAMainWindow::openFile(const QString &path)
             file->close();            
             
             canOpen = true;
-            readOnly = false;
+            readOnly = true;
         }
         
         if(canOpen)
@@ -342,7 +342,9 @@ void mAMainWindow::openExample()
 {
     QString examplesDir;
 #ifdef __PLATFORM_WIN32__
-    examplesDir = QCoreApplication::applicationDirPath() + "/examples";
+    examplesDir = QCoreApplication::applicationDirPath() + "/examples/";
+//    fprintf(stderr, "examplesDir: %s\n", examplesDir.toAscii().constData());
+//    fflush(stderr);
 #endif
     
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Example"), examplesDir, "ChucK Scripts (*.ck)");
@@ -580,7 +582,7 @@ void mAMainWindow::toggleVM()
             {
                 QString path = chuginPaths.at(i);
                 QFileInfo fileInfo(path);
-                if(fileInfo.isDir())
+                if(fileInfo.isDir() || !fileInfo.exists())
                     chuginDirs.push_back(path.toStdString());
                 else
                     chuginFiles.push_back(path.toStdString());
