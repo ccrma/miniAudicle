@@ -102,7 +102,13 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent) :
     _dup2(fd_write, STDERR_FILENO);
     _dup2(fd_write, STDOUT_FILENO);
     read_fd = fd_read;
-        
+
+    FILE * cfd_write_err = _fdopen(fd_write, "w");
+    FILE * cfd_write_out = _fdopen(fd_write, "w");
+
+    *stderr = *cfd_write_err;
+    *stdout = *cfd_write_out;
+
     mAConsoleMonitorThread * thread = new mAConsoleMonitorThread(this);
     QObject::connect(thread, SIGNAL(dataAvailable()), 
                      this, SLOT(dataAvailable()), Qt::BlockingQueuedConnection);
