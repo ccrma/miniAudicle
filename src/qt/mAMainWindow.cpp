@@ -290,16 +290,37 @@ void mAMainWindow::openFile(const QString &path)
     if (!fileName.isEmpty())
     {
         QFile * file = new QFile(fileName);
-        if (file->open(QFile::ReadWrite))
+        
+        bool canOpen = false;
+        bool readOnly = false;
+        
+        if(file->open(QFile::ReadWrite))
         {
             // close -- will be reopened as needed by document view
             file->close();            
+            
+            canOpen = true;
+            readOnly = false;
+        }
+        else if(file->open(QFile::ReadOnly))
+        {
+            // close -- will be reopened as needed by document view
+            file->close();            
+            
+            canOpen = true;
+            readOnly = false;
+        }
+        
+        if(canOpen)
+        {
             QFileInfo fileInfo(fileName);
             mADocumentView * documentView = new mADocumentView(0, fileInfo.fileName().toStdString(), file, ma);
             documentView->setTabWidget(ui->tabWidget);
+            documentView->setReadOnly(readOnly);
+            
             QObject::connect(m_preferencesWindow, SIGNAL(preferencesChanged()),
                              documentView, SLOT(preferencesChanged()));
-
+            
             ui->tabWidget->addTab(documentView, QIcon(), fileInfo.fileName());
             ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);
 
@@ -308,6 +329,11 @@ void mAMainWindow::openFile(const QString &path)
             QString path = documentView->filePath();
             addRecentFile(path);
             updateRecentFilesMenu();            
+        }
+        else
+        {
+            // report error
+            QMessageBox::critical(this, "", QString("Unable to open file at '%1'.").arg(fileName));
         }
     }
 }
@@ -324,7 +350,7 @@ void mAMainWindow::openExample()
     if(!fileName.isEmpty())
     {
         QFile * file = new QFile(fileName);
-        if (file->open(QFile::ReadWrite))
+        if(file->open(QFile::ReadOnly))
         {
             // close -- will be reopened as needed by document view
             file->close();
@@ -344,6 +370,11 @@ void mAMainWindow::openExample()
             addRecentFile(path);
             updateRecentFilesMenu();            
         }
+        else
+        {
+            // report error
+            QMessageBox::critical(this, "", QString("Unable to open file at '%1'.").arg(fileName));
+        }        
     }
 }
 
