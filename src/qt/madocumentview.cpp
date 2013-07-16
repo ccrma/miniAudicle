@@ -84,13 +84,10 @@ mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file
 mADocumentView::~mADocumentView()
 {
     detach();
-
-    delete file;
-    file = NULL;
-    delete ui;
-    ui = NULL;
-    delete lexer;
-    lexer = NULL;
+    
+    SAFE_DELETE(file);
+    SAFE_DELETE(lexer);
+    SAFE_DELETE(ui);
 }
 
 void mADocumentView::preferencesChanged()

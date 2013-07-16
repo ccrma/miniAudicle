@@ -27,7 +27,7 @@ U.S.A.
 
 #include "miniAudicle.h"
 
-#include <QSettings>
+#include "ZSettings.h"
 #include <QFileDialog>
 
 #include <vector>
@@ -89,39 +89,35 @@ const QString mAPreferencesEnableAudio = "/VM/EnableAudio";
 
 void mAPreferencesWindow::configureDefaults()
 {
-#ifdef __MACOSX_CORE__
-    QSettings globalSettings(QSettings::SystemScope, QCoreApplication::organizationDomain(), QCoreApplication::applicationName());
-#else
-    QSettings globalSettings(QSettings::SystemScope, QCoreApplication::organizationName(), QCoreApplication::applicationName());
-#endif
+    ZSettings settings;
     
-    globalSettings.setValue(mAPreferencesEnableAudio, true);
-    globalSettings.setValue(mAPreferencesEnableNetwork, false);
-    globalSettings.setValue(mAPreferencesAudioOutput, 0);
-    globalSettings.setValue(mAPreferencesAudioInput, 0);
-    globalSettings.setValue(mAPreferencesSampleRate, SAMPLING_RATE_DEFAULT);
-    globalSettings.setValue(mAPreferencesOutputChannels, 2);
-    globalSettings.setValue(mAPreferencesInputChannels, 2);
-    globalSettings.setValue(mAPreferencesBufferSize, BUFFER_SIZE_DEFAULT);
+    ZSettings::setDefault(mAPreferencesEnableAudio, true);
+    ZSettings::setDefault(mAPreferencesEnableNetwork, false);
+    ZSettings::setDefault(mAPreferencesAudioOutput, 0);
+    ZSettings::setDefault(mAPreferencesAudioInput, 0);
+    ZSettings::setDefault(mAPreferencesSampleRate, SAMPLING_RATE_DEFAULT);
+    ZSettings::setDefault(mAPreferencesOutputChannels, 2);
+    ZSettings::setDefault(mAPreferencesInputChannels, 2);
+    ZSettings::setDefault(mAPreferencesBufferSize, BUFFER_SIZE_DEFAULT);
     
-    globalSettings.setValue(mAPreferencesFontName, "Courier");
-    globalSettings.setValue(mAPreferencesFontSize, 10);
+    ZSettings::setDefault(mAPreferencesFontName, "Courier");
+    ZSettings::setDefault(mAPreferencesFontSize, 10);
     
-    globalSettings.setValue(mAPreferencesSyntaxColoringEnabled, true);
-    globalSettings.setValue(mAPreferencesSyntaxColoringNormalText, qRgb(0x00, 0x00, 0x00));
-    globalSettings.setValue(mAPreferencesSyntaxColoringBackground, qRgb(0xFF, 0xFF, 0xFF));
-    globalSettings.setValue(mAPreferencesSyntaxColoringKeywords, qRgb(0x00, 0x00, 0xFF));
-    globalSettings.setValue(mAPreferencesSyntaxColoringClasses, qRgb(0x80, 0x00, 0x23));
-    globalSettings.setValue(mAPreferencesSyntaxColoringUGens, qRgb(0xA2, 0x00, 0xEC));
-    globalSettings.setValue(mAPreferencesSyntaxColoringComments, qRgb(0x60, 0x90, 0x10));
-    globalSettings.setValue(mAPreferencesSyntaxColoringStrings, qRgb(0x40, 0x40, 0x40));
-    globalSettings.setValue(mAPreferencesSyntaxColoringNumbers, qRgb(0xD4, 0x80, 0x10));
+    ZSettings::setDefault(mAPreferencesSyntaxColoringEnabled, true);
+    ZSettings::setDefault(mAPreferencesSyntaxColoringNormalText, qRgb(0x00, 0x00, 0x00));
+    ZSettings::setDefault(mAPreferencesSyntaxColoringBackground, qRgb(0xFF, 0xFF, 0xFF));
+    ZSettings::setDefault(mAPreferencesSyntaxColoringKeywords, qRgb(0x00, 0x00, 0xFF));
+    ZSettings::setDefault(mAPreferencesSyntaxColoringClasses, qRgb(0x80, 0x00, 0x23));
+    ZSettings::setDefault(mAPreferencesSyntaxColoringUGens, qRgb(0xA2, 0x00, 0xEC));
+    ZSettings::setDefault(mAPreferencesSyntaxColoringComments, qRgb(0x60, 0x90, 0x10));
+    ZSettings::setDefault(mAPreferencesSyntaxColoringStrings, qRgb(0x40, 0x40, 0x40));
+    ZSettings::setDefault(mAPreferencesSyntaxColoringNumbers, qRgb(0xD4, 0x80, 0x10));
 
-    globalSettings.setValue(mAPreferencesUseTabs, false);
-    globalSettings.setValue(mAPreferencesTabSize, 4);
-//    globalSettings.setValue(mAPreferences)
+    ZSettings::setDefault(mAPreferencesUseTabs, false);
+    ZSettings::setDefault(mAPreferencesTabSize, 4);
+//    ZSettings::setDefault(mAPreferences)
     
-    globalSettings.setValue(mAPreferencesEnableChuGins, true);
+    ZSettings::setDefault(mAPreferencesEnableChuGins, true);
     
     QStringList paths;
 #ifdef __PLATFORM_WIN32__
@@ -130,11 +126,9 @@ void mAPreferencesWindow::configureDefaults()
 #else
     paths = QString(g_default_chugin_path).split(":");
 #endif
-    globalSettings.setValue(mAPreferencesChuGinPaths, paths);
+    ZSettings::setDefault(mAPreferencesChuGinPaths, paths);
     
-    globalSettings.setValue(mAPreferencesCurrentDirectory, QDir::homePath());
-    
-    globalSettings.sync();
+    ZSettings::setDefault(mAPreferencesCurrentDirectory, QDir::homePath());
 }
 
 mAPreferencesWindow::mAPreferencesWindow(QWidget *parent, miniAudicle * ma) :
@@ -173,30 +167,30 @@ mAPreferencesWindow::~mAPreferencesWindow()
 
 void mAPreferencesWindow::loadSettingsToGUI()
 {
-    QSettings settings;
+    ZSettings settings;
     
-    ui->enableAudio->setChecked(settings.value(mAPreferencesEnableAudio).toBool());
-    ui->enableNetworkVM->setChecked(settings.value(mAPreferencesEnableNetwork).toBool());
+    ui->enableAudio->setChecked(settings.get(mAPreferencesEnableAudio).toBool());
+    ui->enableNetworkVM->setChecked(settings.get(mAPreferencesEnableNetwork).toBool());
     
-    ui->bufferSize->setCurrentIndex(ui->bufferSize->findText(QString("%1").arg(settings.value(mAPreferencesBufferSize).toInt())));
+    ui->bufferSize->setCurrentIndex(ui->bufferSize->findText(QString("%1").arg(settings.get(mAPreferencesBufferSize).toInt())));
     
     // sets GUI for audio input/output, num channels, and sample rate
     ProbeAudioDevices();
     
-    ui->font->setCurrentFont(QFont(settings.value(mAPreferencesFontName).toString()));
-    ui->fontSize->setValue(settings.value(mAPreferencesFontSize).toInt());
+    ui->font->setCurrentFont(QFont(settings.get(mAPreferencesFontName).toString()));
+    ui->fontSize->setValue(settings.get(mAPreferencesFontSize).toInt());
     
-    ui->enableSyntaxColoring->setChecked(settings.value(mAPreferencesSyntaxColoringEnabled).toBool());
+    ui->enableSyntaxColoring->setChecked(settings.get(mAPreferencesSyntaxColoringEnabled).toBool());
     for(int i = 0; i < m_indexToColor.size(); i++)
-        m_indexToColor[i] = QColor(settings.value(m_indexToPref[i]).toUInt());
+        m_indexToColor[i] = QColor(settings.get(m_indexToPref[i]).toUInt());
     syntaxColoringTypeChanged();
    
-    ui->editorUsesTabs->setChecked(settings.value(mAPreferencesUseTabs).toBool());
-    ui->tabWidth->setValue(settings.value(mAPreferencesTabSize).toInt());
+    ui->editorUsesTabs->setChecked(settings.get(mAPreferencesUseTabs).toBool());
+    ui->tabWidth->setValue(settings.get(mAPreferencesTabSize).toInt());
     
-    ui->enableChugins->setChecked(settings.value(mAPreferencesEnableChuGins).toBool());
+    ui->enableChugins->setChecked(settings.get(mAPreferencesEnableChuGins).toBool());
     ui->chuginsList->clear();
-    QStringList chugins = settings.value(mAPreferencesChuGinPaths).toStringList();
+    QStringList chugins = settings.get(mAPreferencesChuGinPaths).toStringList();
     for(int i = 0; i < chugins.length(); i++)
     {
         QListWidgetItem * item = new QListWidgetItem(chugins[i]);
@@ -204,47 +198,47 @@ void mAPreferencesWindow::loadSettingsToGUI()
         ui->chuginsList->addItem(item);        
     }
     
-    ui->currentDirectory->setText(settings.value(mAPreferencesCurrentDirectory).toString());
+    ui->currentDirectory->setText(settings.get(mAPreferencesCurrentDirectory).toString());
 }
 
 void mAPreferencesWindow::loadGUIToSettings()
 {
-    QSettings settings;
+    ZSettings settings;
     int i;    
     
-    settings.setValue(mAPreferencesEnableAudio, ui->enableAudio->isChecked());
-    settings.setValue(mAPreferencesEnableNetwork, ui->enableNetworkVM->isChecked());
+    settings.set(mAPreferencesEnableAudio, ui->enableAudio->isChecked());
+    settings.set(mAPreferencesEnableNetwork, ui->enableNetworkVM->isChecked());
     
-    settings.setValue(mAPreferencesAudioOutput, ui->audioOutput->itemData(ui->audioOutput->currentIndex()));
-    settings.setValue(mAPreferencesAudioInput, ui->audioInput->itemData(ui->audioInput->currentIndex()));
+    settings.set(mAPreferencesAudioOutput, ui->audioOutput->itemData(ui->audioOutput->currentIndex()));
+    settings.set(mAPreferencesAudioInput, ui->audioInput->itemData(ui->audioInput->currentIndex()));
     
-    settings.setValue(mAPreferencesInputChannels, ui->inputChannels->itemData(ui->inputChannels->currentIndex()));
-    settings.setValue(mAPreferencesOutputChannels, ui->outputChannels->itemData(ui->outputChannels->currentIndex()));
+    settings.set(mAPreferencesInputChannels, ui->inputChannels->itemData(ui->inputChannels->currentIndex()));
+    settings.set(mAPreferencesOutputChannels, ui->outputChannels->itemData(ui->outputChannels->currentIndex()));
     
-    settings.setValue(mAPreferencesSampleRate, ui->sampleRate->itemData(ui->sampleRate->currentIndex()));
-    settings.setValue(mAPreferencesBufferSize, ui->bufferSize->currentText().toInt());
+    settings.set(mAPreferencesSampleRate, ui->sampleRate->itemData(ui->sampleRate->currentIndex()));
+    settings.set(mAPreferencesBufferSize, ui->bufferSize->currentText().toInt());
     
-    settings.setValue(mAPreferencesFontName, ui->font->currentFont().family());
-    settings.setValue(mAPreferencesFontSize, ui->fontSize->value());
+    settings.set(mAPreferencesFontName, ui->font->currentFont().family());
+    settings.set(mAPreferencesFontSize, ui->fontSize->value());
     
-    settings.setValue(mAPreferencesSyntaxColoringEnabled, ui->enableSyntaxColoring->isChecked());
+    settings.set(mAPreferencesSyntaxColoringEnabled, ui->enableSyntaxColoring->isChecked());
     for(i = 0; i < m_indexToColor.size(); i++)
-        settings.setValue(m_indexToPref[i], m_indexToColor[i].rgb());
+        settings.set(m_indexToPref[i], m_indexToColor[i].rgb());
     
-    settings.setValue(mAPreferencesUseTabs, ui->editorUsesTabs->isChecked());
-    settings.setValue(mAPreferencesTabSize, ui->tabWidth->value());
+    settings.set(mAPreferencesUseTabs, ui->editorUsesTabs->isChecked());
+    settings.set(mAPreferencesTabSize, ui->tabWidth->value());
     
-    settings.setValue(mAPreferencesEnableChuGins, ui->enableChugins->isChecked());
+    settings.set(mAPreferencesEnableChuGins, ui->enableChugins->isChecked());
     
     QStringList paths;
     for(i = 0; i < ui->chuginsList->count(); i++)
     {
         paths.append(ui->chuginsList->item(i)->text());
     }
-    settings.setValue(mAPreferencesChuGinPaths, paths);
+    settings.set(mAPreferencesChuGinPaths, paths);
     
-    settings.setValue(mAPreferencesCurrentDirectory, ui->currentDirectory->text());
-    QDir::setCurrent(settings.value(mAPreferencesCurrentDirectory).toString());
+    settings.set(mAPreferencesCurrentDirectory, ui->currentDirectory->text());
+    QDir::setCurrent(settings.get(mAPreferencesCurrentDirectory).toString());
 }
 
 void mAPreferencesWindow::ok()
@@ -262,7 +256,7 @@ void mAPreferencesWindow::cancel()
 
 void mAPreferencesWindow::restoreDefaults()
 {
-    QSettings settings;
+    ZSettings settings;
     settings.clear();
     
     loadSettingsToGUI();
@@ -271,7 +265,7 @@ void mAPreferencesWindow::restoreDefaults()
 
 void mAPreferencesWindow::ProbeAudioDevices()
 {
-    QSettings settings;
+    ZSettings settings;
 
     m_ma->probe();
     
@@ -281,8 +275,8 @@ void mAPreferencesWindow::ProbeAudioDevices()
     ui->audioOutput->clear();
     ui->audioInput->clear();
 
-    int dac = settings.value(mAPreferencesAudioOutput).toInt();
-    int adc = settings.value(mAPreferencesAudioInput).toInt();
+    int dac = settings.get(mAPreferencesAudioOutput).toInt();
+    int adc = settings.get(mAPreferencesAudioInput).toInt();
     
     // load available audio I/O interfaces into the pop up menus
     for(i = 0; i < len; i++)
@@ -317,7 +311,7 @@ void mAPreferencesWindow::ProbeAudioDevices()
 
 void mAPreferencesWindow::SelectedAudioOutputChanged()
 {
-    QSettings settings;
+    ZSettings settings;
 
     ui->outputChannels->clear();   
     ui->sampleRate->clear();
@@ -334,7 +328,7 @@ void mAPreferencesWindow::SelectedAudioOutputChanged()
     vector<int>::size_type j, sr_len = interfaces[selected_output].sampleRates.size();
     
     // load available sample rates into the pop up menu
-    int default_sample_rate = settings.value(mAPreferencesSampleRate).toInt();
+    int default_sample_rate = settings.get(mAPreferencesSampleRate).toInt();
     for(j = 0; j < sr_len; j++)
     {
         ui->sampleRate->addItem(QString("%1").arg(interfaces[selected_output].sampleRates[j]),
@@ -355,7 +349,7 @@ void mAPreferencesWindow::SelectedAudioOutputChanged()
     for( k = 0; k < num_channels; k++ )
         ui->outputChannels->addItem(QString("%1").arg(k+1), k+1);
     
-    int default_output_channels = settings.value(mAPreferencesOutputChannels).toInt();
+    int default_output_channels = settings.get(mAPreferencesOutputChannels).toInt();
     if(default_output_channels > num_channels)
         /* as many channels as possible */
         ui->outputChannels->setCurrentIndex(ui->outputChannels->count()-1);
@@ -365,7 +359,7 @@ void mAPreferencesWindow::SelectedAudioOutputChanged()
 
 void mAPreferencesWindow::SelectedAudioInputChanged()
 {
-    QSettings settings;
+    ZSettings settings;
 
     ui->inputChannels->clear();
     
@@ -385,7 +379,7 @@ void mAPreferencesWindow::SelectedAudioInputChanged()
     for( k = 0; k < num_channels; k++ )
         ui->inputChannels->addItem(QString("%1").arg(k+1), k+1);
     
-    int default_input_channels = settings.value(mAPreferencesInputChannels).toInt();
+    int default_input_channels = settings.get(mAPreferencesInputChannels).toInt();
     if(default_input_channels > num_channels)
         /* use as many channels as possible */
         ui->inputChannels->setCurrentIndex(ui->inputChannels->count()-1);

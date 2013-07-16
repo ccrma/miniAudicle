@@ -32,7 +32,7 @@ U.S.A.
 
 #include <QMessageBox>
 #include <QDesktopWidget>
-#include <QSettings>
+#include "ZSettings.h"
 #include <QCloseEvent>
 #include <QPushButton>
 
@@ -63,9 +63,9 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
 
     mAPreferencesWindow::configureDefaults();
 
-    QSettings settings;
+    ZSettings settings;
 
-    QDir::setCurrent(settings.value(mAPreferencesCurrentDirectory).toString());
+    QDir::setCurrent(settings.get(mAPreferencesCurrentDirectory).toString());
 
     m_consoleMonitor = new mAConsoleMonitor(NULL);
     m_vmMonitor = new mAVMMonitor(NULL, this, ma);
@@ -87,7 +87,7 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
 
     updateRecentFilesMenu();
 
-    ma->set_log_level(settings.value("/ChucK/LogLevel", (int) 2).toInt());
+    ma->set_log_level(settings.get("/ChucK/LogLevel", (int) 2).toInt());
     switch(ma->get_log_level())
     {
     case 0: ui->actionLogNone->setChecked(true); break;
@@ -567,25 +567,25 @@ void mAMainWindow::abortCurrentShred()
 
 void mAMainWindow::toggleVM()
 {
-    QSettings settings;
+    ZSettings settings;
 
     if(!vm_on)
     {
-        ma->set_enable_audio(settings.value(mAPreferencesEnableAudio).toBool());
-        ma->set_enable_network_thread(settings.value(mAPreferencesEnableNetwork).toBool());
-        ma->set_adc(settings.value(mAPreferencesAudioInput).toInt());
-        ma->set_dac(settings.value(mAPreferencesAudioOutput).toInt());
-        ma->set_num_inputs(settings.value(mAPreferencesInputChannels).toInt());
-        ma->set_num_outputs(settings.value(mAPreferencesOutputChannels).toInt());
-        ma->set_sample_rate(settings.value(mAPreferencesSampleRate).toInt());
-        ma->set_buffer_size(settings.value(mAPreferencesBufferSize).toInt());
+        ma->set_enable_audio(settings.get(mAPreferencesEnableAudio).toBool());
+        ma->set_enable_network_thread(settings.get(mAPreferencesEnableNetwork).toBool());
+        ma->set_adc(settings.get(mAPreferencesAudioInput).toInt());
+        ma->set_dac(settings.get(mAPreferencesAudioOutput).toInt());
+        ma->set_num_inputs(settings.get(mAPreferencesInputChannels).toInt());
+        ma->set_num_outputs(settings.get(mAPreferencesOutputChannels).toInt());
+        ma->set_sample_rate(settings.get(mAPreferencesSampleRate).toInt());
+        ma->set_buffer_size(settings.get(mAPreferencesBufferSize).toInt());
 
         list<string> chuginDirs;
         list<string> chuginFiles;
 
-        if(settings.value(mAPreferencesEnableChuGins).toBool())
+        if(settings.get(mAPreferencesEnableChuGins).toBool())
         {
-            QStringList chuginPaths = settings.value(mAPreferencesChuGinPaths).toStringList();
+            QStringList chuginPaths = settings.get(mAPreferencesChuGinPaths).toStringList();
             for(int i = 0; i < chuginPaths.length(); i++)
             {
                 QString path = chuginPaths.at(i);
@@ -667,8 +667,8 @@ void mAMainWindow::setLogLevel()
     QAction * action = qobject_cast<QAction *>(sender);
     action->setChecked(true);
 
-    QSettings settings;
-    settings.setValue("/ChucK/LogLevel", ma->get_log_level());
+    ZSettings settings;
+    settings.set("/ChucK/LogLevel", ma->get_log_level());
 }
 
 
@@ -703,24 +703,24 @@ void mAMainWindow::showVirtualMachineMonitor()
 
 void mAMainWindow::addRecentFile(QString &path)
 {
-    QSettings settings;
-    QStringList recentFiles = settings.value("/GUI/RecentFiles").toStringList();
+    ZSettings settings;
+    QStringList recentFiles = settings.get("/GUI/RecentFiles").toStringList();
 
     recentFiles.removeAll(path);
     while(recentFiles.length() > MAX_RECENT_FILES-1)
         recentFiles.removeLast();
     recentFiles.prepend(path);
 
-    settings.setValue("/GUI/RecentFiles", recentFiles);
+    settings.set("/GUI/RecentFiles", recentFiles);
 }
 
 void mAMainWindow::updateRecentFilesMenu()
 {
     ui->menuRecent_Files->clear();
 
-    QSettings settings;
+    ZSettings settings;
 
-    QStringList recentFiles = settings.value("/GUI/RecentFiles").toStringList();
+    QStringList recentFiles = settings.get("/GUI/RecentFiles").toStringList();
 
     for(int i = 0; i < recentFiles.length(); i++)
     {

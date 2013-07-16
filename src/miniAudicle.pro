@@ -109,7 +109,8 @@ SOURCES += \
     chuck/src/chuck_io.cpp \
     qt/mAsciLexerChucK.cpp \
     qt/mAPreferencesWindow.cpp \
-    qt/mAExportDialog.cpp
+    qt/mAExportDialog.cpp \
+    qt/ZSettings.cpp
 
 !linux {
     SOURCES += chuck/src/util_sndfile.c
@@ -186,7 +187,8 @@ HEADERS  += qt/mAMainWindow.h \
     chuck/src/chuck_io.h \
     qt/mAsciLexerChucK.h \
     qt/mAPreferencesWindow.h \
-    qt/mAExportDialog.h
+    qt/mAExportDialog.h \
+    qt/ZSettings.h
 
 FORMS += \
     qt/mAMainWindow.ui \

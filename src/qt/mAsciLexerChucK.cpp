@@ -25,7 +25,7 @@ U.S.A.
 #include "mAsciLexerChucK.h"
 #include "mAPreferencesWindow.h"
 
-#include <QSettings>
+#include "ZSettings.h"
 
 mAsciLexerChucK::mAsciLexerChucK() : QsciLexerJava()
 {
@@ -34,24 +34,24 @@ mAsciLexerChucK::mAsciLexerChucK() : QsciLexerJava()
 
 void mAsciLexerChucK::preferencesChanged()
 {
-    QSettings settings;
+    ZSettings settings;
         
-    setPaper(QColor(settings.value(mAPreferencesSyntaxColoringBackground).toUInt()));    
-    setColor(QColor(settings.value(mAPreferencesSyntaxColoringNormalText).toUInt()));
+    setPaper(QColor(settings.get(mAPreferencesSyntaxColoringBackground).toUInt()));    
+    setColor(QColor(settings.get(mAPreferencesSyntaxColoringNormalText).toUInt()));
     
-    if(settings.value(mAPreferencesSyntaxColoringEnabled).toBool())
+    if(settings.get(mAPreferencesSyntaxColoringEnabled).toBool())
     {
-        setColor(QColor(settings.value(mAPreferencesSyntaxColoringKeywords).toUInt()), QsciLexerCPP::Keyword);
-        setColor(QColor(settings.value(mAPreferencesSyntaxColoringClasses).toUInt()), QsciLexerCPP::KeywordSet2);
-        setColor(QColor(settings.value(mAPreferencesSyntaxColoringUGens).toUInt()), QsciLexerCPP::GlobalClass);
-        setColor(QColor(settings.value(mAPreferencesSyntaxColoringComments).toUInt()), QsciLexerCPP::Comment);
-        setColor(QColor(settings.value(mAPreferencesSyntaxColoringComments).toUInt()), QsciLexerCPP::CommentLine);
-        setColor(QColor(settings.value(mAPreferencesSyntaxColoringStrings).toUInt()), QsciLexerCPP::DoubleQuotedString);
-        setColor(QColor(settings.value(mAPreferencesSyntaxColoringNumbers).toUInt()), QsciLexerCPP::Number);
+        setColor(QColor(settings.get(mAPreferencesSyntaxColoringKeywords).toUInt()), QsciLexerCPP::Keyword);
+        setColor(QColor(settings.get(mAPreferencesSyntaxColoringClasses).toUInt()), QsciLexerCPP::KeywordSet2);
+        setColor(QColor(settings.get(mAPreferencesSyntaxColoringUGens).toUInt()), QsciLexerCPP::GlobalClass);
+        setColor(QColor(settings.get(mAPreferencesSyntaxColoringComments).toUInt()), QsciLexerCPP::Comment);
+        setColor(QColor(settings.get(mAPreferencesSyntaxColoringComments).toUInt()), QsciLexerCPP::CommentLine);
+        setColor(QColor(settings.get(mAPreferencesSyntaxColoringStrings).toUInt()), QsciLexerCPP::DoubleQuotedString);
+        setColor(QColor(settings.get(mAPreferencesSyntaxColoringNumbers).toUInt()), QsciLexerCPP::Number);
     }
     
-    setFont(QFont(settings.value(mAPreferencesFontName).toString(), 
-                  settings.value(mAPreferencesFontSize).toInt()));
+    setFont(QFont(settings.get(mAPreferencesFontName).toString(), 
+                  settings.get(mAPreferencesFontSize).toInt()));
 }
 
 

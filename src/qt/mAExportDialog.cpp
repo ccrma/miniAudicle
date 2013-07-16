@@ -1,7 +1,7 @@
 #include "mAExportDialog.h"
 #include "ui_mAExportDialog.h"
 
-#include <QSettings>
+#include "ZSettings.h"
 
 
 mAExportDialog::mAExportDialog(QWidget *parent) :
@@ -10,18 +10,18 @@ mAExportDialog::mAExportDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     
-    QSettings settings;
+    ZSettings settings;
     
-    ui->limit->setChecked(settings.value("/Export/DoLimit", false).toBool());
-    ui->duration->setValue((int)settings.value("/Export/Duration", 30.0).toFloat());
+    ui->limit->setChecked(settings.get("/Export/DoLimit", false).toBool());
+    ui->duration->setValue((int)settings.get("/Export/Duration", 30.0).toFloat());
 }
 
 mAExportDialog::~mAExportDialog()
 {
-    QSettings settings;
+    ZSettings settings;
     
-    settings.setValue("/Export/DoLimit", ui->limit->isChecked());
-    settings.setValue("/Export/Duration", (float)ui->duration->value());
+    settings.set("/Export/DoLimit", ui->limit->isChecked());
+    settings.set("/Export/Duration", (float)ui->duration->value());
     
     delete ui;
 }
