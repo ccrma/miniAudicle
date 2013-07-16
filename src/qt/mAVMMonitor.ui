@@ -194,6 +194,18 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="minimumSize">
+         <size>
+          <width>128</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>128</width>
+          <height>21</height>
+         </size>
+        </property>
         <property name="text">
          <string>Start Virtual Machine</string>
         </property>
