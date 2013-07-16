@@ -18,14 +18,14 @@
               <File Id='miniAudicleEXE' Name='miniAudicle.exe' DiskId='1' Source='miniAudicle.exe' KeyPath='yes'>
                 <Shortcut Id="startmenuMiniAudicle" Directory="ProgramMenuDir" Name="miniAudicle" WorkingDirectory='INSTALLDIR' Icon="miniAudicle.exe" IconIndex="0" Advertise="yes" />
               </File>
-              <ProgId Id="miniAudicle.ChucKScript" Description="ChucK Script">
+              <ProgId Id="miniAudicle.ChucKScript" Description="ChucK Script" Icon='miniAudicleEXE' IconIndex='1'>
                 <Extension Id="ck" ContentType="text/plain">
                     <Verb Id="open" Command="Open" TargetFile="miniAudicleEXE" Argument="&quot;%1&quot;"/>
                 </Extension>
               </ProgId>
-              <RegistryValue Id='ChucKIcon1' Root='HKCR' Key='.ck' Action='write' Type='string' Value='miniAudicle.ChucKScript' />
+              <!--<RegistryValue Id='ChucKIcon1' Root='HKCR' Key='.ck' Action='write' Type='string' Value='miniAudicle.ChucKScript' />
               <RegistryValue Id='ChucKIcon2' Root='HKCR' Key='miniAudicle.ChucKScript' Action='write' Type='string' Value='ChucK Script' />
-              <RegistryValue Id='ChucKIcon3' Root='HKCR' Key='miniAudicle.ChucKScript\DefaultIcon' Action='write' Type='string' Value='[INSTALLDIR]miniAudicle.exe,1' />
+              <RegistryValue Id='ChucKIcon3' Root='HKCR' Key='miniAudicle.ChucKScript\DefaultIcon' Action='write' Type='string' Value='[INSTALLDIR]miniAudicle.exe,1' /> -->
             </Component>
             
             <Directory Id="bin" Name="bin">
