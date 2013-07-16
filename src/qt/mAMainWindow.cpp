@@ -54,25 +54,25 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     ma(new miniAudicle)
 {
     ui->setupUi(this);
-    
+
     vm_on = false;
 
     QCoreApplication::setOrganizationName("Stanford CCRMA");
     QCoreApplication::setOrganizationDomain("ccrma.stanford.edu");
     QCoreApplication::setApplicationName("miniAudicle");
-    
+
     mAPreferencesWindow::configureDefaults();
-    
+
     QSettings settings;
-    
+
     QDir::setCurrent(settings.value(mAPreferencesCurrentDirectory).toString());
-    
+
     m_consoleMonitor = new mAConsoleMonitor(NULL);
     m_vmMonitor = new mAVMMonitor(NULL, this, ma);
     m_preferencesWindow = NULL;
 
     m_lockdown = false;
-    
+
     m_docid = ma->allocate_document_id();
 
     ui->actionAdd_Shred->setEnabled(vm_on);
@@ -86,7 +86,7 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     ui->actionAbort_Currently_Running_Shred->setEnabled(vm_on);
 
     updateRecentFilesMenu();
-    
+
     ma->set_log_level(settings.value("/ChucK/LogLevel", (int) 2).toInt());
     switch(ma->get_log_level())
     {
@@ -102,7 +102,7 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     case 9: ui->actionLogFinest->setChecked(true); break;
     case 10: ui->actionLogCrazy->setChecked(true); break;
     }
-    
+
     QWidget * expandingSpace = new QWidget;
     expandingSpace->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     ui->mainToolBar->insertWidget(ui->actionRemove_Last_Shred, expandingSpace);
@@ -113,7 +113,7 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     // center horizontally, top 100px down from top
     this->move(available.left() + available.width()*0.5 - this->frameGeometry().width()/2,
                100);
-    
+
     // position left edge at 0.2, bottom edge at 0.8
     m_consoleMonitor->move(available.left() + available.width()*0.2,
                            available.top() + available.height()*0.8 - m_consoleMonitor->frameGeometry().height());
@@ -125,11 +125,11 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
                       available.top() + available.height()*0.2);
     m_vmMonitor->setAttribute(Qt::WA_QuitOnClose, false);
     m_vmMonitor->show();
-    
+
     m_preferencesWindow = new mAPreferencesWindow(NULL, ma);
     // position in center of main window
     m_preferencesWindow->move(this->pos().x() + this->frameGeometry().width()/2 - m_preferencesWindow->frameGeometry().width()/2,
-                              this->pos().y() + this->frameGeometry().height()/2 - m_preferencesWindow->frameGeometry().height()/2);    
+                              this->pos().y() + this->frameGeometry().height()/2 - m_preferencesWindow->frameGeometry().height()/2);
     m_preferencesWindow->setAttribute(Qt::WA_QuitOnClose, false);
 
     newFile();
@@ -146,7 +146,7 @@ void mAMainWindow::setLockdown(bool _lockdown)
             ma->abort_current_shred();
         }
     }
-    
+
     m_lockdown = _lockdown;
 }
 
@@ -198,16 +198,16 @@ void mAMainWindow::closeEvent(QCloseEvent * event)
 bool mAMainWindow::shouldCloseOrQuit()
 {
     list<mADocumentView *> unsavedViews;
-    
+
     for(int i = 0; i < ui->tabWidget->count(); i++)
     {
         mADocumentView * view = (mADocumentView *) ui->tabWidget->widget(i);
         if(view->isDocumentModified())
             unsavedViews.push_back(view);
     }
-    
+
     bool review = false;
-    
+
     if(unsavedViews.size() == 1)
     {
         review = true;
@@ -215,20 +215,20 @@ bool mAMainWindow::shouldCloseOrQuit()
     else if(unsavedViews.size() > 1)
     {
         QMessageBox messageBox(this);
-        
+
         messageBox.window()->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
         messageBox.window()->setWindowIcon(this->windowIcon());
-        
+
         messageBox.setIcon(QMessageBox::Warning);
         messageBox.setText(QString("<b>You have %1 documents with unsaved changes. Do you want to review these changes before quitting?</b>").arg(unsavedViews.size()));
         messageBox.setInformativeText("If you don’t review your documents, all your changes will be lost.");
-        
+
         messageBox.setDefaultButton(messageBox.addButton("Review Changes", QMessageBox::AcceptRole));
         messageBox.setEscapeButton(messageBox.addButton("Cancel", QMessageBox::RejectRole));
         messageBox.addButton("Discard Changes", QMessageBox::DestructiveRole);
-        
+
         int ret = messageBox.exec();
-        
+
         QMessageBox::ButtonRole role = messageBox.buttonRole(messageBox.clickedButton());
         if(role == QMessageBox::AcceptRole)
         {
@@ -242,7 +242,7 @@ bool mAMainWindow::shouldCloseOrQuit()
             return false;
         }
     }
-    
+
     if(review)
     {
         for(int i = ui->tabWidget->count()-1; i >= 0; i--)
@@ -253,7 +253,7 @@ bool mAMainWindow::shouldCloseOrQuit()
             }
         }
     }
-    
+
     return true;
 }
 
@@ -283,52 +283,52 @@ void mAMainWindow::openFile(const QString &path)
 {
     QString fileName = path;
 
-    if (fileName.isNull())
+    if(fileName.isNull())
         fileName = QFileDialog::getOpenFileName(this,
-            tr("Open File"), "", "ChucK Scripts (*.ck)");
+                                                tr("Open File"), "", "ChucK Scripts (*.ck)");
 
-    if (!fileName.isEmpty())
+    if(!fileName.isEmpty())
     {
         QFile * file = new QFile(fileName);
-        
+
         bool canOpen = false;
         bool readOnly = false;
-        
+
         if(file->open(QFile::ReadWrite))
         {
             // close -- will be reopened as needed by document view
-            file->close();            
-            
+            file->close();
+
             canOpen = true;
             readOnly = false;
         }
         else if(file->open(QFile::ReadOnly))
         {
             // close -- will be reopened as needed by document view
-            file->close();            
-            
+            file->close();
+
             canOpen = true;
             readOnly = true;
         }
-        
+
         if(canOpen)
         {
             QFileInfo fileInfo(fileName);
             mADocumentView * documentView = new mADocumentView(0, fileInfo.fileName().toStdString(), file, ma);
             documentView->setTabWidget(ui->tabWidget);
             documentView->setReadOnly(readOnly);
-            
+
             QObject::connect(m_preferencesWindow, SIGNAL(preferencesChanged()),
                              documentView, SLOT(preferencesChanged()));
-            
+
             ui->tabWidget->addTab(documentView, QIcon(), fileInfo.fileName());
             ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);
 
             documentView->show();
-            
+
             QString path = documentView->filePath();
             addRecentFile(path);
-            updateRecentFilesMenu();            
+            updateRecentFilesMenu();
         }
         else
         {
@@ -345,12 +345,20 @@ void mAMainWindow::openExample()
     examplesDir = QCoreApplication::applicationDirPath() + "/examples/";
 //    fprintf(stderr, "examplesDir: %s\n", examplesDir.toAscii().constData());
 //    fflush(stderr);
+//    examplesDir = "C:/Program Files/ChucK/examples/";
 #endif
-    
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Example"), examplesDir, "ChucK Scripts (*.ck)");
 
-    if(!fileName.isEmpty())
+    QFileDialog dialog(this, "Open Example", examplesDir, "ChucK Scripts (*.ck)");
+    dialog.setFileMode(QFileDialog::ExistingFile);
+    
+    int result = dialog.exec();
+    
+    if(result == QDialog::Accepted && 
+            dialog.selectedFiles().size() > 0 && 
+            !dialog.selectedFiles()[0].isEmpty())
     {
+        QString fileName = dialog.selectedFiles()[0];
+        
         QFile * file = new QFile(fileName);
         if(file->open(QFile::ReadOnly))
         {
@@ -367,16 +375,16 @@ void mAMainWindow::openExample()
             ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);
 
             documentView->show();
-            
+
             QString path = documentView->filePath();
             addRecentFile(path);
-            updateRecentFilesMenu();            
+            updateRecentFilesMenu();
         }
         else
         {
             // report error
             QMessageBox::critical(this, "", QString("Unable to open file at '%1'.").arg(fileName));
-        }        
+        }
     }
 }
 
@@ -426,7 +434,7 @@ bool mAMainWindow::performClose(int i)
 
     ui->tabWidget->removeTab(i);
     delete view;
-    
+
     return true;
 }
 
@@ -453,7 +461,7 @@ void mAMainWindow::saveAs()
 
     if(view == NULL)
         return;
-    
+
     // TODO: have saveAs() and save() return true if save was successful
     // then update recent files according to that
     view->saveAs();
@@ -469,7 +477,7 @@ void mAMainWindow::saveAs()
 void mAMainWindow::tabSelected(int index)
 {
     mADocumentView * currentView = (mADocumentView *) ui->tabWidget->currentWidget();
-    
+
     ui->actionUndo->disconnect();
     ui->actionRedo->disconnect();
     ui->actionCut->disconnect();
@@ -477,19 +485,19 @@ void mAMainWindow::tabSelected(int index)
     ui->actionPaste->disconnect();
     ui->actionSelect_All->disconnect();
     ui->actionExport_as_WAV->disconnect();
-    
+
     if(currentView == NULL)
     {
         statusBar()->clearMessage();
         return;
     }
-    
+
     string result = currentView->lastResult();
     if(result.size())
         statusBar()->showMessage(QString(result.c_str()));
     else
         statusBar()->clearMessage();
-    
+
     connect(ui->actionUndo, SIGNAL(triggered()), currentView, SIGNAL(undo()));
     connect(ui->actionRedo, SIGNAL(triggered()), currentView, SIGNAL(redo()));
     connect(ui->actionCut, SIGNAL(triggered()), currentView, SIGNAL(cut()));
@@ -504,9 +512,9 @@ void mAMainWindow::tabSelected(int index)
 void mAMainWindow::addCurrentDocument()
 {
     mADocumentView *currentDocument = ((mADocumentView *) ui->tabWidget->currentWidget());
-    
+
     currentDocument->add();
-    
+
     string result = currentDocument->lastResult();
     if(result.size())
         statusBar()->showMessage(QString(result.c_str()));
@@ -517,9 +525,9 @@ void mAMainWindow::addCurrentDocument()
 void mAMainWindow::replaceCurrentDocument()
 {
     mADocumentView *currentDocument = ((mADocumentView *) ui->tabWidget->currentWidget());
-    
+
     currentDocument->replace();
-    
+
     string result = currentDocument->lastResult();
     if(result.size())
         statusBar()->showMessage(QString(result.c_str()));
@@ -530,9 +538,9 @@ void mAMainWindow::replaceCurrentDocument()
 void mAMainWindow::removeCurrentDocument()
 {
     mADocumentView *currentDocument = ((mADocumentView *) ui->tabWidget->currentWidget());
-    
+
     currentDocument->remove();
-    
+
     string result = currentDocument->lastResult();
     if(result.size())
         statusBar()->showMessage(QString(result.c_str()));
@@ -560,7 +568,7 @@ void mAMainWindow::abortCurrentShred()
 void mAMainWindow::toggleVM()
 {
     QSettings settings;
-    
+
     if(!vm_on)
     {
         ma->set_enable_audio(settings.value(mAPreferencesEnableAudio).toBool());
@@ -571,10 +579,10 @@ void mAMainWindow::toggleVM()
         ma->set_num_outputs(settings.value(mAPreferencesOutputChannels).toInt());
         ma->set_sample_rate(settings.value(mAPreferencesSampleRate).toInt());
         ma->set_buffer_size(settings.value(mAPreferencesBufferSize).toInt());
-        
+
         list<string> chuginDirs;
         list<string> chuginFiles;
-        
+
         if(settings.value(mAPreferencesEnableChuGins).toBool())
         {
             QStringList chuginPaths = settings.value(mAPreferencesChuGinPaths).toStringList();
@@ -588,10 +596,10 @@ void mAMainWindow::toggleVM()
                     chuginFiles.push_back(path.toStdString());
             }
         }
-        
+
         ma->set_library_paths(chuginDirs);
         ma->set_named_chugins(chuginFiles);
-        
+
         if(ma->start_vm())
         {
             ui->actionStart_Virtual_Machine->setText("Stop Virtual Machine");
@@ -602,7 +610,7 @@ void mAMainWindow::toggleVM()
             // windows only: disable restarting the vm
             ui->actionStart_Virtual_Machine->setEnabled(false);
 #endif
-            
+
             vm_on = true;
         }
     }
@@ -642,7 +650,7 @@ void mAMainWindow::setLogLevel()
     ui->actionLogFiner->setChecked(false);
     ui->actionLogFinest->setChecked(false);
     ui->actionLogCrazy->setChecked(false);
-    
+
     QObject *sender = this->sender();
     if(sender == ui->actionLogNone)         ma->set_log_level(0);
     else if(sender == ui->actionLogCore)    ma->set_log_level(1);
@@ -655,10 +663,10 @@ void mAMainWindow::setLogLevel()
     else if(sender == ui->actionLogFiner)   ma->set_log_level(8);
     else if(sender == ui->actionLogFinest)  ma->set_log_level(9);
     else if(sender == ui->actionLogCrazy)   ma->set_log_level(10);
-    
+
     QAction * action = qobject_cast<QAction *>(sender);
     action->setChecked(true);
-    
+
     QSettings settings;
     settings.setValue("/ChucK/LogLevel", ma->get_log_level());
 }
@@ -672,7 +680,7 @@ void mAMainWindow::showPreferences()
         m_preferencesWindow->move(this->pos().x() + this->frameGeometry().width()/2 - m_preferencesWindow->frameGeometry().width()/2,
                                   this->pos().y() + this->frameGeometry().height()/2 - m_preferencesWindow->frameGeometry().height()/2);
     }
-    
+
     m_preferencesWindow->show();
     m_preferencesWindow->raise();
     m_preferencesWindow->activateWindow();
@@ -697,23 +705,23 @@ void mAMainWindow::addRecentFile(QString &path)
 {
     QSettings settings;
     QStringList recentFiles = settings.value("/GUI/RecentFiles").toStringList();
-    
+
     recentFiles.removeAll(path);
     while(recentFiles.length() > MAX_RECENT_FILES-1)
         recentFiles.removeLast();
     recentFiles.prepend(path);
-    
+
     settings.setValue("/GUI/RecentFiles", recentFiles);
 }
 
 void mAMainWindow::updateRecentFilesMenu()
 {
     ui->menuRecent_Files->clear();
-    
+
     QSettings settings;
-    
+
     QStringList recentFiles = settings.value("/GUI/RecentFiles").toStringList();
-    
+
     for(int i = 0; i < recentFiles.length(); i++)
     {
         QString path = recentFiles.at(i);
@@ -723,7 +731,7 @@ void mAMainWindow::updateRecentFilesMenu()
                         .arg(QFileInfo(path).fileName()));
         action->setData(path);
         connect(action, SIGNAL(triggered()), SLOT(openRecent()));
-        
+
         ui->menuRecent_Files->addAction(action);
     }
 }
