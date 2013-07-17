@@ -518,7 +518,7 @@
     <string>Export as WAV...</string>
    </property>
    <property name="shortcut">
-    <string>Meta+Alt+E</string>
+    <string>Ctrl+Alt+E</string>
    </property>
   </action>
  </widget>

@@ -126,10 +126,9 @@ void mADocumentView::exportAsWav()
         runScript.flush();
         runScript.close();
         
-        QString exportScriptFilename = exportScript.fileName().replace(':', "\\:");
-        QString runScriptFilename = runScript.fileName().replace(':', "\\:");
+        QString exportScriptFilename = QFileInfo(exportScript).canonicalFilePath().replace(':', "\\:");
+        QString runScriptFilename = QFileInfo(runScript).canonicalFilePath().replace(':', "\\:");
         filename = filename.replace(':', "\\:");
-        
         
         QString arg = QString("%1:%2:%3:%4:%5").
                 arg(exportScriptFilename).
@@ -142,9 +141,13 @@ void mADocumentView::exportAsWav()
         fflush(stderr);
         
         QProcess process;
-        QStringList args; args.append("--silent"); args.append(arg);
+        QStringList args;
+        args.append("--silent");
+        args.append("--standalone");
+        args.append(arg);
         process.setProcessChannelMode(QProcess::ForwardedChannels);
-        process.start("chuck", args);
+        //process.start(QCoreApplication::applicationDirPath() + "/bin/chuck", args);
+        process.start("C:/Program Files/ChucK/bin/chuck", args);
         
         //process.waitForFinished(-1);
         

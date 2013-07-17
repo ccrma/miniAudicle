@@ -13,6 +13,16 @@ wavFilename => w.wavFilename;
 // temporary workaround to automatically close file on remove-shred
 null @=> w;
 
+// escape : (for Windows)
+for(int i; i < ckFilename.length(); i++)
+{
+    if(ckFilename.charAt(i) == ':')
+    {
+        ckFilename.replace(i, 1, "\\:");
+        i++;
+    }
+}
+
 Machine.add(ckFilename) => int shredId;
 
 if(doLimit)
@@ -29,3 +39,5 @@ else
         1::second => now;
     }
 }
+
+<<< "export exit" >>>;
