@@ -26,6 +26,8 @@ U.S.A.
 #include "ui_mAVMMonitor.h"
 #include "mAMainWindow.h"
 
+#include <math.h>
+
 const float VMMONITOR_REFRESH_RATE = 20; // Hz
 
 mAVMMonitor::mAVMMonitor(QWidget *parent, mAMainWindow *mainWindow, miniAudicle * _ma) :

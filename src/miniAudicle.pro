@@ -32,10 +32,15 @@ QMAKE_LFLAGS += -m32
 }
 
 linux-g++ {
-CFLAGS = -D__LINUX_ALSA__ -m32 -O3 -D__CK_SNDFILE_NATIVE__ -D__LINUX__ -Ichuck/src
+QMAKE_CXXFLAGS_RELEASE -= -O2
+QMAKE_CXXFLAGS_RELEASE += -O3
+QMAKE_LFLAGS_RELEASE -= -O1
+
+CFLAGS = -D__LINUX_ALSA__ -m32 -D__CK_SNDFILE_NATIVE__ -D__LINUX__ -Ichuck/src
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
-QMAKE_LFLAGS += -m32 -lasound -lpthread -lstdc++ -ldl -lm -lsndfile
+QMAKE_LFLAGS += -m32
+LIBS += -lasound -lstdc++ -lm -lsndfile -ldl
 }
 
 win32 {

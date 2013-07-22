@@ -38,12 +38,15 @@ U.S.A.
 
 #include "util_string.h"
 
+#include <signal.h>
+
 
 mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file, miniAudicle * ma) :
     QWidget(parent),
     ui(new Ui::mADocumentView),
     tabWidget(NULL),
-    m_ma(ma)
+    m_ma(ma),
+    file(NULL)
 {
     ui->setupUi(this);
 
