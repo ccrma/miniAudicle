@@ -21,6 +21,7 @@ PRECOMPILED_HEADER = qt/miniAudicle_pc.h
 
 LIBS += -lqscintilla2
 
+
 macx {
 CFLAGS = -D__MACOSX_CORE__ -m32 -I../src/chuck/src
 QMAKE_CXXFLAGS += $$CFLAGS
@@ -31,7 +32,9 @@ QMAKE_LIBS += -framework Cocoa -framework CoreAudio -framework CoreMIDI \
 QMAKE_LFLAGS += -m32
 }
 
+
 linux-g++ {
+
 !contains(CFLAGS,-D__LINUX_JACK__){
     CFLAGS += -D__LINUX_ALSA__
 }
@@ -48,7 +51,11 @@ QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LFLAGS += -m32
 LIBS += -lasound -lstdc++ -lm -lsndfile -ldl
+
+target.path = /usr/local/bin
+INSTALLS += target
 }
+
 
 win32 {
 DEFINES -= UNICODE
