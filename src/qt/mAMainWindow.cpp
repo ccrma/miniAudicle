@@ -125,6 +125,7 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     // center horizontally, top 100px down from top
     this->move(available.left() + available.width()*0.5 - this->frameGeometry().width()/2,
                100);
+    this->show();
 
     // position left edge at 0.2, bottom edge at 0.8
     m_consoleMonitor->move(available.left() + available.width()*0.2,
@@ -151,6 +152,9 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
         for(int i = 0; i < pathsToOpen.length(); i++)
             openFile(pathsToOpen[i]);
     }
+
+    this->raise();
+    this->activateWindow();
 }
 
 void mAMainWindow::setLockdown(bool _lockdown)
@@ -531,39 +535,48 @@ void mAMainWindow::addCurrentDocument()
 {
     mADocumentView *currentDocument = ((mADocumentView *) ui->tabWidget->currentWidget());
 
-    currentDocument->add();
+    if(currentDocument != NULL)
+    {
+        currentDocument->add();
 
-    string result = currentDocument->lastResult();
-    if(result.size())
-        statusBar()->showMessage(QString(result.c_str()));
-    else
-        statusBar()->clearMessage();
+        string result = currentDocument->lastResult();
+        if(result.size())
+            statusBar()->showMessage(QString(result.c_str()));
+        else
+            statusBar()->clearMessage();
+    }
 }
 
 void mAMainWindow::replaceCurrentDocument()
 {
     mADocumentView *currentDocument = ((mADocumentView *) ui->tabWidget->currentWidget());
 
-    currentDocument->replace();
+    if(currentDocument != NULL)
+    {
+        currentDocument->replace();
 
-    string result = currentDocument->lastResult();
-    if(result.size())
-        statusBar()->showMessage(QString(result.c_str()));
-    else
-        statusBar()->clearMessage();
+        string result = currentDocument->lastResult();
+        if(result.size())
+            statusBar()->showMessage(QString(result.c_str()));
+        else
+            statusBar()->clearMessage();
+    }
 }
 
 void mAMainWindow::removeCurrentDocument()
 {
     mADocumentView *currentDocument = ((mADocumentView *) ui->tabWidget->currentWidget());
 
-    currentDocument->remove();
+    if(currentDocument != NULL)
+    {
+        currentDocument->remove();
 
-    string result = currentDocument->lastResult();
-    if(result.size())
-        statusBar()->showMessage(QString(result.c_str()));
-    else
-        statusBar()->clearMessage();
+        string result = currentDocument->lastResult();
+        if(result.size())
+            statusBar()->showMessage(QString(result.c_str()));
+        else
+            statusBar()->clearMessage();
+    }
 }
 
 void mAMainWindow::removeLastShred()
