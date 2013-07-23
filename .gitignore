@@ -3,17 +3,21 @@
 .DS_Store
 
 src/macosx/miniAudicle.app
+src/Release
+src/Debug
+src/build
+src/miniAudicle
 
 src/miniAudicle.xcodeproj/project.xcworkspace
 src/miniAudicle.xcodeproj/xcuserdata
+src/miniAudicle.pro.user.*
+src/miniAudicle.pro.user
+src/makefile.qt
 
 installer/mac/*.pkg
 installer/mac/miniAudicle.app
 installer/mac/chuck
 installer/mac/*.chug
 
-miniAudicle-build-Desktop-Debug
+miniAudicle-build-*
 
-src/miniAudicle.pro.user.*
-
-src/miniAudicle.pro.user
