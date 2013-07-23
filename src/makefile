@@ -18,22 +18,19 @@ else
 .PHONY: current osx-ub osx linux-oss linux-jack linux-alsa win32 windows
 
 current: 
-	@echo "[chuck build]: please use one of the following configurations:"; echo "   make linux-alsa, make linux-jack, make linux-oss"; echo "   make osx-ppc, make osx-intel, make osx-ub or make win32"
-
-osx-ub: 
-	-+make -f makefile.osx-ub $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+	@echo "[miniAudicle build]: please use one of the following configurations:"
+	@echo "   make linux-alsa, make linux-jack, make osx, or make win32"
 
 osx: 
 	-+make -f makefile.osx $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
-linux-oss: 
-	-+make -f makefile.oss $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-
 linux-jack:
-	-+make -f makefile.jack $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+	-+qmake "CFLAGS+= -D__LINUX_JACK__ " miniAudicle.pro
+	-+make -f makefile.qt $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
 linux-alsa: 
-	-+make -f makefile.alsa $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+	-+qmake "CFLAGS+= -D__LINUX_ALSA__ " miniAudicle.pro
+	-+make -f makefile.qt $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
 windows: 
 	-+make -f makefile.win32 $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))

@@ -32,11 +32,18 @@ QMAKE_LFLAGS += -m32
 }
 
 linux-g++ {
+!contains(CFLAGS,-D__LINUX_JACK__){
+    CFLAGS += -D__LINUX_ALSA__
+}
+!contains(CFLAGS,-D__LINUX_ALSA__){
+    CFLAGS += -D__LINUX_ALSA__
+}
+
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -O3
 QMAKE_LFLAGS_RELEASE -= -O1
 
-CFLAGS = -D__LINUX_ALSA__ -m32 -D__CK_SNDFILE_NATIVE__ -D__LINUX__ -Ichuck/src
+CFLAGS += -m32 -D__CK_SNDFILE_NATIVE__ -D__LINUX__ -Ichuck/src
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LFLAGS += -m32
@@ -117,7 +124,7 @@ SOURCES += \
     qt/mAExportDialog.cpp \
     qt/ZSettings.cpp
 
-!linux {
+!linux-g++ {
     SOURCES += chuck/src/util_sndfile.c
 }
 

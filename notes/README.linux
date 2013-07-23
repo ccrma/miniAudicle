@@ -1,50 +1,44 @@
 miniAudicle
-Linux
-version 0.2.0 (Gidora)
+Linux (Qt)
+version 0.2.3-beta-* (Gidora)
 
 Source Installation Instructions
 --------------------------------
 
-1. Download and install wxWidgets on your system.  wxWidgets is available from
-www.wxwidgets.org.  You may already have wxWidgets installed on your system;
-to find out, run 'wx-config' from the command line.  If the command is not
-found, then you must install wxWidgets yourself.  If the command runs and 
-produces some sort of output, then it is likely you already have wxWidgets 
-installed on your system.  miniAudicle is supported on wxWidgets versions 2.6.0 
-and higher.  Additionally, it is important that you have a development or source
-version of wxWidgets.  
+1. Download and install all required dependencies, noted below. Most Linux 
+package managers will have these readily available; if not, source is 
+generally available for each. 
 
-miniAudicle for Linux is only tested on wxGTK; other Linux wxWidgets versions
-may possibly work, but are not guaranteed to.  
+2. In the src/ directory of the miniAudicle distribution, type 'make linux-alsa' 
+or 'make linux-jack', choosing your preferred audio library. 
+If you are unsure of which one to use, use 'alsa'.  
 
-2. Build the Styled Text Control (STC) wxWidgets contrib library.  You can do 
-this by entering the directory in which you configured your wxWidgets build 
-(e.g. build-gtk), entering the directory 'contrib/src/stc', and typing 
-'make; make install'.  In package management systems this is typically 
-distributed as wxWidgets contrib libraries, or something like that.  
+3. After the build has finished, the executable 'miniAudicle' will be placed in
+the src/ directory.  Happy ChucKing! 
 
-3. In the root directory of the miniAudicle distribution, type 
-'make linux-oss', 'make linux-alsa', or 'make linux-jack', choosing your 
-preferred audio library.  If you are unsure of which one to use, use oss.  
 
-4. After the build has finished, the executable 'miniAudicle' will be placed in
-the wxw/ directory.  Happy ChucKing!
+Full list of required packages 
+------------------------------
 
-Bugs
-----
-- miniAudicle will not run on Linux with wxWidgets 2.8 or higher and GTK 2.8 or 
-lower.  The only solution at this point is to use wxWidgets 2.6 or GTK 2.10.  
-wxWidgets 2.8 and 2.6 can coexist on the same installation without interfering
-with each other; to compile miniAudicle using wx 2.6 on a system that has 2.6
-and 2.8, enter the following command (in bash) before running make:
-  
-    export WX_OPTIONS="--version=2.6"
-      
-For systems with GTK 2.10, miniAudicle will run with either wxWidgets 2.6 or 
-2.8.  
+These are the packages which, along with each package's subdependencies, are
+required to build miniAudicle on current Ubuntu systems; on other Linux systems
+these packages likely exist with the same or similar names.
 
-Additionally: no miniAudicle User Interface Elements!  We are still trying 
-to implement these in wxWidgets.  
+make
+gcc
+g++
+bison
+flex
+libasound2-dev
+libsndfile1-dev
+libqt4-dev
+libqscintilla2-dev
+
+On systems with apt-get available, running the following command with the full
+list of packages will ensure that all necessary packages are installed.
+
+$ sudo apt-get install [list of packages]
+
 
 Tips
 ----
@@ -66,14 +60,14 @@ Coming soon: more sophisticated build system, support for user interface
 creation (MAUI elements), RPM/DEB distribution, 
 feature parity with miniAudicle on Mac OS X, etc...
 
-Email ssalazar@cs.princeton.edu or the chuck-users@cs.princeton.edu list
+Email spencer@ccrma.stanford.edu or the chuck-users@cs.princeton.edu list
 with any questions, difficulties, complaints, or requests.
 
-miniAudicle (c) 2006 Spencer Salazar
+miniAudicle (c) 2006-2013 Spencer Salazar
 http://audicle.cs.princeton.edu/mini/
 ChucK (c) Ge Wang and Perry Cook
 http://chuck.cs.princeton.edu/
 
 miniAudicle incorporates some or all of libsndfile (Copyright (c)
-Erik de Castro Lopo, http://www.mega-nerd.com/libsndfile), wxWidgets, RtAudio, 
-and STK.  
+Erik de Castro Lopo, http://www.mega-nerd.com/libsndfile), Qt, RtAudio, 
+and STK. 

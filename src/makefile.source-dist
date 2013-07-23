@@ -1,6 +1,6 @@
 
 # distribution target presets
-VERSION?=0.2.3-beta-2
+VERSION?=0.2.3-beta-11
 
 DIST_DIR=miniAudicle-$(VERSION)
 
@@ -18,9 +18,13 @@ MA_SVN_URL=http://miniaudicle.googlecode.com/svn/trunk/src/
 .PHONY: source-dist
 source-dist:
 	rm -rf $(DIST_DIR) miniAudicle-$(VERSION).tgz
-	svn export -q --non-interactive $(MA_SVN_URL) $(DIST_DIR)/src
+# export source code
+	mkdir -p $(DIST_DIR)/src
+	git archive master | tar -x -C $(DIST_DIR)/src
+	cd chuck && git archive master | tar -x -C ../$(DIST_DIR)/src/chuck
+#	svn export -q --non-interactive $(MA_SVN_URL) $(DIST_DIR)/src
 	cp -r $(NOTES) $(DIST_DIR)/
-# copy example
+# copy examples
 	mkdir $(DIST_DIR)/examples
 	cp -r $(EXAMPLES_DIR)/* $(DIST_DIR)/examples
 # archive/compress
