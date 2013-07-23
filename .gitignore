@@ -7,6 +7,7 @@ src/Release
 src/Debug
 src/build
 src/miniAudicle
+src/*.dmg
 
 src/miniAudicle.xcodeproj/project.xcworkspace
 src/miniAudicle.xcodeproj/xcuserdata
@@ -19,5 +20,10 @@ installer/mac/miniAudicle.app
 installer/mac/chuck
 installer/mac/*.chug
 
-miniAudicle-build-*
+installer/windows/*.msi
+installer/windows/*.wixobj
+installer/windows/*.chug
+installer/windows/chuck.exe
+installer/windows/miniAudicle.exe
 
+build-miniAudicle-*
