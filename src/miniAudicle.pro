@@ -53,7 +53,11 @@ QMAKE_LFLAGS += -m32
 LIBS += -lasound -lstdc++ -lm -lsndfile -ldl
 
 target.path = /usr/local/bin
-INSTALLS += target
+
+examples.path = /usr/local/share/doc/chuck/examples/
+examples.files = chuck/src/examples/*
+
+INSTALLS += target examples
 }
 
 
