@@ -2,6 +2,10 @@
 DESTDIR=/usr/bin
 CHUCK_SRC_DIR=chuck/src
 
+CHUGINS_SRC_ROOT=chugins
+CHUGINS=ABSaturator Bitcrusher FIR KasFilter PanN
+CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGINS),$(CHUGINS_SRC_ROOT)/$(CHUG)/$(CHUG).chug)
+
 ifneq ($(MA_PLATFORM),)
 ifeq ($(MAKECMDGOALS),)
 
@@ -15,7 +19,7 @@ $(MAKECMDGOALS):
 
 else
 
-.PHONY: current osx-ub osx linux-oss linux-jack linux-alsa win32 windows
+.PHONY: current osx linux-jack linux-alsa win32 windows
 
 current: 
 	@echo "[miniAudicle build]: please use one of the following configurations:"
@@ -24,13 +28,17 @@ current:
 osx: 
 	-+make -f makefile.osx $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
-linux-jack:
-	-+qmake "CFLAGS+= -D__LINUX_JACK__ " miniAudicle.pro
-	-+make -f makefile.qt $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+linux-jack: makefile.qt-jack 
+	-+make -f $< $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
-linux-alsa: 
-	-+qmake "CFLAGS+= -D__LINUX_ALSA__ " miniAudicle.pro
-	-+make -f makefile.qt $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+makefile.qt-jack: miniAudicle.pro
+	+qmake "RTAUDIO_BACKEND=JACK" -o $@ $<
+
+linux-alsa: makefile.qt-alsa
+	-+make -f $< $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+
+makefile.qt-alsa: miniAudicle.pro
+	+qmake "RTAUDIO_BACKEND=ALSA" -o $@ $<
 
 windows: 
 	-+make -f makefile.win32 $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))

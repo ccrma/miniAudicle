@@ -363,12 +363,14 @@ void mAMainWindow::openFile(const QString &path)
 void mAMainWindow::openExample()
 {
     QString examplesDir;
-#ifdef __PLATFORM_WIN32__
+#if defined(__PLATFORM_WIN32__)
     examplesDir = QCoreApplication::applicationDirPath() + "/examples/";
-//    fprintf(stderr, "examplesDir: %s\n", examplesDir.toAscii().constData());
-//    fflush(stderr);
 //    examplesDir = "C:/Program Files/ChucK/examples/";
+#elif defined(__LINUX__)
+    examplesDir = "/usr/local/share/doc/chuck/examples";
 #endif
+    // fprintf(stderr, "examplesDir: %s\n", examplesDir.toAscii().constData());
+    // fflush(stderr);
 
     QFileDialog dialog(this, "Open Example", examplesDir, "ChucK Scripts (*.ck)");
     dialog.setFileMode(QFileDialog::ExistingFile);

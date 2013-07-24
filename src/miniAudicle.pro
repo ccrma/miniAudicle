@@ -35,15 +35,22 @@ QMAKE_LFLAGS += -m32
 
 linux-g++ {
 
-!contains(CFLAGS,-D__LINUX_JACK__){
-    CFLAGS += -D__LINUX_ALSA__
-}
-!contains(CFLAGS,-D__LINUX_ALSA__){
-    CFLAGS += -D__LINUX_ALSA__
+!contains(RTAUDIO_BACKEND,JACK){
+    !contains(RTAUDIO_BACKEND,ALSA){
+        message("No audio backend specified; enabling ALSA mode")
+        CFLAGS += -D__LINUX_ALSA__
+    } else {
+        CFLAGS += -D__LINUX_ALSA__
+    }
+} else {
+    CFLAGS += -D__LINUX_JACK__ -D__UNIX_JACK__
+    LIBS += -ljack
 }
 
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -O3
+QMAKE_CFLAGS_RELEASE -= -O2
+QMAKE_CFLAGS_RELEASE += -O3
 QMAKE_LFLAGS_RELEASE -= -O1
 
 CFLAGS += -m32 -D__CK_SNDFILE_NATIVE__ -D__LINUX__ -Ichuck/src
@@ -53,7 +60,11 @@ QMAKE_LFLAGS += -m32
 LIBS += -lasound -lstdc++ -lm -lsndfile -ldl
 
 target.path = /usr/local/bin
-INSTALLS += target
+
+examples.path = /usr/local/share/doc/chuck/examples/
+examples.files = chuck/src/examples/*
+
+INSTALLS += target examples
 }
 
 

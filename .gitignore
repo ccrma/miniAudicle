@@ -14,6 +14,7 @@ src/miniAudicle.xcodeproj/xcuserdata
 src/miniAudicle.pro.user.*
 src/miniAudicle.pro.user
 src/makefile.qt
+src/makefile.qt-*
 
 installer/mac/*.pkg
 installer/mac/miniAudicle.app
