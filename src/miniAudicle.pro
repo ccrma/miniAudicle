@@ -53,10 +53,10 @@ QMAKE_CFLAGS_RELEASE -= -O2
 QMAKE_CFLAGS_RELEASE += -O3
 QMAKE_LFLAGS_RELEASE -= -O1
 
-CFLAGS += -m32 -D__CK_SNDFILE_NATIVE__ -D__LINUX__ -Ichuck/src
+CFLAGS += -D__CK_SNDFILE_NATIVE__ -D__LINUX__ -Ichuck/src
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
-QMAKE_LFLAGS += -m32
+QMAKE_LFLAGS +=
 LIBS += -lasound -lstdc++ -lm -lsndfile -ldl
 
 target.path = /usr/local/bin

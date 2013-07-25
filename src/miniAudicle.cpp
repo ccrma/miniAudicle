@@ -49,6 +49,7 @@ U.S.A.
 #include "chuck_errmsg.h"
 #include "chuck_globals.h"
 #include "util_string.h"
+#include "version.h"
 
 #include "miniAudicle_ui_elements.h"
 #include "miniAudicle_import.h"
