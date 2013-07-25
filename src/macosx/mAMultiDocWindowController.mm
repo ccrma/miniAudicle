@@ -652,7 +652,8 @@
 - (void)add:(id)sender
 {
     // SPENCERTODO: modifierFlags is apparently 10.6 only
-    if([NSEvent modifierFlags] & NSAlternateKeyMask)
+    if([NSEvent respondsToSelector:@selector(modifierFlags)] &&
+       ([NSEvent modifierFlags] & NSAlternateKeyMask))
     {
         for(mADocumentViewController *vc in self.contentViewControllers)
             [vc add:sender];
@@ -668,7 +669,8 @@
 - (void)remove:(id)sender
 {
     // SPENCERTODO: modifierFlags is apparently 10.6 only
-    if([NSEvent modifierFlags] & NSAlternateKeyMask)
+    if([NSEvent respondsToSelector:@selector(modifierFlags)] &&
+       ([NSEvent modifierFlags] & NSAlternateKeyMask))
     {
         for(mADocumentViewController *vc in self.contentViewControllers)
             [vc remove:sender];
@@ -684,7 +686,8 @@
 - (void)replace:(id)sender
 {
     // SPENCERTODO: modifierFlags is apparently 10.6 only
-    if([NSEvent modifierFlags] & NSAlternateKeyMask)
+    if([NSEvent respondsToSelector:@selector(modifierFlags)] && 
+       ([NSEvent modifierFlags] & NSAlternateKeyMask))
     {
         for(mADocumentViewController *vc in self.contentViewControllers)
             [vc replace:sender];
