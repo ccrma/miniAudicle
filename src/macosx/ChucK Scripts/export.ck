@@ -1,8 +1,8 @@
 
 //cherr <= "export.ck" <= IO.nl();
 
-"/" + me.arg(0) @=> string ckFilename;
-"/" + me.arg(1) @=> string wavFilename;
+me.arg(0) @=> string ckFilename;
+me.arg(1) @=> string wavFilename;
 me.arg(2) => Std.atoi => int doLimit;
 me.arg(3) => Std.atof => float limit;
 

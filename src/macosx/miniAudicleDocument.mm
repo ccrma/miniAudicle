@@ -317,10 +317,31 @@ U.S.A.
     
     if(returnCode == NSOKButton)
     {
+        NSString * filePath;
+        if([self fileURL] && ![self isDocumentEdited])
+        {
+            filePath = [[self fileURL] path];
+        }
+        else
+        {
+            filePath = [NSTemporaryDirectory() stringByAppendingFormat:@"%@/%@%X%X.ck",
+                        [[NSBundle mainBundle] bundleIdentifier],
+                        [[self displayName] stringByDeletingPathExtension],
+                        (int)(CFAbsoluteTimeGetCurrent()),
+                        (int)(fmod(CFAbsoluteTimeGetCurrent(),1.0)*1000.0)];
+            
+            [[NSFileManager defaultManager] createDirectoryAtPath:[filePath stringByDeletingLastPathComponent]
+                                      withIntermediateDirectories:YES
+                                                       attributes:nil error:nil];
+            
+            [[_viewController content] writeToFile:filePath atomically:YES
+                                          encoding:NSUTF8StringEncoding error:nil];
+        }
+        
         NSString * arg = [NSString stringWithFormat:@"%@:%@:%@:%i:%f",
                           [[NSBundle mainBundle] pathForResource:@"export.ck" ofType:nil],
-                          [[[self fileURL] path] substringFromIndex:1], // hack around chuck bug(?) - remove first slash
-                          [[[savePanel URL] path] substringFromIndex:1], // hack around chuck bug(?) - remove first slash
+                          filePath,
+                          [[savePanel URL] path],
                           viewController.limitDuration,
                           viewController.duration];
         
