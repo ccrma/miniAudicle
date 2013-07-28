@@ -58,7 +58,7 @@ void mAsciLexerChucK::preferencesChanged()
 const char *mAsciLexerChucK::keywords(int set) const
 {
     if(set == 1)
-        return "int float time dur void same if else while do "
+        return "int float time dur polar complex void same if else while do "
                "until for break continue return switch repeat "
                "class extends public static pure this "
                "super interface implements protected "
