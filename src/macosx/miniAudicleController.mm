@@ -104,64 +104,9 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
         // initialize syntax highlighting
         syntax_highlighter = [[IDEKit_LexParser alloc] init];
         
-        [syntax_highlighter addKeyword:@"int" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"float" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"time" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"dur" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"void" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"same" color:IDEKit_kLangColor_Keywords lexID:0];
-        
-        [syntax_highlighter addKeyword:@"if" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"else" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"while" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"do" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"until" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"for" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"break" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"continue" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"return" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"switch" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"repeat" color:IDEKit_kLangColor_Keywords lexID:0];
-        
-        [syntax_highlighter addKeyword:@"class" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"extends" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"public" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"static" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"pure" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"this" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"super" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"interface" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"implements" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"protected" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"private" color:IDEKit_kLangColor_Keywords lexID:0];
-        
-        [syntax_highlighter addKeyword:@"function" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"fun" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"spork" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"const" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"new" color:IDEKit_kLangColor_Keywords lexID:0];
-        
-        [syntax_highlighter addKeyword:@"now" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"true" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"false" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"maybe" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"null" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"NULL" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"me" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"pi" color:IDEKit_kLangColor_Keywords lexID:0];
-        
-        [syntax_highlighter addKeyword:@"samp" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"ms" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"second" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"minute" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"hour" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"day" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"week" color:IDEKit_kLangColor_Keywords lexID:0];
-        
-        [syntax_highlighter addKeyword:@"dac" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"adc" color:IDEKit_kLangColor_Keywords lexID:0];
-        [syntax_highlighter addKeyword:@"blackhole" color:IDEKit_kLangColor_Keywords lexID:0];
-        
+        for(NSString * keyword in [mASyntaxHighlighting keywords])
+            [syntax_highlighter addKeyword:keyword color:IDEKit_kLangColor_Keywords lexID:0];
+                
         [syntax_highlighter addStringStart: @"\"" end: @"\""];
         [syntax_highlighter addCommentStart: @"/*" end: @"*/"];
         [syntax_highlighter addSingleComment: @"//"];        
@@ -170,14 +115,9 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
         [syntax_highlighter setIdentifierChars:[NSCharacterSet characterSetWithCharactersInString:@"_"]];
         
         for(id class_name in [mASyntaxHighlighting defaultClasses])
-        {
             [syntax_highlighter addKeyword:class_name color:IDEKit_kLangColor_Classes lexID:0];
-        }
-        
         for(id ugen_name in [mASyntaxHighlighting defaultUGens])
-        {
             [syntax_highlighter addKeyword:ugen_name color:IDEKit_kLangColor_OtherSymbol1 lexID:0];
-        }
         
         // detach one empty NSThread to put Cocoa into multithreaded mode
         [NSThread detachNewThreadSelector:@selector(nop:) 

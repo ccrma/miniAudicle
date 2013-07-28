@@ -27,6 +27,71 @@ U.S.A.
 
 @implementation mASyntaxHighlighting
 
++ (NSArray *)keywords
+{
+    return @[
+    @"int",
+    @"float",
+    @"time",
+    @"dur",
+    @"polar",
+    @"complex",
+    @"void",
+    @"same",
+    
+    @"if",
+    @"else",
+    @"while",
+    @"do",
+    @"until",
+    @"for",
+    @"break",
+    @"continue",
+    @"return",
+    @"switch",
+    @"repeat",
+    
+    @"class",
+    @"extends",
+    @"public",
+    @"static",
+    @"pure",
+    @"this",
+    @"super",
+    @"interface",
+    @"implements",
+    @"protected",
+    @"private",
+    
+    @"function",
+    @"fun",
+    @"spork",
+    @"const",
+    @"new",
+    
+    @"now",
+    @"true",
+    @"false",
+    @"maybe",
+    @"null",
+    @"NULL",
+    @"me",
+    @"pi",
+    
+    @"samp",
+    @"ms",
+    @"second",
+    @"minute",
+    @"hour",
+    @"day",
+    @"week",
+    
+    @"dac",
+    @"adc",
+    @"blackhole"
+    ];
+}
+
 + (NSArray *)defaultClasses
 {
     return @[

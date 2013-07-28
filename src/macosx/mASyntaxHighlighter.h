@@ -26,6 +26,7 @@ U.S.A.
 
 @interface mASyntaxHighlighting : NSObject
 
++ (NSArray *)keywords;
 + (NSArray *)defaultClasses;
 + (NSArray *)defaultUGens;
 
