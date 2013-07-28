@@ -149,6 +149,7 @@ static NSImage * error_image;
 }
 */
 
+
 - (NSRect)lockImageRect
 {
     NSSize image_size = [lock_image size];
@@ -663,6 +664,12 @@ static NSImage * error_image;
     [syntax_highlighter colorString:ts 
                               range:NSMakeRange( start_index, contents_end_index - start_index ) 
                             colorer:colorer];
+    
+    // WARNING: undocumented functionality
+    // allows double-click to select "words" by . boundaries
+    // from https://code.google.com/p/chromium/issues/detail?id=28145
+    [ts addAttribute:@"NSLanguage" value:@"en_US_POSIX"
+               range:NSMakeRange(start_index, contents_end_index-start_index)];
 }
 
 - (void)syntaxColoringChanged:(NSNotification *)n
