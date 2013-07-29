@@ -1,6 +1,6 @@
 
 # distribution target presets
-VERSION?=0.2.3-beta-11
+VERSION?=0.2.3-beta-12
 
 DIST_DIR=miniAudicle-$(VERSION)
 
