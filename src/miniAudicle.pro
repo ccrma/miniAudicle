@@ -35,13 +35,13 @@ QMAKE_LFLAGS += -m32
 
 linux-g++ {
 
+# use ALSA as default backend if no backend is specified
 !contains(RTAUDIO_BACKEND,JACK){
     !contains(RTAUDIO_BACKEND,ALSA){
         message("No audio backend specified; enabling ALSA mode")
-        CFLAGS += -D__LINUX_ALSA__
-    } else {
-        CFLAGS += -D__LINUX_ALSA__
     }
+
+    CFLAGS += -D__LINUX_ALSA__
 } else {
     CFLAGS += -D__LINUX_JACK__ -D__UNIX_JACK__
     LIBS += -ljack
@@ -95,6 +95,7 @@ SOURCES += \
     chuck/src/ulib_opsc.cpp \
     chuck/src/ulib_math.cpp \
     chuck/src/ulib_machine.cpp \
+    chuck/src/ulib_regex.cpp \
     chuck/src/ugen_xxx.cpp \
     chuck/src/ugen_stk.cpp \
     chuck/src/ugen_osc.cpp \
