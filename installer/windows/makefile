@@ -8,11 +8,14 @@ CHUGIN_NAMES=ABSaturator Bitcrusher FIR KasFilter PanN
 CHUGINS=$(addsuffix .chug,$(CHUGIN_NAMES))
 CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/Release/$(CHUG).chug)
 
-default: Install\ ChucK.msi
+VERSION=1.3.2.0-beta-12
+INSTALLER=Install\ ChucK\ $(VERSION).msi
 
-Install\ ChucK.msi: ChucK.wxs examples.wxs miniAudicle.exe chuck.exe $(CHUGINS) ck_dialog.bmp ck_banner.bmp gpl2.rtf
+default: $(INSTALLER)
+
+$(INSTALLER): ChucK.wxs examples.wxs miniAudicle.exe chuck.exe $(CHUGINS) ck_dialog.bmp ck_banner.bmp gpl2.rtf
 	candle ChucK.wxs examples.wxs
-	light -ext WixUIExtension -out Install\ ChucK.msi ChucK.wixobj examples.wixobj
+	light -ext WixUIExtension -out "$@" ChucK.wixobj examples.wixobj
 
 examples.wxs: examples
 	heat dir examples -gg -dr INSTALLDIR -cg examples -out examples.wxs

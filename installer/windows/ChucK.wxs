@@ -1,12 +1,23 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
-  <Product Name='ChucK' Id='25627CF3-5DD2-4c0b-BAD7-4FDC688F6596' UpgradeCode='5E802F26-D8BC-4db8-97B2-11629D23724E'
+
+  <Product Name='ChucK' Id='*' UpgradeCode='5E802F26-D8BC-4db8-97B2-11629D23724E'
     Language='1033' Codepage='1252' Version='0.2.2' Manufacturer='Stanford University CCRMA'>
 
     <Package Id='*' Keywords='Installer'
       Description="ChucK Audio Programming Language"
       Comments='ChucK is a programming language for real-time computer music and digital signal processing.' Manufacturer='Stanford University CCRMA'
       InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+    
+    <Upgrade Id="5E802F26-D8BC-4db8-97B2-11629D23724E">  
+    <UpgradeVersion Minimum="1.0.0" Maximum="99.0.0"
+      Property="PREVIOUSVERSIONSINSTALLED"
+      IncludeMinimum="yes" IncludeMaximum="no" />
+    </Upgrade> 
+
+    <InstallExecuteSequence>
+      <RemoveExistingProducts After="InstallFinalize" />
+    </InstallExecuteSequence>
 
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' />
 
