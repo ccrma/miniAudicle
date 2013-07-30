@@ -149,6 +149,22 @@ SOURCES += \
 
 win32 {
     SOURCES += chuck/src/chuck_win32.c
+    SOURCES += chuck/src/regex/regcomp.c \
+    chuck/src/regex/regerror.c \
+    chuck/src/regex/regexec.c \
+    chuck/src/regex/tre-ast.c \
+    chuck/src/regex/tre-compile.c \
+    chuck/src/regex/tre-filter.c \
+    chuck/src/regex/tre-match-approx.c \
+    chuck/src/regex/tre-match-backtrack.c \
+    chuck/src/regex/tre-match-parallel.c \
+    chuck/src/regex/tre-mem.c \
+    chuck/src/regex/tre-parse.c \
+    chuck/src/regex/tre-stack.c \
+    chuck/src/regex/xmalloc.c
+
+    INCLUDEPATH += chuck/src/regex/
+    DEFINES += HAVE_CONFIG_H
 }
 
 HEADERS  += qt/mAMainWindow.h \
