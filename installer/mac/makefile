@@ -12,7 +12,8 @@ GROUP=wheel
 
 default: miniAudicle.app chuck $(CHUGINS)
 
-miniAudicle.app: $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app
+miniAudicle.app: $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app/Contents/MacOS/miniAudicle
+	rm -rf miniAudicle.app
 	cp -af $< .
 #	sudo chown -R $(OWNER) $@
 #	sudo chgrp -R $(GROUP) $@
