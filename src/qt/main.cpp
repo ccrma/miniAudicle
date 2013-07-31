@@ -28,18 +28,25 @@ U.S.A.
 #include "mASocketManager.h"
 
 int main(int argc, char *argv[])
-{
-    if(argc > 1 && QFileInfo(QString(argv[1])).exists())
+{    
+    QApplication a(argc, argv);
+    a.setStyle("windowsvista");
+    
+    for(int i = 0; i < a.arguments().length(); i++)
     {
-        fprintf(stderr, "[miniAudicle]: attempting to open file '%s' on remote\n", argv[1]);
+        fprintf(stderr, "arg: %s\n", a.arguments()[i].toUtf8().constData());
         fflush(stderr);
-        if(mASocketManager::openFileOnRemote(QString(argv[1])))
+    }
+    
+    if(a.arguments().length() >= 2 && QFileInfo(a.arguments()[1]).exists())
+    {
+        fprintf(stderr, "[miniAudicle]: attempting to open file '%s' on remote\n", 
+                a.arguments()[1].toUtf8().constData());
+        fflush(stderr);
+        if(mASocketManager::openFileOnRemote(a.arguments()[1]))
             return 0;
     }
     
-    QApplication a(argc, argv);
-    a.setStyle("windowsvista");
-
     mAMainWindow w;
     w.show();
 

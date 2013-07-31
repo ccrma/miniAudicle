@@ -28,6 +28,10 @@ U.S.A.
 #include "mAMainWindow.h"
 
 const QString MA_LOCAL_SERVER_NAME = "miniAudicle";
+const int MAX_TIMEOUTS = 4;
+const int MAX_TIMEOUT_MS = 2000;
+
+const int MAX_TIMEOUT_CLIENT = 2000;
 
 mASocketManager::mASocketManager(mAMainWindow * mainWindow, QObject *parent) :
     QObject(parent),
@@ -46,7 +50,8 @@ void mASocketManager::startServer()
     m_server = new QLocalServer;
     if(!m_server->listen(MA_LOCAL_SERVER_NAME))
     {
-        // error
+        fprintf(stderr, "[miniAudicle]: unable to open local socket server\n");
+        fflush(stderr);
     }
     
     QObject::connect(m_server, SIGNAL(newConnection()), this, SLOT(newConnection()));
@@ -55,7 +60,7 @@ void mASocketManager::startServer()
 void mASocketManager::newConnection()
 {
     //fprintf(stderr, "[miniAudicle]: received connection from remote\n");
-    fflush(stderr);
+    //fflush(stderr);
     
     QLocalSocket * socket = m_server->nextPendingConnection();
     
@@ -63,9 +68,9 @@ void mASocketManager::newConnection()
     QString path;
     int timeouts = 0;
     
-    while(timeouts < 4)
+    while(timeouts < MAX_TIMEOUTS)
     {
-        if(socket->bytesAvailable() <= 0 && !socket->waitForReadyRead(500))
+        if(socket->bytesAvailable() <= 0 && !socket->waitForReadyRead(MAX_TIMEOUT_MS/MAX_TIMEOUTS))
             timeouts++;
         else
         {
@@ -94,8 +99,11 @@ void mASocketManager::newConnection()
         if(QFileInfo(path).exists())
         {
             //fprintf(stderr, "[miniAudicle]: received path '%s' from remote\n", path.toUtf8().constData());
-            fflush(stderr);
+            //fflush(stderr);
             m_mainWindow->openFile(path);
+            m_mainWindow->activateWindow();
+            m_mainWindow->raise();
+            m_mainWindow->show();
         }
     }
 }
@@ -110,10 +118,11 @@ bool mASocketManager::openFileOnRemote(const QString &_path)
     QLocalSocket socket;
     socket.connectToServer(MA_LOCAL_SERVER_NAME);
     
-    if(socket.waitForConnected(1000))
+    if(socket.waitForConnected(MAX_TIMEOUT_CLIENT))
     {
         socket.write(path.toUtf8());
         socket.flush();
+        socket.waitForBytesWritten(MAX_TIMEOUT_CLIENT);
         r = true;
     }
     
