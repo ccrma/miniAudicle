@@ -37,6 +37,7 @@ class mADocumentView;
 class mAConsoleMonitor;
 class mAVMMonitor;
 class mAPreferencesWindow;
+class mASocketManager;
 
 namespace Ui {
 class mAMainWindow;
@@ -97,6 +98,8 @@ private:
     mAVMMonitor * m_vmMonitor;
     mAPreferencesWindow * m_preferencesWindow;
 
+    mASocketManager * m_socketManager;
+    
     miniAudicle * ma;
     t_CKUINT m_docid;
     bool m_lockdown;

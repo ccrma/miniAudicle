@@ -29,6 +29,7 @@ U.S.A.
 #include "mAConsoleMonitor.h"
 #include "mAVMMonitor.h"
 #include "mAPreferencesWindow.h"
+#include "mASocketManager.h"
 
 #include <QMessageBox>
 #include <QDesktopWidget>
@@ -54,7 +55,7 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     ma(new miniAudicle)
 {
     ui->setupUi(this);
-
+    
     vm_on = false;
 
     QCoreApplication::setOrganizationName("Stanford CCRMA");
@@ -63,6 +64,9 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
 
     mAPreferencesWindow::configureDefaults();
 
+    m_socketManager = new mASocketManager(this);   
+    m_socketManager->startServer();
+    
     ZSettings settings;
 
     QDir::setCurrent(settings.get(mAPreferencesCurrentDirectory).toString());

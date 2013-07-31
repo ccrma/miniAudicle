@@ -22,26 +22,34 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 U.S.A.
 -----------------------------------------------------------------------------*/
 
-#include <QApplication>
+#ifndef MASOCKETMANAGER_H
+#define MASOCKETMANAGER_H
 
-#include "mAMainWindow.h"
-#include "mASocketManager.h"
+#include <QObject>
+#include <QLocalSocket>
+#include <QLocalServer>
 
-int main(int argc, char *argv[])
+class mAMainWindow;
+
+class mASocketManager : public QObject
 {
-    if(argc > 1 && QFileInfo(QString(argv[1])).exists())
-    {
-        fprintf(stderr, "[miniAudicle]: attempting to open file '%s' on remote\n", argv[1]);
-        fflush(stderr);
-        if(mASocketManager::openFileOnRemote(QString(argv[1])))
-            return 0;
-    }
+    Q_OBJECT
+public:
+    explicit mASocketManager(mAMainWindow * mainWindow, QObject *parent = 0);
     
-    QApplication a(argc, argv);
-    a.setStyle("windowsvista");
+    void startServer();
+    static bool openFileOnRemote(const QString &path);
+    
+signals:
+        
+public slots:
+    void newConnection();
+    
+private:
+    
+    mAMainWindow * const m_mainWindow;
+    
+    QLocalServer * m_server;
+};
 
-    mAMainWindow w;
-    w.show();
-
-    return a.exec();
-}
+#endif // MASOCKETMANAGER_H

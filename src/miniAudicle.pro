@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 CONFIG += warn_off static
 
@@ -141,7 +141,8 @@ SOURCES += \
     qt/mAsciLexerChucK.cpp \
     qt/mAPreferencesWindow.cpp \
     qt/mAExportDialog.cpp \
-    qt/ZSettings.cpp
+    qt/ZSettings.cpp \
+    qt/mASocketManager.cpp
 
 !linux-g++ {
     SOURCES += chuck/src/util_sndfile.c
@@ -235,7 +236,8 @@ HEADERS  += qt/mAMainWindow.h \
     qt/mAsciLexerChucK.h \
     qt/mAPreferencesWindow.h \
     qt/mAExportDialog.h \
-    qt/ZSettings.h
+    qt/ZSettings.h \
+    qt/mASocketManager.h
 
 FORMS += \
     qt/mAMainWindow.ui \
