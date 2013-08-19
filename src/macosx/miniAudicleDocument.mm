@@ -324,6 +324,8 @@ U.S.A.
         }
         else
         {
+            // TODO: put temp file in same directory if fileURL exists
+            
             filePath = [NSTemporaryDirectory() stringByAppendingFormat:@"%@/%@%X%X.ck",
                         [[NSBundle mainBundle] bundleIdentifier],
                         [[self displayName] stringByDeletingPathExtension],
@@ -345,12 +347,14 @@ U.S.A.
                           viewController.limitDuration,
                           viewController.duration];
         
-//        NSLog(@"/usr/bin/chuck --silent %@", arg);
+//        NSLog(@"chuck --silent %@", arg);
         
         self.exportTask = [[[NSTask alloc] init] autorelease];
         
         [self.exportTask setLaunchPath:[[NSBundle mainBundle] pathForResource:@"chuck" ofType:nil]];
         [self.exportTask setArguments:@[@"--silent", arg]];
+        if([self fileURL])
+            [self.exportTask setCurrentDirectoryPath:[[[self fileURL] path] stringByDeletingLastPathComponent]];
         
         [self.exportTask launch];
         

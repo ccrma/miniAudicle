@@ -16,6 +16,12 @@
 
 @synthesize limitDuration, duration;
 
+- (CGFloat)duration
+{
+    duration = [_durationTextField doubleValue];
+    return duration;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

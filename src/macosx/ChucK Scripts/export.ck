@@ -6,6 +6,8 @@ me.arg(1) @=> string wavFilename;
 me.arg(2) => Std.atoi => int doLimit;
 me.arg(3) => Std.atof => float limit;
 
+//<<< "export.ck:", me.arg(0) + ":" + me.arg(1) + ":" + me.arg(2) + ":" + limit >>>;
+
 dac => WvOut2 w => blackhole;
 wavFilename => w.wavFilename;
 .5 => w.fileGain;
@@ -18,7 +20,6 @@ Machine.add(ckFilename) => int shredId;
 if(doLimit)
 {
     limit::second => now;
-    
     Machine.remove(shredId);
 }
 else

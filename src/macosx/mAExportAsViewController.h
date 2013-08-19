@@ -12,6 +12,8 @@
 {
     BOOL limitDuration;
     CGFloat duration;
+    
+    IBOutlet NSTextField * _durationTextField;
 }
 
 @property (nonatomic) BOOL limitDuration;
