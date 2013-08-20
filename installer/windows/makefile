@@ -8,7 +8,7 @@ CHUGIN_NAMES=ABSaturator Bitcrusher FIR KasFilter PanN
 CHUGINS=$(addsuffix .chug,$(CHUGIN_NAMES))
 CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/Release/$(CHUG).chug)
 
-VERSION=1.3.2.0-beta-14
+VERSION=1.3.2.0-beta-15
 INSTALLER=Install\ ChucK\ $(VERSION).msi
 
 default: $(INSTALLER)
