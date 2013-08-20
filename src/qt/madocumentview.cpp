@@ -108,9 +108,9 @@ void mADocumentView::exportAsWav()
         dir = fileinfo.dir().absolutePath() + "/" + fileinfo.completeBaseName() + ".wav";
     }
     
-    QString filename = QFileDialog::getSaveFileName(this, "Export as WAV", dir, "WAV files (*.wav)");
+    QString outputFilename = QFileDialog::getSaveFileName(this, "Export as WAV", dir, "WAV files (*.wav)");
     
-    if(filename.length() > 0)
+    if(outputFilename.length() > 0)
     {
         mAExportDialog exportDialog;
         
@@ -123,34 +123,47 @@ void mADocumentView::exportAsWav()
         exportScript.flush();
         exportScript.close();
         
+        QString runScriptFilename;
+        // need to declare in outer scope -- will be deleted when the object is destructed
         QTemporaryFile runScript(QDir::tempPath() + "/runXXXXXX.ck");
-        runScript.open();
-        ui->textEdit->write(&runScript);
-        runScript.flush();
-        runScript.close();
+        if(file)
+        {
+            runScriptFilename = QFileInfo(*file).canonicalFilePath().replace(':', "\\:");
+        }
+        else
+        {
+            runScript.open();
+            ui->textEdit->write(&runScript);
+            runScript.flush();
+            runScript.close();
+            
+            runScriptFilename = QFileInfo(runScript).canonicalFilePath().replace(':', "\\:");
+        }
         
         QString exportScriptFilename = QFileInfo(exportScript).canonicalFilePath().replace(':', "\\:");
-        QString runScriptFilename = QFileInfo(runScript).canonicalFilePath().replace(':', "\\:");
-        filename = filename.replace(':', "\\:");
+        outputFilename = outputFilename.replace(':', "\\:");
         
         QString arg = QString("%1:%2:%3:%4:%5").
                 arg(exportScriptFilename).
                 arg(runScriptFilename).
-                arg(filename).
+                arg(outputFilename).
                 arg(exportDialog.doLimit() ? 1 : 0).
                 arg(exportDialog.limitDuration());
         
-        fprintf(stderr, "%s\n", arg.toAscii().constData());
-        fflush(stderr);
+//        fprintf(stderr, "%s\n", arg.toAscii().constData());
+//        fflush(stderr);
         
         QProcess process;
         QStringList args;
         args.append("--silent");
         args.append("--standalone");
+        //args.append("-v5");
         args.append(arg);
         process.setProcessChannelMode(QProcess::ForwardedChannels);
-        //process.start(QCoreApplication::applicationDirPath() + "/bin/chuck", args);
-        process.start("C:/Program Files/ChucK/bin/chuck", args);
+        if(file)
+            process.setWorkingDirectory(QFileInfo(*file).dir().canonicalPath());
+        process.start(QCoreApplication::applicationDirPath() + "/bin/chuck", args);
+        //process.start("C:/Program Files/ChucK/bin/chuck", args);
         
         //process.waitForFinished(-1);
         
@@ -169,12 +182,15 @@ void mADocumentView::exportAsWav()
                 break;
             }
             
+//            if(process.state() == QProcess::NotRunning)
+//                break;
+            
             if(process.waitForFinished(10))
                 break;
             
             QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
         }
-        
+                
         if(cancelled)
         {
 #ifdef __PLATFORM_WIN32__
@@ -184,10 +200,9 @@ void mADocumentView::exportAsWav()
 #else
             kill(process.pid(), SIGINT);
 #endif
+            process.waitForFinished(10);
         }
-        
-        process.waitForFinished(1000);
-        
+                
         progress.hide();        
     }
 }

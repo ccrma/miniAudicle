@@ -511,9 +511,6 @@
    </property>
   </action>
   <action name="actionExport_as_WAV">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>Export as WAV...</string>
    </property>
