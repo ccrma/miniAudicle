@@ -19,4 +19,13 @@
 @property (nonatomic) BOOL limitDuration;
 @property (nonatomic) CGFloat duration;
 
+@property (nonatomic) BOOL exportWAV;
+@property (nonatomic) BOOL exportOgg;
+@property (nonatomic) BOOL exportM4A;
+@property (nonatomic) BOOL exportMP3;
+
+@property (nonatomic) BOOL enableMP3;
+
+- (void)saveSettings;
+
 @end

@@ -63,6 +63,8 @@ class miniAudicle;
     
     NSTask * exportTask;
     mAExportProgressViewController * exportProgress;
+    NSString *exportTempScriptPath;
+    
     BOOL readOnly;
 }
 

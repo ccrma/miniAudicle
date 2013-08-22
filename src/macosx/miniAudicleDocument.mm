@@ -46,10 +46,52 @@ U.S.A.
 
 #import <objc/message.h>
 
+
+NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL createEnclosingDirectory)
+{
+    if(base == nil)
+        base = @"temp";
+    if(extension == nil)
+        extension = @"";
+    else
+        extension = [@"." stringByAppendingPathExtension:extension];
+    
+    NSString * filePath;
+    
+    if(dir == nil)
+    {
+        filePath = [NSTemporaryDirectory() stringByAppendingFormat:@"%@/%@%X%X%@",
+                    [[NSBundle mainBundle] bundleIdentifier],
+                    base,
+                    (int)(CFAbsoluteTimeGetCurrent()),
+                    (int)(fmod(CFAbsoluteTimeGetCurrent(),1.0)*1000.0),
+                    extension];
+    }
+    else
+    {
+        filePath = [dir stringByAppendingFormat:@"/%@%X%X%@",
+                    base,
+                    (int)(CFAbsoluteTimeGetCurrent()),
+                    (int)(fmod(CFAbsoluteTimeGetCurrent(),1.0)*1000.0),
+                    extension];
+    }
+    
+    if(createEnclosingDirectory)
+    {
+        [[NSFileManager defaultManager] createDirectoryAtPath:[filePath stringByDeletingLastPathComponent]
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil error:nil];
+    }
+    
+    return filePath;
+}
+
+
 @interface miniAudicleDocument ()
 
 @property (nonatomic, strong) NSTask * exportTask;
 @property (nonatomic, strong) mAExportProgressViewController * exportProgress;
+@property (nonatomic, strong) NSString * exportTempScriptPath;
 
 @end
 
@@ -61,7 +103,7 @@ U.S.A.
 @synthesize windowController = _windowController;
 @synthesize readOnly;
 
-@synthesize exportTask, exportProgress;
+@synthesize exportTask, exportProgress, exportTempScriptPath;
 
 - (id)init
 {
@@ -317,27 +359,27 @@ U.S.A.
     
     if(returnCode == NSOKButton)
     {
-        NSString * filePath;
+        [viewController saveSettings];
+        
+        NSString *filePath;
+        self.exportTempScriptPath = nil;
+        
         if([self fileURL] && ![self isDocumentEdited])
         {
             filePath = [[self fileURL] path];
         }
         else
         {
-            // TODO: put temp file in same directory if fileURL exists
+            NSString *dir = nil;
+            if([self fileURL])
+                dir = [[[self fileURL] path] stringByDeletingLastPathComponent];
             
-            filePath = [NSTemporaryDirectory() stringByAppendingFormat:@"%@/%@%X%X.ck",
-                        [[NSBundle mainBundle] bundleIdentifier],
-                        [[self displayName] stringByDeletingPathExtension],
-                        (int)(CFAbsoluteTimeGetCurrent()),
-                        (int)(fmod(CFAbsoluteTimeGetCurrent(),1.0)*1000.0)];
-            
-            [[NSFileManager defaultManager] createDirectoryAtPath:[filePath stringByDeletingLastPathComponent]
-                                      withIntermediateDirectories:YES
-                                                       attributes:nil error:nil];
+            filePath = tmpFilepath([[self displayName] stringByDeletingPathExtension], @"ck", dir, YES);
             
             [[_viewController content] writeToFile:filePath atomically:YES
                                           encoding:NSUTF8StringEncoding error:nil];
+            
+            self.exportTempScriptPath = filePath;
         }
         
         NSString * arg = [NSString stringWithFormat:@"%@:%@:%@:%i:%f",
@@ -392,6 +434,12 @@ U.S.A.
     [self.exportProgress.window orderOut:self];
     self.exportProgress = nil;
     self.exportTask = nil;
+    
+    if(self.exportTempScriptPath != nil)
+    {
+        [[NSFileManager defaultManager] removeItemAtPath:self.exportTempScriptPath error:NULL];
+        self.exportTempScriptPath = nil;
+    }
 }
 
 
