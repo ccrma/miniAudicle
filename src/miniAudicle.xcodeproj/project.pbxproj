@@ -2059,6 +2059,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				ENV_MA_VERSION = "0.2.3-beta-15";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
@@ -2071,6 +2072,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					__MACOSX_CORE__,
 					__CK_DEBUG__,
+					"ENV_MA_VERSION=\"\\\"$(ENV_MA_VERSION)\\\"\"",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_UNUSED_PARAMETER = NO;
@@ -2090,6 +2092,7 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENV_MA_VERSION = "0.2.3-beta-15";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
@@ -2099,7 +2102,10 @@
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX_CORE__;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					__MACOSX_CORE__,
+					"ENV_MA_VERSION=\"\\\"$(ENV_MA_VERSION)\\\"\"",
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = chuck/src;
 				INFOPLIST_FILE = macosx/Info.plist;

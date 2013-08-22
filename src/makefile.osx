@@ -36,7 +36,7 @@ BUNDLE_FRAMEWORKS_DIR=$(OSX_DIR)/Frameworks
 
 INCLUDES=-I$(CHUCK_SRC_DIR) -I$(OSX_DIR) -I$(OSX_DIR)/UliKit -I. -F$(BUNDLE_FRAMEWORKS_DIR)
 CFLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH $(INCLUDES) \
-    -mmacosx-version-min=10.5 $(ISYSROOT) # -DMA_VERSION="\"$(VERSION)\""
+    -mmacosx-version-min=10.5 $(ISYSROOT) -DENV_MA_VERSION="\"$(VERSION)\""
 
 FRAMEWORKS=Cocoa CoreAudio CoreMIDI CoreFoundation Carbon IOKit Security PSMTabBarControl
 LIBS=-F$(BUNDLE_FRAMEWORKS_DIR) \
@@ -187,7 +187,10 @@ IMAGES=led-red.png led-green.png led-blue.png led-off.png \
 
 IMAGES:=$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/Resources/,$(IMAGES))
 
-BUNDLE_DATA=Info.plist PkgInfo
+INFO_PLIST=$(OSX_DIR)/Info.plist
+INFO_PLIST_IN_BUNDLE=$(BIN_DIR)/miniAudicle.app/Contents/Info.plist
+
+BUNDLE_DATA=PkgInfo
 
 BUNDLE_DATA:=$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/,$(BUNDLE_DATA))
 
@@ -209,7 +212,8 @@ CERT=Developer ID Application: Spencer Salazar (9GU9FHJ3JC)
 .PHONY: miniAudicle
 miniAudicle: $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(IMAGES) \
     $(NIBS) $(BUNDLE_DATA) $(BUNDLE_FRAMEWORKS_IN_BUNDLE) \
-    $(CHUCK_SCRIPTS_IN_BUNDLE) $(CHUCK_IN_BUNDLE) $(CK_EXAMPLES_IN_BUNDLE)
+    $(CHUCK_SCRIPTS_IN_BUNDLE) $(CHUCK_IN_BUNDLE) $(CK_EXAMPLES_IN_BUNDLE) \
+    $(INFO_PLIST_IN_BUNDLE)
 
 $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle: $(OBJS) $(CHUCK_OBJS) $(BIN_DIR)/miniAudicle.app/Contents/MacOS/
 	$(CXX) -o $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(OBJS) $(CHUCK_OBJS) $(LDFLAGS) $(ARCHOPTS)
@@ -226,6 +230,9 @@ $(BUNDLE_DATA): $(BIN_DIR)/miniAudicle.app/Contents/%: $(OSX_DIR)/%
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/
 	cp $< $@
 	touch $(BIN_DIR)/miniAudicle.app
+
+$(INFO_PLIST_IN_BUNDLE): $(INFO_PLIST)
+	sed s/$$\(ENV_MA_VERSION\)/$(VERSION)/g $< > $@
 
 $(BUNDLE_FRAMEWORKS_IN_BUNDLE): $(BIN_DIR)/miniAudicle.app/Contents/Frameworks/%: $(OSX_DIR)/Frameworks/%
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/Frameworks
