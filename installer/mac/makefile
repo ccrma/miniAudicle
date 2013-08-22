@@ -10,7 +10,22 @@ CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/$(CH
 OWNER=root
 GROUP=wheel
 
-default: miniAudicle.app chuck $(CHUGINS)
+VERSION=1.3.2.0-beta-15
+INSTALLER=ChucK-$(VERSION).pkg
+
+PACKAGEMAKER=/Applications/PackageMaker.app/Contents/MacOS/PackageMaker
+CERT=Developer ID Installer: Spencer Salazar (9GU9FHJ3JC)
+
+default: $(INSTALLER)
+
+upload: $(INSTALLER)
+	scp $< ccrma-gate.stanford.edu:Library/Web/chuck
+
+$(INSTALLER): ChucK.pmdoc miniAudicle.app chuck $(CHUGINS)
+	$(PACKAGEMAKER) --doc $< --out $@ --certificate "$(CERT)" --version $(VERSION)
+	mv $@ $@-unsigned
+	productsign --sign "$(CERT)" $@-unsigned $@
+	rm $@-unsigned
 
 miniAudicle.app: $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app/Contents/MacOS/miniAudicle
 	rm -rf miniAudicle.app
@@ -20,13 +35,9 @@ miniAudicle.app: $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app $(MINI_SRC_ROOT)/sr
 
 chuck: $(CHUCK_SRC_ROOT)/trunk/src/chuck
 	cp -af $< .
-#	sudo chgrp -R $(GROUP) $@
-#	sudo chown -R $(OWNER) $@
 
 $(CHUGINS): $(CHUGINS_ORIGINAL)
 	cp -af $(CHUGINS_SRC_ROOT)/$(basename $@)/$@  .
-#	sudo chgrp -R $(GROUP) $@
-#	sudo chown -R $(OWNER) $@
 
 clean: 
-	rm -rf miniAudicle.app chuck $(CHUGINS)
+	rm -rf miniAudicle.app chuck $(CHUGINS) *.pkg
