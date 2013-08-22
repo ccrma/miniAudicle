@@ -1,6 +1,8 @@
 
 #SHELL:=/bin/bash
 
+include version.mk
+
 ifneq ($(shell sw_vers -productVersion | egrep '10\.[678](\.[0-9]+)?'),)
 SDK=$(shell xcodebuild -sdk macosx -version | grep '^Path:' | sed 's/Path: \(.*\)/\1/')
 ISYSROOT=-isysroot $(SDK)
@@ -33,7 +35,8 @@ BUNDLE_FRAMEWORKS=PSMTabBarControl
 BUNDLE_FRAMEWORKS_DIR=$(OSX_DIR)/Frameworks
 
 INCLUDES=-I$(CHUCK_SRC_DIR) -I$(OSX_DIR) -I$(OSX_DIR)/UliKit -I. -F$(BUNDLE_FRAMEWORKS_DIR)
-CFLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH $(INCLUDES) -mmacosx-version-min=10.5 $(ISYSROOT)
+CFLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH $(INCLUDES) \
+    -mmacosx-version-min=10.5 $(ISYSROOT) # -DMA_VERSION="\"$(VERSION)\""
 
 FRAMEWORKS=Cocoa CoreAudio CoreMIDI CoreFoundation Carbon IOKit Security PSMTabBarControl
 LIBS=-F$(BUNDLE_FRAMEWORKS_DIR) \
@@ -69,9 +72,6 @@ endif
 #SF_SRC=
 
 CFLAGSDEPEND?=$(patsubst -arch %,,$(CFLAGS))
-
-# distribution target presets
-VERSION?=0.2.3-beta-15
 
 DIST_DIR=miniAudicle-$(VERSION)
 
@@ -204,6 +204,8 @@ CHUCK_SCRIPTS_IN_BUNDLE=$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/Resource
 
 CHUCK_IN_BUNDLE=$(BIN_DIR)/miniAudicle.app/Contents/Resources/chuck
 
+CERT=Developer ID Application: Spencer Salazar (9GU9FHJ3JC)
+
 .PHONY: miniAudicle
 miniAudicle: $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(IMAGES) \
     $(NIBS) $(BUNDLE_DATA) $(BUNDLE_FRAMEWORKS_IN_BUNDLE) \
@@ -314,7 +316,8 @@ dist: miniAudicle
 #	mkdir $(DIST_DIR)/documentation/examples/ui
 #	ln -s documentation/examples $(DIST_DIR)/
 	cp -a $(BIN_DIR)/miniAudicle.app $(NOTES) $(DIST_DIR)/
-#	strip -u -r $(DIST_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle
+# sign code
+	codesign -s "$(CERT)" $(DIST_DIR)/miniAudicle.app
 	cp -r $(DOCS) $(DIST_DIR)/documentation/
 	cp -r $(DOC_IMAGES) $(DIST_DIR)/documentation/images/
 #	cp -r $(EXAMPLES) $(DIST_DIR)/documentation/examples/ui

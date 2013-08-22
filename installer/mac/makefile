@@ -3,6 +3,10 @@ MINI_SRC_ROOT=../..
 CHUCK_SRC_ROOT=../../../chuck
 CHUGINS_SRC_ROOT=../../../chugins
 
+VERSION_MK=$(MINI_SRC_ROOT)/src/version.mk
+
+include $(VERSION_MK)
+
 CHUGIN_NAMES=ABSaturator Bitcrusher FIR KasFilter PanN
 CHUGINS=$(addsuffix .chug,$(CHUGIN_NAMES))
 CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/$(CHUG).chug)
@@ -10,7 +14,6 @@ CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/$(CH
 OWNER=root
 GROUP=wheel
 
-VERSION=1.3.2.0-beta-15
 INSTALLER=ChucK-$(VERSION).pkg
 
 PACKAGEMAKER=/Applications/PackageMaker.app/Contents/MacOS/PackageMaker
@@ -21,7 +24,7 @@ default: $(INSTALLER)
 upload: $(INSTALLER)
 	scp $< ccrma-gate.stanford.edu:Library/Web/chuck
 
-$(INSTALLER): ChucK.pmdoc miniAudicle.app chuck $(CHUGINS)
+$(INSTALLER): ChucK.pmdoc miniAudicle.app chuck $(CHUGINS) $(VERSION_MK)
 	$(PACKAGEMAKER) --doc $< --out $@ --certificate "$(CERT)" --version $(VERSION)
 	mv $@ $@-unsigned
 	productsign --sign "$(CERT)" $@-unsigned $@
