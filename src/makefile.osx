@@ -165,7 +165,8 @@ OBJCXXSRCS+= $(OSX_DIR)/miniAudicleController.mm \
     $(OSX_DIR)/mAMultiDocWindowController.mm \
     $(OSX_DIR)/mARecordSessionController.mm \
     $(OSX_DIR)/NSString+STLString.mm \
-    $(OSX_DIR)/mAExampleBrowser.mm
+    $(OSX_DIR)/mAExampleBrowser.mm \
+    $(OSX_DIR)/mADocumentExporter.mm
 
 
 COBJS=$(CSRCS:.c=.o)
