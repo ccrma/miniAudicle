@@ -7,8 +7,20 @@
     <x>0</x>
     <y>0</y>
     <width>435</width>
-    <height>392</height>
+    <height>367</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>435</width>
+    <height>367</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>435</width>
+    <height>367</height>
+   </size>
   </property>
   <property name="baseSize">
    <size>
@@ -35,23 +47,26 @@
      <property name="minimumSize">
       <size>
        <width>425</width>
-       <height>350</height>
+       <height>325</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
        <width>425</width>
-       <height>350</height>
+       <height>325</height>
       </size>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="audioTab">
       <attribute name="title">
        <string>Audio</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="spacing">
+        <number>12</number>
+       </property>
        <property name="leftMargin">
         <number>12</number>
        </property>
@@ -312,6 +327,9 @@
        <string>Editing</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>12</number>
+       </property>
        <property name="leftMargin">
         <number>12</number>
        </property>
@@ -548,6 +566,9 @@
        <string>ChuGins</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <property name="spacing">
+        <number>12</number>
+       </property>
        <property name="leftMargin">
         <number>12</number>
        </property>
@@ -620,6 +641,9 @@
        <string>Miscellaneous</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
+       <property name="spacing">
+        <number>12</number>
+       </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
@@ -725,6 +749,9 @@
       <widget class="QPushButton" name="okButton">
        <property name="text">
         <string>OK</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
