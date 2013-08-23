@@ -193,13 +193,13 @@
 
     if([fileManager isDirectory:fullpath])
     {
-        [cell setImage:[mainBundle imageForResource:@"folder.png"]];
+        [cell setImage:[NSImage imageNamed:@"folder.png"]];
         [cell setLeaf:NO];
     }
     else
     {
         if([[file pathExtension] isEqualToString:@"ck"])
-            [cell setImage:[mainBundle imageForResource:@"ckmini.png"]];
+            [cell setImage:[NSImage imageNamed:@"ckmini.png"]];
         else
             [cell setEnabled:NO];
         [cell setLeaf:YES];
