@@ -51,6 +51,7 @@
     NSTask * exportTask;
     mAExportProgressViewController * exportProgress;
     NSString *exportTempScriptPath;
+    NSString *exportWAVPath;
     
     BOOL limitDuration;
     float duration;
@@ -62,6 +63,8 @@
     
     id<mADocumentExporterDelegate> delegate;
     NSString * destinationPath;
+    
+    BOOL cancelled;
 }
 
 @property (nonatomic) BOOL limitDuration;

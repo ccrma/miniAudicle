@@ -41,11 +41,13 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
 @property (nonatomic, strong) NSTask * exportTask;
 @property (nonatomic, strong) mAExportProgressViewController * exportProgress;
 @property (nonatomic, strong) NSString * exportTempScriptPath;
+@property (nonatomic, strong) NSString * exportWAVPath;
 @property (nonatomic, strong) NSString * destinationPath;
 
 
 - (void)exportProgressDidCancel;
 - (void)exportTaskDidTerminate:(NSNotification *)n;
+- (void)cleanup;
 
 @end
 
@@ -54,7 +56,7 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
 
 @synthesize exportTask;
 @synthesize exportProgress;
-@synthesize exportTempScriptPath;
+@synthesize exportTempScriptPath, exportWAVPath;
 
 @synthesize destinationPath;
 
@@ -67,6 +69,7 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
     if(self = [super init])
     {
         document = _document;
+        self.destinationPath = path;
     }
     
     return self;
@@ -76,6 +79,7 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
 {
     NSString *filePath;
     self.exportTempScriptPath = nil;
+    self.exportWAVPath = tmpFilepath([[document displayName] stringByDeletingPathExtension], @"wav", nil, YES);
     
     if([document fileURL] && ![document isDocumentEdited])
     {
@@ -89,8 +93,6 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
         
         filePath = tmpFilepath([[document displayName] stringByDeletingPathExtension], @"ck", dir, YES);
         
-//        [[_viewController content] writeToFile:filePath atomically:YES
-//                                      encoding:NSUTF8StringEncoding error:nil];
         [document writeToURL:[NSURL fileURLWithPath:filePath]
                       ofType:@"ChucK Script"
                        error:NULL];
@@ -101,16 +103,16 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
     NSString * arg = [NSString stringWithFormat:@"%@:%@:%@:%i:%f",
                       [[NSBundle mainBundle] pathForResource:@"export.ck" ofType:nil],
                       filePath,
-                      self.destinationPath,
+                      self.exportWAVPath,
                       self.limitDuration,
                       self.duration];
     
-    NSLog(@"chuck --silent %@", arg);
+//    NSLog(@"chuck --silent %@", arg);
     
     self.exportTask = [[[NSTask alloc] init] autorelease];
     
     [self.exportTask setLaunchPath:[[NSBundle mainBundle] pathForResource:@"chuck" ofType:nil]];
-    [self.exportTask setArguments:@[@"--silent", arg]];
+    [self.exportTask setArguments:@[@"--silent", @"--standalone", arg]];
     if([document fileURL])
         [self.exportTask setCurrentDirectoryPath:[[[document fileURL] path] stringByDeletingLastPathComponent]];
     
@@ -129,6 +131,8 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
                                     modalDelegate:nil
                                    didEndSelector:nil
                                       contextInfo:nil];
+    
+    cancelled = NO;
 }
 
 - (void)exportProgressDidCancel
@@ -136,6 +140,7 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
     //[self.exportTask terminate];
     // use SIGINT to ensure proper cleanup in chuck binary
     kill(self.exportTask.processIdentifier, SIGINT);
+    cancelled = YES;
 }
 
 - (void)exportTaskDidTerminate:(NSNotification *)n
@@ -143,6 +148,68 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:NSTaskDidTerminateNotification
                                                   object:self.exportTask];
+    
+    if(cancelled)
+    {
+        [self cleanup];
+    }
+    else
+    {
+        if(self.exportWAV)
+        {
+            [[NSFileManager defaultManager] createDirectoryAtPath:[self.destinationPath stringByDeletingLastPathComponent]
+                                      withIntermediateDirectories:YES
+                                                       attributes:nil error:nil];
+            
+            [[NSFileManager defaultManager] copyItemAtPath:self.exportWAVPath
+                                                    toPath:[[self.destinationPath
+                                                             stringByDeletingPathExtension]
+                                                            stringByAppendingPathExtension:@"wav"]
+                                                     error:NULL];
+            
+            self.exportWAV = NO;
+            
+            [self exportTaskDidTerminate:n];
+        }
+        else if(self.exportOgg)
+        {
+            self.exportOgg = NO;
+        }
+        else if(self.exportM4A)
+        {
+            self.exportTask = [[[NSTask alloc] init] autorelease];
+            
+            [self.exportTask setLaunchPath:@"/usr/bin/afconvert"];
+            [self.exportTask setArguments:@[self.exportWAVPath,
+             @"-o", [[self.destinationPath
+                      stringByDeletingPathExtension]
+                     stringByAppendingPathExtension:@"m4a"],
+             @"-f", @"m4af",
+             @"-s", @"3",
+             @"-b", @"384000"]];
+            
+            [self.exportTask launch];
+            
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(exportTaskDidTerminate:)
+                                                         name:NSTaskDidTerminateNotification
+                                                       object:self.exportTask];
+            
+            self.exportM4A = NO;
+        }
+        else if(self.exportMP3)
+        {
+            self.exportMP3 = NO;
+        }
+        else
+        {
+            [self cleanup];
+        }
+    }
+}
+
+- (void)cleanup
+{
     [[NSApplication sharedApplication] endSheet:self.exportProgress.window];
     [self.exportProgress.window orderOut:self];
     self.exportProgress = nil;
@@ -153,21 +220,22 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
         [[NSFileManager defaultManager] removeItemAtPath:self.exportTempScriptPath error:NULL];
         self.exportTempScriptPath = nil;
     }
+    if(self.exportWAVPath != nil)
+    {
+        [[NSFileManager defaultManager] removeItemAtPath:self.exportWAVPath error:NULL];
+        self.exportWAVPath = nil;
+    }
 }
-
-
 
 @end
 
 
 NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL createEnclosingDirectory)
 {
-    if(base == nil)
-        base = @"temp";
-    if(extension == nil)
-        extension = @"";
-    else
-        extension = [@"." stringByAppendingPathExtension:extension];
+    if(base == nil) base = @"temp";
+    
+    if(extension == nil) extension = @"";
+    else extension = [@"." stringByAppendingPathExtension:extension];
     
     NSString * filePath;
     
