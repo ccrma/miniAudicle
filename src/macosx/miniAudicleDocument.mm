@@ -47,51 +47,9 @@ U.S.A.
 #import <objc/message.h>
 
 
-NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL createEnclosingDirectory)
-{
-    if(base == nil)
-        base = @"temp";
-    if(extension == nil)
-        extension = @"";
-    else
-        extension = [@"." stringByAppendingPathExtension:extension];
-    
-    NSString * filePath;
-    
-    if(dir == nil)
-    {
-        filePath = [NSTemporaryDirectory() stringByAppendingFormat:@"%@/%@%X%X%@",
-                    [[NSBundle mainBundle] bundleIdentifier],
-                    base,
-                    (int)(CFAbsoluteTimeGetCurrent()),
-                    (int)(fmod(CFAbsoluteTimeGetCurrent(),1.0)*1000.0),
-                    extension];
-    }
-    else
-    {
-        filePath = [dir stringByAppendingFormat:@"/%@%X%X%@",
-                    base,
-                    (int)(CFAbsoluteTimeGetCurrent()),
-                    (int)(fmod(CFAbsoluteTimeGetCurrent(),1.0)*1000.0),
-                    extension];
-    }
-    
-    if(createEnclosingDirectory)
-    {
-        [[NSFileManager defaultManager] createDirectoryAtPath:[filePath stringByDeletingLastPathComponent]
-                                  withIntermediateDirectories:YES
-                                                   attributes:nil error:nil];
-    }
-    
-    return filePath;
-}
-
-
 @interface miniAudicleDocument ()
 
-@property (nonatomic, strong) NSTask * exportTask;
-@property (nonatomic, strong) mAExportProgressViewController * exportProgress;
-@property (nonatomic, strong) NSString * exportTempScriptPath;
+@property (nonatomic, strong) mADocumentExporter * exporter;
 
 @end
 
@@ -103,7 +61,7 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
 @synthesize windowController = _windowController;
 @synthesize readOnly;
 
-@synthesize exportTask, exportProgress, exportTempScriptPath;
+@synthesize exporter;
 
 - (id)init
 {
@@ -334,12 +292,6 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
     mAExportAsViewController * viewController = [[mAExportAsViewController alloc] initWithNibName:@"mAExportAs" bundle:nil];
     [savePanel setAccessoryView:viewController.view];
 
-//    [[NSApplication sharedApplication] beginSheet:savePanel
-//                                   modalForWindow:[self.windowController window]
-//                                    modalDelegate:self
-//                                   didEndSelector:@selector(didEndExportSheet:returnCode:contextInfo:)
-//                                      contextInfo:viewController];
-    
     [savePanel beginSheetForDirectory:directory
                                  file:filename
                        modalForWindow:[self.windowController window]
@@ -361,87 +313,21 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
     {
         [viewController saveSettings];
         
-        NSString *filePath;
-        self.exportTempScriptPath = nil;
+        self.exporter = [[mADocumentExporter alloc] initWithDocument:self
+                                                     destinationPath:[[savePanel URL] path]];
         
-        if([self fileURL] && ![self isDocumentEdited])
-        {
-            filePath = [[self fileURL] path];
-        }
-        else
-        {
-            NSString *dir = nil;
-            if([self fileURL])
-                dir = [[[self fileURL] path] stringByDeletingLastPathComponent];
-            
-            filePath = tmpFilepath([[self displayName] stringByDeletingPathExtension], @"ck", dir, YES);
-            
-            [[_viewController content] writeToFile:filePath atomically:YES
-                                          encoding:NSUTF8StringEncoding error:nil];
-            
-            self.exportTempScriptPath = filePath;
-        }
+        self.exporter.limitDuration = viewController.limitDuration;
+        self.exporter.duration = viewController.duration;
+        self.exporter.exportWAV = viewController.exportWAV;
+        self.exporter.exportOgg = viewController.exportOgg;
+        self.exporter.exportM4A = viewController.exportM4A;
+        self.exporter.exportMP3 = viewController.exportMP3;
         
-        NSString * arg = [NSString stringWithFormat:@"%@:%@:%@:%i:%f",
-                          [[NSBundle mainBundle] pathForResource:@"export.ck" ofType:nil],
-                          filePath,
-                          [[savePanel URL] path],
-                          viewController.limitDuration,
-                          viewController.duration];
-        
-//        NSLog(@"chuck --silent %@", arg);
-        
-        self.exportTask = [[[NSTask alloc] init] autorelease];
-        
-        [self.exportTask setLaunchPath:[[NSBundle mainBundle] pathForResource:@"chuck" ofType:nil]];
-        [self.exportTask setArguments:@[@"--silent", arg]];
-        if([self fileURL])
-            [self.exportTask setCurrentDirectoryPath:[[[self fileURL] path] stringByDeletingLastPathComponent]];
-        
-        [self.exportTask launch];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(exportTaskDidTerminate:)
-                                                     name:NSTaskDidTerminateNotification
-                                                   object:self.exportTask];
-        
-        self.exportProgress = [[[mAExportProgressViewController alloc] initWithWindowNibName:@"mAExportProgress"] autorelease];
-        self.exportProgress.delegate = self;
-        
-        [[NSApplication sharedApplication] beginSheet:self.exportProgress.window
-                                       modalForWindow:[self.windowController window]
-                                        modalDelegate:nil
-                                       didEndSelector:nil
-                                          contextInfo:nil];
+        [self.exporter startExportWithDelegate:self];
     }
     
     [viewController release];
 }
-
-- (void)exportProgressDidCancel
-{
-    //[self.exportTask terminate];
-    // use SIGINT to ensure proper cleanup in chuck binary
-    kill(self.exportTask.processIdentifier, SIGINT);
-}
-
-- (void)exportTaskDidTerminate:(NSNotification *)n
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSTaskDidTerminateNotification
-                                                  object:self.exportTask];
-    [[NSApplication sharedApplication] endSheet:self.exportProgress.window];
-    [self.exportProgress.window orderOut:self];
-    self.exportProgress = nil;
-    self.exportTask = nil;
-    
-    if(self.exportTempScriptPath != nil)
-    {
-        [[NSFileManager defaultManager] removeItemAtPath:self.exportTempScriptPath error:NULL];
-        self.exportTempScriptPath = nil;
-    }
-}
-
 
 
 #pragma mark UKFileWatcherDelegate

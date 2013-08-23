@@ -1,0 +1,201 @@
+/*----------------------------------------------------------------------------
+ miniAudicle
+ Cocoa GUI to chuck audio programming environment
+ 
+ Copyright (c) 2005-2013 Spencer Salazar.  All rights reserved.
+ http://chuck.cs.princeton.edu/
+ http://soundlab.cs.princeton.edu/
+ 
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+ U.S.A.
+ -----------------------------------------------------------------------------*/
+
+//
+//  mADocumentExporter.m
+//  miniAudicle
+//
+//  Created by Spencer Salazar on 8/22/13.
+//
+//
+
+#import "mADocumentExporter.h"
+#import "miniAudicleDocument.h"
+
+
+NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL createEnclosingDirectory);
+
+@interface mADocumentExporter ()
+
+@property (nonatomic, strong) NSTask * exportTask;
+@property (nonatomic, strong) mAExportProgressViewController * exportProgress;
+@property (nonatomic, strong) NSString * exportTempScriptPath;
+@property (nonatomic, strong) NSString * destinationPath;
+
+
+- (void)exportProgressDidCancel;
+- (void)exportTaskDidTerminate:(NSNotification *)n;
+
+@end
+
+
+@implementation mADocumentExporter
+
+@synthesize exportTask;
+@synthesize exportProgress;
+@synthesize exportTempScriptPath;
+
+@synthesize destinationPath;
+
+@synthesize limitDuration, duration;
+@synthesize exportWAV, exportMP3, exportOgg, exportM4A;
+
+- (id)initWithDocument:(miniAudicleDocument *)_document
+       destinationPath:(NSString *)path
+{
+    if(self = [super init])
+    {
+        document = _document;
+    }
+    
+    return self;
+}
+
+- (void)startExportWithDelegate:(id<mADocumentExporterDelegate>)delegate
+{
+    NSString *filePath;
+    self.exportTempScriptPath = nil;
+    
+    if([document fileURL] && ![document isDocumentEdited])
+    {
+        filePath = [[document fileURL] path];
+    }
+    else
+    {
+        NSString *dir = nil;
+        if([document fileURL])
+            dir = [[[document fileURL] path] stringByDeletingLastPathComponent];
+        
+        filePath = tmpFilepath([[document displayName] stringByDeletingPathExtension], @"ck", dir, YES);
+        
+//        [[_viewController content] writeToFile:filePath atomically:YES
+//                                      encoding:NSUTF8StringEncoding error:nil];
+        [document writeToURL:[NSURL fileURLWithPath:filePath]
+                      ofType:@"ChucK Script"
+                       error:NULL];
+        
+        self.exportTempScriptPath = filePath;
+    }
+    
+    NSString * arg = [NSString stringWithFormat:@"%@:%@:%@:%i:%f",
+                      [[NSBundle mainBundle] pathForResource:@"export.ck" ofType:nil],
+                      filePath,
+                      self.destinationPath,
+                      self.limitDuration,
+                      self.duration];
+    
+    NSLog(@"chuck --silent %@", arg);
+    
+    self.exportTask = [[[NSTask alloc] init] autorelease];
+    
+    [self.exportTask setLaunchPath:[[NSBundle mainBundle] pathForResource:@"chuck" ofType:nil]];
+    [self.exportTask setArguments:@[@"--silent", arg]];
+    if([document fileURL])
+        [self.exportTask setCurrentDirectoryPath:[[[document fileURL] path] stringByDeletingLastPathComponent]];
+    
+    [self.exportTask launch];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(exportTaskDidTerminate:)
+                                                 name:NSTaskDidTerminateNotification
+                                               object:self.exportTask];
+    
+    self.exportProgress = [[[mAExportProgressViewController alloc] initWithWindowNibName:@"mAExportProgress"] autorelease];
+    self.exportProgress.delegate = self;
+    
+    [[NSApplication sharedApplication] beginSheet:self.exportProgress.window
+                                   modalForWindow:[document.windowController window]
+                                    modalDelegate:nil
+                                   didEndSelector:nil
+                                      contextInfo:nil];
+}
+
+- (void)exportProgressDidCancel
+{
+    //[self.exportTask terminate];
+    // use SIGINT to ensure proper cleanup in chuck binary
+    kill(self.exportTask.processIdentifier, SIGINT);
+}
+
+- (void)exportTaskDidTerminate:(NSNotification *)n
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSTaskDidTerminateNotification
+                                                  object:self.exportTask];
+    [[NSApplication sharedApplication] endSheet:self.exportProgress.window];
+    [self.exportProgress.window orderOut:self];
+    self.exportProgress = nil;
+    self.exportTask = nil;
+    
+    if(self.exportTempScriptPath != nil)
+    {
+        [[NSFileManager defaultManager] removeItemAtPath:self.exportTempScriptPath error:NULL];
+        self.exportTempScriptPath = nil;
+    }
+}
+
+
+
+@end
+
+
+NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL createEnclosingDirectory)
+{
+    if(base == nil)
+        base = @"temp";
+    if(extension == nil)
+        extension = @"";
+    else
+        extension = [@"." stringByAppendingPathExtension:extension];
+    
+    NSString * filePath;
+    
+    if(dir == nil)
+    {
+        filePath = [NSTemporaryDirectory() stringByAppendingFormat:@"%@/%@%X%X%@",
+                    [[NSBundle mainBundle] bundleIdentifier],
+                    base,
+                    (int)(CFAbsoluteTimeGetCurrent()),
+                    (int)(fmod(CFAbsoluteTimeGetCurrent(),1.0)*1000.0),
+                    extension];
+    }
+    else
+    {
+        filePath = [dir stringByAppendingFormat:@"/%@%X%X%@",
+                    base,
+                    (int)(CFAbsoluteTimeGetCurrent()),
+                    (int)(fmod(CFAbsoluteTimeGetCurrent(),1.0)*1000.0),
+                    extension];
+    }
+    
+    if(createEnclosingDirectory)
+    {
+        [[NSFileManager defaultManager] createDirectoryAtPath:[filePath stringByDeletingLastPathComponent]
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil error:nil];
+    }
+    
+    return filePath;
+}
+
