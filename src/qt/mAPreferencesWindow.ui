@@ -57,7 +57,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="audioTab">
       <attribute name="title">
@@ -113,7 +113,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <property name="spacing">
-          <number>-1</number>
+          <number>6</number>
          </property>
          <item>
           <widget class="QLabel" name="label">
@@ -159,32 +159,13 @@
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
           <widget class="QLabel" name="label_3">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-             <horstretch>1</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>108</width>
-             <height>0</height>
-            </size>
-           </property>
            <property name="text">
             <string>Output channels:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="outputChannels">
-           <property name="maximumSize">
-            <size>
-             <width>100</width>
-             <height>16777215</height>
-            </size>
-           </property>
-          </widget>
+          <widget class="QComboBox" name="outputChannels"/>
          </item>
          <item>
           <spacer name="horizontalSpacer_3">
@@ -201,18 +182,6 @@
          </item>
          <item>
           <widget class="QLabel" name="label_4">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-             <horstretch>1</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>100</width>
-             <height>0</height>
-            </size>
-           </property>
            <property name="text">
             <string>Input channels:</string>
            </property>
@@ -222,14 +191,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="inputChannels">
-           <property name="maximumSize">
-            <size>
-             <width>100</width>
-             <height>16777215</height>
-            </size>
-           </property>
-          </widget>
+          <widget class="QComboBox" name="inputChannels"/>
          </item>
         </layout>
        </item>
@@ -350,6 +312,12 @@
          </item>
          <item>
           <widget class="QFontComboBox" name="font">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>1</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="currentFont">
             <font>
              <family>Courier New</family>
@@ -595,6 +563,12 @@
          </property>
          <item>
           <widget class="QToolButton" name="removeChuginButton">
+           <property name="minimumSize">
+            <size>
+             <width>25</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="font">
             <font>
              <weight>75</weight>
@@ -608,6 +582,12 @@
          </item>
          <item>
           <widget class="QToolButton" name="addChuginButton">
+           <property name="minimumSize">
+            <size>
+             <width>25</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="font">
             <font>
              <weight>75</weight>
@@ -707,13 +687,13 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="spacing">
-      <number>-1</number>
+      <number>6</number>
      </property>
      <item>
       <widget class="QPushButton" name="restoreDefaultsButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
+         <horstretch>1</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
@@ -732,7 +712,7 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>20</width>
+         <width>100</width>
          <height>20</height>
         </size>
        </property>
@@ -740,6 +720,12 @@
      </item>
      <item>
       <widget class="QPushButton" name="cancelButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>1</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>Cancel</string>
        </property>
@@ -747,6 +733,12 @@
      </item>
      <item>
       <widget class="QPushButton" name="okButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>1</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>OK</string>
        </property>
