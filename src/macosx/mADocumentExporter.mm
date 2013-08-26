@@ -171,22 +171,18 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
             
             [self exportTaskDidTerminate:n];
         }
-        else if(self.exportOgg)
-        {
-            self.exportOgg = NO;
-        }
         else if(self.exportM4A)
         {
             self.exportTask = [[[NSTask alloc] init] autorelease];
             
             [self.exportTask setLaunchPath:@"/usr/bin/afconvert"];
-            [self.exportTask setArguments:@[self.exportWAVPath,
-             @"-o", [[self.destinationPath
-                      stringByDeletingPathExtension]
-                     stringByAppendingPathExtension:@"m4a"],
-             @"-f", @"m4af",
-             @"-s", @"3",
-             @"-b", @"384000"]];
+            [self.exportTask setArguments:@[
+             self.exportWAVPath,
+             @"-o", [[self.destinationPath stringByDeletingPathExtension] stringByAppendingPathExtension:@"m4a"],
+             @"-f", @"m4af", // M4A format
+             @"-s", @"3", // VBR mode
+             @"-b", @"192000", // 192 Kbps
+             ]];
             
             [self.exportTask launch];
             
@@ -197,8 +193,47 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
             
             self.exportM4A = NO;
         }
+        else if(self.exportOgg)
+        {
+            self.exportTask = [[[NSTask alloc] init] autorelease];
+            
+            [self.exportTask setLaunchPath:@"/usr/local/bin/oggenc"];
+            [self.exportTask setArguments:@[
+             @"-Q", // silent mode
+             @"-o", [[self.destinationPath stringByDeletingPathExtension] stringByAppendingPathExtension:@"ogg"],
+             @"-b", @"192", // 192 Kbps
+             self.exportWAVPath,
+             ]];
+            
+            [self.exportTask launch];
+            
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(exportTaskDidTerminate:)
+                                                         name:NSTaskDidTerminateNotification
+                                                       object:self.exportTask];
+            
+            self.exportOgg = NO;
+        }
         else if(self.exportMP3)
         {
+            self.exportTask = [[[NSTask alloc] init] autorelease];
+            
+            [self.exportTask setLaunchPath:@"/opt/local/bin/lame"];
+            [self.exportTask setArguments:@[
+             @"-S", // silent
+             @"-v", // VBR
+             @"-b", @"192", // 192 Kbps bitrate
+             self.exportWAVPath,
+             [[self.destinationPath stringByDeletingPathExtension] stringByAppendingPathExtension:@"mp3"],
+             ]];
+            
+            [self.exportTask launch];
+            
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(exportTaskDidTerminate:)
+                                                         name:NSTaskDidTerminateNotification
+                                                       object:self.exportTask];
+
             self.exportMP3 = NO;
         }
         else
@@ -235,7 +270,7 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
     if(base == nil) base = @"temp";
     
     if(extension == nil) extension = @"";
-    else extension = [@"." stringByAppendingPathExtension:extension];
+    else extension = [@"." stringByAppendingString:extension];
     
     NSString * filePath;
     
