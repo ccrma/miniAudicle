@@ -126,9 +126,10 @@ void mADocumentView::exportAsWav()
         QString runScriptFilename;
         // need to declare in outer scope -- will be deleted when the object is destructed
         QTemporaryFile runScript(QDir::tempPath() + "/runXXXXXX.ck");
+        
         if(file)
         {
-            runScriptFilename = QFileInfo(*file).canonicalFilePath().replace(':', "\\:");
+            runScriptFilename = QFileInfo(*file).canonicalFilePath();
         }
         else
         {
@@ -137,35 +138,25 @@ void mADocumentView::exportAsWav()
             runScript.flush();
             runScript.close();
             
-            runScriptFilename = QFileInfo(runScript).canonicalFilePath().replace(':', "\\:");
+            runScriptFilename = QFileInfo(runScript).canonicalFilePath();
         }
         
-        QString exportScriptFilename = QFileInfo(exportScript).canonicalFilePath().replace(':', "\\:");
-        outputFilename = outputFilename.replace(':', "\\:");
+        QString exportScriptFilename = QFileInfo(exportScript).canonicalFilePath();
+        QString tempWavFilename = QDir::tempPath() + "/outXXXXXX.wav";
         
-        QString arg = QString("%1:%2:%3:%4:%5").
-                arg(exportScriptFilename).
-                arg(runScriptFilename).
-                arg(outputFilename).
+        QString fileArg = QString("%1:%2:%3:%4:%5").
+                arg(QString(exportScriptFilename).replace(':', "\\:")).
+                arg(QString(runScriptFilename).replace(':', "\\:")).
+                arg(QString(tempWavFilename).replace(':', "\\:")).
                 arg(exportDialog.doLimit() ? 1 : 0).
                 arg(exportDialog.limitDuration());
         
-//        fprintf(stderr, "%s\n", arg.toAscii().constData());
-//        fflush(stderr);
-        
         QProcess process;
         QStringList args;
-        args.append("--silent");
-        args.append("--standalone");
-        //args.append("-v5");
-        args.append(arg);
+        args << "--silent" << "--standalone" << fileArg;
         process.setProcessChannelMode(QProcess::ForwardedChannels);
-        if(file)
-            process.setWorkingDirectory(QFileInfo(*file).dir().canonicalPath());
+        if(file) process.setWorkingDirectory(QFileInfo(*file).dir().canonicalPath());
         process.start(QCoreApplication::applicationDirPath() + "/bin/chuck", args);
-        //process.start("C:/Program Files/ChucK/bin/chuck", args);
-        
-        //process.waitForFinished(-1);
         
         QProgressDialog progress("Exporting", "Cancel", 0, 0, this);
         progress.setWindowModality(Qt::WindowModal);
@@ -173,22 +164,59 @@ void mADocumentView::exportAsWav()
         
         progress.show();
    
+        bool exportWAV = exportDialog.exportWAV();
+        bool exportOgg = exportDialog.exportOgg();
+        bool exportMP3 = exportDialog.exportMP3();
+        
         bool cancelled = false;
+        
         while(true)
         {
-            if(progress.wasCanceled())
+            while(true)
             {
-                cancelled = true;
-                break;
+                if(progress.wasCanceled()) { cancelled = true; break; }
+                if(process.waitForFinished(10)) break;
+                QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
             }
             
-//            if(process.state() == QProcess::NotRunning)
-//                break;
+            if(cancelled) break;
             
-            if(process.waitForFinished(10))
+            if(exportWAV)
+            {
+                /* export WAV */
+                exportWAV = false;
+
+                QFileInfo info = QFileInfo(outputFilename);
+//                fprintf(stderr, "%s -> \n", tempWavFilename.toAscii().data());
+//                fprintf(stderr, "%s\n", (info.dir().path() + "/" + info.baseName() + ".wav").toAscii().data());
+//                fflush(stderr);
+                QFile::copy(tempWavFilename, info.dir().path() + "/" + info.baseName() + ".wav");
+            }
+            
+            if(exportOgg)
+            {
+                /* export Ogg Vorbis */
+                exportOgg = false;
+                
+                QFileInfo info = QFileInfo(outputFilename);
+                QString outputOggFilename = info.dir().path() + "/" + info.baseName() + ".ogg";
+                QStringList args;
+                args << "-Q" << "-b" << "192" << "-o" << outputOggFilename << tempWavFilename;
+                process.start(QCoreApplication::applicationDirPath() + "/utils/oggenc2", args);
+            }
+            else if(exportMP3)
+            {
+                /* export MP3 */
+                exportMP3 = false;
+                
+                QFileInfo info = QFileInfo(outputFilename);
+                QString outputMP3Filename = info.dir().path() + "/" + info.baseName() + ".mp3";
+                QStringList args;
+                args << "-S" << "-v" << "-b" << "192" << tempWavFilename << outputMP3Filename;
+                process.start(which("lame"), args);
+            }
+            else
                 break;
-            
-            QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
         }
                 
         if(cancelled)
@@ -202,6 +230,8 @@ void mADocumentView::exportAsWav()
 #endif
             process.waitForFinished(10);
         }
+        
+        QFile::remove(tempWavFilename);
                 
         progress.hide();        
     }
@@ -505,3 +535,4 @@ void mADocumentView::remove()
         m_lastResult = output;        
     }    
 }
+

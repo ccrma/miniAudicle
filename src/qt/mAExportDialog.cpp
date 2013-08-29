@@ -2,6 +2,8 @@
 #include "ui_mAExportDialog.h"
 
 #include "ZSettings.h"
+#include <QProcessEnvironment>
+#include <QFileInfo>
 
 
 mAExportDialog::mAExportDialog(QWidget *parent) :
@@ -14,6 +16,15 @@ mAExportDialog::mAExportDialog(QWidget *parent) :
     
     ui->limit->setChecked(settings.get("/Export/DoLimit", false).toBool());
     ui->duration->setValue((int)settings.get("/Export/Duration", 30.0).toFloat());
+    
+    ui->wavCheckbox->setChecked(true);
+    ui->oggCheckbox->setChecked(false);
+    ui->mp3Checkbox->setChecked(false);
+    
+    if(which("lame").length() > 0)
+        ui->mp3Checkbox->setHidden(false);
+    else
+        ui->mp3Checkbox->setHidden(true);
 }
 
 mAExportDialog::~mAExportDialog()
@@ -36,3 +47,45 @@ float mAExportDialog::limitDuration()
 {
     return ui->duration->value();
 }
+
+bool mAExportDialog::exportWAV()
+{
+    return ui->wavCheckbox->isChecked();
+}
+
+bool mAExportDialog::exportOgg()
+{
+    return ui->oggCheckbox->isChecked();
+}
+
+bool mAExportDialog::exportMP3()
+{
+    return ui->mp3Checkbox->isChecked();
+}
+
+
+QString which(const QString &bin)
+{
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    
+    QString pathVar = env.value("PATH");
+#ifdef WIN32
+    QStringList paths = pathVar.split(';');
+#else
+    QStringList paths = pathVar.split(':');
+#endif
+    
+    foreach(QString path, paths)
+    {
+        QString binPath = path + "/" + bin;
+#ifdef WIN32
+        binPath += ".exe";
+#endif
+        QFileInfo binInfo(binPath);
+        if(binInfo.exists() && binInfo.isExecutable())
+            return binPath;
+    }
+    
+    return bin;
+}
+
