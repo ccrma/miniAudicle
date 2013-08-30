@@ -2,6 +2,8 @@
 DESTDIR=/usr/bin
 CHUCK_SRC_DIR=chuck/src
 
+QMAKE?=qmake
+
 CHUGINS_SRC_ROOT=chugins
 CHUGINS=ABSaturator Bitcrusher FIR KasFilter PanN
 CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGINS),$(CHUGINS_SRC_ROOT)/$(CHUG)/$(CHUG).chug)
@@ -32,13 +34,13 @@ linux-jack: makefile.qt-jack
 	-+make -f $< $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
 makefile.qt-jack: miniAudicle.pro
-	+qmake "RTAUDIO_BACKEND=JACK" -o $@ $<
+	+$(QMAKE) "RTAUDIO_BACKEND=JACK" -o $@ $<
 
 linux-alsa: makefile.qt-alsa
 	-+make -f $< $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
 makefile.qt-alsa: miniAudicle.pro
-	+qmake "RTAUDIO_BACKEND=ALSA" -o $@ $<
+	+$(QMAKE) "RTAUDIO_BACKEND=ALSA" -o $@ $<
 
 windows: 
 	-+make -f makefile.win32 $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
