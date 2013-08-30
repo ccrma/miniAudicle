@@ -3,6 +3,10 @@
 
 #include <QDialog>
 
+
+extern QString which(const QString &bin);
+
+
 namespace Ui {
 class mAExportDialog;
 }
@@ -17,6 +21,10 @@ public:
     
     bool doLimit();
     float limitDuration();
+    
+    bool exportWAV();
+    bool exportOgg();
+    bool exportMP3();
     
 private:
     Ui::mAExportDialog *ui;

@@ -32,11 +32,11 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     a.setStyle("windowsvista");
     
-    for(int i = 0; i < a.arguments().length(); i++)
-    {
-        fprintf(stderr, "arg: %s\n", a.arguments()[i].toUtf8().constData());
-        fflush(stderr);
-    }
+//    for(int i = 0; i < a.arguments().length(); i++)
+//    {
+//        fprintf(stderr, "arg: %s\n", a.arguments()[i].toUtf8().constData());
+//        fflush(stderr);
+//    }
     
     if(a.arguments().length() >= 2 && QFileInfo(a.arguments()[1]).exists())
     {
