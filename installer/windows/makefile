@@ -4,16 +4,26 @@ CHUCK_SRC_ROOT=../../../chuck
 CHUGINS_SRC_ROOT=../../../chugins
 CHUCK_EXAMPLES=../../src/chuck/src/examples
 
+VERSION_MK=$(MINI_SRC_ROOT)/src/version.mk
+
+include $(VERSION_MK)
+
 CHUGIN_NAMES=ABSaturator Bitcrusher FIR KasFilter PanN
 CHUGINS=$(addsuffix .chug,$(CHUGIN_NAMES))
 CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/Release/$(CHUG).chug)
 
-VERSION=1.3.2.0-beta-15
-INSTALLER=Install\ ChucK\ $(VERSION).msi
+INSTALLER=Install\ ChucK\ $(PKG_VERSION).msi
 
-default: $(INSTALLER)
+default: installer-deps
 
-$(INSTALLER): ChucK.wxs examples.wxs miniAudicle.exe chuck.exe $(CHUGINS) ck_dialog.bmp ck_banner.bmp gpl2.rtf
+installer: $(INSTALLER)
+
+upload: installer-deps
+	scp $< ccrma-gate.stanford.edu:Library/Web/chuck
+
+installer-deps: miniAudicle.exe chuck.exe $(CHUGINS) ck_dialog.bmp ck_banner.bmp gpl2.rtf $(INSTALLER)
+
+$(INSTALLER): ChucK.wxs examples.wxs 
 	candle ChucK.wxs examples.wxs
 	light -ext WixUIExtension -out "$@" ChucK.wixobj examples.wixobj
 
