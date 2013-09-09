@@ -235,7 +235,7 @@ $(BUNDLE_DATA): $(BIN_DIR)/miniAudicle.app/Contents/%: $(OSX_DIR)/%
 	cp $< $@
 	touch $(BIN_DIR)/miniAudicle.app
 
-$(INFO_PLIST_IN_BUNDLE): $(INFO_PLIST)
+$(INFO_PLIST_IN_BUNDLE): $(INFO_PLIST) version.mk
 	sed s/$$\(ENV_MA_VERSION\)/$(VERSION)/g $< > $@
 
 $(BUNDLE_FRAMEWORKS_IN_BUNDLE): $(BIN_DIR)/miniAudicle.app/Contents/Frameworks/%: $(OSX_DIR)/Frameworks/%
