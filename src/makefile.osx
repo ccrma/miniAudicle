@@ -208,13 +208,16 @@ CHUCK_SCRIPTS_IN_BUNDLE=$(addprefix $(BIN_DIR)/miniAudicle.app/Contents/Resource
 
 CHUCK_IN_BUNDLE=$(BIN_DIR)/miniAudicle.app/Contents/Resources/chuck
 
+OGGENC=$(OSX_DIR)/util/oggenc
+OGGENC_IN_BUNDLE=$(BIN_DIR)/miniAudicle.app/Contents/Resources/oggenc
+
 CERT=Developer ID Application: Spencer Salazar (9GU9FHJ3JC)
 
 .PHONY: miniAudicle
 miniAudicle: $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(IMAGES) \
     $(NIBS) $(BUNDLE_DATA) $(BUNDLE_FRAMEWORKS_IN_BUNDLE) \
     $(CHUCK_SCRIPTS_IN_BUNDLE) $(CHUCK_IN_BUNDLE) $(CK_EXAMPLES_IN_BUNDLE) \
-    $(INFO_PLIST_IN_BUNDLE)
+    $(INFO_PLIST_IN_BUNDLE) $(OGGENC_IN_BUNDLE)
 
 $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle: $(OBJS) $(CHUCK_OBJS) $(BIN_DIR)/miniAudicle.app/Contents/MacOS/
 	$(CXX) -o $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(OBJS) $(CHUCK_OBJS) $(LDFLAGS) $(ARCHOPTS)
@@ -246,6 +249,10 @@ $(CHUCK_SCRIPTS_IN_BUNDLE): $(addprefix $(CHUCK_SCRIPTS_DIR)/,$(CHUCK_SCRIPTS))
 $(CHUCK_IN_BUNDLE): $(CHUCK_BIN_OBJS)
 	mkdir -p $(dir $(CHUCK_IN_BUNDLE))
 	$(CXX) -o $(CHUCK_IN_BUNDLE) $(CHUCK_BIN_OBJS) $(LDFLAGS)
+
+$(OGGENC_IN_BUNDLE): $(OGGENC)
+	mkdir -p $(dir $(OGGENC_IN_BUNDLE))
+	cp $(OGGENC) $(OGGENC_IN_BUNDLE)
 
 $(filter %.strings,$(NIBS)): $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/%: $(OSX_DIR)/Resources/$(LANGUAGE).lproj/%
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/Resources/$(LANGUAGE).lproj/

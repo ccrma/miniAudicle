@@ -347,6 +347,10 @@ NSString *which(NSString *bin)
             return binPath;
     }
     
+    NSString *binPath = [[NSBundle mainBundle] pathForResource:@"oggenc" ofType:@""];
+    if([fileManager isExecutableFileAtPath:binPath])
+        return binPath;
+    
     return nil;
 }
 

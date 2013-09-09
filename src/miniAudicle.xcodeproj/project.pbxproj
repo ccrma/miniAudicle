@@ -31,6 +31,7 @@
 		09297A160B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
 		09297A170B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
 		09297A180B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
+		093659D017DDD0AA007E342C /* oggenc in Resources */ = {isa = PBXBuildFile; fileRef = 093659CF17DDD0AA007E342C /* oggenc */; };
 		093A212C14BF587500497856 /* mAChuginManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A212B14BF587500497856 /* mAChuginManager.mm */; };
 		093A212E14BFEF7F00497856 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093A212D14BFEF7F00497856 /* Security.framework */; };
 		093A213114BFF5DC00497856 /* BLAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A213014BFF5DC00497856 /* BLAuthentication.m */; };
@@ -433,6 +434,7 @@
 		0916F980173AF0D20055956C /* PSMTabBarControl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PSMTabBarControl.framework; path = macosx/Frameworks/PSMTabBarControl.framework; sourceTree = "<group>"; };
 		09216C09134ED4A900145064 /* MultitouchSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultitouchSupport.framework; path = System/Library/PrivateFrameworks/MultitouchSupport.framework; sourceTree = SDKROOT; };
 		092979FB0B4DED60005C3B7A /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = /System/Library/Frameworks/IOBluetooth.framework; sourceTree = "<absolute>"; };
+		093659CF17DDD0AA007E342C /* oggenc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = oggenc; sourceTree = "<group>"; };
 		093A212A14BF587500497856 /* mAChuginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAChuginManager.h; path = macosx/mAChuginManager.h; sourceTree = "<group>"; };
 		093A212B14BF587500497856 /* mAChuginManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAChuginManager.mm; path = macosx/mAChuginManager.mm; sourceTree = "<group>"; };
 		093A212D14BFEF7F00497856 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -864,6 +866,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		093659CE17DDD0AA007E342C /* util */ = {
+			isa = PBXGroup;
+			children = (
+				093659CF17DDD0AA007E342C /* oggenc */,
+			);
+			name = util;
+			path = macosx/util;
+			sourceTree = "<group>";
+		};
 		093E261914A108C8008694BC /* miniAudicle iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -1265,6 +1276,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				093659CE17DDD0AA007E342C /* util */,
 				09B66B641769DA9200A07ADF /* ckmini.png */,
 				098E28A2173A06600044336B /* InfoPlist.strings */,
 				098E28A4173A06600044336B /* mADocumentView.xib */,
@@ -1487,6 +1499,7 @@
 				09B66B5D1769A5CD00A07ADF /* examples in Resources */,
 				09B66B631769A65C00A07ADF /* mAExampleBrowser.xib in Resources */,
 				09B66B651769DA9200A07ADF /* ckmini.png in Resources */,
+				093659D017DDD0AA007E342C /* oggenc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
