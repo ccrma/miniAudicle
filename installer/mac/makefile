@@ -24,7 +24,7 @@ default: installer-deps
 installer: installer-deps
 
 upload: installer-deps
-	scp $< ccrma-gate.stanford.edu:Library/Web/chuck
+	scp $(INSTALLER) ccrma-gate.stanford.edu:Library/Web/chuck
 
 installer-deps: miniAudicle.app chuck $(CHUGINS) $(VERSION_MK) $(INSTALLER)
 
