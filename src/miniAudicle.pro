@@ -241,7 +241,8 @@ HEADERS  += qt/mAMainWindow.h \
     qt/mAPreferencesWindow.h \
     qt/mAExportDialog.h \
     qt/ZSettings.h \
-    qt/mASocketManager.h
+    qt/mASocketManager.h \
+    version.h
 
 FORMS += \
     qt/mAMainWindow.ui \
