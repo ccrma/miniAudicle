@@ -25,6 +25,11 @@ mAExportDialog::mAExportDialog(QWidget *parent) :
         ui->mp3Checkbox->setHidden(false);
     else
         ui->mp3Checkbox->setHidden(true);
+    
+    if(which("oggenc").length() > 0 || which("oggenc2").length() > 0)
+        ui->oggCheckbox->setHidden(false);
+    else
+        ui->oggCheckbox->setHidden(true);
 }
 
 mAExportDialog::~mAExportDialog()
@@ -71,9 +76,9 @@ QString which(const QString &bin)
     QString pathVar = env.value("PATH");
 #ifdef WIN32
     QStringList paths = pathVar.split(';');
-#else
+#else // !WIN32
     QStringList paths = pathVar.split(':');
-#endif
+#endif // WIN32
     
     foreach(QString path, paths)
     {
@@ -86,6 +91,13 @@ QString which(const QString &bin)
             return binPath;
     }
     
-    return bin;
+#ifdef WIN32
+    QString binPath = QCoreApplication::applicationDirPath() + "/util/" + bin + ".exe";
+    QFileInfo binInfo(binPath);
+    if(binInfo.exists() && binInfo.isExecutable())
+        return binPath;
+#endif // WIN32
+    
+    return "";
 }
 

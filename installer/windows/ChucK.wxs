@@ -45,6 +45,13 @@
                 <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]/bin" Permanent="no" Part="last" Action="set" System="yes" />
               </Component>
             </Directory>
+            
+            <Directory Id="util" Name="util">
+              <Component Id='oggencEXE' Guid='3B8BFD3D-2EBE-445a-89AE-376C4E4F8059'>
+                <File Id='oggencEXE' Name='oggenc.exe' DiskId='1' Source='oggenc.exe' KeyPath='yes' />
+              </Component>
+            </Directory>
+            
             <Directory Id="chugins" Name="chugins">
               <Component Id='ABSaturator' Guid='6A3BEC65-62B0-49bf-81BB-9B36D2FF02B1'>
                 <File Id='ABSaturator' Name='ABSaturator.chug' DiskId='1' Source='ABSaturator.chug' KeyPath='yes' />
@@ -81,6 +88,7 @@
       <Feature Id='MainProgram' Title='miniAudicle' Description='miniAudicle is an integrated development environment for the ChucK audio programming language. Highly recommended.' Level='1'>
         <ComponentRef Id='MainExecutable' />
         <ComponentRef Id='ProgramMenuDir' />
+        <ComponentRef Id='oggencEXE' />
       </Feature>
       <Feature Id='chuckEXE' Title='chuck.exe' Description='chuck.exe command line executable.' Level='1'>
         <ComponentRef Id='chuckEXE' />

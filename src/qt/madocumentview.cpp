@@ -187,9 +187,6 @@ void mADocumentView::exportAsWav()
                 exportWAV = false;
 
                 QFileInfo info = QFileInfo(outputFilename);
-//                fprintf(stderr, "%s -> \n", tempWavFilename.toAscii().data());
-//                fprintf(stderr, "%s\n", (info.dir().path() + "/" + info.baseName() + ".wav").toAscii().data());
-//                fflush(stderr);
                 QFile::copy(tempWavFilename, info.dir().path() + "/" + info.baseName() + ".wav");
             }
             
@@ -202,7 +199,18 @@ void mADocumentView::exportAsWav()
                 QString outputOggFilename = info.dir().path() + "/" + info.baseName() + ".ogg";
                 QStringList args;
                 args << "-Q" << "-b" << "192" << "-o" << outputOggFilename << tempWavFilename;
-                process.start(QCoreApplication::applicationDirPath() + "/utils/oggenc2", args);
+                
+                QString bin = which("oggenc");
+                if(bin.length() == 0)
+                    bin = which("oggenc2");
+                
+                if(bin.length() > 0)
+                    process.start(bin, args);
+                else
+                {
+                    fprintf(stderr, "[miniAudicle]: error: unable to find oggenc executable\n");
+                    fflush(stderr);
+                }
             }
             else if(exportMP3)
             {
@@ -213,7 +221,15 @@ void mADocumentView::exportAsWav()
                 QString outputMP3Filename = info.dir().path() + "/" + info.baseName() + ".mp3";
                 QStringList args;
                 args << "-S" << "-v" << "-b" << "192" << tempWavFilename << outputMP3Filename;
-                process.start(which("lame"), args);
+                QString bin = which("lame");
+                
+                if(bin.length() > 0)
+                    process.start(bin, args);
+                else
+                {
+                    fprintf(stderr, "[miniAudicle]: error: unable to find lame executable\n");
+                    fflush(stderr);
+                }
             }
             else
                 break;
