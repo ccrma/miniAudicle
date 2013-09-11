@@ -175,7 +175,14 @@ void mADocumentView::exportAsWav()
             while(true)
             {
                 if(progress.wasCanceled()) { cancelled = true; break; }
+#ifdef WIN32
+                if(process.waitForFinished(10)) break;
+#else // !WIN32
+                // seems to be necessary to check both on Linux
+                // whereas on Windows state() is NotRunning before the process has started
+                // palm => face
                 if(process.state() == QProcess::NotRunning || process.waitForFinished(10)) break;
+#endif // WIN32
                 QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
             }
             
