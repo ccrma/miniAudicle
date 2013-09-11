@@ -156,9 +156,9 @@ void mADocumentView::exportAsWav()
         args << "--silent" << "--standalone" << fileArg;
         process.setProcessChannelMode(QProcess::ForwardedChannels);
         if(file) process.setWorkingDirectory(QFileInfo(*file).dir().canonicalPath());
-        process.start(QCoreApplication::applicationDirPath() + "/bin/chuck", args);
+        process.start(which("chuck"), args);
         
-        QProgressDialog progress("Exporting", "Cancel", 0, 0, this);
+        QProgressDialog progress("Running ChucK Script", "Cancel", 0, 0, this);
         progress.setWindowModality(Qt::WindowModal);
         progress.setValue(0);
         
@@ -175,7 +175,7 @@ void mADocumentView::exportAsWav()
             while(true)
             {
                 if(progress.wasCanceled()) { cancelled = true; break; }
-                if(process.waitForFinished(10)) break;
+                if(process.state() == QProcess::NotRunning || process.waitForFinished(10)) break;
                 QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
             }
             
@@ -195,6 +195,8 @@ void mADocumentView::exportAsWav()
                 /* export Ogg Vorbis */
                 exportOgg = false;
                 
+                progress.setLabelText("Encoding Ogg Vorbis file");
+
                 QFileInfo info = QFileInfo(outputFilename);
                 QString outputOggFilename = info.dir().path() + "/" + info.baseName() + ".ogg";
                 QStringList args;
@@ -217,6 +219,8 @@ void mADocumentView::exportAsWav()
                 /* export MP3 */
                 exportMP3 = false;
                 
+                progress.setLabelText("Encoding MP3 file");
+
                 QFileInfo info = QFileInfo(outputFilename);
                 QString outputMP3Filename = info.dir().path() + "/" + info.baseName() + ".mp3";
                 QStringList args;
@@ -242,7 +246,8 @@ void mADocumentView::exportAsWav()
             SetConsoleCtrlHandler(NULL, TRUE); // disable Control+C handling for our app
             GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0); // generate Control+C event
 #else
-            kill(process.pid(), SIGINT);
+            if(process.state() != QProcess::NotRunning)
+                kill(process.pid(), SIGINT);
 #endif
             process.waitForFinished(10);
         }

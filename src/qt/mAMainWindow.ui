@@ -512,7 +512,7 @@
   </action>
   <action name="actionExport_as_WAV">
    <property name="text">
-    <string>Export as WAV...</string>
+    <string>Export...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Alt+E</string>
