@@ -1,18 +1,5 @@
-KNOWN BUGS (miniAudicle-0.2.2c (gidora))
+KNOWN BUGS (miniAudicle-1.2.3 (gidora))
 ----------------------------------------
-
-- miniAudicle will not run on Linux with wxWidgets 2.8 or higher and GTK 2.8 or 
-  lower.  The only solution at this point is to use wxWidgets 2.6 or GTK 2.10.  
-  wxWidgets 2.8 and 2.6 can coexist on the same installation without interfering
-  with each other; to compile miniAudicle using wx 2.6 on a system that has 2.6
-  and 2.8, enter the following command (in bash) before running make:
-  
-      export WX_OPTIONS="--version=2.6"
-      
-  For systems with GTK 2.10, miniAudicle will run with either wxWidgets 2.6 or 
-  2.8.  
-
-- On Windows Vista, miniAudicle must be run in Windows XP emulation mode.
 
 - console output causes general performance degradation over time on OS X.  If
   you right-click the console monitor, an option to "Clear Buffer" will appear,
