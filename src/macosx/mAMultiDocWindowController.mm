@@ -714,6 +714,14 @@
     [vc removelast:sender];
 }
 
+- (void)clearVM:(id)sender
+{
+    NSTabViewItem *tabViewItem = [tabView selectedTabViewItem];
+    mADocumentViewController *vc = (mADocumentViewController *) tabViewItem.identifier;
+    [vc clearVM:sender];
+}
+
+
 - (void)setShowsTabBar:(BOOL)_stb
 {
     _showsTabBar = _stb;

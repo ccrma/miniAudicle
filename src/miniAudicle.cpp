@@ -363,6 +363,23 @@ t_OTF_RESULT miniAudicle::removelast( t_CKUINT docid, string & out )
     return handle_reply( docid, out );
 }
 
+//-----------------------------------------------------------------------------
+// name: clearvm()
+// desc: ...
+//-----------------------------------------------------------------------------
+t_OTF_RESULT miniAudicle::clearvm( t_CKUINT docid, string & out )
+{
+    Chuck_Msg * msg = new Chuck_Msg;
+    
+    msg->type = MSG_CLEARVM;
+    msg->reply = ( ck_msg_func )1;
+    
+    vm->queue_msg( msg, 1 );
+    
+    // check results
+    return handle_reply( docid, out );
+}
+
 t_OTF_RESULT miniAudicle::handle_reply( t_CKUINT docid, string & out )
 {
     last_result[docid].result = OTF_UNDEFINED;
@@ -916,6 +933,9 @@ t_CKBOOL miniAudicle::start_vm()
         
         // pop log
         EM_poplog();
+        
+        // load user namespace
+        compiler->env->load_user_namespace();
         
         // start the vm handler threads
 #ifndef __PLATFORM_WIN32__
