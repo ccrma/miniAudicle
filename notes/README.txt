@@ -1,6 +1,6 @@
 miniAudicle
 Windows
-version 0.2.0 (Gidora)
+version 1.2.3 (Gidora)
 
 Binary Release Installation Instructions
 ----------------------------------------
@@ -28,6 +28,6 @@ miniAudicle Copyright (c) 2006 Spencer Salazar
 ChucK Copyright (c) Ge Wang and Perry Cook
 
 miniAudicle incorporates some or all of libsndfile (Copyright (c)
-Erik de Castro Lopo, http://www.mega-nerd.com/libsndfile), wxWidgets, RtAudio, 
+Erik de Castro Lopo, http://www.mega-nerd.com/libsndfile), Qt, OggEnc, RtAudio,
 and STK.
 

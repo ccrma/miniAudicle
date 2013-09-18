@@ -1,4 +1,18 @@
 ---
+1.2.3
+    - (added) chuck-1.3.2.0
+    - (added) (Win/Linux) completely new GUI architecture based on Qt
+    - (added) export as WAV + Ogg + M4A (Mac only) + MP3 (if lame exe present)
+    - (added) examples browser
+    - (added) editor tabs
+    - (added) complex/polar type names highlighted
+    - (added) Class/UGen type names types highlighted
+    - (fixed) better read-only file handling
+    - (fixed)(Mac) chugin browser icons not appearing in 10.5/10.6
+    - (fixed)(Mac) better MAUI stability
+    - (fixed)(Windows) Windows XP emulation mode no longer required on Vista/7
+
+---
 0.2.2
     - (added) chuck-1.3.1.0
     - (fixed) 64-bit support
