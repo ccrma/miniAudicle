@@ -19,16 +19,12 @@ INSTALLER=chuck-$(PKG_VERSION).pkg
 PACKAGEMAKER=/Applications/PackageMaker.app/Contents/MacOS/PackageMaker
 CERT=Developer ID Installer: Spencer Salazar (9GU9FHJ3JC)
 
-default: installer-deps
+default: $(INSTALLER)
 
-installer: installer-deps
-
-upload: installer-deps
+upload: $(INSTALLER)
 	scp $(INSTALLER) ccrma-gate.stanford.edu:Library/Web/chuck
 
-installer-deps: miniAudicle.app chuck $(CHUGINS) $(VERSION_MK) $(INSTALLER)
-
-$(INSTALLER): ChucK.pmdoc
+$(INSTALLER): ChucK.pmdoc miniAudicle.app chuck $(CHUGINS) $(VERSION_MK)
 	$(PACKAGEMAKER) --doc $< --out $@ --certificate "$(CERT)" --version $(PKG_VERSION)
 	mv $@ $@-unsigned
 	productsign --sign "$(CERT)" $@-unsigned $@
