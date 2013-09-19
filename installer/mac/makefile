@@ -14,7 +14,7 @@ CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/$(CH
 OWNER=root
 GROUP=wheel
 
-INSTALLER=ChucK-$(PKG_VERSION).pkg
+INSTALLER=chuck-$(PKG_VERSION).pkg
 
 PACKAGEMAKER=/Applications/PackageMaker.app/Contents/MacOS/PackageMaker
 CERT=Developer ID Installer: Spencer Salazar (9GU9FHJ3JC)
