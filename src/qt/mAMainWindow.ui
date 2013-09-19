@@ -115,6 +115,7 @@
     <addaction name="separator"/>
     <addaction name="actionRemove_Last_Shred"/>
     <addaction name="actionRemove_All_Shreds"/>
+    <addaction name="actionClear_Virtual_Machine"/>
     <addaction name="separator"/>
     <addaction name="actionAbort_Currently_Running_Shred"/>
     <addaction name="separator"/>
@@ -158,7 +159,7 @@
    <addaction name="actionReplace_Shred"/>
    <addaction name="actionRemove_Shred"/>
    <addaction name="actionRemove_Last_Shred"/>
-   <addaction name="actionRemove_All_Shreds"/>
+   <addaction name="actionClear_Virtual_Machine"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNew">
@@ -336,15 +337,8 @@
    </property>
   </action>
   <action name="actionRemove_All_Shreds">
-   <property name="icon">
-    <iconset resource="miniAudicle.qrc">
-     <normaloff>:/icon/removeall.png</normaloff>:/icon/removeall.png</iconset>
-   </property>
    <property name="text">
     <string>Remove All Shreds</string>
-   </property>
-   <property name="shortcut">
-    <string>Alt+Del</string>
    </property>
   </action>
   <action name="actionRemove_Last_Shred">
@@ -516,6 +510,21 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Alt+E</string>
+   </property>
+  </action>
+  <action name="actionClear_Virtual_Machine">
+   <property name="icon">
+    <iconset resource="miniAudicle.qrc">
+     <normaloff>:/icon/removeall.png</normaloff>:/icon/removeall.png</iconset>
+   </property>
+   <property name="text">
+    <string>Clear Virtual Machine</string>
+   </property>
+   <property name="toolTip">
+    <string>Clear Virtual Machine</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Del, Ctrl+S</string>
    </property>
   </action>
  </widget>
@@ -1020,6 +1029,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionClear_Virtual_Machine</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>clearVM()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>exit()</slot>
@@ -1043,5 +1068,6 @@
   <slot>saveAs()</slot>
   <slot>tabSelected(int)</slot>
   <slot>abortCurrentShred()</slot>
+  <slot>clearVM()</slot>
  </slots>
 </ui>

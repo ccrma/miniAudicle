@@ -74,6 +74,8 @@ public slots:
     void removeCurrentDocument();
     void removeLastShred();
     void removeAllShreds();
+    void clearVM();
+    
     void abortCurrentShred();
     void toggleVM();
     void setLogLevel();

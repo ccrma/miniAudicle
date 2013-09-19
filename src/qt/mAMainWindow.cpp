@@ -597,6 +597,12 @@ void mAMainWindow::removeAllShreds()
     ma->removeall(m_docid, result);
 }
 
+void mAMainWindow::clearVM()
+{
+    string result;
+    ma->clearvm(m_docid, result);
+}
+
 void mAMainWindow::abortCurrentShred()
 {
     ma->abort_current_shred();

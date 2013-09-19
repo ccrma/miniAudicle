@@ -85,8 +85,8 @@
         <item>
          <widget class="QPushButton" name="removeLastButton">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+            <horstretch>1</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
@@ -110,7 +110,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0">
         <item>
          <widget class="QLabel" name="label_2">
           <property name="sizePolicy">
@@ -152,8 +152,8 @@
         <item>
          <widget class="QPushButton" name="removeAllButton">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+            <horstretch>1</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
@@ -170,7 +170,7 @@
            </size>
           </property>
           <property name="text">
-           <string>remove all</string>
+           <string>clear VM</string>
           </property>
          </widget>
         </item>

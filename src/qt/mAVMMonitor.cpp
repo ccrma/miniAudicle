@@ -111,7 +111,7 @@ void mAVMMonitor::toggleVM()
 void mAVMMonitor::removeAll()
 {
     string result;
-    ma->removeall(m_docid, result);
+    ma->clearvm(m_docid, result);
 }
 
 void mAVMMonitor::removeLast()
