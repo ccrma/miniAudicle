@@ -64,7 +64,7 @@ const char *mAsciLexerChucK::keywords(int set) const
                "super interface implements protected "
                "private function fun spork const new now "
                "true false maybe null NULL me pi samp ms "
-               "second minute hour day week dac adc blackhole ";
+               "second minute hour day week dac adc blackhole chout cherr";
     if(set == 2) // class names
         return "Object "
                 "string "
@@ -75,6 +75,7 @@ const char *mAsciLexerChucK::keywords(int set) const
                 "Event "
                 "IO "
                 "FileIO "
+                "SerialIO "
                 "StdOut "
                 "StdErr "
                 "Windowing "
@@ -83,6 +84,7 @@ const char *mAsciLexerChucK::keywords(int set) const
                 "KBHit "
                 "ConsoleInput "
                 "StringTokenizer "
+                "RegEx "
                 "Math "
                 "OscSend "
                 "OscEvent "
@@ -93,6 +95,7 @@ const char *mAsciLexerChucK::keywords(int set) const
                 "MidiRW "
                 "MidiMsgIn "
                 "MidiMsgOut "
+                "MidiFileIn "
                 "HidMsg "
                 "Hid ";
 
