@@ -100,6 +100,7 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     ui->actionReplace_All_Open_Documents->setEnabled(vm_on);
     ui->actionRemove_All_Open_Documents->setEnabled(vm_on);
     ui->actionAbort_Currently_Running_Shred->setEnabled(vm_on);
+    ui->actionClear_Virtual_Machine->setEnabled(vm_on);
 
     updateRecentFilesMenu();
 
@@ -677,6 +678,7 @@ void mAMainWindow::toggleVM()
     ui->actionReplace_All_Open_Documents->setEnabled(vm_on);
     ui->actionRemove_All_Open_Documents->setEnabled(vm_on);
     ui->actionAbort_Currently_Running_Shred->setEnabled(vm_on);
+    ui->actionClear_Virtual_Machine->setEnabled(vm_on);
 }
 
 
