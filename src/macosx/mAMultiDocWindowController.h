@@ -71,6 +71,7 @@
 - (IBAction)replace:(id)sender;
 - (IBAction)removeall:(id)sender;
 - (IBAction)removelast:(id)sender;
+- (IBAction)clearVM:(id)sender;
 
 - (void)setShowsTabBar:(BOOL)_showsTabBar;
 - (BOOL)showsTabBar;

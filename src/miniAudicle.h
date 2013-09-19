@@ -95,6 +95,7 @@ public:
     t_OTF_RESULT remove_shred( t_CKUINT docid, t_CKINT shred_id, string & out );
     t_OTF_RESULT removeall( t_CKUINT docid, string & out );
     t_OTF_RESULT removelast( t_CKUINT docid, string & out );
+    t_OTF_RESULT clearvm( t_CKUINT docid, string & out );
     t_OTF_RESULT status( Chuck_VM_Status * status);
     t_OTF_RESULT handle_reply( t_CKUINT docid, string & out );
     

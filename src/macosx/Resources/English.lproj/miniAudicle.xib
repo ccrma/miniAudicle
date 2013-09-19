@@ -1028,6 +1028,16 @@
 									<reference key="NSMixedImage" ref="954038292"/>
 									<int key="NSTag">1</int>
 								</object>
+								<object class="NSMenuItem" id="581795302">
+									<reference key="NSMenu" ref="645130214"/>
+									<string key="NSTitle">Clear Virtual Machine</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="142581069"/>
+									<reference key="NSMixedImage" ref="954038292"/>
+									<int key="NSTag">1</int>
+								</object>
 								<object class="NSMenuItem" id="564921792">
 									<reference key="NSMenu" ref="645130214"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -6458,6 +6468,14 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
+						<string key="label">clearVM:</string>
+						<reference key="source" ref="813931230"/>
+						<reference key="destination" ref="581795302"/>
+					</object>
+					<int key="connectionID">1520</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
 						<string key="label">modifyFont:</string>
 						<reference key="source" ref="322027555"/>
 						<reference key="destination" ref="589289141"/>
@@ -7776,6 +7794,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<reference ref="564921792"/>
 							<reference ref="369090832"/>
 							<reference ref="762358835"/>
+							<reference ref="581795302"/>
 						</object>
 						<reference key="parent" ref="404208001"/>
 					</object>
@@ -10468,6 +10487,11 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="object" ref="937955479"/>
 						<reference key="parent" ref="413252213"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1518</int>
+						<reference key="object" ref="581795302"/>
+						<reference key="parent" ref="645130214"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -10678,6 +10702,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<string>1503.IBPluginDependency</string>
 					<string>1507.IBPluginDependency</string>
 					<string>1510.IBPluginDependency</string>
+					<string>1518.IBPluginDependency</string>
 					<string>154.IBPluginDependency</string>
 					<string>155.IBPluginDependency</string>
 					<string>156.IBPluginDependency</string>
@@ -11175,6 +11200,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{21, 1139}, {306, 372}}</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -11421,7 +11447,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1517</int>
+			<int key="maxID">1520</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -11497,6 +11523,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>add:</string>
+							<string>clearVM:</string>
 							<string>closeTab:</string>
 							<string>remove:</string>
 							<string>removeall:</string>
@@ -11505,6 +11532,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -11518,6 +11546,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>add:</string>
+							<string>clearVM:</string>
 							<string>closeTab:</string>
 							<string>remove:</string>
 							<string>removeall:</string>
@@ -11528,6 +11557,10 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">add:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">clearVM:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -11634,6 +11667,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addOpenDocuments:</string>
 							<string>addShred:</string>
+							<string>clearVM:</string>
 							<string>connectToLocalVM:</string>
 							<string>connectToRemoteVM:</string>
 							<string>doConnectToRemoteVMDialog:</string>
@@ -11663,6 +11697,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -11699,6 +11734,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addOpenDocuments:</string>
 							<string>addShred:</string>
+							<string>clearVM:</string>
 							<string>connectToLocalVM:</string>
 							<string>connectToRemoteVM:</string>
 							<string>doConnectToRemoteVMDialog:</string>
@@ -11734,6 +11770,10 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">addShred:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">clearVM:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

@@ -129,6 +129,7 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
 - (IBAction)openDocumentInTab:(id)sender;
 - (IBAction)newWindow:(id)sender;
 - (IBAction)newTab:(id)sender;
+
 - (IBAction)addShred:(id)sender;
 - (IBAction)removeShred:(id)sender;
 - (IBAction)replaceShred:(id)sender;
@@ -137,8 +138,11 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
 - (IBAction)removeOpenDocuments:(id)sender;
 - (IBAction)removeAllShreds:(id)sender;
 - (IBAction)removeLastShred:(id)sender;
+- (IBAction)clearVM:(id)sender;
+
 - (IBAction)setLogLevel:(id)sender;
 - (IBAction)openMiniAudicleWebsite:(id)sender;
+
 - (IBAction)hideToolbar:(id)sender;
 - (IBAction)hideAllToolbars:(id)sender;
 - (IBAction)hideArguments:(id)sender;
@@ -147,6 +151,7 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
 - (IBAction)hideAllLineNumbers:(id)sender;
 - (IBAction)hideStatusBar:(id)sender;
 - (IBAction)hideAllStatusBars:(id)sender;
+
 - (IBAction)tileDocumentWindows:(id)sender;
 - (IBAction)doConnectToRemoteVMDialog:(id)sender;
 - (IBAction)connectToRemoteVM:(id)sender;

@@ -361,6 +361,19 @@ using namespace std;
     [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
 }
 
+- (void)clearVM:(id)sender
+{
+    string result;
+    if( !ma->clearvm( docid, result ) )
+    {
+        if([self.windowController currentViewController] == self)
+            [[text_view textView] animateRemoveAll];
+        [text_view setShowsErrorLine:NO];
+    }
+    
+    [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
+}
+
 
 #pragma mark NSKeyValueObserving
 

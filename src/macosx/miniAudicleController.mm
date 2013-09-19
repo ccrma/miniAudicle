@@ -652,13 +652,13 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 //-----------------------------------------------------------------------------
 - (void)removeAllShreds:(id)sender
 {
-//    if( [self currentDocument] )
-//        [[self currentDocument] removeall:sender];
-//    else
-//    {
+    //    if( [self currentDocument] )
+    //        [[self currentDocument] removeall:sender];
+    //    else
+    //    {
     string result;
     ma->removeall( docid, result );
-//    }
+    //    }
 }
 
 - (void)commentOut:(id)sender
@@ -676,6 +676,16 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
     string result;
     ma->removelast( docid, result );
 //    }
+}
+
+//-----------------------------------------------------------------------------
+// name: clearVM
+// desc: called by the GUI.  connected to the "Clear VM" menu item
+//-----------------------------------------------------------------------------
+- (void)clearVM:(id)sender
+{
+    string result;
+    ma->clearvm( docid, result );
 }
 
 - (void)abortCurrentShred:(id)sender

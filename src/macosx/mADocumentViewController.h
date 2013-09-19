@@ -79,6 +79,7 @@ class miniAudicle;
 - (void)replace:(id)sender;
 - (void)removeall:(id)sender;
 - (void)removelast:(id)sender;
+- (void)clearVM:(id)sender;
 
 - (void)setShowsArguments:(BOOL)_showsArguments;
 - (BOOL)showsArguments;
