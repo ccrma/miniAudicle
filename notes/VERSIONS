@@ -1,12 +1,14 @@
 ---
-1.2.3
+1.3.0
     - (added) chuck-1.3.2.0
     - (added) (Win/Linux) completely new GUI architecture based on Qt
+    - (added) Clear VM function -- remove all shreds and reset public user types
     - (added) export as WAV + Ogg + M4A (Mac only) + MP3 (if lame exe present)
     - (added) examples browser
     - (added) editor tabs
     - (added) complex/polar type names highlighted
-    - (added) Class/UGen type names types highlighted
+    - (added) highlight chout/cherr
+    - (added) Class/UGen type names highlighted
     - (fixed) better read-only file handling
     - (fixed)(Mac) chugin browser icons not appearing in 10.5/10.6
     - (fixed)(Mac) better MAUI stability
