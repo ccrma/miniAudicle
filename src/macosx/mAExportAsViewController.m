@@ -31,6 +31,7 @@
 //
 
 #import "mAExportAsViewController.h"
+#import "mADocumentExporter.h"
 
 NSString * const mAExportAsLimitDuration = @"mAExportAsLimitDuration";
 NSString * const mAExportAsDuration = @"mAExportAsDuration";
@@ -48,10 +49,12 @@ static BOOL g_lameAvailable = NO;
 @implementation mAExportAsViewController
 
 @synthesize limitDuration, duration;
+@synthesize exportWAV, exportOgg, exportM4A, exportMP3;
+@synthesize enableMP3;
 
 + (void)initialize
 {
-    g_lameAvailable = (system("which -s lame") == 0);
+    g_lameAvailable = (which(@"lame") != nil);
     
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{
                                     mAExportAsLimitDuration: @NO,

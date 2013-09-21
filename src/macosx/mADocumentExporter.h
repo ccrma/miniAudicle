@@ -34,6 +34,17 @@
 
 #import "mAExportProgressViewController.h"
 
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+NSString *which(NSString *bin);
+#ifdef __cplusplus
+}
+#endif
+
+
 @class miniAudicleDocument;
 @class mADocumentExporter;
 

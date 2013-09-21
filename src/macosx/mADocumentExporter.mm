@@ -35,7 +35,6 @@
 
 
 NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL createEnclosingDirectory);
-NSString *which(NSString *bin);
 
 @interface mADocumentExporter ()
 
@@ -347,7 +346,7 @@ NSString *which(NSString *bin)
             return binPath;
     }
     
-    NSString *binPath = [[NSBundle mainBundle] pathForResource:@"oggenc" ofType:@""];
+    NSString *binPath = [[NSBundle mainBundle] pathForResource:bin ofType:@""];
     if([fileManager isExecutableFileAtPath:binPath])
         return binPath;
     
