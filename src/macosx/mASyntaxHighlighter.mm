@@ -88,7 +88,9 @@ U.S.A.
     
     @"dac",
     @"adc",
-    @"blackhole"
+    @"blackhole",
+    @"chout",
+    @"cherr",
     ];
 }
 
@@ -124,6 +126,8 @@ U.S.A.
     @"MidiMsgOut",
     @"HidMsg",
     @"Hid",
+    @"RegEx",
+    @"SerialIO",
     ];
 }
 
