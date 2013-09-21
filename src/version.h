@@ -1,4 +1,4 @@
 
 #ifndef ENV_MA_VERSION
-#define ENV_MA_VERSION "0.2.3-rc-2"
+#define ENV_MA_VERSION "1.3.0"
 #endif // ENV_MA_VERSION
