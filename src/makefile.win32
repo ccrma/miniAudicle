@@ -127,6 +127,7 @@ clean:
 DIST_DIR=miniAudicle-$(VERSION)
 
 MSVC_RELEASE_DIR=Release
+QT_RELEASE_DIR=../build-miniAudicle-Static-Release/release/
 
 NOTES_DIR=../notes
 NOTES=README.txt COPYING LGPL BUGS VERSIONS
@@ -140,7 +141,7 @@ CHUCK_MANUAL_URL=http://chuck.stanford.edu/release/files/chuck_manual.pdf
 dist:
 	rm -rf $(DIST_DIR) miniAudicle-$(VERSION).zip
 	mkdir $(DIST_DIR)
-	cp $(MSVC_RELEASE_DIR)/miniAudicle.exe $(NOTES) $(DIST_DIR)
+	cp $(QT_RELEASE_DIR)/miniAudicle.exe $(NOTES) $(DIST_DIR)
 	cp -r $(CHUCK_SRC_DIR)/examples $(DIST_DIR)
 	mkdir $(DIST_DIR)/documentation
 #	-make -C $(CHUCK_MANUAL_DIR) > /dev/null
