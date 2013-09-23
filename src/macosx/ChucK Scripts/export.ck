@@ -1,8 +1,8 @@
 
 //cherr <= "export.ck" <= IO.nl();
 
-me.arg(0) @=> string ckFilename;
-me.arg(1) @=> string wavFilename;
+me.arg(0) => string ckFilename;
+me.arg(1) => string wavFilename;
 me.arg(2) => Std.atoi => int doLimit;
 me.arg(3) => Std.atof => float limit;
 
@@ -15,7 +15,7 @@ wavFilename => w.wavFilename;
 // temporary workaround to automatically close file on remove-shred
 null @=> w;
 
-Machine.add(ckFilename) => int shredId;
+ckFilename => ckEscape => Machine.add => int shredId;
 
 if(doLimit)
 {
@@ -29,4 +29,20 @@ else
     {
         1::second => now;
     }
+}
+
+fun string ckEscape(string _s)
+{
+    _s.substring(0) => string s;
+    // escape :
+    for(int i; i < s.length(); i++)
+    {
+        if(s.charAt(i) == ':')
+        {
+            s.replace(i, 1, "\\:");
+            i++;
+        }
+    }
+    
+    return s;
 }

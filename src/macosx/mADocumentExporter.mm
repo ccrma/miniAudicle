@@ -34,6 +34,13 @@
 #import "miniAudicleDocument.h"
 
 
+@interface NSString (CKEscape)
+
+- (NSString *)ckEscape;
+
+@end
+
+
 NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL createEnclosingDirectory);
 
 @interface mADocumentExporter ()
@@ -101,9 +108,9 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
     }
     
     NSString * arg = [NSString stringWithFormat:@"%@:%@:%@:%i:%f",
-                      [[NSBundle mainBundle] pathForResource:@"export.ck" ofType:nil],
-                      filePath,
-                      self.exportWAVPath,
+                      [[[NSBundle mainBundle] pathForResource:@"export.ck" ofType:nil] ckEscape],
+                      [filePath ckEscape],
+                      [self.exportWAVPath ckEscape],
                       self.limitDuration,
                       self.duration];
     
@@ -290,6 +297,16 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
         [[NSFileManager defaultManager] removeItemAtPath:self.exportWAVPath error:NULL];
         self.exportWAVPath = nil;
     }
+}
+
+@end
+
+
+@implementation NSString (CKEscape)
+
+- (NSString *)ckEscape
+{
+    return [self stringByReplacingOccurrencesOfString:@":" withString:@"\\:"];
 }
 
 @end
