@@ -37,7 +37,7 @@ QMAKE_LFLAGS += -m32
 }
 
 
-linux-g++ {
+linux-* {
 
 # use ALSA as default backend if no backend is specified
 !contains(RTAUDIO_BACKEND,JACK){
