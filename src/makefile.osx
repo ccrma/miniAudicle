@@ -128,11 +128,19 @@ CHUCK_CXXSRCS= $(CHUCK_SRC_DIR)/chuck_absyn.cpp $(CHUCK_SRC_DIR)/chuck_parse.cpp
 	$(CHUCK_SRC_DIR)/util_opsc.cpp $(CHUCK_SRC_DIR)/util_hid.cpp \
     $(CHUCK_SRC_DIR)/util_serial.cpp
 
+LO_CSRCS+= lo/address.c lo/blob.c lo/bundle.c lo/message.c lo/method.c \
+    lo/pattern_match.c lo/send.c lo/server.c lo/server_thread.c lo/timetag.c
+LO_CSRCS:=$(addprefix $(CHUCK_SRC_DIR)/,$(LO_CSRCS))
+
+LO_COBJS=$(LO_CSRCS:.c=.o)
+
+LO_CFLAGS=-DHAVE_CONFIG_H -I.
+
 CHUCK_BIN_CXXSRCS=$(CHUCK_SRC_DIR)/chuck_main.cpp
 
 CHUCK_COBJS=$(CHUCK_CSRCS:.c=.o) 
 CHUCK_CXXOBJS=$(CHUCK_CXXSRCS:.cpp=.o)
-CHUCK_OBJS+=$(CHUCK_COBJS) $(CHUCK_CXXOBJS)
+CHUCK_OBJS+=$(CHUCK_COBJS) $(CHUCK_CXXOBJS) $(LO_COBJS)
 
 CHUCK_BIN_CXXOBJS=$(CHUCK_BIN_CXXSRCS:.cpp=.o)
 CHUCK_BIN_OBJS=$(CHUCK_OBJS) $(CHUCK_BIN_CXXOBJS)
@@ -173,7 +181,7 @@ COBJS=$(CSRCS:.c=.o)
 CXXOBJS=$(CXXSRCS:.cpp=.o)
 OBJCOBJS=$(OBJCSRCS:.m=.o)
 OBJCXXOBJS=$(OBJCXXSRCS:.mm=.o)
-OBJS=$(COBJS) $(CXXOBJS) $(OBJCOBJS) $(OBJCXXOBJS)
+OBJS=$(COBJS) $(CXXOBJS) $(OBJCOBJS) $(OBJCXXOBJS) $(LO_COBJS)
 
 # example files
 CK_EXAMPLES_DIR=chuck/src/examples
@@ -278,6 +286,10 @@ $(CHUCK_CXXOBJS): %.o: %.cpp
 $(CHUCK_BIN_CXXOBJS): %.o: %.cpp
 	$(CXX) $(CFLAGS) $(ARCHOPTS) -c $< -o $@
 	@$(CXX) -MM $(CFLAGSDEPEND) $< > $*.d
+
+$(LO_COBJS): %.o: %.c
+	$(CC) $(CFLAGS) $(LO_CFLAGS) $(ARCHOPTS) -c $< -o $@
+	@$(CC) -MM -MQ "$@" $(CFLAGSDEPEND) $(LO_CFLAGS) $< > $*.d
 
 $(CHUCK_SRC_DIR)/chuck.tab.c $(CHUCK_SRC_DIR)/chuck.tab.h: $(CHUCK_SRC_DIR)/chuck.y
 	$(YACC) -dv -b $(CHUCK_SRC_DIR)/chuck $(CHUCK_SRC_DIR)/chuck.y

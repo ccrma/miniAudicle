@@ -28,6 +28,36 @@
 		091433031738C17C00666F0D /* mADocumentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 091433021738C17C00666F0D /* mADocumentViewController.mm */; };
 		0916F981173AF0D20055956C /* PSMTabBarControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0916F980173AF0D20055956C /* PSMTabBarControl.framework */; };
 		09216C0A134ED4A900145064 /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09216C09134ED4A900145064 /* MultitouchSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		0921D55918190216008F39D9 /* address.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54418190216008F39D9 /* address.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D55A18190216008F39D9 /* address.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54418190216008F39D9 /* address.c */; };
+		0921D55B18190216008F39D9 /* blob.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54518190216008F39D9 /* blob.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D55C18190216008F39D9 /* blob.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54518190216008F39D9 /* blob.c */; };
+		0921D55D18190216008F39D9 /* bundle.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54618190216008F39D9 /* bundle.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D55E18190216008F39D9 /* bundle.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54618190216008F39D9 /* bundle.c */; };
+		0921D55F18190216008F39D9 /* message.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55218190216008F39D9 /* message.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D56018190216008F39D9 /* message.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55218190216008F39D9 /* message.c */; };
+		0921D56118190216008F39D9 /* method.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55318190216008F39D9 /* method.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D56218190216008F39D9 /* method.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55318190216008F39D9 /* method.c */; };
+		0921D56318190216008F39D9 /* pattern_match.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55418190216008F39D9 /* pattern_match.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D56418190216008F39D9 /* pattern_match.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55418190216008F39D9 /* pattern_match.c */; };
+		0921D56518190216008F39D9 /* send.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55518190216008F39D9 /* send.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D56618190216008F39D9 /* send.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55518190216008F39D9 /* send.c */; };
+		0921D56718190216008F39D9 /* server.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55618190216008F39D9 /* server.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D56818190216008F39D9 /* server.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55618190216008F39D9 /* server.c */; };
+		0921D56918190216008F39D9 /* server_thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55718190216008F39D9 /* server_thread.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D56A18190216008F39D9 /* server_thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55718190216008F39D9 /* server_thread.c */; };
+		0921D56B18190216008F39D9 /* timetag.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55818190216008F39D9 /* timetag.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D56C18190216008F39D9 /* timetag.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55818190216008F39D9 /* timetag.c */; };
+		0921D56D18190283008F39D9 /* address.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54418190216008F39D9 /* address.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D56E18190283008F39D9 /* blob.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54518190216008F39D9 /* blob.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D56F18190283008F39D9 /* bundle.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54618190216008F39D9 /* bundle.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D57018190283008F39D9 /* message.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55218190216008F39D9 /* message.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D57118190283008F39D9 /* method.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55318190216008F39D9 /* method.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D57218190283008F39D9 /* pattern_match.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55418190216008F39D9 /* pattern_match.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D57318190283008F39D9 /* send.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55518190216008F39D9 /* send.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D57418190283008F39D9 /* server.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55618190216008F39D9 /* server.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D57518190283008F39D9 /* server_thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55718190216008F39D9 /* server_thread.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
+		0921D57618190283008F39D9 /* timetag.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55818190216008F39D9 /* timetag.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
 		09297A160B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
 		09297A170B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
 		09297A180B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
@@ -433,6 +463,27 @@
 		091433021738C17C00666F0D /* mADocumentViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mADocumentViewController.mm; path = macosx/mADocumentViewController.mm; sourceTree = "<group>"; };
 		0916F980173AF0D20055956C /* PSMTabBarControl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PSMTabBarControl.framework; path = macosx/Frameworks/PSMTabBarControl.framework; sourceTree = "<group>"; };
 		09216C09134ED4A900145064 /* MultitouchSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultitouchSupport.framework; path = System/Library/PrivateFrameworks/MultitouchSupport.framework; sourceTree = SDKROOT; };
+		0921D54418190216008F39D9 /* address.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = address.c; sourceTree = "<group>"; };
+		0921D54518190216008F39D9 /* blob.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = blob.c; sourceTree = "<group>"; };
+		0921D54618190216008F39D9 /* bundle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bundle.c; sourceTree = "<group>"; };
+		0921D54718190216008F39D9 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		0921D54818190216008F39D9 /* lo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lo.h; sourceTree = "<group>"; };
+		0921D54918190216008F39D9 /* lo_endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lo_endian.h; sourceTree = "<group>"; };
+		0921D54A18190216008F39D9 /* lo_errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lo_errors.h; sourceTree = "<group>"; };
+		0921D54B18190216008F39D9 /* lo_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lo_internal.h; sourceTree = "<group>"; };
+		0921D54C18190216008F39D9 /* lo_lowlevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lo_lowlevel.h; sourceTree = "<group>"; };
+		0921D54D18190216008F39D9 /* lo_macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lo_macros.h; sourceTree = "<group>"; };
+		0921D54E18190216008F39D9 /* lo_osc_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lo_osc_types.h; sourceTree = "<group>"; };
+		0921D54F18190216008F39D9 /* lo_throw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lo_throw.h; sourceTree = "<group>"; };
+		0921D55018190216008F39D9 /* lo_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lo_types.h; sourceTree = "<group>"; };
+		0921D55118190216008F39D9 /* lo_types_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lo_types_internal.h; sourceTree = "<group>"; };
+		0921D55218190216008F39D9 /* message.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = message.c; sourceTree = "<group>"; };
+		0921D55318190216008F39D9 /* method.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = method.c; sourceTree = "<group>"; };
+		0921D55418190216008F39D9 /* pattern_match.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pattern_match.c; sourceTree = "<group>"; };
+		0921D55518190216008F39D9 /* send.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = send.c; sourceTree = "<group>"; };
+		0921D55618190216008F39D9 /* server.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = server.c; sourceTree = "<group>"; };
+		0921D55718190216008F39D9 /* server_thread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = server_thread.c; sourceTree = "<group>"; };
+		0921D55818190216008F39D9 /* timetag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = timetag.c; sourceTree = "<group>"; };
 		092979FB0B4DED60005C3B7A /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = /System/Library/Frameworks/IOBluetooth.framework; sourceTree = "<absolute>"; };
 		093659CF17DDD0AA007E342C /* oggenc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = oggenc; sourceTree = "<group>"; };
 		093A212A14BF587500497856 /* mAChuginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAChuginManager.h; path = macosx/mAChuginManager.h; sourceTree = "<group>"; };
@@ -866,6 +917,34 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		0921D54318190216008F39D9 /* lo */ = {
+			isa = PBXGroup;
+			children = (
+				0921D54418190216008F39D9 /* address.c */,
+				0921D54518190216008F39D9 /* blob.c */,
+				0921D54618190216008F39D9 /* bundle.c */,
+				0921D54718190216008F39D9 /* config.h */,
+				0921D54818190216008F39D9 /* lo.h */,
+				0921D54918190216008F39D9 /* lo_endian.h */,
+				0921D54A18190216008F39D9 /* lo_errors.h */,
+				0921D54B18190216008F39D9 /* lo_internal.h */,
+				0921D54C18190216008F39D9 /* lo_lowlevel.h */,
+				0921D54D18190216008F39D9 /* lo_macros.h */,
+				0921D54E18190216008F39D9 /* lo_osc_types.h */,
+				0921D54F18190216008F39D9 /* lo_throw.h */,
+				0921D55018190216008F39D9 /* lo_types.h */,
+				0921D55118190216008F39D9 /* lo_types_internal.h */,
+				0921D55218190216008F39D9 /* message.c */,
+				0921D55318190216008F39D9 /* method.c */,
+				0921D55418190216008F39D9 /* pattern_match.c */,
+				0921D55518190216008F39D9 /* send.c */,
+				0921D55618190216008F39D9 /* server.c */,
+				0921D55718190216008F39D9 /* server_thread.c */,
+				0921D55818190216008F39D9 /* timetag.c */,
+			);
+			path = lo;
+			sourceTree = "<group>";
+		};
 		093659CE17DDD0AA007E342C /* util */ = {
 			isa = PBXGroup;
 			children = (
@@ -971,6 +1050,7 @@
 		09A40B000A9A52FC007604EA /* ChucK */ = {
 			isa = PBXGroup;
 			children = (
+				0921D54318190216008F39D9 /* lo */,
 				09B1E31F17A7338800050DF3 /* ulib_regex.cpp */,
 				09B1E32017A7338800050DF3 /* ulib_regex.h */,
 				090F4B3D171C61A700530FC7 /* chuck_io.cpp */,
@@ -1511,25 +1591,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				093E262014A108C8008694BC /* main.m in Sources */,
+				0921D56618190216008F39D9 /* send.c in Sources */,
 				093E262414A108C8008694BC /* mAAppDelegate.mm in Sources */,
 				093E262714A108C8008694BC /* mAMasterViewController.mm in Sources */,
 				093E262A14A108C8008694BC /* mADetailViewController.mm in Sources */,
 				093E263B14A12201008694BC /* uana_extract.cpp in Sources */,
 				093E263C14A12201008694BC /* uana_xform.cpp in Sources */,
 				093E263D14A12201008694BC /* chuck_absyn.cpp in Sources */,
+				0921D55E18190216008F39D9 /* bundle.c in Sources */,
 				093E263E14A12201008694BC /* chuck_bbq.cpp in Sources */,
 				093E263F14A12201008694BC /* chuck_compile.cpp in Sources */,
 				093E264014A12201008694BC /* chuck_console.cpp in Sources */,
 				093E264114A12201008694BC /* chuck_dl.cpp in Sources */,
 				093E264214A12201008694BC /* chuck_emit.cpp in Sources */,
+				0921D56C18190216008F39D9 /* timetag.c in Sources */,
 				093E264314A12201008694BC /* chuck_errmsg.cpp in Sources */,
 				093E264414A12201008694BC /* chuck_frame.cpp in Sources */,
 				093E264514A12201008694BC /* chuck_globals.cpp in Sources */,
 				093E264614A12201008694BC /* chuck_instr.cpp in Sources */,
 				093E264714A12201008694BC /* chuck_lang.cpp in Sources */,
 				093E264814A12201008694BC /* chuck_oo.cpp in Sources */,
+				0921D56A18190216008F39D9 /* server_thread.c in Sources */,
 				093E264914A12201008694BC /* chuck_otf.cpp in Sources */,
 				093E264A14A12201008694BC /* chuck_parse.cpp in Sources */,
+				0921D56018190216008F39D9 /* message.c in Sources */,
 				093E264B14A12201008694BC /* chuck_scan.cpp in Sources */,
 				093E264C14A12201008694BC /* chuck_shell.cpp in Sources */,
 				093E264D14A12201008694BC /* chuck_stats.cpp in Sources */,
@@ -1540,9 +1625,11 @@
 				093E265214A12201008694BC /* chuck_utils.cpp in Sources */,
 				093E265314A12201008694BC /* chuck_vm.cpp in Sources */,
 				093E265414A12234008694BC /* chuck.y in Sources */,
+				0921D55C18190216008F39D9 /* blob.c in Sources */,
 				093E265514A12234008694BC /* chuck.lex in Sources */,
 				093E265614A12234008694BC /* digiio_rtaudio.cpp in Sources */,
 				093E265714A12234008694BC /* hidio_sdl.cpp in Sources */,
+				0921D56218190216008F39D9 /* method.c in Sources */,
 				093E265814A12234008694BC /* midiio_rtmidi.cpp in Sources */,
 				093E265914A12234008694BC /* ugen_filter.cpp in Sources */,
 				093E265A14A12234008694BC /* ugen_osc.cpp in Sources */,
@@ -1565,13 +1652,16 @@
 				093E266B14A12234008694BC /* util_xforms.c in Sources */,
 				093E266D14A12240008694BC /* miniAudicle_shell.cpp in Sources */,
 				093E266F14A12240008694BC /* miniAudicle.cpp in Sources */,
+				0921D56818190216008F39D9 /* server.c in Sources */,
 				093E267014A12240008694BC /* miniAudicle_log.cpp in Sources */,
 				093E267814A12E3C008694BC /* mo_audio.mm in Sources */,
 				093E267F14A1B3B3008694BC /* mAChucKController.mm in Sources */,
 				09D00B8714A3C44B0019CD09 /* mATitleEditorController.m in Sources */,
+				0921D56418190216008F39D9 /* pattern_match.c in Sources */,
 				09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */,
 				09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.mm in Sources */,
 				09608ADF14B40DE4009450FE /* mAConsoleMonitorController.mm in Sources */,
+				0921D55A18190216008F39D9 /* address.c in Sources */,
 				090F4B43171C61A700530FC7 /* chuck_io.cpp in Sources */,
 				090F4B46171C61A700530FC7 /* util_serial.cpp in Sources */,
 				09B1E32317A7338800050DF3 /* ulib_regex.cpp in Sources */,
@@ -1586,6 +1676,7 @@
 				09805FFB0AA10D3900915136 /* chuck.y in Sources */,
 				09805FFC0AA10D3900915136 /* chuck_absyn.cpp in Sources */,
 				09805FFD0AA10D3A00915136 /* chuck_bbq.cpp in Sources */,
+				0921D57018190283008F39D9 /* message.c in Sources */,
 				09805FFE0AA10D3B00915136 /* chuck_compile.cpp in Sources */,
 				09805FFF0AA10D3C00915136 /* chuck_console.cpp in Sources */,
 				098060000AA10D3D00915136 /* chuck_dl.cpp in Sources */,
@@ -1595,14 +1686,19 @@
 				098060040AA10D4000915136 /* chuck_globals.cpp in Sources */,
 				098060050AA10D4000915136 /* chuck_instr.cpp in Sources */,
 				098060060AA10D4100915136 /* chuck_lang.cpp in Sources */,
+				0921D57618190283008F39D9 /* timetag.c in Sources */,
+				0921D57518190283008F39D9 /* server_thread.c in Sources */,
 				098060070AA10D4200915136 /* chuck_oo.cpp in Sources */,
 				098060080AA10D4300915136 /* chuck_otf.cpp in Sources */,
 				098060090AA10D4400915136 /* chuck_parse.cpp in Sources */,
+				0921D56D18190283008F39D9 /* address.c in Sources */,
 				0980600A0AA10D4500915136 /* chuck_scan.cpp in Sources */,
 				0980600B0AA10D4500915136 /* chuck_shell.cpp in Sources */,
 				0980600C0AA10D4600915136 /* chuck_stats.cpp in Sources */,
 				0980600D0AA10D4800915136 /* chuck_symbol.cpp in Sources */,
+				0921D57418190283008F39D9 /* server.c in Sources */,
 				0980600E0AA10D4800915136 /* chuck_table.cpp in Sources */,
+				0921D56E18190283008F39D9 /* blob.c in Sources */,
 				0980600F0AA10D4900915136 /* chuck_type.cpp in Sources */,
 				098060100AA10D4A00915136 /* chuck_ugen.cpp in Sources */,
 				098060110AA10D4C00915136 /* chuck_utils.cpp in Sources */,
@@ -1612,11 +1708,13 @@
 				098060150AA10D4E00915136 /* midiio_rtmidi.cpp in Sources */,
 				0980601C0AA14E4100915136 /* rtmidi.cpp in Sources */,
 				0980601D0AA14E4100915136 /* ugen_filter.cpp in Sources */,
+				0921D57318190283008F39D9 /* send.c in Sources */,
 				0980601E0AA14E4200915136 /* ugen_osc.cpp in Sources */,
 				0980601F0AA14E4500915136 /* ugen_stk.cpp in Sources */,
 				098060200AA14E4600915136 /* ugen_xxx.cpp in Sources */,
 				098060210AA14E4600915136 /* ulib_machine.cpp in Sources */,
 				098060220AA14E4700915136 /* ulib_math.cpp in Sources */,
+				0921D56F18190283008F39D9 /* bundle.c in Sources */,
 				098060230AA14E4800915136 /* ulib_opsc.cpp in Sources */,
 				098060240AA14E4B00915136 /* ulib_std.cpp in Sources */,
 				098060250AA14E4C00915136 /* util_buffers.cpp in Sources */,
@@ -1624,9 +1722,11 @@
 				098060280AA14E4F00915136 /* util_math.c in Sources */,
 				098060290AA14E5100915136 /* util_network.c in Sources */,
 				0980602A0AA14E5200915136 /* util_opsc.cpp in Sources */,
+				0921D57118190283008F39D9 /* method.c in Sources */,
 				0980602B0AA14E5300915136 /* util_raw.c in Sources */,
 				0980602C0AA14E5400915136 /* util_sndfile.c in Sources */,
 				0980602D0AA14E5500915136 /* util_string.cpp in Sources */,
+				0921D57218190283008F39D9 /* pattern_match.c in Sources */,
 				0980602E0AA14E5700915136 /* util_xforms.c in Sources */,
 				0980602F0AA14E5800915136 /* util_thread.cpp in Sources */,
 				098061AE0AA15BDB00915136 /* chuck_main.cpp in Sources */,
@@ -1725,6 +1825,7 @@
 				09A40B6E0A9A54DA007604EA /* chuck_errmsg.cpp in Sources */,
 				09A40B6F0A9A54DA007604EA /* chuck_frame.cpp in Sources */,
 				09A40B700A9A54DA007604EA /* chuck_globals.cpp in Sources */,
+				0921D56918190216008F39D9 /* server_thread.c in Sources */,
 				09A40B710A9A54DA007604EA /* chuck_instr.cpp in Sources */,
 				09A40B720A9A54DA007604EA /* chuck_lang.cpp in Sources */,
 				09A40B730A9A54DA007604EA /* chuck_oo.cpp in Sources */,
@@ -1736,12 +1837,14 @@
 				09A40B790A9A54DA007604EA /* chuck_symbol.cpp in Sources */,
 				09A40B7A0A9A54DA007604EA /* chuck_table.cpp in Sources */,
 				09A40B7B0A9A54DA007604EA /* chuck_type.cpp in Sources */,
+				0921D55918190216008F39D9 /* address.c in Sources */,
 				09A40B7C0A9A54DA007604EA /* chuck_ugen.cpp in Sources */,
 				09A40B7D0A9A54DA007604EA /* chuck_utils.cpp in Sources */,
 				09A40B7E0A9A54DA007604EA /* chuck_vm.cpp in Sources */,
 				09A40B800A9A54DA007604EA /* chuck.y in Sources */,
 				09A40B810A9A54DA007604EA /* digiio_rtaudio.cpp in Sources */,
 				09A40B820A9A54DA007604EA /* hidio_sdl.cpp in Sources */,
+				0921D56118190216008F39D9 /* method.c in Sources */,
 				09A40B830A9A54DA007604EA /* midiio_rtmidi.cpp in Sources */,
 				09A40B850A9A54DA007604EA /* rtmidi.cpp in Sources */,
 				09A40B860A9A54DA007604EA /* ugen_filter.cpp in Sources */,
@@ -1757,12 +1860,15 @@
 				09A40B910A9A54DA007604EA /* util_math.c in Sources */,
 				09A40B920A9A54DA007604EA /* util_network.c in Sources */,
 				09A40B930A9A54DA007604EA /* util_opsc.cpp in Sources */,
+				0921D56318190216008F39D9 /* pattern_match.c in Sources */,
 				09A40B940A9A54DA007604EA /* util_raw.c in Sources */,
 				09A40B950A9A54DA007604EA /* util_sndfile.c in Sources */,
 				09A40B960A9A54DA007604EA /* util_string.cpp in Sources */,
 				09A40B970A9A54DA007604EA /* util_thread.cpp in Sources */,
+				0921D55F18190216008F39D9 /* message.c in Sources */,
 				09A40B980A9A54DA007604EA /* util_xforms.c in Sources */,
 				09A40BBE0A9A55EC007604EA /* mASyntaxHighlighter.mm in Sources */,
+				0921D56518190216008F39D9 /* send.c in Sources */,
 				09A40BBF0A9A55EC007604EA /* miniAudicle_ui_elements.mm in Sources */,
 				09A40BC00A9A55EC007604EA /* miniAudicleConsoleMonitor.mm in Sources */,
 				09A40BC10A9A55EC007604EA /* miniAudicleController.mm in Sources */,
@@ -1778,11 +1884,15 @@
 				09A40BD30A9A5662007604EA /* miniAudicle.cpp in Sources */,
 				09A40D130A9A6185007604EA /* chuck.lex in Sources */,
 				090A5BE90AA75AEA005DC04D /* util_hid.cpp in Sources */,
+				0921D56718190216008F39D9 /* server.c in Sources */,
 				096FAB870B56D56B00125FE2 /* mAConsoleMonitorView.mm in Sources */,
 				09F37B070BC075AC005931F6 /* mABrowserController.mm in Sources */,
+				0921D55D18190216008F39D9 /* bundle.c in Sources */,
+				0921D55B18190216008F39D9 /* blob.c in Sources */,
 				090B4B1D0C4F038E00DF5577 /* uana_xform.cpp in Sources */,
 				09812B9B0C6E394A00D1D68C /* uana_extract.cpp in Sources */,
 				09820BA110941F7F001F662E /* miniAudicle_log.cpp in Sources */,
+				0921D56B18190216008F39D9 /* timetag.c in Sources */,
 				09AC749A13E36A970015CC99 /* RtAudio.cpp in Sources */,
 				093A212C14BF587500497856 /* mAChuginManager.mm in Sources */,
 				093A213114BFF5DC00497856 /* BLAuthentication.m in Sources */,
@@ -1991,6 +2101,11 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX_CORE__;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					chuck/src,
+				);
 				INSTALL_PATH = "$(HOME)/bin";
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				OTHER_LDFLAGS = (
@@ -2014,6 +2129,11 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX_CORE__;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					chuck/src,
+				);
 				INSTALL_PATH = "$(HOME)/bin";
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				OTHER_LDFLAGS = (
