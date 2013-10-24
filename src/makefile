@@ -2,7 +2,11 @@
 DESTDIR=/usr/bin
 CHUCK_SRC_DIR=chuck/src
 
+ifneq ($(shell which qmake-qt4),)
+QMAKE?=qmake-qt4
+else
 QMAKE?=qmake
+endif
 
 CHUGINS_SRC_ROOT=chugins
 CHUGINS=ABSaturator Bitcrusher FIR KasFilter PanN

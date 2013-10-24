@@ -81,7 +81,9 @@ void mAVMMonitor::vmChangedToState(bool vmOn)
 
         timerId = startTimer((int)(1000.0/VMMONITOR_REFRESH_RATE));
         
+#ifdef WIN32
         ui->toggleVMButton->setEnabled(false);
+#endif
     }
     else
     {
