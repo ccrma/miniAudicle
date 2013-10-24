@@ -57,7 +57,7 @@ QMAKE_CFLAGS_RELEASE -= -O2
 QMAKE_CFLAGS_RELEASE += -O3
 QMAKE_LFLAGS_RELEASE -= -O1
 
-CFLAGS += -D__CK_SNDFILE_NATIVE__ -D__LINUX__ -Ichuck/src
+CFLAGS += -D__CK_SNDFILE_NATIVE__ -D__LINUX__ -Ichuck/src -DHAVE_CONFIG_H
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LFLAGS +=
@@ -134,6 +134,16 @@ SOURCES += \
     chuck/src/chuck_bbq.cpp \
     chuck/src/chuck_absyn.cpp \
     chuck/src/RtAudio/RtAudio.cpp \
+    chuck/src/lo/address.c \
+    chuck/src/lo/blob.c \
+    chuck/src/lo/bundle.c \
+    chuck/src/lo/message.c \
+    chuck/src/lo/method.c \
+    chuck/src/lo/pattern_match.c \
+    chuck/src/lo/send.c \
+    chuck/src/lo/server.c \
+    chuck/src/lo/server_thread.c \
+    chuck/src/lo/timetag.c \
     qt/madocumentview.cpp \
     miniAudicle.cpp \
     # miniAudicle_shell.cpp \
