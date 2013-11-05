@@ -44,4 +44,4 @@ $(CHUGINS): $(CHUGINS_ORIGINAL)
 	cp -af $(CHUGINS_SRC_ROOT)/$(basename $@)/Release/$@  .
 
 clean: 
-	rm -rf miniAudicle.exe chuck $(CHUGINS) *.wixobj *.wixpdb *.msi examples examples.wxs
+	rm -rf miniAudicle.exe chuck.exe $(CHUGINS) *.wixobj *.wixpdb *.msi examples examples.wxs

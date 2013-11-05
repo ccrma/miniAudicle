@@ -25,6 +25,7 @@ PRECOMPILED_HEADER = qt/miniAudicle_pc.h
 
 LIBS += -lqscintilla2
 
+DEFINES += HAVE_CONFIG_H
 
 macx {
 CFLAGS = -D__MACOSX_CORE__ -m32 -I../src/chuck/src
@@ -142,7 +143,6 @@ SOURCES += \
     chuck/src/lo/pattern_match.c \
     chuck/src/lo/send.c \
     chuck/src/lo/server.c \
-    chuck/src/lo/server_thread.c \
     chuck/src/lo/timetag.c \
     qt/madocumentview.cpp \
     miniAudicle.cpp \
@@ -156,8 +156,7 @@ SOURCES += \
     qt/mAPreferencesWindow.cpp \
     qt/mAExportDialog.cpp \
     qt/ZSettings.cpp \
-    qt/mASocketManager.cpp
-
+    qt/mASocketManager.cpp 
 !linux-g++ {
     SOURCES += chuck/src/util_sndfile.c
 }
@@ -179,7 +178,6 @@ win32 {
     chuck/src/regex/xmalloc.c
 
     INCLUDEPATH += chuck/src/regex/
-    DEFINES += HAVE_CONFIG_H
 }
 
 HEADERS  += qt/mAMainWindow.h \
@@ -252,7 +250,18 @@ HEADERS  += qt/mAMainWindow.h \
     qt/mAExportDialog.h \
     qt/ZSettings.h \
     qt/mASocketManager.h \
-    version.h
+    version.h \
+    chuck/src/lo/lo_types_internal.h \
+    chuck/src/lo/lo_types.h \
+    chuck/src/lo/lo_throw.h \
+    chuck/src/lo/lo_osc_types.h \
+    chuck/src/lo/lo_macros.h \
+    chuck/src/lo/lo_lowlevel.h \
+    chuck/src/lo/lo_internal.h \
+    chuck/src/lo/lo_errors.h \
+    chuck/src/lo/lo_endian.h \
+    chuck/src/lo/lo.h \
+    chuck/src/lo/config.h
 
 FORMS += \
     qt/mAMainWindow.ui \
