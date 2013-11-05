@@ -69,6 +69,10 @@ static NSString * const remove_column_id = @"4";
     time_column = [[shred_table tableColumnWithIdentifier:@"time"] retain];
     remove_column = [[shred_table tableColumnWithIdentifier:@"remove"] retain];
     
+    NSCell * dataCell = [name_column dataCell];
+    [dataCell setLineBreakMode:NSLineBreakByTruncatingMiddle];
+    [name_column setDataCell:dataCell];
+    
     [shred_column setIdentifier:shred_column_id];
     [name_column setIdentifier:name_column_id];
     [time_column setIdentifier:time_column_id];
