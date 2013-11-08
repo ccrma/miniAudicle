@@ -43,10 +43,17 @@ linux-* {
 # use ALSA as default backend if no backend is specified
 !contains(RTAUDIO_BACKEND,JACK){
     !contains(RTAUDIO_BACKEND,ALSA){
-        message("No audio backend specified; enabling ALSA mode")
+        !contains(RTAUDIO_BACKEND,PULSE){
+            message("No audio backend specified; enabling PulseAudio mode")
+        }
+        else {
+            CFLAGS += -D__LINUX_PULSE__
+            LIBS += -lpulse-simple
+        }
     }
-
-    CFLAGS += -D__LINUX_ALSA__
+    else {
+        CFLAGS += -D__LINUX_ALSA__
+    }
 } else {
     CFLAGS += -D__LINUX_JACK__ -D__UNIX_JACK__
     LIBS += -ljack
@@ -58,7 +65,7 @@ QMAKE_CFLAGS_RELEASE -= -O2
 QMAKE_CFLAGS_RELEASE += -O3
 QMAKE_LFLAGS_RELEASE -= -O1
 
-CFLAGS += -D__CK_SNDFILE_NATIVE__ -D__LINUX__ -Ichuck/src -DHAVE_CONFIG_H
+CFLAGS += -D__CK_SNDFILE_NATIVE__ -D__LINUX__ -D__PLATFORM_LINUX__ -Ichuck/src -DHAVE_CONFIG_H
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LFLAGS +=

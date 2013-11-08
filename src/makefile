@@ -46,6 +46,12 @@ linux-alsa: makefile.qt-alsa
 makefile.qt-alsa: miniAudicle.pro
 	+$(QMAKE) "RTAUDIO_BACKEND=ALSA" -o $@ $<
 
+linux-pulse: makefile.qt-pulse
+	-+make -f $< $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+
+makefile.qt-pulse: miniAudicle.pro
+	+$(QMAKE) "RTAUDIO_BACKEND=PULSE" -o $@ $<
+
 windows: 
 	-+make -f makefile.win32 $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
