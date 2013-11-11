@@ -1,4 +1,4 @@
-KNOWN BUGS (miniAudicle-1.2.3 (gidora))
+KNOWN BUGS (miniAudicle-1.3.0 (gidora))
 ----------------------------------------
 
 - console output causes general performance degradation over time on OS X.  If
@@ -15,6 +15,6 @@ KNOWN BUGS (miniAudicle-1.2.3 (gidora))
 
 - auto-indentation still has a few problems on all platforms
 
-If you have any bugs to report, please send a stack trace, the output of the
+If you have any bugs to report, please post a stack trace, the output of the
 console monitor, the output of chuck --probe, and a description of the bug to
-ssalazar@cs.princeton.edu, or chuck-users@lists.cs.princeton.edu.   
+our email list: https://lists.cs.princeton.edu/mailman/listinfo/chuck-users   

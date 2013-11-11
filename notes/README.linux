@@ -1,6 +1,6 @@
 miniAudicle
 Linux (Qt)
-version 1.2.3 (Gidora)
+version 1.3.0 (Gidora)
 
 Source Installation Instructions
 --------------------------------
@@ -9,9 +9,9 @@ Source Installation Instructions
 package managers will have these readily available; if not, source is 
 generally available for each. 
 
-2. In the src/ directory of the miniAudicle distribution, type 'make linux-alsa' 
-or 'make linux-jack', choosing your preferred audio library. 
-If you are unsure of which one to use, use 'alsa'.  
+2. In the src/ directory of the miniAudicle distribution, enter 'make 
+linux-pulse', 'make linux-alsa' or 'make linux-jack', choosing your preferred 
+audio library. If you are unsure of which one to use, use 'linux-pulse'.  
 
 3. After the build has finished, the executable 'miniAudicle' will be placed in
 the src/ directory.  Happy ChucKing! 
@@ -33,11 +33,14 @@ libasound2-dev
 libsndfile1-dev
 libqt4-dev
 libqscintilla2-dev
+libpulse-dev (linux-pulse only)
+libjack-jackd2-dev (linux-jack only)
 
 On systems with apt-get available, running the following command with the full
 list of packages will ensure that all necessary packages are installed.
 
-$ sudo apt-get install [list of packages]
+$ sudo apt-get install make gcc g++ bison flex libasound2-dev libsndfile1-dev \
+    libqt4-dev libqscintilla2-dev [libpulse-dev] [libjack-jackd2-dev]
 
 
 Tips
@@ -51,17 +54,12 @@ the ChucK source (version 1.2.0.5 or greater), unlink 'chuck' and recreate it,
 linking to the root directory of the desired source distribution (i.e., the 
 directory enclosing src/, not src/ itself).  
 
-By default, miniAudicle assumes that you have libsndfile installed on your
-system.  If you dont have libsndfile on your system, you must install it, or
-edit the appropriate makefile as directed in the makefile.  libsndfile is 
-available at http://www.mega-nerd.com/libsndfile/
-
 Coming soon: more sophisticated build system, support for user interface 
 creation (MAUI elements), RPM/DEB distribution, 
 feature parity with miniAudicle on Mac OS X, etc...
 
-Email spencer@ccrma.stanford.edu or the chuck-users@cs.princeton.edu list
-with any questions, difficulties, complaints, or requests.
+Please forward any questions, difficulties, complaints, or requests to our 
+mailing list: https://lists.cs.princeton.edu/mailman/listinfo/chuck-users
 
 miniAudicle (c) 2006-2013 Spencer Salazar
 http://audicle.cs.princeton.edu/mini/

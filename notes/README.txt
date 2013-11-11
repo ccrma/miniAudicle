@@ -1,6 +1,6 @@
 miniAudicle
 Windows
-version 1.2.3 (Gidora)
+version 1.3.0 (Gidora)
 
 Binary Release Installation Instructions
 ----------------------------------------
@@ -14,17 +14,13 @@ Currently, it is not possible to stop and restart the virtual
 machine.  Additionally, miniAudicle User Interface Elements
 are not presently implemented.  
 
-On Windows Vista, it is necessary to run miniAudicle in Windows
-XP emulation mode.  
-
 For questions, support, documentation, example code, feature
 requests, and bug reports, please visit the miniAudicle website
 (http://audicle.cs.princeton.edu/mini/), the ChucK website 
-(http://chuck.cs.princeton.edu/), join the ChucK users mailing 
-list at http://lists.cs.princeton.edu/, or email the authors 
-at ssalazar@cs.princeton.edu.  
+(http://chuck.cs.princeton.edu/), or join the ChucK users mailing 
+list at https://lists.cs.princeton.edu/mailman/listinfo/chuck-users.   
 
-miniAudicle Copyright (c) 2006 Spencer Salazar
+miniAudicle Copyright (c) 2006-2013 Spencer Salazar
 ChucK Copyright (c) Ge Wang and Perry Cook
 
 miniAudicle incorporates some or all of libsndfile (Copyright (c)
