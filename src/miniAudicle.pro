@@ -48,7 +48,7 @@ linux-* {
         }
         else {
             CFLAGS += -D__LINUX_PULSE__
-            LIBS += -lpulse-simple
+            LIBS += -lpulse-simple -lpulse 
         }
     }
     else {
