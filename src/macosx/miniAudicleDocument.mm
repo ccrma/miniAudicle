@@ -47,6 +47,14 @@ U.S.A.
 #import <objc/message.h>
 
 
+@interface NSURL (mAUtil)
+
+- (BOOL)isEnclosedByDirectory:(NSURL *)dirPath;
+
+@end
+
+
+
 @interface miniAudicleDocument ()
 
 @property (nonatomic, strong) mADocumentExporter * exporter;
@@ -210,6 +218,8 @@ U.S.A.
 {
     [super setFileURL:url];
     
+    self.readOnly = [url isEnclosedByDirectory:[[NSBundle mainBundle] resourceURL]];
+        
 //    [fsEventsWatcher removeAllPaths];
 //    [fsEventsWatcher addPath:[url path]];
 }
@@ -379,3 +389,32 @@ U.S.A.
 
 
 @end
+
+
+@implementation NSURL (mAUtil)
+
+- (BOOL)isEnclosedByDirectory:(NSURL *)dirPath
+{
+    NSURL * filePath = [self standardizedURL];
+    dirPath = [dirPath standardizedURL];
+    
+    NSArray * fileComponents = [filePath pathComponents];
+    NSArray * dirComponents = [dirPath pathComponents];
+    
+    for(int i = 0; i < [dirComponents count]; i++)
+    {
+        if(i >= [fileComponents count])
+            return NO;
+        
+        NSString *fileComponent = [fileComponents objectAtIndex:i];
+        NSString *dirComponent = [dirComponents objectAtIndex:i];
+        
+        if([fileComponent compare:dirComponent options:NSCaseInsensitiveSearch] != NSOrderedSame)
+            return NO;
+    }
+    
+    return YES;
+}
+
+@end
+
