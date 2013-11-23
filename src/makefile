@@ -25,11 +25,11 @@ $(MAKECMDGOALS):
 
 else
 
-.PHONY: current osx linux-jack linux-alsa win32 windows
+.PHONY: current osx linux-jack linux-alsa linux-pulse win32 windows
 
 current: 
 	@echo "[miniAudicle build]: please use one of the following configurations:"
-	@echo "   make linux-alsa, make linux-jack, make osx, or make win32"
+	@echo "   make linux-alsa, make linux-pulse, make linux-jack, make osx, or make win32"
 
 osx: 
 	-+make -f makefile.osx $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
