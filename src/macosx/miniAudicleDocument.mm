@@ -202,13 +202,13 @@ U.S.A.
 
 - (NSData *)dataRepresentationOfType:(NSString *)type
 {
-    return [[_viewController content] dataUsingEncoding:NSASCIIStringEncoding
+    return [[_viewController content] dataUsingEncoding:NSUTF8StringEncoding
                                    allowLossyConversion:YES];
 }
 
 - (BOOL)loadDataRepresentation:(NSData *)_data ofType:(NSString *)type
 {
-    data = [[NSString alloc] initWithData:_data encoding:NSASCIIStringEncoding];
+    data = [[NSString alloc] initWithData:_data encoding:NSUTF8StringEncoding];
     [_viewController setContent:data];
     
     return YES;
