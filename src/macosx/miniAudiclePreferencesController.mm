@@ -758,7 +758,7 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
 - (IBAction)deleteChuginPath:(id)sender
 {
     NSIndexSet *selected = [chugin_table selectedRowIndexes];
-    int i = [selected lastIndex];
+    NSUInteger i = [selected lastIndex];
     do
     {
         [chugin_table deselectRow:i];
