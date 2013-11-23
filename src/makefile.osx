@@ -300,10 +300,11 @@ $(CHUCK_SRC_DIR)/chuck.yy.c: $(CHUCK_SRC_DIR)/chuck.lex
 # now build miniAudicle files
 miniAudicle.cpp: git-rev.h
 
-git-rev.h:
-	echo "#define GIT_REVISION \""`git rev-parse --short HEAD`"\"" > .git-rev-tmp
-	cmp -s .git-rev-tmp git-rev.h || cp .git-rev-tmp git-rev.h
-	rm .git-rev-tmp
+gitrev_FORCE:
+
+git-rev.h: gitrev_FORCE
+	echo "#define GIT_REVISION \""`git rev-parse --short HEAD`"\"" | cmp -s git-rev.h || \
+        echo "#define GIT_REVISION \""`git rev-parse --short HEAD`"\"" > git-rev.h
 
 $(COBJS): %.o: %.c
 	$(CC) $(CFLAGS) $(ARCHOPTS) -c $< -o $@
