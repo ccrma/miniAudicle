@@ -62,9 +62,13 @@ else ifneq ($(wildcard macosx/miniAudicle.app),)
 
 endif
 
-clean: 
+clean:
+ifneq ($(CK_TARGET),)
+	make -f makefile.$(CK_TARGET) clean
+else
 	-make -f makefile.qt* clean
 	rm -rf *.{o,d} qt/*.o miniAudicle macosx/*.{o,d} macosx/miniAudicle.app \
         macosx/Resources/English.lproj/*.nib makefile.qt*
 	-make -C $(CHUCK_SRC_DIR) clean
+endif
 

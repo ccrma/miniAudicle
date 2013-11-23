@@ -298,6 +298,8 @@ $(CHUCK_SRC_DIR)/chuck.yy.c: $(CHUCK_SRC_DIR)/chuck.lex
 	$(LEX) -o$(CHUCK_SRC_DIR)/chuck.yy.c $(CHUCK_SRC_DIR)/chuck.lex
 
 # now build miniAudicle files
+miniAudicle.cpp: git-rev.h
+
 git-rev.h:
 	echo "#define GIT_REVISION \""`git rev-parse --short HEAD`"\"" > .git-rev-tmp
 	cmp -s .git-rev-tmp git-rev.h || cp .git-rev-tmp git-rev.h
@@ -325,7 +327,8 @@ clean:
 	rm -rf $(OBJS) $(OBJS:.o=.d) $(CHUCK_OBJS) $(CHUCK_OBJS:.o=.d) \
         $(addprefix $(CHUCK_SRC_DIR)/,chuck.tab.h chuck.tab.c chuck.yy.c) \
         $(CHUCK_BIN_OBJS) $(CHUCK_BIN_OBJS:.o=.d) \
-        $(BIN_DIR)/miniAudicle.app $(DIST_DIR).dmg
+        $(BIN_DIR)/miniAudicle.app $(DIST_DIR).dmg \
+        git-rev.h
 	make -C $(CHUCK_SRC_DIR) clean
 
 .PHONY: clean-all
