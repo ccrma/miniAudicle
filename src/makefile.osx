@@ -298,7 +298,7 @@ $(CHUCK_SRC_DIR)/chuck.yy.c: $(CHUCK_SRC_DIR)/chuck.lex
 	$(LEX) -o$(CHUCK_SRC_DIR)/chuck.yy.c $(CHUCK_SRC_DIR)/chuck.lex
 
 # now build miniAudicle files
-miniAudicle.cpp: git-rev.h
+miniAudicle.o: git-rev.h
 
 gitrev_FORCE:
 
