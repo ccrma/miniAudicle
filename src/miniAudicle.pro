@@ -268,7 +268,7 @@ HEADERS  += qt/mAMainWindow.h \
     chuck/src/lo/lo_errors.h \
     chuck/src/lo/lo_endian.h \
     chuck/src/lo/lo.h \
-    chuck/src/lo/config.h
+    chuck/src/lo/config.h 
 
 FORMS += \
     qt/mAMainWindow.ui \
@@ -305,6 +305,18 @@ bisonheader.variable_out = HEADERS
 bisonheader.name = bison header
 bisonheader.depends = $$OBJECTS_DIR/${QMAKE_FILE_BASE}.tab.c
 QMAKE_EXTRA_COMPILERS += bisonheader
+
+gitrev.commands = echo \\$${LITERAL_HASH}define GIT_REVISION $$quote(\\\")`git rev-parse --short HEAD`$$quote(\\\") > .git-rev-tmp;\
+    cmp -s .git-rev-tmp git-rev.h || cp .git-rev-tmp git-rev.h;\
+    rm .git-rev-tmp
+gitrev.target = git-rev.h
+gitrev.depends = gitrev_FORCE
+gitrev.CONFIG += recursive
+QMAKE_EXTRA_TARGETS += gitrev
+
+gitrev_FORCE.commands = 
+gitrev_FORCE.CONFIG += recursive
+QMAKE_EXTRA_TARGETS += gitrev_FORCE
 
 RESOURCES += \
     qt/miniAudicle.qrc
