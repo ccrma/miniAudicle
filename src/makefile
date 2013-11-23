@@ -1,5 +1,6 @@
 
-DESTDIR=/usr/bin
+PREFIX=/usr
+
 CHUCK_SRC_DIR=chuck/src
 
 ifneq ($(shell which qmake-qt4),)
@@ -12,18 +13,9 @@ CHUGINS_SRC_ROOT=chugins
 CHUGINS=ABSaturator Bitcrusher FIR KasFilter PanN
 CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGINS),$(CHUGINS_SRC_ROOT)/$(CHUG)/$(CHUG).chug)
 
-ifneq ($(MA_PLATFORM),)
-ifeq ($(MAKECMDGOALS),)
-
-target:
-	-+make -f makefile.$(MA_PLATFORM)
-
+ifneq ($(CK_TARGET),)
+target: $(CK_TARGET)
 endif
-
-$(MAKECMDGOALS):
-	-+make -f makefile.$(MA_PLATFORM) $(MAKECMDGOALS)
-
-else
 
 .PHONY: current osx linux-jack linux-alsa linux-pulse win32 windows
 
@@ -58,10 +50,21 @@ windows:
 win32: 
 	-+make -f makefile.win32 $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
+install:
+ifneq ($(wildcard miniAudicle),)
+# Linux install
+	cp miniAudicle $(PREFIX)/bin
+
+else ifneq ($(wildcard macosx/miniAudicle.app),)
+# Mac install
+	rm -rf /Applications/miniAudicle.app
+	cp -a macosx/miniAudicle.app /Applications
+
+endif
+
 clean: 
 	-make -f makefile.qt* clean
 	rm -rf *.{o,d} qt/*.o miniAudicle macosx/*.{o,d} macosx/miniAudicle.app \
         macosx/Resources/English.lproj/*.nib makefile.qt*
 	-make -C $(CHUCK_SRC_DIR) clean
 
-endif
