@@ -222,6 +222,8 @@
     
     [documents addObject:docToAdd];
     
+    [docToAdd addObserver:self forKeyPath:@"fileURL" options:0 context:0];
+    
     // check if the window has been created. We can not insert new tab
     // items until the nib has been loaded. So if the window isnt created
     // yet, do nothing and instead add the view controls during the
@@ -265,6 +267,8 @@
     if(docToRemove.windowController == self)
         [docToRemove setWindowController:nil];
     [documents removeObject:docToRemove];
+    
+    [docToRemove removeObserver:self forKeyPath:@"fileURL"];
 }
 
 - (void)document:(NSDocument *)doc wasEdited:(BOOL)edited;
@@ -408,7 +412,7 @@
     [[tabBarControl window] setDocumentEdited:[doc isDocumentEdited]];
 }
 
-- (NSImage *)tabView:(NSTabView *)aTabView imageForTabViewItem:(NSTabViewItem *)tabViewItem offset:(NSSize *)offset styleMask:(unsigned int *)styleMask
+- (NSImage *)tabView:(NSTabView *)aTabView imageForTabViewItem:(NSTabViewItem *)tabViewItem offset:(NSSize *)offset styleMask:(NSUInteger *)styleMask
 {
 	// grabs whole window image
 	NSImage *viewImage = [[[NSImage alloc] init] autorelease];
@@ -618,6 +622,13 @@
     {
         BOOL show = [[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesShowToolbar];
         [self setShowsToolbar:show];
+    }
+    else if([keyPath isEqualToString:@"fileURL"])
+    {
+        if(object == [self document])
+        {
+            [[self window] setRepresentedURL:[[self document] fileURL]];
+        }
     }
     else
     {
