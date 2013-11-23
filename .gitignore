@@ -8,6 +8,7 @@ src/Debug
 src/build
 src/miniAudicle
 src/*.dmg
+src/git-rev.h
 
 src/miniAudicle.xcodeproj/project.xcworkspace
 src/miniAudicle.xcodeproj/xcuserdata

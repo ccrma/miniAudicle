@@ -298,6 +298,11 @@ $(CHUCK_SRC_DIR)/chuck.yy.c: $(CHUCK_SRC_DIR)/chuck.lex
 	$(LEX) -o$(CHUCK_SRC_DIR)/chuck.yy.c $(CHUCK_SRC_DIR)/chuck.lex
 
 # now build miniAudicle files
+git-rev.h:
+	echo "#define GIT_REVISION \""`git rev-parse --short HEAD`"\"" > .git-rev-tmp
+	cmp -s .git-rev-tmp git-rev.h || cp .git-rev-tmp git-rev.h
+	rm .git-rev-tmp
+
 $(COBJS): %.o: %.c
 	$(CC) $(CFLAGS) $(ARCHOPTS) -c $< -o $@
 	@$(CC) -MM $(CFLAGSDEPEND) $< > $*.d
