@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>12D78</string>
+	<string>12F45</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
@@ -19,19 +19,19 @@
 	<key>CFBundleVersion</key>
 	<string>1.1</string>
 	<key>DTCompiler</key>
-	<string></string>
+	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
-	<string>4H1003</string>
+	<string>5A3005</string>
 	<key>DTPlatformVersion</key>
 	<string>GM</string>
 	<key>DTSDKBuild</key>
-	<string>12D75</string>
+	<string>12F37</string>
 	<key>DTSDKName</key>
 	<string>macosx10.8</string>
 	<key>DTXcode</key>
-	<string>0462</string>
+	<string>0502</string>
 	<key>DTXcodeBuild</key>
-	<string>4H1003</string>
+	<string>5A3005</string>
 	<key>NSPrincipalClass</key>
 	<string>PSMTabBarControl</string>
 </dict>
