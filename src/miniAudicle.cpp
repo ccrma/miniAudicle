@@ -50,7 +50,9 @@ U.S.A.
 #include "chuck_globals.h"
 #include "util_string.h"
 #include "version.h"
+#ifndef __PLATFORM_WIN32__
 #include "git-rev.h"
+#endif // __PLATFORM_WIN32__
 
 #include "miniAudicle_ui_elements.h"
 #include "miniAudicle_import.h"
@@ -79,11 +81,18 @@ t_CKINT priority_low = 0x7fffffff;
 #endif
 
 extern const char MA_VERSION[] = ENV_MA_VERSION " (gidora)";
+#ifndef __PLATFORM_WIN32__
 extern const char MA_ABOUT[] = "version %s\n\
 git: " GIT_REVISION "\n\
 Copyright (c) Spencer Salazar\n\n\
 ChucK: version %s %lu-bit\n\
 Copyright (c) Ge Wang and Perry Cook\nhttp://chuck.cs.princeton.edu/";
+#else
+extern const char MA_ABOUT[] = "version %s\n\
+Copyright (c) Spencer Salazar\n\n\
+ChucK: version %s %lu-bit\n\
+Copyright (c) Ge Wang and Perry Cook\nhttp://chuck.cs.princeton.edu/";
+#endif // __PLATFORM_WIN32__
 
 extern const char MA_HELP[] = 
 "usage: miniAudicle [options] [files] \n\
