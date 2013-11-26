@@ -1,4 +1,12 @@
 ---
+1.3.1
+    - (added) chuck-1.3.1
+    - (fixed)(Mac) files are saved as UTF-8
+    - (fixed)(Mac) re-saved examples are properly marked as non-read-only
+    - (fixed)(Mac) deprecated API warnings expunged
+    
+
+---
 1.3.0
     - (added) chuck-1.3.2.0
     - (added)(Win/Linux) completely new GUI architecture based on Qt
