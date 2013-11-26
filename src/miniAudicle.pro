@@ -306,6 +306,7 @@ bisonheader.name = bison header
 bisonheader.depends = $$OBJECTS_DIR/${QMAKE_FILE_BASE}.tab.c
 QMAKE_EXTRA_COMPILERS += bisonheader
 
+!win32 {
 gitrev.commands = echo \\$${LITERAL_HASH}define GIT_REVISION $$quote(\\\")`git rev-parse --short HEAD`$$quote(\\\") > .git-rev-tmp;\
     cmp -s .git-rev-tmp git-rev.h || cp .git-rev-tmp git-rev.h;\
     rm .git-rev-tmp
@@ -317,6 +318,7 @@ QMAKE_EXTRA_TARGETS += gitrev
 gitrev_FORCE.commands = 
 gitrev_FORCE.CONFIG += recursive
 QMAKE_EXTRA_TARGETS += gitrev_FORCE
+}
 
 RESOURCES += \
     qt/miniAudicle.qrc
