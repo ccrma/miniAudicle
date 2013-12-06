@@ -94,6 +94,8 @@ static NSImage * error_image;
         string_attributes = [NSMutableDictionary new];
 
         error_animation_ratio = 0;
+        
+        [self setAutomaticQuoteSubstitutionEnabled:NO];
     }
     
     return self;
@@ -227,10 +229,10 @@ static NSImage * error_image;
         NSRect image_rect = [self lockImageRect];
         
         NSPoint p = image_rect.origin;
-        p.y += [lock_image size].height;
+//        p.y += [lock_image size].height;
         
         if( NSIntersectsRect( aRect, image_rect ) )
-            [lock_image compositeToPoint:p fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:0.25];
+            [lock_image drawAtPoint:p fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:0.25];
 //            [lock_image dissolveToPoint:p fraction:0.25];
     }
 
@@ -242,10 +244,10 @@ static NSImage * error_image;
         NSRect image_rect = [self animationImageRect];
         
         NSPoint p = image_rect.origin;
-        p.y += [animation_image size].height;
+//        p.y += [animation_image size].height;
         
         if( NSIntersectsRect( aRect, image_rect ) )
-            [animation_image compositeToPoint:p fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:animation_ratio];
+            [animation_image drawAtPoint:p fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:animation_ratio];
 //            [animation_image dissolveToPoint:p fraction:animation_ratio];
         
         redraw = YES;
@@ -256,10 +258,10 @@ static NSImage * error_image;
         NSRect image_rect = [self errorImageRect];
         
         NSPoint p = image_rect.origin;
-        p.y += [error_image size].height;
+//        p.y += [error_image size].height;
         
         if( NSIntersectsRect( aRect, image_rect ) )
-            [error_image compositeToPoint:p fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:error_animation_ratio];
+            [error_image drawAtPoint:p fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:error_animation_ratio];
         
         redraw = YES;
     }
