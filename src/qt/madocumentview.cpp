@@ -194,7 +194,10 @@ void mADocumentView::exportAsWav()
                 exportWAV = false;
 
                 QFileInfo info = QFileInfo(outputFilename);
-                QFile::copy(tempWavFilename, info.dir().path() + "/" + info.baseName() + ".wav");
+                QString wavOutputFilename = info.dir().path() + "/" + info.baseName() + ".wav";
+                QFile wavOutputFile(wavOutputFilename);
+                if(wavOutputFile.exists()) wavOutputFile.remove();
+                QFile::copy(tempWavFilename, wavOutputFilename);
             }
             
             if(exportOgg)
