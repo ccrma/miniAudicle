@@ -28,15 +28,20 @@ Machine.add(ckFilename) => int shredId;
 if(doLimit)
 {
     limit::second => now;
-    
-    Machine.remove(shredId);
+    Machine.shreds() @=> int shreds[];
+    for(int i; i < shreds.size(); i++)
+    {
+        if(shreds[i] != me.id())
+            Machine.remove(shreds[i]);
+    }
 }
 else
 {
-    Shred.fromId(shredId) @=> Shred shred;
-    while(!shred.done())
+    Machine.shreds() @=> int shreds[];
+    while(shreds.size() > 1)
     {
         1::second => now;
+        Machine.shreds() @=> shreds;
     }
 }
 
