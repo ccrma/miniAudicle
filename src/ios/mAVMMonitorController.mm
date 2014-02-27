@@ -237,7 +237,7 @@
         
         Chuck_VM_Shred_Status * shred = most_recent_status->list[index];
         
-        cell.idLabel.text = [NSString stringWithFormat:@"%u", shred->xid];
+        cell.idLabel.text = [NSString stringWithFormat:@"%lu", shred->xid];
         
         cell.titleLabel.text = [NSString stringWithUTF8String:shred->name.c_str()];
         
@@ -246,7 +246,7 @@
         if( shred_running_time < 0 )
             shred_running_time = 0;
         
-        cell.timeLabel.text = [NSString stringWithFormat:@"%u:%02u", shred_running_time / 60, shred_running_time % 60];
+        cell.timeLabel.text = [NSString stringWithFormat:@"%ld:%02ld", shred_running_time / 60, shred_running_time % 60];
         
         [cell.removeButton addTarget:self
                               action:@selector(removeShred:)

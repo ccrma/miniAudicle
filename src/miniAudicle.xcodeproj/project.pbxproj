@@ -28,25 +28,25 @@
 		0916F981173AF0D20055956C /* PSMTabBarControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0916F980173AF0D20055956C /* PSMTabBarControl.framework */; };
 		09216C0A134ED4A900145064 /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09216C09134ED4A900145064 /* MultitouchSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0921D55918190216008F39D9 /* address.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54418190216008F39D9 /* address.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
-		0921D55A18190216008F39D9 /* address.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54418190216008F39D9 /* address.c */; };
+		0921D55A18190216008F39D9 /* address.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54418190216008F39D9 /* address.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
 		0921D55B18190216008F39D9 /* blob.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54518190216008F39D9 /* blob.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
-		0921D55C18190216008F39D9 /* blob.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54518190216008F39D9 /* blob.c */; };
+		0921D55C18190216008F39D9 /* blob.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54518190216008F39D9 /* blob.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
 		0921D55D18190216008F39D9 /* bundle.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54618190216008F39D9 /* bundle.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
-		0921D55E18190216008F39D9 /* bundle.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54618190216008F39D9 /* bundle.c */; };
+		0921D55E18190216008F39D9 /* bundle.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54618190216008F39D9 /* bundle.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
 		0921D55F18190216008F39D9 /* message.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55218190216008F39D9 /* message.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
-		0921D56018190216008F39D9 /* message.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55218190216008F39D9 /* message.c */; };
+		0921D56018190216008F39D9 /* message.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55218190216008F39D9 /* message.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
 		0921D56118190216008F39D9 /* method.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55318190216008F39D9 /* method.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
-		0921D56218190216008F39D9 /* method.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55318190216008F39D9 /* method.c */; };
+		0921D56218190216008F39D9 /* method.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55318190216008F39D9 /* method.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
 		0921D56318190216008F39D9 /* pattern_match.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55418190216008F39D9 /* pattern_match.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
-		0921D56418190216008F39D9 /* pattern_match.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55418190216008F39D9 /* pattern_match.c */; };
+		0921D56418190216008F39D9 /* pattern_match.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55418190216008F39D9 /* pattern_match.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
 		0921D56518190216008F39D9 /* send.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55518190216008F39D9 /* send.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
-		0921D56618190216008F39D9 /* send.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55518190216008F39D9 /* send.c */; };
+		0921D56618190216008F39D9 /* send.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55518190216008F39D9 /* send.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
 		0921D56718190216008F39D9 /* server.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55618190216008F39D9 /* server.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
-		0921D56818190216008F39D9 /* server.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55618190216008F39D9 /* server.c */; };
+		0921D56818190216008F39D9 /* server.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55618190216008F39D9 /* server.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
 		0921D56918190216008F39D9 /* server_thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55718190216008F39D9 /* server_thread.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
-		0921D56A18190216008F39D9 /* server_thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55718190216008F39D9 /* server_thread.c */; };
+		0921D56A18190216008F39D9 /* server_thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55718190216008F39D9 /* server_thread.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
 		0921D56B18190216008F39D9 /* timetag.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55818190216008F39D9 /* timetag.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
-		0921D56C18190216008F39D9 /* timetag.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55818190216008F39D9 /* timetag.c */; };
+		0921D56C18190216008F39D9 /* timetag.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55818190216008F39D9 /* timetag.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
 		0921D56D18190283008F39D9 /* address.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54418190216008F39D9 /* address.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
 		0921D56E18190283008F39D9 /* blob.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54518190216008F39D9 /* blob.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
 		0921D56F18190283008F39D9 /* bundle.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54618190216008F39D9 /* bundle.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
@@ -1978,7 +1978,10 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				HEADER_SEARCH_PATHS = ios;
+				HEADER_SEARCH_PATHS = (
+					ios,
+					chuck/src,
+				);
 				INFOPLIST_FILE = "ios/miniAudicle iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = miniAudicle;
@@ -2008,7 +2011,10 @@
 					__MACOSX_CORE__,
 				);
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				HEADER_SEARCH_PATHS = ios;
+				HEADER_SEARCH_PATHS = (
+					ios,
+					chuck/src,
+				);
 				INFOPLIST_FILE = "ios/miniAudicle iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";

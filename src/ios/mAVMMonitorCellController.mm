@@ -48,7 +48,7 @@
     
     if(shred_running_time != last_time)
     {
-        timeLabel.text = [NSString stringWithFormat:@"%u:%02u", shred_running_time / 60, shred_running_time % 60];
+        timeLabel.text = [NSString stringWithFormat:@"%ld:%02ld", shred_running_time / 60, shred_running_time % 60];
         last_time = shred_running_time;
     }
 }
