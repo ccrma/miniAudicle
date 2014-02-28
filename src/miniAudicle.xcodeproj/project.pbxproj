@@ -1345,6 +1345,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 093E263914A108C9008694BC /* Build configuration list for PBXNativeTarget "miniAudicle iOS" */;
 			buildPhases = (
+				09FED09C18C01D7E00604F56 /* Run Script */,
 				093E260D14A108C8008694BC /* Sources */,
 				093E260E14A108C8008694BC /* Frameworks */,
 				093E260F14A108C8008694BC /* Resources */,
@@ -1523,6 +1524,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
 			shellScript = "echo \"#define GIT_REVISION \\\"\"`git rev-parse --short HEAD`\"\\\"\" > .git-rev-tmp\ncmp -s .git-rev-tmp $DERIVED_FILE_DIR/git-rev.h || cp .git-rev-tmp $DERIVED_FILE_DIR/git-rev.h\nrm .git-rev-tmp\n";
+		};
+		09FED09C18C01D7E00604F56 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/git-rev.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"#define GIT_REVISION \\\"\"`git rev-parse --short HEAD`\"\\\"\" > .git-rev-tmp\ncmp -s .git-rev-tmp \"$DERIVED_FILE_DIR/git-rev.h\" || cp .git-rev-tmp \"$DERIVED_FILE_DIR/git-rev.h\"\nrm .git-rev-tmp\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
