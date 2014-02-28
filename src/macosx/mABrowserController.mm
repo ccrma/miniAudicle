@@ -436,6 +436,7 @@ static const char * exclude_types[] =
         [self probeHID];
     
     [ov reloadData];
+    [ov expandItem:nil expandChildren:YES];
 }
 
 - (id)outlineView:(NSOutlineView *)ov child:(int)i ofItem:(id)item
