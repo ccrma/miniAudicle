@@ -163,7 +163,8 @@ SOURCES += \
     qt/mAPreferencesWindow.cpp \
     qt/mAExportDialog.cpp \
     qt/ZSettings.cpp \
-    qt/mASocketManager.cpp 
+    qt/mASocketManager.cpp \ 
+    qt/mADeviceBrowser.cpp
 !linux-g++ {
     SOURCES += chuck/src/util_sndfile.c
 }
@@ -268,7 +269,8 @@ HEADERS  += qt/mAMainWindow.h \
     chuck/src/lo/lo_errors.h \
     chuck/src/lo/lo_endian.h \
     chuck/src/lo/lo.h \
-    chuck/src/lo/config.h 
+    chuck/src/lo/config.h \ 
+    qt/mADeviceBrowser.h
 
 FORMS += \
     qt/mAMainWindow.ui \
@@ -276,7 +278,8 @@ FORMS += \
     qt/mAConsoleMonitor.ui \
     qt/mAVMMonitor.ui \
     qt/mAPreferencesWindow.ui \
-    qt/mAExportDialog.ui
+    qt/mAExportDialog.ui \
+    qt/mADeviceBrowser.ui
 
 !win32 {
 FLEXSOURCES = chuck/src/chuck.lex

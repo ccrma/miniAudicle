@@ -29,6 +29,7 @@ U.S.A.
 #include "mAConsoleMonitor.h"
 #include "mAVMMonitor.h"
 #include "mAPreferencesWindow.h"
+#include "mADeviceBrowser.h"
 #include "mASocketManager.h"
 
 #include <QMessageBox>
@@ -85,6 +86,7 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
 
     m_consoleMonitor = new mAConsoleMonitor(NULL);
     m_vmMonitor = new mAVMMonitor(NULL, this, ma);
+    m_deviceBrowser = NULL;
     m_preferencesWindow = NULL;
 
     m_lockdown = false;
@@ -721,7 +723,7 @@ void mAMainWindow::showPreferences()
 {
     if(m_preferencesWindow == NULL)
     {
-        m_preferencesWindow = new mAPreferencesWindow(NULL, ma);
+        m_preferencesWindow = new mAPreferencesWindow(this, ma);
         m_preferencesWindow->move(this->pos().x() + this->frameGeometry().width()/2 - m_preferencesWindow->frameGeometry().width()/2,
                                   this->pos().y() + this->frameGeometry().height()/2 - m_preferencesWindow->frameGeometry().height()/2);
     }
@@ -744,6 +746,20 @@ void mAMainWindow::showVirtualMachineMonitor()
     m_vmMonitor->show();
     m_vmMonitor->raise();
     m_vmMonitor->activateWindow();
+}
+
+void mAMainWindow::showDeviceBrowser()
+{
+    if(m_deviceBrowser == NULL)
+    {
+        m_deviceBrowser = new mADeviceBrowser(this);
+        m_deviceBrowser->move(this->pos().x() + this->frameGeometry().width()/2 - m_deviceBrowser->frameGeometry().width()/2,
+                              this->pos().y() + this->frameGeometry().height()/2 - m_deviceBrowser->frameGeometry().height()/2);
+    }
+    
+    m_deviceBrowser->show();
+    m_deviceBrowser->raise();
+    m_deviceBrowser->activateWindow();
 }
 
 void mAMainWindow::addRecentFile(QString &path)

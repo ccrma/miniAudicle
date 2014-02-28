@@ -128,6 +128,7 @@
     </property>
     <addaction name="actionConsole_Monitor"/>
     <addaction name="actionVirtual_Machine_Monitor"/>
+    <addaction name="actionDevice_Browser"/>
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -525,6 +526,14 @@
    </property>
    <property name="shortcut">
     <string>Alt+Del, Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionDevice_Browser">
+   <property name="text">
+    <string>Device Browser</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+2</string>
    </property>
   </action>
  </widget>
@@ -1045,6 +1054,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionDevice_Browser</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>showDeviceBrowser()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>exit()</slot>
@@ -1069,5 +1094,6 @@
   <slot>tabSelected(int)</slot>
   <slot>abortCurrentShred()</slot>
   <slot>clearVM()</slot>
+  <slot>showDeviceBrowser()</slot>
  </slots>
 </ui>
