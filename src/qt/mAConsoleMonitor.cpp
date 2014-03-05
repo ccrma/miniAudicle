@@ -114,8 +114,8 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent) :
                      this, SLOT(dataAvailable()), Qt::BlockingQueuedConnection);
     thread->start();
     
-#endif
-#endif
+#endif // __PLATFORM_WIN32__
+#endif // !DISABLE_CONSOLE_MONITOR
 }
 
 mAConsoleMonitor::~mAConsoleMonitor()

@@ -38,6 +38,7 @@ class mAConsoleMonitor;
 class mAVMMonitor;
 class mAPreferencesWindow;
 class mASocketManager;
+class mADeviceBrowser;
 
 namespace Ui {
 class mAMainWindow;
@@ -84,6 +85,7 @@ public slots:
     
     void showConsoleMonitor();
     void showVirtualMachineMonitor();
+    void showDeviceBrowser();
 
 protected:
     void closeEvent(QCloseEvent *);
@@ -99,6 +101,7 @@ private:
     mAConsoleMonitor * m_consoleMonitor;
     mAVMMonitor * m_vmMonitor;
     mAPreferencesWindow * m_preferencesWindow;
+    mADeviceBrowser * m_deviceBrowser;
 
     mASocketManager * m_socketManager;
     
