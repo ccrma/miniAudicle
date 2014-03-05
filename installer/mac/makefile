@@ -7,16 +7,24 @@ VERSION_MK=$(MINI_SRC_ROOT)/src/version.mk
 
 include $(VERSION_MK)
 
-CHUGIN_NAMES=ABSaturator Bitcrusher FIR KasFilter PanN
+CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher FIR KasFilter PanN PitchTrack GVerb Mesh2D Spectacle Elliptic
 CHUGINS=$(addsuffix .chug,$(CHUGIN_NAMES))
 CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/$(CHUG).chug)
 
-OWNER=root
-GROUP=wheel
+# PKGS=$(addsuffix .pkg,$(CHUGINS) miniAudicle.app chuck)
+APP_PKGS=$(addsuffix .pkg,miniAudicle.app)
+BIN_PKGS=$(addsuffix .pkg,chuck)
+CHUGIN_PKGS=$(addsuffix .pkg,$(CHUGINS))
+PKGS=$(APP_PKGS) $(BIN_PKGS) $(CHUGIN_PKGS)
 
 INSTALLER=chuck-$(PKG_VERSION).pkg
 
 PACKAGEMAKER=/Applications/PackageMaker.app/Contents/MacOS/PackageMaker
+
+BIN_DIR=/usr/bin
+CHUG_DIR=/usr/lib/chuck
+
+IDENTIFIER_BASE=edu.stanford.chuck
 CERT=Developer ID Installer: Spencer Salazar (9GU9FHJ3JC)
 
 default: $(INSTALLER)
@@ -24,23 +32,54 @@ default: $(INSTALLER)
 upload: $(INSTALLER)
 	scp $(INSTALLER) ccrma-gate.stanford.edu:Library/Web/chuck
 
-$(INSTALLER): ChucK.pmdoc miniAudicle.app chuck $(CHUGINS) $(VERSION_MK)
-	$(PACKAGEMAKER) --doc $< --out $@ --certificate "$(CERT)" --version $(PKG_VERSION)
-	mv $@ $@-unsigned
-	productsign --sign "$(CERT)" $@-unsigned $@
-	rm $@-unsigned
+# $(INSTALLER): ChucK.pmdoc miniAudicle.app chuck $(CHUGINS) $(VERSION_MK)
+# 	$(PACKAGEMAKER) --doc $< --out $@ --certificate "$(CERT)" --version $(PKG_VERSION)
+# 	mv $@ $@-unsigned
+# 	productsign --sign "$(CERT)" $@-unsigned $@
+# 	rm $@-unsigned
+
+$(INSTALLER): $(PKGS) miniAudicle.app chuck $(CHUGINS) $(VERSION_MK) Distribution.xml
+	@echo "Creating installer"
+	@echo "    chuck path:" $(realpath $(CHUCK_SRC_ROOT))
+	@echo "    miniAudicle path:" $(realpath $(MINI_SRC_ROOT))
+	@echo "    chugin path:" $(realpath $(CHUGINS_SRC_ROOT))
+	productbuild --distribution Distribution.xml --version $(PKG_VERSION) --package-path . --sign "$(CERT)" --resources resources $@
+
+$(APP_PKGS): %.pkg: %
+	pkgbuild --root $< --identifier $(IDENTIFIER_BASE).$(basename $<) $@
+
+$(BIN_PKGS): %.pkg: %
+	mkdir -p $<.tmp/$(BIN_DIR)
+	cp $< $<.tmp/$(BIN_DIR)
+	pkgbuild --root $<.tmp --identifier $(IDENTIFIER_BASE).$(basename $<) $@
+	rm -rf $<.tmp
+
+$(CHUGIN_PKGS): %.pkg: %
+	mkdir -p $<.tmp/$(CHUG_DIR)
+	cp $< $<.tmp/$(CHUG_DIR)
+	pkgbuild --root $<.tmp --identifier $(IDENTIFIER_BASE).$(basename $<) $@
+	rm -rf $<.tmp
 
 miniAudicle.app: $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app/Contents/MacOS/miniAudicle
 	rm -rf miniAudicle.app
 	cp -af $< .
-#	sudo chown -R $(OWNER) $@
-#	sudo chgrp -R $(GROUP) $@
+
+$(MINI_SRC_ROOT)/src/macosx/miniAudicle.app $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app/Contents/MacOS/miniAudicle:
+	ARCHS="i386 x86_64" make -C $(MINI_SRC_ROOT)/src osx
 
 chuck: $(CHUCK_SRC_ROOT)/trunk/src/chuck
 	cp -af $< .
+$(CHUCK_SRC_ROOT)/trunk/src/chuck:
+	ARCHS="i386 x86_64" make -C $(CHUCK_SRC_ROOT)/trunk/src/ osx
 
 $(CHUGINS): $(CHUGINS_ORIGINAL)
 	cp -af $(CHUGINS_SRC_ROOT)/$(basename $@)/$@  .
 
 clean: 
 	rm -rf miniAudicle.app chuck $(CHUGINS) *.pkg
+clean-all: clean
+	rm -rf miniAudicle.app chuck $(CHUGINS) *.pkg
+	make -C $(CHUCK_SRC_ROOT) clean
+	make -C $(MINI_SRC_ROOT) clean
+	make -C $(CHUGINS_SRC_ROOT) clean
+

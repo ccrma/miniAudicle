@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<installer-gui-script minSpecVersion="1">
+    <title>ChucK</title>
+    <background file="chuck_logo.png" alignment="topleft" scaling="none"/>
+    <allowed-os-versions><os-version min="10.5"/></allowed-os-versions>
+    <choices-outline>
+        <line choice="miniAudicle"/>
+        <line choice="chuck"/>
+        <line choice="ChuGins">
+            <line choice="ABSaturator"/>
+            <line choice="AmbPan"/>
+            <line choice="Bitcrusher"/>
+            <line choice="Elliptic"/>
+            <line choice="FIR"/>
+            <line choice="GVerb"/>
+            <line choice="KasFilter"/>
+            <line choice="Mesh2D"/>
+            <line choice="PanN"/>
+            <line choice="PitchTrack"/>
+            <line choice="Spectacle"/>
+        </line>
+    </choices-outline>
+    <choice id="miniAudicle" title="miniAudicle" description="miniAudicle is an integrated development environment specifically tailored to the ChucK programming language. Installing miniAudicle is strongly recommended.">
+        <pkg-ref id="edu.stanford.chuck.miniAudicle">miniAudicle.app.pkg</pkg-ref>
+    </choice>
+    <choice id="chuck" title="chuck" description="chuck is the command line-based compiler and runtime of the ChucK programming language. ">
+        <pkg-ref id="edu.stanford.chuck">chuck.pkg</pkg-ref>
+    </choice>
+    <choice id="ChuGins" title="ChuGins" description="ChuGins extend the native capabilities of ChucK with additional unit generators. "/>
+    <choice id="ABSaturator" title="ABSaturator" description="Soft clip saturating distortion, based on examples from Abel/Berners' Music 424 course at Stanford." enabled="0">
+        <pkg-ref id="edu.stanford.chuck.ABSaturator">ABSaturator.chug.pkg</pkg-ref>
+    </choice>
+    <choice id="AmbPan" title="AmbPan" description="Panning UGens for encoding panned signals into the Ambisonics B-format. " enabled="0">
+        <pkg-ref id="edu.stanford.chuck.AmbPan">AmbPan.chug.pkg</pkg-ref>
+    </choice>
+    <choice id="Bitcrusher" title="Bitcrusher" description="Sample-width reducer + sample rate decimator, bringing to mind the sounds of your favorite low-fidelity vintage audio equipment" enabled="0">
+        <pkg-ref id="edu.stanford.chuck.Bitcrusher">Bitcrusher.chug.pkg</pkg-ref>
+    </choice>
+    <choice id="Elliptic" title="Elliptic" description="Elliptic filter, capable of very steep slopes or interesting harmonic ripples. By Joel Matthys. " enabled="0">
+        <pkg-ref id="edu.stanford.chuck.Elliptic">Elliptic.chug.pkg</pkg-ref>
+    </choice>
+    <choice id="FIR" title="FIR" description="Arbitrary order FIR filter. By Perry Cook. " enabled="0">
+        <pkg-ref id="edu.stanford.chuck.FIR">FIR.chug.pkg</pkg-ref>
+    </choice>
+    <choice id="GVerb" title="GVerb" description="Good quality stereo reverb with adjustable parameters. By Joel Matthys." enabled="0">
+        <pkg-ref id="edu.stanford.chuck.GVerb">GVerb.chug.pkg</pkg-ref>
+    </choice>
+    <choice id="KasFilter" title="KasFilter" description="Undersampling-based resonant lowpass filter. By Kassen. " enabled="0">
+        <pkg-ref id="edu.stanford.chuck.KasFilter">KasFilter.chug.pkg</pkg-ref>
+    </choice>
+    <choice id="Mesh2D" title="Mesh2D" description="STK instrument that simulates a rectilinear, 2-dimensional digital waveguide mesh structure. Basically sounds like striking a metal plate. By Joel Matthys. " enabled="0">
+        <pkg-ref id="edu.stanford.chuck.Mesh2D">Mesh2D.chug.pkg</pkg-ref>
+    </choice>
+    <choice id="PanN" title="PanN" description="Basic equal-power panners for 4, 8, and 16 channels. " enabled="0">
+        <pkg-ref id="edu.stanford.chuck.PanN">PanN.chug.pkg</pkg-ref>
+    </choice>
+    <choice id="PitchTrack" title="PitchTrack" description="Monophonic autocorrelation pitch tracker, based on [helmholtz~] by Katja, http://www.katjaas.nl/helmholtz/helmholtz.html. By Joel Matthys. " enabled="0">
+        <pkg-ref id="edu.stanford.chuck.PitchTrack">PitchTrack.chug.pkg</pkg-ref>
+    </choice>
+    <choice id="Spectacle" title="Spectacle" description="FFT-based spectral delay and EQ. By Joel Matthys. " enabled="0">
+        <pkg-ref id="edu.stanford.chuck.Spectacle">Spectacle.chug.pkg</pkg-ref>
+    </choice>
+</installer-gui-script>
