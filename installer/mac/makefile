@@ -76,7 +76,7 @@ $(CHUGINS): $(CHUGINS_ORIGINAL)
 	cp -af $(CHUGINS_SRC_ROOT)/$(basename $@)/$@  .
 	touch $@
 $(CHUGINS_ORIGINAL): 
-	make -C $(dir $@)
+	make -C $(dir $@) osx
 
 clean: 
 	rm -rf miniAudicle.app chuck $(CHUGINS) *.pkg
