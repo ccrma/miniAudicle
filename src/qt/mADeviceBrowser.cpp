@@ -50,6 +50,7 @@ mADeviceBrowser::~mADeviceBrowser()
 
 void mADeviceBrowser::showAudio()
 {
+    ui->audioButton->setDown(true);
     ui->treeWidget->clear();
     
     RtAudio * rta = NULL;
@@ -160,6 +161,7 @@ void mADeviceBrowser::showAudio()
 
 void mADeviceBrowser::showMIDI()
 {
+    ui->midiButton->setDown(true);
     ui->treeWidget->clear();
     
     RtMidiIn * min = NULL;
@@ -226,6 +228,7 @@ void mADeviceBrowser::showMIDI()
 
 void mADeviceBrowser::showHID()
 {
+    ui->hidButton->setDown(true);
     ui->treeWidget->clear();
     
     HidInManager::init();
