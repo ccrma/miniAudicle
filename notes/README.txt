@@ -1,6 +1,6 @@
 miniAudicle
 Windows
-version 1.3.0 (Gidora)
+version 1.3.x (Gidora)
 
 Binary Release Installation Instructions
 ----------------------------------------

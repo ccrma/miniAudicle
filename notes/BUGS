@@ -1,4 +1,4 @@
-KNOWN BUGS (miniAudicle-1.3.0 (gidora))
+KNOWN BUGS (miniAudicle-1.3.x (gidora))
 ----------------------------------------
 
 - console output causes general performance degradation over time on OS X.  If
