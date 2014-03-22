@@ -94,6 +94,10 @@ NSString * mASyntaxColoringChangedNotification = @"mASyntaxColoringChanged";
 NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
 
 
+t_CKINT g_rtaudio_blacklist_size = 1;
+std::string g_rtaudio_blacklist[] = { "Apple Inc.: AirPlay" };
+
+
 
 @implementation miniAudiclePreferencesController
 
@@ -647,20 +651,34 @@ NSString * mAPreferencesChangedNotification = @"mAPreferencesChanged";
     // load available audio I/O interfaces into the pop up menus
     for( i = 0; i < len; i++ )
     {
-        if( interfaces[i].outputChannels > 0 || interfaces[i].duplexChannels > 0 )
+        t_CKBOOL blacklist = FALSE;
+        
+        for(int j = 0; j < g_rtaudio_blacklist_size; j++)
         {
-            [audio_output addItemWithTitle:[NSString stringWithUTF8String:interfaces[i].name.c_str()]];
-            [[audio_output lastItem] setTag:i];
-            if( i == dac )
-                [audio_output selectItem:[audio_output lastItem]];
+            if(interfaces[i].name == g_rtaudio_blacklist[j])
+            {
+                blacklist = TRUE;
+                break;
+            }
         }
-
-        if( interfaces[i].inputChannels > 0 || interfaces[i].duplexChannels > 0 )
+        
+        if(!blacklist)
         {
-            [audio_input addItemWithTitle:[NSString stringWithUTF8String:interfaces[i].name.c_str()]];
-            [[audio_input lastItem] setTag:i];
-            if( i == adc )
-                [audio_input selectItem:[audio_input lastItem]];
+            if( interfaces[i].outputChannels > 0 || interfaces[i].duplexChannels > 0 )
+            {
+                [audio_output addItemWithTitle:[NSString stringWithUTF8String:interfaces[i].name.c_str()]];
+                [[audio_output lastItem] setTag:i];
+                if( i == dac )
+                    [audio_output selectItem:[audio_output lastItem]];
+            }
+            
+            if( interfaces[i].inputChannels > 0 || interfaces[i].duplexChannels > 0 )
+            {
+                [audio_input addItemWithTitle:[NSString stringWithUTF8String:interfaces[i].name.c_str()]];
+                [[audio_input lastItem] setTag:i];
+                if( i == adc )
+                    [audio_input selectItem:[audio_input lastItem]];
+            }
         }
     }
     
