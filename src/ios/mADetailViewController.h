@@ -35,11 +35,17 @@
 
 @interface mADetailItem : NSObject
 
+@property (nonatomic) BOOL isUser;
 @property (strong, nonatomic) NSString * title;
 @property (strong, nonatomic) NSString * text;
 @property (nonatomic) t_CKUINT docid;
+@property (nonatomic) BOOL isFolder;
+@property (strong, nonatomic) NSMutableArray *folderItems;
 
 + (mADetailItem *)detailItemFromDictionary:(NSDictionary *)dictionary;
++ (mADetailItem *)folderDetailItemWithTitle:(NSString *)title
+                                      items:(NSMutableArray *)items
+                                     isUser:(BOOL)user;
 - (NSDictionary *)dictionary;
 
 @end

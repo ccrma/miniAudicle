@@ -39,6 +39,9 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
 @property (strong, nonatomic) mAMasterViewController * masterViewController;
 @property (strong, nonatomic) mADetailViewController * detailViewController;
 
+- (NSString *)examplesPath;
+- (void)appendScriptsFromDirectory:(NSString *)dir toArray:(NSMutableArray *)array;
+
 - (NSMutableArray *)loadScripts;
 - (void)saveScripts:(NSArray *)scripts;
 
@@ -64,7 +67,8 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
         self.window.rootViewController = self.navigationController;
     } else {
         self.masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController_iPad" bundle:nil];
-//        UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
+        UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:self.masterViewController];
+        masterNavigationController.navigationBar.translucent = NO;
         
         self.detailViewController = [[mADetailViewController alloc] initWithNibName:@"mADetailViewController_iPad" bundle:nil];
 //        UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
@@ -74,7 +78,7 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
         
         self.splitViewController = [[UISplitViewController alloc] init];
         self.splitViewController.delegate = self.detailViewController;
-        self.splitViewController.viewControllers = [NSArray arrayWithObjects:self.masterViewController, self.detailViewController, nil];
+        self.splitViewController.viewControllers = [NSArray arrayWithObjects:masterNavigationController, self.detailViewController, nil];
         
         self.window.rootViewController = self.splitViewController;
         
@@ -142,6 +146,48 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
     [self saveScripts:self.masterViewController.scripts];
 }
 
+- (NSString *)examplesPath
+{
+    return [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"examples"];
+}
+
+- (void)appendScriptsFromDirectory:(NSString *)dir toArray:(NSMutableArray *)array
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    for(NSString *path in [fileManager contentsOfDirectoryAtPath:dir error:NULL])
+    {
+        BOOL isDirectory = NO;
+        NSString *fullPath = [dir stringByAppendingPathComponent:path];
+        
+        if([[path pathExtension] isEqualToString:@"ck"])
+        {
+            mADetailItem *detailItem = [mADetailItem new];
+            detailItem.isUser = NO;
+            detailItem.title = path;
+            detailItem.text = [NSString stringWithContentsOfFile:fullPath
+                                                        encoding:NSUTF8StringEncoding error:NULL];
+            detailItem.isFolder = NO;
+            detailItem.folderItems = nil;
+            
+            [array addObject:detailItem];
+        }
+        else if([fileManager fileExistsAtPath:fullPath isDirectory:&isDirectory] && isDirectory)
+        {
+            mADetailItem *detailItem = [mADetailItem new];
+            detailItem.isUser = NO;
+            detailItem.title = path;
+            detailItem.text = @"";
+            detailItem.isFolder = YES;
+            detailItem.folderItems = [NSMutableArray array];
+            
+            [self appendScriptsFromDirectory:fullPath toArray:detailItem.folderItems];
+            
+            [array addObject:detailItem];
+        }
+    }
+}
+
 - (NSMutableArray *)loadScripts
 {
     NSMutableArray * scripts = [NSMutableArray array];
@@ -155,6 +201,15 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
     {
         [scripts addObject:[mADetailItem detailItemFromDictionary:item]];
     }
+    
+    NSMutableArray *examplesArray = [NSMutableArray array];
+    
+    [self appendScriptsFromDirectory:[self examplesPath]
+                             toArray:examplesArray];
+    
+    [scripts addObject:[mADetailItem folderDetailItemWithTitle:@"Examples"
+                                                         items:examplesArray
+                                                        isUser:NO]];
     
     return scripts;
 }
@@ -170,7 +225,8 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
     
     for(mADetailItem * item in scripts)
     {
-        [scripts2 addObject:[item dictionary]];
+        if(item.isUser)
+            [scripts2 addObject:[item dictionary]];
     }
     
     [scripts2 writeToFile:path atomically:YES];

@@ -106,6 +106,7 @@
 {
     mADetailItem * detailItem = [mADetailItem new];
     
+    detailItem.isUser = YES;
     detailItem.title = [NSString stringWithFormat:@"Untitled %i", untitledNumber++];
     detailItem.text = @"";
     detailItem.docid = [mAChucKController chuckController].ma->allocate_document_id();
@@ -146,10 +147,11 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] 
-                                    animated:NO 
-                              scrollPosition:UITableViewScrollPositionMiddle];
-    }    
+//        if(self.scripts.count)
+//            [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+//                                        animated:NO
+//                                  scrollPosition:UITableViewScrollPositionMiddle];
+    }
 }
 
 - (void)viewDidUnload
@@ -214,10 +216,18 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
     }
+    
+    int index = indexPath.row;
+    mADetailItem *detailItem = [self.scripts objectAtIndex:index];
 
     // Configure the cell.
-    int index = indexPath.row;
-    cell.textLabel.text = [[self.scripts objectAtIndex:index] title];
+    cell.textLabel.text = detailItem.title;
+    
+    if(detailItem.isFolder)
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    else
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    
     return cell;
 }
 
@@ -270,14 +280,33 @@
     else
     {
         int index = indexPath.row;
-        self.detailViewController.detailItem = [self.scripts objectAtIndex:index];
+        mADetailItem *detailItem = [self.scripts objectAtIndex:index];
+        
+        if(!detailItem.isFolder)
+        {
+            self.detailViewController.detailItem = detailItem;
+        }
+        else
+        {
+            mAMasterViewController *master = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController_iPad" bundle:nil];
+            master.detailViewController = self.detailViewController;
+            master.navigationItem.title = detailItem.title;
+            master.scripts = detailItem.folderItems;
+            [self.navigationController pushViewController:master animated:YES];
+        }
     }
 }
 
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return UITableViewCellEditingStyleDelete;
+    int index = indexPath.row;
+    mADetailItem *detailItem = [self.scripts objectAtIndex:index];
+    
+    if(detailItem.isUser)
+        return UITableViewCellEditingStyleDelete;
+    else
+        return UITableViewCellEditingStyleNone;
 }
 
 - (void)tableView:(UITableView *)tableView 

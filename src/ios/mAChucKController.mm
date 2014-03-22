@@ -51,7 +51,7 @@ static mAChucKController * g_chuckController = nil;
         ma = new miniAudicle;
         
 #ifdef TARGET_IPHONE_SIMULATOR
-        ma->set_sample_rate(48000);
+        ma->set_sample_rate(44100);
         ma->set_buffer_size(512);
 #else 
         ma->set_sample_rate(44100);

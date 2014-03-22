@@ -371,6 +371,7 @@
 		09E482A30B1CF12E002087DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		09E482A40B1CF12E002087DF /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A40BD70A9A57C6007604EA /* IOKit.framework */; };
 		09E482BE0B1CF292002087DF /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
+		09EBA9B718D8FD4700DCAE0C /* examples in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B5C1769A5CD00A07ADF /* examples */; };
 		09F376EB0BBC97D6005931F6 /* removelast.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E60BBC97D6005931F6 /* removelast.png */; };
 		09F376EC0BBC97D6005931F6 /* removeall.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E70BBC97D6005931F6 /* removeall.png */; };
 		09F376ED0BBC97D6005931F6 /* replace.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E80BBC97D6005931F6 /* replace.png */; };
@@ -1454,6 +1455,7 @@
 				093E261E14A108C8008694BC /* InfoPlist.strings in Resources */,
 				093E262D14A108C8008694BC /* mAMasterViewController_iPhone.xib in Resources */,
 				093E263014A108C8008694BC /* mAMasterViewController_iPad.xib in Resources */,
+				09EBA9B718D8FD4700DCAE0C /* examples in Resources */,
 				093E263314A108C9008694BC /* mADetailViewController_iPhone.xib in Resources */,
 				093E263614A108C9008694BC /* mADetailViewController_iPad.xib in Resources */,
 				093E267914A14E91008694BC /* replace.png in Resources */,
