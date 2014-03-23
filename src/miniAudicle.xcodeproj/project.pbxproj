@@ -60,6 +60,8 @@
 		09297A160B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
 		09297A170B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
 		09297A180B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
+		09307E1A18DE76D0004AB346 /* mAKeyboardAccessoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09307E1818DE76D0004AB346 /* mAKeyboardAccessoryViewController.m */; };
+		09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09307E1918DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib */; };
 		093659D017DDD0AA007E342C /* oggenc in Resources */ = {isa = PBXBuildFile; fileRef = 093659CF17DDD0AA007E342C /* oggenc */; };
 		093A212C14BF587500497856 /* mAChuginManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A212B14BF587500497856 /* mAChuginManager.mm */; };
 		093A212E14BFEF7F00497856 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093A212D14BFEF7F00497856 /* Security.framework */; };
@@ -477,6 +479,9 @@
 		0921D55818190216008F39D9 /* timetag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = timetag.c; sourceTree = "<group>"; };
 		092979FB0B4DED60005C3B7A /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = /System/Library/Frameworks/IOBluetooth.framework; sourceTree = "<absolute>"; };
 		09307E1618DE68B0004AB346 /* mANavigationController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "mANavigationController~ipad.xib"; sourceTree = "<group>"; };
+		09307E1718DE76D0004AB346 /* mAKeyboardAccessoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAKeyboardAccessoryViewController.h; sourceTree = "<group>"; };
+		09307E1818DE76D0004AB346 /* mAKeyboardAccessoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAKeyboardAccessoryViewController.m; sourceTree = "<group>"; };
+		09307E1918DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAKeyboardAccessoryViewController.xib; sourceTree = "<group>"; };
 		093659CF17DDD0AA007E342C /* oggenc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = oggenc; sourceTree = "<group>"; };
 		093A212A14BF587500497856 /* mAChuginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAChuginManager.h; path = macosx/mAChuginManager.h; sourceTree = "<group>"; };
 		093A212B14BF587500497856 /* mAChuginManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAChuginManager.mm; path = macosx/mAChuginManager.mm; sourceTree = "<group>"; };
@@ -947,6 +952,9 @@
 				09608ADC14B40DE4009450FE /* mAConsoleMonitorController.h */,
 				09608ADD14B40DE4009450FE /* mAConsoleMonitorController.mm */,
 				09608ADE14B40DE4009450FE /* mAConsoleMonitor.xib */,
+				09307E1718DE76D0004AB346 /* mAKeyboardAccessoryViewController.h */,
+				09307E1818DE76D0004AB346 /* mAKeyboardAccessoryViewController.m */,
+				09307E1918DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib */,
 			);
 			name = "miniAudicle iOS";
 			path = ios;
@@ -1469,6 +1477,7 @@
 				09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */,
 				09087C6B14A4F67100AD2633 /* UIRemoveControlMinus.png in Resources */,
 				09608AE014B40DE4009450FE /* mAConsoleMonitor.xib in Resources */,
+				09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1586,6 +1595,7 @@
 				093E265214A12201008694BC /* chuck_utils.cpp in Sources */,
 				093E265314A12201008694BC /* chuck_vm.cpp in Sources */,
 				093E265414A12234008694BC /* chuck.y in Sources */,
+				09307E1A18DE76D0004AB346 /* mAKeyboardAccessoryViewController.m in Sources */,
 				0921D55C18190216008F39D9 /* blob.c in Sources */,
 				093E265514A12234008694BC /* chuck.lex in Sources */,
 				093E265614A12234008694BC /* digiio_rtaudio.cpp in Sources */,
@@ -2003,7 +2013,7 @@
 					chuck/src,
 				);
 				INFOPLIST_FILE = "ios/miniAudicle iOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = miniAudicle;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2036,7 +2046,7 @@
 					chuck/src,
 				);
 				INFOPLIST_FILE = "ios/miniAudicle iOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = miniAudicle;
 				SDKROOT = iphoneos;

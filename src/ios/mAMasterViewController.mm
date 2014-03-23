@@ -107,6 +107,8 @@
 
 - (IBAction)newScript
 {
+    (void) self.view; // force the view to load
+
     mADetailItem * detailItem = [mADetailItem new];
     
     detailItem.isUser = YES;

@@ -56,9 +56,7 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
 @synthesize masterViewController = _masterViewController, detailViewController = _detailViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{    
-    [mAChucKController chuckController].ma->start_vm();
-    
+{
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -66,6 +64,7 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
         self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.masterViewController];
         self.window.rootViewController = self.navigationController;
     } else {
+        
         self.masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
 //        UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:self.masterViewController];
         UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithNibName:@"mANavigationController" bundle:nil];
@@ -86,7 +85,7 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
         
         self.masterViewController.scripts = [self loadScripts];
         
-        if([self.masterViewController.scripts count] == 0)
+        if([self.masterViewController.scripts count] < 2)
         {
             [self.masterViewController newScript];
         }
@@ -97,6 +96,8 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
     }    
     
     [self.window makeKeyAndVisible];
+    
+    [mAChucKController chuckController].ma->start_vm();
     
     return YES;
 }

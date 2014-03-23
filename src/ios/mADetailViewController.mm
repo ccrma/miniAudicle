@@ -30,6 +30,43 @@
 #import "mAVMMonitorController.h"
 #import "mAConsoleMonitorController.h"
 #import "miniAudicle.h"
+#import "mAKeyboardAccessoryViewController.h"
+
+
+/*
+ Most likely single-characters in the chuck examples directory and subdirs:
+ / 7191
+ . 5033
+ > 4894
+ ; 4367
+ - 4222
+ = 3721
+ ( 3112
+ ) 3111
+ , 2106
+ < 1762
+ : 1683
+ " 1434
+ { 667
+ } 666
+ ] 626
+ [ 626
+ + 603
+ _ 341
+ * 282
+ ' 194
+ @ 161
+ ! 120
+ % 95
+ ~ 61
+ | 61
+ \ 46
+ # 41
+ $ 40
+ & 30
+ ^ 15
+ ? 11
+*/
 
 
 @implementation mADetailItem
@@ -193,6 +230,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    self.textView.inputAccessoryView = self.keyboardAccessory.view;
+    self.keyboardAccessory.delegate = self;
+    
     [self configureView];
 }
 
@@ -410,6 +451,14 @@
                                            permittedArrowDirections:UIPopoverArrowDirectionUp
                                                            animated:YES];
     }
+}
+
+#pragma mark - mAKeyboardAccessoryDelegate
+
+- (void)keyPressed:(NSString *)chars
+{
+    //NSLog(@"%@", chars);
+    [self.textView insertText:chars];
 }
 
 

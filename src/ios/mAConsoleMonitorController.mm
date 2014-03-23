@@ -25,6 +25,7 @@
 #import "mAConsoleMonitorController.h"
 #import "chuck_errmsg.h"
 
+//#define DISABLE_CONSOLE_MONITOR
 
 @interface mAConsoleMonitorController ()
 
@@ -63,6 +64,7 @@
 
 - (void)setupIO
 {
+#ifndef DISABLE_CONSOLE_MONITOR
     int fd[2];
     //#ifndef __CK_DEBUG__
     if( pipe( fd ) )
@@ -102,7 +104,7 @@
                                              selector:@selector(readData:)
                                                  name:NSFileHandleDataAvailableNotification
                                                object:std_err];
-    
+#endif // DISABLE_CONSOLE_MONITOR
 }
 
 - (void)didReceiveMemoryWarning
