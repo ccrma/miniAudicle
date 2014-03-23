@@ -80,7 +80,7 @@
                     </subviews>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 </view>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="105">
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" id="105">
                     <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <items>
@@ -104,8 +104,9 @@
                     </items>
                 </toolbar>
             </subviews>
-            <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
         <viewController autoresizesArchivedViewToFullSize="NO" nibName="TitleEditView_iPad" id="122" customClass="mATitleEditorController">
             <extendedEdge key="edgesForExtendedLayout"/>

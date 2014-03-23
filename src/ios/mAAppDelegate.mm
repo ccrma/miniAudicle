@@ -56,21 +56,23 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
 @synthesize masterViewController = _masterViewController, detailViewController = _detailViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+{    
     [mAChucKController chuckController].ma->start_vm();
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController_iPhone" bundle:nil];
+        self.masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
         self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.masterViewController];
         self.window.rootViewController = self.navigationController;
     } else {
-        self.masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController_iPad" bundle:nil];
-        UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:self.masterViewController];
+        self.masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
+//        UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:self.masterViewController];
+        UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithNibName:@"mANavigationController" bundle:nil];
+        [masterNavigationController pushViewController:self.masterViewController animated:NO];
         masterNavigationController.navigationBar.translucent = NO;
         
-        self.detailViewController = [[mADetailViewController alloc] initWithNibName:@"mADetailViewController_iPad" bundle:nil];
+        self.detailViewController = [[mADetailViewController alloc] initWithNibName:@"mADetailViewController" bundle:nil];
 //        UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
     	
         self.masterViewController.detailViewController = self.detailViewController;

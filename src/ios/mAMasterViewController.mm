@@ -79,7 +79,10 @@
                                                                 inSection:0]
                                     animated:YES
                               scrollPosition:UITableViewScrollPositionNone];
-        self.detailViewController.detailItem = [self.scripts objectAtIndex:script];
+        
+        mADetailItem *detailItem = [self.scripts objectAtIndex:script];
+        if(!detailItem.isFolder)
+            self.detailViewController.detailItem = detailItem;
     }
 }
 
@@ -273,7 +276,7 @@
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
 	    if (!self.detailViewController) {
-	        self.detailViewController = [[mADetailViewController alloc] initWithNibName:@"mADetailViewController_iPhone" bundle:nil];
+	        self.detailViewController = [[mADetailViewController alloc] initWithNibName:@"mADetailViewController" bundle:nil];
 	    }
         [self.navigationController pushViewController:self.detailViewController animated:YES];
     }
@@ -288,7 +291,7 @@
         }
         else
         {
-            mAMasterViewController *master = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController_iPad" bundle:nil];
+            mAMasterViewController *master = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
             master.detailViewController = self.detailViewController;
             master.navigationItem.title = detailItem.title;
             master.scripts = detailItem.folderItems;

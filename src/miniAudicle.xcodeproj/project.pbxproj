@@ -72,10 +72,10 @@
 		093E262414A108C8008694BC /* mAAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E262314A108C8008694BC /* mAAppDelegate.mm */; };
 		093E262714A108C8008694BC /* mAMasterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E262614A108C8008694BC /* mAMasterViewController.mm */; };
 		093E262A14A108C8008694BC /* mADetailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E262914A108C8008694BC /* mADetailViewController.mm */; };
-		093E262D14A108C8008694BC /* mAMasterViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E262B14A108C8008694BC /* mAMasterViewController_iPhone.xib */; };
-		093E263014A108C8008694BC /* mAMasterViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E262E14A108C8008694BC /* mAMasterViewController_iPad.xib */; };
-		093E263314A108C9008694BC /* mADetailViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E263114A108C8008694BC /* mADetailViewController_iPhone.xib */; };
-		093E263614A108C9008694BC /* mADetailViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E263414A108C9008694BC /* mADetailViewController_iPad.xib */; };
+		093E262D14A108C8008694BC /* mAMasterViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E262B14A108C8008694BC /* mAMasterViewController~iphone.xib */; };
+		093E263014A108C8008694BC /* mAMasterViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E262E14A108C8008694BC /* mAMasterViewController~ipad.xib */; };
+		093E263314A108C9008694BC /* mADetailViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E263114A108C8008694BC /* mADetailViewController~iphone.xib */; };
+		093E263614A108C9008694BC /* mADetailViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E263414A108C9008694BC /* mADetailViewController~ipad.xib */; };
 		093E263B14A12201008694BC /* uana_extract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09812B980C6E394A00D1D68C /* uana_extract.cpp */; };
 		093E263C14A12201008694BC /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */; };
 		093E263D14A12201008694BC /* chuck_absyn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B060A9A54DA007604EA /* chuck_absyn.cpp */; };
@@ -476,6 +476,7 @@
 		0921D55718190216008F39D9 /* server_thread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = server_thread.c; sourceTree = "<group>"; };
 		0921D55818190216008F39D9 /* timetag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = timetag.c; sourceTree = "<group>"; };
 		092979FB0B4DED60005C3B7A /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = /System/Library/Frameworks/IOBluetooth.framework; sourceTree = "<absolute>"; };
+		09307E1618DE68B0004AB346 /* mANavigationController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "mANavigationController~ipad.xib"; sourceTree = "<group>"; };
 		093659CF17DDD0AA007E342C /* oggenc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = oggenc; sourceTree = "<group>"; };
 		093A212A14BF587500497856 /* mAChuginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAChuginManager.h; path = macosx/mAChuginManager.h; sourceTree = "<group>"; };
 		093A212B14BF587500497856 /* mAChuginManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAChuginManager.mm; path = macosx/mAChuginManager.mm; sourceTree = "<group>"; };
@@ -496,10 +497,10 @@
 		093E262614A108C8008694BC /* mAMasterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = mAMasterViewController.mm; sourceTree = "<group>"; };
 		093E262814A108C8008694BC /* mADetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mADetailViewController.h; sourceTree = "<group>"; };
 		093E262914A108C8008694BC /* mADetailViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = mADetailViewController.mm; sourceTree = "<group>"; };
-		093E262C14A108C8008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/mAMasterViewController_iPhone.xib; sourceTree = "<group>"; };
-		093E262F14A108C8008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/mAMasterViewController_iPad.xib; sourceTree = "<group>"; };
-		093E263214A108C9008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/mADetailViewController_iPhone.xib; sourceTree = "<group>"; };
-		093E263514A108C9008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/mADetailViewController_iPad.xib; sourceTree = "<group>"; };
+		093E262C14A108C8008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/mAMasterViewController~iphone.xib"; sourceTree = "<group>"; };
+		093E262F14A108C8008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/mAMasterViewController~ipad.xib"; sourceTree = "<group>"; };
+		093E263214A108C9008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/mADetailViewController~iphone.xib"; sourceTree = "<group>"; };
+		093E263514A108C9008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/mADetailViewController~ipad.xib"; sourceTree = "<group>"; };
 		093E267314A12A69008694BC /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
 		093E267514A12A89008694BC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
 		093E267714A12E3B008694BC /* mo_audio.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mo_audio.mm; path = momu/mo_audio.mm; sourceTree = "<group>"; };
@@ -921,10 +922,11 @@
 			children = (
 				09087C6914A4F63700AD2633 /* Resources */,
 				093E261A14A108C8008694BC /* Supporting Files */,
-				093E262B14A108C8008694BC /* mAMasterViewController_iPhone.xib */,
-				093E262E14A108C8008694BC /* mAMasterViewController_iPad.xib */,
-				093E263114A108C8008694BC /* mADetailViewController_iPhone.xib */,
-				093E263414A108C9008694BC /* mADetailViewController_iPad.xib */,
+				09307E1618DE68B0004AB346 /* mANavigationController~ipad.xib */,
+				093E262B14A108C8008694BC /* mAMasterViewController~iphone.xib */,
+				093E262E14A108C8008694BC /* mAMasterViewController~ipad.xib */,
+				093E263114A108C8008694BC /* mADetailViewController~iphone.xib */,
+				093E263414A108C9008694BC /* mADetailViewController~ipad.xib */,
 				093E262214A108C8008694BC /* mAAppDelegate.h */,
 				093E262314A108C8008694BC /* mAAppDelegate.mm */,
 				093E262514A108C8008694BC /* mAMasterViewController.h */,
@@ -1453,11 +1455,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				093E261E14A108C8008694BC /* InfoPlist.strings in Resources */,
-				093E262D14A108C8008694BC /* mAMasterViewController_iPhone.xib in Resources */,
-				093E263014A108C8008694BC /* mAMasterViewController_iPad.xib in Resources */,
+				093E262D14A108C8008694BC /* mAMasterViewController~iphone.xib in Resources */,
+				093E263014A108C8008694BC /* mAMasterViewController~ipad.xib in Resources */,
 				09EBA9B718D8FD4700DCAE0C /* examples in Resources */,
-				093E263314A108C9008694BC /* mADetailViewController_iPhone.xib in Resources */,
-				093E263614A108C9008694BC /* mADetailViewController_iPad.xib in Resources */,
+				093E263314A108C9008694BC /* mADetailViewController~iphone.xib in Resources */,
+				093E263614A108C9008694BC /* mADetailViewController~ipad.xib in Resources */,
 				093E267914A14E91008694BC /* replace.png in Resources */,
 				093E267A14A14E91008694BC /* remove.png in Resources */,
 				093E267B14A14E91008694BC /* add.png in Resources */,
@@ -1881,36 +1883,36 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		093E262B14A108C8008694BC /* mAMasterViewController_iPhone.xib */ = {
+		093E262B14A108C8008694BC /* mAMasterViewController~iphone.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				093E262C14A108C8008694BC /* en */,
 			);
-			name = mAMasterViewController_iPhone.xib;
+			name = "mAMasterViewController~iphone.xib";
 			sourceTree = "<group>";
 		};
-		093E262E14A108C8008694BC /* mAMasterViewController_iPad.xib */ = {
+		093E262E14A108C8008694BC /* mAMasterViewController~ipad.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				093E262F14A108C8008694BC /* en */,
 			);
-			name = mAMasterViewController_iPad.xib;
+			name = "mAMasterViewController~ipad.xib";
 			sourceTree = "<group>";
 		};
-		093E263114A108C8008694BC /* mADetailViewController_iPhone.xib */ = {
+		093E263114A108C8008694BC /* mADetailViewController~iphone.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				093E263214A108C9008694BC /* en */,
 			);
-			name = mADetailViewController_iPhone.xib;
+			name = "mADetailViewController~iphone.xib";
 			sourceTree = "<group>";
 		};
-		093E263414A108C9008694BC /* mADetailViewController_iPad.xib */ = {
+		093E263414A108C9008694BC /* mADetailViewController~ipad.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				093E263514A108C9008694BC /* en */,
 			);
-			name = mADetailViewController_iPad.xib;
+			name = "mADetailViewController~ipad.xib";
 			sourceTree = "<group>";
 		};
 		098E28A2173A06600044336B /* InfoPlist.strings */ = {
