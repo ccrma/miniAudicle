@@ -104,6 +104,11 @@
                                              selector:@selector(readData:)
                                                  name:NSFileHandleDataAvailableNotification
                                                object:std_err];
+    
+    if(setvbuf(stderr, NULL, _IONBF, 0))
+    {
+        EM_log(CK_LOG_SYSTEM, "(miniAudicle): unable to set cherr to unbuffered mode");
+    }
 #endif // DISABLE_CONSOLE_MONITOR
 }
 
