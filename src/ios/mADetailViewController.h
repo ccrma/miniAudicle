@@ -40,6 +40,7 @@
 @property (nonatomic) t_CKUINT docid;
 @property (nonatomic) BOOL isFolder;
 @property (strong, nonatomic) NSMutableArray *folderItems;
+@property (strong, nonatomic) NSString *path;
 
 + (mADetailItem *)detailItemFromDictionary:(NSDictionary *)dictionary;
 + (mADetailItem *)folderDetailItemWithTitle:(NSString *)title

@@ -335,7 +335,7 @@
     
     std::string code = [self.textView.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
-    std::string filepath = "";
+    std::string filepath = [self.detailItem.path UTF8String];
     vector<string> args;
     t_CKUINT shred_id;
     std::string output;
@@ -352,7 +352,7 @@
     
     std::string code = [self.textView.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
-    std::string filepath = "";
+    std::string filepath = [self.detailItem.path UTF8String];
     vector<string> args;
     t_CKUINT shred_id;
     std::string output;

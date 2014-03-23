@@ -172,6 +172,7 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
                                                         encoding:NSUTF8StringEncoding error:NULL];
             detailItem.isFolder = NO;
             detailItem.folderItems = nil;
+            detailItem.path = fullPath;
             
             [array addObject:detailItem];
         }
