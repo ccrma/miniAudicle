@@ -49,6 +49,19 @@ static IDEKit_LexParser *g_sharedHighlighter = NULL;
             [g_sharedHighlighter addKeyword:class_name color:IDEKit_kLangColor_Classes lexID:0];
         for(id ugen_name in [mASyntaxHighlighting defaultUGens])
             [g_sharedHighlighter addKeyword:ugen_name color:IDEKit_kLangColor_OtherSymbol1 lexID:0];
+        
+        // set defaults
+        
+        NSMutableDictionary * default_sh = [NSMutableDictionary new];
+        [default_sh setObject:@"#ffffff" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Background )];
+        [default_sh setObject:@"#000000" forKey:IDEKit_NameForColor( IDEKit_kLangColor_NormalText )];
+        [default_sh setObject:@"#0000ff" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Keywords )];
+        [default_sh setObject:@"#800023" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Classes )];
+        [default_sh setObject:@"#A200EC" forKey:IDEKit_NameForColor( IDEKit_kLangColor_OtherSymbol1 )];
+        [default_sh setObject:@"#609010" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Comments )];
+        [default_sh setObject:@"#404040" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Strings )];
+        [default_sh setObject:@"#D48010" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Numbers )];
+        [[NSUserDefaults standardUserDefaults] setObject:default_sh forKey:IDEKit_TextColorsPrefKey];
     }
     
     return g_sharedHighlighter;
