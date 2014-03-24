@@ -27,10 +27,10 @@
 #import "chuck_def.h"
 #import "mATitleEditorController.h"
 #import "mAKeyboardAccessoryViewController.h"
+#import "mAConsoleMonitorController.h"
 
 @class mAMasterViewController;
 @class mAVMMonitorController;
-@class mAConsoleMonitorController;
 
 @interface mADetailItem : NSObject
 
@@ -54,7 +54,8 @@
 < UISplitViewControllerDelegate, 
   mATitleEditorControllerDelegate,
   UIPopoverControllerDelegate,
-  mAKeyboardAccessoryDelegate >
+  mAKeyboardAccessoryDelegate,
+  mAConsoleMonitorDelegate >
 {
     IBOutlet UITextView * _textView;
     IBOutlet UIBarButtonItem * _titleButton;
@@ -71,6 +72,7 @@
 @property (strong, nonatomic) mADetailItem * detailItem;
 @property (strong, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 @property (strong, nonatomic) IBOutlet mAKeyboardAccessoryViewController *keyboardAccessory;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *consoleMonitorButton;
 
 - (void)saveScript;
 

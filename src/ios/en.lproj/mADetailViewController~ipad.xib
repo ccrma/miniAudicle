@@ -13,6 +13,7 @@
                 <outlet property="_titleEditor" destination="122" id="123"/>
                 <outlet property="_toolbar" destination="105" id="110"/>
                 <outlet property="_vmMonitor" destination="126" id="127"/>
+                <outlet property="consoleMonitorButton" destination="130" id="R6e-7K-Crb"/>
                 <outlet property="keyboardAccessory" destination="OBr-wa-omh" id="qug-Gx-qG4"/>
                 <outlet property="view" destination="8" id="12"/>
             </connections>
@@ -135,6 +136,9 @@
             <nil key="simulatedBottomBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <nil key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="delegate" destination="-1" id="0Xd-WH-HnY"/>
+            </connections>
         </viewController>
         <viewController autoresizesArchivedViewToFullSize="NO" nibName="mAKeyboardAccessoryViewController" automaticallyAdjustsScrollViewInsets="NO" id="OBr-wa-omh" customClass="mAKeyboardAccessoryViewController">
             <nil key="simulatedStatusBarMetrics"/>

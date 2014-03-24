@@ -24,6 +24,12 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol mAConsoleMonitorDelegate
+
+- (void)consoleMonitorReceivedNewData;
+
+@end
+
 @interface mAConsoleMonitorController : UIViewController
 {
     IBOutlet UITextView * _textView;
@@ -31,5 +37,7 @@
     NSFileHandle * std_out; // encapsulation of piped stdout
     NSFileHandle * std_err; //encapsulation of piped stderr
 }
+
+@property (weak, nonatomic) IBOutlet id<mAConsoleMonitorDelegate> delegate;
 
 @end

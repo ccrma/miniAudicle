@@ -434,6 +434,8 @@
 
 - (IBAction)showConsoleMonitor:(id)sender
 {
+    self.consoleMonitorButton.title = @"Console";
+
     if(self.consoleMonitorPopover == nil)
     {
         self.consoleMonitorPopover = [[UIPopoverController alloc] initWithContentViewController:self.consoleMonitor];
@@ -459,6 +461,14 @@
 {
     //NSLog(@"%@", chars);
     [self.textView insertText:chars];
+}
+
+
+#pragma mark - mAConsoleMonitorDelegate
+
+- (void)consoleMonitorReceivedNewData
+{
+    self.consoleMonitorButton.title = @"Console*";
 }
 
 

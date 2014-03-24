@@ -28,6 +28,9 @@
 //#define DISABLE_CONSOLE_MONITOR
 
 @interface mAConsoleMonitorController ()
+{
+    NSMutableString *_text;
+}
 
 @property (strong, nonatomic) UITextView * textView;
 
@@ -46,6 +49,7 @@
     if(self = [super initWithCoder:c])
     {
         [self setupIO];
+        _text = [NSMutableString new];
     }
     
     return self;
@@ -57,6 +61,7 @@
     if(self)
     {
         [self setupIO];
+        _text = [NSMutableString new];
     }
     
     return self;
@@ -109,6 +114,10 @@
     {
         EM_log(CK_LOG_SYSTEM, "(miniAudicle): unable to set cherr to unbuffered mode");
     }
+    
+    fflush(stdout);
+    fflush(stderr);
+
 #endif // DISABLE_CONSOLE_MONITOR
 }
 
@@ -127,7 +136,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.textView.text = @"";
+    self.textView.text = _text;
 }
 
 - (void)viewDidUnload
@@ -151,7 +160,11 @@
         
     [[n object] waitForDataInBackgroundAndNotify];
     
-    self.textView.text = [NSString stringWithFormat:@"%@%@", self.textView.text, d];
+    [_text appendString:d];
+    self.textView.text = _text;
+    [self.textView setNeedsDisplay];
+    
+    [self.delegate consoleMonitorReceivedNewData];
 }
 
 
