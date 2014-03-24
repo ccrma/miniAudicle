@@ -137,6 +137,10 @@
     // Do any additional setup after loading the view from its nib.
     
     self.textView.text = _text;
+    
+    CGSize s = self.view.frame.size;
+    s.width = 600;
+    self.preferredContentSize = s;
 }
 
 - (void)viewDidUnload
@@ -162,17 +166,10 @@
     
     [_text appendString:d];
     self.textView.text = _text;
-    [self.textView setNeedsDisplay];
+    [self.textView scrollRangeToVisible:NSMakeRange(_text.length-1, 1)];
     
     [self.delegate consoleMonitorReceivedNewData];
 }
 
-
-- (CGSize)contentSizeForViewInPopover
-{
-    CGSize s = [super contentSizeForViewInPopover];
-    s.width = 600;
-    return s;
-}
 
 @end
