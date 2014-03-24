@@ -22,7 +22,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 U.S.A.
 -----------------------------------------------------------------------------*/
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import "mASyntaxHighlighter.h"
 
 @implementation mASyntaxHighlighting
@@ -118,12 +118,16 @@ U.S.A.
     @"OscSend",
     @"OscEvent",
     @"OscRecv",
+    @"OscIn",
+    @"OscOut",
+    @"OscMsg",
     @"MidiMsg",
     @"MidiIn",
     @"MidiOut",
     @"MidiRW",
     @"MidiMsgIn",
     @"MidiMsgOut",
+    @"MidiFileIn",
     @"HidMsg",
     @"Hid",
     @"RegEx",
