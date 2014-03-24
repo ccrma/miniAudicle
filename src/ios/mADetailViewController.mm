@@ -256,6 +256,8 @@
     self.textView.inputAccessoryView = self.keyboardAccessory.view;
     self.keyboardAccessory.delegate = self;
     
+    self.textView.textStorage.delegate = self;
+    
     [self configureView];
 }
 
@@ -337,7 +339,7 @@
 }
 
 
-#pragma mark miniAudicle / ChucK VM stuff
+#pragma mark miniAudicle / ChucK VM
 
 - (void)saveScript
 {
@@ -357,7 +359,9 @@
     
     std::string code = [self.textView.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
-    std::string filepath = [self.detailItem.path UTF8String];
+    std::string filepath;
+    if(self.detailItem.path && [self.detailItem.path length])
+        filepath = [self.detailItem.path UTF8String];
     vector<string> args;
     t_CKUINT shred_id;
     std::string output;
@@ -374,7 +378,9 @@
     
     std::string code = [self.textView.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
-    std::string filepath = [self.detailItem.path UTF8String];
+    std::string filepath;
+    if(self.detailItem.path && [self.detailItem.path length])
+        filepath = [self.detailItem.path UTF8String];
     vector<string> args;
     t_CKUINT shred_id;
     std::string output;
@@ -475,6 +481,24 @@
                                            permittedArrowDirections:UIPopoverArrowDirectionUp
                                                            animated:YES];
     }
+}
+
+#pragma - NSTextStorageDelegate
+
+- (void)textStorage:(NSTextStorage *)textStorage
+  didProcessEditing:(NSTextStorageEditActions)editedMask
+              range:(NSRange)editedRange
+     changeInLength:(NSInteger)delta
+{
+    NSUInteger start_index, line_end_index, contents_end_index;
+    [[textStorage string] getLineStart:&start_index
+                                   end:&line_end_index
+                           contentsEnd:&contents_end_index
+                              forRange:editedRange];
+    
+    [[mASyntaxHighlighting sharedHighlighter] colorString:textStorage
+                                                    range:NSMakeRange( start_index, contents_end_index - start_index )
+                                                  colorer:nil];
 }
 
 #pragma mark - mAKeyboardAccessoryDelegate

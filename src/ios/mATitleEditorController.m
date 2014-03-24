@@ -105,7 +105,8 @@
 {
     [super viewDidLoad];
     
-    self.contentSizeForViewInPopover = self.view.frame.size;
+//    self.contentSizeForViewInPopover = self.view.frame.size;
+    self.preferredContentSize = self.view.frame.size;
 }
 
 
