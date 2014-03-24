@@ -62,6 +62,7 @@
 		09297A180B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
 		09307E1A18DE76D0004AB346 /* mAKeyboardAccessoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09307E1818DE76D0004AB346 /* mAKeyboardAccessoryViewController.m */; };
 		09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09307E1918DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib */; };
+		09307E1F18DFB5E7004AB346 /* mASyntaxHighlighter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09307E1E18DFB5E7004AB346 /* mASyntaxHighlighter.mm */; };
 		093659D017DDD0AA007E342C /* oggenc in Resources */ = {isa = PBXBuildFile; fileRef = 093659CF17DDD0AA007E342C /* oggenc */; };
 		093A212C14BF587500497856 /* mAChuginManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A212B14BF587500497856 /* mAChuginManager.mm */; };
 		093A212E14BFEF7F00497856 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093A212D14BFEF7F00497856 /* Security.framework */; };
@@ -482,6 +483,8 @@
 		09307E1718DE76D0004AB346 /* mAKeyboardAccessoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAKeyboardAccessoryViewController.h; sourceTree = "<group>"; };
 		09307E1818DE76D0004AB346 /* mAKeyboardAccessoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAKeyboardAccessoryViewController.m; sourceTree = "<group>"; };
 		09307E1918DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAKeyboardAccessoryViewController.xib; sourceTree = "<group>"; };
+		09307E1D18DFB5E7004AB346 /* mASyntaxHighlighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mASyntaxHighlighter.h; sourceTree = "<group>"; };
+		09307E1E18DFB5E7004AB346 /* mASyntaxHighlighter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mASyntaxHighlighter.mm; sourceTree = "<group>"; };
 		093659CF17DDD0AA007E342C /* oggenc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = oggenc; sourceTree = "<group>"; };
 		093A212A14BF587500497856 /* mAChuginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAChuginManager.h; path = macosx/mAChuginManager.h; sourceTree = "<group>"; };
 		093A212B14BF587500497856 /* mAChuginManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAChuginManager.mm; path = macosx/mAChuginManager.mm; sourceTree = "<group>"; };
@@ -955,6 +958,8 @@
 				09307E1718DE76D0004AB346 /* mAKeyboardAccessoryViewController.h */,
 				09307E1818DE76D0004AB346 /* mAKeyboardAccessoryViewController.m */,
 				09307E1918DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib */,
+				09307E1D18DFB5E7004AB346 /* mASyntaxHighlighter.h */,
+				09307E1E18DFB5E7004AB346 /* mASyntaxHighlighter.mm */,
 			);
 			name = "miniAudicle iOS";
 			path = ios;
@@ -1617,6 +1622,7 @@
 				093E266514A12234008694BC /* util_network.c in Sources */,
 				093E266614A12234008694BC /* util_opsc.cpp in Sources */,
 				093E266714A12234008694BC /* util_raw.c in Sources */,
+				09307E1F18DFB5E7004AB346 /* mASyntaxHighlighter.mm in Sources */,
 				093E266814A12234008694BC /* util_sndfile.c in Sources */,
 				093E266914A12234008694BC /* util_string.cpp in Sources */,
 				093E266A14A12234008694BC /* util_thread.cpp in Sources */,

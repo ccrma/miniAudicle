@@ -165,6 +165,7 @@
 @property (strong, nonatomic) UIPopoverController * consoleMonitorPopover;
 @property (strong, nonatomic) mAConsoleMonitorController * consoleMonitor;
 
+- (NSDictionary *)defaultTextAttributes;
 - (void)configureView;
 
 @end
@@ -183,6 +184,18 @@
 @synthesize popover = _popover, titleEditor = _titleEditor;
 @synthesize vmMonitorPopover = _vmMonitorPopover, vmMonitor = _vmMonitor;
 @synthesize consoleMonitorPopover = _consoleMonitorPopover, consoleMonitor = _consoleMonitor;
+
+- (NSDictionary *)defaultTextAttributes
+{
+    if([[[[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."] objectAtIndex:0] isEqualToString:@"7"])
+        return [NSDictionary dictionaryWithObjectsAndKeys:
+                [UIFont fontWithName:@"Menlo" size:13], NSFontAttributeName,
+                nil];
+    else
+        return [NSDictionary dictionaryWithObjectsAndKeys:
+                [UIFont fontWithName:@"Courier" size:13], NSFontAttributeName,
+                nil];
+}
 
 #pragma mark - Managing the detail item
 
@@ -204,7 +217,7 @@
 
     if (self.masterPopoverController != nil) {
         [self.masterPopoverController dismissPopoverAnimated:YES];
-    }        
+    }
 }
 
 - (void)configureView
@@ -214,7 +227,11 @@
     if (self.detailItem)
     {
         self.titleButton.title = self.detailItem.title;
-        self.textView.text = self.detailItem.text;
+//        self.textView.text = self.detailItem.text;
+        NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:self.detailItem.text
+                                           attributes:[self defaultTextAttributes]];
+        [[mASyntaxHighlighting sharedHighlighter] colorString:text range:NSMakeRange(0, [text length]-1) colorer:nil];
+        self.textView.attributedText = text;
     }
 }
 
@@ -230,6 +247,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    if([[[[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."] objectAtIndex:0] isEqualToString:@"7"])
+        self.textView.font = [UIFont fontWithName:@"Menlo" size:13];
+    else
+        self.textView.font = [UIFont fontWithName:@"Courier" size:13];
     
     self.textView.inputAccessoryView = self.keyboardAccessory.view;
     self.keyboardAccessory.delegate = self;

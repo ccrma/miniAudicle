@@ -28,6 +28,7 @@
 #import "mATitleEditorController.h"
 #import "mAKeyboardAccessoryViewController.h"
 #import "mAConsoleMonitorController.h"
+#import "mASyntaxHighlighter.h"
 
 @class mAMasterViewController;
 @class mAVMMonitorController;
