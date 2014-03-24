@@ -32,6 +32,7 @@
 
 @class mAMasterViewController;
 @class mAVMMonitorController;
+@class mATextView;
 
 @interface mADetailItem : NSObject
 
@@ -59,7 +60,7 @@
   mAConsoleMonitorDelegate,
   NSTextStorageDelegate >
 {
-    IBOutlet UITextView * _textView;
+    IBOutlet mATextView * _textView;
     IBOutlet UIBarButtonItem * _titleButton;
     IBOutlet UIToolbar * _toolbar;
 //    IBOutlet UINavigationItem * _titleButton;

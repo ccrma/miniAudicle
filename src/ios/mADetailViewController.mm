@@ -31,6 +31,8 @@
 #import "mAConsoleMonitorController.h"
 #import "miniAudicle.h"
 #import "mAKeyboardAccessoryViewController.h"
+#import "NSString+NSString_Lines.h"
+#import "mATextView.h"
 
 
 /*
@@ -149,10 +151,13 @@
 
 
 @interface mADetailViewController ()
+{
+    NSRange _errorRange;
+}
 
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
 
-@property (strong, nonatomic) UITextView * textView;
+@property (strong, nonatomic) mATextView * textView;
 @property (strong, nonatomic) UIBarButtonItem * titleButton;
 @property (strong, nonatomic) UIToolbar * toolbar;
 
@@ -166,7 +171,9 @@
 @property (strong, nonatomic) mAConsoleMonitorController * consoleMonitor;
 
 - (NSDictionary *)defaultTextAttributes;
+- (NSDictionary *)errorTextAttributes;
 - (void)configureView;
+- (void)setErrorLine:(int)line;
 
 @end
 
@@ -187,14 +194,32 @@
 
 - (NSDictionary *)defaultTextAttributes
 {
-    if([[[[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."] objectAtIndex:0] isEqualToString:@"7"])
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                [UIFont fontWithName:@"Menlo" size:13], NSFontAttributeName,
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+                [UIFont fontWithName:@"Menlo" size:14], NSFontAttributeName,
                 nil];
-    else
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                [UIFont fontWithName:@"Courier" size:13], NSFontAttributeName,
-                nil];
+}
+
+- (NSDictionary *)errorTextAttributes
+{
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+            [UIColor colorWithRed:1 green:0 blue:0 alpha:0.5], NSBackgroundColorAttributeName,
+            nil];
+}
+
+
+- (void)setErrorLine:(int)line
+{
+//    // clear existing error line
+//    if(_errorRange.location != NSNotFound)
+//        [self.textView.textStorage removeAttribute:NSBackgroundColorAttributeName range:_errorRange];
+//    
+//    if(line >= 0)
+//    {
+//        _errorRange = [self.textView.text rangeOfLine:line];
+//        
+//        if(_errorRange.location != NSNotFound)
+//            [self.textView.textStorage addAttributes:[self errorTextAttributes] range:_errorRange];
+//    }
 }
 
 #pragma mark - Managing the detail item
@@ -248,10 +273,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    if([[[[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."] objectAtIndex:0] isEqualToString:@"7"])
-        self.textView.font = [UIFont fontWithName:@"Menlo" size:13];
-    else
-        self.textView.font = [UIFont fontWithName:@"Courier" size:13];
+    _errorRange = NSMakeRange(NSNotFound, 0);
+    
+    self.textView.font = [UIFont fontWithName:@"Menlo" size:14];
     
     self.textView.inputAccessoryView = self.keyboardAccessory.view;
     self.keyboardAccessory.delegate = self;
@@ -366,9 +390,48 @@
     t_CKUINT shred_id;
     std::string output;
     
-    [mAChucKController chuckController].ma->run_code(code, name, args, filepath,
-                                                     self.detailItem.docid, 
-                                                     shred_id, output);
+    t_OTF_RESULT otf_result = [mAChucKController chuckController].ma->run_code(code, name, args, filepath,
+                                                                               self.detailItem.docid,
+                                                                               shred_id, output);
+    
+    if( otf_result == OTF_SUCCESS )
+    {
+//        [status_text setStringValue:@""];
+//        
+//        if([self.windowController currentViewController] == self)
+//            [[text_view textView] animateAdd];
+//        [text_view setShowsErrorLine:NO];
+//        [self setErrorLine:-1];
+        self.textView.errorLine = -1;
+    }
+    else if( otf_result == OTF_VM_TIMEOUT )
+    {
+//        miniAudicleController * mac = [NSDocumentController sharedDocumentController];
+//        [mac setLockdown:YES];
+    }
+    else if( otf_result == OTF_COMPILE_ERROR )
+    {
+        int error_line;
+        if( [mAChucKController chuckController].ma->get_last_result( self.detailItem.docid, NULL, NULL, &error_line ) )
+        {
+//            [text_view setShowsErrorLine:YES];
+//            [text_view setErrorLine:error_line];
+//            [self setErrorLine:error_line];
+            self.textView.errorLine = error_line;
+        }
+        
+//        if([self.windowController currentViewController] == self)
+//            [[text_view textView] animateError];
+//        
+//        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
+    }
+    else
+    {
+//        if([self.windowController currentViewController] == self)
+//            [[text_view textView] animateError];
+//        
+//        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
+    }
 }
 
 
@@ -483,7 +546,7 @@
     }
 }
 
-#pragma - NSTextStorageDelegate
+#pragma mark - NSTextStorageDelegate
 
 - (void)textStorage:(NSTextStorage *)textStorage
   didProcessEditing:(NSTextStorageEditActions)editedMask

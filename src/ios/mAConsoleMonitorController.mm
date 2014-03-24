@@ -25,7 +25,9 @@
 #import "mAConsoleMonitorController.h"
 #import "chuck_errmsg.h"
 
-//#define DISABLE_CONSOLE_MONITOR
+#ifdef DEBUG
+#define DISABLE_CONSOLE_MONITOR
+#endif
 
 @interface mAConsoleMonitorController ()
 {

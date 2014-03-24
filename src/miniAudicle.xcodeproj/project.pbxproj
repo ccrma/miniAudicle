@@ -64,6 +64,9 @@
 		09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09307E1918DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib */; };
 		09307E1F18DFB5E7004AB346 /* mASyntaxHighlighter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09307E1E18DFB5E7004AB346 /* mASyntaxHighlighter.mm */; };
 		09307E2118DFEE57004AB346 /* icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09307E2018DFEE57004AB346 /* icon.xcassets */; };
+		09307E2418DFF892004AB346 /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 095B59710BC6D0F900E8759D /* error.png */; };
+		09307E2718E0BEC2004AB346 /* NSString+NSString_Lines.m in Sources */ = {isa = PBXBuildFile; fileRef = 09307E2618E0BEC2004AB346 /* NSString+NSString_Lines.m */; };
+		09307E2A18E0CDA1004AB346 /* mATextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09307E2918E0CDA1004AB346 /* mATextView.mm */; };
 		093659D017DDD0AA007E342C /* oggenc in Resources */ = {isa = PBXBuildFile; fileRef = 093659CF17DDD0AA007E342C /* oggenc */; };
 		093A212C14BF587500497856 /* mAChuginManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A212B14BF587500497856 /* mAChuginManager.mm */; };
 		093A212E14BFEF7F00497856 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093A212D14BFEF7F00497856 /* Security.framework */; };
@@ -486,6 +489,10 @@
 		09307E1D18DFB5E7004AB346 /* mASyntaxHighlighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mASyntaxHighlighter.h; sourceTree = "<group>"; };
 		09307E1E18DFB5E7004AB346 /* mASyntaxHighlighter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mASyntaxHighlighter.mm; sourceTree = "<group>"; };
 		09307E2018DFEE57004AB346 /* icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = icon.xcassets; sourceTree = "<group>"; };
+		09307E2518E0BEC2004AB346 /* NSString+NSString_Lines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NSString_Lines.h"; sourceTree = "<group>"; };
+		09307E2618E0BEC2004AB346 /* NSString+NSString_Lines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NSString_Lines.m"; sourceTree = "<group>"; };
+		09307E2818E0CDA1004AB346 /* mATextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mATextView.h; sourceTree = "<group>"; };
+		09307E2918E0CDA1004AB346 /* mATextView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mATextView.mm; sourceTree = "<group>"; };
 		093659CF17DDD0AA007E342C /* oggenc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = oggenc; sourceTree = "<group>"; };
 		093A212A14BF587500497856 /* mAChuginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAChuginManager.h; path = macosx/mAChuginManager.h; sourceTree = "<group>"; };
 		093A212B14BF587500497856 /* mAChuginManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAChuginManager.mm; path = macosx/mAChuginManager.mm; sourceTree = "<group>"; };
@@ -943,6 +950,8 @@
 				093E263414A108C9008694BC /* mADetailViewController~ipad.xib */,
 				093E262814A108C8008694BC /* mADetailViewController.h */,
 				093E262914A108C8008694BC /* mADetailViewController.mm */,
+				09307E2818E0CDA1004AB346 /* mATextView.h */,
+				09307E2918E0CDA1004AB346 /* mATextView.mm */,
 				093E267D14A1B3B2008694BC /* mAChucKController.h */,
 				093E267E14A1B3B2008694BC /* mAChucKController.mm */,
 				09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */,
@@ -962,6 +971,8 @@
 				09307E1918DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib */,
 				09307E1D18DFB5E7004AB346 /* mASyntaxHighlighter.h */,
 				09307E1E18DFB5E7004AB346 /* mASyntaxHighlighter.mm */,
+				09307E2518E0BEC2004AB346 /* NSString+NSString_Lines.h */,
+				09307E2618E0BEC2004AB346 /* NSString+NSString_Lines.m */,
 			);
 			name = "miniAudicle iOS";
 			path = ios;
@@ -1483,6 +1494,7 @@
 				09D00B8414A3C4010019CD09 /* TitleEditView_iPad.xib in Resources */,
 				09D00B8C14A44DFB0019CD09 /* mAVMMonitorController.xib in Resources */,
 				09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */,
+				09307E2418DFF892004AB346 /* error.png in Resources */,
 				09087C6B14A4F67100AD2633 /* UIRemoveControlMinus.png in Resources */,
 				09608AE014B40DE4009450FE /* mAConsoleMonitor.xib in Resources */,
 				09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */,
@@ -1577,6 +1589,7 @@
 				093E263C14A12201008694BC /* uana_xform.cpp in Sources */,
 				093E263D14A12201008694BC /* chuck_absyn.cpp in Sources */,
 				0921D55E18190216008F39D9 /* bundle.c in Sources */,
+				09307E2718E0BEC2004AB346 /* NSString+NSString_Lines.m in Sources */,
 				093E263E14A12201008694BC /* chuck_bbq.cpp in Sources */,
 				093E263F14A12201008694BC /* chuck_compile.cpp in Sources */,
 				093E264014A12201008694BC /* chuck_console.cpp in Sources */,
@@ -1594,6 +1607,7 @@
 				093E264A14A12201008694BC /* chuck_parse.cpp in Sources */,
 				0921D56018190216008F39D9 /* message.c in Sources */,
 				093E264B14A12201008694BC /* chuck_scan.cpp in Sources */,
+				09307E2A18E0CDA1004AB346 /* mATextView.mm in Sources */,
 				093E264C14A12201008694BC /* chuck_shell.cpp in Sources */,
 				093E264D14A12201008694BC /* chuck_stats.cpp in Sources */,
 				093E264E14A12201008694BC /* chuck_symbol.cpp in Sources */,
