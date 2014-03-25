@@ -378,6 +378,7 @@
 		09E482A40B1CF12E002087DF /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A40BD70A9A57C6007604EA /* IOKit.framework */; };
 		09E482BE0B1CF292002087DF /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
 		09EBA9B718D8FD4700DCAE0C /* examples in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B5C1769A5CD00A07ADF /* examples */; };
+		09F09E3718E0F5AE0050D963 /* mAKeyboardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F09E3618E0F5AE0050D963 /* mAKeyboardButton.m */; };
 		09F376EB0BBC97D6005931F6 /* removelast.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E60BBC97D6005931F6 /* removelast.png */; };
 		09F376EC0BBC97D6005931F6 /* removeall.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E70BBC97D6005931F6 /* removeall.png */; };
 		09F376ED0BBC97D6005931F6 /* replace.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E80BBC97D6005931F6 /* replace.png */; };
@@ -754,6 +755,8 @@
 		09E481F90B1CE5AF002087DF /* gauge02.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = gauge02.ck; path = ../test/gauge02.ck; sourceTree = SOURCE_ROOT; };
 		09E482060B1CEF41002087DF /* miniAudicle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = miniAudicle; sourceTree = BUILT_PRODUCTS_DIR; };
 		09E5546D0DA61CB700F1A6C8 /* miniAudicle_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = miniAudicle_debug.h; sourceTree = "<group>"; };
+		09F09E3518E0F5AE0050D963 /* mAKeyboardButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAKeyboardButton.h; sourceTree = "<group>"; };
+		09F09E3618E0F5AE0050D963 /* mAKeyboardButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAKeyboardButton.m; sourceTree = "<group>"; };
 		09F376E60BBC97D6005931F6 /* removelast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = removelast.png; path = macosx/icon/removelast.png; sourceTree = SOURCE_ROOT; };
 		09F376E70BBC97D6005931F6 /* removeall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = removeall.png; path = macosx/icon/removeall.png; sourceTree = SOURCE_ROOT; };
 		09F376E80BBC97D6005931F6 /* replace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = replace.png; path = macosx/icon/replace.png; sourceTree = SOURCE_ROOT; };
@@ -966,6 +969,8 @@
 				09608ADC14B40DE4009450FE /* mAConsoleMonitorController.h */,
 				09608ADD14B40DE4009450FE /* mAConsoleMonitorController.mm */,
 				09608ADE14B40DE4009450FE /* mAConsoleMonitor.xib */,
+				09F09E3518E0F5AE0050D963 /* mAKeyboardButton.h */,
+				09F09E3618E0F5AE0050D963 /* mAKeyboardButton.m */,
 				09307E1718DE76D0004AB346 /* mAKeyboardAccessoryViewController.h */,
 				09307E1818DE76D0004AB346 /* mAKeyboardAccessoryViewController.m */,
 				09307E1918DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib */,
@@ -1644,6 +1649,7 @@
 				093E266914A12234008694BC /* util_string.cpp in Sources */,
 				093E266A14A12234008694BC /* util_thread.cpp in Sources */,
 				093E266B14A12234008694BC /* util_xforms.c in Sources */,
+				09F09E3718E0F5AE0050D963 /* mAKeyboardButton.m in Sources */,
 				093E266F14A12240008694BC /* miniAudicle.cpp in Sources */,
 				0921D56818190216008F39D9 /* server.c in Sources */,
 				093E267014A12240008694BC /* miniAudicle_log.cpp in Sources */,
@@ -2030,7 +2036,6 @@
 					__MACOSX_CORE__,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				HEADER_SEARCH_PATHS = (
 					ios,
 					chuck/src,
@@ -2064,7 +2069,6 @@
 					__CHIP_MODE__,
 					__MACOSX_CORE__,
 				);
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				HEADER_SEARCH_PATHS = (
 					ios,
 					chuck/src,
