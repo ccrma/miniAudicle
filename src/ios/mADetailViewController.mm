@@ -581,4 +581,18 @@
 }
 
 
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+//    NSLog(@"shouldChangeTextInRange: %i %i selectedRange: %i %i text: %@",
+//          range.location, range.length,
+//          [textView selectedRange].location, [textView selectedRange].length,
+//          text);
+    if([text isEqualToString:@". "] && range.location != [textView selectedRange].location)
+        return NO;
+    return YES;
+}
+
+
 @end

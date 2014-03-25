@@ -58,7 +58,8 @@
   UIPopoverControllerDelegate,
   mAKeyboardAccessoryDelegate,
   mAConsoleMonitorDelegate,
-  NSTextStorageDelegate >
+  NSTextStorageDelegate,
+  UITextViewDelegate >
 {
     IBOutlet mATextView * _textView;
     IBOutlet UIBarButtonItem * _titleButton;
