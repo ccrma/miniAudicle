@@ -11,6 +11,7 @@
 @interface mATextView : UITextView
 
 @property (nonatomic) NSInteger errorLine;
+@property (copy, nonatomic) NSString *errorMessage;
 
 @end
 

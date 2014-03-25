@@ -403,6 +403,7 @@
 //        [text_view setShowsErrorLine:NO];
 //        [self setErrorLine:-1];
         self.textView.errorLine = -1;
+        self.textView.errorMessage = nil;
     }
     else if( otf_result == OTF_VM_TIMEOUT )
     {
@@ -412,12 +413,14 @@
     else if( otf_result == OTF_COMPILE_ERROR )
     {
         int error_line;
-        if( [mAChucKController chuckController].ma->get_last_result( self.detailItem.docid, NULL, NULL, &error_line ) )
+        std::string result;
+        if( [mAChucKController chuckController].ma->get_last_result( self.detailItem.docid, NULL, &result, &error_line ) )
         {
 //            [text_view setShowsErrorLine:YES];
 //            [text_view setErrorLine:error_line];
 //            [self setErrorLine:error_line];
             self.textView.errorLine = error_line;
+            self.textView.errorMessage = [NSString stringWithUTF8String:result.c_str()];
         }
         
 //        if([self.windowController currentViewController] == self)
