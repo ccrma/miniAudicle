@@ -379,6 +379,8 @@
 		09E482BE0B1CF292002087DF /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
 		09EBA9B718D8FD4700DCAE0C /* examples in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B5C1769A5CD00A07ADF /* examples */; };
 		09F09E3718E0F5AE0050D963 /* mAKeyboardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F09E3618E0F5AE0050D963 /* mAKeyboardButton.m */; };
+		09F09E3B18E2C5E60050D963 /* mAEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09F09E3918E2C5E60050D963 /* mAEditorViewController.mm */; };
+		09F09E3C18E2C5E60050D963 /* mAEditorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09F09E3A18E2C5E60050D963 /* mAEditorViewController.xib */; };
 		09F376EB0BBC97D6005931F6 /* removelast.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E60BBC97D6005931F6 /* removelast.png */; };
 		09F376EC0BBC97D6005931F6 /* removeall.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E70BBC97D6005931F6 /* removeall.png */; };
 		09F376ED0BBC97D6005931F6 /* replace.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E80BBC97D6005931F6 /* replace.png */; };
@@ -757,6 +759,9 @@
 		09E5546D0DA61CB700F1A6C8 /* miniAudicle_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = miniAudicle_debug.h; sourceTree = "<group>"; };
 		09F09E3518E0F5AE0050D963 /* mAKeyboardButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAKeyboardButton.h; sourceTree = "<group>"; };
 		09F09E3618E0F5AE0050D963 /* mAKeyboardButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAKeyboardButton.m; sourceTree = "<group>"; };
+		09F09E3818E2C5E60050D963 /* mAEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAEditorViewController.h; sourceTree = "<group>"; };
+		09F09E3918E2C5E60050D963 /* mAEditorViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAEditorViewController.mm; sourceTree = "<group>"; };
+		09F09E3A18E2C5E60050D963 /* mAEditorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAEditorViewController.xib; sourceTree = "<group>"; };
 		09F376E60BBC97D6005931F6 /* removelast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = removelast.png; path = macosx/icon/removelast.png; sourceTree = SOURCE_ROOT; };
 		09F376E70BBC97D6005931F6 /* removeall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = removeall.png; path = macosx/icon/removeall.png; sourceTree = SOURCE_ROOT; };
 		09F376E80BBC97D6005931F6 /* replace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = replace.png; path = macosx/icon/replace.png; sourceTree = SOURCE_ROOT; };
@@ -953,6 +958,9 @@
 				093E263414A108C9008694BC /* mADetailViewController~ipad.xib */,
 				093E262814A108C8008694BC /* mADetailViewController.h */,
 				093E262914A108C8008694BC /* mADetailViewController.mm */,
+				09F09E3A18E2C5E60050D963 /* mAEditorViewController.xib */,
+				09F09E3818E2C5E60050D963 /* mAEditorViewController.h */,
+				09F09E3918E2C5E60050D963 /* mAEditorViewController.mm */,
 				09307E2818E0CDA1004AB346 /* mATextView.h */,
 				09307E2918E0CDA1004AB346 /* mATextView.mm */,
 				093E267D14A1B3B2008694BC /* mAChucKController.h */,
@@ -1495,6 +1503,7 @@
 				093E267914A14E91008694BC /* replace.png in Resources */,
 				093E267A14A14E91008694BC /* remove.png in Resources */,
 				093E267B14A14E91008694BC /* add.png in Resources */,
+				09F09E3C18E2C5E60050D963 /* mAEditorViewController.xib in Resources */,
 				093E267C14A14E91008694BC /* miniAudicle.icns in Resources */,
 				09D00B8414A3C4010019CD09 /* TitleEditView_iPad.xib in Resources */,
 				09D00B8C14A44DFB0019CD09 /* mAVMMonitorController.xib in Resources */,
@@ -1608,6 +1617,7 @@
 				093E264714A12201008694BC /* chuck_lang.cpp in Sources */,
 				093E264814A12201008694BC /* chuck_oo.cpp in Sources */,
 				0921D56A18190216008F39D9 /* server_thread.c in Sources */,
+				09F09E3B18E2C5E60050D963 /* mAEditorViewController.mm in Sources */,
 				093E264914A12201008694BC /* chuck_otf.cpp in Sources */,
 				093E264A14A12201008694BC /* chuck_parse.cpp in Sources */,
 				0921D56018190216008F39D9 /* message.c in Sources */,

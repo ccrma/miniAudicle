@@ -25,6 +25,7 @@
 #import "mAMasterViewController.h"
 
 #import "mADetailViewController.h"
+#import "mAEditorViewController.h"
 #import "mAChucKController.h"
 #import "miniAudicle.h"
 
@@ -61,7 +62,6 @@ enum mAInteractionMode
         self.title = NSLocalizedString(@"Scripts", @"Scripts");
         if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
         {
-//            self.clearsSelectionOnViewWillAppear = NO;
             self.preferredContentSize = CGSizeMake(320.0, 600.0);
         }
         
@@ -97,7 +97,7 @@ enum mAInteractionMode
         
         mADetailItem *detailItem = [self.scripts objectAtIndex:script];
         if(!detailItem.isFolder)
-            self.detailViewController.detailItem = detailItem;
+            self.editorViewController.detailItem = detailItem;
     }
 }
 
@@ -114,7 +114,7 @@ enum mAInteractionMode
 //    [self selectScript:row];
     
     // reload name
-    [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]].textLabel.text = self.detailViewController.detailItem.title;
+    [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]].textLabel.text = self.editorViewController.detailItem.title;
 }
 
 
@@ -136,7 +136,7 @@ enum mAInteractionMode
     [self.scripts insertObject:detailItem atIndex:insertIndex];
     [self.tableView reloadData];
     
-    self.detailViewController.detailItem = detailItem;
+    self.editorViewController.detailItem = detailItem;
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:insertIndex inSection:0] 
                                 animated:YES
                           scrollPosition:UITableViewScrollPositionNone];
@@ -175,6 +175,7 @@ enum mAInteractionMode
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(playMode:)];
+    [self.detailViewController setClientViewController:self.editorViewController];
 }
 
 
@@ -190,6 +191,8 @@ enum mAInteractionMode
 //                                        animated:NO
 //                                  scrollPosition:UITableViewScrollPositionMiddle];
     }
+    
+    [self editMode:nil];
 }
 
 - (void)viewDidUnload
@@ -324,7 +327,8 @@ enum mAInteractionMode
         
         if(!detailItem.isFolder)
         {
-            self.detailViewController.detailItem = detailItem;
+            self.editorViewController.detailItem = detailItem;
+            [self.detailViewController dismissMasterPopover];
         }
         else
         {
@@ -334,6 +338,7 @@ enum mAInteractionMode
             else
                 [master playMode:nil];
             master.detailViewController = self.detailViewController;
+            master.editorViewController = self.editorViewController;
             master.navigationItem.title = detailItem.title;
             master.scripts = detailItem.folderItems;
             [self.navigationController pushViewController:master animated:YES];

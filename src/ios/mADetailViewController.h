@@ -32,7 +32,7 @@
 
 @class mAMasterViewController;
 @class mAVMMonitorController;
-@class mATextView;
+
 
 @interface mADetailItem : NSObject
 
@@ -52,41 +52,33 @@
 
 @end
 
+
+@protocol mADetailClient <NSObject>
+
+- (UIBarButtonItem *)titleButton;
+
+@end
+
+
 @interface mADetailViewController : UIViewController 
 < UISplitViewControllerDelegate, 
-  mATitleEditorControllerDelegate,
   UIPopoverControllerDelegate,
-  mAKeyboardAccessoryDelegate,
-  mAConsoleMonitorDelegate,
-  NSTextStorageDelegate,
-  UITextViewDelegate >
+  mAConsoleMonitorDelegate >
 {
-    IBOutlet mATextView * _textView;
-    IBOutlet UIBarButtonItem * _titleButton;
+    IBOutlet UIView *_clientView;
     IBOutlet UIToolbar * _toolbar;
-//    IBOutlet UINavigationItem * _titleButton;
-    
-    IBOutlet mATitleEditorController * _titleEditor;
     
     IBOutlet mAVMMonitorController * _vmMonitor;
     IBOutlet mAConsoleMonitorController * _consoleMonitor;
 }
 
+@property (strong, nonatomic) UIViewController *clientViewController;
 @property (assign, nonatomic) mAMasterViewController * masterViewController;
-@property (strong, nonatomic) mADetailItem * detailItem;
-@property (strong, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
-@property (strong, nonatomic) IBOutlet mAKeyboardAccessoryViewController *keyboardAccessory;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *consoleMonitorButton;
 
-- (void)saveScript;
+- (void)dismissMasterPopover;
+- (void)setClientViewController:(UIViewController *)viewController;
 
-- (IBAction)newScript:(id)sender;
-
-- (IBAction)addShred;
-- (IBAction)replaceShred;
-- (IBAction)removeShred;
-
-- (IBAction)editTitle:(id)sender;
 - (IBAction)showVMMonitor:(id)sender;
 - (IBAction)showConsoleMonitor:(id)sender;
 

@@ -25,6 +25,7 @@
 #import <UIKit/UIKit.h>
 
 @class mADetailViewController;
+@class mAEditorViewController;
 
 @interface mAMasterViewController : UIViewController
 {
@@ -35,6 +36,7 @@
     int untitledNumber;
 }
 
+@property (strong, nonatomic) mAEditorViewController *editorViewController;
 @property (strong, nonatomic) mADetailViewController *detailViewController;
 @property (strong, nonatomic) NSMutableArray * scripts;
 

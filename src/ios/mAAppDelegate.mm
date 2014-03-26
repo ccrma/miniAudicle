@@ -26,6 +26,7 @@
 
 #import "mAMasterViewController.h"
 #import "mADetailViewController.h"
+#import "mAEditorViewController.h"
 
 #import "mAChucKController.h"
 #import "miniAudicle.h"
@@ -38,6 +39,7 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
 
 @property (strong, nonatomic) mAMasterViewController * masterViewController;
 @property (strong, nonatomic) mADetailViewController * detailViewController;
+@property (strong, nonatomic) mAEditorViewController * editorViewController;
 
 - (NSString *)examplesPath;
 - (void)appendScriptsFromDirectory:(NSString *)dir toArray:(NSMutableArray *)array;
@@ -49,11 +51,6 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
 
 
 @implementation mAAppDelegate
-
-@synthesize window = _window;
-@synthesize navigationController = _navigationController;
-@synthesize splitViewController = _splitViewController;
-@synthesize masterViewController = _masterViewController, detailViewController = _detailViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -71,9 +68,13 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
         masterNavigationController.navigationBar.translucent = NO;
         
         self.detailViewController = [[mADetailViewController alloc] initWithNibName:@"mADetailViewController" bundle:nil];
-    	
+    	self.editorViewController = [[mAEditorViewController alloc] initWithNibName:@"mAEditorViewController" bundle:nil];
+        
         self.masterViewController.detailViewController = self.detailViewController;
         self.detailViewController.masterViewController = self.masterViewController;
+        
+        self.masterViewController.editorViewController = self.editorViewController;
+        self.editorViewController.masterViewController = self.masterViewController;
         
         self.splitViewController = [[UISplitViewController alloc] init];
         self.splitViewController.delegate = self.detailViewController;
@@ -218,7 +219,7 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
 
 - (void)saveScripts:(NSArray *)scripts
 {
-    [self.detailViewController saveScript];
+    [self.editorViewController saveScript];
     
     NSString * path = [NSString stringWithFormat:@"%@/scripts.plist", 
                        [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
