@@ -29,6 +29,7 @@
     if (self) {
         // Initialization code
         self.errorLine = -1;
+        self.contentMode = UIViewContentModeRedraw;
     }
     return self;
 }
@@ -40,6 +41,7 @@
     if (self) {
         // Initialization code
         self.errorLine = -1;
+        self.contentMode = UIViewContentModeRedraw;
     }
     return self;
 }
@@ -47,10 +49,14 @@
 - (NSDictionary *)errorTextAttributes
 {
     return [NSDictionary dictionaryWithObjectsAndKeys:
-            [UIFont systemFontOfSize:12], NSFontAttributeName,
+            [UIFont fontWithName:@"Menlo" size:12], NSFontAttributeName,
             nil];
 }
 
+- (UIColor *)errorColor
+{
+    return [UIColor colorWithRed:1 green:0.45 blue:0.45 alpha:1];
+}
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -59,11 +65,11 @@
     if(self.errorLine >= 1)
     {
         CGFloat yBufferEdge = 1;
-        CGFloat xBufferEdge = 1;
+        CGFloat xBufferEdge = 4;
         CGSize textSize;
         
-        CGFloat yStart = self.bounds.origin.y + self.textContainerInset.top + [self.font lineHeight] * (self.errorLine - 1) - yBufferEdge;
-        CGFloat xStart = self.bounds.origin.x;
+        CGFloat yStart = -self.contentOffset.y + self.bounds.origin.y + self.textContainerInset.top + [self.font lineHeight] * (self.errorLine - 1) - yBufferEdge;
+        CGFloat xStart = -self.contentOffset.x + self.bounds.origin.x;
         CGFloat ySize = [self.font lineHeight] + yBufferEdge*2;
         CGFloat xSize = self.bounds.size.width;
         
@@ -74,12 +80,22 @@
         
         CGContextRef ctx = UIGraphicsGetCurrentContext();
         
+        CGContextAddRect(ctx, CGRectMake(xStart, yStart, xSize, ySize));
+        
+        [[self errorColor] set];
+        CGContextFillPath(ctx);
+        
+        /* draw superview */
+        [super drawRect:rect];
+        
         if(self.errorMessage)
         {
+//            CGContextSetBlendMode(ctx, kCGBlendModeDestinationAtop);
+            
             CGFloat curveLength = 20;
             textSize = [self.errorMessage sizeWithAttributes:[self errorTextAttributes]];
             
-            errorMsgBoxXStart = xStart+xSize-textSize.width-xBufferEdge;
+            errorMsgBoxXStart = xStart+xSize-textSize.width-xBufferEdge*2;
             errorMsgBoxYStart = yStart+ySize;
             errorMsgBoxXSize = textSize.width+xBufferEdge*2;
             errorMsgBoxYSize = textSize.height+yBufferEdge*2;
@@ -96,24 +112,21 @@
                                          errorMsgBoxXStart, errorMsgBoxYStart+errorMsgBoxYSize);
             CGContextAddLineToPoint(ctx, errorMsgBoxXStart, errorMsgBoxYStart);
             CGContextAddLineToPoint(ctx, errorMsgBoxXStart-curveLength, errorMsgBoxYStart);
-        }
-        
-        CGContextAddRect(ctx, CGRectMake(xStart, yStart, xSize, ySize));
-        
-        [[UIColor colorWithRed:1 green:0.1 blue:0.1 alpha:0.55] set];
-        CGContextFillPath(ctx);
-        
-        if(self.errorMessage)
-        {
-            [self.errorMessage drawInRect:CGRectMake(xStart+xSize-textSize.width-xBufferEdge, yStart+ySize,
+            
+            [[self errorColor] set];
+            CGContextFillPath(ctx);
+            
+            [self.errorMessage drawInRect:CGRectMake(xStart+xSize-textSize.width-xBufferEdge*2, yStart+ySize,
                                                      textSize.width, textSize.height)
                            withAttributes:[self errorTextAttributes]];
         }
     }
-    
-    [super drawRect:rect];
-    
-    // Drawing code
+    else
+    {
+        /* draw superview */
+
+        [super drawRect:rect];
+    }
 }
 
 @end
