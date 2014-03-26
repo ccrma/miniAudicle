@@ -18,7 +18,9 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <items>
-                        <navigationItem title="Title" id="cmm-lm-2tQ"/>
+                        <navigationItem title="Title" id="cmm-lm-2tQ">
+                            <barButtonItem key="rightBarButtonItem" title="PLAY〉" id="rRg-h4-SlM"/>
+                        </navigationItem>
                     </items>
                 </navigationBar>
             </subviews>

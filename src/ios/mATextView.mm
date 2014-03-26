@@ -80,10 +80,9 @@
         
         CGContextRef ctx = UIGraphicsGetCurrentContext();
         
-        CGContextAddRect(ctx, CGRectMake(xStart, yStart, xSize, ySize));
         
-        [[self errorColor] set];
-        CGContextFillPath(ctx);
+//        [[self errorColor] set];
+//        CGContextFillPath(ctx);
         
         /* draw superview */
         [super drawRect:rect];
@@ -92,6 +91,8 @@
         {
 //            CGContextSetBlendMode(ctx, kCGBlendModeDestinationAtop);
             
+            CGContextAddRect(ctx, CGRectMake(xStart, yStart, xSize, ySize));
+
             CGFloat curveLength = 20;
             textSize = [self.errorMessage sizeWithAttributes:[self errorTextAttributes]];
             
@@ -130,3 +131,5 @@
 }
 
 @end
+
+

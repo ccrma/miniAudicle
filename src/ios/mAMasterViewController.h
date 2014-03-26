@@ -40,6 +40,8 @@
 
 - (IBAction)newScript;
 - (IBAction)editScripts;
+- (IBAction)playMode:(id)sender;
+- (IBAction)editMode:(id)sender;
 
 - (void)selectScript:(int)script;
 - (int)selectedScript;

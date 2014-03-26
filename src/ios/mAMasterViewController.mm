@@ -28,8 +28,16 @@
 #import "mAChucKController.h"
 #import "miniAudicle.h"
 
+enum mAInteractionMode
+{
+    MA_IM_EDIT,
+    MA_IM_PLAY,
+};
 
 @interface mAMasterViewController ()
+{
+    mAInteractionMode _mode;
+}
 
 @property (strong, nonatomic) UITableView * tableView;
 @property (strong, nonatomic) UIBarButtonItem * editButton;
@@ -48,6 +56,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self)
     {
+        _mode = MA_IM_EDIT;
+        
         self.title = NSLocalizedString(@"Scripts", @"Scripts");
         if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
         {
@@ -57,6 +67,11 @@
         
         self.scripts = [NSMutableArray new];
         untitledNumber = 1;
+        
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"PLAY 〉"
+                                                                                  style:UIBarButtonItemStylePlain
+                                                                                 target:self
+                                                                                 action:@selector(playMode:)];
     }
     return self;
 }
@@ -103,7 +118,7 @@
 }
 
 
-#pragma mark IBActions
+#pragma mark - IBActions
 
 - (IBAction)newScript
 {
@@ -144,8 +159,26 @@
     }
 }
 
+- (IBAction)playMode:(id)sender
+{
+    _mode = MA_IM_PLAY;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"EDIT 〉"
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(editMode:)];
+}
 
-#pragma mark - View lifecycle
+- (IBAction)editMode:(id)sender
+{
+    _mode = MA_IM_EDIT;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"PLAY 〉"
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(playMode:)];
+}
+
+
+#pragma mark - UIViewController
 
 - (void)viewDidLoad
 {
@@ -195,6 +228,8 @@
         return YES;
     }
 }
+
+#pragma mark - UITableViewDelegate
 
 // Customize the number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -294,6 +329,10 @@
         else
         {
             mAMasterViewController *master = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
+            if(_mode == MA_IM_EDIT)
+                [master editMode:nil];
+            else
+                [master playMode:nil];
             master.detailViewController = self.detailViewController;
             master.navigationItem.title = detailItem.title;
             master.scripts = detailItem.folderItems;
