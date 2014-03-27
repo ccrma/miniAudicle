@@ -102,6 +102,8 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
     
     [self.window makeKeyAndVisible];
     
+    [self.masterViewController editMode:nil];
+    
     [mAChucKController chuckController].ma->start_vm();
     
     return YES;

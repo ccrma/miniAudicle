@@ -162,19 +162,15 @@
     
     if( otf_result == OTF_SUCCESS )
     {
-        //        [status_text setStringValue:@""];
-        //
-        //        if([self.windowController currentViewController] == self)
-        //            [[text_view textView] animateAdd];
-        //        [text_view setShowsErrorLine:NO];
-        //        [self setErrorLine:-1];
+//        if([self.windowController currentViewController] == self)
+//            [[text_view textView] animateAdd];
         self.textView.errorLine = -1;
         self.textView.errorMessage = nil;
     }
     else if( otf_result == OTF_VM_TIMEOUT )
     {
-        //        miniAudicleController * mac = [NSDocumentController sharedDocumentController];
-        //        [mac setLockdown:YES];
+//        miniAudicleController * mac = [NSDocumentController sharedDocumentController];
+//        [mac setLockdown:YES];
     }
     else if( otf_result == OTF_COMPILE_ERROR )
     {
@@ -182,24 +178,19 @@
         std::string result;
         if( [mAChucKController chuckController].ma->get_last_result( self.detailItem.docid, NULL, &result, &error_line ) )
         {
-            //            [text_view setShowsErrorLine:YES];
-            //            [text_view setErrorLine:error_line];
-            //            [self setErrorLine:error_line];
             self.textView.errorLine = error_line;
             self.textView.errorMessage = [NSString stringWithUTF8String:result.c_str()];
         }
         
-        //        if([self.windowController currentViewController] == self)
-        //            [[text_view textView] animateError];
-        //
-        //        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
+//        if([self.windowController currentViewController] == self)
+//            [[text_view textView] animateError];
     }
     else
     {
-        //        if([self.windowController currentViewController] == self)
-        //            [[text_view textView] animateError];
-        //
-        //        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
+//        if([self.windowController currentViewController] == self)
+//            [[text_view textView] animateError];
+//
+//        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
     }
 }
 
@@ -217,9 +208,41 @@
     t_CKUINT shred_id;
     std::string output;
     
-    [mAChucKController chuckController].ma->replace_code(code, name, args, filepath,
-                                                         self.detailItem.docid,
-                                                         shred_id, output);
+    t_OTF_RESULT otf_result = [mAChucKController chuckController].ma->replace_code(code, name, args, filepath,
+                                                                                   self.detailItem.docid,
+                                                                                   shred_id, output);
+    if( otf_result == OTF_SUCCESS )
+    {
+//        if([self.windowController currentViewController] == self)
+//            [[text_view textView] animateAdd];
+        self.textView.errorLine = -1;
+        self.textView.errorMessage = nil;
+    }
+    else if( otf_result == OTF_VM_TIMEOUT )
+    {
+//        miniAudicleController * mac = [NSDocumentController sharedDocumentController];
+//        [mac setLockdown:YES];
+    }
+    else if( otf_result == OTF_COMPILE_ERROR )
+    {
+        int error_line;
+        std::string result;
+        if( [mAChucKController chuckController].ma->get_last_result( self.detailItem.docid, NULL, &result, &error_line ) )
+        {
+            self.textView.errorLine = error_line;
+            self.textView.errorMessage = [NSString stringWithUTF8String:result.c_str()];
+        }
+        
+//        if([self.windowController currentViewController] == self)
+//            [[text_view textView] animateError];
+    }
+    else
+    {
+//        if([self.windowController currentViewController] == self)
+//            [[text_view textView] animateError];
+//
+//        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
+    }
 }
 
 

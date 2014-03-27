@@ -33,14 +33,15 @@
 
 enum mAInteractionMode
 {
+    MA_IM_NONE,
     MA_IM_EDIT,
     MA_IM_PLAY,
 };
 
+static mAInteractionMode g_mode = MA_IM_NONE;
+
+
 @interface mAMasterViewController ()
-{
-    mAInteractionMode _mode;
-}
 
 @property (strong, nonatomic) UITableView * tableView;
 @property (strong, nonatomic) UIBarButtonItem * editButton;
@@ -59,8 +60,6 @@ enum mAInteractionMode
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self)
     {
-        _mode = MA_IM_EDIT;
-        
         self.title = NSLocalizedString(@"Scripts", @"Scripts");
         if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
         {
@@ -163,24 +162,32 @@ enum mAInteractionMode
 
 - (IBAction)playMode:(id)sender
 {
-    _mode = MA_IM_PLAY;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"EDIT 〉"
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:self
-                                                                             action:@selector(editMode:)];
-    [self.detailViewController setClientViewController:self.playerViewController];
-    [self.detailViewController dismissMasterPopover];
+    if(g_mode != MA_IM_PLAY)
+    {
+        [self.editorViewController saveScript];
+        
+        g_mode = MA_IM_PLAY;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"EDIT 〉"
+                                                                                  style:UIBarButtonItemStylePlain
+                                                                                 target:self
+                                                                                 action:@selector(editMode:)];
+        [self.detailViewController setClientViewController:self.playerViewController];
+        [self.detailViewController dismissMasterPopover];
+    }
 }
 
 - (IBAction)editMode:(id)sender
 {
-    _mode = MA_IM_EDIT;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"PLAY 〉"
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:self
-                                                                             action:@selector(playMode:)];
-    [self.detailViewController setClientViewController:self.editorViewController];
-    [self.detailViewController dismissMasterPopover];
+    if(g_mode != MA_IM_EDIT)
+    {
+        g_mode = MA_IM_EDIT;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"PLAY 〉"
+                                                                                  style:UIBarButtonItemStylePlain
+                                                                                 target:self
+                                                                                 action:@selector(playMode:)];
+        [self.detailViewController setClientViewController:self.editorViewController];
+        [self.detailViewController dismissMasterPopover];
+    }
 }
 
 
@@ -196,8 +203,6 @@ enum mAInteractionMode
 //                                        animated:NO
 //                                  scrollPosition:UITableViewScrollPositionMiddle];
     }
-    
-    [self editMode:nil];
 }
 
 - (void)viewDidUnload
@@ -332,7 +337,7 @@ enum mAInteractionMode
         
         if(!detailItem.isFolder)
         {
-            if(_mode == MA_IM_EDIT)
+            if(g_mode == MA_IM_EDIT)
             {
                 self.editorViewController.detailItem = detailItem;
                 [self.detailViewController dismissMasterPopover];
@@ -346,14 +351,24 @@ enum mAInteractionMode
         else
         {
             mAMasterViewController *master = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
-            if(_mode == MA_IM_EDIT)
-                [master editMode:nil];
-            else
-                [master playMode:nil];
+            
             master.detailViewController = self.detailViewController;
             master.editorViewController = self.editorViewController;
+            master.playerViewController = self.playerViewController;
             master.navigationItem.title = detailItem.title;
             master.scripts = detailItem.folderItems;
+            
+            if(g_mode == MA_IM_PLAY)
+                master.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"EDIT 〉"
+                                                                                          style:UIBarButtonItemStylePlain
+                                                                                         target:master
+                                                                                         action:@selector(editMode:)];
+            else
+                master.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"PLAY 〉"
+                                                                                            style:UIBarButtonItemStylePlain
+                                                                                           target:master
+                                                                                           action:@selector(playMode:)];
+            
             [self.navigationController pushViewController:master animated:YES];
         }
     }

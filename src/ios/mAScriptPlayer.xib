@@ -43,6 +43,9 @@
                     <state key="highlighted">
                         <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="addShred:" destination="-1" eventType="touchUpInside" id="VY1-p9-We9"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xdm-Ek-wa2" customClass="mARoundedRectButton">
                     <rect key="frame" x="142" y="88" width="64" height="64"/>
@@ -59,6 +62,9 @@
                     <state key="highlighted">
                         <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="replaceShred:" destination="-1" eventType="touchUpInside" id="mGc-3J-5r4"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SQh-4x-Fn7" customClass="mARoundedRectButton">
                     <rect key="frame" x="214" y="88" width="64" height="64"/>
@@ -75,6 +81,9 @@
                     <state key="highlighted">
                         <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="removeShred:" destination="-1" eventType="touchUpInside" id="eDv-4W-BKG"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

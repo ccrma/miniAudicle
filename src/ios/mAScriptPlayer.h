@@ -17,4 +17,8 @@
 
 @property (strong, nonatomic) mADetailItem *detailItem;
 
+- (IBAction)addShred:(id)sender;
+- (IBAction)replaceShred:(id)sender;
+- (IBAction)removeShred:(id)sender;
+
 @end
