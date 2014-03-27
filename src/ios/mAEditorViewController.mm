@@ -11,6 +11,7 @@
 #import "miniAudicle.h"
 #import "mAChucKController.h"
 #import "mAMasterViewController.h"
+#import "mADetailItem.h"
 
 @interface mAEditorViewController ()
 {

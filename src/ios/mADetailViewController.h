@@ -24,33 +24,14 @@
 
 #import <UIKit/UIKit.h>
 
-#import "chuck_def.h"
 #import "mATitleEditorController.h"
 #import "mAKeyboardAccessoryViewController.h"
 #import "mAConsoleMonitorController.h"
 #import "mASyntaxHighlighter.h"
 
+@class mADetailItem;
 @class mAMasterViewController;
 @class mAVMMonitorController;
-
-
-@interface mADetailItem : NSObject
-
-@property (nonatomic) BOOL isUser;
-@property (strong, nonatomic) NSString * title;
-@property (strong, nonatomic) NSString * text;
-@property (nonatomic) t_CKUINT docid;
-@property (nonatomic) BOOL isFolder;
-@property (strong, nonatomic) NSMutableArray *folderItems;
-@property (strong, nonatomic) NSString *path;
-
-+ (mADetailItem *)detailItemFromDictionary:(NSDictionary *)dictionary;
-+ (mADetailItem *)folderDetailItemWithTitle:(NSString *)title
-                                      items:(NSMutableArray *)items
-                                     isUser:(BOOL)user;
-- (NSDictionary *)dictionary;
-
-@end
 
 
 @protocol mADetailClient <NSObject>

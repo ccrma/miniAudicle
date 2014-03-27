@@ -1,17 +1,16 @@
 //
-//  mAKeyboardButton.m
+//  mARoundedRectButton.m
 //  miniAudicle
 //
-//  Created by Spencer Salazar on 3/24/14.
+//  Created by Spencer Salazar on 3/26/14.
 //
 //
 
-#import "mAKeyboardButton.h"
-
+#import "mARoundedRectButton.h"
 #import "mACGContext.h"
 
 
-@implementation mAKeyboardButton
+@implementation mARoundedRectButton
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -30,21 +29,29 @@
     // Drawing code
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
-    if(self.state == UIControlStateNormal)
-    {
-        [[UIColor whiteColor] set];
-    }
-    else
-    {
-//        [[UIColor blackColor] set];
-        [[UIColor groupTableViewBackgroundColor] set];
-    }
-    
-    CGContextSetLineWidth(ctx, 2);
-//    CGContextAddRoundedRect(ctx, CGRectMake(self.bounds.origin.x+4, self.bounds.origin.y+4, self.bounds.size.width-8, self.bounds.size.height-8), 8);
     CGContextAddRoundedRect(ctx, self.bounds, 8);
-//    CGContextAddRect(ctx, self.bounds);
+    CGContextClip(ctx);
+    
+    [[self titleColorForState:self.state] set];
+    
+    CGContextAddRoundedRect(ctx, self.bounds, 8);
     CGContextFillPath(ctx);
+    
+    CGGradientRef glossGradient;
+    CGColorSpaceRef rgbColorspace;
+    size_t num_locations = 2;
+    CGFloat locations[2] = { 0.0, 1.0 };
+    CGFloat components[8] = { 1.0, 1.0, 1.0, 0.9,  // Start color
+        1.0, 1.0, 1.0, 0.05 }; // End color
+    
+    rgbColorspace = CGColorSpaceCreateDeviceRGB();
+    glossGradient = CGGradientCreateWithColorComponents(rgbColorspace, components, locations, num_locations);
+    
+    CGPoint topCenter = CGPointMake(CGRectGetMidX(self.bounds), self.bounds.origin.y + self.bounds.size.height*1.5);
+    CGContextDrawRadialGradient(ctx, glossGradient, topCenter, 0, topCenter, self.bounds.size.width*2, 0);
+    
+    CGGradientRelease(glossGradient);
+    CGColorSpaceRelease(rgbColorspace);
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -68,6 +75,6 @@
     [self setNeedsDisplay];
 }
 
-
 @end
+
 

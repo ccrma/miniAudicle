@@ -26,8 +26,10 @@
 
 #import "mADetailViewController.h"
 #import "mAEditorViewController.h"
+#import "mAPlayerViewController.h"
 #import "mAChucKController.h"
 #import "miniAudicle.h"
+#import "mADetailItem.h"
 
 enum mAInteractionMode
 {
@@ -166,6 +168,8 @@ enum mAInteractionMode
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(editMode:)];
+    [self.detailViewController setClientViewController:self.playerViewController];
+    [self.detailViewController dismissMasterPopover];
 }
 
 - (IBAction)editMode:(id)sender
@@ -176,6 +180,7 @@ enum mAInteractionMode
                                                                              target:self
                                                                              action:@selector(playMode:)];
     [self.detailViewController setClientViewController:self.editorViewController];
+    [self.detailViewController dismissMasterPopover];
 }
 
 
@@ -327,8 +332,16 @@ enum mAInteractionMode
         
         if(!detailItem.isFolder)
         {
-            self.editorViewController.detailItem = detailItem;
-            [self.detailViewController dismissMasterPopover];
+            if(_mode == MA_IM_EDIT)
+            {
+                self.editorViewController.detailItem = detailItem;
+                [self.detailViewController dismissMasterPopover];
+            }
+            else
+            {
+                [self.playerViewController addScript:detailItem];
+                [self.detailViewController dismissMasterPopover];
+            }
         }
         else
         {

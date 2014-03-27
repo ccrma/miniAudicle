@@ -27,7 +27,8 @@
 #import "mAMasterViewController.h"
 #import "mADetailViewController.h"
 #import "mAEditorViewController.h"
-
+#import "mAPlayerViewController.h"
+#import "mADetailItem.h"
 #import "mAChucKController.h"
 #import "miniAudicle.h"
 
@@ -40,6 +41,7 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
 @property (strong, nonatomic) mAMasterViewController * masterViewController;
 @property (strong, nonatomic) mADetailViewController * detailViewController;
 @property (strong, nonatomic) mAEditorViewController * editorViewController;
+@property (strong, nonatomic) mAPlayerViewController * playerViewController;
 
 - (NSString *)examplesPath;
 - (void)appendScriptsFromDirectory:(NSString *)dir toArray:(NSMutableArray *)array;
@@ -69,6 +71,7 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
         
         self.detailViewController = [[mADetailViewController alloc] initWithNibName:@"mADetailViewController" bundle:nil];
     	self.editorViewController = [[mAEditorViewController alloc] initWithNibName:@"mAEditorViewController" bundle:nil];
+    	self.playerViewController = [[mAPlayerViewController alloc] initWithNibName:@"mAPlayerViewController" bundle:nil];
         
         self.masterViewController.detailViewController = self.detailViewController;
         self.detailViewController.masterViewController = self.masterViewController;
@@ -76,8 +79,11 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
         self.masterViewController.editorViewController = self.editorViewController;
         self.editorViewController.masterViewController = self.masterViewController;
         
+        self.masterViewController.playerViewController = self.playerViewController;
+        
         self.splitViewController = [[UISplitViewController alloc] init];
         self.splitViewController.delegate = self.detailViewController;
+        self.splitViewController.presentsWithGesture = NO;
         self.splitViewController.viewControllers = [NSArray arrayWithObjects:masterNavigationController, self.detailViewController, nil];
         
         self.window.rootViewController = self.splitViewController;

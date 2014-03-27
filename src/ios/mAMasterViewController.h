@@ -26,6 +26,7 @@
 
 @class mADetailViewController;
 @class mAEditorViewController;
+@class mAPlayerViewController;
 
 @interface mAMasterViewController : UIViewController
 {
@@ -37,6 +38,7 @@
 }
 
 @property (strong, nonatomic) mAEditorViewController *editorViewController;
+@property (strong, nonatomic) mAPlayerViewController *playerViewController;
 @property (strong, nonatomic) mADetailViewController *detailViewController;
 @property (strong, nonatomic) NSMutableArray * scripts;
 
