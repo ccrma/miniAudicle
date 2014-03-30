@@ -10,6 +10,9 @@
 #import "mAScriptPlayer.h"
 
 @interface mAPlayerViewController ()
+{
+    
+}
 
 @property (strong, nonatomic) NSMutableArray *players;
 

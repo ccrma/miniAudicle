@@ -83,6 +83,8 @@
 @property (strong, nonatomic) UIPopoverController * consoleMonitorPopover;
 @property (strong, nonatomic) mAConsoleMonitorController * consoleMonitor;
 
+- (void)changeMode:(id)sender;
+
 @end
 
 @implementation mADetailViewController
@@ -113,6 +115,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    NSMutableArray * items = [NSMutableArray arrayWithArray:self.toolbar.items];
+    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"〈 EDIT", @"PLAY 〉"]];
+    [segmentedControl addTarget:self action:@selector(changeMode:) forControlEvents:UIControlEventValueChanged];
+    segmentedControl.selectedSegmentIndex = 0;
+    [items insertObject:[[UIBarButtonItem alloc] initWithCustomView:segmentedControl]
+                atIndex:[items count]];
+    [self.toolbar setItems:items animated:NO];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -239,6 +249,15 @@
                                            permittedArrowDirections:UIPopoverArrowDirectionUp
                                                            animated:YES];
     }
+}
+
+- (void)changeMode:(id)sender
+{
+    UISegmentedControl *segmentedControl = (UISegmentedControl *) sender;
+    if(segmentedControl.selectedSegmentIndex == 0)
+        [self.masterViewController editMode:self];
+    else
+        [self.masterViewController playMode:self];
 }
 
 #pragma mark - mAConsoleMonitorDelegate

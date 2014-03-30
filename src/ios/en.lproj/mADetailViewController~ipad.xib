@@ -25,13 +25,6 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="-20"/>
                     <items>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="107"/>
-                        <barButtonItem tag="-1" title="Title" style="plain" id="108">
-                            <connections>
-                                <action selector="editTitle:" destination="-1" id="121"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="109"/>
                         <barButtonItem title="Console" id="130">
                             <connections>
                                 <action selector="showConsoleMonitor:" destination="-1" id="132"/>
@@ -42,6 +35,13 @@
                                 <action selector="showVMMonitor:" destination="-1" id="128"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="107"/>
+                        <barButtonItem tag="-1" title="Title" style="plain" id="108">
+                            <connections>
+                                <action selector="editTitle:" destination="-1" id="121"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="109"/>
                     </items>
                 </toolbar>
                 <view contentMode="scaleToFill" id="Yol-bS-c4k">
