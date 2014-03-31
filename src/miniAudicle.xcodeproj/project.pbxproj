@@ -298,6 +298,7 @@
 		09A40C720A9A57FA007604EA /* miniAudicle.icns in Resources */ = {isa = PBXBuildFile; fileRef = 09A40C670A9A57FA007604EA /* miniAudicle.icns */; };
 		09A40D130A9A6185007604EA /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
 		09A40D860A9AC579007604EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
+		09AC4E1518E90B1600B2561A /* mAScriptPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09AC4E1418E90B1600B2561A /* mAScriptPlayerView.m */; };
 		09AC749A13E36A970015CC99 /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09AC749613E36A970015CC99 /* RtAudio.cpp */; };
 		09AF2D1F0BA63F5900B18EC6 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 09AF2D1E0BA63F5900B18EC6 /* lock.png */; };
 		09B1E32117A7338800050DF3 /* ulib_regex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09B1E31F17A7338800050DF3 /* ulib_regex.cpp */; };
@@ -740,6 +741,8 @@
 		09A40F2A0A9AE5FE007604EA /* INSTALL */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = INSTALL; path = ../notes/INSTALL; sourceTree = SOURCE_ROOT; };
 		09A40F2B0A9AE5FE007604EA /* LGPL */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = LGPL; path = ../notes/LGPL; sourceTree = SOURCE_ROOT; };
 		09A40F2C0A9AE5FE007604EA /* VERSIONS */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = VERSIONS; path = ../notes/VERSIONS; sourceTree = SOURCE_ROOT; };
+		09AC4E1318E90B1600B2561A /* mAScriptPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAScriptPlayerView.h; sourceTree = "<group>"; };
+		09AC4E1418E90B1600B2561A /* mAScriptPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAScriptPlayerView.m; sourceTree = "<group>"; };
 		09AC749613E36A970015CC99 /* RtAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RtAudio.cpp; sourceTree = "<group>"; };
 		09AC749713E36A970015CC99 /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
 		09AC749813E36A970015CC99 /* RtError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtError.h; sourceTree = "<group>"; };
@@ -1002,6 +1005,8 @@
 				09F09E4218E36DBC0050D963 /* mAScriptPlayer.h */,
 				09F09E4318E36DBC0050D963 /* mAScriptPlayer.mm */,
 				09F09E4418E36DBC0050D963 /* mAScriptPlayer.xib */,
+				09AC4E1318E90B1600B2561A /* mAScriptPlayerView.h */,
+				09AC4E1418E90B1600B2561A /* mAScriptPlayerView.m */,
 				09F09E4D18E3753B0050D963 /* mAScriptPlayerTab.h */,
 				09F09E4E18E3753B0050D963 /* mAScriptPlayerTab.m */,
 				093E267D14A1B3B2008694BC /* mAChucKController.h */,
@@ -1698,6 +1703,7 @@
 				093E265B14A12234008694BC /* ugen_stk.cpp in Sources */,
 				093E265C14A12234008694BC /* ugen_xxx.cpp in Sources */,
 				093E265D14A12234008694BC /* ulib_machine.cpp in Sources */,
+				09AC4E1518E90B1600B2561A /* mAScriptPlayerView.m in Sources */,
 				093E265E14A12234008694BC /* ulib_math.cpp in Sources */,
 				093E265F14A12234008694BC /* ulib_opsc.cpp in Sources */,
 				093E266014A12234008694BC /* ulib_std.cpp in Sources */,
