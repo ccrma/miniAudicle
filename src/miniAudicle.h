@@ -101,9 +101,12 @@ public:
     
     t_CKINT abort_current_shred();
     
+    struct _doc_otf_result { t_OTF_RESULT result; t_CKUINT shred_id; string output; int line; };
+    
     t_CKBOOL process_reply();
-    t_CKBOOL get_last_result( t_CKUINT docid, t_OTF_RESULT * result, 
-                              string * out, int * line_num  );
+    t_CKBOOL get_last_result( t_CKUINT docid, t_OTF_RESULT * result,
+                             string * out, int * line_num  );
+    t_CKBOOL get_last_result( t_CKUINT docid, _doc_otf_result * result  );
     
     t_CKUINT allocate_document_id();
     void free_document_id( t_CKUINT docid );
@@ -159,7 +162,6 @@ protected:
     // maps shreds to documents and an index in the document's corresponding shred vector
     // i.e. documents[shreds[shred_id].docid]->at( shreds[shred_id].index ) == shred_id
     
-    struct _doc_otf_result { t_OTF_RESULT result; string output; int line; };
     map< t_CKUINT, _doc_otf_result > last_result; // last error string for a given docid
     queue< t_CKUINT > otf_docids; // FIFO of docids that correspond to pending OTF message replys
     t_CKUINT vm_sleep_time; // length of time (microseconds) to sleep-wait for a vm reply

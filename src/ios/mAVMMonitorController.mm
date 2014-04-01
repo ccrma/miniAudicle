@@ -28,6 +28,10 @@
 #import "miniAudicle.h"
 #import "mAVMMonitorCellController.h"
 
+
+NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorControllerStatusUpdateNotification";
+
+
 @interface mAVMMonitorController ()
 
 @property (strong, nonatomic) UITableView * tableView;
@@ -160,6 +164,12 @@
 //    time_t current_time = ( time_t ) ( most_recent_status->now_system / most_recent_status->srate );
 //    [running_time_text setStringValue:[NSString stringWithFormat:@"%u:%.2u.%.5u", 
 //                                       current_time / 60, current_time % 60, ( t_CKUINT ) fmod( most_recent_status->now_system, most_recent_status->srate ) ]];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:mAVMMonitorControllerStatusUpdateNotification
+                                                        object:self
+                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                [NSValue valueWithPointer:most_recent_status], @"status",
+                                                                nil]];
 }
 
 

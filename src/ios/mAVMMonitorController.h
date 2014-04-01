@@ -28,6 +28,8 @@
 
 class Chuck_VM_Status;
 
+extern NSString * const mAVMMonitorControllerStatusUpdateNotification;
+
 @interface mAVMMonitorController : UIViewController 
 < UITableViewDataSource,
  UITableViewDelegate >

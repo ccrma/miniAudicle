@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class mADetailItem;
+class Chuck_VM_Status;
 
 @interface mAScriptPlayer : UIViewController
 {
@@ -20,5 +21,7 @@
 - (IBAction)addShred:(id)sender;
 - (IBAction)replaceShred:(id)sender;
 - (IBAction)removeShred:(id)sender;
+
+- (void)updateWithStatus:(Chuck_VM_Status *)status;
 
 @end

@@ -68,11 +68,6 @@ static mAInteractionMode g_mode = MA_IM_NONE;
         
         self.scripts = [NSMutableArray new];
         untitledNumber = 1;
-        
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"PLAY 〉"
-                                                                                  style:UIBarButtonItemStylePlain
-                                                                                 target:self
-                                                                                 action:@selector(playMode:)];
     }
     return self;
 }
@@ -167,10 +162,6 @@ static mAInteractionMode g_mode = MA_IM_NONE;
         [self.editorViewController saveScript];
         
         g_mode = MA_IM_PLAY;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"EDIT 〉"
-                                                                                  style:UIBarButtonItemStylePlain
-                                                                                 target:self
-                                                                                 action:@selector(editMode:)];
         [self.detailViewController setClientViewController:self.playerViewController];
         [self.detailViewController dismissMasterPopover];
     }
@@ -181,10 +172,6 @@ static mAInteractionMode g_mode = MA_IM_NONE;
     if(g_mode != MA_IM_EDIT)
     {
         g_mode = MA_IM_EDIT;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"PLAY 〉"
-                                                                                  style:UIBarButtonItemStylePlain
-                                                                                 target:self
-                                                                                 action:@selector(playMode:)];
         [self.detailViewController setClientViewController:self.editorViewController];
         [self.detailViewController dismissMasterPopover];
     }
@@ -345,7 +332,7 @@ static mAInteractionMode g_mode = MA_IM_NONE;
             else
             {
                 [self.playerViewController addScript:detailItem];
-                [self.detailViewController dismissMasterPopover];
+//                [self.detailViewController dismissMasterPopover];
             }
         }
         else
@@ -357,17 +344,6 @@ static mAInteractionMode g_mode = MA_IM_NONE;
             master.playerViewController = self.playerViewController;
             master.navigationItem.title = detailItem.title;
             master.scripts = detailItem.folderItems;
-            
-            if(g_mode == MA_IM_PLAY)
-                master.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"EDIT 〉"
-                                                                                          style:UIBarButtonItemStylePlain
-                                                                                         target:master
-                                                                                         action:@selector(editMode:)];
-            else
-                master.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"PLAY 〉"
-                                                                                            style:UIBarButtonItemStylePlain
-                                                                                           target:master
-                                                                                           action:@selector(playMode:)];
             
             [self.navigationController pushViewController:master animated:YES];
         }

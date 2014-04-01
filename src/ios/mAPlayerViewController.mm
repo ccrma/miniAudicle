@@ -8,6 +8,7 @@
 
 #import "mAPlayerViewController.h"
 #import "mAScriptPlayer.h"
+#import "mAVMMonitorController.h"
 
 @interface mAPlayerViewController ()
 {
@@ -15,6 +16,8 @@
 }
 
 @property (strong, nonatomic) NSMutableArray *players;
+
+- (void)vmStatus:(NSNotification *)notification;
 
 @end
 
@@ -42,6 +45,23 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(vmStatus:)
+                                                 name:mAVMMonitorControllerStatusUpdateNotification
+                                               object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -55,6 +75,16 @@
     player.view.center = self.view.center;
     [self.view addSubview:player.view];
     [self.players addObject:player];
+}
+
+- (void)vmStatus:(NSNotification *)notification
+{
+    Chuck_VM_Status * status = (Chuck_VM_Status *) [[[notification userInfo] objectForKey:@"status"] pointerValue];
+    
+    for(mAScriptPlayer *player in self.players)
+    {
+        [player updateWithStatus:status];
+    }
 }
 
 @end

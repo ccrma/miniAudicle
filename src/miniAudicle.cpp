@@ -242,7 +242,16 @@ t_OTF_RESULT miniAudicle::run_code( string & code, string & name,
     vm->queue_msg( msg, 1 );
     
     // check results
-    return handle_reply( docid, out );
+    t_OTF_RESULT result = handle_reply( docid, out );
+    
+    _doc_otf_result otf_result;
+    t_CKBOOL gotit = get_last_result( docid, &otf_result );
+    if( gotit && result == OTF_SUCCESS )
+        shred_id = otf_result.shred_id;
+    else
+        shred_id = 0;
+    
+    return result;
 }
 
 //-----------------------------------------------------------------------------
@@ -292,7 +301,16 @@ t_OTF_RESULT miniAudicle::replace_code( string & code, string & name,
     vm->queue_msg( msg, 1 );
     
     // check results
-    return handle_reply( docid, out );
+    t_OTF_RESULT result = handle_reply( docid, out );
+    
+    _doc_otf_result otf_result;
+    t_CKBOOL gotit = get_last_result( docid, &otf_result );
+    if( gotit && result == OTF_SUCCESS )
+        shred_id = otf_result.shred_id;
+    else
+        shred_id = 0;
+    
+    return result;
 }
 
 //-----------------------------------------------------------------------------
@@ -316,8 +334,17 @@ t_OTF_RESULT miniAudicle::remove_code( t_CKUINT docid, t_CKUINT & shred_id,
         out += "no shred to remove\n";
         return OTF_MINI_ERROR;
     }
-
-    return remove_shred( docid, documents[docid]->back(), out );
+    
+    t_CKUINT rm_shred_id = documents[docid]->back();
+    
+    t_OTF_RESULT result = remove_shred( docid, rm_shred_id, out );
+    
+    if( result == OTF_SUCCESS )
+        shred_id = rm_shred_id;
+    else
+        shred_id = 0;
+    
+    return result;
 }
 
 //-----------------------------------------------------------------------------
@@ -558,6 +585,7 @@ t_CKBOOL miniAudicle::process_reply()
                     
                     last_result[docid].result = OTF_SUCCESS;
                     last_result[docid].output = string( EM_lasterror() ) + "\n";
+                    last_result[docid].shred_id = shred_id;
                 }
             }
             
@@ -573,8 +601,9 @@ t_CKBOOL miniAudicle::process_reply()
                 
                 last_result[docid].result = OTF_VM_ERROR;
                 last_result[docid].output = string( EM_lasterror() ) + "\n";
+                last_result[docid].shred_id = shred_id;
             }
-                
+            
             else
             {
                 // in case the shred id changed, recreate the various map entries
@@ -700,6 +729,16 @@ t_CKBOOL miniAudicle::get_last_result( t_CKUINT docid, t_OTF_RESULT * result,
         *out = last_result[docid].output;
     if( line_num )
         *line_num = last_result[docid].line;
+    
+    return TRUE;
+}
+
+t_CKBOOL miniAudicle::get_last_result( t_CKUINT docid, _doc_otf_result * result  )
+{
+    if( last_result.count( docid ) == 0 )
+        return FALSE;
+    
+    *result = last_result[docid];
     
     return TRUE;
 }
