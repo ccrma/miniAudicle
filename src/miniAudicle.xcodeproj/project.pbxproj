@@ -300,6 +300,7 @@
 		09A40D860A9AC579007604EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		09AC4E1518E90B1600B2561A /* mAScriptPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09AC4E1418E90B1600B2561A /* mAScriptPlayerView.m */; };
 		09AC4E1818EA2C8500B2561A /* mAShredButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 09AC4E1718EA2C8500B2561A /* mAShredButton.m */; };
+		09AC4E1A18EBC0C400B2561A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09AC4E1918EBC0C400B2561A /* QuartzCore.framework */; };
 		09AC749A13E36A970015CC99 /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09AC749613E36A970015CC99 /* RtAudio.cpp */; };
 		09AF2D1F0BA63F5900B18EC6 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 09AF2D1E0BA63F5900B18EC6 /* lock.png */; };
 		09B1E32117A7338800050DF3 /* ulib_regex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09B1E31F17A7338800050DF3 /* ulib_regex.cpp */; };
@@ -746,6 +747,7 @@
 		09AC4E1418E90B1600B2561A /* mAScriptPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAScriptPlayerView.m; sourceTree = "<group>"; };
 		09AC4E1618EA2C8500B2561A /* mAShredButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAShredButton.h; sourceTree = "<group>"; };
 		09AC4E1718EA2C8500B2561A /* mAShredButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAShredButton.m; sourceTree = "<group>"; };
+		09AC4E1918EBC0C400B2561A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		09AC749613E36A970015CC99 /* RtAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RtAudio.cpp; sourceTree = "<group>"; };
 		09AC749713E36A970015CC99 /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
 		09AC749813E36A970015CC99 /* RtError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtError.h; sourceTree = "<group>"; };
@@ -816,6 +818,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09AC4E1A18EBC0C400B2561A /* QuartzCore.framework in Frameworks */,
 				093E267614A12A89008694BC /* AudioToolbox.framework in Frameworks */,
 				093E267414A12A69008694BC /* CoreAudio.framework in Frameworks */,
 				093E261414A108C8008694BC /* UIKit.framework in Frameworks */,
@@ -1421,6 +1424,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				09AC4E1918EBC0C400B2561A /* QuartzCore.framework */,
 				0916F980173AF0D20055956C /* PSMTabBarControl.framework */,
 				0913D8281654CBC000210436 /* QuartzCore.framework */,
 				093A212D14BFEF7F00497856 /* Security.framework */,

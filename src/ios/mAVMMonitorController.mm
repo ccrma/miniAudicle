@@ -62,6 +62,22 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
         isUpdating = NO;
         docid = [mAChucKController chuckController].ma->allocate_document_id();
         // Custom initialization
+        
+        [self startUpdating];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if(self)
+    {
+        isUpdating = NO;
+        docid = [mAChucKController chuckController].ma->allocate_document_id();
+        // Custom initialization
+        
+        [self startUpdating];
     }
     return self;
 }
@@ -140,24 +156,27 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
 //            [controller setLockdown:NO];
 //    }
     
-    // reload the whole table if the two VM status structures are significantly
-    // different
-    if( compare_shred_vectors( status_buffers[0].list, status_buffers[1].list ) )
+    if(self.tableView)
     {
-        [self.tableView reloadData];
-//        [shreds_text setStringValue:[NSString stringWithFormat:@"%u", 
-//                                     most_recent_status->list.size()]];
-    }
-    
-    // otherwise, just update the shred time column
-//    else
-    {
-        
-//        [self.tableView reloadData];
-//        [shred_table setNeedsDisplayInRect:[shred_table rectOfColumn:[shred_table columnWithIdentifier:time_column_id]]];
-        for(mAVMMonitorCell * cell in [self.tableView visibleCells])
+        // reload the whole table if the two VM status structures are significantly
+        // different
+        if( compare_shred_vectors( status_buffers[0].list, status_buffers[1].list ) )
         {
-            [cell updateShredStatus:most_recent_status];
+            [self.tableView reloadData];
+            //        [shreds_text setStringValue:[NSString stringWithFormat:@"%u",
+            //                                     most_recent_status->list.size()]];
+        }
+        
+        // otherwise, just update the shred time column
+        //    else
+        {
+            
+            //        [self.tableView reloadData];
+            //        [shred_table setNeedsDisplayInRect:[shred_table rectOfColumn:[shred_table columnWithIdentifier:time_column_id]]];
+            for(mAVMMonitorCell * cell in [self.tableView visibleCells])
+            {
+                [cell updateShredStatus:most_recent_status];
+            }
         }
     }
     
@@ -206,12 +225,12 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self startUpdating];
+//    [self startUpdating];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    [self stopUpdating];
+//    [self stopUpdating];
 }
 
 

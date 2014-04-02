@@ -16,6 +16,8 @@
 
 using namespace std;
 
+static const t_CKFLOAT MAX_SHRED_TIMEOUT = 0.1;
+
 
 @interface NSArray (indexOfObjectWithValue)
 
@@ -28,6 +30,8 @@ using namespace std;
 @interface mAScriptPlayer ()
 {
     map<t_CKUINT, mAShredButton *> _shredIdToButton;
+    map<t_CKUINT, t_CKFLOAT> _shredTimeouts;
+    t_CKFLOAT _lastTime;
     list<t_CKUINT> _shredOrder;
 }
 
@@ -64,6 +68,7 @@ using namespace std;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.titleLabel.text = self.detailItem.title;
+    _lastTime = CACurrentMediaTime();
 }
 
 - (void)didReceiveMemoryWarning
@@ -192,7 +197,37 @@ using namespace std;
 
 - (void)updateWithStatus:(Chuck_VM_Status *)status
 {
+    t_CKFLOAT currentTime = CACurrentMediaTime();
+    t_CKFLOAT deltaTime = (currentTime - _lastTime);
     
+    list<t_CKUINT> removeList;
+    for(map<t_CKUINT, mAShredButton *>::iterator myShred = _shredIdToButton.begin();
+        myShred != _shredIdToButton.end(); myShred++)
+    {
+        int shredId = myShred->first;
+        
+        // todo: optimize this somehow? 
+        bool foundIt = false;
+        for(vector<Chuck_VM_Shred_Status *>::iterator shred = status->list.begin();
+            shred != status->list.end(); shred++)
+        {
+            if((*shred)->xid == shredId)
+            {
+                foundIt = true;
+                break;
+            }
+        }
+        
+        if(!foundIt)
+            _shredTimeouts[shredId] += (deltaTime);
+        if(_shredTimeouts[shredId] > MAX_SHRED_TIMEOUT)
+            removeList.push_back(shredId);
+    }
+    
+    for(list<t_CKUINT>::iterator rm = removeList.begin(); rm != removeList.end(); rm++)
+        [self removeShredButton:*rm];
+    
+    _lastTime = currentTime;
 }
 
 - (void)addShredButton:(t_CKUINT)shredId
@@ -212,6 +247,7 @@ using namespace std;
         
         [self.view addSubview:shredView];
         _shredIdToButton[shredId] = shredView;
+        _shredTimeouts[shredId] = 0;
         _shredOrder.push_back(shredId);
         
         [shredView addTarget:self
@@ -226,6 +262,7 @@ using namespace std;
     {
         [_shredIdToButton[shredId] removeFromSuperview];
         _shredIdToButton.erase(shredId);
+        _shredTimeouts.erase(shredId);
         BOOL relayout = NO;
         if(_shredOrder.back() != shredId)
             relayout = YES;
