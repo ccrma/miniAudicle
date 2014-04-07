@@ -298,7 +298,13 @@ $(CHUCK_SRC_DIR)/chuck.yy.c: $(CHUCK_SRC_DIR)/chuck.lex
 	$(LEX) -o$(CHUCK_SRC_DIR)/chuck.yy.c $(CHUCK_SRC_DIR)/chuck.lex
 
 # now build miniAudicle files
-miniAudicle.o: git-rev.h
+ifeq ($(shell git rev-parse 2>&1),)
+GITREV_DEP=git-rev.h
+else
+GITREV_DEP=
+endif
+
+miniAudicle.o: $(GITREV_DEP)
 
 gitrev_FORCE:
 
