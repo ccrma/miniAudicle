@@ -4,6 +4,7 @@
     - (added)(Win/Linux) device browser
     - (fixed)(all) exporting works with scripts that use Machine.add
     - (fixed)(Mac) deprecation warning fixes
+    - (fixed)(Mac) AirPlay output devices are blacklisted
     
 ---
 1.3.1
