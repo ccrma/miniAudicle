@@ -17,7 +17,7 @@ INSTALLER=chuck-$(PKG_VERSION).msi
 
 default: $(INSTALLER)
 
-upload: installer-deps
+upload: $(INSTALLER)
 	scp $(INSTALLER) spencer@ccrma-gate.stanford.edu:Library/Web/chuck
 
 $(INSTALLER): ChucK.wixobj examples.wixobj miniAudicle.exe chuck.exe $(CHUGINS) ck_dialog.bmp ck_banner.bmp gpl2.rtf
