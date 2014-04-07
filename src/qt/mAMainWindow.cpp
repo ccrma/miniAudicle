@@ -57,6 +57,8 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     
+    setlocale(LC_ALL, "C");
+
     vm_on = false;
 
     QCoreApplication::setOrganizationName("Stanford CCRMA");
