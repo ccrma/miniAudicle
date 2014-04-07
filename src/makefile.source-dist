@@ -17,14 +17,24 @@ EXAMPLES:=$(addprefix $(EXAMPLES_DIR)/,$(EXAMPLES))
 
 MA_SVN_URL=http://miniaudicle.googlecode.com/svn/trunk/src/
 
+default: source-dist
+
+gitrev_FORCE:
+
+git-rev.h: gitrev_FORCE
+	echo "#define GIT_REVISION \""`git rev-parse --short HEAD`"\"" | cmp -s git-rev.h || \
+        echo "#define GIT_REVISION \""`git rev-parse --short HEAD`"\"" > git-rev.h
+
+
 .PHONY: source-dist
-source-dist:
+source-dist: git-rev.h
 	rm -rf $(DIST_DIR) miniAudicle-$(VERSION).tgz
 # export source code
 	mkdir -p $(DIST_DIR)/src
 	git archive HEAD | tar -x -C $(DIST_DIR)/src
 	cd chuck && git archive HEAD | tar -x -C ../$(DIST_DIR)/src/chuck
 #	svn export -q --non-interactive $(MA_SVN_URL) $(DIST_DIR)/src
+	cp git-rev.h $(DIST_DIR)/src
 	cp -r $(NOTES) $(DIST_DIR)/
 # copy examples
 	mkdir $(DIST_DIR)/examples

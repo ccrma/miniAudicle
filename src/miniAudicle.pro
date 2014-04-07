@@ -309,7 +309,7 @@ bisonheader.name = bison header
 bisonheader.depends = $$OBJECTS_DIR/${QMAKE_FILE_BASE}.tab.c
 QMAKE_EXTRA_COMPILERS += bisonheader
 
-!win32 {
+!win32:system(git rev-parse 2> /dev/null) {
 gitrev.commands = echo \\$${LITERAL_HASH}define GIT_REVISION $$quote(\\\")`git rev-parse --short HEAD`$$quote(\\\") > .git-rev-tmp;\
     cmp -s .git-rev-tmp git-rev.h || cp .git-rev-tmp git-rev.h;\
     rm .git-rev-tmp
