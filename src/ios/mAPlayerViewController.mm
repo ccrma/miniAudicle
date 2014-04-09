@@ -9,6 +9,8 @@
 #import "mAPlayerViewController.h"
 #import "mAScriptPlayer.h"
 #import "mAVMMonitorController.h"
+#import "mAEditorViewController.h"
+
 
 @interface mAPlayerViewController ()
 {
@@ -16,10 +18,13 @@
 }
 
 @property (strong, nonatomic) NSMutableArray *players;
+@property (strong, nonatomic) NSMutableArray *passthroughViews;
+@property (strong, nonatomic) UIPopoverController *editorPopover;
 
 - (void)vmStatus:(NSNotification *)notification;
 
 @end
+
 
 @implementation mAPlayerViewController
 
@@ -35,6 +40,7 @@
         self.titleButton.enabled = NO;
         
         self.players = [NSMutableArray array];
+        self.passthroughViews = [NSMutableArray array];
     }
     return self;
 }
@@ -71,10 +77,14 @@
 - (void)addScript:(mADetailItem *)script
 {
     mAScriptPlayer *player = [[mAScriptPlayer alloc] initWithNibName:@"mAScriptPlayer" bundle:nil];
+    
     player.detailItem = script;
     player.view.center = self.view.center;
+    player.playerViewController = self;
+    
     [self.view addSubview:player.view];
     [self.players addObject:player];
+    [self.passthroughViews addObject:player.view];
 }
 
 - (void)vmStatus:(NSNotification *)notification
@@ -87,4 +97,27 @@
     }
 }
 
+- (void)showEditorForScriptPlayer:(mAScriptPlayer *)player
+{
+    if(self.editorPopover == nil)
+    {
+        self.editorPopover = [[UIPopoverController alloc] initWithContentViewController:self.editor];
+    }
+    
+    self.editor.detailItem = player.detailItem;
+    self.editor.showOTFToolbar = NO;
+    self.editorPopover.popoverContentSize = CGSizeMake(480, 600);
+    self.editorPopover.delegate = self;
+    self.editorPopover.passthroughViews = self.passthroughViews;
+    
+    UIView *popoverView = [player viewForEditorPopover];
+    
+    [self.editorPopover presentPopoverFromRect:popoverView.frame
+                                        inView:popoverView.superview
+                      permittedArrowDirections:UIPopoverArrowDirectionAny
+                                      animated:YES];
+}
+
 @end
+
+

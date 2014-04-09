@@ -19,6 +19,7 @@
 }
 
 @property (strong, nonatomic) mATextView * textView;
+@property (strong, nonatomic) UIView * otfToolbar;
 
 @property (strong, nonatomic) UIPopoverController * popover;
 @property (strong, nonatomic) mATitleEditorController * titleEditor;
@@ -31,9 +32,27 @@
 
 @implementation mAEditorViewController
 
-@synthesize textView = _textView;
+- (void)setShowOTFToolbar:(BOOL)showOTFToolbar
+{
+    if(!showOTFToolbar)
+    {
+        [self.otfToolbar removeFromSuperview];
+        self.textView.frame = self.view.bounds;
+    }
+    else
+    {
+        [self.view addSubview:self.otfToolbar];
+        CGRect rect = self.view.bounds;
+        rect.origin.y += self.otfToolbar.frame.size.height;
+        rect.size.height -= self.otfToolbar.frame.size.height;
+        self.textView.frame = rect;
+    }
+}
 
-@synthesize titleEditor = _titleEditor;
+- (BOOL)showOTFToolbar
+{
+    return self.otfToolbar.superview != nil;
+}
 
 - (NSDictionary *)defaultTextAttributes
 {
@@ -333,6 +352,6 @@
 }
 
 
-#pragma mark - mADetailClient
-
 @end
+
+

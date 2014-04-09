@@ -27,6 +27,7 @@
   mADetailClient >
 {
     IBOutlet mATextView * _textView;
+    IBOutlet UIView *_otfToolbar;
 
     IBOutlet mATitleEditorController * _titleEditor;
 }
@@ -34,6 +35,7 @@
 @property (strong, nonatomic) mADetailItem * detailItem;
 @property (strong, nonatomic) IBOutlet mAKeyboardAccessoryViewController *keyboardAccessory;
 @property (strong, nonatomic) UIBarButtonItem * titleButton;
+@property (nonatomic) BOOL showOTFToolbar;
 
 @property (weak, nonatomic) mAMasterViewController *masterViewController;
 

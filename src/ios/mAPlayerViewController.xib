@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="mAPlayerViewController">
             <connections>
+                <outlet property="editor" destination="RA7-7n-Kt5" id="1LH-eB-W6M"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,5 +17,13 @@
             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
         </view>
+        <viewController nibName="mAEditorViewController" id="RA7-7n-Kt5" customClass="mAEditorViewController">
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <size key="freeformSize" width="500" height="500"/>
+        </viewController>
     </objects>
 </document>

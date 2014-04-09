@@ -10,10 +10,15 @@
 
 #import "mADetailViewController.h"
 
-@interface mAPlayerViewController : UIViewController <mADetailClient>
+@class mAEditorViewController;
+@class mAScriptPlayer;
+
+@interface mAPlayerViewController : UIViewController < mADetailClient, UIPopoverControllerDelegate >
 
 @property (strong, nonatomic) UIBarButtonItem *titleButton;
+@property (strong, nonatomic) IBOutlet mAEditorViewController *editor;
 
 - (void)addScript:(mADetailItem *)script;
+- (void)showEditorForScriptPlayer:(mAScriptPlayer *)player;
 
 @end

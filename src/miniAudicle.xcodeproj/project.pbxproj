@@ -301,6 +301,7 @@
 		09AC4E1518E90B1600B2561A /* mAScriptPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09AC4E1418E90B1600B2561A /* mAScriptPlayerView.m */; };
 		09AC4E1818EA2C8500B2561A /* mAShredButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 09AC4E1718EA2C8500B2561A /* mAShredButton.m */; };
 		09AC4E1A18EBC0C400B2561A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09AC4E1918EBC0C400B2561A /* QuartzCore.framework */; };
+		09AC4E1C18EC211600B2561A /* forward-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 09AC4E1B18EC211600B2561A /* forward-100.png */; };
 		09AC749A13E36A970015CC99 /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09AC749613E36A970015CC99 /* RtAudio.cpp */; };
 		09AF2D1F0BA63F5900B18EC6 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 09AF2D1E0BA63F5900B18EC6 /* lock.png */; };
 		09B1E32117A7338800050DF3 /* ulib_regex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09B1E31F17A7338800050DF3 /* ulib_regex.cpp */; };
@@ -748,6 +749,7 @@
 		09AC4E1618EA2C8500B2561A /* mAShredButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAShredButton.h; sourceTree = "<group>"; };
 		09AC4E1718EA2C8500B2561A /* mAShredButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAShredButton.m; sourceTree = "<group>"; };
 		09AC4E1918EBC0C400B2561A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		09AC4E1B18EC211600B2561A /* forward-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forward-100.png"; sourceTree = "<group>"; };
 		09AC749613E36A970015CC99 /* RtAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RtAudio.cpp; sourceTree = "<group>"; };
 		09AC749713E36A970015CC99 /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
 		09AC749813E36A970015CC99 /* RtError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtError.h; sourceTree = "<group>"; };
@@ -936,6 +938,7 @@
 		09087C6914A4F63700AD2633 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				09AC4E1B18EC211600B2561A /* forward-100.png */,
 				09F09E5018E419960050D963 /* add-noalpha.png */,
 				09F09E5118E419960050D963 /* remove-noalpha.png */,
 				09F09E5218E419960050D963 /* replace-noalpha.png */,
@@ -1569,6 +1572,7 @@
 				093E267C14A14E91008694BC /* miniAudicle.icns in Resources */,
 				09D00B8414A3C4010019CD09 /* TitleEditView_iPad.xib in Resources */,
 				09F09E5318E419960050D963 /* add-noalpha.png in Resources */,
+				09AC4E1C18EC211600B2561A /* forward-100.png in Resources */,
 				09D00B8C14A44DFB0019CD09 /* mAVMMonitorController.xib in Resources */,
 				09F09E5518E419960050D963 /* replace-noalpha.png in Resources */,
 				09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */,

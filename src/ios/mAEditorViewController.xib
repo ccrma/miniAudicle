@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="mAEditorViewController">
             <connections>
+                <outlet property="_otfToolbar" destination="a4y-PN-iqR" id="vBs-VV-Pzc"/>
                 <outlet property="_textView" destination="XGY-BH-Hh5" id="es0-14-oMT"/>
                 <outlet property="_titleEditor" destination="wCI-hz-oKN" id="489-fY-xr6"/>
                 <outlet property="keyboardAccessory" destination="kOf-ba-pgT" id="qQF-EC-AJE"/>

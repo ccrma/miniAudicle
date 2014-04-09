@@ -11,6 +11,7 @@
 #import "mAChucKController.h"
 #import "miniAudicle.h"
 #import "mAShredButton.h"
+#import "mAPlayerViewController.h"
 #import <map>
 #import <list>
 
@@ -36,6 +37,8 @@ static const t_CKFLOAT MAX_SHRED_TIMEOUT = 0.1;
 }
 
 @property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UIView *playerTabView;
+
 
 - (void)shredButton:(id)sender;
 - (void)addShredButton:(t_CKUINT)shredId;
@@ -76,6 +79,9 @@ static const t_CKFLOAT MAX_SHRED_TIMEOUT = 0.1;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark - IBActions
 
 - (IBAction)addShred:(id)sender
 {
@@ -194,6 +200,11 @@ static const t_CKFLOAT MAX_SHRED_TIMEOUT = 0.1;
     [self removeShredButton:shred_id];
 }
 
+- (IBAction)edit:(id)sender
+{
+    [self.playerViewController showEditorForScriptPlayer:self];
+}
+
 
 - (void)updateWithStatus:(Chuck_VM_Status *)status
 {
@@ -293,6 +304,11 @@ static const t_CKFLOAT MAX_SHRED_TIMEOUT = 0.1;
     std::string output;
     [mAChucKController chuckController].ma->remove_shred(self.detailItem.docid, shredId, output);
     [self removeShredButton:shredId];
+}
+
+- (UIView *)viewForEditorPopover
+{
+    return self.view;
 }
 
 @end
