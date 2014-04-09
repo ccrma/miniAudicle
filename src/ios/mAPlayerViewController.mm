@@ -14,7 +14,8 @@
 
 @interface mAPlayerViewController ()
 {
-    
+    int _layoutIndex;
+    CGPoint _layoutOffset;
 }
 
 @property (strong, nonatomic) NSMutableArray *players;
@@ -41,6 +42,8 @@
         
         self.players = [NSMutableArray array];
         self.passthroughViews = [NSMutableArray array];
+        _layoutIndex = 0;
+        _layoutOffset = CGPointMake(0, 0);
     }
     return self;
 }
@@ -79,12 +82,17 @@
     mAScriptPlayer *player = [[mAScriptPlayer alloc] initWithNibName:@"mAScriptPlayer" bundle:nil];
     
     player.detailItem = script;
-    player.view.center = self.view.center;
+    player.view.center = CGPointMake(_layoutOffset.x + self.view.bounds.origin.x + self.view.bounds.size.width*0.75 - (_layoutIndex/7)*self.view.bounds.size.width*0.475,
+                                     _layoutOffset.y + self.view.bounds.origin.y + self.view.bounds.size.height*0.125*(_layoutIndex%7+1));
     player.playerViewController = self;
     
     [self.view addSubview:player.view];
     [self.players addObject:player];
     [self.passthroughViews addObject:player.view];
+    
+    _layoutIndex = (_layoutIndex+1)%14;
+    if(_layoutIndex == 0) // wrap around
+        _layoutOffset = CGPointMake(_layoutOffset.x + 10, _layoutOffset.y + 25);
 }
 
 - (void)vmStatus:(NSNotification *)notification
