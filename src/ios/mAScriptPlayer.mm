@@ -251,7 +251,7 @@ static const t_CKFLOAT MAX_SHRED_TIMEOUT = 0.1;
         int xIdx = idx/2;
         int yIdx = idx%2;
         shredView.frame = CGRectMake(0, 0, width, width);
-        shredView.center = CGPointMake(self.view.bounds.origin.x + self.view.bounds.size.width*3.0f/4.0f + xIdx*(width+4),
+        shredView.center = CGPointMake(self.view.bounds.origin.x + self.view.bounds.size.width*5.0f/6.0f + xIdx*(width+4),
                                        CGRectGetMidY(self.view.bounds) - (1-yIdx)*(width+4));
         shredView.tag = shredId;
         
@@ -292,7 +292,7 @@ static const t_CKFLOAT MAX_SHRED_TIMEOUT = 0.1;
         float width = 25;
         int xIdx = idx/2;
         int yIdx = idx%2;
-        shredView.center = CGPointMake(self.view.bounds.origin.x + self.view.bounds.size.width*3.0f/4.0f + xIdx*(width+4),
+        shredView.center = CGPointMake(self.view.bounds.origin.x + self.view.bounds.size.width*5.0f/6.0f + xIdx*(width+4),
                                        CGRectGetMidY(self.view.bounds) - (1-yIdx)*(width+4));
         idx++;
     }
