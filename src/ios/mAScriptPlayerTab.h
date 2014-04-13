@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class mAPlayerViewController;
+
 @interface mAScriptPlayerTab : UIView
+
+@property (weak, nonatomic) mAPlayerViewController *playerViewController;
 
 @end

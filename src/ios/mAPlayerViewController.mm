@@ -8,6 +8,7 @@
 
 #import "mAPlayerViewController.h"
 #import "mAScriptPlayer.h"
+#import "mAScriptPlayerTab.h"
 #import "mAVMMonitorController.h"
 #import "mAEditorViewController.h"
 
@@ -21,6 +22,7 @@
 @property (strong, nonatomic) NSMutableArray *players;
 @property (strong, nonatomic) NSMutableArray *passthroughViews;
 @property (strong, nonatomic) UIPopoverController *editorPopover;
+@property (strong, nonatomic) UIView *fieldView;
 
 - (void)vmStatus:(NSNotification *)notification;
 
@@ -86,7 +88,7 @@
                                      _layoutOffset.y + self.view.bounds.origin.y + self.view.bounds.size.height*0.125*(_layoutIndex%7+1));
     player.playerViewController = self;
     
-    [self.view addSubview:player.view];
+    [self.fieldView addSubview:player.view];
     [self.players addObject:player];
     [self.passthroughViews addObject:player.view];
     
@@ -124,6 +126,18 @@
                                         inView:popoverView.superview
                       permittedArrowDirections:UIPopoverArrowDirectionAny
                                       animated:YES];
+}
+
+- (void)playerTabMoved:(mAScriptPlayerTab *)playerTab
+{
+    CGRect frame = playerTab.superview.frame;
+    if(!CGRectContainsRect(self.fieldView.bounds, frame))
+    {
+        frame.origin.x -= 10; frame.origin.y -= 10;
+        frame.size.width += 20; frame.size.height += 20;
+        self.fieldView.bounds = CGRectUnion(self.fieldView.bounds, frame);
+//        ((UIScrollView *) self.view).contentSize = self.fieldView.bounds.size;
+    }
 }
 
 @end

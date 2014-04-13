@@ -10,12 +10,13 @@
 
 @class mADetailItem;
 @class mAPlayerViewController;
+@class mAScriptPlayerTab;
 class Chuck_VM_Status;
 
 @interface mAScriptPlayer : UIViewController
 {
-    IBOutlet UILabel *titleLabel;
-    IBOutlet UIView *_playerTabView;
+    IBOutlet UILabel *_titleLabel;
+    IBOutlet mAScriptPlayerTab *_playerTabView;
 }
 
 @property (strong, nonatomic) mADetailItem *detailItem;

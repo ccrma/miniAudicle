@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="mAScriptPlayer">
             <connections>
                 <outlet property="_playerTabView" destination="yig-hN-R0p" id="o2Q-UP-9DD"/>
+                <outlet property="_titleLabel" destination="WxK-NC-9EQ" id="qco-00-jue"/>
                 <outlet property="titleLabel" destination="WxK-NC-9EQ" id="Z80-14-9sh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

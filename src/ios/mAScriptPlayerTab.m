@@ -7,6 +7,7 @@
 //
 
 #import "mAScriptPlayerTab.h"
+#import "mAPlayerViewController.h"
 #import "mACGContext.h"
 
 @interface mAScriptPlayerTab ()
@@ -78,6 +79,8 @@
     CGPoint touchPosition = [[touches anyObject] locationInView:self];
     self.superview.center = CGPointMake(self.superview.center.x + (touchPosition.x - _lastTouchPosition.x),
                                         self.superview.center.y + (touchPosition.y - _lastTouchPosition.y));
+    
+    [self.playerViewController playerTabMoved:self];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event

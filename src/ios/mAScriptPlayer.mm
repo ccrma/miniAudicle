@@ -7,6 +7,7 @@
 //
 
 #import "mAScriptPlayer.h"
+#import "mAScriptPlayerTab.h"
 #import "mADetailItem.h"
 #import "mAChucKController.h"
 #import "miniAudicle.h"
@@ -37,7 +38,7 @@ static const t_CKFLOAT MAX_SHRED_TIMEOUT = 0.1;
 }
 
 @property (strong, nonatomic) UILabel *titleLabel;
-@property (strong, nonatomic) UIView *playerTabView;
+@property (strong, nonatomic) mAScriptPlayerTab *playerTabView;
 
 
 - (void)shredButton:(id)sender;
@@ -49,7 +50,11 @@ static const t_CKFLOAT MAX_SHRED_TIMEOUT = 0.1;
 
 @implementation mAScriptPlayer
 
-@synthesize titleLabel = _titleLabel;
+- (void)setPlayerViewController:(mAPlayerViewController *)playerViewController
+{
+    _playerViewController = playerViewController;
+    self.playerTabView.playerViewController = playerViewController;
+}
 
 - (void)setDetailItem:(mADetailItem *)detailItem
 {
@@ -72,6 +77,7 @@ static const t_CKFLOAT MAX_SHRED_TIMEOUT = 0.1;
     // Do any additional setup after loading the view from its nib.
     self.titleLabel.text = self.detailItem.title;
     _lastTime = CACurrentMediaTime();
+    self.playerTabView.playerViewController = self.playerViewController;
 }
 
 - (void)didReceiveMemoryWarning
