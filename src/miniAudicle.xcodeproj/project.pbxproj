@@ -227,6 +227,8 @@
 		098E28B0173A06600044336B /* mADocumentWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A6173A06600044336B /* mADocumentWindow.xib */; };
 		098E28B1173A06600044336B /* mARecordSession.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A8173A06600044336B /* mARecordSession.xib */; };
 		098E28B2173A06600044336B /* miniAudicle.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28AA173A06600044336B /* miniAudicle.xib */; };
+		099C04F518FB715C00AC27C3 /* mANetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 099C04F418FB715C00AC27C3 /* mANetworkManager.m */; };
+		099C04F818FBAF1400AC27C3 /* mANetworkAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 099C04F718FBAF1400AC27C3 /* mANetworkAction.m */; };
 		09A40B680A9A54DA007604EA /* chuck_absyn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B060A9A54DA007604EA /* chuck_absyn.cpp */; };
 		09A40B690A9A54DA007604EA /* chuck_bbq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B080A9A54DA007604EA /* chuck_bbq.cpp */; };
 		09A40B6A0A9A54DA007604EA /* chuck_compile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B0A0A9A54DA007604EA /* chuck_compile.cpp */; };
@@ -588,6 +590,10 @@
 		098E28A7173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mADocumentWindow.xib; sourceTree = "<group>"; };
 		098E28A9173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mARecordSession.xib; sourceTree = "<group>"; };
 		098E28AB173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/miniAudicle.xib; sourceTree = "<group>"; };
+		099C04F318FB715C00AC27C3 /* mANetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mANetworkManager.h; sourceTree = "<group>"; };
+		099C04F418FB715C00AC27C3 /* mANetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mANetworkManager.m; sourceTree = "<group>"; };
+		099C04F618FBAF1400AC27C3 /* mANetworkAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mANetworkAction.h; sourceTree = "<group>"; };
+		099C04F718FBAF1400AC27C3 /* mANetworkAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mANetworkAction.m; sourceTree = "<group>"; };
 		09A1E6160CBA1AEC001FAD6F /* makefile.source-dist */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = "makefile.source-dist"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
 		09A1E6170CBA1AEC001FAD6F /* makefile.win32 */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = makefile.win32; sourceTree = SOURCE_ROOT; };
 		09A40B060A9A54DA007604EA /* chuck_absyn.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_absyn.cpp; sourceTree = "<group>"; };
@@ -1027,6 +1033,10 @@
 				09AC4E1718EA2C8500B2561A /* mAShredButton.m */,
 				093E267D14A1B3B2008694BC /* mAChucKController.h */,
 				093E267E14A1B3B2008694BC /* mAChucKController.mm */,
+				099C04F318FB715C00AC27C3 /* mANetworkManager.h */,
+				099C04F418FB715C00AC27C3 /* mANetworkManager.m */,
+				099C04F618FBAF1400AC27C3 /* mANetworkAction.h */,
+				099C04F718FBAF1400AC27C3 /* mANetworkAction.m */,
 				09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */,
 				09D00B8514A3C44A0019CD09 /* mATitleEditorController.h */,
 				09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */,
@@ -1686,6 +1696,7 @@
 				093E264214A12201008694BC /* chuck_emit.cpp in Sources */,
 				0921D56C18190216008F39D9 /* timetag.c in Sources */,
 				093E264314A12201008694BC /* chuck_errmsg.cpp in Sources */,
+				099C04F818FBAF1400AC27C3 /* mANetworkAction.m in Sources */,
 				093E264414A12201008694BC /* chuck_frame.cpp in Sources */,
 				093E264514A12201008694BC /* chuck_globals.cpp in Sources */,
 				093E264614A12201008694BC /* chuck_instr.cpp in Sources */,
@@ -1713,6 +1724,7 @@
 				0921D55C18190216008F39D9 /* blob.c in Sources */,
 				093E265514A12234008694BC /* chuck.lex in Sources */,
 				093E265614A12234008694BC /* digiio_rtaudio.cpp in Sources */,
+				099C04F518FB715C00AC27C3 /* mANetworkManager.m in Sources */,
 				093E265714A12234008694BC /* hidio_sdl.cpp in Sources */,
 				0921D56218190216008F39D9 /* method.c in Sources */,
 				093E265814A12234008694BC /* midiio_rtmidi.cpp in Sources */,

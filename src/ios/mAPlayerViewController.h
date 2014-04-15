@@ -26,5 +26,7 @@
 - (void)showEditorForScriptPlayer:(mAScriptPlayer *)player;
 - (void)playerTabMoved:(mAScriptPlayerTab *)playerTab;
 
+
+
 @end
 

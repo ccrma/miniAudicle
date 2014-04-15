@@ -11,6 +11,7 @@
 #import "mAScriptPlayerTab.h"
 #import "mAVMMonitorController.h"
 #import "mAEditorViewController.h"
+#import "mANetworkManager.h"
 
 
 @interface mAPlayerViewController ()
@@ -23,6 +24,8 @@
 @property (strong, nonatomic) NSMutableArray *passthroughViews;
 @property (strong, nonatomic) UIPopoverController *editorPopover;
 @property (strong, nonatomic) UIView *fieldView;
+
+@property (strong, nonatomic) mANetworkManager *networkManager;
 
 - (void)vmStatus:(NSNotification *)notification;
 
@@ -46,6 +49,7 @@
         self.passthroughViews = [NSMutableArray array];
         _layoutIndex = 0;
         _layoutOffset = CGPointMake(0, 0);
+        self.networkManager = [mANetworkManager new];
     }
     return self;
 }
@@ -64,6 +68,13 @@
                                              selector:@selector(vmStatus:)
                                                  name:mAVMMonitorControllerStatusUpdateNotification
                                                object:nil];
+    
+    [self.networkManager joinRoom:@"global"
+                          handler:^(mANetworkAction *action) {
+                          }
+                     errorHandler:^(NSError *error) {
+                         NSLog(@"error joining room: %@", error);
+                     }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -71,6 +82,8 @@
     [super viewDidDisappear:animated];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [self.networkManager leaveCurrentRoom];
 }
 
 - (void)didReceiveMemoryWarning
