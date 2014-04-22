@@ -31,4 +31,8 @@
 @property (strong, nonatomic) UINavigationController *navigationController;
 @property (strong, nonatomic) UISplitViewController *splitViewController;
 
++ (mAAppDelegate *)appDelegate;
+
+- (void)saveScripts;
+
 @end

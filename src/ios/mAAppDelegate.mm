@@ -51,8 +51,24 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
 
 @end
 
+static mAAppDelegate *g_appDelegate = nil;
 
 @implementation mAAppDelegate
+
++ (mAAppDelegate *)appDelegate
+{
+    return g_appDelegate;
+}
+
+- (id)init
+{
+    if(self = [super init])
+    {
+        g_appDelegate = self;
+    }
+    
+    return self;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -223,6 +239,11 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
                                                         isUser:NO]];
     
     return scripts;
+}
+
+- (void)saveScripts
+{
+    [self saveScripts:self.masterViewController.scripts];
 }
 
 - (void)saveScripts:(NSArray *)scripts

@@ -12,6 +12,7 @@
 #import "mAChucKController.h"
 #import "mAMasterViewController.h"
 #import "mADetailItem.h"
+#import "mAAppDelegate.h"
 
 @interface mAEditorViewController ()
 {
@@ -78,7 +79,8 @@
         if(_detailItem)
         {
             // save text
-            _detailItem.text = self.textView.text;
+            [self saveScript];
+            [[mAAppDelegate appDelegate] saveScripts];
         }
         
         _detailItem = newDetailItem;
