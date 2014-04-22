@@ -13,5 +13,10 @@
 @property (nonatomic) NSInteger errorLine;
 @property (copy, nonatomic) NSString *errorMessage;
 
+- (void)animateAdd;
+- (void)animateReplace;
+- (void)animateRemove;
+- (void)animateError;
+
 @end
 

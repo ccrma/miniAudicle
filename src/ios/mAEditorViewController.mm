@@ -83,6 +83,9 @@
         
         _detailItem = newDetailItem;
         
+        self.textView.errorMessage = nil;
+        self.textView.errorLine = -1;
+        
         // Update the view.
         [self configureView];
     }
@@ -185,6 +188,7 @@
 //            [[text_view textView] animateAdd];
         self.textView.errorLine = -1;
         self.textView.errorMessage = nil;
+        [self.textView animateAdd];
     }
     else if( otf_result == OTF_VM_TIMEOUT )
     {
@@ -203,6 +207,7 @@
         
 //        if([self.windowController currentViewController] == self)
 //            [[text_view textView] animateError];
+        [self.textView animateError];
     }
     else
     {
@@ -210,6 +215,7 @@
 //            [[text_view textView] animateError];
 //
 //        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
+        [self.textView animateError];
     }
 }
 
@@ -236,6 +242,7 @@
 //            [[text_view textView] animateAdd];
         self.textView.errorLine = -1;
         self.textView.errorMessage = nil;
+        [self.textView animateReplace];
     }
     else if( otf_result == OTF_VM_TIMEOUT )
     {
@@ -252,6 +259,7 @@
             self.textView.errorMessage = [NSString stringWithUTF8String:result.c_str()];
         }
         
+        [self.textView animateError];
 //        if([self.windowController currentViewController] == self)
 //            [[text_view textView] animateError];
     }
@@ -261,6 +269,7 @@
 //            [[text_view textView] animateError];
 //
 //        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
+        [self.textView animateError];
     }
 }
 
@@ -272,8 +281,20 @@
     t_CKUINT shred_id;
     std::string output;
     
-    [mAChucKController chuckController].ma->remove_code(self.detailItem.docid, 
-                                                        shred_id, output);
+    t_OTF_RESULT result = [mAChucKController chuckController].ma->remove_code(self.detailItem.docid,
+                                                                              shred_id, output);
+    
+    if(result == OTF_SUCCESS)
+    {
+        [self.textView animateRemove];
+    }
+    else if(result == OTF_VM_TIMEOUT)
+    {
+    }
+    else
+    {
+        [self.textView animateError];
+    }
 }
 
 

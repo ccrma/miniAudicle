@@ -8,6 +8,18 @@
 
 #import "mATextView.h"
 
+
+@interface mATextView ()
+{
+    UIView *_imageView;
+}
+
+- (void)animateImage:(UIImage *)image atLocation:(CGPoint)location;
+- (void)animateImage:(UIImage *)image atLocation:(CGPoint)location size:(CGSize)size;
+
+@end
+
+
 @implementation mATextView
 
 - (void)setErrorLine:(NSInteger)errorLine
@@ -58,6 +70,66 @@
     return [UIColor colorWithRed:1 green:0.45 blue:0.45 alpha:1];
 }
 
+- (void)animateImage:(UIImage *)image atLocation:(CGPoint)location
+{
+    [self animateImage:image atLocation:location size:image.size];
+}
+
+- (void)animateImage:(UIImage *)image atLocation:(CGPoint)location size:(CGSize)size
+{
+    [_imageView removeFromSuperview];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    imageView.frame.size = size;
+    imageView.center = location;
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+//    imageView.clipsToBounds = YES;
+    imageView.image = image;
+    [self addSubview:imageView];
+    _imageView = imageView;
+    
+    [UIView animateWithDuration:1
+                     animations:^{
+                         imageView.alpha = 0;
+                     }
+                     completion:^(BOOL finished) {
+                         [imageView removeFromSuperview];
+                         if(imageView == _imageView)
+                         {
+                             _imageView = nil;
+                         }
+                     }];
+}
+
+- (void)animateAdd
+{
+    [self animateImage:[UIImage imageNamed:@"add.png"]
+            atLocation:CGPointMake(self.center.x, self.bounds.origin.y + self.bounds.size.width*(1-(G_RATIO-1)))
+                  size:CGSizeMake(300, 300)];
+}
+
+- (void)animateReplace
+{
+    [self animateImage:[UIImage imageNamed:@"replace.png"]
+            atLocation:CGPointMake(self.center.x, self.bounds.origin.y + self.bounds.size.width*(1-(G_RATIO-1)))
+                  size:CGSizeMake(300, 300)];
+}
+
+- (void)animateRemove
+{
+    [self animateImage:[UIImage imageNamed:@"remove.png"]
+            atLocation:CGPointMake(self.center.x, self.bounds.origin.y + self.bounds.size.width*(1-(G_RATIO-1)))
+                  size:CGSizeMake(300, 300)];
+}
+
+- (void)animateError
+{
+    [self animateImage:[UIImage imageNamed:@"error.png"]
+            atLocation:CGPointMake(self.bounds.origin.x + self.bounds.size.width*0.9,
+                                   self.bounds.origin.y + self.bounds.size.width*0.1)
+                  size:CGSizeMake(125, 125)];
+}
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
@@ -79,7 +151,6 @@
         CGFloat errorMsgBoxYSize;
         
         CGContextRef ctx = UIGraphicsGetCurrentContext();
-        
         
 //        [[self errorColor] set];
 //        CGContextFillPath(ctx);

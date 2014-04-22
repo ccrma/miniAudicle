@@ -590,6 +590,7 @@
 		098E28A7173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mADocumentWindow.xib; sourceTree = "<group>"; };
 		098E28A9173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mARecordSession.xib; sourceTree = "<group>"; };
 		098E28AB173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/miniAudicle.xib; sourceTree = "<group>"; };
+		099ABE4C1906224B00C5D52D /* mADef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mADef.h; sourceTree = "<group>"; };
 		099C04F318FB715C00AC27C3 /* mANetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mANetworkManager.h; sourceTree = "<group>"; };
 		099C04F418FB715C00AC27C3 /* mANetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mANetworkManager.m; sourceTree = "<group>"; };
 		099C04F618FBAF1400AC27C3 /* mANetworkAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mANetworkAction.h; sourceTree = "<group>"; };
@@ -1062,6 +1063,7 @@
 				09F09E4818E3712D0050D963 /* mARoundedRectButton.m */,
 				09F09E4B18E374C10050D963 /* mACGContext.h */,
 				09F09E4A18E374C10050D963 /* mACGContext.c */,
+				099ABE4C1906224B00C5D52D /* mADef.h */,
 			);
 			name = "miniAudicle iOS";
 			path = ios;
