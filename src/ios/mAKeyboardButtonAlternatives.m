@@ -69,7 +69,7 @@
         
         if(_selection == i)
         {
-            [[UIColor colorWithRed:0.05 green:0.45 blue:0.95 alpha:1] set];
+            [[UIColor colorWithRed:0.05 green:0.55 blue:0.97 alpha:1] set];
             CGContextAddRoundedRect(ctx, rect, 4);
             CGContextFillPath(ctx);
             
