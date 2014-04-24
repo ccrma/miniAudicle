@@ -7,6 +7,7 @@
 //
 
 #import "mAKeyboardAccessoryViewController.h"
+#import "mAKeyboardButton.h"
 
 @interface mAKeyboardAccessoryViewController ()
 
@@ -28,6 +29,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor colorWithRed:207/255.0 green:210/255.0 blue:214/255.0 alpha:1];
+    
+    _chuckButton.alternatives = @[@"@=>", @"<=", @"<<"];
+    _dacButton.alternatives = @[@"adc"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -38,7 +42,7 @@
 
 - (IBAction)keyPressed:(id)sender
 {
-    [self.delegate keyPressed:[sender currentTitle]];
+    [self.delegate keyPressed:[sender pressedKey]];
 }
 
 @end

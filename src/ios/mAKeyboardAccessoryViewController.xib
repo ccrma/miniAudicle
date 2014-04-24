@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="mAKeyboardAccessoryViewController">
             <connections>
+                <outlet property="_chuckButton" destination="Uk7-q2-blw" id="ig6-VH-PgC"/>
+                <outlet property="_dacButton" destination="Ahq-Yd-YHY" id="TT7-KF-Xwh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -38,7 +40,7 @@
                         <constraint firstAttribute="height" constant="28" id="xAy-c0-D2M"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <state key="normal" title=";">
+                    <state key="normal" title=":">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
@@ -53,7 +55,7 @@
                         <constraint firstAttribute="width" constant="64" id="TvT-ba-8DD"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <state key="normal" title=":">
+                    <state key="normal" title=";">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>

@@ -10,4 +10,7 @@
 
 @interface mAKeyboardButton : UIButton
 
+@property (strong, readonly, nonatomic) NSString *pressedKey;
+@property (strong, nonatomic) NSArray *alternatives;
+
 @end

@@ -227,6 +227,7 @@
 		098E28B0173A06600044336B /* mADocumentWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A6173A06600044336B /* mADocumentWindow.xib */; };
 		098E28B1173A06600044336B /* mARecordSession.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A8173A06600044336B /* mARecordSession.xib */; };
 		098E28B2173A06600044336B /* miniAudicle.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28AA173A06600044336B /* miniAudicle.xib */; };
+		099ABE4F19086DD800C5D52D /* mAKeyboardButtonAlternatives.m in Sources */ = {isa = PBXBuildFile; fileRef = 099ABE4E19086DD800C5D52D /* mAKeyboardButtonAlternatives.m */; };
 		099C04F518FB715C00AC27C3 /* mANetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 099C04F418FB715C00AC27C3 /* mANetworkManager.m */; };
 		099C04F818FBAF1400AC27C3 /* mANetworkAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 099C04F718FBAF1400AC27C3 /* mANetworkAction.m */; };
 		09A40B680A9A54DA007604EA /* chuck_absyn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B060A9A54DA007604EA /* chuck_absyn.cpp */; };
@@ -591,6 +592,8 @@
 		098E28A9173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mARecordSession.xib; sourceTree = "<group>"; };
 		098E28AB173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/miniAudicle.xib; sourceTree = "<group>"; };
 		099ABE4C1906224B00C5D52D /* mADef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mADef.h; sourceTree = "<group>"; };
+		099ABE4D19086DD800C5D52D /* mAKeyboardButtonAlternatives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAKeyboardButtonAlternatives.h; sourceTree = "<group>"; };
+		099ABE4E19086DD800C5D52D /* mAKeyboardButtonAlternatives.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAKeyboardButtonAlternatives.m; sourceTree = "<group>"; };
 		099C04F318FB715C00AC27C3 /* mANetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mANetworkManager.h; sourceTree = "<group>"; };
 		099C04F418FB715C00AC27C3 /* mANetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mANetworkManager.m; sourceTree = "<group>"; };
 		099C04F618FBAF1400AC27C3 /* mANetworkAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mANetworkAction.h; sourceTree = "<group>"; };
@@ -1000,6 +1003,7 @@
 			children = (
 				09087C6914A4F63700AD2633 /* Resources */,
 				093E261A14A108C8008694BC /* Supporting Files */,
+				099ABE4C1906224B00C5D52D /* mADef.h */,
 				09307E1618DE68B0004AB346 /* mANavigationController~ipad.xib */,
 				093E262214A108C8008694BC /* mAAppDelegate.h */,
 				093E262314A108C8008694BC /* mAAppDelegate.mm */,
@@ -1052,6 +1056,8 @@
 				09608ADE14B40DE4009450FE /* mAConsoleMonitor.xib */,
 				09F09E3518E0F5AE0050D963 /* mAKeyboardButton.h */,
 				09F09E3618E0F5AE0050D963 /* mAKeyboardButton.m */,
+				099ABE4D19086DD800C5D52D /* mAKeyboardButtonAlternatives.h */,
+				099ABE4E19086DD800C5D52D /* mAKeyboardButtonAlternatives.m */,
 				09307E1718DE76D0004AB346 /* mAKeyboardAccessoryViewController.h */,
 				09307E1818DE76D0004AB346 /* mAKeyboardAccessoryViewController.m */,
 				09307E1918DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib */,
@@ -1063,7 +1069,6 @@
 				09F09E4818E3712D0050D963 /* mARoundedRectButton.m */,
 				09F09E4B18E374C10050D963 /* mACGContext.h */,
 				09F09E4A18E374C10050D963 /* mACGContext.c */,
-				099ABE4C1906224B00C5D52D /* mADef.h */,
 			);
 			name = "miniAudicle iOS";
 			path = ios;
@@ -1721,6 +1726,7 @@
 				093E265114A12201008694BC /* chuck_ugen.cpp in Sources */,
 				093E265214A12201008694BC /* chuck_utils.cpp in Sources */,
 				093E265314A12201008694BC /* chuck_vm.cpp in Sources */,
+				099ABE4F19086DD800C5D52D /* mAKeyboardButtonAlternatives.m in Sources */,
 				093E265414A12234008694BC /* chuck.y in Sources */,
 				09307E1A18DE76D0004AB346 /* mAKeyboardAccessoryViewController.m in Sources */,
 				0921D55C18190216008F39D9 /* blob.c in Sources */,

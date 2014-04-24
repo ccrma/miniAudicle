@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class mAKeyboardButton;
+
 @protocol mAKeyboardAccessoryDelegate
 
 - (void)keyPressed:(NSString *)chars;
@@ -15,6 +17,10 @@
 @end
 
 @interface mAKeyboardAccessoryViewController : UIViewController
+{
+    IBOutlet mAKeyboardButton *_chuckButton;
+    IBOutlet mAKeyboardButton *_dacButton;
+}
 
 @property (weak, nonatomic) id<mAKeyboardAccessoryDelegate> delegate;
 
