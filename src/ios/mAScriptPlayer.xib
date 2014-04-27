@@ -6,7 +6,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="mAScriptPlayer">
             <connections>
+                <outlet property="_addButton" destination="CnH-tO-mYD" id="pLd-mU-i8u"/>
+                <outlet property="_loopButton" destination="yA1-5D-TJ9" id="0UE-ua-6ed"/>
+                <outlet property="_loopNButton" destination="EHP-Hc-5ab" id="e8B-Wh-DIz"/>
                 <outlet property="_playerTabView" destination="yig-hN-R0p" id="o2Q-UP-9DD"/>
+                <outlet property="_sequenceButton" destination="iwo-RC-2JP" id="SmT-mC-3vz"/>
                 <outlet property="_titleLabel" destination="WxK-NC-9EQ" id="qco-00-jue"/>
                 <outlet property="titleLabel" destination="WxK-NC-9EQ" id="Z80-14-9sh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -38,7 +42,7 @@
                         <action selector="edit:" destination="-1" eventType="touchUpInside" id="3Vm-Rc-xuD"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CnH-tO-mYD" customClass="mARoundedRectButton">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CnH-tO-mYD" customClass="mAOTFButton">
                     <rect key="frame" x="20" y="40" width="64" height="64"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.89000368118286133" green="0.89012889067331957" blue="0.88995202382405603" alpha="0.0" colorSpace="calibratedRGB"/>
@@ -99,11 +103,70 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yA1-5D-TJ9" customClass="mAOTFButton">
+            <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" red="0.89000368119999995" green="0.89012889070000001" blue="0.88995202380000005" alpha="0.0" colorSpace="calibratedRGB"/>
+            <inset key="contentEdgeInsets" minX="1" minY="2" maxX="1" maxY="-2"/>
+            <state key="normal" title="Button" image="loop.png">
+                <color key="titleColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+            <state key="selected">
+                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+            <state key="highlighted">
+                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+            <connections>
+                <action selector="loopShred:" destination="-1" eventType="touchUpInside" id="r1v-db-d4o"/>
+            </connections>
+        </button>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="EHP-Hc-5ab" customClass="mAOTFButton">
+            <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" red="0.89000368119999995" green="0.89012889070000001" blue="0.88995202380000005" alpha="0.0" colorSpace="calibratedRGB"/>
+            <inset key="contentEdgeInsets" minX="1" minY="2" maxX="1" maxY="-2"/>
+            <state key="normal" title="Button" image="loop.png">
+                <color key="titleColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+            <state key="selected">
+                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+            <state key="highlighted">
+                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+            <connections>
+                <action selector="loopNShred:" destination="-1" eventType="touchUpInside" id="cUh-za-rDK"/>
+            </connections>
+        </button>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iwo-RC-2JP" customClass="mAOTFButton">
+            <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" red="0.89000368119999995" green="0.89012889070000001" blue="0.88995202380000005" alpha="0.0" colorSpace="calibratedRGB"/>
+            <inset key="contentEdgeInsets" minX="1" minY="2" maxX="1" maxY="-2"/>
+            <state key="normal" title="Button" image="sequence.png">
+                <color key="titleColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+            <state key="selected">
+                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+            <state key="highlighted">
+                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+            <connections>
+                <action selector="sequenceShred:" destination="-1" eventType="touchUpInside" id="MMN-SZ-uTY"/>
+            </connections>
+        </button>
     </objects>
     <resources>
         <image name="add-noalpha.png" width="218" height="218"/>
         <image name="forward-100.png" width="100" height="100"/>
+        <image name="loop.png" width="218" height="218"/>
         <image name="remove-noalpha.png" width="218" height="218"/>
         <image name="replace-noalpha.png" width="218" height="218"/>
+        <image name="sequence.png" width="218" height="218"/>
     </resources>
 </document>

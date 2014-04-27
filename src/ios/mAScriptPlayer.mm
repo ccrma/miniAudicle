@@ -13,6 +13,8 @@
 #import "miniAudicle.h"
 #import "mAShredButton.h"
 #import "mAPlayerViewController.h"
+#import "mAOTFButton.h"
+
 #import <map>
 #import <list>
 
@@ -78,6 +80,15 @@ static const t_CKFLOAT MAX_SHRED_TIMEOUT = 0.1;
     self.titleLabel.text = self.detailItem.title;
     _lastTime = CACurrentMediaTime();
     self.playerTabView.playerViewController = self.playerViewController;
+    
+    _addButton.image = [UIImage imageNamed:@"add-noalpha.png"];
+    _addButton.insets = UIEdgeInsetsMake(2, 0, -2, 0);
+    _addButton.alternatives = @[_loopButton, _loopNButton, _sequenceButton];
+    
+    _loopButton.image = [UIImage imageNamed:@"loop.png"];
+    _loopNButton.image = [UIImage imageNamed:@"loop.png"];
+    _loopNButton.text = @"#";
+    _sequenceButton.image = [UIImage imageNamed:@"sequence.png"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -139,6 +150,24 @@ static const t_CKFLOAT MAX_SHRED_TIMEOUT = 0.1;
         //
         //        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
     }
+}
+
+
+- (IBAction)loopShred:(id)sender
+{
+    NSLog(@"loop");
+}
+
+
+- (IBAction)loopNShred:(id)sender
+{
+    NSLog(@"loopN");
+}
+
+
+- (IBAction)sequenceShred:(id)sender
+{
+    NSLog(@"sequence");
 }
 
 
