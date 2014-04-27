@@ -168,6 +168,12 @@
     [self setNeedsDisplay];
 }
 
+- (void)sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event
+{
+    if(CGRectContainsPoint(self.bounds, [[[event touchesForView:self] anyObject] locationInView:self]))
+        [super sendAction:action to:target forEvent:event];
+}
+
 
 @end
 
