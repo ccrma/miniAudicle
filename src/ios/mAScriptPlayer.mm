@@ -14,6 +14,7 @@
 #import "mAShredButton.h"
 #import "mAPlayerViewController.h"
 #import "mAOTFButton.h"
+#import "mAEditorViewController.h"
 
 #import <map>
 #import <list>
@@ -105,12 +106,13 @@ struct LoopShred
     
     _addButton.image = [UIImage imageNamed:@"add-noalpha.png"];
     _addButton.insets = UIEdgeInsetsMake(2, 0, -2, 0);
-    _addButton.alternatives = @[_loopButton, _loopNButton, _sequenceButton];
     
     _loopButton.image = [UIImage imageNamed:@"loop.png"];
     _loopNButton.image = [UIImage imageNamed:@"loop.png"];
     _loopNButton.text = @"#";
     _sequenceButton.image = [UIImage imageNamed:@"sequence.png"];
+    
+    _addButton.alternatives = @[_loopButton, _loopNButton, _sequenceButton];
 }
 
 - (void)didReceiveMemoryWarning
@@ -125,6 +127,10 @@ struct LoopShred
 - (IBAction)addShred:(id)sender
 {
     if(self.detailItem == nil) return;
+    
+    // save script if necessary
+    if(self.detailItem == self.playerViewController.editor.detailItem)
+        [self.playerViewController.editor saveScript];
     
     std::string code = [self.detailItem.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
@@ -178,6 +184,10 @@ struct LoopShred
 - (IBAction)loopShred:(id)sender
 {
     if(self.detailItem == nil) return;
+    
+    // save script if necessary
+    if(self.detailItem == self.playerViewController.editor.detailItem)
+        [self.playerViewController.editor saveScript];
     
     std::string code = [self.detailItem.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
@@ -251,11 +261,31 @@ struct LoopShred
 {
     if(self.detailItem == nil) return;
     
+    // save script if necessary
+    if(self.detailItem == self.playerViewController.editor.detailItem)
+       [self.playerViewController.editor saveScript];
+    
     std::string code = [self.detailItem.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
     std::string filepath;
     if(self.detailItem.path && [self.detailItem.path length])
         filepath = [self.detailItem.path UTF8String];
+
+    // if most recent shred is looping, just replacing loop code
+    if(_shredOrder.size())
+    {
+        t_CKUINT shred_id = _shredOrder.back();
+        if(_loopShreds.count(shred_id))
+        {
+            _loopShreds[shred_id].code = code;
+            _loopShreds[shred_id].name = name;
+            _loopShreds[shred_id].filepath = filepath;
+            
+            // assumption: the new shred in a replace operation has same id
+            return;
+        }
+    }
+    
     vector<string> args;
     t_CKUINT shred_id;
     std::string output;
@@ -305,10 +335,15 @@ struct LoopShred
     t_CKUINT shred_id;
     std::string output;
     
-    [mAChucKController chuckController].ma->remove_code(self.detailItem.docid, 
-                                                        shred_id, output);
+    t_OTF_RESULT otf_result = [mAChucKController chuckController].ma->remove_code(self.detailItem.docid,
+                                                                                  shred_id, output);
     
-    [self removeShredButton:shred_id];
+    if(otf_result == OTF_SUCCESS)
+    {
+        if(_loopShreds.count(shred_id))
+            _loopShreds.erase(shred_id);
+        [self removeShredButton:shred_id];
+    }
 }
 
 - (IBAction)edit:(id)sender
@@ -442,7 +477,7 @@ struct LoopShred
     {
         [_shreds[shredId].button removeFromSuperview];
         _shreds.erase(shredId);
-        if(_loopShreds.count(shredId)) _loopShreds.erase(shredId);
+        if(_loopShreds.count(shredId) > 0) _loopShreds.erase(shredId);
         
         BOOL relayout = NO;
         if(_shredOrder.back() != shredId)
@@ -472,7 +507,12 @@ struct LoopShred
 {
     t_CKUINT shredId = [sender tag];
     std::string output;
+    
     [mAChucKController chuckController].ma->remove_shred(self.detailItem.docid, shredId, output);
+    
+    if(_loopShreds.count(shredId))
+        _loopShreds.erase(shredId);
+    
     [self removeShredButton:shredId];
 }
 
