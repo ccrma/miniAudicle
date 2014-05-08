@@ -21,7 +21,9 @@
 }
 
 @property (strong, nonatomic) NSTimer *popUpTimer;
+@property (nonatomic) BOOL poppedUp;
 @property (nonatomic) BOOL isPopup;
+@property (weak, nonatomic) mAOTFButton *parent;
 
 @end
 
@@ -74,6 +76,49 @@
 }
 
 
+- (void)collapse
+{
+    CGPoint target = self.center;
+    
+    for(mAOTFButton *button in self.alternatives)
+    {
+        [UIView animateWithDuration:1-G_RATIO
+                         animations:^{
+                             button.center = target;
+                         } completion:^(BOOL finished) {
+                             [button removeFromSuperview];
+                         }];
+    }
+}
+
+
+- (void)collapseToAlternative:(id)alternative
+{
+    CGPoint target = self.center;
+    
+    for(mAOTFButton *button in self.alternatives)
+    {
+        if(button == alternative)
+        {
+            [self.superview bringSubviewToFront:button];
+            [UIView animateWithDuration:1-G_RATIO
+                             animations:^{
+                                 button.center = target;
+                             }];
+        }
+        else
+        {
+            [UIView animateWithDuration:1-G_RATIO
+                             animations:^{
+                                 button.center = target;
+                             } completion:^(BOOL finished) {
+                                 [button removeFromSuperview];
+                             }];
+        }
+    }
+}
+
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
@@ -118,7 +163,7 @@
 
 - (void)popUp:(NSTimer *)timer
 {
-    _poppedUp = YES;
+    self.poppedUp = YES;
     _trackingPopup = nil;
     
     [self.superview bringSubviewToFront:self];
@@ -127,10 +172,13 @@
     
     for(mAOTFButton *button in self.alternatives)
     {
-        [button removeFromSuperview];
+//        [button removeFromSuperview];
         button.center = self.center;
         button.isPopup = YES;
-        [self.superview insertSubview:button belowSubview:self];
+        button.parent = self;
+        
+        if(button.superview == nil)
+            [self.superview insertSubview:button belowSubview:self];
         
         CGPoint target;
         float margin = 4;
@@ -177,7 +225,7 @@
 
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    _poppedUp = NO;
+    self.poppedUp = NO;
     _trackingPopup = nil;
     
     if(touch.phase == UITouchPhaseBegan || self.isPopup)
@@ -193,6 +241,17 @@
             
             self.popUpTimer = [NSTimer scheduledTimerWithTimeInterval:0.8
                                                                target:self
+                                                             selector:@selector(popUp:)
+                                                             userInfo:nil
+                                                              repeats:NO];
+        }
+        else if(self.parent != nil && !self.parent.poppedUp)
+        {
+            [self.popUpTimer invalidate];
+            self.popUpTimer = nil;
+            
+            self.popUpTimer = [NSTimer scheduledTimerWithTimeInterval:0.8
+                                                               target:self.parent
                                                              selector:@selector(popUp:)
                                                              userInfo:nil
                                                               repeats:NO];
@@ -251,9 +310,14 @@
     [self.popUpTimer invalidate];
     self.popUpTimer = nil;
     
+    BOOL wasPressed = NO;
+    
     if(self.isPopup && CGRectContainsPoint(self.bounds, [touch locationInView:self]))
+    {
         // need to manually sendActions because of hacked touch tracking
         [self sendActionsForControlEvents:UIControlEventTouchUpInside];
+        wasPressed = YES;
+    }
     
     BOOL wasHighlighted = _showHighlight;
     
@@ -262,24 +326,32 @@
     if(wasHighlighted != _showHighlight)
         [self setNeedsDisplay];
     
-    if(_poppedUp)
+    if(self.poppedUp)
     {
-        _poppedUp = NO;
+        self.poppedUp = NO;
+        
+        id alternative = nil;
         
         if(_trackingPopup != nil)
-            [_trackingPopup endTrackingWithTouch:touch withEvent:event];
-        
-        CGPoint target = self.center;
-        
-        for(mAOTFButton *button in self.alternatives)
         {
-            [UIView animateWithDuration:1-G_RATIO
-                             animations:^{
-                                 button.center = target;
-                             } completion:^(BOOL finished) {
-                                 [button removeFromSuperview];
-                             }];
+            if(CGRectContainsPoint(_trackingPopup.bounds, [touch locationInView:_trackingPopup]))
+            {
+                alternative = _trackingPopup;
+                wasPressed = YES;
+            }
+            
+            [_trackingPopup endTrackingWithTouch:touch withEvent:event];
         }
+        
+        // only collapse if nothing was pressed
+        // if something was pressed, receiver of press action triggers collapse
+        if(!wasPressed)
+            [self collapse];
+        
+//        if(alternative != nil)
+//            [self collapseToAlternative:alternative];
+//        else
+//            [self collapse];
     }
 }
 

@@ -389,6 +389,8 @@
 		09E482A40B1CF12E002087DF /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A40BD70A9A57C6007604EA /* IOKit.framework */; };
 		09E482BE0B1CF292002087DF /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
 		09EBA9B718D8FD4700DCAE0C /* examples in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B5C1769A5CD00A07ADF /* examples */; };
+		09F0442B1918A8810028DD14 /* mALoopCountPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F044291918A8810028DD14 /* mALoopCountPicker.m */; };
+		09F0442C1918A8810028DD14 /* mALoopCountPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09F0442A1918A8810028DD14 /* mALoopCountPicker.xib */; };
 		09F09E3718E0F5AE0050D963 /* mAKeyboardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F09E3618E0F5AE0050D963 /* mAKeyboardButton.m */; };
 		09F09E3B18E2C5E60050D963 /* mAEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09F09E3918E2C5E60050D963 /* mAEditorViewController.mm */; };
 		09F09E3C18E2C5E60050D963 /* mAEditorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09F09E3A18E2C5E60050D963 /* mAEditorViewController.xib */; };
@@ -798,6 +800,9 @@
 		09E481F90B1CE5AF002087DF /* gauge02.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = gauge02.ck; path = ../test/gauge02.ck; sourceTree = SOURCE_ROOT; };
 		09E482060B1CEF41002087DF /* miniAudicle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = miniAudicle; sourceTree = BUILT_PRODUCTS_DIR; };
 		09E5546D0DA61CB700F1A6C8 /* miniAudicle_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = miniAudicle_debug.h; sourceTree = "<group>"; };
+		09F044281918A8810028DD14 /* mALoopCountPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mALoopCountPicker.h; sourceTree = "<group>"; };
+		09F044291918A8810028DD14 /* mALoopCountPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mALoopCountPicker.m; sourceTree = "<group>"; };
+		09F0442A1918A8810028DD14 /* mALoopCountPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mALoopCountPicker.xib; sourceTree = "<group>"; };
 		09F09E3518E0F5AE0050D963 /* mAKeyboardButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAKeyboardButton.h; sourceTree = "<group>"; };
 		09F09E3618E0F5AE0050D963 /* mAKeyboardButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAKeyboardButton.m; sourceTree = "<group>"; };
 		09F09E3818E2C5E60050D963 /* mAEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAEditorViewController.h; sourceTree = "<group>"; };
@@ -1043,10 +1048,13 @@
 				09AC4E1418E90B1600B2561A /* mAScriptPlayerView.m */,
 				09F09E4D18E3753B0050D963 /* mAScriptPlayerTab.h */,
 				09F09E4E18E3753B0050D963 /* mAScriptPlayerTab.m */,
-				09AC4E1618EA2C8500B2561A /* mAShredButton.h */,
-				09AC4E1718EA2C8500B2561A /* mAShredButton.m */,
 				099ABE50190CCA2C00C5D52D /* mAOTFButton.h */,
 				099ABE51190CCA2C00C5D52D /* mAOTFButton.m */,
+				09AC4E1618EA2C8500B2561A /* mAShredButton.h */,
+				09AC4E1718EA2C8500B2561A /* mAShredButton.m */,
+				09F044281918A8810028DD14 /* mALoopCountPicker.h */,
+				09F044291918A8810028DD14 /* mALoopCountPicker.m */,
+				09F0442A1918A8810028DD14 /* mALoopCountPicker.xib */,
 				093E267D14A1B3B2008694BC /* mAChucKController.h */,
 				093E267E14A1B3B2008694BC /* mAChucKController.mm */,
 				099C04F318FB715C00AC27C3 /* mANetworkManager.h */,
@@ -1597,6 +1605,7 @@
 				093E263614A108C9008694BC /* mADetailViewController~ipad.xib in Resources */,
 				09F09E5418E419960050D963 /* remove-noalpha.png in Resources */,
 				093E267914A14E91008694BC /* replace.png in Resources */,
+				09F0442C1918A8810028DD14 /* mALoopCountPicker.xib in Resources */,
 				093E267A14A14E91008694BC /* remove.png in Resources */,
 				09F09E4118E2DAEA0050D963 /* mAPlayerViewController.xib in Resources */,
 				093E267B14A14E91008694BC /* add.png in Resources */,
@@ -1722,6 +1731,7 @@
 				093E264614A12201008694BC /* chuck_instr.cpp in Sources */,
 				093E264714A12201008694BC /* chuck_lang.cpp in Sources */,
 				093E264814A12201008694BC /* chuck_oo.cpp in Sources */,
+				09F0442B1918A8810028DD14 /* mALoopCountPicker.m in Sources */,
 				0921D56A18190216008F39D9 /* server_thread.c in Sources */,
 				09F09E3B18E2C5E60050D963 /* mAEditorViewController.mm in Sources */,
 				09F09E5818E41F2C0050D963 /* mADetailItem.mm in Sources */,

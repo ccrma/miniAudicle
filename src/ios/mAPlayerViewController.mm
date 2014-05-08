@@ -130,6 +130,7 @@
     self.editor.detailItem = player.detailItem;
     self.editor.showOTFToolbar = NO;
     self.editorPopover.popoverContentSize = CGSizeMake(480, 600);
+    self.editorPopover.backgroundColor = [UIColor clearColor];
     self.editorPopover.delegate = self;
     self.editorPopover.passthroughViews = self.passthroughViews;
     
@@ -138,7 +139,9 @@
     [self.editorPopover presentPopoverFromRect:popoverView.frame
                                         inView:popoverView.superview
                       permittedArrowDirections:UIPopoverArrowDirectionAny
-                                      animated:YES];
+                                      animated:NO];
+    
+//    self.editor.view.superview.superview.superview.backgroundColor = [UIColor clearColor];
 }
 
 - (void)playerTabMoved:(mAScriptPlayerTab *)playerTab

@@ -16,4 +16,7 @@
 @property (copy, nonatomic) NSArray *alternatives;
 @property (copy, nonatomic) NSString *text;
 
+- (void)collapse;
+- (void)collapseToAlternative:(id)alternative;
+
 @end

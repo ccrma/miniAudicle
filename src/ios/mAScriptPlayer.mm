@@ -15,6 +15,7 @@
 #import "mAPlayerViewController.h"
 #import "mAOTFButton.h"
 #import "mAEditorViewController.h"
+#import "mALoopCountPicker.h"
 
 #import <map>
 #import <list>
@@ -64,6 +65,9 @@ struct LoopShred
 
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) mAScriptPlayerTab *playerTabView;
+
+@property (strong, nonatomic) mALoopCountPicker *loopCountPicker;
+@property (strong, nonatomic) UIPopoverController *loopCountPickerPopover;
 
 
 - (void)shredButton:(id)sender;
@@ -132,6 +136,8 @@ struct LoopShred
     if(self.detailItem == self.playerViewController.editor.detailItem)
         [self.playerViewController.editor saveScript];
     
+    [_addButton collapse];
+    
     std::string code = [self.detailItem.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
     std::string filepath;
@@ -181,14 +187,8 @@ struct LoopShred
 }
 
 
-- (IBAction)loopShred:(id)sender
+- (void)loopWithCount:(int)count
 {
-    if(self.detailItem == nil) return;
-    
-    // save script if necessary
-    if(self.detailItem == self.playerViewController.editor.detailItem)
-        [self.playerViewController.editor saveScript];
-    
     std::string code = [self.detailItem.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
     std::string filepath;
@@ -211,7 +211,7 @@ struct LoopShred
         [self addShredButton:shred_id];
         
         _loopShreds[shred_id] = LoopShred();
-        _loopShreds[shred_id].loopCount = -1;
+        _loopShreds[shred_id].loopCount = count - 1;
         _loopShreds[shred_id].code = code;
         _loopShreds[shred_id].name = name;
         _loopShreds[shred_id].filepath = filepath;
@@ -245,15 +245,70 @@ struct LoopShred
 }
 
 
+- (IBAction)loopShred:(id)sender
+{
+    if(self.detailItem == nil) return;
+    
+    // save script if necessary
+    if(self.detailItem == self.playerViewController.editor.detailItem)
+        [self.playerViewController.editor saveScript];
+    
+    [_addButton collapseToAlternative:_loopButton];
+    
+    [self loopWithCount:-1];
+}
+
+
 - (IBAction)loopNShred:(id)sender
 {
-    NSLog(@"loopN");
+    if(self.detailItem == nil) return;
+    
+    // save script if necessary
+    if(self.detailItem == self.playerViewController.editor.detailItem)
+        [self.playerViewController.editor saveScript];
+    
+    if(self.loopCountPicker == nil)
+        self.loopCountPicker = [[mALoopCountPicker alloc] initWithNibName:@"mALoopCountPicker" bundle:nil];
+    if(self.loopCountPickerPopover == nil)
+        self.loopCountPickerPopover = [[UIPopoverController alloc] initWithContentViewController:self.loopCountPicker];
+    
+    self.loopCountPickerPopover.delegate = self.loopCountPicker;
+    
+    [self.loopCountPickerPopover presentPopoverFromRect:[sender frame]
+                                                 inView:self.view
+                               permittedArrowDirections:UIPopoverArrowDirectionAny
+                                               animated:YES];
+    
+    __weak typeof(_loopNButton) weakLoopNButton = _loopNButton;
+    __weak typeof(_addButton) weakAddButton = _addButton;
+    __weak typeof(self) weakSelf = self;
+    
+    self.loopCountPicker.pickedLoopCount = ^(NSInteger count){
+        [weakSelf loopWithCount:count];
+        weakLoopNButton.text = [NSString stringWithFormat:@"%i", (int)count];
+        
+        [weakSelf.loopCountPickerPopover dismissPopoverAnimated:YES];
+//        weakSelf.loopCountPickerPopover = nil;
+//        weakSelf.loopCountPicker = nil;
+        
+        [weakAddButton collapseToAlternative:weakLoopNButton];
+    };
+    
+    self.loopCountPicker.cancelled = ^(){
+        [weakSelf.loopCountPickerPopover dismissPopoverAnimated:YES];
+//        weakSelf.loopCountPickerPopover = nil;
+//        weakSelf.loopCountPicker = nil;
+
+        [weakAddButton collapse];
+    };
 }
 
 
 - (IBAction)sequenceShred:(id)sender
 {
     NSLog(@"sequence");
+    
+    [_addButton collapseToAlternative:_sequenceButton];
 }
 
 
@@ -397,7 +452,10 @@ struct LoopShred
             /* continue looping */
             
             if(_loopShreds[shred_id].loopCount > 0)
+            {
                 _loopShreds[shred_id].loopCount--;
+                _loopNButton.text = [NSString stringWithFormat:@"%i", (int) _loopShreds[shred_id].loopCount+1];
+            }
             
             t_CKUINT new_shred_id;
             std::string output;
