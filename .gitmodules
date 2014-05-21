@@ -1,6 +1,6 @@
 [submodule "src/chuck"]
 	path = src/chuck
-	url = https://github.com/spencersalazar/chuck.git
+	url = https://github.com/ccrma/chuck.git
 [submodule "src/chugins"]
 	path = src/chugins
 	url = https://github.com/ccrma/chugins.git
