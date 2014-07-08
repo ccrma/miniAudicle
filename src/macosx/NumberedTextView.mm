@@ -95,7 +95,15 @@ static NSImage * error_image;
 
         error_animation_ratio = 0;
         
-        [self setAutomaticQuoteSubstitutionEnabled:NO];
+        if([self respondsToSelector:@selector(setAutomaticQuoteSubstitutionEnabled:)])
+        {
+            [self setAutomaticQuoteSubstitutionEnabled:NO];
+            [self setAutomaticDashSubstitutionEnabled:NO];
+            [self setAutomaticSpellingCorrectionEnabled:NO];
+            [self setAutomaticTextReplacementEnabled:NO];
+            [self setAutomaticLinkDetectionEnabled:NO];
+            [self setAutomaticDataDetectionEnabled:NO];
+        }
     }
     
     return self;
