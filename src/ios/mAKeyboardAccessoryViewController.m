@@ -30,8 +30,12 @@
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor colorWithRed:207/255.0 green:210/255.0 blue:214/255.0 alpha:1];
     
-    _chuckButton.alternatives = @[@"@=>", @"<=", @"<<"];
+    NSDictionary *coloredCodeAttributes = @{ NSFontAttributeName: [UIFont fontWithName:@"Menlo-Bold" size:18],
+                                             NSForegroundColorAttributeName: [UIColor blueColor] };
+    
+    _chuckButton.alternatives = @[@"=<", @"@=>", @"<=", @"<<"];
     _dacButton.alternatives = @[@"adc"];
+    _dacButton.attributes = @[ coloredCodeAttributes, coloredCodeAttributes ];
 }
 
 - (void)didReceiveMemoryWarning

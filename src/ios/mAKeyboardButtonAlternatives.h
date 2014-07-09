@@ -11,7 +11,8 @@
 @interface mAKeyboardButtonAlternatives : UIControl
 
 @property (strong, readonly, nonatomic) NSString *pressedKey;
-@property (strong, nonatomic) NSArray *alternatives;
+@property (copy, nonatomic) NSArray *alternatives;
+@property (copy, nonatomic) NSArray *attributes;
 
 - (id)initWithAlternatives:(NSArray *)alternatives;
 

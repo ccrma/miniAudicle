@@ -12,5 +12,6 @@
 
 @property (strong, readonly, nonatomic) NSString *pressedKey;
 @property (strong, nonatomic) NSArray *alternatives;
+@property (strong, nonatomic) NSArray *attributes;
 
 @end

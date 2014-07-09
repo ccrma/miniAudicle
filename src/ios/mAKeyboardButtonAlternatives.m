@@ -31,6 +31,7 @@
     self = [super initWithFrame:CGRectMake(0, 0, containerWidth, containerHeight)];
     if (self) {
         self.alternatives = alternatives;
+        self.attributes = nil;
         self.backgroundColor = [UIColor clearColor];
         self.opaque = NO;
         _pressedKey = @"";
@@ -58,12 +59,22 @@
     CGContextAddRoundedRect(ctx, self.bounds, 8);
     CGContextStrokePath(ctx);
     
-    NSDictionary *textAttributes = @{ NSFontAttributeName: [UIFont boldSystemFontOfSize:20] };
-    NSDictionary *selectionTextAttributes = @{ NSFontAttributeName: [UIFont boldSystemFontOfSize:20],
-                                               NSForegroundColorAttributeName: [UIColor whiteColor] };
+    NSDictionary *defaultTextAttributes = @{ NSFontAttributeName: [UIFont boldSystemFontOfSize:20] };
+    NSDictionary *defaultSelectionTextAttributes = @{ NSFontAttributeName: [UIFont boldSystemFontOfSize:20],
+                                                      NSForegroundColorAttributeName: [UIColor whiteColor] };
     
     for(int i = 0; i < self.alternatives.count; i++)
     {
+        NSDictionary *textAttributes = defaultTextAttributes;
+        NSDictionary *selectionTextAttributes = defaultSelectionTextAttributes;
+        if(self.attributes != nil && [self.attributes objectAtIndex:i] != nil)
+        {
+            textAttributes = [self.attributes objectAtIndex:i];
+            NSMutableDictionary *dict = [[self.attributes objectAtIndex:i] mutableCopy];
+            [dict setObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+            selectionTextAttributes = dict;
+        }
+
         CGRect rect = CGRectMake(MARGIN+(MARGIN+BUTTON_SIZE)*i, MARGIN, BUTTON_SIZE, BUTTON_SIZE);
         NSDictionary *attributes = textAttributes;
         
@@ -77,7 +88,7 @@
         }
         
         NSString *chr = [self.alternatives objectAtIndex:i];
-        CGSize charSize = [chr sizeWithAttributes:textAttributes];
+        CGSize charSize = [chr sizeWithAttributes:attributes];
         // center in button area
         [chr drawInRect:CGRectMake(rect.origin.x+rect.size.width/2-charSize.width/2,
                                    rect.origin.y+rect.size.height/2-charSize.height/2,

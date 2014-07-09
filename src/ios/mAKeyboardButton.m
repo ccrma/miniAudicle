@@ -87,6 +87,7 @@
     self.alternativesView = nil;
     
     self.alternativesView = [[mAKeyboardButtonAlternatives alloc] initWithAlternatives:self.alternatives];
+    self.alternativesView.attributes = self.attributes;
     
     CGPoint center = CGPointMake(self.center.x,
                                  self.center.y - self.frame.size.height/2 - 4 - self.alternativesView.frame.size.height/2);
