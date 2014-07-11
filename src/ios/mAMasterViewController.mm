@@ -124,6 +124,9 @@ static mAInteractionMode g_mode = MA_IM_NONE;
     
     detailItem.isUser = YES;
     detailItem.title = [NSString stringWithFormat:@"Untitled %i", untitledNumber++];
+    detailItem.path = [NSString stringWithFormat:@"%@/%@.ck",
+                       [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0],
+                       detailItem.title];
     detailItem.text = @"";
     detailItem.docid = [mAChucKController chuckController].ma->allocate_document_id();
     

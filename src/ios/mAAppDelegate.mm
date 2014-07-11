@@ -218,16 +218,22 @@ static mAAppDelegate *g_appDelegate = nil;
 - (NSMutableArray *)loadScripts
 {
     NSMutableArray * scripts = [NSMutableArray array];
+
+//    NSString * path = [NSString stringWithFormat:@"%@/scripts.plist",
+//                       [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
+//    
+//    NSArray * scripts2 = [NSArray arrayWithContentsOfFile:path];
+//    
+//    for(NSDictionary * item in scripts2)
+//    {
+//        [scripts addObject:[mADetailItem detailItemFromDictionary:item]];
+//    }
     
-    NSString * path = [NSString stringWithFormat:@"%@/scripts.plist", 
-                       [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
-    
-    NSArray * scripts2 = [NSArray arrayWithContentsOfFile:path];
-    
-    for(NSDictionary * item in scripts2)
-    {
-        [scripts addObject:[mADetailItem detailItemFromDictionary:item]];
-    }
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    for(NSString *subpath in [fileManager contentsOfDirectoryAtPath:path error:NULL])
+        [scripts addObject:[mADetailItem detailItemFromPath:[path stringByAppendingPathComponent:subpath]
+                                                     isUser:YES]];
     
     NSMutableArray *examplesArray = [NSMutableArray array];
     
@@ -250,18 +256,18 @@ static mAAppDelegate *g_appDelegate = nil;
 {
     [self.editorViewController saveScript];
     
-    NSString * path = [NSString stringWithFormat:@"%@/scripts.plist", 
-                       [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
-    
-    NSMutableArray * scripts2 = [NSMutableArray array];
-    
-    for(mADetailItem * item in scripts)
-    {
-        if(item.isUser)
-            [scripts2 addObject:[item dictionary]];
-    }
-    
-    [scripts2 writeToFile:path atomically:YES];
+//    NSString * path = [NSString stringWithFormat:@"%@/scripts.plist", 
+//                       [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
+//    
+//    NSMutableArray * scripts2 = [NSMutableArray array];
+//    
+//    for(mADetailItem * item in scripts)
+//    {
+//        if(item.isUser)
+//            [scripts2 addObject:[item dictionary]];
+//    }
+//    
+//    [scripts2 writeToFile:path atomically:YES];
 }
 
 @end

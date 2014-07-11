@@ -20,11 +20,13 @@
 @property (strong, nonatomic) NSMutableArray *folderItems;
 @property (strong, nonatomic) NSString *path;
 
++ (mADetailItem *)detailItemFromPath:(NSString *)path isUser:(BOOL)isUser;
 + (mADetailItem *)detailItemFromDictionary:(NSDictionary *)dictionary;
 + (mADetailItem *)folderDetailItemWithTitle:(NSString *)title
                                       items:(NSMutableArray *)items
                                      isUser:(BOOL)user;
 - (NSDictionary *)dictionary;
+- (void)save;
 
 @end
 

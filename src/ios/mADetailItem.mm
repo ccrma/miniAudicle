@@ -10,7 +10,62 @@
 #import "mAChuckController.h"
 #import "miniAudicle.h"
 
+
+@interface NSFileManager (isDirectory)
+
+- (BOOL)isDirectory:(NSString *)path;
+
+@end
+
+@implementation NSFileManager (isDirectory)
+
+- (BOOL)isDirectory:(NSString *)path
+{
+    BOOL isDirectory = NO;
+    if([self fileExistsAtPath:path isDirectory:&isDirectory])
+        return isDirectory;
+    else
+        return NO;
+}
+
+
+@end
+
+
 @implementation mADetailItem
+
+
++ (mADetailItem *)detailItemFromPath:(NSString *)path isUser:(BOOL)isUser
+{
+    mADetailItem * detailItem = [mADetailItem new];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    detailItem.path = path;
+    detailItem.title = [[path lastPathComponent] stringByDeletingPathExtension];
+    detailItem.isUser = isUser;
+    
+    if([fileManager isDirectory:path])
+    {
+        detailItem.isFolder = YES;
+        
+        NSMutableArray *items;
+        for(NSString *subpath in [fileManager contentsOfDirectoryAtPath:path error:NULL])
+        {
+            [items addObject:[mADetailItem detailItemFromPath:[path stringByAppendingPathComponent:subpath]
+                                                       isUser:isUser]];
+        }
+        detailItem.folderItems = items;
+    }
+    else
+    {
+        detailItem.isFolder = NO;
+        detailItem.text = [NSString stringWithContentsOfFile:path
+                                                    encoding:NSUTF8StringEncoding
+                                                       error:NULL];
+    }
+    
+    return detailItem;
+}
 
 + (mADetailItem *)detailItemFromDictionary:(NSDictionary *)dictionary
 {
@@ -59,6 +114,12 @@
         [mAChucKController chuckController].ma->free_document_id(_docid);
         _docid = UINT_MAX;
     }
+}
+
+- (void)save
+{
+    if(!self.isFolder && self.isUser)
+        [self.text writeToFile:self.path atomically:YES encoding:NSUTF8StringEncoding error:NULL];
 }
 
 - (t_CKUINT)docid

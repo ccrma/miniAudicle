@@ -164,6 +164,7 @@
 - (void)saveScript
 {
     self.detailItem.text = self.textView.text;
+    [self.detailItem save];
 }
 
 
