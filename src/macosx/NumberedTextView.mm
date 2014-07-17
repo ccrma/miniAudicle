@@ -159,6 +159,10 @@ static NSImage * error_image;
 }
 */
 
+- (void)paste:(id)sender
+{
+    [super pasteAsPlainText:sender];
+}
 
 - (NSRect)lockImageRect
 {
