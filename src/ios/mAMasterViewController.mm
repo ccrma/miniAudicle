@@ -30,6 +30,7 @@
 #import "mAChucKController.h"
 #import "miniAudicle.h"
 #import "mADetailItem.h"
+#import "mADocumentManager.h"
 
 enum mAInteractionMode
 {
@@ -119,15 +120,9 @@ static mAInteractionMode g_mode = MA_IM_NONE;
 - (IBAction)newScript
 {
     (void) self.view; // force the view to load
-
-    mADetailItem * detailItem = [mADetailItem new];
     
-    detailItem.isUser = YES;
-    detailItem.title = [NSString stringWithFormat:@"Untitled %i", untitledNumber++];
-    detailItem.path = [NSString stringWithFormat:@"%@/%@.ck",
-                       [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0],
-                       detailItem.title];
-    detailItem.text = @"";
+    
+    mADetailItem *detailItem = [[mADocumentManager manager] newScript:[NSString stringWithFormat:@"Untitled %i", untitledNumber++]];
     detailItem.docid = [mAChucKController chuckController].ma->allocate_document_id();
     
     int insertIndex = 0;
@@ -371,6 +366,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(editingStyle == UITableViewCellEditingStyleDelete)
     {
+        mADetailItem *item = [self.scripts objectAtIndex:[indexPath row]];
+        [[mADocumentManager manager] deleteScript:item];
         [self.scripts removeObjectAtIndex:[indexPath row]];
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                               withRowAnimation:UITableViewRowAnimationFade];

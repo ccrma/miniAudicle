@@ -13,6 +13,8 @@
 #import "mAMasterViewController.h"
 #import "mADetailItem.h"
 #import "mAAppDelegate.h"
+#import "mADocumentManager.h"
+
 
 @interface mAEditorViewController ()
 {
@@ -322,8 +324,8 @@
 {
     [self.popover dismissPopoverAnimated:YES];
     
-    self.detailItem.title = self.titleEditor.editedTitle;
-    self.detailItem.text = self.textView.text;
+    //self.detailItem.title = self.titleEditor.editedTitle;
+    [[mADocumentManager manager] renameScript:self.detailItem to:self.titleEditor.editedTitle];
     
     [self configureView];
     

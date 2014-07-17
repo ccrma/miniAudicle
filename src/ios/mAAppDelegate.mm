@@ -31,6 +31,7 @@
 #import "mADetailItem.h"
 #import "mAChucKController.h"
 #import "miniAudicle.h"
+#import "mADocumentManager.h"
 
 
 NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript";
@@ -104,7 +105,7 @@ static mAAppDelegate *g_appDelegate = nil;
         
         self.window.rootViewController = self.splitViewController;
         
-        self.masterViewController.scripts = [self loadScripts];
+        self.masterViewController.scripts = [[mADocumentManager manager] loadScripts];
         
         if([self.masterViewController.scripts count] < 2)
         {
@@ -131,6 +132,10 @@ static mAAppDelegate *g_appDelegate = nil;
      Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
      */
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:[self.masterViewController selectedScript]
+                                               forKey:kmAUserDefaultsSelectedScript];
+    [self saveScripts];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -142,7 +147,7 @@ static mAAppDelegate *g_appDelegate = nil;
     
     [[NSUserDefaults standardUserDefaults] setInteger:[self.masterViewController selectedScript]
                                                forKey:kmAUserDefaultsSelectedScript];
-    [self saveScripts:self.masterViewController.scripts];
+    [self saveScripts];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -169,105 +174,12 @@ static mAAppDelegate *g_appDelegate = nil;
     
     [[NSUserDefaults standardUserDefaults] setInteger:[self.masterViewController selectedScript]
                                                forKey:kmAUserDefaultsSelectedScript];
-    [self saveScripts:self.masterViewController.scripts];
-}
-
-- (NSString *)examplesPath
-{
-    return [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"examples"];
-}
-
-- (void)appendScriptsFromDirectory:(NSString *)dir toArray:(NSMutableArray *)array
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-    for(NSString *path in [fileManager contentsOfDirectoryAtPath:dir error:NULL])
-    {
-        BOOL isDirectory = NO;
-        NSString *fullPath = [dir stringByAppendingPathComponent:path];
-        
-        if([[path pathExtension] isEqualToString:@"ck"])
-        {
-            mADetailItem *detailItem = [mADetailItem new];
-            detailItem.isUser = NO;
-            detailItem.title = path;
-            detailItem.text = [NSString stringWithContentsOfFile:fullPath
-                                                        encoding:NSUTF8StringEncoding error:NULL];
-            detailItem.isFolder = NO;
-            detailItem.folderItems = nil;
-            detailItem.path = fullPath;
-            
-            [array addObject:detailItem];
-        }
-        else if([fileManager fileExistsAtPath:fullPath isDirectory:&isDirectory] && isDirectory)
-        {
-            mADetailItem *detailItem = [mADetailItem new];
-            detailItem.isUser = NO;
-            detailItem.title = path;
-            detailItem.text = @"";
-            detailItem.isFolder = YES;
-            detailItem.folderItems = [NSMutableArray array];
-            
-            [self appendScriptsFromDirectory:fullPath toArray:detailItem.folderItems];
-            
-            [array addObject:detailItem];
-        }
-    }
-}
-
-- (NSMutableArray *)loadScripts
-{
-    NSMutableArray * scripts = [NSMutableArray array];
-
-//    NSString * path = [NSString stringWithFormat:@"%@/scripts.plist",
-//                       [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
-//    
-//    NSArray * scripts2 = [NSArray arrayWithContentsOfFile:path];
-//    
-//    for(NSDictionary * item in scripts2)
-//    {
-//        [scripts addObject:[mADetailItem detailItemFromDictionary:item]];
-//    }
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    for(NSString *subpath in [fileManager contentsOfDirectoryAtPath:path error:NULL])
-        [scripts addObject:[mADetailItem detailItemFromPath:[path stringByAppendingPathComponent:subpath]
-                                                     isUser:YES]];
-    
-    NSMutableArray *examplesArray = [NSMutableArray array];
-    
-    [self appendScriptsFromDirectory:[self examplesPath]
-                             toArray:examplesArray];
-    
-    [scripts addObject:[mADetailItem folderDetailItemWithTitle:@"Examples"
-                                                         items:examplesArray
-                                                        isUser:NO]];
-    
-    return scripts;
+    [self saveScripts];
 }
 
 - (void)saveScripts
 {
-    [self saveScripts:self.masterViewController.scripts];
-}
-
-- (void)saveScripts:(NSArray *)scripts
-{
     [self.editorViewController saveScript];
-    
-//    NSString * path = [NSString stringWithFormat:@"%@/scripts.plist", 
-//                       [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
-//    
-//    NSMutableArray * scripts2 = [NSMutableArray array];
-//    
-//    for(mADetailItem * item in scripts)
-//    {
-//        if(item.isUser)
-//            [scripts2 addObject:[item dictionary]];
-//    }
-//    
-//    [scripts2 writeToFile:path atomically:YES];
 }
 
 @end

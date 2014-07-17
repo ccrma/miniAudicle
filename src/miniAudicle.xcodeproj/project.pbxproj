@@ -305,6 +305,7 @@
 		09A40C720A9A57FA007604EA /* miniAudicle.icns in Resources */ = {isa = PBXBuildFile; fileRef = 09A40C670A9A57FA007604EA /* miniAudicle.icns */; };
 		09A40D130A9A6185007604EA /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
 		09A40D860A9AC579007604EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
+		09AB222F196FC4670037AF73 /* mADocumentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 09AB222E196FC4670037AF73 /* mADocumentManager.m */; };
 		09AC4E1518E90B1600B2561A /* mAScriptPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09AC4E1418E90B1600B2561A /* mAScriptPlayerView.m */; };
 		09AC4E1818EA2C8500B2561A /* mAShredButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 09AC4E1718EA2C8500B2561A /* mAShredButton.m */; };
 		09AC4E1A18EBC0C400B2561A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09AC4E1918EBC0C400B2561A /* QuartzCore.framework */; };
@@ -766,6 +767,9 @@
 		09A40F2A0A9AE5FE007604EA /* INSTALL */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = INSTALL; path = ../notes/INSTALL; sourceTree = SOURCE_ROOT; };
 		09A40F2B0A9AE5FE007604EA /* LGPL */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = LGPL; path = ../notes/LGPL; sourceTree = SOURCE_ROOT; };
 		09A40F2C0A9AE5FE007604EA /* VERSIONS */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = VERSIONS; path = ../notes/VERSIONS; sourceTree = SOURCE_ROOT; };
+		09AB222C196FAA020037AF73 /* miniAudicle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = miniAudicle.entitlements; sourceTree = "<group>"; };
+		09AB222D196FC4670037AF73 /* mADocumentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mADocumentManager.h; sourceTree = "<group>"; };
+		09AB222E196FC4670037AF73 /* mADocumentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mADocumentManager.m; sourceTree = "<group>"; };
 		09AC4E1318E90B1600B2561A /* mAScriptPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAScriptPlayerView.h; sourceTree = "<group>"; };
 		09AC4E1418E90B1600B2561A /* mAScriptPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAScriptPlayerView.m; sourceTree = "<group>"; };
 		09AC4E1618EA2C8500B2561A /* mAShredButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAShredButton.h; sourceTree = "<group>"; };
@@ -1021,6 +1025,8 @@
 				09307E1618DE68B0004AB346 /* mANavigationController~ipad.xib */,
 				093E262214A108C8008694BC /* mAAppDelegate.h */,
 				093E262314A108C8008694BC /* mAAppDelegate.mm */,
+				09AB222D196FC4670037AF73 /* mADocumentManager.h */,
+				09AB222E196FC4670037AF73 /* mADocumentManager.m */,
 				093E262B14A108C8008694BC /* mAMasterViewController~iphone.xib */,
 				093E262E14A108C8008694BC /* mAMasterViewController~ipad.xib */,
 				093E262514A108C8008694BC /* mAMasterViewController.h */,
@@ -1096,6 +1102,7 @@
 		093E261A14A108C8008694BC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				09AB222C196FAA020037AF73 /* miniAudicle.entitlements */,
 				093E261B14A108C8008694BC /* miniAudicle iOS-Info.plist */,
 				093E261C14A108C8008694BC /* InfoPlist.strings */,
 				093E261F14A108C8008694BC /* main.m */,
@@ -1570,6 +1577,11 @@
 				TargetAttributes = {
 					093E261014A108C8008694BC = {
 						DevelopmentTeam = 9GU9FHJ3JC;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1787,6 +1799,7 @@
 				093E266714A12234008694BC /* util_raw.c in Sources */,
 				09307E1F18DFB5E7004AB346 /* mASyntaxHighlighter.mm in Sources */,
 				093E266814A12234008694BC /* util_sndfile.c in Sources */,
+				09AB222F196FC4670037AF73 /* mADocumentManager.m in Sources */,
 				093E266914A12234008694BC /* util_string.cpp in Sources */,
 				093E266A14A12234008694BC /* util_thread.cpp in Sources */,
 				093E266B14A12234008694BC /* util_xforms.c in Sources */,
@@ -2160,6 +2173,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = ios/miniAudicle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -2199,6 +2213,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = ios/miniAudicle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
