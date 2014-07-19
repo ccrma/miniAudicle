@@ -14,7 +14,9 @@
 
 @interface mANetworkAction : NSObject
 
-@property (nonatomic) NSInteger type;
+@property (nonatomic) NSInteger _id;
+@property (copy, nonatomic) NSString *user_id;
+@property (copy, nonatomic) NSString *type;
 
 + (id)networkActionWithObject:(NSDictionary *)object;
 - (id)initWithObject:(NSDictionary *)object;
@@ -23,11 +25,32 @@
 @end
 
 
-@interface mAAddShredNetworkAction : mANetworkAction
+@interface mANAJoinRoom : mANetworkAction
+@property (copy, nonatomic) NSString *name;
+@end
 
+@interface mANALeaveRoom : mANetworkAction
+@end
+
+@interface mANANewScript : mANetworkAction
+@property (copy, nonatomic) NSString *code_id;
+@property (copy, nonatomic) NSString *name;
 @property (copy, nonatomic) NSString *code;
+@end
 
-+ (id)addShredNetworkActionWithCode:(NSString *)code;
+@interface mANADeleteScript : mANetworkAction
+@property (copy, nonatomic) NSString *code_id;
+@end
 
+@interface mANAAddShred : mANetworkAction
+@property (copy, nonatomic) NSString *code_id;
+@end
+
+@interface mANAReplaceShred : mANetworkAction
+@property (copy, nonatomic) NSString *code_id;
+@end
+
+@interface mANARemoveShred : mANetworkAction
+@property (copy, nonatomic) NSString *code_id;
 @end
 

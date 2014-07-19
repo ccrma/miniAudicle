@@ -14,27 +14,42 @@
 
 @end
 
-enum mANetworkAction_Type
-{
-    MANA_TYPE_NEWSCRIPT = 1,
-    MANA_TYPE_DELETESCRIPT = 2,
-    MANA_TYPE_ADDSHRED = 3,
-    MANA_TYPE_REPLACESHRED = 4,
-    MANA_TYPE_REMOVESHRED = 5,
-};
+static NSString * const mANAJoinRoomType = @"join";
+static NSString * const mANALeaveRoomType = @"leave";
+static NSString * const mANANewScriptType = @"new";
+static NSString * const mANADeleteScriptType = @"delete";
+static NSString * const mANAAddShredType = @"add";
+static NSString * const mANAReplaceShredType = @"replace";
+static NSString * const mANARemoveShredType = @"remove";
+
+static NSDictionary *mANAClassTypes = nil;
 
 @implementation mANetworkAction
 
++ (void)initialize
+{
+    if(self == [mANetworkAction self])
+    {
+        mANAClassTypes = @{
+                           mANAJoinRoomType: [mANAJoinRoom class],
+                           mANALeaveRoomType: [mANALeaveRoom class],
+                           mANANewScriptType: [mANANewScript class],
+                           mANADeleteScriptType: [mANADeleteScript class],
+                           mANAAddShredType: [mANAAddShred class],
+                           mANAReplaceShredType: [mANAReplaceShred class],
+                           mANARemoveShredType: [mANARemoveShred class],
+                           };
+    }
+}
+
 + (id)networkActionWithObject:(NSDictionary *)object
 {
-    enum mANetworkAction_Type type = [[object objectForKey:@"type"] intValue];
+    NSString *type = [[object objectForKey:@"type"] stringValue];
     
-    switch(type)
-    {
-        case MANA_TYPE_ADDSHRED:
-            return [[mAAddShredNetworkAction alloc] initWithObject:object];
-            break;
-    }
+    if([mANAClassTypes objectForKey:type])
+        return [[[mANAClassTypes objectForKey:type] alloc] initWithObject:object];
+    else
+        NSLog(@"Warning: unknown network action type '%@'", type);
     
     return nil;
 }
@@ -60,24 +75,6 @@ enum mANetworkAction_Type
 
 @end
 
-@implementation mAAddShredNetworkAction
-
-+ (id)addShredNetworkActionWithCode:(NSString *)code
-{
-    mAAddShredNetworkAction *action = [mAAddShredNetworkAction new];
-    action.type = MANA_TYPE_ADDSHRED;
-    action.code = code;
-    
-    return action;
-}
-
-- (void)execute:(mAPlayerViewController *)player
-{
-    // no-op
-}
-
-@end
-
 
 @implementation NSObject (KeyValueCodingKeyExists)
 
@@ -94,3 +91,25 @@ enum mANetworkAction_Type
 }
 
 @end
+
+@implementation mANAJoinRoom
+@end
+
+@implementation mANALeaveRoom
+@end
+
+@implementation mANANewScript
+@end
+
+@implementation mANADeleteScript
+@end
+
+@implementation mANAAddShred
+@end
+
+@implementation mANAReplaceShred
+@end
+
+@implementation mANARemoveShred
+@end
+
