@@ -33,9 +33,9 @@
     NSDictionary *coloredCodeAttributes = @{ NSFontAttributeName: [UIFont fontWithName:@"Menlo-Bold" size:18],
                                              NSForegroundColorAttributeName: [UIColor blueColor] };
     
-    _chuckButton.alternatives = @[@"=<", @"@=>", @"<=", @"<<"];
+    _chuckButton.alternatives = @[@"<=", @"<<", @"=<", @"@=>"];
     _dacButton.alternatives = @[@"adc"];
-    _dacButton.attributes = @[ coloredCodeAttributes, coloredCodeAttributes ];
+    _dacButton.attributes = @[coloredCodeAttributes, coloredCodeAttributes];
 }
 
 - (void)didReceiveMemoryWarning

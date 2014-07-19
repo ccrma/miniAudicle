@@ -12,6 +12,7 @@
 @interface mAShredButton ()
 {
     float t;
+    CFTimeInterval _lastTime;
 }
 
 @property (strong, nonatomic) NSTimer *timer;
@@ -33,6 +34,7 @@
                                                     selector:@selector(update:)
                                                     userInfo:nil
                                                      repeats:YES];
+        _lastTime = CACurrentMediaTime();
     }
     return self;
 }
@@ -46,7 +48,10 @@
 
 - (void)update:(NSTimer *)timer
 {
-    t += 1.0f/30.0f;
+    CFTimeInterval now = CACurrentMediaTime();
+    t += now - _lastTime;
+    _lastTime = CACurrentMediaTime();
+    
     [self setNeedsDisplay];
 }
 
@@ -57,6 +62,10 @@
     // Drawing code
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
+    CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    CGFloat radius = self.bounds.size.width/2;
+    CGFloat leadAngle = -M_PI*0.5f + 2.0f*M_PI*(t/60.0f);
+
     CGContextAddEllipseInRect(ctx, self.bounds);
     CGContextClip(ctx);
     
@@ -66,6 +75,12 @@
     
     CGContextAddEllipseInRect(ctx, self.bounds);
     CGContextFillPath(ctx);
+    
+//    CGContextBeginPath(ctx);
+//    CGContextMoveToPoint(ctx, center.x, center.y);
+//    CGContextAddArc(ctx, center.x, center.y, radius, leadAngle, leadAngle+M_PI*0.5f, 1);
+//    CGContextClosePath(ctx);
+//    CGContextClip(ctx);
     
     CGGradientRef glossGradient;
     CGColorSpaceRef rgbColorspace;
@@ -77,9 +92,10 @@
     rgbColorspace = CGColorSpaceCreateDeviceRGB();
     glossGradient = CGGradientCreateWithColorComponents(rgbColorspace, components, locations, num_locations);
     
-    CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     CGContextDrawRadialGradient(ctx, glossGradient, center, 0,
                                 center, (0.5*(1+sinf(2*M_PI*t*0.5))+0.1)*self.bounds.size.width*0.4, kCGGradientDrawsAfterEndLocation);
+//    CGContextDrawRadialGradient(ctx, glossGradient, center, 0,
+//                                center, (1.1)*self.bounds.size.width*0.4, kCGGradientDrawsAfterEndLocation);
     
     CGGradientRelease(glossGradient);
     CGColorSpaceRelease(rgbColorspace);
@@ -90,6 +106,8 @@
         CGContextAddEllipseInRect(ctx, self.bounds);
         CGContextFillPath(ctx);
     }
+    
+//    CGContextRestoreGState(ctx);
 }
 
 
