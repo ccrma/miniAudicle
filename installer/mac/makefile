@@ -31,6 +31,8 @@ all: $(INSTALLER)
 
 upload: $(INSTALLER)
 	scp $(INSTALLER) ccrma-gate.stanford.edu:Library/Web/chuck
+	@echo "uploaded to URL: "
+	@echo "https://ccrma.stanford.edu/~spencer/chuck/$(INSTALLER)"
 
 $(INSTALLER): $(PKGS) miniAudicle.app chuck $(CHUGINS) $(VERSION_MK) Distribution.xml
 	@echo "Creating installer"
