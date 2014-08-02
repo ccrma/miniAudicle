@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5053" systemVersion="12F45" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="12F45" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -10,6 +10,8 @@
                 <outlet property="_loopButton" destination="yA1-5D-TJ9" id="0UE-ua-6ed"/>
                 <outlet property="_loopNButton" destination="EHP-Hc-5ab" id="e8B-Wh-DIz"/>
                 <outlet property="_playerTabView" destination="yig-hN-R0p" id="o2Q-UP-9DD"/>
+                <outlet property="_removeButton" destination="SQh-4x-Fn7" id="Wcb-CU-EhO"/>
+                <outlet property="_replaceButton" destination="xdm-Ek-wa2" id="ITw-20-yuO"/>
                 <outlet property="_sequenceButton" destination="iwo-RC-2JP" id="SmT-mC-3vz"/>
                 <outlet property="_titleLabel" destination="WxK-NC-9EQ" id="qco-00-jue"/>
                 <outlet property="titleLabel" destination="WxK-NC-9EQ" id="Z80-14-9sh"/>

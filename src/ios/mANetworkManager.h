@@ -22,6 +22,8 @@
 @property (copy, nonatomic) NSString *serverHost;
 @property (nonatomic) NSInteger serverPort;
 
++ (id)instance;
+
 - (NSString *)userId;
 - (NSURL *)makeURL:(NSString *)path;
 - (void)listRooms:(void (^)(NSArray *))listHandler // array of mANetworkRoom
@@ -30,5 +32,7 @@
          handler:(void (^)(mANetworkAction *))updateHandler
     errorHandler:(void (^)(NSError *))errorHandler;
 - (void)leaveCurrentRoom;
+
+- (NSString *)usernameForUserID:(NSString *)userID;
 
 @end

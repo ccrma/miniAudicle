@@ -9,6 +9,8 @@
 #import "mADetailItem.h"
 #import "mAChuckController.h"
 #import "miniAudicle.h"
+#import "mANetworkAction.h"
+#import "mANetworkManager.h"
 
 
 @interface NSFileManager (isDirectory)
@@ -97,11 +99,25 @@
     return detailItem;
 }
 
++ (mADetailItem *)remoteDetailItemWithNewScriptAction:(mANANewScript *)action
+{
+    mADetailItem * detailItem = [mADetailItem new];
+    
+    detailItem.remote = YES;
+    detailItem.remoteUUID = action.code_id;
+    detailItem.remoteUsername = [[mANetworkManager instance] usernameForUserID:action.user_id];
+    detailItem.title = action.name;
+    detailItem.text = action.code;
+    
+    return detailItem;
+}
+
 - (id)init
 {
     if(self = [super init])
     {
         self.docid = UINT_MAX;
+        self.remote = NO;
     }
     
     return self;

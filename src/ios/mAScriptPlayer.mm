@@ -16,6 +16,7 @@
 #import "mAOTFButton.h"
 #import "mAEditorViewController.h"
 #import "mALoopCountPicker.h"
+#import "mARoundedRectButton.h"
 
 #import <map>
 #import <list>
@@ -89,6 +90,7 @@ struct LoopShred
 {
     _detailItem = detailItem;
     self.titleLabel.text = detailItem.title;
+    if(_detailItem.remote) [self makeRemote];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -117,12 +119,23 @@ struct LoopShred
     _sequenceButton.image = [UIImage imageNamed:@"sequence.png"];
     
     _addButton.alternatives = @[_loopButton, _loopNButton, _sequenceButton];
+    
+    if(_detailItem.remote) [self makeRemote];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void)makeRemote
+{
+    self.playerTabView.tintColor = [UIColor colorWithRed:0 green:0.5 blue:1.0 alpha:1.0];
+    [_addButton removeFromSuperview];
+    [_replaceButton removeFromSuperview];
+    [_removeButton removeFromSuperview];
 }
 
 

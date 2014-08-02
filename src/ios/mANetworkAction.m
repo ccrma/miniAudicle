@@ -7,6 +7,8 @@
 //
 
 #import "mANetworkAction.h"
+#import "mAPlayerViewController.h"
+#import "mADetailItem.h"
 
 @interface NSObject (KeyValueCodingKeyExists)
 
@@ -44,7 +46,7 @@ static NSDictionary *mANAClassTypes = nil;
 
 + (id)networkActionWithObject:(NSDictionary *)object
 {
-    NSString *type = [[object objectForKey:@"type"] stringValue];
+    NSString *type = [object objectForKey:@"type"];
     
     if([mANAClassTypes objectForKey:type])
         return [[[mANAClassTypes objectForKey:type] alloc] initWithObject:object];
@@ -61,7 +63,7 @@ static NSDictionary *mANAClassTypes = nil;
         for(NSString *key in object)
         {
             if([self keyExists:key])
-                [self setValue:object forKey:key];
+                [self setValue:[object objectForKey:key] forKey:key];
         }
     }
     
@@ -93,23 +95,66 @@ static NSDictionary *mANAClassTypes = nil;
 @end
 
 @implementation mANAJoinRoom
+
+- (void)execute:(mAPlayerViewController *)player
+{
+    
+}
+
 @end
 
 @implementation mANALeaveRoom
+
+- (void)execute:(mAPlayerViewController *)player
+{
+    
+}
+
 @end
 
 @implementation mANANewScript
+
+- (void)execute:(mAPlayerViewController *)player
+{
+    mADetailItem *detailItem = [mADetailItem remoteDetailItemWithNewScriptAction:self];
+    [player addScript:detailItem];
+}
+
 @end
 
 @implementation mANADeleteScript
+
+- (void)execute:(mAPlayerViewController *)player
+{
+    
+}
+
 @end
 
 @implementation mANAAddShred
+
+- (void)execute:(mAPlayerViewController *)player
+{
+    
+}
+
 @end
 
 @implementation mANAReplaceShred
+
+- (void)execute:(mAPlayerViewController *)player
+{
+    
+}
+
 @end
 
 @implementation mANARemoveShred
+
+- (void)execute:(mAPlayerViewController *)player
+{
+    
+}
+
 @end
 

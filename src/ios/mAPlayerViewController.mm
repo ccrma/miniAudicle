@@ -12,6 +12,7 @@
 #import "mAVMMonitorController.h"
 #import "mAEditorViewController.h"
 #import "mANetworkManager.h"
+#import "mANetworkAction.h"
 
 
 @interface mAPlayerViewController ()
@@ -49,7 +50,7 @@
         self.passthroughViews = [NSMutableArray array];
         _layoutIndex = 0;
         _layoutOffset = CGPointMake(0, 0);
-        self.networkManager = [mANetworkManager new];
+        self.networkManager = [mANetworkManager instance];
     }
     return self;
 }
@@ -71,6 +72,7 @@
     
     [self.networkManager joinRoom:@"global"
                           handler:^(mANetworkAction *action) {
+                              [action execute:self];
                           }
                      errorHandler:^(NSError *error) {
                          NSLog(@"error joining room: %@", error);

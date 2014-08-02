@@ -12,6 +12,7 @@
 @class mAPlayerViewController;
 @class mAScriptPlayerTab;
 @class mAOTFButton;
+@class mARoundedRectButton;
 class Chuck_VM_Status;
 
 @interface mAScriptPlayer : UIViewController
@@ -23,8 +24,11 @@ class Chuck_VM_Status;
     IBOutlet mAOTFButton *_loopButton;
     IBOutlet mAOTFButton *_loopNButton;
     IBOutlet mAOTFButton *_sequenceButton;
+    IBOutlet mARoundedRectButton *_replaceButton;
+    IBOutlet mARoundedRectButton *_removeButton;
 }
 
+@property (nonatomic) BOOL remote;
 @property (strong, nonatomic) mADetailItem *detailItem;
 @property (weak, nonatomic) mAPlayerViewController *playerViewController;
 
@@ -35,6 +39,8 @@ class Chuck_VM_Status;
 - (IBAction)replaceShred:(id)sender;
 - (IBAction)removeShred:(id)sender;
 - (IBAction)edit:(id)sender;
+
+- (void)makeRemote;
 
 - (void)updateWithStatus:(Chuck_VM_Status *)status;
 

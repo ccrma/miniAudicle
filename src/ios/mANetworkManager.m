@@ -9,6 +9,11 @@
 #import "mANetworkManager.h"
 #import "mANetworkAction.h"
 
+
+NSString * const MINIAUDICLE_HOST = @"localhost";
+const int MINIAUDICLE_PORT = 8080;
+
+
 @interface NSDictionary (HTTP)
 
 - (NSData *)toHTTPBody;
@@ -21,9 +26,11 @@
 
 @end
 
+
 @implementation mANetworkRoom
 
 @end
+
 
 @interface mANetworkManager ()
 {
@@ -34,6 +41,8 @@
 @property (strong, nonatomic) NSTimer *timer;
 @property (strong, nonatomic) void (^updateHandler)(mANetworkAction *);
 @property (strong, nonatomic) void (^errorHandler)(NSError *);
+@property (strong, nonatomic) NSMutableDictionary *activeUsers;
+@property (nonatomic) BOOL requestActive;
 
 - (void)update:(NSTimer *)timer;
 - (void)startUpdating;
@@ -43,12 +52,21 @@
 
 @implementation mANetworkManager
 
++ (id)instance
+{
+    static mANetworkManager *s_manager = nil;
+    if(s_manager == nil)
+        s_manager = [mANetworkManager new];
+    return s_manager;
+}
+
 - (id)init
 {
     if(self = [super init])
     {
-        self.serverHost = @"localhost";
-        self.serverPort = 8080;
+        self.serverHost = MINIAUDICLE_HOST;
+        self.serverPort = MINIAUDICLE_PORT;
+        self.requestActive = NO;
     }
     
     return self;
@@ -96,8 +114,8 @@
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[self makeURL:[NSString stringWithFormat:@"/rooms/%@/join", roomId]]];
     [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:[@{ @"id": [self userId],
-                             @"name": @"spencer"
+    [request setHTTPBody:[@{ @"user_id": [self userId],
+                             @"user_name": @"spencer"
                              } toHTTPBody]];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     
@@ -116,6 +134,7 @@
                                    strongSelf.updateHandler = updateHandler;
                                    strongSelf.errorHandler = errorHandler;
                                    strongSelf->_lastAction = -1;
+                                   strongSelf.activeUsers = [NSMutableDictionary new];
                                    [strongSelf startUpdating];
                                }
                                else
@@ -132,6 +151,10 @@
 
 - (void)update:(NSTimer *)timer
 {
+    if(self.requestActive) return;
+    
+    self.requestActive = YES;
+    
     NSString *format;
     if(_lastAction >= 0) format = [NSString stringWithFormat:@"/rooms/%@/actions?after=%li", self.roomId, (long)_lastAction];
     else format = [NSString stringWithFormat:@"/rooms/%@/actions", self.roomId];
@@ -152,15 +175,23 @@
                                    
                                    if(actions != nil)
                                    {
-                                       for(NSDictionary *action in actions)
+                                       for(NSDictionary *actionDict in actions)
                                        {
-                                           if(![[action objectForKey:@"user_id"] isEqualToString:[strongSelf userId]])
+                                           mANetworkAction *action = [mANetworkAction networkActionWithObject:actionDict];
+                                           
+                                           if([[action class] isSubclassOfClass:[mANAJoinRoom class]])
                                            {
-                                               NSLog(@"got action: %@", action);
+                                               mANAJoinRoom *joinRoom = (mANAJoinRoom *) action;
+                                               [self.activeUsers setObject:joinRoom.user_name forKey:joinRoom.user_id];
                                            }
-                                       
-                                           NSInteger actionId = [action objectForKey:@"id"];
-                                           strongSelf->_lastAction = actionId;
+                                           
+                                           if(![action.user_id isEqualToString:[strongSelf userId]])
+                                           {
+                                               NSLog(@"got action: %@", actionDict);
+                                               strongSelf.updateHandler(action);
+                                           }
+                                           
+                                           strongSelf->_lastAction = action.aid;
                                        }
                                    }
                                }
@@ -168,6 +199,8 @@
                                {
                                    strongSelf.errorHandler(error);
                                }
+                               
+                               self.requestActive = NO;
                            }];
 }
 
@@ -186,7 +219,18 @@
     self.timer = nil;
 }
 
+- (NSString *)usernameForUserID:(NSString *)userID
+{
+    if(self.activeUsers)
+        return [self.activeUsers objectForKey:userID];
+    else
+        return nil;
+}
+
+
 @end
+
+
 
 @implementation NSDictionary (HTTP)
 
