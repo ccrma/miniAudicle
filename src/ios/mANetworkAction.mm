@@ -10,12 +10,8 @@
 #import "mAPlayerViewController.h"
 #import "mAScriptPlayer.h"
 #import "mADetailItem.h"
+#import "NSObject+KVCSerialization.h"
 
-@interface NSObject (KeyValueCodingKeyExists)
-
-- (BOOL)keyExists:(NSString *)key;
-
-@end
 
 static NSString * const mANAJoinRoomType = @"join";
 static NSString * const mANALeaveRoomType = @"leave";
@@ -78,22 +74,6 @@ static NSDictionary *mANAClassTypes = nil;
 
 @end
 
-
-@implementation NSObject (KeyValueCodingKeyExists)
-
-- (BOOL)keyExists:(NSString *)key
-{
-    @try {
-        [self valueForKey:key];
-    }
-    @catch(NSException *exception) {
-        return NO;
-    }
-    
-    return YES;
-}
-
-@end
 
 @implementation mANAJoinRoom
 

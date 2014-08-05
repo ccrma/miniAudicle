@@ -14,6 +14,7 @@
 #import "mANetworkManager.h"
 #import "mANetworkAction.h"
 #import "mADetailItem.h"
+#import "mAConnectViewController.h"
 
 
 @interface mAPlayerViewController ()
@@ -71,13 +72,13 @@
                                                  name:mAVMMonitorControllerStatusUpdateNotification
                                                object:nil];
     
-    [self.networkManager joinRoom:@"global"
-                          handler:^(mANetworkAction *action) {
-                              [action execute:self];
-                          }
-                     errorHandler:^(NSError *error) {
-                         NSLog(@"error joining room: %@", error);
-                     }];
+//    [self.networkManager joinRoom:@"global"
+//                          handler:^(mANetworkAction *action) {
+//                              [action execute:self];
+//                          }
+//                     errorHandler:^(NSError *error) {
+//                         NSLog(@"error joining room: %@", error);
+//                     }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -86,7 +87,7 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    [self.networkManager leaveCurrentRoom];
+//    [self.networkManager leaveCurrentRoom];
 }
 
 - (void)didReceiveMemoryWarning
@@ -168,6 +169,13 @@
     }
     
     return nil;
+}
+
+#pragma mark IBActions
+
+- (IBAction)connect:(id)sender
+{
+    [self presentViewController:self.connectViewController animated:YES completion:NULL];
 }
 
 @end

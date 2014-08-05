@@ -8,6 +8,7 @@
 
 #import "mANetworkManager.h"
 #import "mANetworkAction.h"
+#import "NSObject+KVCSerialization.h"
 
 
 NSString * const MINIAUDICLE_HOST = @"localhost";
@@ -92,11 +93,18 @@ const int MINIAUDICLE_PORT = 8080;
                                NSHTTPURLResponse *response = (NSHTTPURLResponse *) _response;
                                if(response.statusCode == 200)
                                {
-                                   NSArray *rooms = [NSJSONSerialization JSONObjectWithData:data
+                                   NSArray *roomDicts = [NSJSONSerialization JSONObjectWithData:data
                                                                                     options:0
                                                                                       error:&error];
-                                   if(rooms != nil)
+                                   
+                                   if(roomDicts != nil)
+                                   {
+                                       NSMutableArray *rooms = [NSMutableArray new];
+                                       for(NSDictionary *room in roomDicts)
+                                           [rooms addObject:[[mANetworkRoom alloc] initWithDictionary:room]];
+                                       
                                        listHandler(rooms);
+                                   }
                                    else
                                        errorHandler(error);
 

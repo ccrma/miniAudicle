@@ -12,8 +12,8 @@
 
 @interface mANetworkRoom : NSObject
 
-@property (strong, nonatomic) NSString *roomId;
-@property (strong, nonatomic) NSString *name;
+@property (copy, nonatomic) NSString *uuid;
+@property (copy, nonatomic) NSString *name;
 
 @end
 
