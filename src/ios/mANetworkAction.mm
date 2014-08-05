@@ -8,6 +8,7 @@
 
 #import "mANetworkAction.h"
 #import "mAPlayerViewController.h"
+#import "mAScriptPlayer.h"
 #import "mADetailItem.h"
 
 @interface NSObject (KeyValueCodingKeyExists)
@@ -135,7 +136,8 @@ static NSDictionary *mANAClassTypes = nil;
 
 - (void)execute:(mAPlayerViewController *)player
 {
-    
+    mAScriptPlayer *scriptPlayer = [player scriptPlayerForRemoteUUID:self.code_id];
+    [scriptPlayer addShred:nil];
 }
 
 @end
@@ -144,7 +146,8 @@ static NSDictionary *mANAClassTypes = nil;
 
 - (void)execute:(mAPlayerViewController *)player
 {
-    
+    mAScriptPlayer *scriptPlayer = [player scriptPlayerForRemoteUUID:self.code_id];
+    [scriptPlayer replaceShred:nil];
 }
 
 @end
@@ -153,7 +156,8 @@ static NSDictionary *mANAClassTypes = nil;
 
 - (void)execute:(mAPlayerViewController *)player
 {
-    
+    mAScriptPlayer *scriptPlayer = [player scriptPlayerForRemoteUUID:self.code_id];
+    [scriptPlayer removeShred:nil];
 }
 
 @end

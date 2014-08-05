@@ -232,7 +232,7 @@
 		099ABE52190CCA2D00C5D52D /* mAOTFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 099ABE51190CCA2C00C5D52D /* mAOTFButton.m */; };
 		099ABE54190CF45400C5D52D /* loop.png in Resources */ = {isa = PBXBuildFile; fileRef = 099ABE53190CF45400C5D52D /* loop.png */; };
 		099C04F518FB715C00AC27C3 /* mANetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 099C04F418FB715C00AC27C3 /* mANetworkManager.m */; };
-		099C04F818FBAF1400AC27C3 /* mANetworkAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 099C04F718FBAF1400AC27C3 /* mANetworkAction.m */; };
+		099C04F818FBAF1400AC27C3 /* mANetworkAction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 099C04F718FBAF1400AC27C3 /* mANetworkAction.mm */; };
 		09A40B680A9A54DA007604EA /* chuck_absyn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B060A9A54DA007604EA /* chuck_absyn.cpp */; };
 		09A40B690A9A54DA007604EA /* chuck_bbq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B080A9A54DA007604EA /* chuck_bbq.cpp */; };
 		09A40B6A0A9A54DA007604EA /* chuck_compile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B0A0A9A54DA007604EA /* chuck_compile.cpp */; };
@@ -607,7 +607,7 @@
 		099C04F318FB715C00AC27C3 /* mANetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mANetworkManager.h; sourceTree = "<group>"; };
 		099C04F418FB715C00AC27C3 /* mANetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mANetworkManager.m; sourceTree = "<group>"; };
 		099C04F618FBAF1400AC27C3 /* mANetworkAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mANetworkAction.h; sourceTree = "<group>"; };
-		099C04F718FBAF1400AC27C3 /* mANetworkAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mANetworkAction.m; sourceTree = "<group>"; };
+		099C04F718FBAF1400AC27C3 /* mANetworkAction.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mANetworkAction.mm; sourceTree = "<group>"; };
 		09A1E6160CBA1AEC001FAD6F /* makefile.source-dist */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = "makefile.source-dist"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
 		09A1E6170CBA1AEC001FAD6F /* makefile.win32 */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = makefile.win32; sourceTree = SOURCE_ROOT; };
 		09A40B060A9A54DA007604EA /* chuck_absyn.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_absyn.cpp; sourceTree = "<group>"; };
@@ -1066,7 +1066,7 @@
 				099C04F318FB715C00AC27C3 /* mANetworkManager.h */,
 				099C04F418FB715C00AC27C3 /* mANetworkManager.m */,
 				099C04F618FBAF1400AC27C3 /* mANetworkAction.h */,
-				099C04F718FBAF1400AC27C3 /* mANetworkAction.m */,
+				099C04F718FBAF1400AC27C3 /* mANetworkAction.mm */,
 				09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */,
 				09D00B8514A3C44A0019CD09 /* mATitleEditorController.h */,
 				09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */,
@@ -1742,7 +1742,7 @@
 				093E264214A12201008694BC /* chuck_emit.cpp in Sources */,
 				0921D56C18190216008F39D9 /* timetag.c in Sources */,
 				093E264314A12201008694BC /* chuck_errmsg.cpp in Sources */,
-				099C04F818FBAF1400AC27C3 /* mANetworkAction.m in Sources */,
+				099C04F818FBAF1400AC27C3 /* mANetworkAction.mm in Sources */,
 				093E264414A12201008694BC /* chuck_frame.cpp in Sources */,
 				093E264514A12201008694BC /* chuck_globals.cpp in Sources */,
 				093E264614A12201008694BC /* chuck_instr.cpp in Sources */,

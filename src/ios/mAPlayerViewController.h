@@ -26,7 +26,7 @@
 - (void)showEditorForScriptPlayer:(mAScriptPlayer *)player;
 - (void)playerTabMoved:(mAScriptPlayerTab *)playerTab;
 
-
+- (mAScriptPlayer *)scriptPlayerForRemoteUUID:(NSString *)uuid;
 
 @end
 

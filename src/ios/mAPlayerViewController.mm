@@ -13,6 +13,7 @@
 #import "mAEditorViewController.h"
 #import "mANetworkManager.h"
 #import "mANetworkAction.h"
+#import "mADetailItem.h"
 
 
 @interface mAPlayerViewController ()
@@ -156,6 +157,17 @@
         self.fieldView.bounds = CGRectUnion(self.fieldView.bounds, frame);
 //        ((UIScrollView *) self.view).contentSize = self.fieldView.bounds.size;
     }
+}
+
+- (mAScriptPlayer *)scriptPlayerForRemoteUUID:(NSString *)uuid
+{
+    for(mAScriptPlayer *player in self.players)
+    {
+        if([player.detailItem.remoteUUID isEqualToString:uuid])
+            return player;
+    }
+    
+    return nil;
 }
 
 @end

@@ -132,7 +132,7 @@ struct LoopShred
 
 - (void)makeRemote
 {
-    self.playerTabView.tintColor = [UIColor colorWithRed:0 green:0.5 blue:1.0 alpha:1.0];
+    self.playerTabView.tintColor = [UIColor colorWithRed:0 green:0.45 blue:0.9 alpha:1.0];
     [_addButton removeFromSuperview];
     [_replaceButton removeFromSuperview];
     [_removeButton removeFromSuperview];
