@@ -72,14 +72,6 @@
                                              selector:@selector(vmStatus:)
                                                  name:mAVMMonitorControllerStatusUpdateNotification
                                                object:nil];
-    
-//    [self.networkManager joinRoom:@"global"
-//                          handler:^(mANetworkAction *action) {
-//                              [action execute:self];
-//                          }
-//                     errorHandler:^(NSError *error) {
-//                         NSLog(@"error joining room: %@", error);
-//                     }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -88,7 +80,8 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-//    [self.networkManager leaveCurrentRoom];
+    if(self.networkManager.isConnected)
+        [self.networkManager leaveCurrentRoom];
 }
 
 - (void)didReceiveMemoryWarning

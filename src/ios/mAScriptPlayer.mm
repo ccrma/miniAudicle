@@ -92,6 +92,10 @@ struct LoopShred
 {
     _detailItem = detailItem;
     self.titleLabel.text = detailItem.title;
+    if(self.detailItem.remote)
+        _usernameLabel.text = self.detailItem.remoteUsername;
+    else
+        _usernameLabel.text = @"";
     if(_detailItem.remote) [self makeRemote];
 }
 
@@ -108,7 +112,10 @@ struct LoopShred
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.titleLabel.text = self.detailItem.title;
+    
+    // reset detail item to ensure setting of various widgets
+    self.detailItem = self.detailItem;
+    
     _lastTime = CACurrentMediaTime();
     self.playerTabView.playerViewController = self.playerViewController;
     
@@ -134,7 +141,8 @@ struct LoopShred
 
 - (void)makeRemote
 {
-    self.playerTabView.tintColor = [UIColor colorWithRed:0 green:0.45 blue:0.9 alpha:1.0];
+//    self.playerTabView.tintColor = [UIColor colorWithRed:0 green:0.45 blue:0.9 alpha:1.0];
+    self.playerTabView.tintColor = [UIColor colorWithWhite:0.6 alpha:1.0];
     [_addButton removeFromSuperview];
     [_replaceButton removeFromSuperview];
     [_removeButton removeFromSuperview];

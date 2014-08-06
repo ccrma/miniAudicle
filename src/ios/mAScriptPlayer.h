@@ -18,6 +18,7 @@ class Chuck_VM_Status;
 @interface mAScriptPlayer : UIViewController
 {
     IBOutlet UILabel *_titleLabel;
+    IBOutlet UILabel *_usernameLabel;
     IBOutlet mAScriptPlayerTab *_playerTabView;
     
     IBOutlet mAOTFButton *_addButton;

@@ -14,6 +14,7 @@
                 <outlet property="_replaceButton" destination="xdm-Ek-wa2" id="ITw-20-yuO"/>
                 <outlet property="_sequenceButton" destination="iwo-RC-2JP" id="SmT-mC-3vz"/>
                 <outlet property="_titleLabel" destination="WxK-NC-9EQ" id="qco-00-jue"/>
+                <outlet property="_usernameLabel" destination="fbv-ZQ-dDC" id="MUu-Os-GLb"/>
                 <outlet property="titleLabel" destination="WxK-NC-9EQ" id="Z80-14-9sh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -33,6 +34,13 @@
                     <rect key="frame" x="20" y="11" width="183" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                    <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fbv-ZQ-dDC">
+                    <rect key="frame" x="20" y="40" width="183" height="27"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                     <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                     <nil key="highlightedColor"/>
                 </label>
