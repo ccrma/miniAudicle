@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="mAPlayerViewController">
             <connections>
                 <outlet property="_fieldView" destination="Mal-dp-x9u" id="jUr-yq-IvZ"/>
+                <outlet property="activityViewController" destination="qaK-PS-hDC" id="Dzc-ba-jku"/>
                 <outlet property="connectViewController" destination="FdR-qf-wtE" id="pYJ-lR-wo8"/>
                 <outlet property="editor" destination="RA7-7n-Kt5" id="1LH-eB-W6M"/>
                 <outlet property="view" destination="3a9-QW-lnl" id="P2F-vZ-kH2"/>
@@ -52,6 +53,16 @@
             <nil key="simulatedBottomBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="delegate" destination="-1" id="jdm-8S-Ru0"/>
+            </connections>
+        </viewController>
+        <viewController nibName="mAActivityViewController" modalTransitionStyle="crossDissolve" id="qaK-PS-hDC" customClass="mAActivityViewController">
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </viewController>
     </objects>
 </document>

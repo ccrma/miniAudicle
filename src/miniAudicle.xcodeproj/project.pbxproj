@@ -12,6 +12,9 @@
 		09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09087C6714A4F61700AD2633 /* mAVMMonitorCell.xib */; };
 		09087C6B14A4F67100AD2633 /* UIRemoveControlMinus.png in Resources */ = {isa = PBXBuildFile; fileRef = 09087C6A14A4F67100AD2633 /* UIRemoveControlMinus.png */; };
 		09094DC019916F68009F4C4C /* NSObject+KVCSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 09094DBF19916F68009F4C4C /* NSObject+KVCSerialization.m */; };
+		09094DC419919E41009F4C4C /* mAActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09094DC219919E41009F4C4C /* mAActivityViewController.m */; };
+		09094DC519919E41009F4C4C /* mAActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09094DC319919E41009F4C4C /* mAActivityViewController.xib */; };
+		09094DC81991BC4A009F4C4C /* UIAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 09094DC71991BC4A009F4C4C /* UIAlert.m */; };
 		090A5BE80AA75AEA005DC04D /* util_hid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090A5BE70AA75AEA005DC04D /* util_hid.cpp */; };
 		090A5BE90AA75AEA005DC04D /* util_hid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090A5BE70AA75AEA005DC04D /* util_hid.cpp */; };
 		090B4B1C0C4F038E00DF5577 /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
@@ -479,6 +482,11 @@
 		09087C6A14A4F67100AD2633 /* UIRemoveControlMinus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIRemoveControlMinus.png; sourceTree = "<group>"; };
 		09094DBE19916F68009F4C4C /* NSObject+KVCSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+KVCSerialization.h"; sourceTree = "<group>"; };
 		09094DBF19916F68009F4C4C /* NSObject+KVCSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KVCSerialization.m"; sourceTree = "<group>"; };
+		09094DC119919E41009F4C4C /* mAActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAActivityViewController.h; sourceTree = "<group>"; };
+		09094DC219919E41009F4C4C /* mAActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAActivityViewController.m; sourceTree = "<group>"; };
+		09094DC319919E41009F4C4C /* mAActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAActivityViewController.xib; sourceTree = "<group>"; };
+		09094DC61991BC4A009F4C4C /* UIAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAlert.h; sourceTree = "<group>"; };
+		09094DC71991BC4A009F4C4C /* UIAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAlert.m; sourceTree = "<group>"; };
 		090A5BE70AA75AEA005DC04D /* util_hid.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = util_hid.cpp; sourceTree = "<group>"; };
 		090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = uana_xform.cpp; sourceTree = "<group>"; };
 		090B4B1B0C4F038E00DF5577 /* uana_xform.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = uana_xform.h; sourceTree = "<group>"; };
@@ -1107,6 +1115,11 @@
 				09F09E4818E3712D0050D963 /* mARoundedRectButton.m */,
 				09F09E4B18E374C10050D963 /* mACGContext.h */,
 				09F09E4A18E374C10050D963 /* mACGContext.c */,
+				09094DC119919E41009F4C4C /* mAActivityViewController.h */,
+				09094DC219919E41009F4C4C /* mAActivityViewController.m */,
+				09094DC319919E41009F4C4C /* mAActivityViewController.xib */,
+				09094DC61991BC4A009F4C4C /* UIAlert.h */,
+				09094DC71991BC4A009F4C4C /* UIAlert.m */,
 			);
 			name = "miniAudicle iOS";
 			path = ios;
@@ -1653,6 +1666,7 @@
 				09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */,
 				09307E2418DFF892004AB346 /* error.png in Resources */,
 				09087C6B14A4F67100AD2633 /* UIRemoveControlMinus.png in Resources */,
+				09094DC519919E41009F4C4C /* mAActivityViewController.xib in Resources */,
 				09608AE014B40DE4009450FE /* mAConsoleMonitor.xib in Resources */,
 				09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */,
 			);
@@ -1748,6 +1762,7 @@
 				093E263D14A12201008694BC /* chuck_absyn.cpp in Sources */,
 				0921D55E18190216008F39D9 /* bundle.c in Sources */,
 				09AC4E1818EA2C8500B2561A /* mAShredButton.m in Sources */,
+				09094DC419919E41009F4C4C /* mAActivityViewController.m in Sources */,
 				09307E2718E0BEC2004AB346 /* NSString+NSString_Lines.m in Sources */,
 				093E263E14A12201008694BC /* chuck_bbq.cpp in Sources */,
 				093E263F14A12201008694BC /* chuck_compile.cpp in Sources */,
@@ -1765,6 +1780,7 @@
 				09F0442B1918A8810028DD14 /* mALoopCountPicker.m in Sources */,
 				0921D56A18190216008F39D9 /* server_thread.c in Sources */,
 				09F09E3B18E2C5E60050D963 /* mAEditorViewController.mm in Sources */,
+				09094DC81991BC4A009F4C4C /* UIAlert.m in Sources */,
 				09F09E5818E41F2C0050D963 /* mADetailItem.mm in Sources */,
 				093E264914A12201008694BC /* chuck_otf.cpp in Sources */,
 				093E264A14A12201008694BC /* chuck_parse.cpp in Sources */,

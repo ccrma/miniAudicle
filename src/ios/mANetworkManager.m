@@ -117,13 +117,18 @@ const int MINIAUDICLE_PORT = 8080;
 }
 
 - (void)joinRoom:(NSString *)roomId
-         handler:(void (^)(mANetworkAction *))updateHandler
+        username:(NSString *)username
+  successHandler:(void (^)())successHandler
+   updateHandler:(void (^)(mANetworkAction *))updateHandler
     errorHandler:(void (^)(NSError *))errorHandler
 {
+    _isConnected = NO;
+    [self stopUpdating];
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[self makeURL:[NSString stringWithFormat:@"/rooms/%@/join", roomId]]];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[@{ @"user_id": [self userId],
-                             @"user_name": @"spencer"
+                             @"user_name": username
                              } toHTTPBody]];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     
@@ -138,16 +143,20 @@ const int MINIAUDICLE_PORT = 8080;
                                
                                if(response.statusCode == 200)
                                {
+                                   _isConnected = YES;
+                                   
                                    strongSelf.roomId = roomId;
                                    strongSelf.updateHandler = updateHandler;
                                    strongSelf.errorHandler = errorHandler;
                                    strongSelf->_lastAction = -1;
                                    strongSelf.activeUsers = [NSMutableDictionary new];
                                    [strongSelf startUpdating];
+                                   
+                                   if(successHandler) successHandler();
                                }
                                else
                                {
-                                   errorHandler(error);
+                                   if(errorHandler) errorHandler(error);
                                }
                            }];
 }
@@ -155,6 +164,7 @@ const int MINIAUDICLE_PORT = 8080;
 - (void)leaveCurrentRoom
 {
     [self stopUpdating];
+    _isConnected = NO;
 }
 
 - (void)update:(NSTimer *)timer

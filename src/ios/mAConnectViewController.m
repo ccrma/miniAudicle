@@ -8,6 +8,10 @@
 
 #import "mAConnectViewController.h"
 #import "mANetworkManager.h"
+#import "UIAlert.h"
+
+
+NSString * const mAConnectUsernameKey = @"mAConnectUsernameKey";
 
 
 @interface mAConnectViewController ()
@@ -48,6 +52,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    _usernameTextField.text = [[NSUserDefaults standardUserDefaults] stringForKey:mAConnectUsernameKey];
+    
     [_connectionErrorLabel removeFromSuperview];
     self.rooms = nil;
     [_roomTable reloadData];
@@ -83,11 +89,15 @@
 {
 }
 
+// see http://stackoverflow.com/questions/3124828/resignfirstresponder-not-hiding-keyboard-on-textfieldshouldreturn
+- (BOOL)disablesAutomaticKeyboardDismissal { return NO; }
+
 #pragma mark IBActions
 
 - (IBAction)cancel:(id)sender
 {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+//    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+    [self.delegate connectViewControllerDidCancel:self];
 }
 
 - (IBAction)createNew:(id)sender
@@ -95,7 +105,7 @@
     
 }
 
-#pragma mark UITableViewDataSource
+#pragma mark UITableViewDataSource / UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -107,12 +117,59 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    mANetworkRoom *room = [self.rooms objectAtIndex:indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mAConnectViewController_JoinRoom"];
     if(cell == nil)
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"mAConnectViewController_JoinRoom"];
-    cell.textLabel.text = [[self.rooms objectAtIndex:indexPath.row] name];
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                      reuseIdentifier:@"mAConnectViewController_JoinRoom"];
+    }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    cell.textLabel.text = room.name;
+    cell.detailTextLabel.text = room.info;
     
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if([_usernameTextField.text length])
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:_usernameTextField.text
+                                                  forKey:mAConnectUsernameKey];
+        
+        [self.delegate connectViewController:self
+                                selectedRoom:[self.rooms objectAtIndex:indexPath.row]
+                                    username:_usernameTextField.text];
+    }
+    else
+    {
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Please enter a username."
+//                                                            message:@""
+//                                                           delegate:nil
+//                                                  cancelButtonTitle:@"OK"
+//                                                  otherButtonTitles:nil];
+//        
+//        [alertView show];
+        
+        UIAlertMessage(@"Please enter a username.", ^{
+            [_usernameTextField becomeFirstResponder];
+        });
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+
 @end
+
+

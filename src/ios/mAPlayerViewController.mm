@@ -15,6 +15,7 @@
 #import "mANetworkAction.h"
 #import "mADetailItem.h"
 #import "mAConnectViewController.h"
+#import "mAActivityViewController.h"
 
 
 @interface mAPlayerViewController ()
@@ -175,7 +176,42 @@
 
 - (IBAction)connect:(id)sender
 {
-    [self presentViewController:self.connectViewController animated:YES completion:NULL];
+    [self presentViewController:self.connectViewController animated:YES completion:nil];
+}
+
+#pragma mark mAConnectViewControllerDelegate
+
+- (void)connectViewControllerDidCancel:(mAConnectViewController *)cvc
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)connectViewController:(mAConnectViewController *)cvc selectedRoom:(mANetworkRoom *)room username:(NSString *)username;
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+        (void) self.activityViewController.view;
+        self.activityViewController.textLabel.text = [NSString stringWithFormat:@"Joining %@...", room.name];
+        __weak typeof(self) weakSelf = self;
+        self.activityViewController.cancelHandler = ^{
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        };
+        
+        [self presentViewController:self.activityViewController animated:YES completion:^{
+            [self.networkManager joinRoom:room.uuid
+                                 username:username
+                           successHandler:^{
+                               [self dismissViewControllerAnimated:YES completion:nil];
+                           }
+                            updateHandler:^(mANetworkAction *action) {
+                                [action execute:self];
+                            }
+                             errorHandler:^(NSError *error) {
+                                 NSLog(@"error joining room: %@", error);
+                             }];
+            
+        }];
+    }];
 }
 
 @end

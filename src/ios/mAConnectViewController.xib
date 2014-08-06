@@ -36,12 +36,17 @@
                     <rect key="frame" x="256" y="98" width="174" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="gXM-am-PzM"/>
+                    </connections>
                 </textField>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3FN-x8-Il4">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="1" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3FN-x8-Il4">
                     <rect key="frame" x="110" y="189" width="320" height="373"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                    <color key="sectionIndexBackgroundColor" name="selectedMenuItemColor" catalog="System" colorSpace="catalog"/>
+                    <color key="sectionIndexTrackingBackgroundColor" name="selectedMenuItemColor" catalog="System" colorSpace="catalog"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="G6M-4e-Xh9"/>
                         <outlet property="delegate" destination="-1" id="ZwH-VD-eb7"/>

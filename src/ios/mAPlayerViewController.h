@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 
 #import "mADetailViewController.h"
+#import "mAConnectViewController.h"
 
 @class mAEditorViewController;
 @class mAConnectViewController;
+@class mAActivityViewController;
 @class mAScriptPlayer;
 @class mAScriptPlayerTab;
 
-@interface mAPlayerViewController : UIViewController < mADetailClient, UIPopoverControllerDelegate >
+@interface mAPlayerViewController : UIViewController < mADetailClient, UIPopoverControllerDelegate, mAConnectViewControllerDelegate >
 {
     IBOutlet UIView *_fieldView;
 }
@@ -23,6 +25,7 @@
 @property (strong, nonatomic) UIBarButtonItem *titleButton;
 @property (strong, nonatomic) IBOutlet mAEditorViewController *editor;
 @property (strong, nonatomic) IBOutlet mAConnectViewController *connectViewController;
+@property (strong, nonatomic) IBOutlet mAActivityViewController *activityViewController;
 
 - (void)addScript:(mADetailItem *)script;
 - (void)showEditorForScriptPlayer:(mAScriptPlayer *)player;

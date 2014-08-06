@@ -14,6 +14,7 @@
 
 @property (copy, nonatomic) NSString *uuid;
 @property (copy, nonatomic) NSString *name;
+@property (copy, nonatomic) NSString *info;
 
 @end
 
@@ -21,6 +22,7 @@
 
 @property (copy, nonatomic) NSString *serverHost;
 @property (nonatomic) NSInteger serverPort;
+@property (nonatomic, readonly) BOOL isConnected;
 
 + (id)instance;
 
@@ -29,7 +31,9 @@
 - (void)listRooms:(void (^)(NSArray *))listHandler // array of mANetworkRoom
      errorHandler:(void (^)(NSError *))errorHandler;
 - (void)joinRoom:(NSString *)roomId
-         handler:(void (^)(mANetworkAction *))updateHandler
+        username:(NSString *)username
+  successHandler:(void (^)())successHandler
+   updateHandler:(void (^)(mANetworkAction *))updateHandler
     errorHandler:(void (^)(NSError *))errorHandler;
 - (void)leaveCurrentRoom;
 
