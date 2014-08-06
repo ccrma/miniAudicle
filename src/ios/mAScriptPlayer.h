@@ -28,8 +28,8 @@ class Chuck_VM_Status;
     IBOutlet mARoundedRectButton *_removeButton;
 }
 
-@property (nonatomic) BOOL remote;
 @property (strong, nonatomic) mADetailItem *detailItem;
+@property (copy, nonatomic) NSString *codeID;
 @property (weak, nonatomic) mAPlayerViewController *playerViewController;
 
 - (IBAction)addShred:(id)sender;

@@ -113,6 +113,22 @@
     _layoutIndex = (_layoutIndex+1)%14;
     if(_layoutIndex == 0) // wrap around
         _layoutOffset = CGPointMake(_layoutOffset.x + 10, _layoutOffset.y + 25);
+    
+    if(!script.remote && self.networkManager.isConnected)
+    {
+        player.codeID = [[NSUUID UUID] UUIDString];
+        
+        // send network action
+        mANANewScript *newScript = [mANANewScript new];
+        newScript.code_id = player.codeID;
+        newScript.code = script.text;
+        newScript.name = script.title;
+        
+        [self.networkManager submitAction:newScript
+                             errorHandler:^(NSError *error) {
+                                 NSLog(@"error joining room: %@", error);
+                             }];
+    }
 }
 
 - (void)vmStatus:(NSNotification *)notification

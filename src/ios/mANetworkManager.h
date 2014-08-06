@@ -37,6 +37,9 @@
     errorHandler:(void (^)(NSError *))errorHandler;
 - (void)leaveCurrentRoom;
 
+- (void)submitAction:(mANetworkAction *)action
+        errorHandler:(void (^)(NSError *))errorHandler;
+
 - (NSString *)usernameForUserID:(NSString *)userID;
 
 @end

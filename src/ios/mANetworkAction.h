@@ -19,7 +19,7 @@
 @property (copy, nonatomic) NSString *type;
 
 + (id)networkActionWithObject:(NSDictionary *)object;
-- (id)initWithObject:(NSDictionary *)object;
+- (id)init;
 - (void)execute:(mAPlayerViewController *)player;
 
 @end

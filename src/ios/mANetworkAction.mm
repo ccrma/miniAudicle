@@ -22,6 +22,7 @@ static NSString * const mANAReplaceShredType = @"replace";
 static NSString * const mANARemoveShredType = @"remove";
 
 static NSDictionary *mANAClassTypes = nil;
+static NSDictionary *mANATypeClasses = nil; // inverse of above
 
 @implementation mANetworkAction
 
@@ -46,22 +47,17 @@ static NSDictionary *mANAClassTypes = nil;
     NSString *type = [object objectForKey:@"type"];
     
     if([mANAClassTypes objectForKey:type])
-        return [[[mANAClassTypes objectForKey:type] alloc] initWithObject:object];
+        return [[[mANAClassTypes objectForKey:type] alloc] initWithDictionary:object];
     else
         NSLog(@"Warning: unknown network action type '%@'", type);
     
     return nil;
 }
 
-- (id)initWithObject:(NSDictionary *)object
+- (id)init
 {
     if(self = [super init])
     {
-        for(NSString *key in object)
-        {
-            if([self keyExists:key])
-                [self setValue:[object objectForKey:key] forKey:key];
-        }
     }
     
     return self;
@@ -77,6 +73,16 @@ static NSDictionary *mANAClassTypes = nil;
 
 @implementation mANAJoinRoom
 
+- (id)init
+{
+    if(self = [super init])
+    {
+        self.type = mANAJoinRoomType;
+    }
+    
+    return self;
+}
+
 - (void)execute:(mAPlayerViewController *)player
 {
     
@@ -86,6 +92,16 @@ static NSDictionary *mANAClassTypes = nil;
 
 @implementation mANALeaveRoom
 
+- (id)init
+{
+    if(self = [super init])
+    {
+        self.type = mANALeaveRoomType;
+    }
+    
+    return self;
+}
+
 - (void)execute:(mAPlayerViewController *)player
 {
     
@@ -94,6 +110,16 @@ static NSDictionary *mANAClassTypes = nil;
 @end
 
 @implementation mANANewScript
+
+- (id)init
+{
+    if(self = [super init])
+    {
+        self.type = mANANewScriptType;
+    }
+    
+    return self;
+}
 
 - (void)execute:(mAPlayerViewController *)player
 {
@@ -105,6 +131,16 @@ static NSDictionary *mANAClassTypes = nil;
 
 @implementation mANADeleteScript
 
+- (id)init
+{
+    if(self = [super init])
+    {
+        self.type = mANADeleteScriptType;
+    }
+    
+    return self;
+}
+
 - (void)execute:(mAPlayerViewController *)player
 {
     
@@ -113,6 +149,16 @@ static NSDictionary *mANAClassTypes = nil;
 @end
 
 @implementation mANAAddShred
+
+- (id)init
+{
+    if(self = [super init])
+    {
+        self.type = mANAAddShredType;
+    }
+    
+    return self;
+}
 
 - (void)execute:(mAPlayerViewController *)player
 {
@@ -124,6 +170,16 @@ static NSDictionary *mANAClassTypes = nil;
 
 @implementation mANAReplaceShred
 
+- (id)init
+{
+    if(self = [super init])
+    {
+        self.type = mANAReplaceShredType;
+    }
+    
+    return self;
+}
+
 - (void)execute:(mAPlayerViewController *)player
 {
     mAScriptPlayer *scriptPlayer = [player scriptPlayerForRemoteUUID:self.code_id];
@@ -133,6 +189,16 @@ static NSDictionary *mANAClassTypes = nil;
 @end
 
 @implementation mANARemoveShred
+
+- (id)init
+{
+    if(self = [super init])
+    {
+        self.type = mANARemoveShredType;
+    }
+    
+    return self;
+}
 
 - (void)execute:(mAPlayerViewController *)player
 {

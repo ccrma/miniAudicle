@@ -167,6 +167,40 @@ const int MINIAUDICLE_PORT = 8080;
     _isConnected = NO;
 }
 
+
+- (void)submitAction:(mANetworkAction *)action
+        errorHandler:(void (^)(NSError *))errorHandler
+{
+    action.user_id = [self userId];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:[action asDictionary]
+                                                   options:0
+                                                     error:nil];
+    NSString *json = [[NSString alloc ] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[self makeURL:[NSString stringWithFormat:@"/rooms/%@/submit", self.roomId]]];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[@{ @"user_id": [self userId],
+                             @"action": json
+                             } toHTTPBody]];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *_response, NSData *data, NSError *error) {
+                               
+                               NSHTTPURLResponse *response = (NSHTTPURLResponse *) _response;
+                               
+                               if(response.statusCode == 200)
+                               {
+                               }
+                               else
+                               {
+                                   if(errorHandler) errorHandler(error);
+                               }
+                           }];
+}
+
+
 - (void)update:(NSTimer *)timer
 {
     if(self.requestActive) return;

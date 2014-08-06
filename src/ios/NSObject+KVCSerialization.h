@@ -11,6 +11,9 @@
 @interface NSObject (KVCSerialization)
 
 - (id)initWithDictionary:(NSDictionary *)dict;
+- (NSDictionary *)asDictionary;
+
 - (BOOL)keyExists:(NSString *)key;
+- (NSArray *)keys;
 
 @end
