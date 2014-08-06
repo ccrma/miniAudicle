@@ -17,6 +17,8 @@
 #import "mAEditorViewController.h"
 #import "mALoopCountPicker.h"
 #import "mARoundedRectButton.h"
+#import "mANetworkManager.h"
+#import "mANetworkAction.h"
 
 #import <map>
 #import <list>
@@ -150,6 +152,16 @@ struct LoopShred
         [self.playerViewController.editor saveScript];
     
     [_addButton collapse];
+    
+    if(!self.detailItem.remote && [[mANetworkManager instance] isConnected])
+    {
+        mANAAddShred *addShred = [mANAAddShred new];
+        addShred.code_id = self.codeID;
+        [[mANetworkManager instance] submitAction:addShred
+                                     errorHandler:^(NSError *error) {
+                                         NSLog(@"error submitting addShred action: %@", error);
+                                     }];
+    }
     
     std::string code = [self.detailItem.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
@@ -333,6 +345,17 @@ struct LoopShred
     if(self.detailItem == self.playerViewController.editor.detailItem)
        [self.playerViewController.editor saveScript];
     
+    if(!self.detailItem.remote && [[mANetworkManager instance] isConnected])
+    {
+        mANAReplaceShred *replaceShred = [mANAReplaceShred new];
+        replaceShred.code_id = self.codeID;
+        [[mANetworkManager instance] submitAction:replaceShred
+                                     errorHandler:^(NSError *error) {
+                                         NSLog(@"error submitting replaceShred action: %@", error);
+                                     }];
+    }
+
+    
     std::string code = [self.detailItem.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
     std::string filepath;
@@ -399,6 +422,16 @@ struct LoopShred
 - (IBAction)removeShred:(id)sender
 {
     if(self.detailItem == nil) return;
+    
+    if(!self.detailItem.remote && [[mANetworkManager instance] isConnected])
+    {
+        mANARemoveShred *removeShred = [mANARemoveShred new];
+        removeShred.code_id = self.codeID;
+        [[mANetworkManager instance] submitAction:removeShred
+                                     errorHandler:^(NSError *error) {
+                                         NSLog(@"error submitting removeShred action: %@", error);
+                                     }];
+    }
     
     t_CKUINT shred_id;
     std::string output;

@@ -11,7 +11,7 @@
 #import "NSObject+KVCSerialization.h"
 
 
-NSString * const MINIAUDICLE_HOST = @"localhost";
+NSString * const MINIAUDICLE_HOST = @"ssalazar.local";
 const int MINIAUDICLE_PORT = 8080;
 
 

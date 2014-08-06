@@ -60,25 +60,17 @@
     }
     else
     {
+        NSError *error;
         detailItem.isFolder = NO;
         detailItem.text = [NSString stringWithContentsOfFile:path
                                                     encoding:NSUTF8StringEncoding
-                                                       error:NULL];
+                                                       error:&error];
+        if(error != nil)
+        {
+            NSLog(@"error loading file %@: %@", detailItem.title, error);
+            detailItem.text = @"";
+        }
     }
-    
-    return detailItem;
-}
-
-+ (mADetailItem *)detailItemFromDictionary:(NSDictionary *)dictionary
-{
-    mADetailItem * detailItem = [mADetailItem new];
-    
-    detailItem.isUser = [[dictionary objectForKey:@"isUser"] boolValue];
-    detailItem.title = [dictionary objectForKey:@"title"];
-    detailItem.text = [dictionary objectForKey:@"text"];
-    
-    detailItem.isFolder = NO;
-    detailItem.folderItems = nil;
     
     return detailItem;
 }

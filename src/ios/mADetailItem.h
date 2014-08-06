@@ -27,7 +27,6 @@
 @property (copy, nonatomic) NSString *remoteUsername;
 
 + (mADetailItem *)detailItemFromPath:(NSString *)path isUser:(BOOL)isUser;
-+ (mADetailItem *)detailItemFromDictionary:(NSDictionary *)dictionary;
 + (mADetailItem *)folderDetailItemWithTitle:(NSString *)title
                                       items:(NSMutableArray *)items
                                      isUser:(BOOL)user;
