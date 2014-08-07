@@ -22,6 +22,7 @@
 {
     int _layoutIndex;
     CGPoint _layoutOffset;
+    IBOutlet UIButton *_connectButton;
 }
 
 @property (strong, nonatomic) NSMutableArray *players;
@@ -48,6 +49,8 @@
                                                            target:nil
                                                            action:nil];
         self.titleButton.enabled = NO;
+        
+        self.edgesForExtendedLayout = UIRectEdgeNone;
         
         self.players = [NSMutableArray array];
         self.passthroughViews = [NSMutableArray array];
@@ -181,14 +184,14 @@
     return nil;
 }
 
-#pragma mark IBActions
+#pragma mark - IBActions
 
 - (IBAction)connect:(id)sender
 {
     [self presentViewController:self.connectViewController animated:YES completion:nil];
 }
 
-#pragma mark mAConnectViewControllerDelegate
+#pragma mark - mAConnectViewControllerDelegate
 
 - (void)connectViewControllerDidCancel:(mAConnectViewController *)cvc
 {
@@ -211,6 +214,7 @@
                                  username:username
                            successHandler:^{
                                [self dismissViewControllerAnimated:YES completion:nil];
+                               _connectButton.enabled = NO;
                            }
                             updateHandler:^(mANetworkAction *action) {
                                 [action execute:self];

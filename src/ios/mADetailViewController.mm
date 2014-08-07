@@ -116,6 +116,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     NSMutableArray * items = [NSMutableArray arrayWithArray:self.toolbar.items];
     UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"〈 EDIT", @"PLAY 〉"]];
     [segmentedControl addTarget:self action:@selector(changeMode:) forControlEvents:UIControlEventValueChanged];
@@ -150,6 +152,7 @@
     {
         _clientViewController = viewController;
         
+        // force load
         (void) self.view;
         
         for(UIView *subview in [_clientView subviews])
