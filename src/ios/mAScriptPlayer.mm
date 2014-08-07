@@ -460,6 +460,11 @@ struct LoopShred
     [self.playerViewController showEditorForScriptPlayer:self];
 }
 
+- (void)removePlayer:(id)sender
+{
+    
+}
+
 
 - (void)updateWithStatus:(Chuck_VM_Status *)status
 {

@@ -22,7 +22,9 @@
 {
     int _layoutIndex;
     CGPoint _layoutOffset;
+    
     IBOutlet UIButton *_connectButton;
+    IBOutlet UIButton *_disconnectButton;
 }
 
 @property (strong, nonatomic) NSMutableArray *players;
@@ -65,6 +67,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    _disconnectButton.hidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -84,7 +88,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     if(self.networkManager.isConnected)
-        [self.networkManager leaveCurrentRoom];
+        [self disconnect:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -125,6 +129,17 @@
                                  NSLog(@"error joining room: %@", error);
                              }];
     }
+}
+
+- (void)removeScriptPlayer:(mAScriptPlayer *)player
+{
+    [self.players removeObject:player];
+}
+
+- (void)removeAllScriptPlayers
+{
+    for(mAScriptPlayer *player in self.players)
+        [player removePlayer:nil];
 }
 
 - (void)vmStatus:(NSNotification *)notification
@@ -191,6 +206,14 @@
     [self presentViewController:self.connectViewController animated:YES completion:nil];
 }
 
+- (IBAction)disconnect:(id)sender
+{
+    [self.networkManager leaveCurrentRoom];
+    [self removeAllScriptPlayers];
+    _connectButton.enabled = YES;
+    _disconnectButton.hidden = YES;
+}
+
 #pragma mark - mAConnectViewControllerDelegate
 
 - (void)connectViewControllerDidCancel:(mAConnectViewController *)cvc
@@ -200,6 +223,8 @@
 
 - (void)connectViewController:(mAConnectViewController *)cvc selectedRoom:(mANetworkRoom *)room username:(NSString *)username;
 {
+    [self removeAllScriptPlayers];
+    
     [self dismissViewControllerAnimated:YES completion:^{
         
         (void) self.activityViewController.view;
@@ -215,6 +240,7 @@
                            successHandler:^{
                                [self dismissViewControllerAnimated:YES completion:nil];
                                _connectButton.enabled = NO;
+                               _disconnectButton.hidden = NO;
                            }
                             updateHandler:^(mANetworkAction *action) {
                                 [action execute:self];

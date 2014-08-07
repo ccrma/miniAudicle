@@ -28,10 +28,13 @@
 @property (strong, nonatomic) IBOutlet mAActivityViewController *activityViewController;
 
 - (void)addScript:(mADetailItem *)script;
+- (void)removeScriptPlayer:(mAScriptPlayer *)player;
+- (void)removeAllScriptPlayers;
 - (void)showEditorForScriptPlayer:(mAScriptPlayer *)player;
 - (void)playerTabMoved:(mAScriptPlayerTab *)playerTab;
 
 - (IBAction)connect:(id)sender;
+- (IBAction)disconnect:(id)sender;
 
 - (mAScriptPlayer *)scriptPlayerForRemoteUUID:(NSString *)uuid;
 

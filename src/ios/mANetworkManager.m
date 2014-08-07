@@ -164,7 +164,24 @@ const int MINIAUDICLE_PORT = 8080;
 - (void)leaveCurrentRoom
 {
     [self stopUpdating];
+    
     _isConnected = NO;
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[self makeURL:[NSString stringWithFormat:@"/rooms/%@/leave", self.roomId]]];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[@{ @"user_id": [self userId],
+                             } toHTTPBody]];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *_response, NSData *data, NSError *error) {
+                               
+                               NSHTTPURLResponse *response = (NSHTTPURLResponse *) _response;
+                               
+                               if(response.statusCode != 200)
+                                   NSLog(@"error leaving room: %@", error);
+                           }];
 }
 
 
