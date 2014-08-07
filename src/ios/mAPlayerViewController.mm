@@ -68,7 +68,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    _disconnectButton.hidden = YES;
+    _disconnectButton.alpha = 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -89,12 +89,6 @@
     
     if(self.networkManager.isConnected)
         [self disconnect:nil];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)addScript:(mADetailItem *)script
@@ -211,7 +205,10 @@
     [self.networkManager leaveCurrentRoom];
     [self removeAllScriptPlayers];
     _connectButton.enabled = YES;
-    _disconnectButton.hidden = YES;
+    
+    [UIView animateWithDuration:1-G_RATIO animations:^{
+        _disconnectButton.alpha = 0;
+    }];
 }
 
 #pragma mark - mAConnectViewControllerDelegate
@@ -240,7 +237,9 @@
                            successHandler:^{
                                [self dismissViewControllerAnimated:YES completion:nil];
                                _connectButton.enabled = NO;
-                               _disconnectButton.hidden = NO;
+                               [UIView animateWithDuration:1-G_RATIO animations:^{
+                                   _disconnectButton.alpha = 1;
+                               }];
                            }
                             updateHandler:^(mANetworkAction *action) {
                                 [action execute:self];
