@@ -9,6 +9,7 @@
                 <outlet property="_connectButton" destination="WPl-Sv-mlU" id="xhr-mJ-MQB"/>
                 <outlet property="_disconnectButton" destination="5pA-W3-Msm" id="3HS-Qa-i8H"/>
                 <outlet property="_fieldView" destination="Mal-dp-x9u" id="jUr-yq-IvZ"/>
+                <outlet property="_roomView" destination="8pg-SF-mqQ" id="qK7-24-GJw"/>
                 <outlet property="activityViewController" destination="qaK-PS-hDC" id="Dzc-ba-jku"/>
                 <outlet property="connectViewController" destination="FdR-qf-wtE" id="pYJ-lR-wo8"/>
                 <outlet property="editor" destination="RA7-7n-Kt5" id="1LH-eB-W6M"/>
@@ -61,6 +62,11 @@
                         <action selector="disconnect:" destination="-1" eventType="touchUpInside" id="aaz-s1-ogG"/>
                     </connections>
                 </button>
+                <view opaque="NO" contentMode="scaleToFill" id="8pg-SF-mqQ" customClass="mANetworkRoomView">
+                    <rect key="frame" x="520" y="60" width="216" height="300"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

@@ -16,6 +16,7 @@
 #import "mADetailItem.h"
 #import "mAConnectViewController.h"
 #import "mAActivityViewController.h"
+#import "mANetworkRoomView.h"
 
 
 @interface mAPlayerViewController ()
@@ -25,6 +26,7 @@
     
     IBOutlet UIButton *_connectButton;
     IBOutlet UIButton *_disconnectButton;
+    IBOutlet mANetworkRoomView *_roomView;
 }
 
 @property (strong, nonatomic) NSMutableArray *players;
@@ -69,6 +71,7 @@
     // Do any additional setup after loading the view from its nib.
     
     _disconnectButton.alpha = 0;
+    _roomView.alpha = 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -193,6 +196,16 @@
     return nil;
 }
 
+- (void)memberJoined:(mANetworkRoomMember *)member
+{
+    [_roomView addMember:member];
+}
+
+- (void)memberLeft:(mANetworkRoomMember *)member
+{
+    [_roomView removeMember:member];
+}
+
 #pragma mark - IBActions
 
 - (IBAction)connect:(id)sender
@@ -208,6 +221,7 @@
     
     [UIView animateWithDuration:1-G_RATIO animations:^{
         _disconnectButton.alpha = 0;
+        _roomView.alpha = 0;
     }];
 }
 
@@ -236,8 +250,17 @@
                                  username:username
                            successHandler:^{
                                [self dismissViewControllerAnimated:YES completion:nil];
+                               
                                _connectButton.enabled = NO;
+                               
+                               _roomView.room = room;
+                               mANetworkRoomMember *memberSelf = [mANetworkRoomMember new];
+                               memberSelf.uuid = [self.networkManager userId];
+                               memberSelf.name = username;
+                               [_roomView addMember:memberSelf];
+                               
                                [UIView animateWithDuration:1-G_RATIO animations:^{
+                                   _roomView.alpha = 1;
                                    _disconnectButton.alpha = 1;
                                }];
                            }

@@ -29,7 +29,9 @@ const int MINIAUDICLE_PORT = 8080;
 
 
 @implementation mANetworkRoom
+@end
 
+@implementation mANetworkRoomMember
 @end
 
 

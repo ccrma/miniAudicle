@@ -11,6 +11,7 @@
 #import "mAScriptPlayer.h"
 #import "mADetailItem.h"
 #import "NSObject+KVCSerialization.h"
+#import "mANetworkManager.h"
 
 
 static NSString * const mANAJoinRoomType = @"join";
@@ -85,7 +86,10 @@ static NSDictionary *mANATypeClasses = nil; // inverse of above
 
 - (void)execute:(mAPlayerViewController *)player
 {
-    
+    mANetworkRoomMember *member = [mANetworkRoomMember new];
+    member.uuid = self.user_id;
+    member.name = self.user_name;
+    [player memberJoined:member];
 }
 
 @end
@@ -104,7 +108,9 @@ static NSDictionary *mANATypeClasses = nil; // inverse of above
 
 - (void)execute:(mAPlayerViewController *)player
 {
-    
+    mANetworkRoomMember *member = [mANetworkRoomMember new];
+    member.uuid = self.user_id;
+    [player memberLeft:member];
 }
 
 @end

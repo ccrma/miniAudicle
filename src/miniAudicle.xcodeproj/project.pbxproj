@@ -15,6 +15,8 @@
 		09094DC419919E41009F4C4C /* mAActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09094DC219919E41009F4C4C /* mAActivityViewController.m */; };
 		09094DC519919E41009F4C4C /* mAActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09094DC319919E41009F4C4C /* mAActivityViewController.xib */; };
 		09094DC81991BC4A009F4C4C /* UIAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 09094DC71991BC4A009F4C4C /* UIAlert.m */; };
+		09094DCB199406C5009F4C4C /* mANetworkRoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09094DCA199406C5009F4C4C /* mANetworkRoomView.m */; };
+		09094DCE19940E7B009F4C4C /* NSMutableArray+MapFilterReduce.m in Sources */ = {isa = PBXBuildFile; fileRef = 09094DCD19940E7B009F4C4C /* NSMutableArray+MapFilterReduce.m */; };
 		090A5BE80AA75AEA005DC04D /* util_hid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090A5BE70AA75AEA005DC04D /* util_hid.cpp */; };
 		090A5BE90AA75AEA005DC04D /* util_hid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090A5BE70AA75AEA005DC04D /* util_hid.cpp */; };
 		090B4B1C0C4F038E00DF5577 /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
@@ -487,6 +489,10 @@
 		09094DC319919E41009F4C4C /* mAActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAActivityViewController.xib; sourceTree = "<group>"; };
 		09094DC61991BC4A009F4C4C /* UIAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAlert.h; sourceTree = "<group>"; };
 		09094DC71991BC4A009F4C4C /* UIAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAlert.m; sourceTree = "<group>"; };
+		09094DC9199406C5009F4C4C /* mANetworkRoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mANetworkRoomView.h; sourceTree = "<group>"; };
+		09094DCA199406C5009F4C4C /* mANetworkRoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mANetworkRoomView.m; sourceTree = "<group>"; };
+		09094DCC19940E7B009F4C4C /* NSMutableArray+MapFilterReduce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+MapFilterReduce.h"; sourceTree = "<group>"; };
+		09094DCD19940E7B009F4C4C /* NSMutableArray+MapFilterReduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+MapFilterReduce.m"; sourceTree = "<group>"; };
 		090A5BE70AA75AEA005DC04D /* util_hid.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = util_hid.cpp; sourceTree = "<group>"; };
 		090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = uana_xform.cpp; sourceTree = "<group>"; };
 		090B4B1B0C4F038E00DF5577 /* uana_xform.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = uana_xform.h; sourceTree = "<group>"; };
@@ -1082,6 +1088,8 @@
 				09664B8A19905A7300AE0B6B /* mAConnectViewController.h */,
 				09664B8B19905A7300AE0B6B /* mAConnectViewController.m */,
 				09664B8F19905ABC00AE0B6B /* mAConnectViewController.xib */,
+				09094DC9199406C5009F4C4C /* mANetworkRoomView.h */,
+				09094DCA199406C5009F4C4C /* mANetworkRoomView.m */,
 				09094DBE19916F68009F4C4C /* NSObject+KVCSerialization.h */,
 				09094DBF19916F68009F4C4C /* NSObject+KVCSerialization.m */,
 				099C04F318FB715C00AC27C3 /* mANetworkManager.h */,
@@ -1120,6 +1128,8 @@
 				09094DC319919E41009F4C4C /* mAActivityViewController.xib */,
 				09094DC61991BC4A009F4C4C /* UIAlert.h */,
 				09094DC71991BC4A009F4C4C /* UIAlert.m */,
+				09094DCC19940E7B009F4C4C /* NSMutableArray+MapFilterReduce.h */,
+				09094DCD19940E7B009F4C4C /* NSMutableArray+MapFilterReduce.m */,
 			);
 			name = "miniAudicle iOS";
 			path = ios;
@@ -1797,10 +1807,12 @@
 				093E265214A12201008694BC /* chuck_utils.cpp in Sources */,
 				093E265314A12201008694BC /* chuck_vm.cpp in Sources */,
 				09664B8D19905A7300AE0B6B /* mAConnectViewController.m in Sources */,
+				09094DCB199406C5009F4C4C /* mANetworkRoomView.m in Sources */,
 				099ABE4F19086DD800C5D52D /* mAKeyboardButtonAlternatives.m in Sources */,
 				093E265414A12234008694BC /* chuck.y in Sources */,
 				09307E1A18DE76D0004AB346 /* mAKeyboardAccessoryViewController.m in Sources */,
 				0921D55C18190216008F39D9 /* blob.c in Sources */,
+				09094DCE19940E7B009F4C4C /* NSMutableArray+MapFilterReduce.m in Sources */,
 				09094DC019916F68009F4C4C /* NSObject+KVCSerialization.m in Sources */,
 				093E265514A12234008694BC /* chuck.lex in Sources */,
 				093E265614A12234008694BC /* digiio_rtaudio.cpp in Sources */,

@@ -16,6 +16,7 @@
 @class mAActivityViewController;
 @class mAScriptPlayer;
 @class mAScriptPlayerTab;
+@class mANetworkRoomMember;
 
 @interface mAPlayerViewController : UIViewController < mADetailClient, UIPopoverControllerDelegate, mAConnectViewControllerDelegate >
 {
@@ -36,7 +37,10 @@
 - (IBAction)connect:(id)sender;
 - (IBAction)disconnect:(id)sender;
 
+// stuff for network actions
 - (mAScriptPlayer *)scriptPlayerForRemoteUUID:(NSString *)uuid;
+- (void)memberJoined:(mANetworkRoomMember *)member;
+- (void)memberLeft:(mANetworkRoomMember *)member;
 
 @end
 

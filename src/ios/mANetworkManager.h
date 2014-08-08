@@ -18,6 +18,13 @@
 
 @end
 
+@interface mANetworkRoomMember : NSObject
+
+@property (copy, nonatomic) NSString *uuid;
+@property (copy, nonatomic) NSString *name;
+
+@end
+
 @interface mANetworkManager : NSObject
 
 @property (copy, nonatomic) NSString *serverHost;
