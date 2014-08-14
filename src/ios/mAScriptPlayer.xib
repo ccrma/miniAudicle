@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="mAScriptPlayer">
             <connections>
                 <outlet property="_addButton" destination="CnH-tO-mYD" id="pLd-mU-i8u"/>
+                <outlet property="_deleteButton" destination="D7v-iK-QGw" id="Oo0-Ai-zTb"/>
                 <outlet property="_loopButton" destination="yA1-5D-TJ9" id="0UE-ua-6ed"/>
                 <outlet property="_loopNButton" destination="EHP-Hc-5ab" id="e8B-Wh-DIz"/>
                 <outlet property="_playerTabView" destination="yig-hN-R0p" id="o2Q-UP-9DD"/>
@@ -29,6 +30,10 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <color key="tintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    <gestureRecognizers/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="OHf-PT-qHZ" appends="YES" id="N9M-mC-r9D"/>
+                    </connections>
                 </view>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="script" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WxK-NC-9EQ">
                     <rect key="frame" x="20" y="11" width="183" height="21"/>
@@ -109,6 +114,18 @@
                         <action selector="removeShred:" destination="-1" eventType="touchUpInside" id="eDv-4W-BKG"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="D7v-iK-QGw">
+                    <rect key="frame" x="-14" y="-14" width="29" height="29"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                    <inset key="titleEdgeInsets" minX="0.0" minY="-1" maxX="-1" maxY="1"/>
+                    <state key="normal" title="-" backgroundImage="UIRemoveControlMinus.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="deletePlayer:" destination="-1" eventType="touchUpInside" id="KPn-8C-2vm"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -170,8 +187,14 @@
                 <action selector="sequenceShred:" destination="-1" eventType="touchUpInside" id="MMN-SZ-uTY"/>
             </connections>
         </button>
+        <pongPressGestureRecognizer allowableMovement="5" minimumPressDuration="0.62" id="OHf-PT-qHZ">
+            <connections>
+                <action selector="showDeleteButton:" destination="-1" id="77r-oT-kTP"/>
+            </connections>
+        </pongPressGestureRecognizer>
     </objects>
     <resources>
+        <image name="UIRemoveControlMinus.png" width="29" height="29"/>
         <image name="add-noalpha.png" width="218" height="218"/>
         <image name="forward-100.png" width="100" height="100"/>
         <image name="loop.png" width="218" height="218"/>

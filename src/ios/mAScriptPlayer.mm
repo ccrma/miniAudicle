@@ -64,6 +64,8 @@ struct LoopShred
     map<t_CKUINT, LoopShred> _loopShreds; // shred ids -> loop count
     t_CKFLOAT _lastTime;
     list<t_CKUINT> _shredOrder;
+    
+    IBOutlet UIButton *_deleteButton;
 }
 
 @property (strong, nonatomic) UILabel *titleLabel;
@@ -126,6 +128,8 @@ struct LoopShred
     _loopNButton.image = [UIImage imageNamed:@"loop.png"];
     _loopNButton.text = @"#";
     _sequenceButton.image = [UIImage imageNamed:@"sequence.png"];
+    
+    _deleteButton.alpha = 0;
     
     _addButton.alternatives = @[_loopButton, _loopNButton, _sequenceButton];
     
@@ -460,11 +464,39 @@ struct LoopShred
     [self.playerViewController showEditorForScriptPlayer:self];
 }
 
-- (void)removePlayer:(id)sender
+- (IBAction)deletePlayer:(id)sender;
 {
-    
+    [self.playerViewController deleteScriptPlayer:self];
 }
 
+- (IBAction)showDeleteButton:(id)sender
+{
+    [UIView animateWithDuration:1-G_RATIO animations:^{
+        _deleteButton.alpha = 1;
+    }];
+}
+
+- (void)hideDeleteButton
+{
+    [UIView animateWithDuration:1-G_RATIO animations:^{
+        _deleteButton.alpha = 0;
+    }];
+}
+
+- (void)cleanupForDeletion
+{
+    // remove all related shreds
+    t_OTF_RESULT otf_result;
+    do
+    {
+        t_CKUINT shred_id;
+        std::string output;
+        
+        otf_result = [mAChucKController chuckController].ma->remove_code(self.detailItem.docid,
+                                                                         shred_id, output);
+    }
+    while(otf_result == OTF_SUCCESS);
+}
 
 - (void)updateWithStatus:(Chuck_VM_Status *)status
 {

@@ -128,15 +128,21 @@
     }
 }
 
-- (void)removeScriptPlayer:(mAScriptPlayer *)player
+- (void)deleteScriptPlayer:(mAScriptPlayer *)player
 {
+    [player cleanupForDeletion];
     [self.players removeObject:player];
+    [UIView animateWithDuration:1-G_RATIO animations:^{
+        player.view.alpha = 0;
+    } completion:^(BOOL finished) {
+        [player.view removeFromSuperview];
+    }];
 }
 
-- (void)removeAllScriptPlayers
+- (void)deleteAllScriptPlayers
 {
     for(mAScriptPlayer *player in self.players)
-        [player removePlayer:nil];
+        [self deleteScriptPlayer:player];
 }
 
 - (void)vmStatus:(NSNotification *)notification
@@ -216,7 +222,7 @@
 - (IBAction)disconnect:(id)sender
 {
     [self.networkManager leaveCurrentRoom];
-    [self removeAllScriptPlayers];
+    [self deleteAllScriptPlayers];
     _connectButton.enabled = YES;
     
     [UIView animateWithDuration:1-G_RATIO animations:^{
@@ -234,7 +240,7 @@
 
 - (void)connectViewController:(mAConnectViewController *)cvc selectedRoom:(mANetworkRoom *)room username:(NSString *)username;
 {
-    [self removeAllScriptPlayers];
+    [self deleteAllScriptPlayers];
     
     [self dismissViewControllerAnimated:YES completion:^{
         

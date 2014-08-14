@@ -40,8 +40,11 @@ class Chuck_VM_Status;
 - (IBAction)replaceShred:(id)sender;
 - (IBAction)removeShred:(id)sender;
 - (IBAction)edit:(id)sender;
+- (IBAction)deletePlayer:(id)sender;
+- (IBAction)showDeleteButton:(id)sender;
+- (void)hideDeleteButton;
 
-- (void)removePlayer:(id)sender;
+- (void)cleanupForDeletion;
 
 - (void)makeRemote;
 

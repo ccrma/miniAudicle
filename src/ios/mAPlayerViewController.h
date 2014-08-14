@@ -29,8 +29,8 @@
 @property (strong, nonatomic) IBOutlet mAActivityViewController *activityViewController;
 
 - (void)addScript:(mADetailItem *)script;
-- (void)removeScriptPlayer:(mAScriptPlayer *)player;
-- (void)removeAllScriptPlayers;
+- (void)deleteScriptPlayer:(mAScriptPlayer *)player;
+- (void)deleteAllScriptPlayers;
 - (void)showEditorForScriptPlayer:(mAScriptPlayer *)player;
 - (void)playerTabMoved:(mAScriptPlayerTab *)playerTab;
 
