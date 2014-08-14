@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "mAPlayerContainerView.h"
+
 @class mADetailItem;
 @class mAPlayerViewController;
 @class mAScriptPlayerTab;
@@ -15,7 +17,7 @@
 @class mARoundedRectButton;
 class Chuck_VM_Status;
 
-@interface mAScriptPlayer : UIViewController
+@interface mAScriptPlayer : UIViewController<mATapOutsideListener>
 {
     IBOutlet UILabel *_titleLabel;
     IBOutlet UILabel *_usernameLabel;
@@ -41,8 +43,10 @@ class Chuck_VM_Status;
 - (IBAction)removeShred:(id)sender;
 - (IBAction)edit:(id)sender;
 - (IBAction)deletePlayer:(id)sender;
+
 - (IBAction)showDeleteButton:(id)sender;
 - (void)hideDeleteButton;
+- (void)tapOutside;
 
 - (void)cleanupForDeletion;
 

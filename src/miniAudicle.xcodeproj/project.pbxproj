@@ -320,6 +320,7 @@
 		09AC4E1C18EC211600B2561A /* forward-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 09AC4E1B18EC211600B2561A /* forward-100.png */; };
 		09AC749A13E36A970015CC99 /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09AC749613E36A970015CC99 /* RtAudio.cpp */; };
 		09AF2D1F0BA63F5900B18EC6 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 09AF2D1E0BA63F5900B18EC6 /* lock.png */; };
+		09B19B48199D679B00B9ADA3 /* mAPlayerContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B19B47199D679B00B9ADA3 /* mAPlayerContainerView.m */; };
 		09B1E32117A7338800050DF3 /* ulib_regex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09B1E31F17A7338800050DF3 /* ulib_regex.cpp */; };
 		09B1E32217A7338800050DF3 /* ulib_regex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09B1E31F17A7338800050DF3 /* ulib_regex.cpp */; };
 		09B1E32317A7338800050DF3 /* ulib_regex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09B1E31F17A7338800050DF3 /* ulib_regex.cpp */; };
@@ -802,6 +803,8 @@
 		09AC749713E36A970015CC99 /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
 		09AC749813E36A970015CC99 /* RtError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtError.h; sourceTree = "<group>"; };
 		09AF2D1E0BA63F5900B18EC6 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lock.png; path = macosx/icon/lock.png; sourceTree = SOURCE_ROOT; };
+		09B19B46199D679B00B9ADA3 /* mAPlayerContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAPlayerContainerView.h; sourceTree = "<group>"; };
+		09B19B47199D679B00B9ADA3 /* mAPlayerContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAPlayerContainerView.m; sourceTree = "<group>"; };
 		09B1E31F17A7338800050DF3 /* ulib_regex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ulib_regex.cpp; sourceTree = "<group>"; };
 		09B1E32017A7338800050DF3 /* ulib_regex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulib_regex.h; sourceTree = "<group>"; };
 		09B66B4A17683C7300A07ADF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mAExportAs.xib; sourceTree = "<group>"; };
@@ -1067,6 +1070,8 @@
 				09F09E3F18E2DAEA0050D963 /* mAPlayerViewController.xib */,
 				09F09E3D18E2DAEA0050D963 /* mAPlayerViewController.h */,
 				09F09E3E18E2DAEA0050D963 /* mAPlayerViewController.mm */,
+				09B19B46199D679B00B9ADA3 /* mAPlayerContainerView.h */,
+				09B19B47199D679B00B9ADA3 /* mAPlayerContainerView.m */,
 				0949BD4E18F61E56005191AC /* mAPlayerScrollView.h */,
 				0949BD4F18F61E56005191AC /* mAPlayerScrollView.m */,
 				09F09E4218E36DBC0050D963 /* mAScriptPlayer.h */,
@@ -1796,6 +1801,7 @@
 				093E264A14A12201008694BC /* chuck_parse.cpp in Sources */,
 				0921D56018190216008F39D9 /* message.c in Sources */,
 				093E264B14A12201008694BC /* chuck_scan.cpp in Sources */,
+				09B19B48199D679B00B9ADA3 /* mAPlayerContainerView.m in Sources */,
 				09307E2A18E0CDA1004AB346 /* mATextView.mm in Sources */,
 				093E264C14A12201008694BC /* chuck_shell.cpp in Sources */,
 				093E264D14A12201008694BC /* chuck_stats.cpp in Sources */,

@@ -13,11 +13,12 @@
                 <outlet property="activityViewController" destination="qaK-PS-hDC" id="Dzc-ba-jku"/>
                 <outlet property="connectViewController" destination="FdR-qf-wtE" id="pYJ-lR-wo8"/>
                 <outlet property="editor" destination="RA7-7n-Kt5" id="1LH-eB-W6M"/>
+                <outlet property="playerContainerView" destination="V55-f8-bzI" id="sA0-4d-lOI"/>
                 <outlet property="view" destination="V55-f8-bzI" id="zKp-o6-dE8"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="V55-f8-bzI">
+        <view contentMode="scaleToFill" id="V55-f8-bzI" customClass="mAPlayerContainerView">
             <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
             <subviews>

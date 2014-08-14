@@ -11,6 +11,7 @@
 #import "mADetailViewController.h"
 #import "mAConnectViewController.h"
 
+@class mAPlayerContainerView;
 @class mAEditorViewController;
 @class mAConnectViewController;
 @class mAActivityViewController;
@@ -27,6 +28,7 @@
 @property (strong, nonatomic) IBOutlet mAEditorViewController *editor;
 @property (strong, nonatomic) IBOutlet mAConnectViewController *connectViewController;
 @property (strong, nonatomic) IBOutlet mAActivityViewController *activityViewController;
+@property (strong, nonatomic) IBOutlet mAPlayerContainerView *playerContainerView;
 
 - (void)addScript:(mADetailItem *)script;
 - (void)deleteScriptPlayer:(mAScriptPlayer *)player;

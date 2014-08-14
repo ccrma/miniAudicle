@@ -19,6 +19,7 @@
 #import "mARoundedRectButton.h"
 #import "mANetworkManager.h"
 #import "mANetworkAction.h"
+#import "mAPlayerContainerView.h"
 
 #import <map>
 #import <list>
@@ -466,11 +467,14 @@ struct LoopShred
 
 - (IBAction)deletePlayer:(id)sender;
 {
+    [self hideDeleteButton];
     [self.playerViewController deleteScriptPlayer:self];
 }
 
 - (IBAction)showDeleteButton:(id)sender
 {
+    [self.playerViewController.playerContainerView addTapListener:self];
+
     [UIView animateWithDuration:1-G_RATIO animations:^{
         _deleteButton.alpha = 1;
     }];
@@ -478,13 +482,22 @@ struct LoopShred
 
 - (void)hideDeleteButton
 {
+    [self.playerViewController.playerContainerView removeTapListener:self];
+    
     [UIView animateWithDuration:1-G_RATIO animations:^{
         _deleteButton.alpha = 0;
     }];
 }
 
+- (void)tapOutside
+{
+    [self hideDeleteButton];
+}
+
 - (void)cleanupForDeletion
 {
+    [self hideDeleteButton];
+    
     // remove all related shreds
     t_OTF_RESULT otf_result;
     do
