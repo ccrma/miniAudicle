@@ -61,7 +61,7 @@ static mAChucKController * g_chuckController = nil;
         ma->set_num_inputs(2);
         ma->set_num_outputs(2);
         ma->set_enable_audio(TRUE);
-        ma->set_log_level(2);
+        ma->set_log_level(5);
     }
     
     return self;

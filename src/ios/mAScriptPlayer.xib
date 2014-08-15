@@ -115,11 +115,11 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="D7v-iK-QGw">
-                    <rect key="frame" x="-14" y="-14" width="29" height="29"/>
+                    <rect key="frame" x="-12" y="-12" width="25" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                     <inset key="titleEdgeInsets" minX="0.0" minY="-1" maxX="-1" maxY="1"/>
-                    <state key="normal" title="-" backgroundImage="UIRemoveControlMinus.png">
+                    <state key="normal" backgroundImage="UIRemoveControlMinus.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -194,7 +194,7 @@
         </pongPressGestureRecognizer>
     </objects>
     <resources>
-        <image name="UIRemoveControlMinus.png" width="29" height="29"/>
+        <image name="UIRemoveControlMinus.png" width="44" height="48"/>
         <image name="add-noalpha.png" width="218" height="218"/>
         <image name="forward-100.png" width="100" height="100"/>
         <image name="loop.png" width="218" height="218"/>
