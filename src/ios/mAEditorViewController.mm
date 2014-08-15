@@ -324,6 +324,8 @@
 {
     [self.popover dismissPopoverAnimated:YES];
     
+    [self saveScript];
+    
     //self.detailItem.title = self.titleEditor.editedTitle;
     [[mADocumentManager manager] renameScript:self.detailItem to:self.titleEditor.editedTitle];
     

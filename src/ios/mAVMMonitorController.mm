@@ -61,8 +61,9 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
     {
         isUpdating = NO;
         docid = [mAChucKController chuckController].ma->allocate_document_id();
-        // Custom initialization
-        
+        status_buffers = new Chuck_VM_Status[2];
+        most_recent_status = NULL;
+
         [self startUpdating];
     }
     return self;
@@ -75,7 +76,8 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
     {
         isUpdating = NO;
         docid = [mAChucKController chuckController].ma->allocate_document_id();
-        // Custom initialization
+        status_buffers = new Chuck_VM_Status[2];
+        most_recent_status = NULL;
         
         [self startUpdating];
     }
@@ -95,7 +97,6 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
 {
     if(!isUpdating)
     {
-        status_buffers = new Chuck_VM_Status[2];
         most_recent_status = status_buffers;
         which_status_buffer = 0;
         
@@ -117,14 +118,17 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
 {
     if(isUpdating)
     {
-        SAFE_DELETE_ARRAY(status_buffers);
-        most_recent_status = nil;
-        status_buffers = nil;
-        
         [self.updateTimer invalidate];
         self.updateTimer = nil;
         
         isUpdating = NO;
+        
+        SAFE_DELETE_ARRAY(status_buffers);
+        status_buffers = NULL;
+
+        most_recent_status = NULL;
+        
+        [self.tableView reloadData];
     }
 }
 
@@ -189,6 +193,8 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
                                                       userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                 [NSValue valueWithPointer:most_recent_status], @"status",
                                                                 nil]];
+//    if(most_recent_status->list.size())
+//        most_recent_status->list[0] = NULL;
 }
 
 
@@ -244,7 +250,7 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
 - (NSInteger)tableView:(UITableView *)tableView 
  numberOfRowsInSection:(NSInteger)section
 {
-    if(most_recent_status != nil)
+    if(most_recent_status != NULL)
         return most_recent_status->list.size();
     return 0;
 }
