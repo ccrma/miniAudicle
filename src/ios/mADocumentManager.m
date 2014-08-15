@@ -132,7 +132,9 @@
 
 - (void)renameScript:(mADetailItem *)item to:(NSString *)title
 {
-    NSString *newPath = [[[self.baseDocumentPath URLByAppendingPathComponent:title] URLByAppendingPathExtension:@"ck"] path];
+    [item save];
+    
+    NSString *newPath = [[[item.path stringByDeletingLastPathComponent] stringByAppendingPathComponent:title] stringByAppendingPathExtension:@"ck"];
 
     [[NSFileManager defaultManager] moveItemAtPath:item.path toPath:newPath error:NULL];
     
