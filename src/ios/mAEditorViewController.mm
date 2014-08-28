@@ -384,7 +384,14 @@
     }
     
     if(innerMostOpenBracketOrParen != -1)
-        return ::max(0, innerMostOpenBracketOrParen - (newline2Index>=0 ? newline2Index : 0));
+        return ::max(0, innerMostOpenBracketOrParen - newline2Index);
+    if(parenCount < 0 || bracketCount < 0)
+    {
+        if(newline2Index > 0)
+            return [self indentationForTextPosition:newline2Index-1];
+        else
+            return 0;
+    }
     
     if(newline2Index == -1) return 0;
     
@@ -410,12 +417,13 @@
     // scan for newline or close brace
     // add/remove indentation as needed
     int charDelta = 0;
-    for(int i = editedRange.location; i < editedRange.location+editedRange.length; i++)
+    for(int i = 0; i < editedRange.length && editedRange.location + i < [textStorage length]; i++)
     {
-        unichar c = [[textStorage string] characterAtIndex:i];
+        int index = editedRange.location + i;
+        unichar c = [[textStorage string] characterAtIndex:index];
         if(c == '\n' || c == '\r')
         {
-            int nSpaces = [self indentationForTextPosition:i+1];
+            int nSpaces = [self indentationForTextPosition:index+1];
             NSLog(@"%d spaces", nSpaces);
             if(nSpaces != 0)
             {
@@ -423,29 +431,31 @@
                 NSString *spaces = [@"" stringByPaddingToLength:nSpaces
                                                      withString:@" "
                                                 startingAtIndex:0];
-                [textStorage replaceCharactersInRange:NSMakeRange(i+1, 0) withString:spaces];
+                [textStorage replaceCharactersInRange:NSMakeRange(index+1, 0) withString:spaces];
                 i += nSpaces;
+                editedRange.length += nSpaces;
             }
         }
         if(c == '}')
         {
             // remove spaces
-            int nSpaces = [self indentationForTextPosition:i+1];
-            nSpaces -= 4;
-            int newlineIndexPlus1 = [[textStorage string] indexOfPreviousNewline:i]+1;
+            int nSpaces = [self indentationForTextPosition:index+1];
+            nSpaces = ::max(0, nSpaces-4);
+            int newlineIndexPlus1 = [[textStorage string] indexOfPreviousNewline:index]+1;
             
-            charDelta += (i-newlineIndexPlus1);
+            charDelta += nSpaces-(index-newlineIndexPlus1);
             NSString *spaces = [@"" stringByPaddingToLength:nSpaces
                                                  withString:@" "
                                             startingAtIndex:0];
-            [textStorage replaceCharactersInRange:NSMakeRange(newlineIndexPlus1, i-newlineIndexPlus1) withString:spaces];
-            i += (i-newlineIndexPlus1);
+            [textStorage replaceCharactersInRange:NSMakeRange(newlineIndexPlus1, index-newlineIndexPlus1) withString:spaces];
+            editedRange.location += nSpaces-(index-newlineIndexPlus1);
         }
     }
     
     NSRange selectedRange = self.textView.selectedRange;
     if(charDelta != 0)
     {
+        NSLog(@"charDelta: %d", charDelta);
         if(selectedRange.length == 0)
             self.textView.selectedRange = NSMakeRange(selectedRange.location+charDelta, 0);
         else
