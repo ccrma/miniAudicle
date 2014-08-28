@@ -143,6 +143,11 @@
     [self configureView];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.textView becomeFirstResponder];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -393,9 +398,9 @@
             return 0;
     }
     
-    if(newline2Index == -1) return 0;
-    
     int addSpace = (braceCount>0 ? braceCount : 0) * 4;
+    
+    if(newline2Index == -1) return addSpace;
     
     int previousLineSpace = 0;
     NSCharacterSet *set = [NSCharacterSet whitespaceCharacterSet];
