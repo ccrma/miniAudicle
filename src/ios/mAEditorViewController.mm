@@ -14,6 +14,7 @@
 #import "mADetailItem.h"
 #import "mAAppDelegate.h"
 #import "mADocumentManager.h"
+#import "NSString+NSString_Lines.h"
 
 
 @interface mAEditorViewController ()
@@ -30,6 +31,8 @@
 - (NSDictionary *)defaultTextAttributes;
 - (NSDictionary *)errorTextAttributes;
 - (void)configureView;
+
+- (int)indentationForTextPosition:(int)position;
 
 @end
 
@@ -343,6 +346,113 @@
 
 #pragma mark - NSTextStorageDelegate
 
+- (int)indentationForTextPosition:(int)position
+{
+    NSString *text = self.textView.text;
+    
+    // backward search
+    // skip first newline (newline immediately preceding this line)
+    
+    int newline1Index = [text indexOfPreviousNewline:position];
+    
+    if(newline1Index == -1 || newline1Index == 0) return 0;
+    
+    // find next newline; count whitespace after it
+    int newline2Index = -1;
+    signed int braceCount = 0;
+    signed int parenCount = 0;
+    signed int bracketCount = 0;
+    int innerMostOpenBracketOrParen = -1;
+    for(int i = newline1Index-1; i >= 0; i--)
+    {
+        unichar c = [text characterAtIndex:i];
+        if(c == '\n' || c == '\r')
+        {
+            newline2Index = i;
+            break;
+        }
+        if(c == '{') braceCount++;
+        if(c == '}') braceCount--;
+        if(c == '(') parenCount++;
+        if(c == ')') parenCount--;
+        if(c == '[') bracketCount++;
+        if(c == ']') bracketCount--;
+        
+        // hanging open paren indent
+        if(parenCount > 0 && innerMostOpenBracketOrParen == -1) innerMostOpenBracketOrParen = i;
+        if(bracketCount > 0 && innerMostOpenBracketOrParen == -1) innerMostOpenBracketOrParen = i;
+    }
+    
+    if(innerMostOpenBracketOrParen != -1)
+        return ::max(0, innerMostOpenBracketOrParen - (newline2Index>=0 ? newline2Index : 0));
+    
+    if(newline2Index == -1) return 0;
+    
+    int addSpace = (braceCount>0 ? braceCount : 0) * 4;
+    
+    int previousLineSpace = 0;
+    NSCharacterSet *set = [NSCharacterSet whitespaceCharacterSet];
+    for(int i = newline2Index+1; [set characterIsMember:[text characterAtIndex:i]]; i++)
+    {
+        unichar c = [text characterAtIndex:i];
+        if(c == ' ') previousLineSpace++;
+        else if(c == '\t') previousLineSpace += 4;
+    }
+    
+    return ::max(0, previousLineSpace + addSpace);
+}
+
+- (void)textStorage:(NSTextStorage *)textStorage
+ willProcessEditing:(NSTextStorageEditActions)editedMask
+              range:(NSRange)editedRange
+     changeInLength:(NSInteger)delta
+{
+    // scan for newline or close brace
+    // add/remove indentation as needed
+    int charDelta = 0;
+    for(int i = editedRange.location; i < editedRange.location+editedRange.length; i++)
+    {
+        unichar c = [[textStorage string] characterAtIndex:i];
+        if(c == '\n' || c == '\r')
+        {
+            int nSpaces = [self indentationForTextPosition:i+1];
+            NSLog(@"%d spaces", nSpaces);
+            if(nSpaces != 0)
+            {
+                charDelta += nSpaces;
+                NSString *spaces = [@"" stringByPaddingToLength:nSpaces
+                                                     withString:@" "
+                                                startingAtIndex:0];
+                [textStorage replaceCharactersInRange:NSMakeRange(i+1, 0) withString:spaces];
+                i += nSpaces;
+            }
+        }
+        if(c == '}')
+        {
+            // remove spaces
+            int nSpaces = [self indentationForTextPosition:i+1];
+            nSpaces -= 4;
+            int newlineIndexPlus1 = [[textStorage string] indexOfPreviousNewline:i]+1;
+            
+            charDelta += (i-newlineIndexPlus1);
+            NSString *spaces = [@"" stringByPaddingToLength:nSpaces
+                                                 withString:@" "
+                                            startingAtIndex:0];
+            [textStorage replaceCharactersInRange:NSMakeRange(newlineIndexPlus1, i-newlineIndexPlus1) withString:spaces];
+            i += (i-newlineIndexPlus1);
+        }
+    }
+    
+    NSRange selectedRange = self.textView.selectedRange;
+    if(charDelta != 0)
+    {
+        if(selectedRange.length == 0)
+            self.textView.selectedRange = NSMakeRange(selectedRange.location+charDelta, 0);
+        else
+            self.textView.selectedRange = NSMakeRange(selectedRange.location, selectedRange.length+charDelta);
+    }
+}
+
 - (void)textStorage:(NSTextStorage *)textStorage
   didProcessEditing:(NSTextStorageEditActions)editedMask
               range:(NSRange)editedRange
@@ -374,8 +484,10 @@
     //          range.location, range.length,
     //          [textView selectedRange].location, [textView selectedRange].length,
     //          text);
+    
     if([text isEqualToString:@". "] && range.location != [textView selectedRange].location)
         return NO;
+    
     return YES;
 }
 

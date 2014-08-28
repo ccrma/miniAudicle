@@ -11,5 +11,6 @@
 @interface NSString (NSString_Lines)
 
 - (NSRange)rangeOfLine:(NSInteger)lineNumber;
+- (NSInteger)indexOfPreviousNewline:(NSInteger)index;
 
 @end

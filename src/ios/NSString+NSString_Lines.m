@@ -32,4 +32,16 @@
         return NSMakeRange(NSNotFound, 0);
 }
 
+- (NSInteger)indexOfPreviousNewline:(NSInteger)index
+{
+    for(int i = index-1; i >= 0; i--)
+    {
+        unichar c = [self characterAtIndex:i];
+        if(c == '\n' || c == '\r')
+            return i;
+    }
+    
+    return -1;
+}
+
 @end
