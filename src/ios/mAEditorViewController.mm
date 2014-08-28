@@ -17,6 +17,16 @@
 #import "NSString+NSString_Lines.h"
 
 
+@interface NSString (CharacterEnumeration)
+
+- (void)enumerateCharacters:(BOOL (^)(unichar c))block
+               fromPosition:(NSInteger)index
+                    reverse:(BOOL)reverse;
+- (void)enumerateCharacters:(BOOL (^)(unichar c))block;
+
+@end
+
+
 @interface mAEditorViewController ()
 {
     NSRange _errorRange;
@@ -32,7 +42,9 @@
 - (NSDictionary *)errorTextAttributes;
 - (void)configureView;
 
-- (int)indentationForTextPosition:(int)position;
+- (int)indentationForTextPosition:(int)position
+                     bracketLevel:(int)bracketLevel
+                       parenLevel:(int)parenLevel;
 
 @end
 
@@ -352,6 +364,8 @@
 #pragma mark - NSTextStorageDelegate
 
 - (int)indentationForTextPosition:(int)position
+                     bracketLevel:(int)bracketLevel
+                       parenLevel:(int)parenLevel
 {
     NSString *text = self.textView.text;
     
@@ -365,8 +379,8 @@
     // find next newline; count whitespace after it
     int newline2Index = -1;
     signed int braceCount = 0;
-    signed int parenCount = 0;
-    signed int bracketCount = 0;
+    signed int parenCount = parenLevel;
+    signed int bracketCount = bracketLevel;
     int innerMostOpenBracketOrParen = -1;
     for(int i = newline1Index-1; i >= 0; i--)
     {
@@ -393,7 +407,7 @@
     if(parenCount < 0 || bracketCount < 0)
     {
         if(newline2Index > 0)
-            return [self indentationForTextPosition:newline2Index-1];
+            return [self indentationForTextPosition:newline2Index+1 bracketLevel:bracketCount parenLevel:parenCount];
         else
             return 0;
     }
@@ -428,7 +442,7 @@
         unichar c = [[textStorage string] characterAtIndex:index];
         if(c == '\n' || c == '\r')
         {
-            int nSpaces = [self indentationForTextPosition:index+1];
+            int nSpaces = [self indentationForTextPosition:index+1 bracketLevel:0 parenLevel:0];
             NSLog(@"%d spaces", nSpaces);
             if(nSpaces != 0)
             {
@@ -444,7 +458,7 @@
         if(c == '}')
         {
             // remove spaces
-            int nSpaces = [self indentationForTextPosition:index+1];
+            int nSpaces = [self indentationForTextPosition:index+1 bracketLevel:0 parenLevel:0];
             nSpaces = ::max(0, nSpaces-4);
             int newlineIndexPlus1 = [[textStorage string] indexOfPreviousNewline:index]+1;
             
@@ -508,5 +522,27 @@
 
 
 @end
+
+
+
+@implementation NSString (CharacterEnumeration)
+
+- (void)enumerateCharacters:(BOOL (^)(unichar c))block
+               fromPosition:(NSInteger)index
+                    reverse:(BOOL)reverse
+{
+    for(int i = index; reverse? (i >= 0) : (i < [self length]); reverse? i++ : i--)
+    {
+        if(!block([self characterAtIndex:i])) break;
+    }
+}
+
+- (void)enumerateCharacters:(BOOL (^)(unichar c))block
+{
+    [self enumerateCharacters:block fromPosition:0 reverse:NO];
+}
+
+@end
+
 
 
