@@ -109,7 +109,7 @@
         {
             CGRect selectRect = CGRectMake(HMARGIN/2, VMARGIN+(VMARGIN+BUTTON_HEIGHT)*i, self.bounds.size.width-HMARGIN, BUTTON_HEIGHT);
             [[UIColor colorWithRed:0.05 green:0.55 blue:0.97 alpha:1] set];
-            CGContextAddRoundedRect(ctx, selectRect, 4);
+            CGContextAddRoundedRect(ctx, rect, 4);
             CGContextFillPath(ctx);
             
             attributes = selectionTextAttributes;
@@ -182,14 +182,13 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [super touchesEnded:touches withEvent:event];
-    
     if(_selection != INT_MAX)
     {
         _selectedCompletion = [self.completions objectAtIndex:_selection];
-        [self sendActionsForControlEvents:UIControlEventTouchUpInside];
         [self setNeedsDisplay];
     }
+    
+    [super touchesEnded:touches withEvent:event];
     
     _selection = INT_MAX;
 }

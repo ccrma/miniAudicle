@@ -40,6 +40,7 @@
 @interface mAEditorViewController ()
 {
     NSRange _errorRange;
+    NSRange _completionRange;
     BOOL _lockAutoFormat;
     mATextCompletionView *_textCompletionView;
 }
@@ -54,11 +55,12 @@
 - (NSDictionary *)errorTextAttributes;
 - (void)configureView;
 
+- (void)showCompletions:(NSArray *)completions forTextRange:(NSRange)range;
+- (void)hideCompletions;
+- (void)completeText:(id)sender;
 - (int)indentationForTextPosition:(int)position
                      bracketLevel:(int)bracketLevel
                        parenLevel:(int)parenLevel;
-- (void)showCompletions:(NSArray *)completions forTextRange:(NSRange)range;
-- (void)hideCompletions;
 
 @end
 
@@ -169,6 +171,7 @@
     self.textView.textStorage.delegate = self;
     
     _textCompletionView = [[mATextCompletionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    [_textCompletionView addTarget:self action:@selector(completeText:) forControlEvents:UIControlEventTouchUpInside];
     
     [self configureView];
 }
@@ -392,7 +395,7 @@
     
     CGRect textRect = [self.textView firstRectForRange:[self.textView textRangeFromRange:range]];
     CGRect frame = _textCompletionView.frame;
-    frame.origin.x = textRect.origin.x;
+    frame.origin.x = textRect.origin.x-8;
     frame.origin.y = textRect.origin.y+textRect.size.height+4;
     _textCompletionView.frame = frame;
     
@@ -410,12 +413,29 @@
 
 - (void)hideCompletions
 {
-    [UIView animateWithDuration:1-G_RATIO
-                     animations:^{
+    if(_textCompletionView.superview != nil)
+    {
+        [UIView animateWithDuration:1-G_RATIO
+                         animations:^{
                          _textCompletionView.alpha = 0;
-                     } completion:^(BOOL finished) {
-                         [_textCompletionView removeFromSuperview];
-                     }];
+                         } completion:^(BOOL finished) {
+                             [_textCompletionView removeFromSuperview];
+                         }];
+    }
+}
+
+- (void)completeText:(id)sender
+{
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:_textCompletionView.selectedCompletion
+                                                                             attributes:[self defaultTextAttributes]];
+    [[mASyntaxHighlighting sharedHighlighter] colorString:text range:NSMakeRange(0, [text length]-1) colorer:nil];
+    [self.textView.textStorage replaceCharactersInRange:_completionRange withAttributedString:text];
+    
+    NSRange selectedRange = self.textView.selectedRange;
+    selectedRange.location += text.length-_completionRange.length;
+    self.textView.selectedRange = selectedRange;
+    
+    [self hideCompletions];
 }
 
 - (int)indentationForTextPosition:(int)position
@@ -524,6 +544,7 @@
             autocomplete->getCompletions([word stlString], completions);
             if(completions.size())
             {
+                _completionRange = NSMakeRange(wordPos, editedRange.location-wordPos+1);
 //                for(int i = 0; i < completions.size(); i++)
 //                    fprintf(stdout, "%s ", completions[i]->c_str());
 //                fprintf(stdout, "\n");
@@ -532,7 +553,7 @@
                 for(int i = 0; i < completions.size(); i++)
                     [_completions addObject:[NSString stringWithSTLString:*completions[i]]];
                 hasCompletions = YES;
-                [self showCompletions:_completions forTextRange:NSMakeRange(wordPos, editedRange.location-wordPos+1)];
+                [self showCompletions:_completions forTextRange:_completionRange];
             }
         }
     }
