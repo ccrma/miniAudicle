@@ -15,14 +15,16 @@
 #import "mAAppDelegate.h"
 #import "mADocumentManager.h"
 #import "NSString+NSString_Lines.h"
+#import "NSString+STLString.h"
+#import "mAAutocomplete.h"
 
 
 @interface NSString (CharacterEnumeration)
 
-- (void)enumerateCharacters:(BOOL (^)(unichar c))block
+- (void)enumerateCharacters:(BOOL (^)(int pos, unichar c))block
                fromPosition:(NSInteger)index
                     reverse:(BOOL)reverse;
-- (void)enumerateCharacters:(BOOL (^)(unichar c))block;
+- (void)enumerateCharacters:(BOOL (^)(int pos, unichar c))block;
 
 @end
 
@@ -30,6 +32,7 @@
 @interface mAEditorViewController ()
 {
     NSRange _errorRange;
+    BOOL _lockAutoFormat;
 }
 
 @property (strong, nonatomic) mATextView * textView;
@@ -120,6 +123,7 @@
                                                             style:UIBarButtonItemStylePlain
                                                            target:self
                                                            action:@selector(editTitle:)];
+        _lockAutoFormat = NO;
     }
     return self;
 }
@@ -134,6 +138,7 @@
                                                             style:UIBarButtonItemStylePlain
                                                            target:self
                                                            action:@selector(editTitle:)];
+        _lockAutoFormat = NO;
     }
     return self;
 }
@@ -176,7 +181,10 @@
         NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:self.detailItem.text
                                                                                  attributes:[self defaultTextAttributes]];
         [[mASyntaxHighlighting sharedHighlighter] colorString:text range:NSMakeRange(0, [text length]-1) colorer:nil];
+        
+        _lockAutoFormat = YES;
         self.textView.attributedText = text;
+        _lockAutoFormat = NO;
     }
 }
 
@@ -433,6 +441,42 @@
               range:(NSRange)editedRange
      changeInLength:(NSInteger)delta
 {
+    if(_lockAutoFormat)
+        return;
+    
+    // scan for autocomplete
+    if(editedRange.length == 1 && delta > 0)
+    {
+        mAAutocomplete *autocomplete = mAAutocomplete::autocomplete();
+        
+        __block int wordPos = 0;
+        __block BOOL hasWord = NO;
+        [[textStorage string] enumerateCharacters:^BOOL(int pos, unichar c) {
+            if(autocomplete->isIdentifierChar(c))
+                return YES;
+            if(pos != editedRange.location)
+            {
+                wordPos = pos+1;
+                hasWord = YES;
+            }
+            return NO;
+        } fromPosition:editedRange.location reverse:YES];
+        
+        if(editedRange.location-wordPos+1 > 0)
+        {
+            vector<const string *> completions;
+            NSString *word = [[textStorage string] substringWithRange:NSMakeRange(wordPos, editedRange.location-wordPos+1)];
+            autocomplete->getCompletions([word stlString], completions);
+            if(completions.size())
+            {
+                for(int i = 0; i < completions.size(); i++)
+                    fprintf(stdout, "%s ", completions[i]->c_str());
+                fprintf(stdout, "\n");
+                fflush(stdout);
+            }
+        }
+    }
+    
     // scan for newline or close brace
     // add/remove indentation as needed
     int charDelta = 0;
@@ -509,11 +553,6 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    //    NSLog(@"shouldChangeTextInRange: %i %i selectedRange: %i %i text: %@",
-    //          range.location, range.length,
-    //          [textView selectedRange].location, [textView selectedRange].length,
-    //          text);
-    
     if([text isEqualToString:@". "] && range.location != [textView selectedRange].location)
         return NO;
     
@@ -527,17 +566,17 @@
 
 @implementation NSString (CharacterEnumeration)
 
-- (void)enumerateCharacters:(BOOL (^)(unichar c))block
+- (void)enumerateCharacters:(BOOL (^)(int pos, unichar c))block
                fromPosition:(NSInteger)index
                     reverse:(BOOL)reverse
 {
-    for(int i = index; reverse? (i >= 0) : (i < [self length]); reverse? i++ : i--)
+    for(int i = index; reverse? (i >= 0) : (i < [self length]); reverse? i-- : i++)
     {
-        if(!block([self characterAtIndex:i])) break;
+        if(!block(i, [self characterAtIndex:i])) break;
     }
 }
 
-- (void)enumerateCharacters:(BOOL (^)(unichar c))block
+- (void)enumerateCharacters:(BOOL (^)(int pos, unichar c))block
 {
     [self enumerateCharacters:block fromPosition:0 reverse:NO];
 }

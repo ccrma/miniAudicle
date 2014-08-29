@@ -324,6 +324,8 @@
 		09B1E32117A7338800050DF3 /* ulib_regex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09B1E31F17A7338800050DF3 /* ulib_regex.cpp */; };
 		09B1E32217A7338800050DF3 /* ulib_regex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09B1E31F17A7338800050DF3 /* ulib_regex.cpp */; };
 		09B1E32317A7338800050DF3 /* ulib_regex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09B1E31F17A7338800050DF3 /* ulib_regex.cpp */; };
+		09B596C019B02B2F0091D45F /* mAAutocomplete.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09B596BE19B02B2F0091D45F /* mAAutocomplete.cpp */; };
+		09B596C119B0517D0091D45F /* NSString+STLString.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0962903217323065007CADBA /* NSString+STLString.mm */; };
 		09B66B4B17683C7300A07ADF /* mAExportAs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B4917683C7300A07ADF /* mAExportAs.xib */; };
 		09B66B4E1768460C00A07ADF /* mAExportAsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B66B4D1768460C00A07ADF /* mAExportAsViewController.m */; };
 		09B66B501768A1E400A07ADF /* export.ck in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B4F1768A1E400A07ADF /* export.ck */; };
@@ -807,6 +809,8 @@
 		09B19B47199D679B00B9ADA3 /* mAPlayerContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAPlayerContainerView.m; sourceTree = "<group>"; };
 		09B1E31F17A7338800050DF3 /* ulib_regex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ulib_regex.cpp; sourceTree = "<group>"; };
 		09B1E32017A7338800050DF3 /* ulib_regex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulib_regex.h; sourceTree = "<group>"; };
+		09B596BE19B02B2F0091D45F /* mAAutocomplete.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mAAutocomplete.cpp; sourceTree = "<group>"; };
+		09B596BF19B02B2F0091D45F /* mAAutocomplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAAutocomplete.h; sourceTree = "<group>"; };
 		09B66B4A17683C7300A07ADF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mAExportAs.xib; sourceTree = "<group>"; };
 		09B66B4C1768460C00A07ADF /* mAExportAsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAExportAsViewController.h; path = macosx/mAExportAsViewController.h; sourceTree = "<group>"; };
 		09B66B4D1768460C00A07ADF /* mAExportAsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = mAExportAsViewController.m; path = macosx/mAExportAsViewController.m; sourceTree = "<group>"; };
@@ -1067,6 +1071,8 @@
 				09F09E3918E2C5E60050D963 /* mAEditorViewController.mm */,
 				09307E2818E0CDA1004AB346 /* mATextView.h */,
 				09307E2918E0CDA1004AB346 /* mATextView.mm */,
+				09B596BF19B02B2F0091D45F /* mAAutocomplete.h */,
+				09B596BE19B02B2F0091D45F /* mAAutocomplete.cpp */,
 				09F09E3F18E2DAEA0050D963 /* mAPlayerViewController.xib */,
 				09F09E3D18E2DAEA0050D963 /* mAPlayerViewController.h */,
 				09F09E3E18E2DAEA0050D963 /* mAPlayerViewController.mm */,
@@ -1782,6 +1788,7 @@
 				093E263E14A12201008694BC /* chuck_bbq.cpp in Sources */,
 				093E263F14A12201008694BC /* chuck_compile.cpp in Sources */,
 				093E264014A12201008694BC /* chuck_console.cpp in Sources */,
+				09B596C019B02B2F0091D45F /* mAAutocomplete.cpp in Sources */,
 				093E264114A12201008694BC /* chuck_dl.cpp in Sources */,
 				093E264214A12201008694BC /* chuck_emit.cpp in Sources */,
 				0921D56C18190216008F39D9 /* timetag.c in Sources */,
@@ -1839,6 +1846,7 @@
 				093E265F14A12234008694BC /* ulib_opsc.cpp in Sources */,
 				093E266014A12234008694BC /* ulib_std.cpp in Sources */,
 				09F09E4C18E374C10050D963 /* mACGContext.c in Sources */,
+				09B596C119B0517D0091D45F /* NSString+STLString.mm in Sources */,
 				093E266114A12234008694BC /* util_buffers.cpp in Sources */,
 				09F09E4518E36DBC0050D963 /* mAScriptPlayer.mm in Sources */,
 				093E266214A12234008694BC /* util_console.cpp in Sources */,

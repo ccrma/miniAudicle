@@ -32,6 +32,7 @@
 #import "mAChucKController.h"
 #import "miniAudicle.h"
 #import "mADocumentManager.h"
+#import "mAAutocomplete.h"
 
 
 NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript";
@@ -122,6 +123,10 @@ static mAAppDelegate *g_appDelegate = nil;
     [self.masterViewController editMode:nil];
     
     [mAChucKController chuckController].ma->start_vm();
+    
+    // create autocomplete
+    mAAutocomplete::autocomplete();
+//    mAAutocomplete::test();
     
     return YES;
 }
