@@ -132,7 +132,7 @@
 {
     [player cleanupForDeletion];
     [self.players removeObject:player];
-    [UIView animateWithDuration:1-G_RATIO animations:^{
+    [UIView animateWithDuration:G_RATIO-1 animations:^{
         player.view.alpha = 0;
     } completion:^(BOOL finished) {
         [player.view removeFromSuperview];
@@ -225,7 +225,7 @@
     [self deleteAllScriptPlayers];
     _connectButton.enabled = YES;
     
-    [UIView animateWithDuration:1-G_RATIO animations:^{
+    [UIView animateWithDuration:G_RATIO-1 animations:^{
         _disconnectButton.alpha = 0;
         _roomView.alpha = 0;
     }];
@@ -265,7 +265,7 @@
                                memberSelf.name = username;
                                [_roomView addMember:memberSelf];
                                
-                               [UIView animateWithDuration:1-G_RATIO animations:^{
+                               [UIView animateWithDuration:G_RATIO-1 animations:^{
                                    _roomView.alpha = 1;
                                    _disconnectButton.alpha = 1;
                                }];

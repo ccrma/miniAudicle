@@ -82,7 +82,7 @@
     
     for(mAOTFButton *button in self.alternatives)
     {
-        [UIView animateWithDuration:1-G_RATIO
+        [UIView animateWithDuration:G_RATIO-1
                          animations:^{
                              button.center = target;
                          } completion:^(BOOL finished) {
@@ -101,14 +101,14 @@
         if(button == alternative)
         {
             [self.superview bringSubviewToFront:button];
-            [UIView animateWithDuration:1-G_RATIO
+            [UIView animateWithDuration:G_RATIO-1
                              animations:^{
                                  button.center = target;
                              }];
         }
         else
         {
-            [UIView animateWithDuration:1-G_RATIO
+            [UIView animateWithDuration:G_RATIO-1
                              animations:^{
                                  button.center = target;
                              } completion:^(BOOL finished) {
@@ -213,7 +213,7 @@
                 // ...
         }
         
-        [UIView animateWithDuration:1-G_RATIO
+        [UIView animateWithDuration:G_RATIO-1
                          animations:^{
                              button.center = target;
                          }];

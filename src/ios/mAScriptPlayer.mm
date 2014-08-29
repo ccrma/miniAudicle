@@ -475,7 +475,7 @@ struct LoopShred
 {
     [self.playerViewController.playerContainerView addTapListener:self];
 
-    [UIView animateWithDuration:1-G_RATIO animations:^{
+    [UIView animateWithDuration:G_RATIO-1 animations:^{
         _deleteButton.alpha = 1;
     }];
 }
@@ -484,7 +484,7 @@ struct LoopShred
 {
     [self.playerViewController.playerContainerView removeTapListener:self];
     
-    [UIView animateWithDuration:1-G_RATIO animations:^{
+    [UIView animateWithDuration:G_RATIO-1 animations:^{
         _deleteButton.alpha = 0;
     }];
 }
