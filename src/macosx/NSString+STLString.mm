@@ -43,4 +43,9 @@ using namespace std;
     return string( ( char * ) [data bytes], [data length] );
 }
 
++ (instancetype)stringWithSTLString:(string)str
+{
+    return [NSString stringWithUTF8String:str.c_str()];
+}
+
 @end

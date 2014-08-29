@@ -17,6 +17,7 @@
 #import "NSString+NSString_Lines.h"
 #import "NSString+STLString.h"
 #import "mAAutocomplete.h"
+#import "mATextCompletionView.h"
 
 
 @interface NSString (CharacterEnumeration)
@@ -28,11 +29,19 @@
 
 @end
 
+@interface UITextView (Ranges)
+
+- (UITextRange *)textRangeFromRange:(NSRange)range;
+//- (NSRange)rangeFromTextRange:(UITextRange *)textRange;
+
+@end
+
 
 @interface mAEditorViewController ()
 {
     NSRange _errorRange;
     BOOL _lockAutoFormat;
+    mATextCompletionView *_textCompletionView;
 }
 
 @property (strong, nonatomic) mATextView * textView;
@@ -48,6 +57,8 @@
 - (int)indentationForTextPosition:(int)position
                      bracketLevel:(int)bracketLevel
                        parenLevel:(int)parenLevel;
+- (void)showCompletions:(NSArray *)completions forTextRange:(NSRange)range;
+- (void)hideCompletions;
 
 @end
 
@@ -156,6 +167,8 @@
     self.keyboardAccessory.delegate = self;
     
     self.textView.textStorage.delegate = self;
+    
+    _textCompletionView = [[mATextCompletionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     
     [self configureView];
 }
@@ -371,11 +384,47 @@
 
 #pragma mark - NSTextStorageDelegate
 
+- (void)showCompletions:(NSArray *)completions forTextRange:(NSRange)range
+{
+    _textCompletionView.completions = completions;
+    _textCompletionView.textAttributes = [self defaultTextAttributes];
+    [_textCompletionView sizeToFit];
+    
+    CGRect textRect = [self.textView firstRectForRange:[self.textView textRangeFromRange:range]];
+    CGRect frame = _textCompletionView.frame;
+    frame.origin.x = textRect.origin.x;
+    frame.origin.y = textRect.origin.y+textRect.size.height+4;
+    _textCompletionView.frame = frame;
+    
+    if(_textCompletionView.superview == nil)
+    {
+        _textCompletionView.alpha = 0;
+        [self.textView addSubview:_textCompletionView];
+        
+        [UIView animateWithDuration:1-G_RATIO
+                            animations:^{
+                                _textCompletionView.alpha = 1;
+                            }];
+    }
+}
+
+- (void)hideCompletions
+{
+    [UIView animateWithDuration:1-G_RATIO
+                     animations:^{
+                         _textCompletionView.alpha = 0;
+                     } completion:^(BOOL finished) {
+                         [_textCompletionView removeFromSuperview];
+                     }];
+}
+
 - (int)indentationForTextPosition:(int)position
                      bracketLevel:(int)bracketLevel
                        parenLevel:(int)parenLevel
 {
     NSString *text = self.textView.text;
+    
+    // determine whitespace for this line by scanning previous line
     
     // backward search
     // skip first newline (newline immediately preceding this line)
@@ -406,6 +455,7 @@
         if(c == ']') bracketCount--;
         
         // hanging open paren indent
+        // indent to this level instead of regular indent
         if(parenCount > 0 && innerMostOpenBracketOrParen == -1) innerMostOpenBracketOrParen = i;
         if(bracketCount > 0 && innerMostOpenBracketOrParen == -1) innerMostOpenBracketOrParen = i;
     }
@@ -414,6 +464,7 @@
         return ::max(0, innerMostOpenBracketOrParen - newline2Index);
     if(parenCount < 0 || bracketCount < 0)
     {
+        // close paren - adjust indent based on previous line
         if(newline2Index > 0)
             return [self indentationForTextPosition:newline2Index+1 bracketLevel:bracketCount parenLevel:parenCount];
         else
@@ -445,6 +496,7 @@
         return;
     
     // scan for autocomplete
+    BOOL hasCompletions = NO;
     if(editedRange.length == 1 && delta > 0)
     {
         mAAutocomplete *autocomplete = mAAutocomplete::autocomplete();
@@ -454,11 +506,14 @@
         [[textStorage string] enumerateCharacters:^BOOL(int pos, unichar c) {
             if(autocomplete->isIdentifierChar(c))
                 return YES;
-            if(pos != editedRange.location)
+            
+            if(pos != editedRange.location &&
+               (c != ':' && c != '.'))
             {
                 wordPos = pos+1;
                 hasWord = YES;
             }
+            
             return NO;
         } fromPosition:editedRange.location reverse:YES];
         
@@ -469,13 +524,20 @@
             autocomplete->getCompletions([word stlString], completions);
             if(completions.size())
             {
+//                for(int i = 0; i < completions.size(); i++)
+//                    fprintf(stdout, "%s ", completions[i]->c_str());
+//                fprintf(stdout, "\n");
+//                fflush(stdout);
+                NSMutableArray *_completions = [NSMutableArray new];
                 for(int i = 0; i < completions.size(); i++)
-                    fprintf(stdout, "%s ", completions[i]->c_str());
-                fprintf(stdout, "\n");
-                fflush(stdout);
+                    [_completions addObject:[NSString stringWithSTLString:*completions[i]]];
+                hasCompletions = YES;
+                [self showCompletions:_completions forTextRange:NSMakeRange(wordPos, editedRange.location-wordPos+1)];
             }
         }
     }
+    if(!hasCompletions)
+        [self hideCompletions];
     
     // scan for newline or close brace
     // add/remove indentation as needed
@@ -582,6 +644,23 @@
 }
 
 @end
+
+
+
+@implementation UITextView (Ranges)
+
+- (UITextRange *)textRangeFromRange:(NSRange)range
+{
+    UITextPosition *docStart = self.beginningOfDocument;
+    
+    UITextPosition *start = [self positionFromPosition:docStart offset:range.location];
+    UITextPosition *end = [self positionFromPosition:start offset:range.length];
+    
+    return [self textRangeFromPosition:start toPosition:end];
+}
+
+@end
+
 
 
 
