@@ -32,6 +32,7 @@
 @interface UITextView (Ranges)
 
 - (UITextRange *)textRangeFromRange:(NSRange)range;
+- (UITextPosition *)textPositionFromIndex:(NSInteger)index;
 //- (NSRange)rangeFromTextRange:(UITextRange *)textRange;
 
 @end
@@ -42,6 +43,7 @@
     NSRange _errorRange;
     NSRange _completionRange;
     BOOL _lockAutoFormat;
+    CGSize _singleCharSize;
     mATextCompletionView *_textCompletionView;
 }
 
@@ -172,6 +174,8 @@
     
     _textCompletionView = [[mATextCompletionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     [_textCompletionView addTarget:self action:@selector(completeText:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _singleCharSize = [@" " sizeWithAttributes:[self defaultTextAttributes]];
     
     [self configureView];
 }
@@ -393,7 +397,21 @@
     _textCompletionView.textAttributes = [self defaultTextAttributes];
     [_textCompletionView sizeToFit];
     
-    CGRect textRect = [self.textView firstRectForRange:[self.textView textRangeFromRange:range]];
+    CGRect textRect;
+    if(range.length > 0)
+        textRect = [self.textView firstRectForRange:[self.textView textRangeFromRange:range]];
+    else
+    {
+        if(range.location > 0)
+        {
+            textRect = [self.textView firstRectForRange:[self.textView textRangeFromRange:NSMakeRange(range.location-1, 1)]];
+            textRect.origin.x += _singleCharSize.width;
+        }
+        else
+        {
+            textRect = CGRectMake(0, _singleCharSize.height, _singleCharSize.width, _singleCharSize.height);
+        }
+    }
     CGRect frame = _textCompletionView.frame;
     frame.origin.x = textRect.origin.x-8;
     frame.origin.y = textRect.origin.y+textRect.size.height+4;
@@ -404,7 +422,7 @@
         _textCompletionView.alpha = 0;
         [self.textView addSubview:_textCompletionView];
         
-        [UIView animateWithDuration:1-G_RATIO
+        [UIView animateWithDuration:1-(G_RATIO-1)
                             animations:^{
                                 _textCompletionView.alpha = 1;
                             }];
@@ -415,11 +433,11 @@
 {
     if(_textCompletionView.superview != nil)
     {
-        [UIView animateWithDuration:1-G_RATIO
+        [UIView animateWithDuration:1-(G_RATIO-1)
                          animations:^{
                          _textCompletionView.alpha = 0;
                          } completion:^(BOOL finished) {
-                             [_textCompletionView removeFromSuperview];
+                             if(finished) [_textCompletionView removeFromSuperview];
                          }];
     }
 }
@@ -512,54 +530,6 @@
               range:(NSRange)editedRange
      changeInLength:(NSInteger)delta
 {
-    if(_lockAutoFormat)
-        return;
-    
-    // scan for autocomplete
-    BOOL hasCompletions = NO;
-    if(editedRange.length == 1 && delta > 0)
-    {
-        mAAutocomplete *autocomplete = mAAutocomplete::autocomplete();
-        
-        __block int wordPos = 0;
-        __block BOOL hasWord = NO;
-        [[textStorage string] enumerateCharacters:^BOOL(int pos, unichar c) {
-            if(autocomplete->isIdentifierChar(c))
-                return YES;
-            
-            if(pos != editedRange.location &&
-               (c != ':' && c != '.'))
-            {
-                wordPos = pos+1;
-                hasWord = YES;
-            }
-            
-            return NO;
-        } fromPosition:editedRange.location reverse:YES];
-        
-        if(editedRange.location-wordPos+1 > 0)
-        {
-            vector<const string *> completions;
-            NSString *word = [[textStorage string] substringWithRange:NSMakeRange(wordPos, editedRange.location-wordPos+1)];
-            autocomplete->getCompletions([word stlString], completions);
-            if(completions.size())
-            {
-                _completionRange = NSMakeRange(wordPos, editedRange.location-wordPos+1);
-//                for(int i = 0; i < completions.size(); i++)
-//                    fprintf(stdout, "%s ", completions[i]->c_str());
-//                fprintf(stdout, "\n");
-//                fflush(stdout);
-                NSMutableArray *_completions = [NSMutableArray new];
-                for(int i = 0; i < completions.size(); i++)
-                    [_completions addObject:[NSString stringWithSTLString:*completions[i]]];
-                hasCompletions = YES;
-                [self showCompletions:_completions forTextRange:_completionRange];
-            }
-        }
-    }
-    if(!hasCompletions)
-        [self hideCompletions];
-    
     // scan for newline or close brace
     // add/remove indentation as needed
     int charDelta = 0;
@@ -570,7 +540,7 @@
         if(c == '\n' || c == '\r')
         {
             int nSpaces = [self indentationForTextPosition:index+1 bracketLevel:0 parenLevel:0];
-            NSLog(@"%d spaces", nSpaces);
+//            NSLog(@"%d spaces", nSpaces);
             if(nSpaces != 0)
             {
                 charDelta += nSpaces;
@@ -601,7 +571,7 @@
     NSRange selectedRange = self.textView.selectedRange;
     if(charDelta != 0)
     {
-        NSLog(@"charDelta: %d", charDelta);
+//        NSLog(@"charDelta: %d", charDelta);
         if(selectedRange.length == 0)
             self.textView.selectedRange = NSMakeRange(selectedRange.location+charDelta, 0);
         else
@@ -614,6 +584,9 @@
               range:(NSRange)editedRange
      changeInLength:(NSInteger)delta
 {
+    if(_lockAutoFormat)
+        return;
+    
     NSUInteger start_index, line_end_index, contents_end_index;
     [[textStorage string] getLineStart:&start_index
                                    end:&line_end_index
@@ -623,6 +596,105 @@
     [[mASyntaxHighlighting sharedHighlighter] colorString:textStorage
                                                     range:NSMakeRange( start_index, contents_end_index - start_index )
                                                   colorer:nil];
+    
+    // scan for autocomplete
+    BOOL hasCompletions = NO;
+    if(editedRange.length == 1 && delta > 0)
+    {
+        mAAutocomplete *autocomplete = mAAutocomplete::autocomplete();
+        NSString *text = [textStorage string];
+        
+        __block int wordPos = 0;
+        __block int memberPos = 0;
+        __block BOOL hasWord = NO;
+        __block BOOL hasMember = NO;
+        
+        [text enumerateCharacters:^BOOL(int pos, unichar c) {
+            if(autocomplete->isIdentifierChar(c))
+                return YES;
+            
+            // member completion
+            if(c == '.')
+            {
+                if(pos >= 1)
+                {
+                    // determine member word
+                    [text enumerateCharacters:^BOOL(int pos2, unichar c2) {
+                        if(autocomplete->isIdentifierChar(c2))
+                            return YES;
+                        
+                        if(pos2 != pos)
+                        {
+                            wordPos = pos+1;
+                            memberPos = pos2+1;
+                            hasMember = YES;
+                        }
+                        
+                        return NO;
+                    } fromPosition:pos-1 reverse:YES];
+                }
+            }
+            // "open" completion
+            else if(pos != editedRange.location &&
+                    (c != ':' && c != '.'))
+            {
+                wordPos = pos+1;
+                hasWord = YES;
+            }
+            
+            return NO;
+            
+        } fromPosition:editedRange.location reverse:YES];
+        
+        if(hasWord)
+        {
+            vector<const string *> completions;
+            NSString *word = [text substringWithRange:NSMakeRange(wordPos, editedRange.location-wordPos+1)];
+            autocomplete->getOpenCompletions([word stlString], completions);
+            
+            if(completions.size())
+            {
+                _completionRange = NSMakeRange(wordPos, editedRange.location-wordPos+1);
+                
+                NSMutableArray *completions2 = [NSMutableArray new];
+                for(int i = 0; i < completions.size(); i++)
+                    [completions2 addObject:[NSString stringWithSTLString:*completions[i]]];
+                hasCompletions = YES;
+                
+                [self showCompletions:completions2 forTextRange:_completionRange];
+            }
+        }
+        else if(hasMember)
+        {
+            vector<const string *> completions;
+            NSString *pre = [text substringWithRange:NSMakeRange(memberPos, wordPos-memberPos-1)];
+            NSString *post = [text substringWithRange:NSMakeRange(wordPos, editedRange.location-wordPos+1)];
+            autocomplete->getMemberCompletions([pre stlString], [post stlString], completions);
+            
+            fprintf(stdout, "[%s.%s]: ", [pre UTF8String], [post UTF8String]);
+            
+            if(completions.size())
+            {
+                for(int i = 0; i < completions.size(); i++)
+                    fprintf(stdout, "%s ", completions[i]->c_str());
+                
+                _completionRange = NSMakeRange(wordPos, editedRange.location-wordPos+1);
+                fprintf(stdout, "%d:%d", _completionRange.location, _completionRange.length);
+                
+                NSMutableArray *completions2 = [NSMutableArray new];
+                for(int i = 0; i < completions.size(); i++)
+                    [completions2 addObject:[NSString stringWithSTLString:*completions[i]]];
+                
+                hasCompletions = YES;
+                [self showCompletions:completions2 forTextRange:_completionRange];
+            }
+            
+            fprintf(stdout, "\n");
+            fflush(stdout);
+        }
+    }
+    if(!hasCompletions)
+        [self hideCompletions];
 }
 
 #pragma mark - mAKeyboardAccessoryDelegate
@@ -673,11 +745,16 @@
 - (UITextRange *)textRangeFromRange:(NSRange)range
 {
     UITextPosition *docStart = self.beginningOfDocument;
-    
     UITextPosition *start = [self positionFromPosition:docStart offset:range.location];
     UITextPosition *end = [self positionFromPosition:start offset:range.length];
-    
-    return [self textRangeFromPosition:start toPosition:end];
+    UITextRange *textRange = [self textRangeFromPosition:start toPosition:end];
+    return textRange;
+}
+
+- (UITextPosition *)textPositionFromIndex:(NSInteger)index
+{
+    UITextPosition *docStart = self.beginningOfDocument;
+    return [self positionFromPosition:docStart offset:index];
 }
 
 @end

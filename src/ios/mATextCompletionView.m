@@ -62,7 +62,7 @@
             maxWidth = strSize.width;
     }
     
-    return CGSizeMake(maxWidth+HMARGIN*2, self.completions.count*BUTTON_HEIGHT+VMARGIN*2);
+    return CGSizeMake(maxWidth+HMARGIN*2, self.completions.count*(BUTTON_HEIGHT+VMARGIN)+VMARGIN);
 }
 
 // Only override drawRect: if you perform custom drawing.
@@ -74,14 +74,14 @@
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
     // draw background
-    [[UIColor whiteColor] set];
+    [[UIColor colorWithWhite:0.92 alpha:0.92] set];
     CGContextAddRoundedRect(ctx, self.bounds, 8);
     CGContextFillPath(ctx);
     
-    [[UIColor lightGrayColor] set];
-    CGContextSetLineWidth(ctx, 0.5);
-    CGContextAddRoundedRect(ctx, self.bounds, 8);
-    CGContextStrokePath(ctx);
+//    [[UIColor lightGrayColor] set];
+//    CGContextSetLineWidth(ctx, 0.5);
+//    CGContextAddRoundedRect(ctx, self.bounds, 8);
+//    CGContextStrokePath(ctx);
     
     NSDictionary *textAttributes;
     NSDictionary *selectionTextAttributes;
@@ -109,7 +109,7 @@
         {
             CGRect selectRect = CGRectMake(HMARGIN/2, VMARGIN+(VMARGIN+BUTTON_HEIGHT)*i, self.bounds.size.width-HMARGIN, BUTTON_HEIGHT);
             [[UIColor colorWithRed:0.05 green:0.55 blue:0.97 alpha:1] set];
-            CGContextAddRoundedRect(ctx, rect, 4);
+            CGContextAddRoundedRect(ctx, selectRect, 4);
             CGContextFillPath(ctx);
             
             attributes = selectionTextAttributes;

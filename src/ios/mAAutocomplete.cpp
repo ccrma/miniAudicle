@@ -27,6 +27,16 @@ bool skip(const string &name)
     return false;
 }
 
+bool indexMembers(const string &name)
+{
+    if(name == "Std" ||
+       name == "Machine" ||
+       name == "Math" ||
+       name == "RegEx")
+        return true;
+    return false;
+}
+
 struct mAAutocompleteNode
 {
     mAAutocompleteNode()
@@ -94,7 +104,7 @@ void mAAutocomplete::test()
     
     for(int i = 0; testExamples[i] != NULL; i++)
     {
-        autocomplete->getCompletions(testExamples[i], completions);
+        autocomplete->getOpenCompletions(testExamples[i], completions);
         fprintf(stdout, "completions for %s: ", testExamples[i]);
         if(completions.size() == 0)
             fprintf(stdout, "(no completions)");
@@ -143,6 +153,52 @@ mAAutocomplete::mAAutocomplete()
                 nextNode->addCompletion(completion);
             node = nextNode;
         }
+        
+        if(indexMembers(name))
+        {
+            mAAutocompleteNode *memberTree = new mAAutocompleteNode;
+            m_memberIndex[name] = memberTree;
+            map<string, int> func_names;
+            
+            vector<Chuck_Func *> funcs;
+            type->info->get_funcs(funcs);
+
+            for(vector<Chuck_Func *>::iterator f = funcs.begin(); f != funcs.end(); f++)
+            {
+                Chuck_Func * func = *f;
+                
+                if(func == NULL) continue;
+                
+                if(func_names.count(func->name))
+                    continue;
+                func_names[func->name] = 1;
+                
+                if(func->def->static_decl == ae_key_static)
+                {
+                    string funcName = S_name(func->def->name);
+                    string *memberCompletion = new string(funcName);
+                    m_allWords.push_back(memberCompletion);
+                    
+                    memberTree->addCompletion(memberCompletion);
+                    mAAutocompleteNode *node = memberTree;
+                    
+                    for(int i = 0; i < funcName.length(); i++)
+                    {
+                        mAAutocompleteNode *nextNode = node->getNodeForChar(funcName[i]);
+                        if(nextNode == NULL)
+                        {
+                            nextNode = new mAAutocompleteNode;
+                            node->setNodeForChar(funcName[i], nextNode);
+                        }
+                        
+                        // dont match on last letter
+                        if(i != funcName.length()-1)
+                            nextNode->addCompletion(memberCompletion);
+                        node = nextNode;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -162,7 +218,7 @@ bool mAAutocomplete::isIdentifierChar(int c)
 }
 
 
-void mAAutocomplete::getCompletions(const string &word, vector<const string *> &completions)
+void mAAutocomplete::getOpenCompletions(const string &word, vector<const string *> &completions)
 {
     completions.clear();
     
@@ -172,5 +228,20 @@ void mAAutocomplete::getCompletions(const string &word, vector<const string *> &
     
     if(node != NULL && node->completions != NULL)
         completions = *node->completions;
+}
+
+void mAAutocomplete::getMemberCompletions(const std::string &pre, const std::string &post, std::vector<const std::string *> &completions)
+{
+    completions.clear();
+    
+    if(m_memberIndex.count(pre))
+    {
+        mAAutocompleteNode *node = m_memberIndex[pre];
+        for(int i = 0; i < post.length() && node != NULL; i++)
+            node = node->getNodeForChar(post[i]);
+        
+        if(node != NULL && node->completions != NULL)
+            completions = *node->completions;
+    }
 }
 
