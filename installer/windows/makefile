@@ -1,6 +1,6 @@
 
 MINI_SRC_ROOT=../..
-CHUCK_SRC_ROOT=../../../chuck/trunk
+CHUCK_SRC_ROOT=../../../chuck/
 CHUGINS_SRC_ROOT=../../../chugins
 CHUCK_EXAMPLES=../../src/chuck/src/examples
 
