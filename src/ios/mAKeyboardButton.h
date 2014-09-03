@@ -14,4 +14,7 @@
 @property (strong, nonatomic) NSArray *alternatives;
 @property (strong, nonatomic) NSArray *attributes;
 
+@property (strong, nonatomic) NSString *keyInsertText;
+@property (nonatomic) NSInteger cursorOffset;
+
 @end

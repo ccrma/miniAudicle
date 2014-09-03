@@ -699,9 +699,16 @@
 
 #pragma mark - mAKeyboardAccessoryDelegate
 
-- (void)keyPressed:(NSString *)chars
+- (void)keyPressed:(NSString *)chars selectionOffset:(NSInteger)offset
 {
     [self.textView insertText:chars];
+    
+    if(offset != 0)
+    {
+        NSRange selectionRange = self.textView.selectedRange;
+        selectionRange.location = ::min<int>(::max<int>(selectionRange.location+offset, 0), self.textView.text.length-selectionRange.length);
+        self.textView.selectedRange = selectionRange;
+    }
 }
 
 #pragma mark - UITextViewDelegate
