@@ -117,7 +117,7 @@ void mAAutocomplete::test()
     }
 }
 
-bool sortfun(Chuck_Type *t1, Chuck_Type *t2) { return t1->name < t2->name; }
+bool sortfun_type(Chuck_Type *t1, Chuck_Type *t2) { return t1->name < t2->name; }
 bool sortfun(Chuck_Func *f1, Chuck_Func *f2) { return f1->name < f2->name; }
 
 mAAutocomplete::mAAutocomplete()
@@ -125,7 +125,7 @@ mAAutocomplete::mAAutocomplete()
     Chuck_Env * env = Chuck_Env::instance();
     vector<Chuck_Type *> types;
     env->global()->get_types(types);
-    sort(types.begin(), types.end(), sortfun);
+    sort(types.begin(), types.end(), sortfun_type);
     
     m_tree = new mAAutocompleteNode;
     m_allWords.reserve(types.size());
