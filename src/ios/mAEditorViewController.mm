@@ -397,19 +397,24 @@
     _textCompletionView.textAttributes = [self defaultTextAttributes];
     [_textCompletionView sizeToFit];
     
-    CGRect textRect;
-    if(range.length > 0)
-        textRect = [self.textView firstRectForRange:[self.textView textRangeFromRange:range]];
+    // default value is usually not needed, but set here to simply logic
+    CGRect textRect = CGRectMake(0, _singleCharSize.height+1, _singleCharSize.width, _singleCharSize.height);
+    if(range.location+1 < [self.textView.textStorage length])
+        textRect = [self.textView firstRectForRange:[self.textView textRangeFromRange:NSMakeRange(range.location, 1)]];
     else
     {
-        if(range.location > 0)
+        if(range.location == [self.textView.textStorage length])
+        {
+            if(range.location > 1)
+            {
+                textRect = [self.textView firstRectForRange:[self.textView textRangeFromRange:NSMakeRange(range.location-2, 1)]];
+                textRect.origin.x += _singleCharSize.width*2;
+            }
+        }
+        else if(range.location > 0)
         {
             textRect = [self.textView firstRectForRange:[self.textView textRangeFromRange:NSMakeRange(range.location-1, 1)]];
             textRect.origin.x += _singleCharSize.width;
-        }
-        else
-        {
-            textRect = CGRectMake(0, _singleCharSize.height, _singleCharSize.width, _singleCharSize.height);
         }
     }
     CGRect frame = _textCompletionView.frame;
