@@ -241,6 +241,7 @@
 		099ABE54190CF45400C5D52D /* loop.png in Resources */ = {isa = PBXBuildFile; fileRef = 099ABE53190CF45400C5D52D /* loop.png */; };
 		099C04F518FB715C00AC27C3 /* mANetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 099C04F418FB715C00AC27C3 /* mANetworkManager.m */; };
 		099C04F818FBAF1400AC27C3 /* mANetworkAction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 099C04F718FBAF1400AC27C3 /* mANetworkAction.mm */; };
+		09A14A1219B9AD5E00D28255 /* UIColor+iOS7BlueColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A14A1119B9AD5E00D28255 /* UIColor+iOS7BlueColor.m */; };
 		09A40B680A9A54DA007604EA /* chuck_absyn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B060A9A54DA007604EA /* chuck_absyn.cpp */; };
 		09A40B690A9A54DA007604EA /* chuck_bbq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B080A9A54DA007604EA /* chuck_bbq.cpp */; };
 		09A40B6A0A9A54DA007604EA /* chuck_compile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B0A0A9A54DA007604EA /* chuck_compile.cpp */; };
@@ -634,6 +635,8 @@
 		099C04F418FB715C00AC27C3 /* mANetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mANetworkManager.m; sourceTree = "<group>"; };
 		099C04F618FBAF1400AC27C3 /* mANetworkAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mANetworkAction.h; sourceTree = "<group>"; };
 		099C04F718FBAF1400AC27C3 /* mANetworkAction.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mANetworkAction.mm; sourceTree = "<group>"; };
+		09A14A1019B9AD5E00D28255 /* UIColor+iOS7BlueColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+iOS7BlueColor.h"; sourceTree = "<group>"; };
+		09A14A1119B9AD5E00D28255 /* UIColor+iOS7BlueColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+iOS7BlueColor.m"; sourceTree = "<group>"; };
 		09A1E6160CBA1AEC001FAD6F /* makefile.source-dist */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = "makefile.source-dist"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
 		09A1E6170CBA1AEC001FAD6F /* makefile.win32 */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = makefile.win32; sourceTree = SOURCE_ROOT; };
 		09A40B060A9A54DA007604EA /* chuck_absyn.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_absyn.cpp; sourceTree = "<group>"; };
@@ -1146,6 +1149,8 @@
 				09094DC71991BC4A009F4C4C /* UIAlert.m */,
 				09094DCC19940E7B009F4C4C /* NSMutableArray+MapFilterReduce.h */,
 				09094DCD19940E7B009F4C4C /* NSMutableArray+MapFilterReduce.m */,
+				09A14A1019B9AD5E00D28255 /* UIColor+iOS7BlueColor.h */,
+				09A14A1119B9AD5E00D28255 /* UIColor+iOS7BlueColor.m */,
 			);
 			name = "miniAudicle iOS";
 			path = ios;
@@ -1852,6 +1857,7 @@
 				093E265F14A12234008694BC /* ulib_opsc.cpp in Sources */,
 				093E266014A12234008694BC /* ulib_std.cpp in Sources */,
 				09F09E4C18E374C10050D963 /* mACGContext.c in Sources */,
+				09A14A1219B9AD5E00D28255 /* UIColor+iOS7BlueColor.m in Sources */,
 				09B596C119B0517D0091D45F /* NSString+STLString.mm in Sources */,
 				093E266114A12234008694BC /* util_buffers.cpp in Sources */,
 				09F09E4518E36DBC0050D963 /* mAScriptPlayer.mm in Sources */,

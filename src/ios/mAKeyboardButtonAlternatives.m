@@ -9,6 +9,7 @@
 #import "mAKeyboardButtonAlternatives.h"
 
 #import "mACGContext.h"
+#import "UIColor+iOS7BlueColor.h"
 
 #define BUTTON_SIZE 48
 #define MARGIN 4
@@ -80,7 +81,7 @@
         
         if(_selection == i)
         {
-            [[UIColor colorWithRed:0.05 green:0.55 blue:0.97 alpha:1] set];
+            [[UIColor iOS7BlueColor] set];
             CGContextAddRoundedRect(ctx, rect, 4);
             CGContextFillPath(ctx);
             
