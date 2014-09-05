@@ -399,10 +399,12 @@
     
     // default value is usually not needed, but set here to simply logic
     CGRect textRect = CGRectMake(0, _singleCharSize.height+1, _singleCharSize.width, _singleCharSize.height);
+    // usually this case is sufficient
     if(range.location+1 < [self.textView.textStorage length])
         textRect = [self.textView firstRectForRange:[self.textView textRangeFromRange:NSMakeRange(range.location, 1)]];
     else
     {
+        // this occurs for member completions at the end of the file
         if(range.location == [self.textView.textStorage length])
         {
             if(range.location > 1)
@@ -410,12 +412,14 @@
                 textRect = [self.textView firstRectForRange:[self.textView textRangeFromRange:NSMakeRange(range.location-2, 1)]];
                 textRect.origin.x += _singleCharSize.width*2;
             }
+            // else use default
         }
         else if(range.location > 0)
         {
             textRect = [self.textView firstRectForRange:[self.textView textRangeFromRange:NSMakeRange(range.location-1, 1)]];
             textRect.origin.x += _singleCharSize.width;
         }
+        // else use default
     }
     CGRect frame = _textCompletionView.frame;
     frame.origin.x = textRect.origin.x-8;
