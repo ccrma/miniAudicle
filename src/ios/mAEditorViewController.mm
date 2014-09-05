@@ -605,13 +605,21 @@
         NSString *text = [textStorage string];
         
         __block int wordPos = 0;
-        __block int memberPos = 0;
+        __block int memberOfPos = 0;
         __block BOOL hasWord = NO;
         __block BOOL hasMember = NO;
         
         [text enumerateCharacters:^BOOL(int pos, unichar c) {
             if(autocomplete->isIdentifierChar(c))
+            {
+                if(pos == 0)
+                {
+                    hasWord = YES;
+                    wordPos = 0;
+                }
+                
                 return YES;
+            }
             
             // member completion
             if(c == '.')
@@ -621,12 +629,21 @@
                     // determine member word
                     [text enumerateCharacters:^BOOL(int pos2, unichar c2) {
                         if(autocomplete->isIdentifierChar(c2))
+                        {
+                            if(pos2 == 0)
+                            {
+                                wordPos = pos+1;
+                                memberOfPos = 0;
+                                hasMember = YES;
+                            }
+                            
                             return YES;
+                        }
                         
                         if(pos2 != pos)
                         {
                             wordPos = pos+1;
-                            memberPos = pos2+1;
+                            memberOfPos = pos2+1;
                             hasMember = YES;
                         }
                         
@@ -667,19 +684,19 @@
         else if(hasMember)
         {
             vector<const string *> completions;
-            NSString *pre = [text substringWithRange:NSMakeRange(memberPos, wordPos-memberPos-1)];
+            NSString *pre = [text substringWithRange:NSMakeRange(memberOfPos, wordPos-memberOfPos-1)];
             NSString *post = [text substringWithRange:NSMakeRange(wordPos, editedRange.location-wordPos+1)];
             autocomplete->getMemberCompletions([pre stlString], [post stlString], completions);
             
-            fprintf(stdout, "[%s.%s]: ", [pre UTF8String], [post UTF8String]);
+//            fprintf(stdout, "[%s.%s]: ", [pre UTF8String], [post UTF8String]);
             
             if(completions.size())
             {
-                for(int i = 0; i < completions.size(); i++)
-                    fprintf(stdout, "%s ", completions[i]->c_str());
+//                for(int i = 0; i < completions.size(); i++)
+//                    fprintf(stdout, "%s ", completions[i]->c_str());
                 
                 _completionRange = NSMakeRange(wordPos, editedRange.location-wordPos+1);
-                fprintf(stdout, "%d:%d", _completionRange.location, _completionRange.length);
+//                fprintf(stdout, "%d:%d", _completionRange.location, _completionRange.length);
                 
                 NSMutableArray *completions2 = [NSMutableArray new];
                 for(int i = 0; i < completions.size(); i++)
@@ -689,8 +706,8 @@
                 [self showCompletions:completions2 forTextRange:_completionRange];
             }
             
-            fprintf(stdout, "\n");
-            fflush(stdout);
+//            fprintf(stdout, "\n");
+//            fflush(stdout);
         }
     }
     if(!hasCompletions)
