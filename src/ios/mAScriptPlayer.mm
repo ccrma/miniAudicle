@@ -121,6 +121,7 @@ struct LoopShred
     
     _lastTime = CACurrentMediaTime();
     self.playerTabView.playerViewController = self.playerViewController;
+    self.playerTabView.scriptPlayer = self;
     
     _addButton.image = [UIImage imageNamed:@"add-noalpha.png"];
     _addButton.insets = UIEdgeInsetsMake(2, 0, -2, 0);
@@ -681,6 +682,20 @@ struct LoopShred
 - (UIView *)viewForEditorPopover
 {
     return self.view;
+}
+
+- (void)playerTabFinishedMoving
+{
+    if(!self.detailItem.remote && [[mANetworkManager instance] isConnected])
+    {
+        mANAEditScript *editScript = [mANAEditScript editScriptActionWithChangedPositionX:self.view.frame.origin.x
+                                                                                positionY:self.view.frame.origin.y];
+        editScript.code_id = self.codeID;
+        [[mANetworkManager instance] submitAction:editScript
+                                     errorHandler:^(NSError *error) {
+                                         NSLog(@"error submitting editScript action: %@", error);
+                                     }];
+    }
 }
 
 @end

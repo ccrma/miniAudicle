@@ -110,6 +110,7 @@
     {
         self.docid = UINT_MAX;
         self.remote = NO;
+        self.hasLocalEdits = NO;
     }
     
     return self;

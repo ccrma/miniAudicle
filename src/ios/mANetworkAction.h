@@ -40,6 +40,19 @@
 @property (copy, nonatomic) NSString *code_id;
 @property (copy, nonatomic) NSString *name;
 @property (copy, nonatomic) NSString *code;
+@property (nonatomic) NSInteger pos_x, pos_y;
+- (void)execute:(mAPlayerViewController *)player;
+@end
+
+@interface mANAEditScript : mANetworkAction
+@property (copy, nonatomic) NSString *code_id;
+@property (nonatomic) NSInteger edits;
+@property (copy, nonatomic) NSString *name;
+@property (copy, nonatomic) NSString *code;
+@property (nonatomic) NSInteger pos_x, pos_y;
++ (mANAEditScript *)editScriptActionWithChangedName:(NSString *)name;
++ (mANAEditScript *)editScriptActionWithChangedCode:(NSString *)code;
++ (mANAEditScript *)editScriptActionWithChangedPositionX:(NSInteger)x positionY:(NSInteger)y;
 - (void)execute:(mAPlayerViewController *)player;
 @end
 

@@ -101,7 +101,7 @@ static const CGFloat mANetworkRoomView_MemberNameHeight = 36;
         CGContextSetLineWidth(ctx, 1);
         CGContextStrokePath(ctx);
         
-        [[UIColor blackColor] set];
+        [[UIColor colorWithWhite:0.44 alpha:1.0] set];
         CGContextFillRect(ctx, memberNameBounds);
         
         CGRect textRect = memberNameBounds;

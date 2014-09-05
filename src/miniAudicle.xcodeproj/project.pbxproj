@@ -413,7 +413,7 @@
 		09F09E4618E36DBC0050D963 /* mAScriptPlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09F09E4418E36DBC0050D963 /* mAScriptPlayer.xib */; };
 		09F09E4918E3712D0050D963 /* mARoundedRectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F09E4818E3712D0050D963 /* mARoundedRectButton.m */; };
 		09F09E4C18E374C10050D963 /* mACGContext.c in Sources */ = {isa = PBXBuildFile; fileRef = 09F09E4A18E374C10050D963 /* mACGContext.c */; };
-		09F09E4F18E3753B0050D963 /* mAScriptPlayerTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F09E4E18E3753B0050D963 /* mAScriptPlayerTab.m */; };
+		09F09E4F18E3753B0050D963 /* mAScriptPlayerTab.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09F09E4E18E3753B0050D963 /* mAScriptPlayerTab.mm */; };
 		09F09E5318E419960050D963 /* add-noalpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F09E5018E419960050D963 /* add-noalpha.png */; };
 		09F09E5418E419960050D963 /* remove-noalpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F09E5118E419960050D963 /* remove-noalpha.png */; };
 		09F09E5518E419960050D963 /* replace-noalpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F09E5218E419960050D963 /* replace-noalpha.png */; };
@@ -855,7 +855,7 @@
 		09F09E4A18E374C10050D963 /* mACGContext.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mACGContext.c; sourceTree = "<group>"; };
 		09F09E4B18E374C10050D963 /* mACGContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mACGContext.h; sourceTree = "<group>"; };
 		09F09E4D18E3753B0050D963 /* mAScriptPlayerTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAScriptPlayerTab.h; sourceTree = "<group>"; };
-		09F09E4E18E3753B0050D963 /* mAScriptPlayerTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAScriptPlayerTab.m; sourceTree = "<group>"; };
+		09F09E4E18E3753B0050D963 /* mAScriptPlayerTab.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAScriptPlayerTab.mm; sourceTree = "<group>"; };
 		09F09E5018E419960050D963 /* add-noalpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-noalpha.png"; sourceTree = "<group>"; };
 		09F09E5118E419960050D963 /* remove-noalpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "remove-noalpha.png"; sourceTree = "<group>"; };
 		09F09E5218E419960050D963 /* replace-noalpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "replace-noalpha.png"; sourceTree = "<group>"; };
@@ -1091,7 +1091,7 @@
 				09AC4E1318E90B1600B2561A /* mAScriptPlayerView.h */,
 				09AC4E1418E90B1600B2561A /* mAScriptPlayerView.m */,
 				09F09E4D18E3753B0050D963 /* mAScriptPlayerTab.h */,
-				09F09E4E18E3753B0050D963 /* mAScriptPlayerTab.m */,
+				09F09E4E18E3753B0050D963 /* mAScriptPlayerTab.mm */,
 				099ABE50190CCA2C00C5D52D /* mAOTFButton.h */,
 				099ABE51190CCA2C00C5D52D /* mAOTFButton.m */,
 				09AC4E1618EA2C8500B2561A /* mAShredButton.h */,
@@ -1818,7 +1818,7 @@
 				093E264C14A12201008694BC /* chuck_shell.cpp in Sources */,
 				093E264D14A12201008694BC /* chuck_stats.cpp in Sources */,
 				093E264E14A12201008694BC /* chuck_symbol.cpp in Sources */,
-				09F09E4F18E3753B0050D963 /* mAScriptPlayerTab.m in Sources */,
+				09F09E4F18E3753B0050D963 /* mAScriptPlayerTab.mm in Sources */,
 				093E264F14A12201008694BC /* chuck_table.cpp in Sources */,
 				093E265014A12201008694BC /* chuck_type.cpp in Sources */,
 				093E265114A12201008694BC /* chuck_ugen.cpp in Sources */,

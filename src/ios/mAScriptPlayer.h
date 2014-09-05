@@ -55,5 +55,6 @@ class Chuck_VM_Status;
 - (void)updateWithStatus:(Chuck_VM_Status *)status;
 
 - (UIView *)viewForEditorPopover;
+- (void)playerTabFinishedMoving;
 
 @end

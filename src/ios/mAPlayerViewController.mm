@@ -120,11 +120,15 @@
         newScript.code_id = player.codeID;
         newScript.code = script.text;
         newScript.name = script.title;
+        newScript.pos_x = player.view.frame.origin.x;
+        newScript.pos_y = player.view.frame.origin.y;
         
         [self.networkManager submitAction:newScript
                              errorHandler:^(NSError *error) {
-                                 NSLog(@"error joining room: %@", error);
+                                 NSLog(@"error submitting newScript action: %@", error);
                              }];
+        
+        script.hasLocalEdits = NO;
     }
 }
 

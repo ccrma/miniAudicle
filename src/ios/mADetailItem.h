@@ -25,6 +25,7 @@
 @property (nonatomic) BOOL remote;
 @property (copy, nonatomic) NSString *remoteUUID;
 @property (copy, nonatomic) NSString *remoteUsername;
+@property (nonatomic) BOOL hasLocalEdits;
 
 + (mADetailItem *)detailItemFromPath:(NSString *)path isUser:(BOOL)isUser;
 + (mADetailItem *)folderDetailItemWithTitle:(NSString *)title

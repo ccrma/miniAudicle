@@ -9,6 +9,7 @@
 #import "mAScriptPlayerTab.h"
 #import "mAPlayerViewController.h"
 #import "mACGContext.h"
+#import "mAScriptPlayer.h"
 
 @interface mAScriptPlayerTab ()
 {
@@ -85,6 +86,7 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [self.scriptPlayer playerTabFinishedMoving];
 }
 
 @end

@@ -17,10 +17,18 @@
 static NSString * const mANAJoinRoomType = @"join";
 static NSString * const mANALeaveRoomType = @"leave";
 static NSString * const mANANewScriptType = @"new";
+static NSString * const mANAEditScriptType = @"edit";
 static NSString * const mANADeleteScriptType = @"delete";
 static NSString * const mANAAddShredType = @"add";
 static NSString * const mANAReplaceShredType = @"replace";
 static NSString * const mANARemoveShredType = @"remove";
+
+enum mANAEditScriptEditType
+{
+    mANAEditScript_Name = (1 << 0),
+    mANAEditScript_Code = (1 << 1),
+    mANAEditScript_Position = (1 << 2),
+};
 
 static NSDictionary *mANAClassTypes = nil;
 static NSDictionary *mANATypeClasses = nil; // inverse of above
@@ -35,6 +43,7 @@ static NSDictionary *mANATypeClasses = nil; // inverse of above
                            mANAJoinRoomType: [mANAJoinRoom class],
                            mANALeaveRoomType: [mANALeaveRoom class],
                            mANANewScriptType: [mANANewScript class],
+                           mANAEditScriptType: [mANAEditScript class],
                            mANADeleteScriptType: [mANADeleteScript class],
                            mANAAddShredType: [mANAAddShred class],
                            mANAReplaceShredType: [mANAReplaceShred class],
@@ -131,6 +140,71 @@ static NSDictionary *mANATypeClasses = nil; // inverse of above
 {
     mADetailItem *detailItem = [mADetailItem remoteDetailItemWithNewScriptAction:self];
     [player addScript:detailItem];
+    
+    mAScriptPlayer *scriptPlayer = [player scriptPlayerForRemoteUUID:self.code_id];
+    CGRect frame = scriptPlayer.view.frame;
+    frame.origin.x = self.pos_x; frame.origin.y = self.pos_y;
+    scriptPlayer.view.frame = frame;
+}
+
+@end
+
+@implementation mANAEditScript
+
++ (mANAEditScript *)editScriptActionWithChangedName:(NSString *)name
+{
+    mANAEditScript *action = [mANAEditScript new];
+    action.user_id = [[mANetworkManager instance] userId];
+    action.name = name;
+    action.edits = mANAEditScript_Name;
+    
+    return action;
+}
+
++ (mANAEditScript *)editScriptActionWithChangedCode:(NSString *)code
+{
+    mANAEditScript *action = [mANAEditScript new];
+    action.user_id = [[mANetworkManager instance] userId];
+    action.edits = mANAEditScript_Code;
+    action.code = code;
+    
+    return action;
+}
+
++ (mANAEditScript *)editScriptActionWithChangedPositionX:(NSInteger)x positionY:(NSInteger)y
+{
+    mANAEditScript *action = [mANAEditScript new];
+    action.user_id = [[mANetworkManager instance] userId];
+    action.edits = mANAEditScript_Position;
+    action.pos_x = x; action.pos_y = y;
+    
+    return action;
+}
+
+- (id)init
+{
+    if(self = [super init])
+    {
+        self.type = mANAEditScriptType;
+    }
+    
+    return self;
+}
+
+- (void)execute:(mAPlayerViewController *)player
+{
+    mAScriptPlayer *scriptPlayer = [player scriptPlayerForRemoteUUID:self.code_id];
+    
+    if(self.edits & mANAEditScript_Name)
+        scriptPlayer.detailItem.title = self.name;
+    if(self.edits & mANAEditScript_Code)
+        scriptPlayer.detailItem.text = self.code;
+    if(self.edits & mANAEditScript_Position)
+    {
+        CGRect frame = scriptPlayer.view.frame;
+        frame.origin.x = self.pos_x; frame.origin.y = self.pos_y;
+        scriptPlayer.view.frame = frame;
+    }
 }
 
 @end
