@@ -12,5 +12,6 @@
 
 - (NSRange)rangeOfLine:(NSInteger)lineNumber;
 - (NSInteger)indexOfPreviousNewline:(NSInteger)index;
+- (NSRange)rangeOfLeadingWhitespace:(NSInteger)index;
 
 @end

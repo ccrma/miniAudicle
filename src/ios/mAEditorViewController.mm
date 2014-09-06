@@ -476,7 +476,15 @@
     // backward search
     // skip first newline (newline immediately preceding this line)
     
+    __block signed int brace1Count = 0;
     int newline1Index = [text indexOfPreviousNewline:position];
+    [text enumerateCharacters:^BOOL(int pos, unichar c) {
+        if(c == '\n' || c == 'r') return NO;
+        else if(c == '{') brace1Count++;
+        else if(c == '}') brace1Count--;
+        
+        return YES;
+    } fromPosition:position-1 reverse:YES];
     
     if(newline1Index == -1 || newline1Index == 0) return 0;
     
@@ -518,7 +526,8 @@
             return 0;
     }
     
-    int addSpace = (braceCount>0 ? braceCount : 0) * 4;
+    int addSpace = (braceCount>0 ? braceCount : 0) *4;
+    int removeSpace = (brace1Count<0 ? brace1Count : 0) *4;
     
     if(newline2Index == -1) return addSpace;
     
@@ -531,7 +540,7 @@
         else if(c == '\t') previousLineSpace += 4;
     }
     
-    return ::max(0, previousLineSpace + addSpace);
+    return ::max(0, previousLineSpace + addSpace + removeSpace);
 }
 
 - (void)textStorage:(NSTextStorage *)textStorage
@@ -565,15 +574,17 @@
         {
             // remove spaces
             int nSpaces = [self indentationForTextPosition:index+1 bracketLevel:0 parenLevel:0];
-            nSpaces = ::max(0, nSpaces-4);
-            int newlineIndexPlus1 = [[textStorage string] indexOfPreviousNewline:index]+1;
-            
-            charDelta += nSpaces-(index-newlineIndexPlus1);
+            //nSpaces = ::max(0, nSpaces-4);
+//            int newlineIndexPlus1 = [[textStorage string] indexOfPreviousNewline:index]+1;
+//            
+            NSRange wsRange = [[textStorage string] rangeOfLeadingWhitespace:index];
+            charDelta += nSpaces-wsRange.length;
             NSString *spaces = [@"" stringByPaddingToLength:nSpaces
                                                  withString:@" "
                                             startingAtIndex:0];
-            [textStorage replaceCharactersInRange:NSMakeRange(newlineIndexPlus1, index-newlineIndexPlus1) withString:spaces];
-            editedRange.location += nSpaces-(index-newlineIndexPlus1);
+//            [textStorage replaceCharactersInRange:NSMakeRange(newlineIndexPlus1, index-newlineIndexPlus1) withString:spaces];
+            [textStorage replaceCharactersInRange:wsRange withString:spaces];
+            editedRange.location += nSpaces-wsRange.length;
         }
     }
     
