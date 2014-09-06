@@ -477,9 +477,13 @@
     // skip first newline (newline immediately preceding this line)
     
     __block signed int brace1Count = 0;
-    int newline1Index = [text indexOfPreviousNewline:position];
+    __block int newline1Index = -1; // [text indexOfPreviousNewline:position];
     [text enumerateCharacters:^BOOL(int pos, unichar c) {
-        if(c == '\n' || c == 'r') return NO;
+        if(c == '\n' || c == 'r')
+        {
+            newline1Index = pos;
+            return NO;
+        }
         else if(c == '{') brace1Count++;
         else if(c == '}') brace1Count--;
         
