@@ -477,7 +477,7 @@
     // skip first newline (newline immediately preceding this line)
     
     __block signed int brace1Count = 0;
-    __block int newline1Index = -1; // [text indexOfPreviousNewline:position];
+    __block int newline1Index = -1; // = [text indexOfPreviousNewline:position];
     [text enumerateCharacters:^BOOL(int pos, unichar c) {
         if(c == '\n' || c == 'r')
         {
@@ -552,6 +552,9 @@
               range:(NSRange)editedRange
      changeInLength:(NSInteger)delta
 {
+    if(_lockAutoFormat)
+        return;
+    
     // scan for newline or close brace
     // add/remove indentation as needed
     int charDelta = 0;
