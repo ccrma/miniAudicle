@@ -19,16 +19,6 @@ class Chuck_VM_Status;
 
 @interface mAScriptPlayer : UIViewController<mATapOutsideListener>
 {
-    IBOutlet UILabel *_titleLabel;
-    IBOutlet UILabel *_usernameLabel;
-    IBOutlet mAScriptPlayerTab *_playerTabView;
-    
-    IBOutlet mAOTFButton *_addButton;
-    IBOutlet mAOTFButton *_loopButton;
-    IBOutlet mAOTFButton *_loopNButton;
-    IBOutlet mAOTFButton *_sequenceButton;
-    IBOutlet mARoundedRectButton *_replaceButton;
-    IBOutlet mARoundedRectButton *_removeButton;
 }
 
 @property (strong, nonatomic) mADetailItem *detailItem;

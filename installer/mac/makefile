@@ -16,12 +16,14 @@ APP_PKGS=$(addsuffix .pkg,miniAudicle.app)
 BIN_PKGS=$(addsuffix .pkg,chuck)
 CHUGIN_PKGS=$(addsuffix .pkg,$(CHUGINS))
 PKGS=$(APP_PKGS) $(BIN_PKGS) $(CHUGIN_PKGS)
+EXAMPLES=
 
 INSTALLER=chuck-$(PKG_VERSION).pkg
 
 APP_DIR=/Applications
 BIN_DIR=/usr/bin
 CHUG_DIR=/usr/lib/chuck
+EXAMPLES_DIR=/Library/ChucK/
 
 IDENTIFIER_BASE=edu.stanford.chuck
 CERT=Developer ID Installer: Spencer Salazar (9GU9FHJ3JC)

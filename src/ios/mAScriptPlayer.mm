@@ -59,6 +59,18 @@ struct LoopShred
 
 @interface mAScriptPlayer ()
 {
+    IBOutlet UILabel *_titleLabel;
+    IBOutlet UILabel *_usernameLabel;
+    IBOutlet mAScriptPlayerTab *_playerTabView;
+    
+    IBOutlet mAOTFButton *_addButton;
+    NSArray *_addButtonGroup;
+    IBOutlet mAOTFButton *_loopButton;
+    IBOutlet mAOTFButton *_loopNButton;
+    IBOutlet mAOTFButton *_sequenceButton;
+    IBOutlet mARoundedRectButton *_replaceButton;
+    IBOutlet mARoundedRectButton *_removeButton;
+    
 //    map<t_CKUINT, mAShredButton *> _shredIdToButton;
 //    map<t_CKUINT, t_CKFLOAT> _shredTimeouts;
     map<t_CKUINT, Shred> _shreds; // shred id -> info
@@ -134,6 +146,9 @@ struct LoopShred
     _deleteButton.alpha = 0;
     
     _addButton.alternatives = @[_loopButton, _loopNButton, _sequenceButton];
+    _addButtonGroup = @[_addButton, _loopButton, _loopNButton, _sequenceButton];
+    _addButton.buttonGroup = _loopButton.buttonGroup = _loopNButton.buttonGroup = _sequenceButton.buttonGroup = _addButtonGroup;
+    _addButton.buttonGroupCenter = _loopButton.buttonGroupCenter = _loopNButton.buttonGroupCenter = _sequenceButton.buttonGroupCenter = _addButton.center;
     
     if(_detailItem.remote) [self makeRemote];
 }
@@ -165,7 +180,7 @@ struct LoopShred
     if(self.detailItem == self.playerViewController.editor.detailItem)
         [self.playerViewController.editor saveScript];
     
-    [_addButton collapse];
+//    [_addButton collapse];
     
     if(!self.detailItem.remote && [[mANetworkManager instance] isConnected])
     {
@@ -292,7 +307,7 @@ struct LoopShred
     if(self.detailItem == self.playerViewController.editor.detailItem)
         [self.playerViewController.editor saveScript];
     
-    [_addButton collapseToAlternative:_loopButton];
+//    [_addButton collapseToButtonGroupMember:_loopButton];
     
     [self loopWithCount:-1];
 }
@@ -330,7 +345,7 @@ struct LoopShred
 //        weakSelf.loopCountPickerPopover = nil;
 //        weakSelf.loopCountPicker = nil;
         
-        [weakAddButton collapseToAlternative:weakLoopNButton];
+        [weakAddButton collapseToButtonGroupMember:weakLoopNButton];
     };
     
     self.loopCountPicker.cancelled = ^(){
@@ -347,7 +362,7 @@ struct LoopShred
 {
     NSLog(@"sequence");
     
-    [_addButton collapseToAlternative:_sequenceButton];
+//    [_addButton collapseToButtonGroupMember:_sequenceButton];
 }
 
 
