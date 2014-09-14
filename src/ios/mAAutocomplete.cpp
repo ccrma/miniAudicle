@@ -152,8 +152,8 @@ mAAutocomplete::mAAutocomplete()
             }
             
             // match after 2nd letter
-            // but dont match on last letter
-            if(i > 1 && i != name.length()-1)
+            // match on last letter, but filter out later if exact (case-sensitive) match
+            if(i > 1)
                 nextNode->addCompletion(completion);
             node = nextNode;
         }
@@ -196,7 +196,7 @@ mAAutocomplete::mAAutocomplete()
                             node->setNodeForChar(funcName[i], nextNode);
                         }
                         
-                        // dont match on last letter
+                        // match on last letter, but filter out later if exact (case-sensitive) match
                         if(i != funcName.length()-1)
                             nextNode->addCompletion(memberCompletion);
                         node = nextNode;
@@ -233,6 +233,10 @@ void mAAutocomplete::getOpenCompletions(const string &word, vector<const string 
     
     if(node != NULL && node->completions != NULL)
         completions = *node->completions;
+    
+    // ignore singular completions that match exactly
+    if(completions.size() == 1 && *completions[0] == word)
+        completions.clear();
 }
 
 void mAAutocomplete::getMemberCompletions(const std::string &pre, const std::string &post, std::vector<const std::string *> &completions)
@@ -247,6 +251,10 @@ void mAAutocomplete::getMemberCompletions(const std::string &pre, const std::str
         
         if(node != NULL && node->completions != NULL)
             completions = *node->completions;
+        
+        // ignore singular completions that match exactly
+        if(completions.size() == 1 && *completions[0] == post)
+            completions.clear();
     }
 }
 
