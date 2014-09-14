@@ -458,16 +458,21 @@
 
 - (void)completeText:(id)sender
 {
-    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:_textCompletionView.selectedCompletion
-                                                                             attributes:[self defaultTextAttributes]];
-    [[mASyntaxHighlighting sharedHighlighter] colorString:text range:NSMakeRange(0, [text length]-1) colorer:nil];
-    [self.textView.textStorage replaceCharactersInRange:_completionRange withAttributedString:text];
+    NSString *selectedCompletion = _textCompletionView.selectedCompletion;
     
-    NSRange selectedRange = self.textView.selectedRange;
-    selectedRange.location += text.length-_completionRange.length;
-    self.textView.selectedRange = selectedRange;
-    
-    [self hideCompletions];
+    if(selectedCompletion)
+    {
+        NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:selectedCompletion
+                                                                                 attributes:[self defaultTextAttributes]];
+        [[mASyntaxHighlighting sharedHighlighter] colorString:text range:NSMakeRange(0, [text length]-1) colorer:nil];
+        [self.textView.textStorage replaceCharactersInRange:_completionRange withAttributedString:text];
+        
+        NSRange selectedRange = self.textView.selectedRange;
+        selectedRange.location += text.length-_completionRange.length;
+        self.textView.selectedRange = selectedRange;
+        
+        [self hideCompletions];
+    }
 }
 
 - (int)indentationForTextPosition:(int)position
