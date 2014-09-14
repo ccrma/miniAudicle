@@ -77,6 +77,7 @@ struct LoopShred
     map<t_CKUINT, LoopShred> _loopShreds; // shred ids -> loop count
     t_CKFLOAT _lastTime;
     list<t_CKUINT> _shredOrder;
+    mAScriptPlayer *_sequenceDestination;
     
     BOOL _isSequencing;
     
@@ -192,7 +193,7 @@ struct LoopShred
     if(self.detailItem == self.playerViewController.editor.detailItem)
         [self.playerViewController.editor saveScript];
     
-//    [_addButton collapse];
+    //    [_addButton collapse];
     
     if(!self.detailItem.remote && [[mANetworkManager instance] isConnected])
     {
@@ -221,67 +222,9 @@ struct LoopShred
     {
         //        if([self.windowController currentViewController] == self)
         //            [[text_view textView] animateAdd];
-//        self.textView.errorLine = -1;
-//        self.textView.errorMessage = nil;
-        [self addShredButton:shred_id];
-    }
-    else if( otf_result == OTF_VM_TIMEOUT )
-    {
-        //        miniAudicleController * mac = [NSDocumentController sharedDocumentController];
-        //        [mac setLockdown:YES];
-    }
-    else if( otf_result == OTF_COMPILE_ERROR )
-    {
-//        int error_line;
-//        std::string result;
-//        if( [mAChucKController chuckController].ma->get_last_result( self.detailItem.docid, NULL, &result, &error_line ) )
-//        {
-//            self.textView.errorLine = error_line;
-//            self.textView.errorMessage = [NSString stringWithUTF8String:result.c_str()];
-//        }
-        
-        //        if([self.windowController currentViewController] == self)
-        //            [[text_view textView] animateError];
-    }
-    else
-    {
-        //        if([self.windowController currentViewController] == self)
-        //            [[text_view textView] animateError];
-        //
-        //        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
-    }
-}
-
-
-- (void)loopWithCount:(int)count
-{
-    std::string code = [self.detailItem.text UTF8String];
-    std::string name = [self.detailItem.title UTF8String];
-    std::string filepath;
-    if(self.detailItem.path && [self.detailItem.path length])
-        filepath = [self.detailItem.path UTF8String];
-    vector<string> args;
-    t_CKUINT shred_id;
-    std::string output;
-    
-    t_OTF_RESULT otf_result = [mAChucKController chuckController].ma->run_code(code, name, args, filepath,
-                                                                               self.detailItem.docid,
-                                                                               shred_id, output);
-    
-    if( otf_result == OTF_SUCCESS )
-    {
-        //        if([self.windowController currentViewController] == self)
-        //            [[text_view textView] animateAdd];
         //        self.textView.errorLine = -1;
         //        self.textView.errorMessage = nil;
         [self addShredButton:shred_id];
-        
-        _loopShreds[shred_id] = LoopShred();
-        _loopShreds[shred_id].loopCount = count - 1;
-        _loopShreds[shred_id].code = code;
-        _loopShreds[shred_id].name = name;
-        _loopShreds[shred_id].filepath = filepath;
-        _loopShreds[shred_id].args = args;
     }
     else if( otf_result == OTF_VM_TIMEOUT )
     {
@@ -307,6 +250,84 @@ struct LoopShred
         //            [[text_view textView] animateError];
         //
         //        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
+    }
+}
+
+
+
+- (void)addShredFromSequenceSource:(id)sender
+{
+    if(self.detailItem == nil) return;
+    
+    // save script if necessary
+    if(self.detailItem == self.playerViewController.editor.detailItem)
+        [self.playerViewController.editor saveScript];
+    
+    //    [_addButton collapse];
+    
+    std::string code = [self.detailItem.text UTF8String];
+    std::string name = [self.detailItem.title UTF8String];
+    std::string filepath;
+    if(self.detailItem.path && [self.detailItem.path length])
+        filepath = [self.detailItem.path UTF8String];
+    vector<string> args;
+    t_CKUINT shred_id;
+    std::string output;
+    
+    t_OTF_RESULT otf_result = [mAChucKController chuckController].ma->run_code(code, name, args, filepath,
+                                                                               self.detailItem.docid,
+                                                                               shred_id, output);
+    
+    if( otf_result == OTF_SUCCESS )
+    {
+        [self addShredButton:shred_id];
+    }
+    else if( otf_result == OTF_VM_TIMEOUT )
+    {
+    }
+    else if( otf_result == OTF_COMPILE_ERROR )
+    {
+    }
+    else
+    {
+    }
+}
+
+
+- (void)loopWithCount:(int)count
+{
+    std::string code = [self.detailItem.text UTF8String];
+    std::string name = [self.detailItem.title UTF8String];
+    std::string filepath;
+    if(self.detailItem.path && [self.detailItem.path length])
+        filepath = [self.detailItem.path UTF8String];
+    vector<string> args;
+    t_CKUINT shred_id;
+    std::string output;
+    
+    t_OTF_RESULT otf_result = [mAChucKController chuckController].ma->run_code(code, name, args, filepath,
+                                                                               self.detailItem.docid,
+                                                                               shred_id, output);
+    
+    if( otf_result == OTF_SUCCESS )
+    {
+        [self addShredButton:shred_id];
+        
+        _loopShreds[shred_id] = LoopShred();
+        _loopShreds[shred_id].loopCount = count - 1;
+        _loopShreds[shred_id].code = code;
+        _loopShreds[shred_id].name = name;
+        _loopShreds[shred_id].filepath = filepath;
+        _loopShreds[shred_id].args = args;
+    }
+    else if( otf_result == OTF_VM_TIMEOUT )
+    {
+    }
+    else if( otf_result == OTF_COMPILE_ERROR )
+    {
+    }
+    else
+    {
     }
 }
 
@@ -427,6 +448,8 @@ struct LoopShred
 - (void)sequenceTo:(mAScriptPlayer *)dest
 {
     [self stopSequencing];
+    
+    _sequenceDestination = dest;
     
     NSLog(@"sequence %@ to %@", self.detailItem.title, dest.detailItem.title);
 }
@@ -591,6 +614,10 @@ struct LoopShred
                                                                          shred_id, output);
     }
     while(otf_result == OTF_SUCCESS);
+    
+    _shreds.clear();
+    _loopShreds.clear();
+    _sequenceDestination = nil;
 }
 
 - (void)updateWithStatus:(Chuck_VM_Status *)status
@@ -633,6 +660,12 @@ struct LoopShred
     for(list<t_CKUINT>::iterator rm = removeList.begin(); rm != removeList.end(); rm++)
     {
         t_CKUINT shred_id = *rm;
+        
+        if(_sequenceDestination)
+        {
+            [_sequenceDestination addShredFromSequenceSource:self];
+        }
+        
         if(_loopShreds.count(shred_id) && _loopShreds[shred_id].loopCount != 0)
         {
             /* continue looping */

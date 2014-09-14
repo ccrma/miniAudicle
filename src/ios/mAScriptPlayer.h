@@ -26,6 +26,7 @@ class Chuck_VM_Status;
 @property (weak, nonatomic) mAPlayerViewController *playerViewController;
 
 - (IBAction)addShred:(id)sender;
+- (void)addShredFromSequenceSource:(id)sender;
 - (IBAction)loopShred:(id)sender;
 - (IBAction)loopNShred:(id)sender;
 - (IBAction)sequenceShred:(id)sender;
