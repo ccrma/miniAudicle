@@ -35,7 +35,6 @@ static const t_CKFLOAT MAX_SHRED_TIMEOUT = 0.1;
 
 @end
 
-
 struct Shred
 {
     Shred() : button(nil), timeout(0), timeoutMax(MAX_SHRED_TIMEOUT) { }
@@ -45,7 +44,6 @@ struct Shred
     
     void reset() { timeout = 0; timeoutMax = MAX_SHRED_TIMEOUT; }
 };
-
 
 struct LoopShred
 {
@@ -68,8 +66,10 @@ struct LoopShred
     IBOutlet mAOTFButton *_loopButton;
     IBOutlet mAOTFButton *_loopNButton;
     IBOutlet mAOTFButton *_sequenceButton;
-    IBOutlet mARoundedRectButton *_replaceButton;
-    IBOutlet mARoundedRectButton *_removeButton;
+    IBOutlet mAOTFButton *_replaceButton;
+    IBOutlet mAOTFButton *_removeButton;
+    
+    IBOutlet UIGestureRecognizer *_showDeleteButtonGestureRecognizer;
     
 //    map<t_CKUINT, mAShredButton *> _shredIdToButton;
 //    map<t_CKUINT, t_CKFLOAT> _shredTimeouts;
@@ -77,6 +77,8 @@ struct LoopShred
     map<t_CKUINT, LoopShred> _loopShreds; // shred ids -> loop count
     t_CKFLOAT _lastTime;
     list<t_CKUINT> _shredOrder;
+    
+    BOOL _isSequencing;
     
     IBOutlet UIButton *_deleteButton;
 }
@@ -86,14 +88,19 @@ struct LoopShred
 
 @property (strong, nonatomic) mALoopCountPicker *loopCountPicker;
 @property (strong, nonatomic) UIPopoverController *loopCountPickerPopover;
+@property (weak, nonatomic) mAScriptPlayer *sequenceSource;
 
 
+- (void)stopSequencing;
 - (void)shredButton:(id)sender;
 - (void)addShredButton:(t_CKUINT)shredId;
 - (void)removeShredButton:(t_CKUINT)shredId;
 - (void)relayoutShredButtons;
 
 @end
+
+
+
 
 @implementation mAScriptPlayer
 
@@ -142,6 +149,11 @@ struct LoopShred
     _loopNButton.image = [UIImage imageNamed:@"loop.png"];
     _loopNButton.text = @"#";
     _sequenceButton.image = [UIImage imageNamed:@"sequence.png"];
+    
+    _replaceButton.image = [UIImage imageNamed:@"replace-noalpha.png"];
+    _replaceButton.insets = UIEdgeInsetsMake(2, 0, -2, 0);
+    _removeButton.image = [UIImage imageNamed:@"remove-noalpha.png"];
+    _removeButton.insets = UIEdgeInsetsMake(2, 0, -2, 0);
     
     _deleteButton.alpha = 0;
     
@@ -360,11 +372,64 @@ struct LoopShred
 
 - (IBAction)sequenceShred:(id)sender
 {
-    NSLog(@"sequence");
+//    NSLog(@"sequence");
+    self.view.window.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
     
+    [self.playerViewController.playerContainerView addTapListener:self
+                                               forTapOutsideViews:[self.playerViewController allPlayers]];
+    
+    [self.playerViewController enterSequenceMode:self];
+    _isSequencing = YES;
 //    [_addButton collapseToButtonGroupMember:_sequenceButton];
 }
 
+- (void)enterSequenceMode:(mAScriptPlayer *)source
+{
+    self.playerTabView.sequenceMode = YES;
+    _showDeleteButtonGestureRecognizer.enabled = NO;
+    
+    if(source != self)
+    {
+        self.sequenceSource = source;
+    }
+}
+
+- (void)exitSequenceMode
+{
+    self.playerTabView.sequenceMode = NO;
+    _showDeleteButtonGestureRecognizer.enabled = YES;
+
+    self.sequenceSource = nil;
+}
+
+- (void)stopSequencing
+{
+    if(_isSequencing)
+    {
+        self.view.window.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+        [self.playerViewController exitSequenceMode];
+        [self.playerViewController.playerContainerView removeTapListener:self];
+        _isSequencing = NO;
+    }
+}
+
+- (void)playerTabEvent:(UIControlEvents)event
+{
+    if(event == UIControlEventTouchUpInside)
+    {
+        if(self.sequenceSource)
+        {
+            [self.sequenceSource sequenceTo:self];
+        }
+    }
+}
+
+- (void)sequenceTo:(mAScriptPlayer *)dest
+{
+    [self stopSequencing];
+    
+    NSLog(@"sequence %@ to %@", self.detailItem.title, dest.detailItem.title);
+}
 
 - (IBAction)replaceShred:(id)sender
 {
@@ -508,6 +573,7 @@ struct LoopShred
 - (void)tapOutside
 {
     [self hideDeleteButton];
+    [self stopSequencing];
 }
 
 - (void)cleanupForDeletion

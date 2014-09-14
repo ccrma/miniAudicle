@@ -38,6 +38,11 @@ class Chuck_VM_Status;
 - (void)hideDeleteButton;
 - (void)tapOutside;
 
+- (void)enterSequenceMode:(mAScriptPlayer *)source;
+- (void)exitSequenceMode;
+- (void)playerTabEvent:(UIControlEvents)event;
+- (void)sequenceTo:(mAScriptPlayer *)dest;
+
 - (void)cleanupForDeletion;
 
 - (void)makeRemote;

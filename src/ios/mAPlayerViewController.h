@@ -36,6 +36,10 @@
 - (void)showEditorForScriptPlayer:(mAScriptPlayer *)player;
 - (void)playerTabMoved:(mAScriptPlayerTab *)playerTab;
 
+- (void)enterSequenceMode:(mAScriptPlayer *)source;
+- (void)exitSequenceMode;
+- (NSArray *)allPlayers;
+
 - (IBAction)connect:(id)sender;
 - (IBAction)disconnect:(id)sender;
 

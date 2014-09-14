@@ -13,7 +13,8 @@
 
 @interface mAScriptPlayerTab ()
 {
-    CGPoint _lastTouchPosition;
+    CGPoint _initialTouchPosition;
+    BOOL _highlightedForSequencing;
 }
 
 @end
@@ -25,6 +26,17 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        _highlightedForSequencing = NO;
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        // Initialization code
+        _highlightedForSequencing = NO;
     }
     return self;
 }
@@ -40,13 +52,11 @@
     CGContextSaveGState(ctx);
     
     CGContextAddRoundedRect(ctx, self.bounds, 10);
-    
     CGContextClip(ctx);
     
     [self.tintColor set];
     
     CGContextAddRoundedRect(ctx, self.bounds, 10);
-    
     CGContextFillPath(ctx);
     
     CGGradientRef glossGradient;
@@ -67,26 +77,101 @@
     CGGradientRelease(glossGradient);
     CGColorSpaceRelease(rgbColorspace);
     
+    if(self.tintAdjustmentMode == UIViewTintAdjustmentModeDimmed)
+    {
+        CGContextAddRoundedRect(ctx, self.bounds, 10);
+        [[self.superview.tintColor colorWithAlphaComponent:0.5] set];
+        CGContextFillPath(ctx);
+    }
+    
     CGContextRestoreGState(ctx);
+    
+    if(_highlightedForSequencing)
+    {
+        float offset = 0;
+        float widthFactor = 0.17;
+        
+        CGRect bounds1 = self.bounds, bounds2 = self.bounds;
+        bounds1.size.width *= widthFactor;
+        bounds2.origin.x += bounds2.size.width*(1-widthFactor);
+        bounds2.size.width *= widthFactor;
+        
+        CGContextAddRect(ctx, bounds1);
+        CGContextAddRect(ctx, bounds2);
+        CGContextClip(ctx);
+        
+        [[UIColor yellowColor] set];
+        CGContextAddRoundedRect(ctx, self.bounds, 10);
+        CGContextSetLineWidth(ctx, 4);
+        CGContextStrokePath(ctx);
+    }
+}
+
+- (void)tintColorDidChange
+{
+    [self setNeedsDisplay];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    _lastTouchPosition = [[touches anyObject] locationInView:self];
+    if(self.sequenceMode)
+    {
+        _highlightedForSequencing = YES;
+        [self setNeedsDisplay];
+    }
+    else
+    {
+    }
+
+    _initialTouchPosition = [[touches anyObject] locationInView:self];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    CGPoint touchPosition = [[touches anyObject] locationInView:self];
-    self.superview.center = CGPointMake(self.superview.center.x + (touchPosition.x - _lastTouchPosition.x),
-                                        self.superview.center.y + (touchPosition.y - _lastTouchPosition.y));
+    BOOL wasHighlightedForSequencing = _highlightedForSequencing;
+    _highlightedForSequencing = NO;
     
-    [self.playerViewController playerTabMoved:self];
+    if(self.sequenceMode)
+    {
+        CGPoint touchPosition = [[touches anyObject] locationInView:self];
+        if(CGRectContainsPoint(self.bounds, touchPosition))
+            _highlightedForSequencing = YES;
+        else
+            _highlightedForSequencing = NO;
+    }
+    else
+    {
+        CGPoint touchPosition = [[touches anyObject] locationInView:self];
+        self.superview.center = CGPointMake(self.superview.center.x + (touchPosition.x - _initialTouchPosition.x),
+                                            self.superview.center.y + (touchPosition.y - _initialTouchPosition.y));
+        
+        [self.playerViewController playerTabMoved:self];
+    }
+    
+    if(wasHighlightedForSequencing != _highlightedForSequencing)
+        [self setNeedsDisplay];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self.scriptPlayer playerTabFinishedMoving];
+    BOOL wasHighlightedForSequencing = _highlightedForSequencing;
+    _highlightedForSequencing = NO;
+    
+    if(self.sequenceMode)
+    {
+        CGPoint touchPosition = [[touches anyObject] locationInView:self];
+        if(CGRectContainsPoint(self.bounds, touchPosition))
+        {
+            [self.scriptPlayer playerTabEvent:UIControlEventTouchUpInside];
+        }
+    }
+    else
+    {
+        [self.scriptPlayer playerTabFinishedMoving];
+    }
+    
+    if(wasHighlightedForSequencing != _highlightedForSequencing)
+        [self setNeedsDisplay];
 }
 
 @end

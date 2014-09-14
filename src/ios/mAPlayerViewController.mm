@@ -195,6 +195,23 @@
     }
 }
 
+- (void)enterSequenceMode:(mAScriptPlayer *)source
+{
+    for(mAScriptPlayer *player in self.players)
+        [player enterSequenceMode:source];
+}
+
+- (void)exitSequenceMode
+{
+    for(mAScriptPlayer *player in self.players)
+        [player exitSequenceMode];
+}
+
+- (NSArray *)allPlayers
+{
+    return self.players;
+}
+
 - (mAScriptPlayer *)scriptPlayerForRemoteUUID:(NSString *)uuid
 {
     for(mAScriptPlayer *player in self.players)

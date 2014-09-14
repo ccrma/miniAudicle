@@ -39,14 +39,31 @@
     return self;
 }
 
-- (void)addTapListener:(UIView<mATapOutsideListener> *)tapListener
+- (void)addTapListener:(UIViewController<mATapOutsideListener> *)tapListener
 {
-    [self.tapListeners addObject:tapListener];
+    [self.tapListeners addObject:@{ @"listener": tapListener, @"views": @[tapListener] }];
 }
 
-- (void)removeTapListener:(UIView<mATapOutsideListener> *)tapListener
+- (void)addTapListener:(UIViewController<mATapOutsideListener> *)tapListener
+    forTapOutsideViews:(NSArray *)views
 {
-    [self.tapListeners removeObject:tapListener];
+    [self.tapListeners addObject:@{ @"listener": tapListener, @"views": views }];
+}
+
+- (void)removeTapListener:(UIViewController<mATapOutsideListener> *)tapListener
+{
+    NSDictionary *removeDict = nil;
+    for(NSDictionary *dict in self.tapListeners)
+    {
+        if([dict objectForKey:@"listener"] == tapListener)
+        {
+            removeDict = dict;
+            break;
+        }
+    }
+    
+    if(removeDict != nil)
+        [self.tapListeners removeObject:removeDict];
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
@@ -56,10 +73,28 @@
     if(hitView != nil)
     {
         [self.tappedOutside removeAllObjects];
-        for(UIViewController<mATapOutsideListener> *viewController in self.tapListeners)
+        
+        for(NSDictionary *dict in self.tapListeners)
         {
-            if(![hitView isDescendantOfView:viewController.view])
-                [self.tappedOutside addObject:viewController];
+            BOOL tapOutside = YES;
+            
+            for(id object in [dict objectForKey:@"views"])
+            {
+                UIView *view;
+                if([object isKindOfClass:[UIViewController class]])
+                    view = [object view];
+                else if([object isKindOfClass:[UIView class]])
+                    view = object;
+                
+                if([hitView isDescendantOfView:view])
+                {
+                    tapOutside = NO;
+                    break;
+                }
+            }
+            
+            if(tapOutside)
+                [self.tappedOutside addObject:[dict objectForKey:@"listener"]];
         }
         
         for(UIViewController<mATapOutsideListener> *viewController in self.tappedOutside)

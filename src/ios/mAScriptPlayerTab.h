@@ -15,5 +15,6 @@
 
 @property (weak, nonatomic) mAPlayerViewController *playerViewController;
 @property (weak, nonatomic) mAScriptPlayer *scriptPlayer;
+@property (nonatomic) BOOL sequenceMode;
 
 @end

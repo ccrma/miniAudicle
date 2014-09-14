@@ -320,6 +320,7 @@
 		09AC4E1A18EBC0C400B2561A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09AC4E1918EBC0C400B2561A /* QuartzCore.framework */; };
 		09AC4E1C18EC211600B2561A /* forward-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 09AC4E1B18EC211600B2561A /* forward-100.png */; };
 		09AC749A13E36A970015CC99 /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09AC749613E36A970015CC99 /* RtAudio.cpp */; };
+		09AEF9C719C475AC0081AE4B /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09AEF9C619C475AC0081AE4B /* CoreImage.framework */; };
 		09AF2D1F0BA63F5900B18EC6 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 09AF2D1E0BA63F5900B18EC6 /* lock.png */; };
 		09B19B48199D679B00B9ADA3 /* mAPlayerContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B19B47199D679B00B9ADA3 /* mAPlayerContainerView.m */; };
 		09B1E32117A7338800050DF3 /* ulib_regex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09B1E31F17A7338800050DF3 /* ulib_regex.cpp */; };
@@ -808,6 +809,7 @@
 		09AC749613E36A970015CC99 /* RtAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RtAudio.cpp; sourceTree = "<group>"; };
 		09AC749713E36A970015CC99 /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
 		09AC749813E36A970015CC99 /* RtError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtError.h; sourceTree = "<group>"; };
+		09AEF9C619C475AC0081AE4B /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreImage.framework; sourceTree = DEVELOPER_DIR; };
 		09AF2D1E0BA63F5900B18EC6 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lock.png; path = macosx/icon/lock.png; sourceTree = SOURCE_ROOT; };
 		09B19B46199D679B00B9ADA3 /* mAPlayerContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAPlayerContainerView.h; sourceTree = "<group>"; };
 		09B19B47199D679B00B9ADA3 /* mAPlayerContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAPlayerContainerView.m; sourceTree = "<group>"; };
@@ -884,6 +886,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09AEF9C719C475AC0081AE4B /* CoreImage.framework in Frameworks */,
 				09AC4E1A18EBC0C400B2561A /* QuartzCore.framework in Frameworks */,
 				093E267614A12A89008694BC /* AudioToolbox.framework in Frameworks */,
 				093E267414A12A69008694BC /* CoreAudio.framework in Frameworks */,
@@ -1572,6 +1575,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				09AEF9C619C475AC0081AE4B /* CoreImage.framework */,
 				09AC4E1918EBC0C400B2561A /* QuartzCore.framework */,
 				0916F980173AF0D20055956C /* PSMTabBarControl.framework */,
 				0913D8281654CBC000210436 /* QuartzCore.framework */,

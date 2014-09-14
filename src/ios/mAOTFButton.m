@@ -107,7 +107,18 @@
     CGGradientRelease(glossGradient);
     CGColorSpaceRelease(rgbColorspace);
     
-    [self.image drawInRect:UIEdgeInsetsInsetRect(self.bounds, self.insets)];
+    if(self.tintAdjustmentMode == UIViewTintAdjustmentModeDimmed)
+    {
+        [self.image drawInRect:UIEdgeInsetsInsetRect(self.bounds, self.insets)];
+        
+        CGContextAddRoundedRect(ctx, self.bounds, 8);
+        [[self.tintColor colorWithAlphaComponent:0.5] set];
+        CGContextFillPath(ctx);
+    }
+    else
+    {
+        [self.image drawInRect:UIEdgeInsetsInsetRect(self.bounds, self.insets)];
+    }
     
     if(_showHighlight)
     {
@@ -115,6 +126,11 @@
         CGContextAddRoundedRect(ctx, self.bounds, 8);
         CGContextFillPath(ctx);
     }
+}
+
+- (void)tintColorDidChange
+{
+    [self setNeedsDisplay];
 }
 
 
@@ -155,33 +171,6 @@
 }
 
 
-//- (void)collapseToAlternative:(id)alternative
-//{
-//    CGPoint target = self.center;
-//    
-//    for(mAOTFButton *button in self.alternatives)
-//    {
-//        if(button == alternative)
-//        {
-//            [self.superview bringSubviewToFront:button];
-//            [UIView animateWithDuration:1-(G_RATIO-1)
-//                             animations:^{
-//                                 button.center = target;
-//                             }];
-//        }
-//        else
-//        {
-//            [UIView animateWithDuration:1-(G_RATIO-1)
-//                             animations:^{
-//                                 button.center = target;
-//                             } completion:^(BOOL finished) {
-//                                 [button removeFromSuperview];
-//                             }];
-//        }
-//    }
-//}
-//
-//
 - (void)collapseToButtonGroupMember:(id)member
 {
     CGPoint target = self.buttonGroupCenter;
@@ -363,9 +352,11 @@
     
     BOOL wasPressed = NO;
     
-    if(self.isPopup && CGRectContainsPoint(self.bounds, [touch locationInView:self]))
+    if((self.isPopup || (self.buttonGroup && [self.buttonGroup indexOfObject:self] != 0)) &&
+       CGRectContainsPoint(self.bounds, [touch locationInView:self]))
     {
         // need to manually sendActions because of hacked touch tracking
+        // also need to manually sendActions for buttons if they animated out/expanded
         [self sendActionsForControlEvents:UIControlEventTouchUpInside];
         wasPressed = YES;
     }
@@ -399,8 +390,13 @@
 //        if(!wasPressed)
 //            [self collapse];
         
-        if(alternative != nil)
-            [self collapseToButtonGroupMember:alternative];
+        if(wasPressed)
+        {
+            if(alternative != nil)
+                [self collapseToButtonGroupMember:alternative];
+            else
+                [self collapseToButtonGroupMember:self];
+        }
         else
             [self collapse];
     }
