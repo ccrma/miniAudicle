@@ -25,13 +25,14 @@
 #import "mAConsoleMonitorController.h"
 #import "chuck_errmsg.h"
 
-#ifdef DEBUG
+#if defined(DEBUG) && TARGET_IPHONE_SIMULATOR
 #define DISABLE_CONSOLE_MONITOR
 #endif
 
 @interface mAConsoleMonitorController ()
 {
     NSMutableString *_text;
+    NSMutableString *_initialText;
 }
 
 @property (strong, nonatomic) UITextView * textView;
@@ -52,6 +53,7 @@
     {
         [self setupIO];
         _text = [NSMutableString new];
+        _initialText = [NSMutableString new];
     }
     
     return self;
@@ -64,6 +66,7 @@
     {
         [self setupIO];
         _text = [NSMutableString new];
+        _initialText = [NSMutableString new];
     }
     
     return self;
@@ -138,7 +141,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.textView.text = _text;
+    self.textView.text = _initialText;
     
     CGSize s = self.view.frame.size;
     s.width = 600;
@@ -166,9 +169,16 @@
         
     [[n object] waitForDataInBackgroundAndNotify];
     
-    [_text appendString:d];
-    self.textView.text = _text;
-    [self.textView scrollRangeToVisible:NSMakeRange(_text.length-1, 1)];
+    if(self.textView == nil)
+    {
+        [_initialText appendString:d];
+    }
+    else
+    {
+        NSTextStorage *textStorage = self.textView.textStorage;
+        [textStorage replaceCharactersInRange:NSMakeRange(textStorage.length, 0) withString:d];
+        [self.textView scrollRangeToVisible:NSMakeRange(textStorage.length-1, 1)];
+    }
     
     [self.delegate consoleMonitorReceivedNewData];
 }
