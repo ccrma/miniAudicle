@@ -104,9 +104,6 @@
             nil];
 }
 
-
-#pragma mark - Managing the detail item
-
 - (void)setDetailItem:(id)newDetailItem
 {
     if(_detailItem != newDetailItem)
@@ -380,12 +377,21 @@
     [self configureView];
     
     [self.masterViewController scriptDetailChanged];
+    
+    [self.textView becomeFirstResponder];
 }
 
 
 - (void)titleEditorDidCancel:(mATitleEditorController *)titleEditor
 {
     [self.popover dismissPopoverAnimated:YES];
+    
+    [self.textView becomeFirstResponder];
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    [self.textView becomeFirstResponder];
 }
 
 
@@ -562,6 +568,8 @@
               range:(NSRange)editedRange
      changeInLength:(NSInteger)delta
 {
+//    if(_lockAutoFormat || !(editedMask & NSTextStorageEditedCharacters))
+//        return;
     if(_lockAutoFormat)
         return;
     
@@ -582,7 +590,14 @@
                 NSString *spaces = [@"" stringByPaddingToLength:nSpaces
                                                      withString:@" "
                                                 startingAtIndex:0];
-                [textStorage replaceCharactersInRange:NSMakeRange(index+1, 0) withString:spaces];
+                // TODO: replace spaces after \n instead of blind insert
+                __block int endSpacePos = [textStorage length];
+                [[textStorage string] enumerateCharacters:^BOOL(int pos, unichar c) {
+                    if(c == ' ' || c == '\t') return YES;
+                    endSpacePos = pos;
+                    return NO;
+                } fromPosition:index+1 reverse:NO];
+                [textStorage replaceCharactersInRange:NSMakeRange(index+1, endSpacePos-(index+1)) withString:spaces];
                 i += nSpaces;
                 editedRange.length += nSpaces;
             }
@@ -615,6 +630,7 @@
             self.textView.selectedRange = NSMakeRange(selectedRange.location, selectedRange.length+charDelta);
     }
 }
+
 
 - (void)textStorage:(NSTextStorage *)textStorage
   didProcessEditing:(NSTextStorageEditActions)editedMask
