@@ -933,6 +933,8 @@ t_CKBOOL miniAudicle::start_vm()
         // import api
         init_maui( compiler->env );
 #endif
+        for(list<t_CKBOOL (*)(Chuck_Env *)>::iterator i = vm_options.query_funcs.begin(); i != vm_options.query_funcs.end(); i++)
+            (*i)( compiler->env );
 
         // reset the parser
         reset_parse();
@@ -1555,6 +1557,12 @@ t_CKBOOL miniAudicle::set_named_chugins( list< string > & chugins )
 t_CKBOOL miniAudicle::get_named_chugins( list< string > & chugins )
 {
     chugins = vm_options.named_chugins;
+    return TRUE;
+}
+
+t_CKBOOL miniAudicle::add_query_func(t_CKBOOL (*func)(Chuck_Env *))
+{
+    vm_options.query_funcs.push_back(func);
     return TRUE;
 }
 

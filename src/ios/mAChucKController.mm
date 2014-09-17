@@ -24,6 +24,7 @@
 
 #import "mAChucKController.h"
 #import "miniAudicle.h"
+#import "ulib_motion.h"
 
 
 static mAChucKController * g_chuckController = nil;
@@ -57,6 +58,8 @@ static mAChucKController * g_chuckController = nil;
         ma->set_sample_rate(44100);
         ma->set_buffer_size(256);
 #endif // TARGET_IPHONE_SIMULATOR
+        
+        ma->add_query_func(motion_query);
         
         ma->set_num_inputs(2);
         ma->set_num_outputs(2);

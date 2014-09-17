@@ -156,6 +156,8 @@
 		0942B6F71362466700C870F2 /* chugin-mini.png in Resources */ = {isa = PBXBuildFile; fileRef = 0942B6F51362466700C870F2 /* chugin-mini.png */; };
 		0942B6F81362466700C870F2 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0942B6F61362466700C870F2 /* folder.png */; };
 		0949BD5018F61E56005191AC /* mAPlayerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0949BD4F18F61E56005191AC /* mAPlayerScrollView.m */; };
+		094B5F6719C9DBE0004B9B5E /* ulib_motion.mm in Sources */ = {isa = PBXBuildFile; fileRef = 094B5F6519C9DBE0004B9B5E /* ulib_motion.mm */; };
+		094B5F6919C9E1E8004B9B5E /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094B5F6819C9E1E8004B9B5E /* CoreMotion.framework */; };
 		0956A0EC17C71C4D00B564F5 /* mADocumentExporter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0956A0EB17C71C4D00B564F5 /* mADocumentExporter.mm */; };
 		095A779A14C0336E003E53EC /* chugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = 095A779914C0336E003E53EC /* chugin.icns */; };
 		095B59720BC6D0F900E8759D /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 095B59710BC6D0F900E8759D /* error.png */; };
@@ -584,6 +586,9 @@
 		0942B6F61362466700C870F2 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = folder.png; path = macosx/icon/folder.png; sourceTree = "<group>"; };
 		0949BD4E18F61E56005191AC /* mAPlayerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAPlayerScrollView.h; sourceTree = "<group>"; };
 		0949BD4F18F61E56005191AC /* mAPlayerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAPlayerScrollView.m; sourceTree = "<group>"; };
+		094B5F6519C9DBE0004B9B5E /* ulib_motion.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ulib_motion.mm; sourceTree = "<group>"; };
+		094B5F6619C9DBE0004B9B5E /* ulib_motion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulib_motion.h; sourceTree = "<group>"; };
+		094B5F6819C9E1E8004B9B5E /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
 		0956A0EA17C71C4D00B564F5 /* mADocumentExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mADocumentExporter.h; path = macosx/mADocumentExporter.h; sourceTree = "<group>"; };
 		0956A0EB17C71C4D00B564F5 /* mADocumentExporter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mADocumentExporter.mm; path = macosx/mADocumentExporter.mm; sourceTree = "<group>"; };
 		095A779914C0336E003E53EC /* chugin.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = chugin.icns; path = macosx/icon/chugin.icns; sourceTree = "<group>"; };
@@ -886,6 +891,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				094B5F6919C9E1E8004B9B5E /* CoreMotion.framework in Frameworks */,
 				09AEF9C719C475AC0081AE4B /* CoreImage.framework in Frameworks */,
 				09AC4E1A18EBC0C400B2561A /* QuartzCore.framework in Frameworks */,
 				093E267614A12A89008694BC /* AudioToolbox.framework in Frameworks */,
@@ -1477,6 +1483,8 @@
 				09608ADC14B40DE4009450FE /* mAConsoleMonitorController.h */,
 				09608ADD14B40DE4009450FE /* mAConsoleMonitorController.mm */,
 				09608ADE14B40DE4009450FE /* mAConsoleMonitor.xib */,
+				094B5F6619C9DBE0004B9B5E /* ulib_motion.h */,
+				094B5F6519C9DBE0004B9B5E /* ulib_motion.mm */,
 			);
 			name = main;
 			sourceTree = "<group>";
@@ -1575,6 +1583,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				094B5F6819C9E1E8004B9B5E /* CoreMotion.framework */,
 				09AEF9C619C475AC0081AE4B /* CoreImage.framework */,
 				09AC4E1918EBC0C400B2561A /* QuartzCore.framework */,
 				0916F980173AF0D20055956C /* PSMTabBarControl.framework */,
@@ -1857,6 +1866,7 @@
 				0921D56A18190216008F39D9 /* server_thread.c in Sources */,
 				09F09E3B18E2C5E60050D963 /* mAEditorViewController.mm in Sources */,
 				09094DC81991BC4A009F4C4C /* UIAlert.m in Sources */,
+				094B5F6719C9DBE0004B9B5E /* ulib_motion.mm in Sources */,
 				09F09E5818E41F2C0050D963 /* mADetailItem.mm in Sources */,
 				093E264914A12201008694BC /* chuck_otf.cpp in Sources */,
 				093E264A14A12201008694BC /* chuck_parse.cpp in Sources */,

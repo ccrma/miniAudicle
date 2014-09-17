@@ -35,6 +35,7 @@ U.S.A.
 
 #include "chuck_compile.h"
 #include "util_thread.h"
+#include "chuck_type.h"
 #ifndef __CHIP_MODE__
 #include "RtAudio/RtAudio.h"
 #endif // __CHIP_MODE__
@@ -153,6 +154,7 @@ public:
     t_CKBOOL get_library_paths( list< string > & paths );
     t_CKBOOL set_named_chugins( list< string > & chugins );
     t_CKBOOL get_named_chugins( list< string > & chugins );
+    t_CKBOOL add_query_func(t_CKBOOL (*func)(Chuck_Env *));
     
 protected:
     map< t_CKUINT, vector< t_CKUINT > * > documents; // maps documents to shreds
@@ -206,6 +208,7 @@ protected:
         t_CKBOOL enable_block;
         list< string > library_paths;
         list< string > named_chugins;
+        list< t_CKBOOL (*)(Chuck_Env *) > query_funcs;
     } vm_options;
 };
 

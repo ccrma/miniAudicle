@@ -9,6 +9,9 @@
 #ifndef __miniAudicle__ulib_motion__
 #define __miniAudicle__ulib_motion__
 
-#include <iostream>
+#include "chuck_def.h"
+#include "chuck_type.h"
+
+t_CKBOOL motion_query( Chuck_Env *env );
 
 #endif /* defined(__miniAudicle__ulib_motion__) */
