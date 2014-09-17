@@ -223,6 +223,9 @@
     }
     else
     {
+        [self.consoleMonitorPopover dismissPopoverAnimated:NO];
+        [self.masterPopoverController dismissPopoverAnimated:NO];
+        
         self.vmMonitorPopover.delegate = self;
         
         [self.vmMonitorPopover presentPopoverFromBarButtonItem:sender
@@ -246,6 +249,9 @@
     }
     else
     {
+        [self.vmMonitorPopover dismissPopoverAnimated:NO];
+        [self.masterPopoverController dismissPopoverAnimated:NO];
+        
         self.consoleMonitorPopover.delegate = self;
         
         [self.consoleMonitorPopover presentPopoverFromBarButtonItem:sender
