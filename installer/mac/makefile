@@ -46,7 +46,7 @@ $(INSTALLER): $(PKGS) miniAudicle.app chuck $(CHUGINS) $(VERSION_MK) Distributio
 $(APP_PKGS): %.pkg: %
 	mkdir -p $<.tmp/$(APP_DIR)
 	cp -af $< $<.tmp/$(APP_DIR)
-	pkgbuild --root $<.tmp --identifier $(IDENTIFIER_BASE).$(basename $<) $@
+	pkgbuild --root $<.tmp --identifier $(IDENTIFIER_BASE).$(basename $<) --component-plist $@.plist $@
 	rm -rf $<.tmp
 
 $(BIN_PKGS): %.pkg: %
