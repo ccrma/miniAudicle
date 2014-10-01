@@ -69,7 +69,7 @@
 		09307E1A18DE76D0004AB346 /* mAKeyboardAccessoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09307E1818DE76D0004AB346 /* mAKeyboardAccessoryViewController.m */; };
 		09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09307E1918DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib */; };
 		09307E1F18DFB5E7004AB346 /* mASyntaxHighlighter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09307E1E18DFB5E7004AB346 /* mASyntaxHighlighter.mm */; };
-		09307E2118DFEE57004AB346 /* icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09307E2018DFEE57004AB346 /* icon.xcassets */; };
+		09307E2118DFEE57004AB346 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09307E2018DFEE57004AB346 /* Images.xcassets */; };
 		09307E2418DFF892004AB346 /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 095B59710BC6D0F900E8759D /* error.png */; };
 		09307E2718E0BEC2004AB346 /* NSString+NSString_Lines.m in Sources */ = {isa = PBXBuildFile; fileRef = 09307E2618E0BEC2004AB346 /* NSString+NSString_Lines.m */; };
 		09307E2A18E0CDA1004AB346 /* mATextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09307E2918E0CDA1004AB346 /* mATextView.mm */; };
@@ -543,7 +543,7 @@
 		09307E1918DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAKeyboardAccessoryViewController.xib; sourceTree = "<group>"; };
 		09307E1D18DFB5E7004AB346 /* mASyntaxHighlighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mASyntaxHighlighter.h; sourceTree = "<group>"; };
 		09307E1E18DFB5E7004AB346 /* mASyntaxHighlighter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mASyntaxHighlighter.mm; sourceTree = "<group>"; };
-		09307E2018DFEE57004AB346 /* icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = icon.xcassets; sourceTree = "<group>"; };
+		09307E2018DFEE57004AB346 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		09307E2518E0BEC2004AB346 /* NSString+NSString_Lines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NSString_Lines.h"; sourceTree = "<group>"; };
 		09307E2618E0BEC2004AB346 /* NSString+NSString_Lines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NSString_Lines.m"; sourceTree = "<group>"; };
 		09307E2818E0CDA1004AB346 /* mATextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mATextView.h; sourceTree = "<group>"; };
@@ -1018,7 +1018,7 @@
 				09F09E5118E419960050D963 /* remove-noalpha.png */,
 				09F09E5218E419960050D963 /* replace-noalpha.png */,
 				09087C6A14A4F67100AD2633 /* UIRemoveControlMinus.png */,
-				09307E2018DFEE57004AB346 /* icon.xcassets */,
+				09307E2018DFEE57004AB346 /* Images.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1726,7 +1726,7 @@
 				093E261E14A108C8008694BC /* InfoPlist.strings in Resources */,
 				093E262D14A108C8008694BC /* mAMasterViewController~iphone.xib in Resources */,
 				093E263014A108C8008694BC /* mAMasterViewController~ipad.xib in Resources */,
-				09307E2118DFEE57004AB346 /* icon.xcassets in Resources */,
+				09307E2118DFEE57004AB346 /* Images.xcassets in Resources */,
 				09EBA9B718D8FD4700DCAE0C /* examples in Resources */,
 				093E263314A108C9008694BC /* mADetailViewController~iphone.xib in Resources */,
 				093E263614A108C9008694BC /* mADetailViewController~ipad.xib in Resources */,
@@ -2296,6 +2296,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = ios/miniAudicle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2336,6 +2337,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = ios/miniAudicle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
