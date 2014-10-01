@@ -72,6 +72,10 @@
 
 
 @interface mADetailViewController ()
+{
+    IBOutlet UIBarButtonItem *_consoleMonitorButton;
+    IBOutlet UIBarButtonItem *_vmMonitorButton;
+}
 
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
 
@@ -236,7 +240,7 @@
 
 - (IBAction)showConsoleMonitor:(id)sender
 {
-    self.consoleMonitorButton.title = @"Console";
+    _consoleMonitorButton.title = @"Console";
 
     if(self.consoleMonitorPopover == nil)
     {
@@ -273,7 +277,18 @@
 
 - (void)consoleMonitorReceivedNewData
 {
-    self.consoleMonitorButton.title = @"Console*";
+    _consoleMonitorButton.title = @"Console*";
+}
+
+
+#pragma mark - mAVMMonitorDelegate
+
+- (void)vmMonitor:(mAVMMonitorController *)vmMonitor isShowingNumberOfShreds:(NSInteger)nShreds
+{
+    if(nShreds)
+        _vmMonitorButton.title = [NSString stringWithFormat:@"Shreds (%i)", nShreds];
+    else
+        _vmMonitorButton.title = [NSString stringWithFormat:@"Shreds"];
 }
 
 

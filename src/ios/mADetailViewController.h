@@ -27,6 +27,7 @@
 #import "mATitleEditorController.h"
 #import "mAKeyboardAccessoryViewController.h"
 #import "mAConsoleMonitorController.h"
+#import "mAVMMonitorController.h"
 #import "mASyntaxHighlighter.h"
 
 @class mADetailItem;
@@ -44,7 +45,8 @@
 @interface mADetailViewController : UIViewController 
 < UISplitViewControllerDelegate, 
   UIPopoverControllerDelegate,
-  mAConsoleMonitorDelegate >
+  mAConsoleMonitorDelegate,
+  mAVMMonitorDelegate >
 {
     IBOutlet UIView *_clientView;
     IBOutlet UIToolbar * _toolbar;
@@ -55,7 +57,6 @@
 
 @property (strong, nonatomic) UIViewController *clientViewController;
 @property (assign, nonatomic) mAMasterViewController * masterViewController;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *consoleMonitorButton;
 
 - (void)dismissMasterPopover;
 - (void)setClientViewController:(UIViewController *)viewController;

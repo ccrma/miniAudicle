@@ -33,6 +33,9 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
 
 
 @interface mAVMMonitorController ()
+{
+    NSInteger _nShreds;
+}
 
 @property (strong, nonatomic) UITableView * tableView;
 @property (strong, nonatomic) NSTimer * updateTimer;
@@ -63,6 +66,7 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
         docid = [mAChucKController chuckController].ma->allocate_document_id();
         status_buffers = new Chuck_VM_Status[2];
         most_recent_status = NULL;
+        _nShreds = 0;
 
         [self startUpdating];
     }
@@ -78,6 +82,7 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
         docid = [mAChucKController chuckController].ma->allocate_document_id();
         status_buffers = new Chuck_VM_Status[2];
         most_recent_status = NULL;
+        _nShreds = 0;
         
         [self startUpdating];
     }
@@ -167,21 +172,22 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
         if( compare_shred_vectors( status_buffers[0].list, status_buffers[1].list ) )
         {
             [self.tableView reloadData];
-            //        [shreds_text setStringValue:[NSString stringWithFormat:@"%u",
-            //                                     most_recent_status->list.size()]];
         }
         
         // otherwise, just update the shred time column
         //    else
         {
-            
-            //        [self.tableView reloadData];
-            //        [shred_table setNeedsDisplayInRect:[shred_table rectOfColumn:[shred_table columnWithIdentifier:time_column_id]]];
             for(mAVMMonitorCell * cell in [self.tableView visibleCells])
             {
                 [cell updateShredStatus:most_recent_status];
             }
         }
+    }
+    
+    if(most_recent_status->list.size() != _nShreds)
+    {
+        _nShreds = most_recent_status->list.size();
+        [self.delegate vmMonitor:self isShowingNumberOfShreds:_nShreds];
     }
     
 //    time_t current_time = ( time_t ) ( most_recent_status->now_system / most_recent_status->srate );

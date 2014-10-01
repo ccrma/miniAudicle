@@ -9,8 +9,10 @@
             <connections>
                 <outlet property="_clientView" destination="Yol-bS-c4k" id="UKE-KF-94l"/>
                 <outlet property="_consoleMonitor" destination="129" id="133"/>
+                <outlet property="_consoleMonitorButton" destination="130" id="znU-g9-zIN"/>
                 <outlet property="_toolbar" destination="105" id="110"/>
                 <outlet property="_vmMonitor" destination="126" id="127"/>
+                <outlet property="_vmMonitorButton" destination="112" id="wYG-cX-0Hu"/>
                 <outlet property="consoleMonitorButton" destination="130" id="R6e-7K-Crb"/>
                 <outlet property="view" destination="8" id="12"/>
             </connections>
@@ -61,6 +63,9 @@
             <nil key="simulatedBottomBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <nil key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="delegate" destination="-1" id="6A4-Q6-hPY"/>
+            </connections>
         </viewController>
         <viewController id="129" customClass="mAConsoleMonitorController">
             <extendedEdge key="edgesForExtendedLayout"/>
