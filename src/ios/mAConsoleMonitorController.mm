@@ -142,6 +142,7 @@
     // Do any additional setup after loading the view from its nib.
     
     self.textView.text = _initialText;
+    [self.textView scrollRangeToVisible:NSMakeRange(self.textView.textStorage.length, 0)];
     
     CGSize s = self.view.frame.size;
     s.width = 600;
