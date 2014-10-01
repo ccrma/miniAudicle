@@ -45,6 +45,8 @@
     BOOL _lockAutoFormat;
     CGSize _singleCharSize;
     mATextCompletionView *_textCompletionView;
+    
+    IBOutlet UILabel *_shredCountLabel;
 }
 
 @property (strong, nonatomic) mATextView * textView;
@@ -192,7 +194,7 @@
 {
     // Update the user interface for the detail item.
     
-    if (self.detailItem)
+    if(self.detailItem)
     {
         self.titleButton.title = self.detailItem.title;
         NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:self.detailItem.text
@@ -202,6 +204,11 @@
         _lockAutoFormat = YES;
         self.textView.attributedText = text;
         _lockAutoFormat = NO;
+        
+        if(self.detailItem.numShreds > 0)
+            _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
+        else
+            _shredCountLabel.text = @"";
     }
 }
 
@@ -239,6 +246,12 @@
         self.textView.errorLine = -1;
         self.textView.errorMessage = nil;
         [self.textView animateAdd];
+        
+        self.detailItem.numShreds = self.detailItem.numShreds+1;
+        if(self.detailItem.numShreds > 0)
+            _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
+        else
+            _shredCountLabel.text = @"";
     }
     else if( otf_result == OTF_VM_TIMEOUT )
     {
@@ -337,6 +350,12 @@
     if(result == OTF_SUCCESS)
     {
         [self.textView animateRemove];
+        
+        self.detailItem.numShreds = self.detailItem.numShreds-1;
+        if(self.detailItem.numShreds > 0)
+            _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
+        else
+            _shredCountLabel.text = @"";
     }
     else if(result == OTF_VM_TIMEOUT)
     {
