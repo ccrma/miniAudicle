@@ -1,7 +1,7 @@
 
 MINI_SRC_ROOT=../..
-CHUCK_SRC_ROOT=../../../chuck
-CHUGINS_SRC_ROOT=../../../chugins
+CHUCK_SRC_ROOT=$(MINI_SRC_ROOT)/chuck
+CHUGINS_SRC_ROOT=$(MINI_SRC_ROOT)/chugins
 
 VERSION_MK=$(MINI_SRC_ROOT)/src/version.mk
 

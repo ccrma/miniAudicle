@@ -1,3 +1,3 @@
 
-PKG_VERSION?=1.3.5.0-beta-5
-VERSION?=1.3.2-beta-5
+PKG_VERSION?=1.3.5.0-beta-6
+VERSION?=1.3.2-beta-6
