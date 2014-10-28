@@ -16,6 +16,10 @@
 #import "mAOTFButton.h"
 #import "mAEditorViewController.h"
 #import "mALoopCountPicker.h"
+#import "mARoundedRectButton.h"
+#import "mANetworkManager.h"
+#import "mANetworkAction.h"
+#import "mAPlayerContainerView.h"
 
 #import <map>
 #import <list>
@@ -31,7 +35,6 @@ static const t_CKFLOAT MAX_SHRED_TIMEOUT = 0.1;
 
 @end
 
-
 struct Shred
 {
     Shred() : button(nil), timeout(0), timeoutMax(MAX_SHRED_TIMEOUT) { }
@@ -41,7 +44,6 @@ struct Shred
     
     void reset() { timeout = 0; timeoutMax = MAX_SHRED_TIMEOUT; }
 };
-
 
 struct LoopShred
 {
@@ -55,12 +57,31 @@ struct LoopShred
 
 @interface mAScriptPlayer ()
 {
+    IBOutlet UILabel *_titleLabel;
+    IBOutlet UILabel *_usernameLabel;
+    IBOutlet mAScriptPlayerTab *_playerTabView;
+    
+    IBOutlet mAOTFButton *_addButton;
+    NSArray *_addButtonGroup;
+    IBOutlet mAOTFButton *_loopButton;
+    IBOutlet mAOTFButton *_loopNButton;
+    IBOutlet mAOTFButton *_sequenceButton;
+    IBOutlet mAOTFButton *_replaceButton;
+    IBOutlet mAOTFButton *_removeButton;
+    
+    IBOutlet UIGestureRecognizer *_showDeleteButtonGestureRecognizer;
+    
 //    map<t_CKUINT, mAShredButton *> _shredIdToButton;
 //    map<t_CKUINT, t_CKFLOAT> _shredTimeouts;
     map<t_CKUINT, Shred> _shreds; // shred id -> info
     map<t_CKUINT, LoopShred> _loopShreds; // shred ids -> loop count
     t_CKFLOAT _lastTime;
     list<t_CKUINT> _shredOrder;
+    mAScriptPlayer *_sequenceDestination;
+    
+    BOOL _isSequencing;
+    
+    IBOutlet UIButton *_deleteButton;
 }
 
 @property (strong, nonatomic) UILabel *titleLabel;
@@ -68,14 +89,19 @@ struct LoopShred
 
 @property (strong, nonatomic) mALoopCountPicker *loopCountPicker;
 @property (strong, nonatomic) UIPopoverController *loopCountPickerPopover;
+@property (weak, nonatomic) mAScriptPlayer *sequenceSource;
 
 
+- (void)stopSequencing;
 - (void)shredButton:(id)sender;
 - (void)addShredButton:(t_CKUINT)shredId;
 - (void)removeShredButton:(t_CKUINT)shredId;
 - (void)relayoutShredButtons;
 
 @end
+
+
+
 
 @implementation mAScriptPlayer
 
@@ -89,6 +115,11 @@ struct LoopShred
 {
     _detailItem = detailItem;
     self.titleLabel.text = detailItem.title;
+    if(self.detailItem.remote)
+        _usernameLabel.text = self.detailItem.remoteUsername;
+    else
+        _usernameLabel.text = @"";
+    if(_detailItem.remote) [self makeRemote];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -104,9 +135,13 @@ struct LoopShred
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.titleLabel.text = self.detailItem.title;
+    
+    // reset detail item to ensure setting of various widgets
+    self.detailItem = self.detailItem;
+    
     _lastTime = CACurrentMediaTime();
     self.playerTabView.playerViewController = self.playerViewController;
+    self.playerTabView.scriptPlayer = self;
     
     _addButton.image = [UIImage imageNamed:@"add-noalpha.png"];
     _addButton.insets = UIEdgeInsetsMake(2, 0, -2, 0);
@@ -116,13 +151,35 @@ struct LoopShred
     _loopNButton.text = @"#";
     _sequenceButton.image = [UIImage imageNamed:@"sequence.png"];
     
+    _replaceButton.image = [UIImage imageNamed:@"replace-noalpha.png"];
+    _replaceButton.insets = UIEdgeInsetsMake(2, 0, -2, 0);
+    _removeButton.image = [UIImage imageNamed:@"remove-noalpha.png"];
+    _removeButton.insets = UIEdgeInsetsMake(2, 0, -2, 0);
+    
+    _deleteButton.alpha = 0;
+    
     _addButton.alternatives = @[_loopButton, _loopNButton, _sequenceButton];
+    _addButtonGroup = @[_addButton, _loopButton, _loopNButton, _sequenceButton];
+    _addButton.buttonGroup = _loopButton.buttonGroup = _loopNButton.buttonGroup = _sequenceButton.buttonGroup = _addButtonGroup;
+    _addButton.buttonGroupCenter = _loopButton.buttonGroupCenter = _loopNButton.buttonGroupCenter = _sequenceButton.buttonGroupCenter = _addButton.center;
+    
+    if(_detailItem.remote) [self makeRemote];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void)makeRemote
+{
+//    self.playerTabView.tintColor = [UIColor colorWithRed:0 green:0.45 blue:0.9 alpha:1.0];
+    self.playerTabView.tintColor = [UIColor colorWithWhite:0.6 alpha:1.0];
+    [_addButton removeFromSuperview];
+    [_replaceButton removeFromSuperview];
+    [_removeButton removeFromSuperview];
 }
 
 
@@ -136,59 +193,18 @@ struct LoopShred
     if(self.detailItem == self.playerViewController.editor.detailItem)
         [self.playerViewController.editor saveScript];
     
-    [_addButton collapse];
+    //    [_addButton collapse];
     
-    std::string code = [self.detailItem.text UTF8String];
-    std::string name = [self.detailItem.title UTF8String];
-    std::string filepath;
-    if(self.detailItem.path && [self.detailItem.path length])
-        filepath = [self.detailItem.path UTF8String];
-    vector<string> args;
-    t_CKUINT shred_id;
-    std::string output;
+    if(!self.detailItem.remote && [[mANetworkManager instance] isConnected])
+    {
+        mANAAddShred *addShred = [mANAAddShred new];
+        addShred.code_id = self.codeID;
+        [[mANetworkManager instance] submitAction:addShred
+                                     errorHandler:^(NSError *error) {
+                                         NSLog(@"error submitting addShred action: %@", error);
+                                     }];
+    }
     
-    t_OTF_RESULT otf_result = [mAChucKController chuckController].ma->run_code(code, name, args, filepath,
-                                                                               self.detailItem.docid,
-                                                                               shred_id, output);
-    
-    if( otf_result == OTF_SUCCESS )
-    {
-        //        if([self.windowController currentViewController] == self)
-        //            [[text_view textView] animateAdd];
-//        self.textView.errorLine = -1;
-//        self.textView.errorMessage = nil;
-        [self addShredButton:shred_id];
-    }
-    else if( otf_result == OTF_VM_TIMEOUT )
-    {
-        //        miniAudicleController * mac = [NSDocumentController sharedDocumentController];
-        //        [mac setLockdown:YES];
-    }
-    else if( otf_result == OTF_COMPILE_ERROR )
-    {
-//        int error_line;
-//        std::string result;
-//        if( [mAChucKController chuckController].ma->get_last_result( self.detailItem.docid, NULL, &result, &error_line ) )
-//        {
-//            self.textView.errorLine = error_line;
-//            self.textView.errorMessage = [NSString stringWithUTF8String:result.c_str()];
-//        }
-        
-        //        if([self.windowController currentViewController] == self)
-        //            [[text_view textView] animateError];
-    }
-    else
-    {
-        //        if([self.windowController currentViewController] == self)
-        //            [[text_view textView] animateError];
-        //
-        //        [status_text setStringValue:[NSString stringWithUTF8String:result.c_str()]];
-    }
-}
-
-
-- (void)loopWithCount:(int)count
-{
     std::string code = [self.detailItem.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
     std::string filepath;
@@ -209,13 +225,6 @@ struct LoopShred
         //        self.textView.errorLine = -1;
         //        self.textView.errorMessage = nil;
         [self addShredButton:shred_id];
-        
-        _loopShreds[shred_id] = LoopShred();
-        _loopShreds[shred_id].loopCount = count - 1;
-        _loopShreds[shred_id].code = code;
-        _loopShreds[shred_id].name = name;
-        _loopShreds[shred_id].filepath = filepath;
-        _loopShreds[shred_id].args = args;
     }
     else if( otf_result == OTF_VM_TIMEOUT )
     {
@@ -245,6 +254,84 @@ struct LoopShred
 }
 
 
+
+- (void)addShredFromSequenceSource:(id)sender
+{
+    if(self.detailItem == nil) return;
+    
+    // save script if necessary
+    if(self.detailItem == self.playerViewController.editor.detailItem)
+        [self.playerViewController.editor saveScript];
+    
+    //    [_addButton collapse];
+    
+    std::string code = [self.detailItem.text UTF8String];
+    std::string name = [self.detailItem.title UTF8String];
+    std::string filepath;
+    if(self.detailItem.path && [self.detailItem.path length])
+        filepath = [self.detailItem.path UTF8String];
+    vector<string> args;
+    t_CKUINT shred_id;
+    std::string output;
+    
+    t_OTF_RESULT otf_result = [mAChucKController chuckController].ma->run_code(code, name, args, filepath,
+                                                                               self.detailItem.docid,
+                                                                               shred_id, output);
+    
+    if( otf_result == OTF_SUCCESS )
+    {
+        [self addShredButton:shred_id];
+    }
+    else if( otf_result == OTF_VM_TIMEOUT )
+    {
+    }
+    else if( otf_result == OTF_COMPILE_ERROR )
+    {
+    }
+    else
+    {
+    }
+}
+
+
+- (void)loopWithCount:(int)count
+{
+    std::string code = [self.detailItem.text UTF8String];
+    std::string name = [self.detailItem.title UTF8String];
+    std::string filepath;
+    if(self.detailItem.path && [self.detailItem.path length])
+        filepath = [self.detailItem.path UTF8String];
+    vector<string> args;
+    t_CKUINT shred_id;
+    std::string output;
+    
+    t_OTF_RESULT otf_result = [mAChucKController chuckController].ma->run_code(code, name, args, filepath,
+                                                                               self.detailItem.docid,
+                                                                               shred_id, output);
+    
+    if( otf_result == OTF_SUCCESS )
+    {
+        [self addShredButton:shred_id];
+        
+        _loopShreds[shred_id] = LoopShred();
+        _loopShreds[shred_id].loopCount = count - 1;
+        _loopShreds[shred_id].code = code;
+        _loopShreds[shred_id].name = name;
+        _loopShreds[shred_id].filepath = filepath;
+        _loopShreds[shred_id].args = args;
+    }
+    else if( otf_result == OTF_VM_TIMEOUT )
+    {
+    }
+    else if( otf_result == OTF_COMPILE_ERROR )
+    {
+    }
+    else
+    {
+    }
+}
+
+
 - (IBAction)loopShred:(id)sender
 {
     if(self.detailItem == nil) return;
@@ -253,7 +340,7 @@ struct LoopShred
     if(self.detailItem == self.playerViewController.editor.detailItem)
         [self.playerViewController.editor saveScript];
     
-    [_addButton collapseToAlternative:_loopButton];
+//    [_addButton collapseToButtonGroupMember:_loopButton];
     
     [self loopWithCount:-1];
 }
@@ -291,7 +378,7 @@ struct LoopShred
 //        weakSelf.loopCountPickerPopover = nil;
 //        weakSelf.loopCountPicker = nil;
         
-        [weakAddButton collapseToAlternative:weakLoopNButton];
+        [weakAddButton collapseToButtonGroupMember:weakLoopNButton];
     };
     
     self.loopCountPicker.cancelled = ^(){
@@ -306,11 +393,66 @@ struct LoopShred
 
 - (IBAction)sequenceShred:(id)sender
 {
-    NSLog(@"sequence");
+//    NSLog(@"sequence");
+    self.view.window.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
     
-    [_addButton collapseToAlternative:_sequenceButton];
+    [self.playerViewController.playerContainerView addTapListener:self
+                                               forTapOutsideViews:[self.playerViewController allPlayers]];
+    
+    [self.playerViewController enterSequenceMode:self];
+    _isSequencing = YES;
+//    [_addButton collapseToButtonGroupMember:_sequenceButton];
 }
 
+- (void)enterSequenceMode:(mAScriptPlayer *)source
+{
+    self.playerTabView.sequenceMode = YES;
+    _showDeleteButtonGestureRecognizer.enabled = NO;
+    
+    if(source != self)
+    {
+        self.sequenceSource = source;
+    }
+}
+
+- (void)exitSequenceMode
+{
+    self.playerTabView.sequenceMode = NO;
+    _showDeleteButtonGestureRecognizer.enabled = YES;
+
+    self.sequenceSource = nil;
+}
+
+- (void)stopSequencing
+{
+    if(_isSequencing)
+    {
+        self.view.window.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+        [self.playerViewController exitSequenceMode];
+        [self.playerViewController.playerContainerView removeTapListener:self];
+        _isSequencing = NO;
+    }
+}
+
+- (void)playerTabEvent:(UIControlEvents)event
+{
+    if(event == UIControlEventTouchUpInside)
+    {
+        if(self.sequenceSource)
+        {
+            [self.sequenceSource sequenceTo:self];
+        }
+    }
+}
+
+- (void)sequenceTo:(mAScriptPlayer *)dest
+{
+    [self stopSequencing];
+    
+    _sequenceDestination = dest;
+    
+    NSLog(@"sequence %@ to %@", self.detailItem.title, dest.detailItem.title);
+}
 
 - (IBAction)replaceShred:(id)sender
 {
@@ -319,6 +461,17 @@ struct LoopShred
     // save script if necessary
     if(self.detailItem == self.playerViewController.editor.detailItem)
        [self.playerViewController.editor saveScript];
+    
+    if(!self.detailItem.remote && [[mANetworkManager instance] isConnected])
+    {
+        mANAReplaceShred *replaceShred = [mANAReplaceShred new];
+        replaceShred.code_id = self.codeID;
+        [[mANetworkManager instance] submitAction:replaceShred
+                                     errorHandler:^(NSError *error) {
+                                         NSLog(@"error submitting replaceShred action: %@", error);
+                                     }];
+    }
+
     
     std::string code = [self.detailItem.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
@@ -387,6 +540,16 @@ struct LoopShred
 {
     if(self.detailItem == nil) return;
     
+    if(!self.detailItem.remote && [[mANetworkManager instance] isConnected])
+    {
+        mANARemoveShred *removeShred = [mANARemoveShred new];
+        removeShred.code_id = self.codeID;
+        [[mANetworkManager instance] submitAction:removeShred
+                                     errorHandler:^(NSError *error) {
+                                         NSLog(@"error submitting removeShred action: %@", error);
+                                     }];
+    }
+    
     t_CKUINT shred_id;
     std::string output;
     
@@ -406,6 +569,56 @@ struct LoopShred
     [self.playerViewController showEditorForScriptPlayer:self];
 }
 
+- (IBAction)deletePlayer:(id)sender;
+{
+    [self hideDeleteButton];
+    [self.playerViewController deleteScriptPlayer:self];
+}
+
+- (IBAction)showDeleteButton:(id)sender
+{
+    [self.playerViewController.playerContainerView addTapListener:self];
+
+    [UIView animateWithDuration:G_RATIO-1 animations:^{
+        _deleteButton.alpha = 1;
+    }];
+}
+
+- (void)hideDeleteButton
+{
+    [self.playerViewController.playerContainerView removeTapListener:self];
+    
+    [UIView animateWithDuration:G_RATIO-1 animations:^{
+        _deleteButton.alpha = 0;
+    }];
+}
+
+- (void)tapOutside
+{
+    [self hideDeleteButton];
+    [self stopSequencing];
+}
+
+- (void)cleanupForDeletion
+{
+    [self hideDeleteButton];
+    
+    // remove all related shreds
+    t_OTF_RESULT otf_result;
+    do
+    {
+        t_CKUINT shred_id;
+        std::string output;
+        
+        otf_result = [mAChucKController chuckController].ma->remove_code(self.detailItem.docid,
+                                                                         shred_id, output);
+    }
+    while(otf_result == OTF_SUCCESS);
+    
+    _shreds.clear();
+    _loopShreds.clear();
+    _sequenceDestination = nil;
+}
 
 - (void)updateWithStatus:(Chuck_VM_Status *)status
 {
@@ -447,6 +660,12 @@ struct LoopShred
     for(list<t_CKUINT>::iterator rm = removeList.begin(); rm != removeList.end(); rm++)
     {
         t_CKUINT shred_id = *rm;
+        
+        if(_sequenceDestination)
+        {
+            [_sequenceDestination addShredFromSequenceSource:self];
+        }
+        
         if(_loopShreds.count(shred_id) && _loopShreds[shred_id].loopCount != 0)
         {
             /* continue looping */
@@ -577,6 +796,20 @@ struct LoopShred
 - (UIView *)viewForEditorPopover
 {
     return self.view;
+}
+
+- (void)playerTabFinishedMoving
+{
+    if(!self.detailItem.remote && [[mANetworkManager instance] isConnected])
+    {
+        mANAEditScript *editScript = [mANAEditScript editScriptActionWithChangedPositionX:self.view.frame.origin.x
+                                                                                positionY:self.view.frame.origin.y];
+        editScript.code_id = self.codeID;
+        [[mANetworkManager instance] submitAction:editScript
+                                     errorHandler:^(NSError *error) {
+                                         NSLog(@"error submitting editScript action: %@", error);
+                                     }];
+    }
 }
 
 @end

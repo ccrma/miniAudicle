@@ -13,6 +13,7 @@
 @property (strong, readonly, nonatomic) NSString *pressedKey;
 @property (copy, nonatomic) NSArray *alternatives;
 @property (copy, nonatomic) NSArray *attributes;
+@property (nonatomic) NSInteger cursorOffset;
 
 - (id)initWithAlternatives:(NSArray *)alternatives;
 

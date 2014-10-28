@@ -9,6 +9,8 @@
 #import "mADetailItem.h"
 #import "mAChuckController.h"
 #import "miniAudicle.h"
+#import "mANetworkAction.h"
+#import "mANetworkManager.h"
 
 
 @interface NSFileManager (isDirectory)
@@ -58,25 +60,17 @@
     }
     else
     {
+        NSError *error;
         detailItem.isFolder = NO;
         detailItem.text = [NSString stringWithContentsOfFile:path
                                                     encoding:NSUTF8StringEncoding
-                                                       error:NULL];
+                                                       error:&error];
+        if(error != nil)
+        {
+            NSLog(@"error loading file %@: %@", detailItem.title, error);
+            detailItem.text = @"";
+        }
     }
-    
-    return detailItem;
-}
-
-+ (mADetailItem *)detailItemFromDictionary:(NSDictionary *)dictionary
-{
-    mADetailItem * detailItem = [mADetailItem new];
-    
-    detailItem.isUser = [[dictionary objectForKey:@"isUser"] boolValue];
-    detailItem.title = [dictionary objectForKey:@"title"];
-    detailItem.text = [dictionary objectForKey:@"text"];
-    
-    detailItem.isFolder = NO;
-    detailItem.folderItems = nil;
     
     return detailItem;
 }
@@ -97,11 +91,26 @@
     return detailItem;
 }
 
++ (mADetailItem *)remoteDetailItemWithNewScriptAction:(mANANewScript *)action
+{
+    mADetailItem * detailItem = [mADetailItem new];
+    
+    detailItem.remote = YES;
+    detailItem.remoteUUID = action.code_id;
+    detailItem.remoteUsername = [[mANetworkManager instance] usernameForUserID:action.user_id];
+    detailItem.title = action.name;
+    detailItem.text = action.code;
+    
+    return detailItem;
+}
+
 - (id)init
 {
     if(self = [super init])
     {
         self.docid = UINT_MAX;
+        self.remote = NO;
+        self.hasLocalEdits = NO;
     }
     
     return self;

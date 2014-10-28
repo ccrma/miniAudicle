@@ -163,7 +163,9 @@
         [self.alternativesView removeFromSuperview];
         self.alternativesView = nil;
     }
-
+    
+    if(self.keyInsertText != nil) _pressedKey = self.keyInsertText;
+    
     [super touchesEnded:touches withEvent:event];
     
     [self setNeedsDisplay];

@@ -12,8 +12,16 @@
 
 @interface mANetworkRoom : NSObject
 
-@property (strong, nonatomic) NSString *roomId;
-@property (strong, nonatomic) NSString *name;
+@property (copy, nonatomic) NSString *uuid;
+@property (copy, nonatomic) NSString *name;
+@property (copy, nonatomic) NSString *info;
+
+@end
+
+@interface mANetworkRoomMember : NSObject
+
+@property (copy, nonatomic) NSString *uuid;
+@property (copy, nonatomic) NSString *name;
 
 @end
 
@@ -21,14 +29,24 @@
 
 @property (copy, nonatomic) NSString *serverHost;
 @property (nonatomic) NSInteger serverPort;
+@property (nonatomic, readonly) BOOL isConnected;
+
++ (id)instance;
 
 - (NSString *)userId;
 - (NSURL *)makeURL:(NSString *)path;
 - (void)listRooms:(void (^)(NSArray *))listHandler // array of mANetworkRoom
      errorHandler:(void (^)(NSError *))errorHandler;
 - (void)joinRoom:(NSString *)roomId
-         handler:(void (^)(mANetworkAction *))updateHandler
+        username:(NSString *)username
+  successHandler:(void (^)())successHandler
+   updateHandler:(void (^)(mANetworkAction *))updateHandler
     errorHandler:(void (^)(NSError *))errorHandler;
 - (void)leaveCurrentRoom;
+
+- (void)submitAction:(mANetworkAction *)action
+        errorHandler:(void (^)(NSError *))errorHandler;
+
+- (NSString *)usernameForUserID:(NSString *)userID;
 
 @end

@@ -76,49 +76,6 @@
 }
 
 
-- (void)collapse
-{
-    CGPoint target = self.center;
-    
-    for(mAOTFButton *button in self.alternatives)
-    {
-        [UIView animateWithDuration:1-G_RATIO
-                         animations:^{
-                             button.center = target;
-                         } completion:^(BOOL finished) {
-                             [button removeFromSuperview];
-                         }];
-    }
-}
-
-
-- (void)collapseToAlternative:(id)alternative
-{
-    CGPoint target = self.center;
-    
-    for(mAOTFButton *button in self.alternatives)
-    {
-        if(button == alternative)
-        {
-            [self.superview bringSubviewToFront:button];
-            [UIView animateWithDuration:1-G_RATIO
-                             animations:^{
-                                 button.center = target;
-                             }];
-        }
-        else
-        {
-            [UIView animateWithDuration:1-G_RATIO
-                             animations:^{
-                                 button.center = target;
-                             } completion:^(BOOL finished) {
-                                 [button removeFromSuperview];
-                             }];
-        }
-    }
-}
-
-
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
@@ -150,13 +107,105 @@
     CGGradientRelease(glossGradient);
     CGColorSpaceRelease(rgbColorspace);
     
-    [self.image drawInRect:UIEdgeInsetsInsetRect(self.bounds, self.insets)];
+    if(self.tintAdjustmentMode == UIViewTintAdjustmentModeDimmed)
+    {
+        [self.image drawInRect:UIEdgeInsetsInsetRect(self.bounds, self.insets)];
+        
+        CGContextAddRoundedRect(ctx, self.bounds, 8);
+        [[self.tintColor colorWithAlphaComponent:0.5] set];
+        CGContextFillPath(ctx);
+    }
+    else
+    {
+        [self.image drawInRect:UIEdgeInsetsInsetRect(self.bounds, self.insets)];
+    }
     
     if(_showHighlight)
     {
         [[UIColor colorWithWhite:0.0 alpha:0.25] set];
         CGContextAddRoundedRect(ctx, self.bounds, 8);
         CGContextFillPath(ctx);
+    }
+}
+
+- (void)tintColorDidChange
+{
+    [self setNeedsDisplay];
+}
+
+
+- (void)collapse
+{
+    CGPoint target = self.buttonGroupCenter;
+    
+    for(mAOTFButton *button in self.buttonGroup)
+    {
+        if(button.isPopup)
+        {
+            CGFloat time = 1-(G_RATIO-1);
+            if(CGPointEqualToPoint(target, button.center))
+            {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, time*NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                    [button removeFromSuperview];
+                });
+            }
+            else
+            {
+                [UIView animateWithDuration:time
+                                 animations:^{
+                                     button.center = target;
+                                 } completion:^(BOOL finished) {
+                                     [button removeFromSuperview];
+                                 }];
+            }
+        }
+        else
+        {
+            [self.superview bringSubviewToFront:button];
+            [UIView animateWithDuration:1-(G_RATIO-1)
+                             animations:^{
+                                 button.center = target;
+                             }];
+        }
+    }
+}
+
+
+- (void)collapseToButtonGroupMember:(id)member
+{
+    CGPoint target = self.buttonGroupCenter;
+    
+    for(mAOTFButton *button in self.buttonGroup)
+    {
+        if(button == member)
+        {
+            button.isPopup = NO;
+            button.parent = nil;
+            [self.superview bringSubviewToFront:button];
+            [UIView animateWithDuration:1-(G_RATIO-1)
+                             animations:^{
+                                 button.center = target;
+                             }];
+        }
+        else
+        {
+            CGFloat time = 1-(G_RATIO-1);
+            if(CGPointEqualToPoint(target, button.center))
+            {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, time*NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                    [button removeFromSuperview];
+                });
+            }
+            else
+            {
+                [UIView animateWithDuration:time
+                                 animations:^{
+                                     button.center = target;
+                                 } completion:^(BOOL finished) {
+                                     [button removeFromSuperview];
+                                 }];
+            }
+        }
     }
 }
 
@@ -170,53 +219,53 @@
     
     int i = 0;
     
-    for(mAOTFButton *button in self.alternatives)
+    CGPoint center = self.buttonGroupCenter;
+    
+    for(mAOTFButton *button in self.buttonGroup)
     {
 //        [button removeFromSuperview];
-        button.center = self.center;
-        button.isPopup = YES;
-        button.parent = self;
         
-        if(button.superview == nil)
-            [self.superview insertSubview:button belowSubview:self];
+        button.center = center;
+        
+        if(button != self)
+        {
+            button.isPopup = YES;
+            button.parent = self;
+            
+            if(button.superview == nil)
+                [self.superview insertSubview:button belowSubview:self];
+        }
         
         CGPoint target;
         float margin = 4;
+        BOOL doAnimate = YES;
         switch(i)
         {
-            case 0:
+                // center (no animate)
+            case 0: doAnimate = NO; break;
                 // left side
-                target = CGPointMake(self.center.x - self.frame.size.width/2 - button.frame.size.width/2 - margin,
-                                     self.center.y);
+            case 1: target = CGPointMake(center.x - self.frame.size.width/2 - button.frame.size.width/2 - margin, center.y);
                 break;
-                
-            case 1:
                 // right side
-                target = CGPointMake(self.center.x + self.frame.size.width/2 + button.frame.size.width/2 + margin,
-                                     self.center.y);
+            case 2: target = CGPointMake(center.x + self.frame.size.width/2 + button.frame.size.width/2 + margin, center.y);
                 break;
-                
-            case 2:
                 // bottom side
-                target = CGPointMake(self.center.x,
-                                     self.center.y + self.frame.size.height/2 + button.frame.size.height/2 + margin);
+            case 3: target = CGPointMake(center.x, center.y + self.frame.size.height/2 + button.frame.size.height/2 + margin);
                 break;
-                
-            case 3:
                 // top side
-                target = CGPointMake(self.center.x,
-                                     self.center.y - self.frame.size.height/2 - button.frame.size.height/2 - margin);
+            case 4: target = CGPointMake(center.x, center.y - self.frame.size.height/2 - button.frame.size.height/2 - margin);
                 break;
                 
-            default:
-                NSLog(@"warning: mAOTFButton with more than 4 alternatives");
-                // ...
+            default: NSLog(@"warning: mAOTFButton with more than 5 buttons in group"); // ...
         }
         
-        [UIView animateWithDuration:1-G_RATIO
-                         animations:^{
-                             button.center = target;
-                         }];
+        if(doAnimate)
+        {
+            [UIView animateWithDuration:1-(G_RATIO-1)
+                             animations:^{
+                                 button.center = target;
+                             }];
+        }
         
         i++;
     }
@@ -234,24 +283,13 @@
         
         [self setNeedsDisplay];
         
-        if(self.alternatives)
+        if(self.buttonGroup && !self.isPopup)
         {
             [self.popUpTimer invalidate];
             self.popUpTimer = nil;
             
             self.popUpTimer = [NSTimer scheduledTimerWithTimeInterval:0.8
                                                                target:self
-                                                             selector:@selector(popUp:)
-                                                             userInfo:nil
-                                                              repeats:NO];
-        }
-        else if(self.parent != nil && !self.parent.poppedUp)
-        {
-            [self.popUpTimer invalidate];
-            self.popUpTimer = nil;
-            
-            self.popUpTimer = [NSTimer scheduledTimerWithTimeInterval:0.8
-                                                               target:self.parent
                                                              selector:@selector(popUp:)
                                                              userInfo:nil
                                                               repeats:NO];
@@ -277,8 +315,10 @@
 
     if(_poppedUp && (_trackingPopup != nil || !_showHighlight))
     {
-        for(mAOTFButton *button in self.alternatives)
+        for(mAOTFButton *button in self.buttonGroup)
         {
+            if(button == self) continue;
+            
             if(CGRectContainsPoint(button.bounds, [touch locationInView:button]))
             {
                 if(_trackingPopup == button)
@@ -312,9 +352,11 @@
     
     BOOL wasPressed = NO;
     
-    if(self.isPopup && CGRectContainsPoint(self.bounds, [touch locationInView:self]))
+    if((self.isPopup || (self.buttonGroup && [self.buttonGroup indexOfObject:self] != 0)) &&
+       CGRectContainsPoint(self.bounds, [touch locationInView:self]))
     {
         // need to manually sendActions because of hacked touch tracking
+        // also need to manually sendActions for buttons if they animated out/expanded
         [self sendActionsForControlEvents:UIControlEventTouchUpInside];
         wasPressed = YES;
     }
@@ -345,13 +387,18 @@
         
         // only collapse if nothing was pressed
         // if something was pressed, receiver of press action triggers collapse
-        if(!wasPressed)
-            [self collapse];
-        
-//        if(alternative != nil)
-//            [self collapseToAlternative:alternative];
-//        else
+//        if(!wasPressed)
 //            [self collapse];
+        
+        if(wasPressed)
+        {
+            if(alternative != nil)
+                [self collapseToButtonGroupMember:alternative];
+            else
+                [self collapseToButtonGroupMember:self];
+        }
+        else
+            [self collapse];
     }
 }
 
@@ -367,13 +414,10 @@
     if(wasHighlighted != _showHighlight)
         [self setNeedsDisplay];
     
-    if(self.alternatives)
-    {
-        for(mAOTFButton *button in self.alternatives)
-        {
-            [button removeFromSuperview];
-        }
-    }
+    if(self.buttonGroup && !self.isPopup)
+        [self collapse];
+    
+    self.poppedUp = NO;
 }
 
 - (void)sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event

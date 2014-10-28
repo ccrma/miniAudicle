@@ -72,6 +72,10 @@
 
 
 @interface mADetailViewController ()
+{
+    IBOutlet UIBarButtonItem *_consoleMonitorButton;
+    IBOutlet UIBarButtonItem *_vmMonitorButton;
+}
 
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
 
@@ -116,6 +120,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     NSMutableArray * items = [NSMutableArray arrayWithArray:self.toolbar.items];
     UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"〈 EDIT", @"PLAY 〉"]];
     [segmentedControl addTarget:self action:@selector(changeMode:) forControlEvents:UIControlEventValueChanged];
@@ -150,6 +156,7 @@
     {
         _clientViewController = viewController;
         
+        // force load
         (void) self.view;
         
         for(UIView *subview in [_clientView subviews])
@@ -220,6 +227,9 @@
     }
     else
     {
+        [self.consoleMonitorPopover dismissPopoverAnimated:NO];
+        [self.masterPopoverController dismissPopoverAnimated:NO];
+        
         self.vmMonitorPopover.delegate = self;
         
         [self.vmMonitorPopover presentPopoverFromBarButtonItem:sender
@@ -230,7 +240,7 @@
 
 - (IBAction)showConsoleMonitor:(id)sender
 {
-    self.consoleMonitorButton.title = @"Console";
+    _consoleMonitorButton.title = @"Console";
 
     if(self.consoleMonitorPopover == nil)
     {
@@ -243,6 +253,9 @@
     }
     else
     {
+        [self.vmMonitorPopover dismissPopoverAnimated:NO];
+        [self.masterPopoverController dismissPopoverAnimated:NO];
+        
         self.consoleMonitorPopover.delegate = self;
         
         [self.consoleMonitorPopover presentPopoverFromBarButtonItem:sender
@@ -264,7 +277,18 @@
 
 - (void)consoleMonitorReceivedNewData
 {
-    self.consoleMonitorButton.title = @"Console*";
+    _consoleMonitorButton.title = @"Console*";
+}
+
+
+#pragma mark - mAVMMonitorDelegate
+
+- (void)vmMonitor:(mAVMMonitorController *)vmMonitor isShowingNumberOfShreds:(NSInteger)nShreds
+{
+    if(nShreds)
+        _vmMonitorButton.title = [NSString stringWithFormat:@"Shreds (%i)", nShreds];
+    else
+        _vmMonitorButton.title = [NSString stringWithFormat:@"Shreds"];
 }
 
 

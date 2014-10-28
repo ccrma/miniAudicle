@@ -1,4 +1,10 @@
 ---
+1.3.3
+    - (added) chuck-1.3.5.0
+    - (fixed)(Mac) Ogg export failure
+    - (fixed)(Mac) text replacement issues with ", --, etc.
+    
+---
 1.3.2
     - (added) chuck-1.3.4.0
     - (added)(Win/Linux) device browser

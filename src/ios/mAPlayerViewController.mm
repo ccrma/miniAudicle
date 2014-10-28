@@ -12,12 +12,21 @@
 #import "mAVMMonitorController.h"
 #import "mAEditorViewController.h"
 #import "mANetworkManager.h"
+#import "mANetworkAction.h"
+#import "mADetailItem.h"
+#import "mAConnectViewController.h"
+#import "mAActivityViewController.h"
+#import "mANetworkRoomView.h"
 
 
 @interface mAPlayerViewController ()
 {
     int _layoutIndex;
     CGPoint _layoutOffset;
+    
+    IBOutlet UIButton *_connectButton;
+    IBOutlet UIButton *_disconnectButton;
+    IBOutlet mANetworkRoomView *_roomView;
 }
 
 @property (strong, nonatomic) NSMutableArray *players;
@@ -45,11 +54,13 @@
                                                            action:nil];
         self.titleButton.enabled = NO;
         
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+        
         self.players = [NSMutableArray array];
         self.passthroughViews = [NSMutableArray array];
         _layoutIndex = 0;
         _layoutOffset = CGPointMake(0, 0);
-        self.networkManager = [mANetworkManager new];
+        self.networkManager = [mANetworkManager instance];
     }
     return self;
 }
@@ -58,6 +69,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    _disconnectButton.alpha = 0;
+    _roomView.alpha = 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -68,13 +82,6 @@
                                              selector:@selector(vmStatus:)
                                                  name:mAVMMonitorControllerStatusUpdateNotification
                                                object:nil];
-    
-    [self.networkManager joinRoom:@"global"
-                          handler:^(mANetworkAction *action) {
-                          }
-                     errorHandler:^(NSError *error) {
-                         NSLog(@"error joining room: %@", error);
-                     }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -83,13 +90,8 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    [self.networkManager leaveCurrentRoom];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    if(self.networkManager.isConnected)
+        [self disconnect:nil];
 }
 
 - (void)addScript:(mADetailItem *)script
@@ -108,6 +110,43 @@
     _layoutIndex = (_layoutIndex+1)%14;
     if(_layoutIndex == 0) // wrap around
         _layoutOffset = CGPointMake(_layoutOffset.x + 10, _layoutOffset.y + 25);
+    
+    if(!script.remote && self.networkManager.isConnected)
+    {
+        player.codeID = [[NSUUID UUID] UUIDString];
+        
+        // send network action
+        mANANewScript *newScript = [mANANewScript new];
+        newScript.code_id = player.codeID;
+        newScript.code = script.text;
+        newScript.name = script.title;
+        newScript.pos_x = player.view.frame.origin.x;
+        newScript.pos_y = player.view.frame.origin.y;
+        
+        [self.networkManager submitAction:newScript
+                             errorHandler:^(NSError *error) {
+                                 NSLog(@"error submitting newScript action: %@", error);
+                             }];
+        
+        script.hasLocalEdits = NO;
+    }
+}
+
+- (void)deleteScriptPlayer:(mAScriptPlayer *)player
+{
+    [player cleanupForDeletion];
+    [self.players removeObject:player];
+    [UIView animateWithDuration:G_RATIO-1 animations:^{
+        player.view.alpha = 0;
+    } completion:^(BOOL finished) {
+        [player.view removeFromSuperview];
+    }];
+}
+
+- (void)deleteAllScriptPlayers
+{
+    for(mAScriptPlayer *player in self.players)
+        [self deleteScriptPlayer:player];
 }
 
 - (void)vmStatus:(NSNotification *)notification
@@ -154,6 +193,113 @@
         self.fieldView.bounds = CGRectUnion(self.fieldView.bounds, frame);
 //        ((UIScrollView *) self.view).contentSize = self.fieldView.bounds.size;
     }
+}
+
+- (void)enterSequenceMode:(mAScriptPlayer *)source
+{
+    for(mAScriptPlayer *player in self.players)
+        [player enterSequenceMode:source];
+}
+
+- (void)exitSequenceMode
+{
+    for(mAScriptPlayer *player in self.players)
+        [player exitSequenceMode];
+}
+
+- (NSArray *)allPlayers
+{
+    return self.players;
+}
+
+- (mAScriptPlayer *)scriptPlayerForRemoteUUID:(NSString *)uuid
+{
+    for(mAScriptPlayer *player in self.players)
+    {
+        if([player.detailItem.remoteUUID isEqualToString:uuid])
+            return player;
+    }
+    
+    return nil;
+}
+
+- (void)memberJoined:(mANetworkRoomMember *)member
+{
+    [_roomView addMember:member];
+}
+
+- (void)memberLeft:(mANetworkRoomMember *)member
+{
+    [_roomView removeMember:member];
+}
+
+#pragma mark - IBActions
+
+- (IBAction)connect:(id)sender
+{
+    [self presentViewController:self.connectViewController animated:YES completion:nil];
+}
+
+- (IBAction)disconnect:(id)sender
+{
+    [self.networkManager leaveCurrentRoom];
+    [self deleteAllScriptPlayers];
+    _connectButton.enabled = YES;
+    
+    [UIView animateWithDuration:G_RATIO-1 animations:^{
+        _disconnectButton.alpha = 0;
+        _roomView.alpha = 0;
+    }];
+}
+
+#pragma mark - mAConnectViewControllerDelegate
+
+- (void)connectViewControllerDidCancel:(mAConnectViewController *)cvc
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)connectViewController:(mAConnectViewController *)cvc selectedRoom:(mANetworkRoom *)room username:(NSString *)username;
+{
+    [self deleteAllScriptPlayers];
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+        (void) self.activityViewController.view;
+        self.activityViewController.textLabel.text = [NSString stringWithFormat:@"Joining %@...", room.name];
+        __weak typeof(self) weakSelf = self;
+        self.activityViewController.cancelHandler = ^{
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        };
+        
+        [self presentViewController:self.activityViewController animated:YES completion:^{
+            [self.networkManager joinRoom:room.uuid
+                                 username:username
+                           successHandler:^{
+                               [self dismissViewControllerAnimated:YES completion:nil];
+                               
+                               _connectButton.enabled = NO;
+                               
+                               _roomView.room = room;
+                               mANetworkRoomMember *memberSelf = [mANetworkRoomMember new];
+                               memberSelf.uuid = [self.networkManager userId];
+                               memberSelf.name = username;
+                               [_roomView addMember:memberSelf];
+                               
+                               [UIView animateWithDuration:G_RATIO-1 animations:^{
+                                   _roomView.alpha = 1;
+                                   _disconnectButton.alpha = 1;
+                               }];
+                           }
+                            updateHandler:^(mANetworkAction *action) {
+                                [action execute:self];
+                            }
+                             errorHandler:^(NSError *error) {
+                                 NSLog(@"error joining room: %@", error);
+                             }];
+            
+        }];
+    }];
 }
 
 @end

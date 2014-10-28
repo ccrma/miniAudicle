@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5053" systemVersion="12F45" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="12F45" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -7,8 +7,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="mAKeyboardAccessoryViewController">
             <connections>
+                <outlet property="_braceButton" destination="MGM-Yw-8i1" id="KgT-lT-geC"/>
+                <outlet property="_bracketButton" destination="s3l-G5-Zpu" id="GNi-WO-eO6"/>
                 <outlet property="_chuckButton" destination="Uk7-q2-blw" id="ig6-VH-PgC"/>
                 <outlet property="_dacButton" destination="Ahq-Yd-YHY" id="TT7-KF-Xwh"/>
+                <outlet property="_doublequoteButton" destination="6F7-eK-5Kk" id="dEG-Pb-2DM"/>
+                <outlet property="_parenButton" destination="GjB-VP-Pbc" id="OPI-FQ-hwJ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -24,7 +28,7 @@
                         <constraint firstAttribute="height" constant="64" id="1P5-KL-PhU"/>
                         <constraint firstAttribute="width" constant="80" id="Ch8-sB-n6s"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
                     <state key="normal" title="=>">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
@@ -122,30 +126,15 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="6HP-1W-7c8"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Tf-wm-mBK" customClass="mAKeyboardButton">
-                    <rect key="frame" x="380" y="44" width="64" height="28"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="64" id="2Kd-SM-Su5"/>
-                        <constraint firstAttribute="height" constant="28" id="zI0-xq-bKv"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <state key="normal" title="{">
-                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="4bh-5G-ZCe"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MGM-Yw-8i1" customClass="mAKeyboardButton">
-                    <rect key="frame" x="308" y="44" width="64" height="28"/>
+                    <rect key="frame" x="308" y="8" width="64" height="64"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="28" id="Yly-h6-7EV"/>
+                        <constraint firstAttribute="height" constant="64" id="Yly-h6-7EV"/>
                         <constraint firstAttribute="width" constant="64" id="zqd-Wm-kYG"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <state key="normal" title="]">
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <state key="normal" title="{ }">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
@@ -153,7 +142,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6F7-eK-5Kk" customClass="mAKeyboardButton">
-                    <rect key="frame" x="308" y="8" width="64" height="28"/>
+                    <rect key="frame" x="236" y="44" width="64" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="28" id="nba-E2-bkU"/>
@@ -182,45 +171,15 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="LtP-vf-gzE"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mha-fS-cnB" customClass="mAKeyboardButton">
-                    <rect key="frame" x="236" y="44" width="64" height="28"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="28" id="Vl9-7j-HRA"/>
-                        <constraint firstAttribute="width" constant="64" id="qSq-D1-qsU"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <state key="normal" title="[">
-                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="mMX-mK-hma"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LuH-yZ-YgA" customClass="mAKeyboardButton">
-                    <rect key="frame" x="452" y="44" width="64" height="28"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="28" id="YVq-x8-8bs"/>
-                        <constraint firstAttribute="width" constant="64" id="ZCi-Bu-fOC"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <state key="normal" title="}">
-                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="BfY-7E-nUf"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GjB-VP-Pbc" customClass="mAKeyboardButton">
-                    <rect key="frame" x="452" y="8" width="64" height="28"/>
+                    <rect key="frame" x="452" y="8" width="64" height="64"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="28" id="Xo4-lM-J0t"/>
+                        <constraint firstAttribute="height" constant="64" id="Xo4-lM-J0t"/>
                         <constraint firstAttribute="width" constant="64" id="eXh-Vf-kRG"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <state key="normal" title=")">
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <state key="normal" title="( )">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
@@ -228,7 +187,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UmY-4k-x6i" customClass="mAKeyboardButton">
-                    <rect key="frame" x="524" y="8" width="64" height="28"/>
+                    <rect key="frame" x="524" y="10" width="64" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="64" id="q5B-d3-AkP"/>
@@ -258,14 +217,14 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s3l-G5-Zpu" customClass="mAKeyboardButton">
-                    <rect key="frame" x="380" y="8" width="64" height="28"/>
+                    <rect key="frame" x="380" y="8" width="64" height="64"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="28" id="KdC-g9-bBe"/>
+                        <constraint firstAttribute="height" constant="64" id="KdC-g9-bBe"/>
                         <constraint firstAttribute="width" constant="64" id="pV8-9v-2xL"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <state key="normal" title="(">
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <state key="normal" title="[ ]">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
@@ -275,42 +234,36 @@
             </subviews>
             <color key="backgroundColor" red="0.77089986313868608" green="0.7803921568627451" blue="0.79607843137254897" alpha="1" colorSpace="deviceRGB"/>
             <constraints>
-                <constraint firstItem="QBr-Qs-6yD" firstAttribute="leading" secondItem="mha-fS-cnB" secondAttribute="leading" id="24K-Ws-ruG"/>
-                <constraint firstItem="LuH-yZ-YgA" firstAttribute="leading" secondItem="1Tf-wm-mBK" secondAttribute="trailing" constant="8" symbolic="YES" id="3F1-Um-02l"/>
+                <constraint firstItem="s3l-G5-Zpu" firstAttribute="leading" secondItem="MGM-Yw-8i1" secondAttribute="trailing" constant="8" symbolic="YES" id="6AY-wq-3pa"/>
+                <constraint firstItem="MGM-Yw-8i1" firstAttribute="baseline" secondItem="s3l-G5-Zpu" secondAttribute="baseline" id="6Cz-1y-RAf"/>
                 <constraint firstItem="Oy2-gI-cTL" firstAttribute="top" secondItem="Uk7-q2-blw" secondAttribute="top" id="6n9-sS-FhU"/>
                 <constraint firstItem="Ahq-Yd-YHY" firstAttribute="top" secondItem="xba-5i-Tr7" secondAttribute="top" id="8n0-Ir-iQ8"/>
                 <constraint firstItem="QBr-Qs-6yD" firstAttribute="top" secondItem="GjB-VP-Pbc" secondAttribute="top" id="Bf1-jC-Ozx"/>
-                <constraint firstItem="1Tf-wm-mBK" firstAttribute="top" secondItem="s3l-G5-Zpu" secondAttribute="bottom" constant="8" symbolic="YES" id="CrC-5k-J8q"/>
-                <constraint firstItem="kc5-YP-V1e" firstAttribute="leading" secondItem="LuH-yZ-YgA" secondAttribute="trailing" constant="80" id="DVX-CR-Iu3"/>
+                <constraint firstItem="MGM-Yw-8i1" firstAttribute="bottom" secondItem="M0F-cy-a3Z" secondAttribute="bottom" id="C7L-dh-HqF"/>
                 <constraint firstItem="xba-5i-Tr7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="FkS-sj-8LU"/>
-                <constraint firstItem="mha-fS-cnB" firstAttribute="baseline" secondItem="1Tf-wm-mBK" secondAttribute="baseline" id="Gr2-lE-a9K"/>
-                <constraint firstItem="LuH-yZ-YgA" firstAttribute="baseline" secondItem="1Tf-wm-mBK" secondAttribute="baseline" id="IKQ-Sy-f3s"/>
-                <constraint firstItem="LuH-yZ-YgA" firstAttribute="leading" secondItem="GjB-VP-Pbc" secondAttribute="leading" id="O3U-gP-MXr"/>
+                <constraint firstItem="MGM-Yw-8i1" firstAttribute="baseline" secondItem="GjB-VP-Pbc" secondAttribute="baseline" id="Kds-DZ-919"/>
+                <constraint firstItem="MGM-Yw-8i1" firstAttribute="leading" secondItem="QBr-Qs-6yD" secondAttribute="trailing" constant="8" symbolic="YES" id="NpK-fM-ino"/>
                 <constraint firstItem="xba-5i-Tr7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="Phf-vS-c8i"/>
                 <constraint firstItem="Oy2-gI-cTL" firstAttribute="leading" secondItem="kc5-YP-V1e" secondAttribute="leading" id="R0r-Wf-Xl4"/>
-                <constraint firstItem="mha-fS-cnB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="236" id="RnF-P9-9zc"/>
-                <constraint firstItem="QBr-Qs-6yD" firstAttribute="baseline" secondItem="6F7-eK-5Kk" secondAttribute="baseline" id="S08-Uc-s3a"/>
-                <constraint firstItem="mha-fS-cnB" firstAttribute="baseline" secondItem="MGM-Yw-8i1" secondAttribute="baseline" id="STd-td-gxV"/>
-                <constraint firstItem="TJx-7D-Kt2" firstAttribute="baseline" secondItem="mha-fS-cnB" secondAttribute="baseline" id="TDt-vN-GfH"/>
-                <constraint firstItem="LuH-yZ-YgA" firstAttribute="top" secondItem="kc5-YP-V1e" secondAttribute="top" id="TLe-s0-Q2g"/>
+                <constraint firstItem="QBr-Qs-6yD" firstAttribute="baseline" secondItem="6F7-eK-5Kk" secondAttribute="baseline" constant="-36" id="S08-Uc-s3a"/>
                 <constraint firstItem="GjB-VP-Pbc" firstAttribute="leading" secondItem="s3l-G5-Zpu" secondAttribute="trailing" constant="8" symbolic="YES" id="TRu-0c-Wjs"/>
-                <constraint firstItem="MGM-Yw-8i1" firstAttribute="leading" secondItem="mha-fS-cnB" secondAttribute="trailing" constant="8" symbolic="YES" id="Y9s-va-gZL"/>
-                <constraint firstItem="LuH-yZ-YgA" firstAttribute="top" secondItem="GjB-VP-Pbc" secondAttribute="bottom" constant="8" id="Znp-tz-Hrz"/>
+                <constraint firstItem="MGM-Yw-8i1" firstAttribute="bottom" secondItem="TJx-7D-Kt2" secondAttribute="bottom" id="VjJ-tV-Y15"/>
                 <constraint firstItem="Ahq-Yd-YHY" firstAttribute="baseline" secondItem="7S9-vn-ATO" secondAttribute="baseline" id="bQ6-7A-zAW"/>
                 <constraint firstItem="kc5-YP-V1e" firstAttribute="top" secondItem="Oy2-gI-cTL" secondAttribute="bottom" constant="8" symbolic="YES" id="cFI-eJ-gMa"/>
                 <constraint firstItem="Ahq-Yd-YHY" firstAttribute="baseline" secondItem="xba-5i-Tr7" secondAttribute="baseline" constant="19" id="cjo-2a-wfL"/>
-                <constraint firstItem="6F7-eK-5Kk" firstAttribute="leading" secondItem="QBr-Qs-6yD" secondAttribute="trailing" constant="8" symbolic="YES" id="clL-Ud-hQ6"/>
+                <constraint firstItem="6F7-eK-5Kk" firstAttribute="leading" secondItem="QBr-Qs-6yD" secondAttribute="trailing" constant="-64" id="clL-Ud-hQ6"/>
                 <constraint firstItem="UmY-4k-x6i" firstAttribute="leading" secondItem="M0F-cy-a3Z" secondAttribute="leading" id="eVp-2Q-AgY"/>
+                <constraint firstItem="Oy2-gI-cTL" firstAttribute="leading" secondItem="UmY-4k-x6i" secondAttribute="trailing" constant="8" symbolic="YES" id="eac-NR-ZZy"/>
                 <constraint firstItem="Ahq-Yd-YHY" firstAttribute="top" secondItem="7S9-vn-ATO" secondAttribute="top" id="efK-Mg-zd8"/>
                 <constraint firstItem="7S9-vn-ATO" firstAttribute="leading" secondItem="TJx-7D-Kt2" secondAttribute="trailing" constant="8" symbolic="YES" id="h9D-LF-Lls"/>
-                <constraint firstItem="mha-fS-cnB" firstAttribute="baseline" secondItem="M0F-cy-a3Z" secondAttribute="baseline" id="myW-p9-bx6"/>
-                <constraint firstItem="1Tf-wm-mBK" firstAttribute="leading" secondItem="MGM-Yw-8i1" secondAttribute="trailing" constant="8" symbolic="YES" id="nK4-g1-g1i"/>
+                <constraint firstItem="MGM-Yw-8i1" firstAttribute="top" secondItem="Oy2-gI-cTL" secondAttribute="top" id="hOD-ZS-mxs"/>
                 <constraint firstItem="QBr-Qs-6yD" firstAttribute="leading" secondItem="Ahq-Yd-YHY" secondAttribute="trailing" constant="8" symbolic="YES" id="oey-SV-iRz"/>
-                <constraint firstItem="UmY-4k-x6i" firstAttribute="baseline" secondItem="s3l-G5-Zpu" secondAttribute="baseline" id="orx-Lb-kUi"/>
+                <constraint firstItem="UmY-4k-x6i" firstAttribute="baseline" secondItem="s3l-G5-Zpu" secondAttribute="baseline" constant="-18" id="orx-Lb-kUi"/>
                 <constraint firstItem="Uk7-q2-blw" firstAttribute="leading" secondItem="Oy2-gI-cTL" secondAttribute="trailing" constant="8" symbolic="YES" id="peS-36-hCP"/>
                 <constraint firstItem="Ahq-Yd-YHY" firstAttribute="leading" secondItem="7S9-vn-ATO" secondAttribute="trailing" constant="8" id="sAr-UW-NJi"/>
                 <constraint firstItem="UmY-4k-x6i" firstAttribute="leading" secondItem="GjB-VP-Pbc" secondAttribute="trailing" constant="8" symbolic="YES" id="stk-vk-gK6"/>
                 <constraint firstItem="xba-5i-Tr7" firstAttribute="top" secondItem="s3l-G5-Zpu" secondAttribute="top" id="upq-mt-6uU"/>
+                <constraint firstItem="MGM-Yw-8i1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="308" id="xun-Rt-pCq"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>

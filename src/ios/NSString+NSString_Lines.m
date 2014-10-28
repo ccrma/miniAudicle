@@ -32,4 +32,34 @@
         return NSMakeRange(NSNotFound, 0);
 }
 
+- (NSInteger)indexOfPreviousNewline:(NSInteger)index
+{
+    for(int i = index-1; i >= 0; i--)
+    {
+        unichar c = [self characterAtIndex:i];
+        if(c == '\n' || c == '\r')
+            return i;
+    }
+    
+    return -1;
+}
+
+- (NSRange)rangeOfLeadingWhitespace:(NSInteger)index
+{
+    int whitespace = 0;
+    for(int i = index; i >= 0; i--)
+    {
+        unichar c = [self characterAtIndex:i];
+        
+        if(c == '\n' || c == '\r')
+            return NSMakeRange(i+1, whitespace);
+        if(c == '\t' || c == ' ')
+            whitespace++;
+        else
+            whitespace = 0;
+    }
+    
+    return NSMakeRange(0, 0);
+}
+
 @end

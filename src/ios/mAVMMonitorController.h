@@ -30,9 +30,17 @@ class Chuck_VM_Status;
 
 extern NSString * const mAVMMonitorControllerStatusUpdateNotification;
 
+@class mAVMMonitorController;
+
+@protocol mAVMMonitorDelegate <NSObject>
+
+- (void)vmMonitor:(mAVMMonitorController *)vmMonitor isShowingNumberOfShreds:(NSInteger)nShreds;
+
+@end
+
 @interface mAVMMonitorController : UIViewController 
 < UITableViewDataSource,
- UITableViewDelegate >
+  UITableViewDelegate >
 {
     IBOutlet UITableView * _tableView;
     
@@ -44,5 +52,7 @@ extern NSString * const mAVMMonitorControllerStatusUpdateNotification;
     
     t_CKUINT docid;
 }
+
+@property (assign, nonatomic) IBOutlet id<mAVMMonitorDelegate> delegate;
 
 @end

@@ -1,7 +1,7 @@
 
 MINI_SRC_ROOT=../..
-CHUCK_SRC_ROOT=../../../chuck
-CHUGINS_SRC_ROOT=../../../chugins
+CHUCK_SRC_ROOT=$(MINI_SRC_ROOT)/src/chuck
+CHUGINS_SRC_ROOT=$(MINI_SRC_ROOT)/src/chugins
 
 VERSION_MK=$(MINI_SRC_ROOT)/src/version.mk
 
@@ -16,12 +16,14 @@ APP_PKGS=$(addsuffix .pkg,miniAudicle.app)
 BIN_PKGS=$(addsuffix .pkg,chuck)
 CHUGIN_PKGS=$(addsuffix .pkg,$(CHUGINS))
 PKGS=$(APP_PKGS) $(BIN_PKGS) $(CHUGIN_PKGS)
+EXAMPLES=
 
 INSTALLER=chuck-$(PKG_VERSION).pkg
 
 APP_DIR=/Applications
 BIN_DIR=/usr/bin
 CHUG_DIR=/usr/lib/chuck
+EXAMPLES_DIR=/Library/ChucK/
 
 IDENTIFIER_BASE=edu.stanford.chuck
 CERT=Developer ID Installer: Spencer Salazar (9GU9FHJ3JC)
@@ -31,6 +33,8 @@ all: $(INSTALLER)
 
 upload: $(INSTALLER)
 	scp $(INSTALLER) ccrma-gate.stanford.edu:Library/Web/chuck
+	@echo "uploaded to URL: "
+	@echo "https://ccrma.stanford.edu/~spencer/chuck/$(INSTALLER)"
 
 $(INSTALLER): $(PKGS) miniAudicle.app chuck $(CHUGINS) $(VERSION_MK) Distribution.xml
 	@echo "Creating installer"
@@ -40,29 +44,32 @@ $(INSTALLER): $(PKGS) miniAudicle.app chuck $(CHUGINS) $(VERSION_MK) Distributio
 	productbuild --distribution Distribution.xml --version $(PKG_VERSION) --package-path . --sign "$(CERT)" --resources resources $@
 
 $(APP_PKGS): %.pkg: %
+	rm -rf $<.tmp/$(APP_DIR)
 	mkdir -p $<.tmp/$(APP_DIR)
 	cp -af $< $<.tmp/$(APP_DIR)
-	pkgbuild --root $<.tmp --identifier $(IDENTIFIER_BASE).$(basename $<) $@
+	pkgbuild --root $<.tmp --identifier $(IDENTIFIER_BASE).$(basename $<) --component-plist $@.plist $@
 	rm -rf $<.tmp
 
 $(BIN_PKGS): %.pkg: %
+	rm -rf $<.tmp/$(BIN_DIR)
 	mkdir -p $<.tmp/$(BIN_DIR)
 	cp -af $< $<.tmp/$(BIN_DIR)
 	pkgbuild --root $<.tmp --identifier $(IDENTIFIER_BASE).$(basename $<) $@
 	rm -rf $<.tmp
 
 $(CHUGIN_PKGS): %.pkg: %
+	rm -rf $<.tmp/$(CHUG_DIR)
 	mkdir -p $<.tmp/$(CHUG_DIR)
 	cp -af $< $<.tmp/$(CHUG_DIR)
 	pkgbuild --root $<.tmp --identifier $(IDENTIFIER_BASE).$(basename $<) $@
 	rm -rf $<.tmp
 
-miniAudicle.app: $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app
+miniAudicle.app: $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app/Contents/MacOS/miniAudicle
 	rm -rf miniAudicle.app
 	cp -af $< .
 	touch $@
 
-$(MINI_SRC_ROOT)/src/macosx/miniAudicle.app:
+$(MINI_SRC_ROOT)/src/macosx/miniAudicle.app/Contents/MacOS/miniAudicle $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app:
 	ARCHS="i386 x86_64" make -C $(MINI_SRC_ROOT)/src osx
 
 chuck: $(CHUCK_SRC_ROOT)/src/chuck
@@ -79,7 +86,7 @@ $(CHUGINS_ORIGINAL):
 	make -C $(dir $@) osx
 
 clean: 
-	rm -rf miniAudicle.app chuck $(CHUGINS) *.pkg
+	rm -rf miniAudicle.app chuck $(CHUGINS) *.pkg *.tmp
 clean-all: clean
 	rm -rf miniAudicle.app chuck $(CHUGINS) *.pkg
 	make -C $(CHUCK_SRC_ROOT)/src clean

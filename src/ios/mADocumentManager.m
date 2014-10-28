@@ -95,16 +95,6 @@
 {
     NSMutableArray * scripts = [NSMutableArray array];
     
-    //    NSString * path = [NSString stringWithFormat:@"%@/scripts.plist",
-    //                       [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
-    //
-    //    NSArray * scripts2 = [NSArray arrayWithContentsOfFile:path];
-    //
-    //    for(NSDictionary * item in scripts2)
-    //    {
-    //        [scripts addObject:[mADetailItem detailItemFromDictionary:item]];
-    //    }
-    
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *path = [self.baseDocumentPath path];
     for(NSString *subpath in [fileManager contentsOfDirectoryAtPath:path error:NULL])
@@ -142,7 +132,9 @@
 
 - (void)renameScript:(mADetailItem *)item to:(NSString *)title
 {
-    NSString *newPath = [[[self.baseDocumentPath URLByAppendingPathComponent:title] URLByAppendingPathExtension:@"ck"] path];
+    [item save];
+    
+    NSString *newPath = [[[item.path stringByDeletingLastPathComponent] stringByAppendingPathComponent:title] stringByAppendingPathExtension:@"ck"];
 
     [[NSFileManager defaultManager] moveItemAtPath:item.path toPath:newPath error:NULL];
     

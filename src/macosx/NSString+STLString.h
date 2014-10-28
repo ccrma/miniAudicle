@@ -36,5 +36,6 @@
 @interface NSString (STLString)
 
 - (std::string)stlString;
++ (instancetype)stringWithSTLString:(std::string)str;
 
 @end

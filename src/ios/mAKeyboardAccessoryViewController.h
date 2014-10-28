@@ -12,7 +12,7 @@
 
 @protocol mAKeyboardAccessoryDelegate
 
-- (void)keyPressed:(NSString *)chars;
+- (void)keyPressed:(NSString *)chars selectionOffset:(NSInteger)offset;
 
 @end
 
@@ -20,6 +20,10 @@
 {
     IBOutlet mAKeyboardButton *_chuckButton;
     IBOutlet mAKeyboardButton *_dacButton;
+    IBOutlet mAKeyboardButton *_doublequoteButton;
+    IBOutlet mAKeyboardButton *_parenButton;
+    IBOutlet mAKeyboardButton *_bracketButton;
+    IBOutlet mAKeyboardButton *_braceButton;
 }
 
 @property (weak, nonatomic) id<mAKeyboardAccessoryDelegate> delegate;

@@ -33,6 +33,9 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
 
 
 @interface mAVMMonitorController ()
+{
+    NSInteger _nShreds;
+}
 
 @property (strong, nonatomic) UITableView * tableView;
 @property (strong, nonatomic) NSTimer * updateTimer;
@@ -61,8 +64,10 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
     {
         isUpdating = NO;
         docid = [mAChucKController chuckController].ma->allocate_document_id();
-        // Custom initialization
-        
+        status_buffers = new Chuck_VM_Status[2];
+        most_recent_status = NULL;
+        _nShreds = 0;
+
         [self startUpdating];
     }
     return self;
@@ -75,7 +80,9 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
     {
         isUpdating = NO;
         docid = [mAChucKController chuckController].ma->allocate_document_id();
-        // Custom initialization
+        status_buffers = new Chuck_VM_Status[2];
+        most_recent_status = NULL;
+        _nShreds = 0;
         
         [self startUpdating];
     }
@@ -95,7 +102,6 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
 {
     if(!isUpdating)
     {
-        status_buffers = new Chuck_VM_Status[2];
         most_recent_status = status_buffers;
         which_status_buffer = 0;
         
@@ -117,14 +123,17 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
 {
     if(isUpdating)
     {
-        SAFE_DELETE_ARRAY(status_buffers);
-        most_recent_status = nil;
-        status_buffers = nil;
-        
         [self.updateTimer invalidate];
         self.updateTimer = nil;
         
         isUpdating = NO;
+        
+        SAFE_DELETE_ARRAY(status_buffers);
+        status_buffers = NULL;
+
+        most_recent_status = NULL;
+        
+        [self.tableView reloadData];
     }
 }
 
@@ -163,21 +172,22 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
         if( compare_shred_vectors( status_buffers[0].list, status_buffers[1].list ) )
         {
             [self.tableView reloadData];
-            //        [shreds_text setStringValue:[NSString stringWithFormat:@"%u",
-            //                                     most_recent_status->list.size()]];
         }
         
         // otherwise, just update the shred time column
         //    else
         {
-            
-            //        [self.tableView reloadData];
-            //        [shred_table setNeedsDisplayInRect:[shred_table rectOfColumn:[shred_table columnWithIdentifier:time_column_id]]];
             for(mAVMMonitorCell * cell in [self.tableView visibleCells])
             {
                 [cell updateShredStatus:most_recent_status];
             }
         }
+    }
+    
+    if(most_recent_status->list.size() != _nShreds)
+    {
+        _nShreds = most_recent_status->list.size();
+        [self.delegate vmMonitor:self isShowingNumberOfShreds:_nShreds];
     }
     
 //    time_t current_time = ( time_t ) ( most_recent_status->now_system / most_recent_status->srate );
@@ -189,6 +199,8 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
                                                       userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                 [NSValue valueWithPointer:most_recent_status], @"status",
                                                                 nil]];
+//    if(most_recent_status->list.size())
+//        most_recent_status->list[0] = NULL;
 }
 
 
@@ -244,7 +256,7 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
 - (NSInteger)tableView:(UITableView *)tableView 
  numberOfRowsInSection:(NSInteger)section
 {
-    if(most_recent_status != nil)
+    if(most_recent_status != NULL)
         return most_recent_status->list.size();
     return 0;
 }
