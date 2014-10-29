@@ -3,7 +3,7 @@
 
 include version.mk
 
-ifneq ($(shell sw_vers -productVersion | egrep '10\.[6789](\.[0-9]+)?'),)
+ifneq ($(shell sw_vers -productVersion | egrep '10\.(6|7|8|9|10)(\.[0-9]+)?'),)
 SDK=$(shell xcodebuild -sdk macosx -version | grep '^Path:' | sed 's/Path: \(.*\)/\1/')
 ISYSROOT=-isysroot $(SDK)
 LINK_EXTRAS=-F/System/Library/PrivateFrameworks \
