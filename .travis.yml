@@ -2,7 +2,7 @@ os:
     - osx
 
 language: 
-    - cpp
+    - objective-c
 
 before_install:
     - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then echo "before_install - osx"; fi
