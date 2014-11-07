@@ -5,10 +5,10 @@ language:
     - objective-c
 
 before_install:
-    - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then echo "before_install - osx"; fi
+    - echo "before_install - osx"
     
 script: 
-    - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then cd miniAudicle/src/ && make osx; fi
+    - cd miniAudicle/src/ && make osx
     
 after_success:
     - echo "Success!"
