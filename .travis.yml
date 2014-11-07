@@ -8,7 +8,7 @@ before_install:
     - echo "before_install - osx"
     
 script: 
-    - cd miniAudicle/src/ && make osx
+    - cd src/ && make osx
     
 after_success:
     - echo "Success!"
