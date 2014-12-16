@@ -161,7 +161,25 @@ static NSImage * error_image;
 
 - (void)paste:(id)sender
 {
-    [super pasteAsPlainText:sender];
+//    [super pasteAsPlainText:sender];
+    
+    id pasted = [[NSPasteboard generalPasteboard] readObjectsForClasses: @[[NSString class], [NSAttributedString class]] options:nil].lastObject;
+    
+    if(pasted)
+    {
+        NSString *string1;
+        if([pasted isKindOfClass:[NSAttributedString class]])
+            string1 = [pasted string];
+        else if([pasted isKindOfClass:[NSString class]])
+            string1 = pasted;
+
+        NSData *asciiData = [string1 dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+        NSMutableString *string2 = [[NSMutableString alloc] initWithData:asciiData encoding:NSASCIIStringEncoding];
+        // scrub \r which seems to confuse the chuck compiler
+        [string2 replaceOccurrencesOfString:@"\r" withString:@"\n" options:0 range:NSMakeRange(0, [string2 length])];
+        if(string2)
+            [self insertText:string2];
+    }
 }
 
 - (NSRect)lockImageRect
