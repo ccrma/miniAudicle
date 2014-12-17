@@ -1,0 +1,17 @@
+os:
+    - osx
+
+language: 
+    - objective-c
+
+before_install:
+    - echo "before_install - osx"
+    
+script: 
+    - cd src/ && make osx
+    
+after_success:
+    - echo "Success!"
+
+after_failure:
+    - echo "Something went wrong..."
