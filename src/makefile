@@ -67,7 +67,6 @@ ifneq ($(wildcard makefile.qt-*),)
 	make -f $(firstword $(wildcard makefile.qt-*)) clean
 	rm $(wildcard makefile.qt-*)
 else
-	-make -f makefile.qt* clean
 	rm -rf *.{o,d} qt/*.o miniAudicle macosx/*.{o,d} macosx/miniAudicle.app \
         macosx/Resources/English.lproj/*.nib makefile.qt*
 	-make -C $(CHUCK_SRC_DIR) clean
