@@ -51,9 +51,9 @@ win32:
 	-+make -f makefile.win32 $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
 install:
-ifneq ($(wildcard miniAudicle),)
+ifneq ($(wildcard makefile.qt-*),)
 # Linux install
-	cp miniAudicle $(PREFIX)/bin
+	make -f $(firstword $(wildcard makefile.qt-*)) install
 
 else ifneq ($(wildcard macosx/miniAudicle.app),)
 # Mac install
@@ -63,8 +63,9 @@ else ifneq ($(wildcard macosx/miniAudicle.app),)
 endif
 
 clean:
-ifneq ($(CK_TARGET),)
-	make -f makefile.$(CK_TARGET) clean
+ifneq ($(wildcard makefile.qt-*),)
+	make -f $(firstword $(wildcard makefile.qt-*)) clean
+	rm $(wildcard makefile.qt-*)
 else
 	-make -f makefile.qt* clean
 	rm -rf *.{o,d} qt/*.o miniAudicle macosx/*.{o,d} macosx/miniAudicle.app \
