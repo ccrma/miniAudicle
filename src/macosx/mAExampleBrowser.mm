@@ -208,9 +208,13 @@
 {
     NSFileManager * fileManager = [NSFileManager defaultManager];
 
-    NSString * examplePath = [mAExampleBrowser examplesPath];
-    NSString * columnPath = [examplePath stringByAppendingFormat:@"/%@", [sender pathToColumn:column]];
-    NSArray * files = [fileManager contentsOfDirectoryAtPath:columnPath error:nil];
+    NSString *examplePath = [mAExampleBrowser examplesPath];
+    NSString *columnPath = [examplePath stringByAppendingFormat:@"/%@", [sender pathToColumn:column]];
+    NSArray *files= [[fileManager contentsOfDirectoryAtPath:columnPath
+                                                      error:nil]
+                     sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+                         return [obj1 compare:obj2 options:NSNumericSearch|NSForcedOrderingSearch|NSCaseInsensitiveSearch];
+                     }];
     NSString * file = [files objectAtIndex:row];
     NSString * fullpath = [columnPath stringByAppendingPathComponent:file];
     
