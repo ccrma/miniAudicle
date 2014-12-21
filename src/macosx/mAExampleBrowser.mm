@@ -58,9 +58,28 @@
 
 @interface mAExampleBrowser ()
 
++ (NSString *)examplesPath;
+
 @end
 
 @implementation mAExampleBrowser
+
++ (NSString *)examplesPath
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES);
+    if([paths count])
+    {
+        // examples in library
+        NSString *libraryExamplePath = [[[paths objectAtIndex:0] stringByAppendingPathComponent:@"Chuck"] stringByAppendingPathComponent:@"examples"];
+        BOOL isDir = NO;
+        if([[NSFileManager defaultManager] fileExistsAtPath:libraryExamplePath
+                                                isDirectory:&isDir] && isDir)
+            return libraryExamplePath;
+    }
+    
+    // built-in examples
+    return [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"examples"];
+}
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -110,7 +129,7 @@
 
 - (IBAction)open:(id)sender
 {
-    NSString * examplePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"examples"];
+    NSString * examplePath = [mAExampleBrowser examplesPath];
     NSString * columnPath = [examplePath stringByAppendingFormat:@"/%@", [_browser pathToColumn:[_browser selectedColumn]]];
     
 //    BOOL inTab = [NSEvent modifierFlags] & NSAlternateKeyMask;
@@ -119,23 +138,32 @@
     for(NSBrowserCell * cell in [_browser selectedCells])
     {
         NSString * filePath = [columnPath stringByAppendingPathComponent:[cell title]];
-        miniAudicleDocument * doc;
         
-//        if(inTab)
-//        {
-//            doc = [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:filePath]
-//                                                    display:YES
-//                                                      error:nil
-//                                                      inTab:YES];
-//        }
-//        else
+        if([[filePath pathExtension] isEqualToString:@"ck"])
         {
-            doc = [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:filePath]
-                                                    display:YES
-                                                      error:nil];
+            
+            miniAudicleDocument * doc;
+            
+            //        if(inTab)
+            //        {
+            //            doc = [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:filePath]
+            //                                                    display:YES
+            //                                                      error:nil
+            //                                                      inTab:YES];
+            //        }
+            //        else
+            {
+                doc = [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:filePath]
+                                                        display:YES
+                                                          error:nil];
+            }
+            
+            doc.readOnly = YES;
         }
-        
-        doc.readOnly = YES;
+        else
+        {
+            [[NSWorkspace sharedWorkspace] openFile:filePath];
+        }
     }
     
     [self.window close];
@@ -169,7 +197,7 @@
 {
     NSFileManager * fileManager = [NSFileManager defaultManager];
     
-    NSString * examplePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"examples"];
+    NSString * examplePath = [mAExampleBrowser examplesPath];
     NSString * columnPath = [examplePath stringByAppendingFormat:@"/%@", [sender pathToColumn:column]];
     NSArray * contents = [fileManager contentsOfDirectoryAtPath:columnPath error:nil];
     
@@ -178,10 +206,9 @@
 
 - (void)browser:(NSBrowser *)sender willDisplayCell:(id)cell atRow:(NSInteger)row column:(NSInteger)column
 {
-    NSBundle * mainBundle = [NSBundle mainBundle];
     NSFileManager * fileManager = [NSFileManager defaultManager];
 
-    NSString * examplePath = [[mainBundle resourcePath] stringByAppendingPathComponent:@"examples"];
+    NSString * examplePath = [mAExampleBrowser examplesPath];
     NSString * columnPath = [examplePath stringByAppendingFormat:@"/%@", [sender pathToColumn:column]];
     NSArray * files = [fileManager contentsOfDirectoryAtPath:columnPath error:nil];
     NSString * file = [files objectAtIndex:row];
@@ -198,10 +225,15 @@
     }
     else
     {
+        NSImage *ckmini = [NSImage imageNamed:@"ckmini.png"];
         if([[file pathExtension] isEqualToString:@"ck"])
-            [cell setImage:[NSImage imageNamed:@"ckmini.png"]];
+            [cell setImage:ckmini];
         else
-            [cell setEnabled:NO];
+        {
+            NSImage *image = [[NSWorkspace sharedWorkspace] iconForFile:fullpath];
+            image.size = ckmini.size;
+            [cell setImage:image];
+        }
         [cell setLeaf:YES];
     }
 }
