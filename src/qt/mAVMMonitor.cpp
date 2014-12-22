@@ -28,6 +28,7 @@ U.S.A.
 
 #include <math.h>
 
+const float VMMONITOR_STALL_TIMEOUT = 2; // secondss
 const float VMMONITOR_REFRESH_RATE = 20; // Hz
 
 mAVMMonitor::mAVMMonitor(QWidget *parent, mAMainWindow *mainWindow, miniAudicle * _ma) :
@@ -40,7 +41,7 @@ mAVMMonitor::mAVMMonitor(QWidget *parent, mAMainWindow *mainWindow, miniAudicle 
 
     timerId = -1;
     vm_stall_count = 0;
-    vm_max_stalls = 1*VMMONITOR_REFRESH_RATE;
+    vm_max_stalls = VMMONITOR_STALL_TIMEOUT*VMMONITOR_REFRESH_RATE;
 
     m_docid = ma->allocate_document_id();
 
