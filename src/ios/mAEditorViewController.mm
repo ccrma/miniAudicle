@@ -176,6 +176,15 @@
     
     _singleCharSize = [@" " sizeWithAttributes:[self defaultTextAttributes]];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
     [self configureView];
 }
 
@@ -786,6 +795,7 @@
         [self hideCompletions];
 }
 
+
 #pragma mark - mAKeyboardAccessoryDelegate
 
 - (void)keyPressed:(NSString *)chars selectionOffset:(NSInteger)offset
@@ -800,6 +810,7 @@
     }
 }
 
+
 #pragma mark - UITextViewDelegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -808,6 +819,45 @@
         return NO;
     
     return YES;
+}
+
+
+#pragma mark - UIKeyboardWillShowNotification / UIKeyboardWillHideNotification
+
+- (void)keyboardWillShow:(NSNotification *)n
+{
+//    NSLogFun();
+    
+    CGRect kbRect = [[[n userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    kbRect = [self.view convertRect:kbRect fromView:self.view.window];
+    
+    // original size
+    CGRect newRect = self.view.bounds;
+    newRect.origin.y = _textView.frame.origin.y;
+    newRect.size.height -= _textView.frame.origin.y;
+    // modify size
+    newRect.size.height -= kbRect.size.height;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        _textView.frame = newRect;
+    }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)n
+{
+//    NSLogFun();
+
+    CGRect kbRect = [[[n userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    kbRect = [self.view convertRect:kbRect fromView:self.view.window];
+    
+    // original size
+    CGRect newRect = self.view.bounds;
+    newRect.origin.y = _textView.frame.origin.y;
+    newRect.size.height -= _textView.frame.origin.y;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        _textView.frame = newRect;
+    }];
 }
 
 

@@ -11,4 +11,18 @@
 
 #define G_RATIO (1.61803398875)
 
+//#ifdef DEBUG
+//#   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+//#   define DLog() NSLog((@"%s [Line %d] "), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+//#else
+//#   define DLog(...)
+//#endif
+//
+//// ALog always displays output regardless of the DEBUG setting
+//#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+//#define ALog() NSLog((@"%s [Line %d] "), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+
+#define NSLogFun() NSLog((@"%s [Line %d] "), __PRETTY_FUNCTION__, __LINE__)
+
+
 #endif
