@@ -17,7 +17,6 @@
     UIView *_imageView;
     
     float _lineNumbersWidth;
-    float _lineNumbersHeightPerLine;
 }
 
 @property (nonatomic, strong) UIFont *lineNumberFont;
@@ -55,7 +54,6 @@
     _lineNumbersWidth = 0;
     self.lineNumberFont = [UIFont fontWithName:@"Menlo" size:10];
     [self updateLineNumbers];
-    _lineNumbersHeightPerLine = self.font.lineHeight;
 }
 
 - (id)initWithFrame:(CGRect)frame
