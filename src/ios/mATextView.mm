@@ -93,7 +93,8 @@ T lerp(const T a, const T b, const float p)
 
 - (UIColor *)errorLightColor
 {
-    float lightness = G_RATIO-1.0;
+//    float lightness = G_RATIO-1.0;
+    float lightness = 0.5;
     return [UIColor colorWithRed:lerp(1.0, 1.0, lightness)
                            green:lerp(0.45, 1.0, lightness)
                             blue:lerp(0.45, 1.0, lightness)
@@ -232,26 +233,6 @@ T lerp(const T a, const T b, const float p)
             CGContextAddRect(ctx, CGRectMake(xStart, yStart, lightLength+gradientLength, ySize));
             CGContextFillPath(ctx);
             
-            /* draw fancy gradient transition light->dark */
-            
-            CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
-            CGFloat components[8];
-            [dark getRed:&components[0] green:&components[1] blue:&components[2] alpha:&components[3]];
-            components[3] = 0;
-            [dark getRed:&components[4] green:&components[5] blue:&components[6] alpha:&components[7]];
-            CGFloat locations[] = {0.25, 0.75};
-            CGGradientRef gradient = CGGradientCreateWithColorComponents(rgb, components, locations, 2);
-            
-            CGContextSaveGState(ctx);
-            
-            CGContextAddRect(ctx, CGRectMake(xStart+lightLength-gradientLength, yStart, gradientLength+gradientLength, ySize));
-            CGContextClip(ctx);
-            CGContextDrawLinearGradient(ctx, gradient, CGPointMake(xStart+lightLength, yStart+ySize/2-gradientLength/2),
-                                        CGPointMake(xStart+lightLength+gradientLength, yStart+ySize/2+gradientLength/2),
-                                        kCGGradientDrawsBeforeStartLocation|kCGGradientDrawsAfterEndLocation);
-            
-            CGContextRestoreGState(ctx);
-            
             /* draw dark color box for error text */
             
             CGContextAddRect(ctx, CGRectMake(errorMsgBoxXStart-curveLength, yStart, errorMsgBoxXSize+curveLength, ySize));
@@ -272,12 +253,33 @@ T lerp(const T a, const T b, const float p)
             [dark set];
             CGContextFillPath(ctx);
             
-            [self.errorMessage drawInRect:CGRectMake(xStart+xSize-textSize.width-xBufferEdge*2, yStart+ySize,
-                                                     textSize.width, textSize.height)
-                           withAttributes:[self errorTextAttributes]];
+            /* draw fancy gradient transition light->dark */
+            
+            CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
+            CGFloat components[8];
+            [dark getRed:&components[0] green:&components[1] blue:&components[2] alpha:&components[3]];
+            components[3] = 0;
+            [dark getRed:&components[4] green:&components[5] blue:&components[6] alpha:&components[7]];
+            CGFloat locations[] = {0.25, 0.75};
+            CGGradientRef gradient = CGGradientCreateWithColorComponents(rgb, components, locations, 2);
+            
+            CGContextSaveGState(ctx);
+            
+            CGContextAddRect(ctx, CGRectMake(xStart+lightLength-gradientLength, yStart, gradientLength+gradientLength, ySize));
+            CGContextClip(ctx);
+            CGContextDrawLinearGradient(ctx, gradient, CGPointMake(xStart+lightLength, yStart+ySize/2-gradientLength/2),
+                                        CGPointMake(xStart+lightLength+gradientLength, yStart+ySize/2+gradientLength/2),
+                                        kCGGradientDrawsBeforeStartLocation|kCGGradientDrawsAfterEndLocation);
+            
+            CGContextRestoreGState(ctx);
             
             CGColorSpaceRelease(rgb);
             CGGradientRelease(gradient);
+            
+            /* draw error text */
+            [self.errorMessage drawInRect:CGRectMake(xStart+xSize-textSize.width-xBufferEdge*2, yStart+ySize,
+                                                     textSize.width, textSize.height)
+                           withAttributes:[self errorTextAttributes]];
         }
     }
     else
