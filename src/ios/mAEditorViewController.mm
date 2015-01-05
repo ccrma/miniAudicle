@@ -274,7 +274,7 @@
         if( [mAChucKController chuckController].ma->get_last_result( self.detailItem.docid, NULL, &result, &error_line ) )
         {
             self.textView.errorLine = error_line;
-            self.textView.errorMessage = [NSString stringWithUTF8String:result.c_str()];
+            self.textView.errorMessage = [[NSString stringWithUTF8String:result.c_str()] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
         
 //        if([self.windowController currentViewController] == self)
@@ -328,7 +328,7 @@
         if( [mAChucKController chuckController].ma->get_last_result( self.detailItem.docid, NULL, &result, &error_line ) )
         {
             self.textView.errorLine = error_line;
-            self.textView.errorMessage = [NSString stringWithUTF8String:result.c_str()];
+            self.textView.errorMessage = [[NSString stringWithUTF8String:result.c_str()] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
         
         [self.textView animateError];
