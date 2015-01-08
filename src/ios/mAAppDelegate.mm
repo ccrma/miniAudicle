@@ -33,6 +33,7 @@
 #import "miniAudicle.h"
 #import "mADocumentManager.h"
 #import "mAAutocomplete.h"
+#import "mAMasterNavigationController.h"
 #import "Crittercism.h"
 
 
@@ -78,14 +79,17 @@ static mAAppDelegate *g_appDelegate = nil;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
-        self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.masterViewController];
-        self.window.rootViewController = self.navigationController;
+//        self.masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
+//        self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.masterViewController];
+//        self.window.rootViewController = self.navigationController;
     } else {
+        mAMasterNavigationController *masterNavigationController = [[mAMasterNavigationController alloc] initWithNibName:@"mAMasterNavigationController" bundle:nil];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithNibName:@"mANavigationController" bundle:nil];
+        masterNavigationController.childNavigationController = navigationController;
+        
         self.masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
-        UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithNibName:@"mANavigationController" bundle:nil];
-        [masterNavigationController pushViewController:self.masterViewController animated:NO];
-        masterNavigationController.navigationBar.translucent = NO;
+        [navigationController pushViewController:self.masterViewController animated:NO];
+        navigationController.navigationBar.translucent = NO;
         
         self.detailViewController = [[mADetailViewController alloc] initWithNibName:@"mADetailViewController" bundle:nil];
     	self.editorViewController = [[mAEditorViewController alloc] initWithNibName:@"mAEditorViewController" bundle:nil];

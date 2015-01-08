@@ -76,6 +76,8 @@
 		093A212C14BF587500497856 /* mAChuginManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A212B14BF587500497856 /* mAChuginManager.mm */; };
 		093A212E14BFEF7F00497856 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093A212D14BFEF7F00497856 /* Security.framework */; };
 		093A213114BFF5DC00497856 /* BLAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A213014BFF5DC00497856 /* BLAuthentication.m */; };
+		093A74BA1A5E492D00F54725 /* mAMasterNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093A74B91A5E492D00F54725 /* mAMasterNavigationController.xib */; };
+		093A74BD1A5E495200F54725 /* mAMasterNavigationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A74BC1A5E495200F54725 /* mAMasterNavigationController.mm */; };
 		093E261414A108C8008694BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261314A108C8008694BC /* UIKit.framework */; };
 		093E261614A108C8008694BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261514A108C8008694BC /* Foundation.framework */; };
 		093E261814A108C8008694BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261714A108C8008694BC /* CoreGraphics.framework */; };
@@ -482,6 +484,9 @@
 		093A212D14BFEF7F00497856 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		093A212F14BFF5DC00497856 /* BLAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLAuthentication.h; path = macosx/BLAuthentication.h; sourceTree = "<group>"; };
 		093A213014BFF5DC00497856 /* BLAuthentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLAuthentication.m; path = macosx/BLAuthentication.m; sourceTree = "<group>"; };
+		093A74B91A5E492D00F54725 /* mAMasterNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAMasterNavigationController.xib; sourceTree = "<group>"; };
+		093A74BB1A5E495200F54725 /* mAMasterNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAMasterNavigationController.h; sourceTree = "<group>"; };
+		093A74BC1A5E495200F54725 /* mAMasterNavigationController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAMasterNavigationController.mm; sourceTree = "<group>"; };
 		093E261114A108C8008694BC /* miniAudicle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miniAudicle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		093E261314A108C8008694BC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		093E261514A108C8008694BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -1374,6 +1379,9 @@
 			isa = PBXGroup;
 			children = (
 				099ABE4C1906224B00C5D52D /* mADef.h */,
+				093A74B91A5E492D00F54725 /* mAMasterNavigationController.xib */,
+				093A74BB1A5E495200F54725 /* mAMasterNavigationController.h */,
+				093A74BC1A5E495200F54725 /* mAMasterNavigationController.mm */,
 				09307E1618DE68B0004AB346 /* mANavigationController~ipad.xib */,
 				093E262214A108C8008694BC /* mAAppDelegate.h */,
 				093E262314A108C8008694BC /* mAAppDelegate.mm */,
@@ -1674,6 +1682,7 @@
 				09087C6B14A4F67100AD2633 /* UIRemoveControlMinus.png in Resources */,
 				09094DC519919E41009F4C4C /* mAActivityViewController.xib in Resources */,
 				09608AE014B40DE4009450FE /* mAConsoleMonitor.xib in Resources */,
+				093A74BA1A5E492D00F54725 /* mAMasterNavigationController.xib in Resources */,
 				09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1813,6 +1822,7 @@
 				093E264D14A12201008694BC /* chuck_stats.cpp in Sources */,
 				093E264E14A12201008694BC /* chuck_symbol.cpp in Sources */,
 				09F09E4F18E3753B0050D963 /* mAScriptPlayerTab.mm in Sources */,
+				093A74BD1A5E495200F54725 /* mAMasterNavigationController.mm in Sources */,
 				093E264F14A12201008694BC /* chuck_table.cpp in Sources */,
 				093E265014A12201008694BC /* chuck_type.cpp in Sources */,
 				093E265114A12201008694BC /* chuck_ugen.cpp in Sources */,
