@@ -40,7 +40,7 @@ REQUIRE_UPLOAD_SUCCESS=${REQUIRE_UPLOAD_SUCCESS:=1}
 DSYM_UPLOAD_ENDPOINT="https://api.crittercism.com/api_beta/dsym/"
 exitWithMessageAndCode() {
   echo "${1}"
-  exit ${2}
+  exit 0
 }
 
 echo "Uploading dSYM to Crittercism"

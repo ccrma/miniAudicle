@@ -1549,6 +1549,7 @@
 				093E260D14A108C8008694BC /* Sources */,
 				093E260E14A108C8008694BC /* Frameworks */,
 				093E260F14A108C8008694BC /* Resources */,
+				4D3D4C9A1A5E3FDA00B6A06B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1748,6 +1749,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo \"#define GIT_REVISION \\\"\"`git rev-parse --short HEAD`\"\\\"\" > .git-rev-tmp\ncmp -s .git-rev-tmp \"$DERIVED_FILE_DIR/git-rev.h\" || cp .git-rev-tmp \"$DERIVED_FILE_DIR/git-rev.h\"\nrm .git-rev-tmp\n";
+		};
+		4D3D4C9A1A5E3FDA00B6A06B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f ~/.crittercism_keys ];\nthen\n    source ~/.crittercism_keys\n\n    APP_ID=\"54ad8a2b3cf56b9e0457cf82\"\n    API_KEY=${MINI_AUDICLE_SECRET_KEY}\n\n    source \"${SRCROOT}\"/ios/libs/Crittercism/dsym_upload.sh\nelse\n    echo \"~/.crittercism_keys does not exist. Auto-uploading of dSYM file disabled!\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 

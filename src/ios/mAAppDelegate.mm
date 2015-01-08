@@ -131,6 +131,9 @@ static mAAppDelegate *g_appDelegate = nil;
     // initialize Crittericsm (crash monitoring)
     [Crittercism enableWithAppID:@"54ad8a2b3cf56b9e0457cf82"];
     
+    // for testing Crittercism crash logging; do NOT commit this uncommented
+    // [[NSArray arrayWithObject:@6] objectAtIndex:9];
+    
     return YES;
 }
 
