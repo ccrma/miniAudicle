@@ -1761,7 +1761,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -f ~/.crittercism_keys ];\nthen\n    source ~/.crittercism_keys\n\n    APP_ID=\"54ad8a2b3cf56b9e0457cf82\"\n    API_KEY=${MINI_AUDICLE_SECRET_KEY}\n\n    source \"${SRCROOT}\"/ios/libs/Crittercism/dsym_upload.sh\nelse\n    echo \"~/.crittercism_keys does not exist. Auto-uploading of dSYM file disabled!\"\nfi";
+			shellScript = "echo \"Build configuration = \"${CONFIGURATION}\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    if [ -f ~/.crittercism_keys ]; then\n        source ~/.crittercism_keys\n\n        APP_ID=\"54ad8a2b3cf56b9e0457cf82\"\n        API_KEY=${MINI_AUDICLE_SECRET_KEY}\n\n        source \"${SRCROOT}\"/ios/libs/Crittercism/dsym_upload.sh\n    else\n        echo \"~/.crittercism_keys does not exist. Auto-uploading of dSYM file disabled!\"\n    fi\nelse\n    echo \"Not a release build so not auto-uploading dSYM file\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
