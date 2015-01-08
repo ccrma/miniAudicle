@@ -361,6 +361,9 @@
 		09F376EE0BBC97D6005931F6 /* remove.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E90BBC97D6005931F6 /* remove.png */; };
 		09F376EF0BBC97D6005931F6 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376EA0BBC97D6005931F6 /* add.png */; };
 		09F37B070BC075AC005931F6 /* mABrowserController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09F37B050BC075AC005931F6 /* mABrowserController.mm */; };
+		4D3D4C921A5E37DB00B6A06B /* dsym_upload.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4D3D4C901A5E37DB00B6A06B /* dsym_upload.sh */; };
+		4D3D4C931A5E37DB00B6A06B /* libCrittercism_v5_0_7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D3D4C911A5E37DB00B6A06B /* libCrittercism_v5_0_7.a */; };
+		4D3D4C981A5E3A4400B6A06B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D3D4C971A5E3A4400B6A06B /* SystemConfiguration.framework */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -806,6 +809,13 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = macosx/main.m; sourceTree = SOURCE_ROOT; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4D3D4C8D1A5E37DB00B6A06B /* CRFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRFilter.h; sourceTree = "<group>"; };
+		4D3D4C8E1A5E37DB00B6A06B /* Crittercism.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crittercism.h; sourceTree = "<group>"; };
+		4D3D4C8F1A5E37DB00B6A06B /* CrittercismDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismDelegate.h; sourceTree = "<group>"; };
+		4D3D4C901A5E37DB00B6A06B /* dsym_upload.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = dsym_upload.sh; sourceTree = "<group>"; };
+		4D3D4C911A5E37DB00B6A06B /* libCrittercism_v5_0_7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCrittercism_v5_0_7.a; sourceTree = "<group>"; };
+		4D3D4C941A5E392800B6A06B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		4D3D4C971A5E3A4400B6A06B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		8D1107320486CEB800E47090 /* miniAudicle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miniAudicle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -814,7 +824,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D3D4C981A5E3A4400B6A06B /* SystemConfiguration.framework in Frameworks */,
 				094B5F6919C9E1E8004B9B5E /* CoreMotion.framework in Frameworks */,
+				4D3D4C931A5E37DB00B6A06B /* libCrittercism_v5_0_7.a in Frameworks */,
 				09AEF9C719C475AC0081AE4B /* CoreImage.framework in Frameworks */,
 				09AC4E1A18EBC0C400B2561A /* QuartzCore.framework in Frameworks */,
 				093E267614A12A89008694BC /* AudioToolbox.framework in Frameworks */,
@@ -972,6 +984,7 @@
 				09DAA30A19BA213E00B8A416 /* player */,
 				09DAA30B19BA214300B8A416 /* connect */,
 				09DAA30C19BA214C00B8A416 /* util */,
+				4D3D4C8B1A5E37DB00B6A06B /* libs */,
 				09087C6914A4F63700AD2633 /* Resources */,
 				093E261A14A108C8008694BC /* Supporting Files */,
 			);
@@ -1486,6 +1499,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D3D4C971A5E3A4400B6A06B /* SystemConfiguration.framework */,
+				4D3D4C941A5E392800B6A06B /* SystemConfiguration.framework */,
 				094B5F6819C9E1E8004B9B5E /* CoreMotion.framework */,
 				09AEF9C619C475AC0081AE4B /* CoreImage.framework */,
 				09AC4E1918EBC0C400B2561A /* QuartzCore.framework */,
@@ -1501,6 +1516,26 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4D3D4C8B1A5E37DB00B6A06B /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				4D3D4C8C1A5E37DB00B6A06B /* Crittercism */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		4D3D4C8C1A5E37DB00B6A06B /* Crittercism */ = {
+			isa = PBXGroup;
+			children = (
+				4D3D4C8D1A5E37DB00B6A06B /* CRFilter.h */,
+				4D3D4C8E1A5E37DB00B6A06B /* Crittercism.h */,
+				4D3D4C8F1A5E37DB00B6A06B /* CrittercismDelegate.h */,
+				4D3D4C901A5E37DB00B6A06B /* dsym_upload.sh */,
+				4D3D4C911A5E37DB00B6A06B /* libCrittercism_v5_0_7.a */,
+			);
+			path = Crittercism;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1618,6 +1653,7 @@
 				09F09E5418E419960050D963 /* remove-noalpha.png in Resources */,
 				093E267914A14E91008694BC /* replace.png in Resources */,
 				09F0442C1918A8810028DD14 /* mALoopCountPicker.xib in Resources */,
+				4D3D4C921A5E37DB00B6A06B /* dsym_upload.sh in Resources */,
 				093E267A14A14E91008694BC /* remove.png in Resources */,
 				09F09E4118E2DAEA0050D963 /* mAPlayerViewController.xib in Resources */,
 				093E267B14A14E91008694BC /* add.png in Resources */,
@@ -2147,6 +2183,10 @@
 				);
 				INFOPLIST_FILE = "ios/miniAudicle iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ios/libs/Crittercism",
+				);
 				PRODUCT_NAME = miniAudicle;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -2185,6 +2225,10 @@
 				);
 				INFOPLIST_FILE = "ios/miniAudicle iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ios/libs/Crittercism",
+				);
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = miniAudicle;
 				PROVISIONING_PROFILE = "";

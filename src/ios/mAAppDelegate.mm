@@ -33,6 +33,7 @@
 #import "miniAudicle.h"
 #import "mADocumentManager.h"
 #import "mAAutocomplete.h"
+#import "Crittercism.h"
 
 
 NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript";
@@ -81,7 +82,6 @@ static mAAppDelegate *g_appDelegate = nil;
         self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.masterViewController];
         self.window.rootViewController = self.navigationController;
     } else {
-        
         self.masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
         UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithNibName:@"mANavigationController" bundle:nil];
         [masterNavigationController pushViewController:self.masterViewController animated:NO];
@@ -126,7 +126,10 @@ static mAAppDelegate *g_appDelegate = nil;
     
     // create autocomplete
     mAAutocomplete::autocomplete();
-//    mAAutocomplete::test();
+    // mAAutocomplete::test();
+    
+    // initialize Crittericsm (crash monitoring)
+    [Crittercism enableWithAppID:@"54ad8a2b3cf56b9e0457cf82"];
     
     return YES;
 }
