@@ -9,9 +9,13 @@
 #import "mAMasterNavigationController.h"
 
 @interface mAMasterNavigationController ()
+{
+    IBOutlet UISegmentedControl *segmentedControl;
+}
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 
+- (void)adjustNavigationBar:(UIViewController *)targetViewController animated:(BOOL)animated;
 - (IBAction)selectedMode:(id)sender;
 
 @end
@@ -28,6 +32,12 @@
     }
     
     _childNavigationController = childNavigationController;
+    _childNavigationController.delegate = self;
+    if(_childNavigationController.viewControllers.count)
+    {
+        // make navigation appear/disappear as needed
+        [self adjustNavigationBar:[_childNavigationController.viewControllers lastObject] animated:NO];
+    }
     
     // add to contentView
     if([self isViewLoaded] && _childNavigationController != nil)
@@ -43,6 +53,7 @@
     
     // reset to add subview to contentView
     self.childNavigationController = self.childNavigationController;
+    [self.childNavigationController setViewControllers:@[self.myScriptsViewController] animated:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,7 +64,39 @@
 
 - (IBAction)selectedMode:(id)sender
 {
-    
+    switch([segmentedControl selectedSegmentIndex])
+    {
+        case 0:
+            [self.childNavigationController setViewControllers:@[self.myScriptsViewController] animated:NO];
+            break;
+        case 1:
+            break;
+        case 2:
+            [self.childNavigationController setViewControllers:@[self.examplesViewController] animated:NO];
+            break;
+        default: ; // uhh
+    }
+}
+
+- (void)adjustNavigationBar:(UIViewController *)targetViewController animated:(BOOL)animated
+{
+    if(targetViewController == _childNavigationController.viewControllers[0] &&
+//       !(targetViewController.navigationItem.leftBarButtonItems.count || targetViewController.navigationItem.leftBarButtonItem ||
+//         targetViewController.navigationItem.rightBarButtonItems.count || targetViewController.navigationItem.rightBarButtonItem))
+       !(targetViewController.navigationItem.leftBarButtonItems.count || targetViewController.navigationItem.rightBarButtonItems.count ))
+        [_childNavigationController setNavigationBarHidden:YES animated:animated];
+    else
+        [_childNavigationController setNavigationBarHidden:NO animated:animated];
+}
+
+
+#pragma mark - UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController *)navigationController
+      willShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated
+{
+    [self adjustNavigationBar:viewController animated:animated];
 }
 
 

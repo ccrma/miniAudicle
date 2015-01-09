@@ -111,6 +111,13 @@ static mAAppDelegate *g_appDelegate = nil;
         self.window.rootViewController = self.splitViewController;
         
         self.masterViewController.scripts = [[mADocumentManager manager] loadScripts];
+        self.masterViewController.editable = YES;
+        masterNavigationController.myScriptsViewController = self.masterViewController;
+        
+        mAMasterViewController *examplesViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
+        examplesViewController.scripts = [[mADocumentManager manager] loadExamples];
+        examplesViewController.editable = NO;
+        masterNavigationController.examplesViewController = examplesViewController;
         
         if([self.masterViewController.scripts count] < 2)
         {

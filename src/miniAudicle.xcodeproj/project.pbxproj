@@ -1379,12 +1379,12 @@
 			isa = PBXGroup;
 			children = (
 				099ABE4C1906224B00C5D52D /* mADef.h */,
+				093E262214A108C8008694BC /* mAAppDelegate.h */,
+				093E262314A108C8008694BC /* mAAppDelegate.mm */,
 				093A74B91A5E492D00F54725 /* mAMasterNavigationController.xib */,
 				093A74BB1A5E495200F54725 /* mAMasterNavigationController.h */,
 				093A74BC1A5E495200F54725 /* mAMasterNavigationController.mm */,
 				09307E1618DE68B0004AB346 /* mANavigationController~ipad.xib */,
-				093E262214A108C8008694BC /* mAAppDelegate.h */,
-				093E262314A108C8008694BC /* mAAppDelegate.mm */,
 				09AB222D196FC4670037AF73 /* mADocumentManager.h */,
 				09AB222E196FC4670037AF73 /* mADocumentManager.m */,
 				093E262B14A108C8008694BC /* mAMasterViewController~iphone.xib */,

@@ -15,6 +15,7 @@
 + (id)manager;
 
 - (NSMutableArray *)loadScripts;
+- (NSMutableArray *)loadExamples;
 - (void)saveScripts;
 - (void)renameScript:(mADetailItem *)item to:(NSString *)title;
 - (void)deleteScript:(mADetailItem *)item;

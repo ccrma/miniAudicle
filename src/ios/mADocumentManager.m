@@ -101,16 +101,17 @@
         [scripts addObject:[mADetailItem detailItemFromPath:[path stringByAppendingPathComponent:subpath]
                                                      isUser:YES]];
     
+    return scripts;
+}
+
+- (NSMutableArray *)loadExamples
+{
     NSMutableArray *examplesArray = [NSMutableArray array];
     
     [self appendScriptsFromDirectory:[self examplesPath]
                              toArray:examplesArray];
     
-    [scripts addObject:[mADetailItem folderDetailItemWithTitle:@"Examples"
-                                                         items:examplesArray
-                                                        isUser:NO]];
-    
-    return scripts;
+    return examplesArray;
 }
 
 - (void)saveScripts

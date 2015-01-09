@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="mAMasterNavigationController">
             <connections>
                 <outlet property="contentView" destination="G94-8U-GO3" id="fXy-xh-Vpy"/>
+                <outlet property="segmentedControl" destination="rLf-21-tjz" id="grG-i2-aaK"/>
                 <outlet property="view" destination="iN0-l3-epB" id="MJP-lW-2Xc"/>
             </connections>
         </placeholder>

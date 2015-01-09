@@ -61,7 +61,7 @@ static mAInteractionMode g_mode = MA_IM_NONE;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self)
     {
-        self.title = NSLocalizedString(@"Scripts", @"Scripts");
+//        self.title = NSLocalizedString(@"Scripts", @"Scripts");
         if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
         {
             self.preferredContentSize = CGSizeMake(320.0, 600.0);
@@ -112,6 +112,20 @@ static mAInteractionMode g_mode = MA_IM_NONE;
     
     // reload name
     [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]].textLabel.text = self.editorViewController.detailItem.title;
+}
+
+- (UINavigationItem *)navigationItem
+{
+    UINavigationItem *navigationItem = super.navigationItem;
+    
+    if(self.editable)
+    {
+        navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                                          target:self
+                                                                                          action:@selector(newScript)];
+    }
+    
+    return navigationItem;
 }
 
 

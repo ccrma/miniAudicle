@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface mAMasterNavigationController : UIViewController
+@interface mAMasterNavigationController : UIViewController < UINavigationControllerDelegate >
 
-@property (strong, nonatomic) IBOutlet UINavigationController *childNavigationController;
+@property (strong, nonatomic) UINavigationController *childNavigationController;
+
+@property (strong, nonatomic) UIViewController *myScriptsViewController;
+@property (strong, nonatomic) UIViewController *examplesViewController;
 
 @end

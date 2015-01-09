@@ -42,6 +42,8 @@
 @property (strong, nonatomic) mADetailViewController *detailViewController;
 @property (strong, nonatomic) NSMutableArray * scripts;
 
+@property (nonatomic) BOOL editable;
+
 - (IBAction)newScript;
 - (IBAction)editScripts;
 - (IBAction)playMode:(id)sender;
