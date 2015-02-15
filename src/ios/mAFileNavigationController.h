@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class mAFileViewController;
+
 @interface mAFileNavigationController : UIViewController < UINavigationControllerDelegate >
 
 @property (strong, nonatomic) UINavigationController *childNavigationController;
 
-@property (strong, nonatomic) UIViewController *myScriptsViewController;
-@property (strong, nonatomic) UIViewController *examplesViewController;
+@property (strong, nonatomic) mAFileViewController *myScriptsViewController;
+@property (strong, nonatomic) mAFileViewController *recentViewController;
+@property (strong, nonatomic) mAFileViewController *examplesViewController;
 
 @end

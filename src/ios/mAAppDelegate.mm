@@ -47,12 +47,6 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
 @property (strong, nonatomic) mAEditorViewController * editorViewController;
 @property (strong, nonatomic) mAPlayerViewController * playerViewController;
 
-- (NSString *)examplesPath;
-- (void)appendScriptsFromDirectory:(NSString *)dir toArray:(NSMutableArray *)array;
-
-- (NSMutableArray *)loadScripts;
-- (void)saveScripts:(NSArray *)scripts;
-
 @end
 
 static mAAppDelegate *g_appDelegate = nil;
@@ -83,9 +77,9 @@ static mAAppDelegate *g_appDelegate = nil;
 //        self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.fileViewController];
 //        self.window.rootViewController = self.navigationController;
     } else {
-        mAFileNavigationController *masterNavigationController = [[mAFileNavigationController alloc] initWithNibName:@"mAFileNavigationController" bundle:nil];
+        mAFileNavigationController *fileNavigationController = [[mAFileNavigationController alloc] initWithNibName:@"mAFileNavigationController" bundle:nil];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithNibName:@"mANavigationController" bundle:nil];
-        masterNavigationController.childNavigationController = navigationController;
+        fileNavigationController.childNavigationController = navigationController;
         
         self.fileViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
         [navigationController pushViewController:self.fileViewController animated:NO];
@@ -106,28 +100,37 @@ static mAAppDelegate *g_appDelegate = nil;
         self.splitViewController = [[UISplitViewController alloc] init];
         self.splitViewController.delegate = self.detailViewController;
         self.splitViewController.presentsWithGesture = NO;
-        self.splitViewController.viewControllers = [NSArray arrayWithObjects:masterNavigationController, self.detailViewController, nil];
+        self.splitViewController.viewControllers = [NSArray arrayWithObjects:fileNavigationController, self.detailViewController, nil];
         
         self.window.rootViewController = self.splitViewController;
         
         self.fileViewController.scripts = [[mADocumentManager manager] loadScripts];
         self.fileViewController.editable = YES;
-        masterNavigationController.myScriptsViewController = self.fileViewController;
+        fileNavigationController.myScriptsViewController = self.fileViewController;
         
         mAFileViewController *examplesViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
         examplesViewController.scripts = [[mADocumentManager manager] loadExamples];
         examplesViewController.editable = NO;
-        masterNavigationController.examplesViewController = examplesViewController;
+        examplesViewController.detailViewController = self.detailViewController;
+        examplesViewController.editorViewController = self.editorViewController;
+        fileNavigationController.examplesViewController = examplesViewController;
         
-        if([self.fileViewController.scripts count] < 2)
-        {
-            [self.fileViewController newScript];
-        }
-        else
-        {
-            [self.fileViewController selectScript:[[NSUserDefaults standardUserDefaults] integerForKey:kmAUserDefaultsSelectedScript]];
-        }
-    }    
+        mAFileViewController *recentViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
+        recentViewController.scripts = [[mADocumentManager manager] recentFiles];
+        recentViewController.editable = NO;
+        recentViewController.detailViewController = self.detailViewController;
+        recentViewController.editorViewController = self.editorViewController;
+        fileNavigationController.recentViewController = recentViewController;
+        
+//        if([self.fileViewController.scripts count] < 2)
+//        {
+//            [self.fileViewController newScript];
+//        }
+//        else
+//        {
+//            [self.fileViewController selectScript:[[NSUserDefaults standardUserDefaults] integerForKey:kmAUserDefaultsSelectedScript]];
+//        }
+    }
     
     [self.window makeKeyAndVisible];
     

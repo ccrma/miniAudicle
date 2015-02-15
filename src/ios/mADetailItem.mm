@@ -127,8 +127,15 @@
 
 - (void)save
 {
+    NSError *error = NULL;
+    
     if(!self.isFolder && self.isUser)
-        [self.text writeToFile:self.path atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+        [self.text writeToFile:self.path atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    
+    if(error != NULL)
+    {
+        NSLogFun(@"error: %@", error);
+    }
 }
 
 - (t_CKUINT)docid

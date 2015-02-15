@@ -7,6 +7,9 @@
 //
 
 #import "mAFileNavigationController.h"
+#import "mADocumentManager.h"
+#import "mAFileViewController.h"
+
 
 @interface mAFileNavigationController ()
 {
@@ -54,6 +57,8 @@
     // reset to add subview to contentView
     self.childNavigationController = self.childNavigationController;
     [self.childNavigationController setViewControllers:@[self.myScriptsViewController] animated:NO];
+    
+//    [[mADocumentManager manager] addObserver:self forKeyPath:@"recentFiles" options:0 context:NULL];
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,6 +75,8 @@
             [self.childNavigationController setViewControllers:@[self.myScriptsViewController] animated:NO];
             break;
         case 1:
+            [self.recentViewController scriptsChanged];
+            [self.childNavigationController setViewControllers:@[self.recentViewController] animated:NO];
             break;
         case 2:
             [self.childNavigationController setViewControllers:@[self.examplesViewController] animated:NO];
@@ -99,5 +106,18 @@
     [self adjustNavigationBar:viewController animated:animated];
 }
 
+
+#pragma mark - NSKeyValueObserving
+
+//- (void)observeValueForKeyPath:(NSString *)keyPath
+//                      ofObject:(id)object
+//                        change:(NSDictionary *)change
+//                       context:(void *)context
+//{
+//    if(object == [mADocumentManager manager] && [keyPath isEqualToString:@"recentFiles"])
+//    {
+//        [self.recentViewController scriptsChanged];
+//    }
+//}
 
 @end

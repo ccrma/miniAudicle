@@ -52,5 +52,6 @@
 - (void)selectScript:(int)script;
 - (int)selectedScript;
 - (void)scriptDetailChanged;
+- (void)scriptsChanged;
 
 @end

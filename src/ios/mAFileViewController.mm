@@ -114,6 +114,11 @@ static mAInteractionMode g_mode = MA_IM_NONE;
     [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]].textLabel.text = self.editorViewController.detailItem.title;
 }
 
+- (void)scriptsChanged
+{
+    [self.tableView reloadData];
+}
+
 - (UINavigationItem *)navigationItem
 {
     UINavigationItem *navigationItem = super.navigationItem;
@@ -241,6 +246,7 @@ static mAInteractionMode g_mode = MA_IM_NONE;
     }
 }
 
+
 #pragma mark - UITableViewDelegate
 
 // Customize the number of sections in the table view.
@@ -338,6 +344,7 @@ static mAInteractionMode g_mode = MA_IM_NONE;
         {
             if(g_mode == MA_IM_EDIT)
             {
+                [[mADocumentManager manager] addRecentFile:detailItem];
                 self.editorViewController.detailItem = detailItem;
                 [self.detailViewController dismissMasterPopover];
             }

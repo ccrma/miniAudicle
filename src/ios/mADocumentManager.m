@@ -10,7 +10,13 @@
 #import "mADetailItem.h"
 
 
+static const int MAX_RECENT_ITEMS = 12;
+
+
 @interface mADocumentManager ()
+{
+    NSMutableArray *_recentFiles;
+}
 
 @property (strong, nonatomic) id<NSObject, NSCopying, NSCoding> ubiquityIdentityToken;
 @property (copy, nonatomic) NSURL *baseDocumentPath;
@@ -43,6 +49,8 @@
         {
             self.baseDocumentPath = [NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
         }
+        
+        _recentFiles = [NSMutableArray new];
     }
     
     return self;
@@ -161,6 +169,19 @@
     if(error != NULL)
     {
         NSLogFun(@"error: %@", error);
+    }
+}
+
+- (void)addRecentFile:(mADetailItem *)item
+{
+    // should probably use NSSet but it would involve a complicated refactor    
+    if([_recentFiles containsObject:item])
+        [_recentFiles removeObject:item];
+    
+    [_recentFiles insertObject:item atIndex:0];
+    while([_recentFiles count] > MAX_RECENT_ITEMS)
+    {
+        [_recentFiles removeObjectAtIndex:[_recentFiles count]-1];
     }
 }
 

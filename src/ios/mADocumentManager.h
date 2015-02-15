@@ -12,6 +12,8 @@
 
 @interface mADocumentManager : NSObject
 
+@property (readonly) NSArray *recentFiles;
+
 + (id)manager;
 
 - (NSMutableArray *)loadScripts;
@@ -19,6 +21,8 @@
 - (void)saveScripts;
 - (void)renameScript:(mADetailItem *)item to:(NSString *)title;
 - (void)deleteScript:(mADetailItem *)item;
+
+- (void)addRecentFile:(mADetailItem *)item;
 
 - (mADetailItem *)newScript:(NSString *)title;
 
