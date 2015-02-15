@@ -133,14 +133,35 @@
 
 - (void)renameScript:(mADetailItem *)item to:(NSString *)title
 {
+    NSError *error = NULL;
+
     [item save];
     
     NSString *newPath = [[[item.path stringByDeletingLastPathComponent] stringByAppendingPathComponent:title] stringByAppendingPathExtension:@"ck"];
 
-    [[NSFileManager defaultManager] moveItemAtPath:item.path toPath:newPath error:NULL];
+    [[NSFileManager defaultManager] moveItemAtPath:item.path toPath:newPath error:&error];
     
+    if(error != NULL)
+    {
+        NSLogFun(@"error: %@", error);
+        return;
+    }
+
     item.title = title;
     item.path = newPath;
+}
+
+- (void)deleteScript:(mADetailItem *)item
+{
+    NSError *error = NULL;
+
+    [[NSFileManager defaultManager] removeItemAtPath:item.path
+                                               error:&error];
+    
+    if(error != NULL)
+    {
+        NSLogFun(@"error: %@", error);
+    }
 }
 
 @end
