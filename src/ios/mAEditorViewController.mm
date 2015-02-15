@@ -10,7 +10,7 @@
 #import "mATextView.h"
 #import "miniAudicle.h"
 #import "mAChucKController.h"
-#import "mAMasterViewController.h"
+#import "mAFileViewController.h"
 #import "mADetailItem.h"
 #import "mAAppDelegate.h"
 #import "mADocumentManager.h"

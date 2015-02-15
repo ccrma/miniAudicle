@@ -28,7 +28,7 @@
 @class mAEditorViewController;
 @class mAPlayerViewController;
 
-@interface mAMasterViewController : UIViewController
+@interface mAFileViewController : UIViewController
 {
     IBOutlet UITableView * _tableView;
     IBOutlet UIBarButtonItem * _editButton;

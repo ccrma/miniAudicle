@@ -24,7 +24,7 @@
 
 #import "mADetailViewController.h"
 
-#import "mAMasterViewController.h"
+#import "mAFileViewController.h"
 #import "mAChucKController.h"
 #import "mATitleEditorController.h"
 #import "mAVMMonitorController.h"

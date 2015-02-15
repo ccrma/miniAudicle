@@ -31,7 +31,7 @@
 #import "mASyntaxHighlighter.h"
 
 @class mADetailItem;
-@class mAMasterViewController;
+@class mAFileViewController;
 @class mAVMMonitorController;
 
 
@@ -56,7 +56,7 @@
 }
 
 @property (strong, nonatomic) UIViewController *clientViewController;
-@property (assign, nonatomic) mAMasterViewController * masterViewController;
+@property (assign, nonatomic) mAFileViewController * masterViewController;
 
 - (void)dismissMasterPopover;
 - (void)setClientViewController:(UIViewController *)viewController;

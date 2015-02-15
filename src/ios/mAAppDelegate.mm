@@ -24,7 +24,7 @@
 
 #import "mAAppDelegate.h"
 
-#import "mAMasterViewController.h"
+#import "mAFileViewController.h"
 #import "mADetailViewController.h"
 #import "mAEditorViewController.h"
 #import "mAPlayerViewController.h"
@@ -42,7 +42,7 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
 
 @interface mAAppDelegate ()
 
-@property (strong, nonatomic) mAMasterViewController * masterViewController;
+@property (strong, nonatomic) mAFileViewController * masterViewController;
 @property (strong, nonatomic) mADetailViewController * detailViewController;
 @property (strong, nonatomic) mAEditorViewController * editorViewController;
 @property (strong, nonatomic) mAPlayerViewController * playerViewController;
@@ -79,7 +79,7 @@ static mAAppDelegate *g_appDelegate = nil;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-//        self.masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
+//        self.masterViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
 //        self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.masterViewController];
 //        self.window.rootViewController = self.navigationController;
     } else {
@@ -87,7 +87,7 @@ static mAAppDelegate *g_appDelegate = nil;
         UINavigationController *navigationController = [[UINavigationController alloc] initWithNibName:@"mANavigationController" bundle:nil];
         masterNavigationController.childNavigationController = navigationController;
         
-        self.masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
+        self.masterViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
         [navigationController pushViewController:self.masterViewController animated:NO];
         navigationController.navigationBar.translucent = NO;
         
@@ -114,7 +114,7 @@ static mAAppDelegate *g_appDelegate = nil;
         self.masterViewController.editable = YES;
         masterNavigationController.myScriptsViewController = self.masterViewController;
         
-        mAMasterViewController *examplesViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
+        mAFileViewController *examplesViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
         examplesViewController.scripts = [[mADocumentManager manager] loadExamples];
         examplesViewController.editable = NO;
         masterNavigationController.examplesViewController = examplesViewController;

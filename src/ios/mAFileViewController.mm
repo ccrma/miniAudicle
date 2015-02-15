@@ -22,7 +22,7 @@
  U.S.A.
  -----------------------------------------------------------------------------*/
 
-#import "mAMasterViewController.h"
+#import "mAFileViewController.h"
 
 #import "mADetailViewController.h"
 #import "mAEditorViewController.h"
@@ -42,7 +42,7 @@ enum mAInteractionMode
 static mAInteractionMode g_mode = MA_IM_NONE;
 
 
-@interface mAMasterViewController ()
+@interface mAFileViewController ()
 
 @property (strong, nonatomic) UITableView * tableView;
 @property (strong, nonatomic) UIBarButtonItem * editButton;
@@ -50,7 +50,7 @@ static mAInteractionMode g_mode = MA_IM_NONE;
 @end
 
 
-@implementation mAMasterViewController
+@implementation mAFileViewController
 
 @synthesize scripts = _scripts;
 @synthesize detailViewController = _detailViewController;
@@ -349,7 +349,7 @@ static mAInteractionMode g_mode = MA_IM_NONE;
         }
         else
         {
-            mAMasterViewController *master = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
+            mAFileViewController *master = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
             
             master.detailViewController = self.detailViewController;
             master.editorViewController = self.editorViewController;
