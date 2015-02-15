@@ -268,9 +268,9 @@
 {
     UISegmentedControl *segmentedControl = (UISegmentedControl *) sender;
     if(segmentedControl.selectedSegmentIndex == 0)
-        [self.masterViewController editMode:self];
+        [self.fileViewController editMode:self];
     else
-        [self.masterViewController playMode:self];
+        [self.fileViewController playMode:self];
 }
 
 #pragma mark - mAConsoleMonitorDelegate

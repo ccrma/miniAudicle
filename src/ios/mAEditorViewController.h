@@ -37,7 +37,7 @@
 @property (strong, nonatomic) UIBarButtonItem * titleButton;
 @property (nonatomic) BOOL showOTFToolbar;
 
-@property (weak, nonatomic) mAFileViewController *masterViewController;
+@property (weak, nonatomic) mAFileViewController *fileViewController;
 
 - (void)saveScript;
 

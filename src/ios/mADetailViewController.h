@@ -56,7 +56,7 @@
 }
 
 @property (strong, nonatomic) UIViewController *clientViewController;
-@property (assign, nonatomic) mAFileViewController * masterViewController;
+@property (assign, nonatomic) mAFileViewController * fileViewController;
 
 - (void)dismissMasterPopover;
 - (void)setClientViewController:(UIViewController *)viewController;
