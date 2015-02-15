@@ -1,14 +1,14 @@
 //
-//  mAMasterNavigationController.m
+//  mAFileNavigationController.m
 //  miniAudicle
 //
 //  Created by Spencer Salazar on 1/7/15.
 //
 //
 
-#import "mAMasterNavigationController.h"
+#import "mAFileNavigationController.h"
 
-@interface mAMasterNavigationController ()
+@interface mAFileNavigationController ()
 {
     IBOutlet UISegmentedControl *segmentedControl;
 }
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation mAMasterNavigationController
+@implementation mAFileNavigationController
 
 - (void)setChildNavigationController:(UINavigationController *)childNavigationController
 {

@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="mAMasterNavigationController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="mAFileNavigationController">
             <connections>
                 <outlet property="contentView" destination="G94-8U-GO3" id="fXy-xh-Vpy"/>
                 <outlet property="segmentedControl" destination="rLf-21-tjz" id="grG-i2-aaK"/>

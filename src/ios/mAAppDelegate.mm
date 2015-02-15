@@ -33,7 +33,7 @@
 #import "miniAudicle.h"
 #import "mADocumentManager.h"
 #import "mAAutocomplete.h"
-#import "mAMasterNavigationController.h"
+#import "mAFileNavigationController.h"
 #import "Crittercism.h"
 
 
@@ -83,7 +83,7 @@ static mAAppDelegate *g_appDelegate = nil;
 //        self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.fileViewController];
 //        self.window.rootViewController = self.navigationController;
     } else {
-        mAMasterNavigationController *masterNavigationController = [[mAMasterNavigationController alloc] initWithNibName:@"mAMasterNavigationController" bundle:nil];
+        mAFileNavigationController *masterNavigationController = [[mAFileNavigationController alloc] initWithNibName:@"mAFileNavigationController" bundle:nil];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithNibName:@"mANavigationController" bundle:nil];
         masterNavigationController.childNavigationController = navigationController;
         

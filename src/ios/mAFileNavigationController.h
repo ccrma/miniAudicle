@@ -1,5 +1,5 @@
 //
-//  mAMasterNavigationController.h
+//  mAFileNavigationController.h
 //  miniAudicle
 //
 //  Created by Spencer Salazar on 1/7/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface mAMasterNavigationController : UIViewController < UINavigationControllerDelegate >
+@interface mAFileNavigationController : UIViewController < UINavigationControllerDelegate >
 
 @property (strong, nonatomic) UINavigationController *childNavigationController;
 
