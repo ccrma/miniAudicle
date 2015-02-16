@@ -174,11 +174,16 @@ static const int MAX_RECENT_ITEMS = 12;
 
 - (void)addRecentFile:(mADetailItem *)item
 {
-    // should probably use NSSet but it would involve a complicated refactor    
+    // should probably use NSSet but it would involve a complicated refactor
+    
+    // ensure only one copy in the array
     if([_recentFiles containsObject:item])
         [_recentFiles removeObject:item];
     
+    // insert at beginning
     [_recentFiles insertObject:item atIndex:0];
+    
+    // maintain max
     while([_recentFiles count] > MAX_RECENT_ITEMS)
     {
         [_recentFiles removeObjectAtIndex:[_recentFiles count]-1];
