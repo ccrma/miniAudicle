@@ -17,11 +17,18 @@ T lerp(const T a, const T b, const float p)
     return a*(1-p) + b*p;
 }
 
+@interface NSString (lineCount)
+
+- (int)lineCount;
+
+@end
+
 
 @interface mATextView ()
 {
     UIView *_imageView;
     
+    int _lineCount;
     float _lineNumbersWidth;
 }
 
@@ -33,6 +40,8 @@ T lerp(const T a, const T b, const float p)
 
 - (void)drawLineNumbersInRect:(CGRect)rect;
 - (void)drawLineNumber:(int)num forLineRect:(CGRect)rect;
+
+- (void)textDidChange:(NSNotification *)n;
 
 @end
 
@@ -57,9 +66,16 @@ T lerp(const T a, const T b, const float p)
     // Initialization code
     self.errorLine = -1;
     self.contentMode = UIViewContentModeRedraw;
+    _lineCount = 0;
     _lineNumbersWidth = 0;
     self.lineNumberFont = [UIFont fontWithName:@"Menlo" size:10];
     [self updateLineNumbers];
+    
+    // um
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(textDidChange:)
+                                                 name:UITextViewTextDidChangeNotification
+                                               object:self];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -79,6 +95,11 @@ T lerp(const T a, const T b, const float p)
         [self initCommon];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (NSDictionary *)errorTextAttributes
@@ -180,6 +201,19 @@ T lerp(const T a, const T b, const float p)
             atLocation:CGPointMake(self.bounds.origin.x + self.bounds.size.width*0.9,
                                    self.bounds.origin.y + self.bounds.size.width*0.1)
                   size:CGSizeMake(125, 125)];
+}
+
+- (void)textDidChange:(NSNotification *)n
+{
+    int newLineCount = [self.text lineCount];
+    if(newLineCount != _lineCount)
+    {
+        [self setNeedsDisplayInRect:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, _lineNumbersWidth, self.bounds.size.width)];
+    }
+    
+    _lineCount = newLineCount;
+    
+//    NSLog(@"linenums: %i", newLineCount);
 }
 
 // Only override drawRect: if you perform custom drawing.
@@ -345,13 +379,37 @@ T lerp(const T a, const T b, const float p)
     NSString *lineString = [NSString stringWithFormat:@"%i", num];
     
     CGRect numberRect = lineRect;
-    numberRect.origin.y += self.textContainerInset.top + (self.font.lineHeight-self.lineNumberFont.lineHeight)*0.9;
+    numberRect.origin.y += self.textContainerInset.top + (self.font.lineHeight-self.lineNumberFont.lineHeight)*0.5;
     numberRect.origin.x = LINENUM_LEFTMARGIN;
     numberRect.size.width = _lineNumbersWidth-(LINENUM_LEFTMARGIN+LINENUM_RIGHTMARGIN);
     [lineString drawInRect:numberRect
             withAttributes:[self lineNumberTextAttributes]];
+    
+    // debug
+//    CGContextRef ctx = UIGraphicsGetCurrentContext();
+//    CGContextStrokeRect(ctx, numberRect);
 }
 
 @end
+
+
+@implementation NSString (lineCount)
+
+- (int)lineCount
+{
+    int n = 0;
+    NSCharacterSet *nl = [NSCharacterSet newlineCharacterSet];
+    int length = [self length];
+    for(int i = 0; i < length; i++)
+    {
+        if([nl characterIsMember:[self characterAtIndex:i]])
+            n++;
+    }
+    
+    return n;
+}
+
+@end
+
 
 
