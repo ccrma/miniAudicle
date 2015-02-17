@@ -13,9 +13,24 @@
 static const int MAX_RECENT_ITEMS = 12;
 NSString * const mADocumentManagerRecentFilesChanged = @"mADocumentManagerRecentFilesChanged";
 
+NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
+
+
+@interface NSString (mADocumentManager)
+
+- (NSString *)stripDocumentPath;
+- (BOOL)matchesDocumentPath:(NSString *)documentPath;
+
+@end
+
+
 @interface mADocumentManager ()
 {
+    NSMutableArray *_userScripts;
+    NSMutableArray *_exampleScripts;
+    
     NSMutableArray *_recentFiles;
+    NSMutableOrderedSet *_recentFilesPaths;
 }
 
 @property (strong, nonatomic) id<NSObject, NSCopying, NSCoding> ubiquityIdentityToken;
@@ -51,6 +66,19 @@ NSString * const mADocumentManagerRecentFilesChanged = @"mADocumentManagerRecent
         }
         
         _recentFiles = [NSMutableArray new];
+        _recentFilesPaths = [NSMutableOrderedSet orderedSetWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesRecentFilesKey]];
+        
+        [self loadScripts];
+        [self loadExamples];
+        
+        [_recentFiles sortUsingComparator:^NSComparisonResult(mADetailItem *obj1, mADetailItem *obj2) {
+            int index1 = [_recentFilesPaths indexOfObject:[[obj1 path] stripDocumentPath]];
+            int index2 = [_recentFilesPaths indexOfObject:[[obj2 path] stripDocumentPath]];
+            
+            if(index1 < index2) return NSOrderedAscending;
+            if(index1 > index2) return NSOrderedDescending;
+            return NSOrderedSame;
+        }];
     }
     
     return self;
@@ -75,6 +103,7 @@ NSString * const mADocumentManagerRecentFilesChanged = @"mADocumentManagerRecent
             mADetailItem *detailItem = [mADetailItem new];
             detailItem.isUser = NO;
             detailItem.title = path;
+            // TODO: load lazily
             detailItem.text = [NSString stringWithContentsOfFile:fullPath
                                                         encoding:NSUTF8StringEncoding error:NULL];
             detailItem.isFolder = NO;
@@ -82,6 +111,9 @@ NSString * const mADocumentManagerRecentFilesChanged = @"mADocumentManagerRecent
             detailItem.path = fullPath;
             
             [array addObject:detailItem];
+            
+            if([_recentFilesPaths containsObject:[fullPath stripDocumentPath]])
+                [_recentFiles addObject:detailItem];
         }
         else if([fileManager fileExistsAtPath:fullPath isDirectory:&isDirectory] && isDirectory)
         {
@@ -101,25 +133,37 @@ NSString * const mADocumentManagerRecentFilesChanged = @"mADocumentManagerRecent
 
 - (NSMutableArray *)loadScripts
 {
-    NSMutableArray * scripts = [NSMutableArray array];
+    if(_userScripts == nil)
+    {
+        _userScripts = [NSMutableArray array];
+        
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSString *path = [self.baseDocumentPath path];
+        for(NSString *subpath in [fileManager contentsOfDirectoryAtPath:path error:NULL])
+        {
+            NSString *fullPath = [path stringByAppendingPathComponent:subpath];
+            mADetailItem *item = [mADetailItem detailItemFromPath:fullPath isUser:YES];
+            [_userScripts addObject:item];
+            
+            if([_recentFilesPaths containsObject:[fullPath stripDocumentPath]])
+                [_recentFiles addObject:item];
+        }
+    }
     
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *path = [self.baseDocumentPath path];
-    for(NSString *subpath in [fileManager contentsOfDirectoryAtPath:path error:NULL])
-        [scripts addObject:[mADetailItem detailItemFromPath:[path stringByAppendingPathComponent:subpath]
-                                                     isUser:YES]];
-    
-    return scripts;
+    return _userScripts;
 }
 
 - (NSMutableArray *)loadExamples
 {
-    NSMutableArray *examplesArray = [NSMutableArray array];
+    if(_exampleScripts == nil)
+    {
+        _exampleScripts = [NSMutableArray array];
+        
+        [self appendScriptsFromDirectory:[self examplesPath]
+                                 toArray:_exampleScripts];
+    }
     
-    [self appendScriptsFromDirectory:[self examplesPath]
-                             toArray:examplesArray];
-    
-    return examplesArray;
+    return _exampleScripts;
 }
 
 - (void)saveScripts
@@ -177,19 +221,53 @@ NSString * const mADocumentManagerRecentFilesChanged = @"mADocumentManagerRecent
     // should probably use NSSet but it would involve a complicated refactor
     
     // ensure only one copy in the array
+    NSString *documentPath = [item.path stripDocumentPath];
     if([_recentFiles containsObject:item])
         [_recentFiles removeObject:item];
+    if([_recentFilesPaths containsObject:documentPath])
+        [_recentFilesPaths removeObject:documentPath];
     
     // insert at beginning
     [_recentFiles insertObject:item atIndex:0];
+    [_recentFilesPaths insertObject:documentPath atIndex:0];
     
     // maintain max
     while([_recentFiles count] > MAX_RECENT_ITEMS)
-    {
-        [_recentFiles removeObjectAtIndex:[_recentFiles count]-1];
-    }
+        [_recentFiles removeLastObject];
+    while([_recentFilesPaths count] > MAX_RECENT_ITEMS)
+        [_recentFilesPaths removeObjectAtIndex:[_recentFilesPaths count]-1];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:mADocumentManagerRecentFilesChanged object:self];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[_recentFilesPaths array] forKey:mAPreferencesRecentFilesKey];
 }
 
 @end
+
+
+@implementation NSString (mADocumentManager)
+
+- (NSString *)stripDocumentPath
+{
+    NSRange range = [self rangeOfString:@"examples"];
+    if(range.location != NSNotFound) return [self substringFromIndex:range.location];
+    
+    range = [self rangeOfString:@"Documents"];
+    if(range.location != NSNotFound) return [self substringFromIndex:range.location];
+    
+    return nil;
+}
+
+- (BOOL)matchesDocumentPath:(NSString *)documentPath
+{
+    NSRange range = [self rangeOfString:documentPath options:NSBackwardsSearch];
+    // only if it matches at the very end of the string
+    if(range.location != NSNotFound && NSMaxRange(range) == [self length])
+        return YES;
+    return NO;
+}
+
+@end
+
+
+

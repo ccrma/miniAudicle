@@ -122,6 +122,13 @@ static mAAppDelegate *g_appDelegate = nil;
         recentViewController.editorViewController = self.editorViewController;
         fileNavigationController.recentViewController = recentViewController;
         
+        if([[mADocumentManager manager] recentFiles].count)
+            self.editorViewController.detailItem = [[[mADocumentManager manager] recentFiles] firstObject];
+        else if([[mADocumentManager manager] loadScripts].count)
+            self.editorViewController.detailItem = [[[mADocumentManager manager] loadScripts] firstObject];
+        else
+            [self.fileViewController newScript];
+        
 //        if([self.fileViewController.scripts count] < 2)
 //        {
 //            [self.fileViewController newScript];
