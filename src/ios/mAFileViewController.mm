@@ -47,14 +47,35 @@ static mAInteractionMode g_mode = MA_IM_NONE;
 @property (strong, nonatomic) UITableView * tableView;
 @property (strong, nonatomic) UIBarButtonItem * editButton;
 
+- (void)detailItemTitleChanged:(NSNotification *)n;
+
 @end
 
 
 @implementation mAFileViewController
 
-@synthesize scripts = _scripts;
-@synthesize detailViewController = _detailViewController;
-@synthesize tableView = _tableView, editButton = _editButton;
+//@synthesize scripts = _scripts;
+//@synthesize detailViewController = _detailViewController;
+//@synthesize tableView = _tableView, editButton = _editButton;
+
+- (void)setScripts:(NSMutableArray *)scripts
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:mADetailItemTitleChangedNotification
+                                                  object:nil];
+    
+    _scripts = scripts;
+    
+    for(mADetailItem *item in _scripts)
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(detailItemTitleChanged:)
+                                                     name:mADetailItemTitleChangedNotification
+                                                   object:item];
+    }
+    
+    [self.tableView reloadData];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -116,7 +137,8 @@ static mAInteractionMode g_mode = MA_IM_NONE;
 
 - (void)scriptsChanged
 {
-    [self.tableView reloadData];
+    // force reload
+    self.scripts = self.scripts;
 }
 
 - (UINavigationItem *)navigationItem
@@ -133,13 +155,18 @@ static mAInteractionMode g_mode = MA_IM_NONE;
     return navigationItem;
 }
 
+- (void)detailItemTitleChanged:(NSNotification *)n
+{
+    mADetailItem *item = [n object];
+    int index = [self.scripts indexOfObject:item];
+    [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]].textLabel.text = item.title;
+}
 
 #pragma mark - IBActions
 
 - (IBAction)newScript
 {
     (void) self.view; // force the view to load
-    
     
     mADetailItem *detailItem = [[mADocumentManager manager] newScript:[NSString stringWithFormat:@"Untitled %i", untitledNumber++]];
     detailItem.docid = [mAChucKController chuckController].ma->allocate_document_id();
@@ -193,7 +220,6 @@ static mAInteractionMode g_mode = MA_IM_NONE;
         [self.detailViewController dismissMasterPopover];
     }
 }
-
 
 #pragma mark - UIViewController
 

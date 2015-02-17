@@ -11,7 +11,7 @@
 
 
 static const int MAX_RECENT_ITEMS = 12;
-
+NSString * const mADocumentManagerRecentFilesChanged = @"mADocumentManagerRecentFilesChanged";
 
 @interface mADocumentManager ()
 {
@@ -188,6 +188,8 @@ static const int MAX_RECENT_ITEMS = 12;
     {
         [_recentFiles removeObjectAtIndex:[_recentFiles count]-1];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:mADocumentManagerRecentFilesChanged object:self];
 }
 
 @end

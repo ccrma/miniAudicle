@@ -10,6 +10,8 @@
 
 @class mADetailItem;
 
+extern NSString * const mADocumentManagerRecentFilesChanged;
+
 @interface mADocumentManager : NSObject
 
 @property (readonly) NSArray *recentFiles;

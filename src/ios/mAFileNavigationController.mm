@@ -58,7 +58,10 @@
     self.childNavigationController = self.childNavigationController;
     [self.childNavigationController setViewControllers:@[self.myScriptsViewController] animated:NO];
     
-//    [[mADocumentManager manager] addObserver:self forKeyPath:@"recentFiles" options:0 context:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(recentFilesChanged:)
+                                                 name:mADocumentManagerRecentFilesChanged
+                                               object:[mADocumentManager manager]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,7 +78,6 @@
             [self.childNavigationController setViewControllers:@[self.myScriptsViewController] animated:NO];
             break;
         case 1:
-            [self.recentViewController scriptsChanged];
             [self.childNavigationController setViewControllers:@[self.recentViewController] animated:NO];
             break;
         case 2:
@@ -96,6 +98,11 @@
         [_childNavigationController setNavigationBarHidden:NO animated:animated];
 }
 
+- (void)recentFilesChanged:(NSNotification *)n
+{
+    [self.recentViewController scriptsChanged];
+}
+
 
 #pragma mark - UINavigationControllerDelegate
 
@@ -106,18 +113,5 @@
     [self adjustNavigationBar:viewController animated:animated];
 }
 
-
-#pragma mark - NSKeyValueObserving
-
-//- (void)observeValueForKeyPath:(NSString *)keyPath
-//                      ofObject:(id)object
-//                        change:(NSDictionary *)change
-//                       context:(void *)context
-//{
-//    if(object == [mADocumentManager manager] && [keyPath isEqualToString:@"recentFiles"])
-//    {
-//        [self.recentViewController scriptsChanged];
-//    }
-//}
 
 @end

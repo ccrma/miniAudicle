@@ -12,6 +12,8 @@
 #import "mANetworkAction.h"
 #import "mANetworkManager.h"
 
+NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChangedNotification";
+
 
 @interface NSFileManager (isDirectory)
 
@@ -36,6 +38,11 @@
 
 @implementation mADetailItem
 
+- (void)setTitle:(NSString *)title
+{
+    _title = title;
+    [[NSNotificationCenter defaultCenter] postNotificationName:mADetailItemTitleChangedNotification object:self];
+}
 
 + (mADetailItem *)detailItemFromPath:(NSString *)path isUser:(BOOL)isUser
 {
