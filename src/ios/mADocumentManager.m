@@ -36,6 +36,9 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 @property (strong, nonatomic) id<NSObject, NSCopying, NSCoding> ubiquityIdentityToken;
 @property (copy, nonatomic) NSURL *baseDocumentPath;
 
+- (NSMutableArray *)loadScripts;
+- (NSMutableArray *)loadExamples;
+
 @end
 
 

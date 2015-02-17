@@ -14,12 +14,12 @@ extern NSString * const mADocumentManagerRecentFilesChanged;
 
 @interface mADocumentManager : NSObject
 
-@property (readonly) NSArray *recentFiles;
+@property (readonly) NSMutableArray *recentFiles;
+@property (readonly) NSArray *userScripts;
+@property (readonly) NSArray *exampleScripts;
 
 + (id)manager;
 
-- (NSMutableArray *)loadScripts;
-- (NSMutableArray *)loadExamples;
 - (void)saveScripts;
 - (void)renameScript:(mADetailItem *)item to:(NSString *)title;
 - (void)deleteScript:(mADetailItem *)item;

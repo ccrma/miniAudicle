@@ -102,12 +102,12 @@ static mAAppDelegate *g_appDelegate = nil;
         
         self.window.rootViewController = self.splitViewController;
         
-        self.fileViewController.scripts = [[mADocumentManager manager] loadScripts];
+        self.fileViewController.scripts = [[mADocumentManager manager] userScripts];
         self.fileViewController.editable = YES;
         fileNavigationController.myScriptsViewController = self.fileViewController;
         
         mAFileViewController *examplesViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
-        examplesViewController.scripts = [[mADocumentManager manager] loadExamples];
+        examplesViewController.scripts = [[mADocumentManager manager] exampleScripts];
         examplesViewController.editable = NO;
         examplesViewController.detailViewController = self.detailViewController;
         examplesViewController.editorViewController = self.editorViewController;
@@ -122,19 +122,10 @@ static mAAppDelegate *g_appDelegate = nil;
         
         if([[mADocumentManager manager] recentFiles].count)
             self.editorViewController.detailItem = [[[mADocumentManager manager] recentFiles] firstObject];
-        else if([[mADocumentManager manager] loadScripts].count)
-            self.editorViewController.detailItem = [[[mADocumentManager manager] loadScripts] firstObject];
+        else if([[mADocumentManager manager] userScripts].count)
+            self.editorViewController.detailItem = [[[mADocumentManager manager] userScripts] firstObject];
         else
             [self.fileViewController newScript];
-        
-//        if([self.fileViewController.scripts count] < 2)
-//        {
-//            [self.fileViewController newScript];
-//        }
-//        else
-//        {
-//            [self.fileViewController selectScript:[[NSUserDefaults standardUserDefaults] integerForKey:kmAUserDefaultsSelectedScript]];
-//        }
     }
     
     [self.window makeKeyAndVisible];
