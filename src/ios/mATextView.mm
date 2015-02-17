@@ -337,6 +337,10 @@ T lerp(const T a, const T b, const float p)
 
 - (void)drawLineNumbersInRect:(CGRect)rect
 {
+    // if is animating, don't draw
+//    if(self.layer.animationKeys.count > 0)
+//        return;
+    
     NSLayoutManager *layoutManager = self.layoutManager;
     NSTextContainer *textContainer = self.textContainer;
     
@@ -379,7 +383,7 @@ T lerp(const T a, const T b, const float p)
     NSString *lineString = [NSString stringWithFormat:@"%i", num];
     
     CGRect numberRect = lineRect;
-    numberRect.origin.y += self.textContainerInset.top + (self.font.lineHeight-self.lineNumberFont.lineHeight)*0.5;
+    numberRect.origin.y += self.textContainerInset.top + (self.font.lineHeight-self.lineNumberFont.lineHeight)*0.62;
     numberRect.origin.x = LINENUM_LEFTMARGIN;
     numberRect.size.width = _lineNumbersWidth-(LINENUM_LEFTMARGIN+LINENUM_RIGHTMARGIN);
     [lineString drawInRect:numberRect

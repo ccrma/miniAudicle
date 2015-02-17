@@ -831,15 +831,28 @@
     CGRect kbRect = [[[n userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     kbRect = [self.view convertRect:kbRect fromView:self.view.window];
     
-    // original size
-    CGRect newRect = self.view.bounds;
-    newRect.origin.y = _textView.frame.origin.y;
-    newRect.size.height -= _textView.frame.origin.y;
-    // modify size
-    newRect.size.height -= kbRect.size.height;
+//    // original size
+//    CGRect newRect = self.view.bounds;
+//    newRect.origin.y = _textView.frame.origin.y;
+//    newRect.size.height -= _textView.frame.origin.y;
+//    // modify size
+//    newRect.size.height -= kbRect.size.height;
+//    
+//    [UIView animateWithDuration:0.3 animations:^{
+//        _textView.frame = newRect;
+//    }];
     
+    // apparently insets is the way to go here
+    // http://stackoverflow.com/questions/18431684/uitextview-cursor-below-frame-when-changing-frame
+    UIEdgeInsets contentInset = self.textView.contentInset;
+    contentInset.bottom = kbRect.size.height;
+    
+    UIEdgeInsets scrollInset = self.textView.scrollIndicatorInsets;
+    scrollInset.bottom = kbRect.size.height;
+
     [UIView animateWithDuration:0.3 animations:^{
-        _textView.frame = newRect;
+        self.textView.contentInset = contentInset;
+        self.textView.scrollIndicatorInsets = scrollInset;
     }];
 }
 
@@ -850,13 +863,26 @@
     CGRect kbRect = [[[n userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     kbRect = [self.view convertRect:kbRect fromView:self.view.window];
     
-    // original size
-    CGRect newRect = self.view.bounds;
-    newRect.origin.y = _textView.frame.origin.y;
-    newRect.size.height -= _textView.frame.origin.y;
+//    // original size
+//    CGRect newRect = self.view.bounds;
+//    newRect.origin.y = _textView.frame.origin.y;
+//    newRect.size.height -= _textView.frame.origin.y;
+//    
+//    [UIView animateWithDuration:0.3 animations:^{
+//        _textView.frame = newRect;
+//    }];
+    
+    // apparently insets is the way to go here
+    // http://stackoverflow.com/questions/18431684/uitextview-cursor-below-frame-when-changing-frame
+    UIEdgeInsets contentInset = self.textView.contentInset;
+    contentInset.bottom = 0;
+    
+    UIEdgeInsets scrollInset = self.textView.scrollIndicatorInsets;
+    scrollInset.bottom = 0;
     
     [UIView animateWithDuration:0.3 animations:^{
-        _textView.frame = newRect;
+        self.textView.contentInset = contentInset;
+        self.textView.scrollIndicatorInsets = scrollInset;
     }];
 }
 
