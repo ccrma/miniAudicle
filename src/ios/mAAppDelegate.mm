@@ -93,8 +93,6 @@ static mAAppDelegate *g_appDelegate = nil;
         self.detailViewController.fileViewController = self.fileViewController;
         
         self.fileViewController.editorViewController = self.editorViewController;
-        self.editorViewController.fileViewController = self.fileViewController;
-        
         self.fileViewController.playerViewController = self.playerViewController;
         
         self.splitViewController = [[UISplitViewController alloc] init];

@@ -404,8 +404,6 @@
     
     [self configureView];
     
-    [self.fileViewController scriptDetailChanged];
-    
     [self.textView becomeFirstResponder];
 }
 
