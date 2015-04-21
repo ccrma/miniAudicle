@@ -10,14 +10,21 @@
 
 @class mADetailItem;
 
+extern NSString * const mADocumentManagerRecentFilesChanged;
+
 @interface mADocumentManager : NSObject
+
+@property (readonly) NSMutableArray *recentFiles;
+@property (readonly) NSArray *userScripts;
+@property (readonly) NSArray *exampleScripts;
 
 + (id)manager;
 
-- (NSMutableArray *)loadScripts;
 - (void)saveScripts;
 - (void)renameScript:(mADetailItem *)item to:(NSString *)title;
 - (void)deleteScript:(mADetailItem *)item;
+
+- (void)addRecentFile:(mADetailItem *)item;
 
 - (mADetailItem *)newScript:(NSString *)title;
 

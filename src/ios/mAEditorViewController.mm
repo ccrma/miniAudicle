@@ -10,7 +10,7 @@
 #import "mATextView.h"
 #import "miniAudicle.h"
 #import "mAChucKController.h"
-#import "mAMasterViewController.h"
+#import "mAFileViewController.h"
 #import "mADetailItem.h"
 #import "mAAppDelegate.h"
 #import "mADocumentManager.h"
@@ -176,6 +176,15 @@
     
     _singleCharSize = [@" " sizeWithAttributes:[self defaultTextAttributes]];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
     [self configureView];
 }
 
@@ -265,7 +274,7 @@
         if( [mAChucKController chuckController].ma->get_last_result( self.detailItem.docid, NULL, &result, &error_line ) )
         {
             self.textView.errorLine = error_line;
-            self.textView.errorMessage = [NSString stringWithUTF8String:result.c_str()];
+            self.textView.errorMessage = [[NSString stringWithUTF8String:result.c_str()] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
         
 //        if([self.windowController currentViewController] == self)
@@ -319,7 +328,7 @@
         if( [mAChucKController chuckController].ma->get_last_result( self.detailItem.docid, NULL, &result, &error_line ) )
         {
             self.textView.errorLine = error_line;
-            self.textView.errorMessage = [NSString stringWithUTF8String:result.c_str()];
+            self.textView.errorMessage = [[NSString stringWithUTF8String:result.c_str()] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
         
         [self.textView animateError];
@@ -394,8 +403,6 @@
     [[mADocumentManager manager] renameScript:self.detailItem to:self.titleEditor.editedTitle];
     
     [self configureView];
-    
-    [self.masterViewController scriptDetailChanged];
     
     [self.textView becomeFirstResponder];
 }
@@ -786,6 +793,7 @@
         [self hideCompletions];
 }
 
+
 #pragma mark - mAKeyboardAccessoryDelegate
 
 - (void)keyPressed:(NSString *)chars selectionOffset:(NSInteger)offset
@@ -800,6 +808,7 @@
     }
 }
 
+
 #pragma mark - UITextViewDelegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -808,6 +817,71 @@
         return NO;
     
     return YES;
+}
+
+
+#pragma mark - UIKeyboardWillShowNotification / UIKeyboardWillHideNotification
+
+- (void)keyboardWillShow:(NSNotification *)n
+{
+//    NSLogFun();
+    
+    CGRect kbRect = [[[n userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    kbRect = [self.view convertRect:kbRect fromView:self.view.window];
+    
+//    // original size
+//    CGRect newRect = self.view.bounds;
+//    newRect.origin.y = _textView.frame.origin.y;
+//    newRect.size.height -= _textView.frame.origin.y;
+//    // modify size
+//    newRect.size.height -= kbRect.size.height;
+//    
+//    [UIView animateWithDuration:0.3 animations:^{
+//        _textView.frame = newRect;
+//    }];
+    
+    // apparently insets is the way to go here
+    // http://stackoverflow.com/questions/18431684/uitextview-cursor-below-frame-when-changing-frame
+    UIEdgeInsets contentInset = self.textView.contentInset;
+    contentInset.bottom = kbRect.size.height;
+    
+    UIEdgeInsets scrollInset = self.textView.scrollIndicatorInsets;
+    scrollInset.bottom = kbRect.size.height;
+
+    [UIView animateWithDuration:0.3 animations:^{
+        self.textView.contentInset = contentInset;
+        self.textView.scrollIndicatorInsets = scrollInset;
+    }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)n
+{
+//    NSLogFun();
+
+    CGRect kbRect = [[[n userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    kbRect = [self.view convertRect:kbRect fromView:self.view.window];
+    
+//    // original size
+//    CGRect newRect = self.view.bounds;
+//    newRect.origin.y = _textView.frame.origin.y;
+//    newRect.size.height -= _textView.frame.origin.y;
+//    
+//    [UIView animateWithDuration:0.3 animations:^{
+//        _textView.frame = newRect;
+//    }];
+    
+    // apparently insets is the way to go here
+    // http://stackoverflow.com/questions/18431684/uitextview-cursor-below-frame-when-changing-frame
+    UIEdgeInsets contentInset = self.textView.contentInset;
+    contentInset.bottom = 0;
+    
+    UIEdgeInsets scrollInset = self.textView.scrollIndicatorInsets;
+    scrollInset.bottom = 0;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.textView.contentInset = contentInset;
+        self.textView.scrollIndicatorInsets = scrollInset;
+    }];
 }
 
 

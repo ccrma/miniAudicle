@@ -19,7 +19,6 @@
 		09094DCE19940E7B009F4C4C /* NSMutableArray+MapFilterReduce.m in Sources */ = {isa = PBXBuildFile; fileRef = 09094DCD19940E7B009F4C4C /* NSMutableArray+MapFilterReduce.m */; };
 		090A5BE80AA75AEA005DC04D /* util_hid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090A5BE70AA75AEA005DC04D /* util_hid.cpp */; };
 		090A5BE90AA75AEA005DC04D /* util_hid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090A5BE70AA75AEA005DC04D /* util_hid.cpp */; };
-		090B4B1C0C4F038E00DF5577 /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
 		090B4B1D0C4F038E00DF5577 /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */; };
 		090B4B1E0C4F038E00DF5577 /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090B4B1A0C4F038E00DF5577 /* uana_xform.cpp */; };
 		090F4B41171C61A700530FC7 /* chuck_io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090F4B3D171C61A700530FC7 /* chuck_io.cpp */; };
@@ -64,7 +63,6 @@
 		0921D57518190283008F39D9 /* server_thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55718190216008F39D9 /* server_thread.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
 		0921D57618190283008F39D9 /* timetag.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55818190216008F39D9 /* timetag.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
 		09297A160B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
-		09297A170B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
 		09297A180B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
 		09307E1A18DE76D0004AB346 /* mAKeyboardAccessoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09307E1818DE76D0004AB346 /* mAKeyboardAccessoryViewController.m */; };
 		09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09307E1918DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib */; };
@@ -78,16 +76,18 @@
 		093A212C14BF587500497856 /* mAChuginManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A212B14BF587500497856 /* mAChuginManager.mm */; };
 		093A212E14BFEF7F00497856 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093A212D14BFEF7F00497856 /* Security.framework */; };
 		093A213114BFF5DC00497856 /* BLAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A213014BFF5DC00497856 /* BLAuthentication.m */; };
+		093A74BA1A5E492D00F54725 /* mAFileNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093A74B91A5E492D00F54725 /* mAFileNavigationController.xib */; };
+		093A74BD1A5E495200F54725 /* mAFileNavigationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A74BC1A5E495200F54725 /* mAFileNavigationController.mm */; };
 		093E261414A108C8008694BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261314A108C8008694BC /* UIKit.framework */; };
 		093E261614A108C8008694BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261514A108C8008694BC /* Foundation.framework */; };
 		093E261814A108C8008694BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261714A108C8008694BC /* CoreGraphics.framework */; };
 		093E261E14A108C8008694BC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 093E261C14A108C8008694BC /* InfoPlist.strings */; };
 		093E262014A108C8008694BC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 093E261F14A108C8008694BC /* main.m */; };
 		093E262414A108C8008694BC /* mAAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E262314A108C8008694BC /* mAAppDelegate.mm */; };
-		093E262714A108C8008694BC /* mAMasterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E262614A108C8008694BC /* mAMasterViewController.mm */; };
+		093E262714A108C8008694BC /* mAFileViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E262614A108C8008694BC /* mAFileViewController.mm */; };
 		093E262A14A108C8008694BC /* mADetailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E262914A108C8008694BC /* mADetailViewController.mm */; };
-		093E262D14A108C8008694BC /* mAMasterViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E262B14A108C8008694BC /* mAMasterViewController~iphone.xib */; };
-		093E263014A108C8008694BC /* mAMasterViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E262E14A108C8008694BC /* mAMasterViewController~ipad.xib */; };
+		093E262D14A108C8008694BC /* mAFileViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E262B14A108C8008694BC /* mAFileViewController~iphone.xib */; };
+		093E263014A108C8008694BC /* mAFileViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E262E14A108C8008694BC /* mAFileViewController~ipad.xib */; };
 		093E263314A108C9008694BC /* mADetailViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E263114A108C8008694BC /* mADetailViewController~iphone.xib */; };
 		093E263614A108C9008694BC /* mADetailViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E263414A108C9008694BC /* mADetailViewController~ipad.xib */; };
 		093E263B14A12201008694BC /* uana_extract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09812B980C6E394A00D1D68C /* uana_extract.cpp */; };
@@ -149,10 +149,6 @@
 		093E267B14A14E91008694BC /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376EA0BBC97D6005931F6 /* add.png */; };
 		093E267C14A14E91008694BC /* miniAudicle.icns in Resources */ = {isa = PBXBuildFile; fileRef = 09A40C670A9A57FA007604EA /* miniAudicle.icns */; };
 		093E267F14A1B3B3008694BC /* mAChucKController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E267E14A1B3B2008694BC /* mAChucKController.mm */; };
-		093ECDBF13B5781100B645F0 /* libwx_baseud-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDBE13B5781100B645F0 /* libwx_baseud-2.8.dylib */; };
-		093ECDC113B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDC013B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib */; };
-		093ECDC313B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDC213B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib */; };
-		093ECDCF13B578B800B645F0 /* libwx_gtk2ud_adv-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ECDCE13B578B800B645F0 /* libwx_gtk2ud_adv-2.8.dylib */; };
 		0942B6F71362466700C870F2 /* chugin-mini.png in Resources */ = {isa = PBXBuildFile; fileRef = 0942B6F51362466700C870F2 /* chugin-mini.png */; };
 		0942B6F81362466700C870F2 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0942B6F61362466700C870F2 /* folder.png */; };
 		0949BD5018F61E56005191AC /* mAPlayerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0949BD4F18F61E56005191AC /* mAPlayerScrollView.m */; };
@@ -173,7 +169,6 @@
 		09664B9019905ABC00AE0B6B /* mAConnectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09664B8F19905ABC00AE0B6B /* mAConnectViewController.xib */; };
 		09678637173F169E003AB462 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678634173F169E003AB462 /* UKFileWatcher.m */; };
 		09678638173F169E003AB462 /* UKFSEventsWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678636173F169E003AB462 /* UKFSEventsWatcher.m */; };
-		096B324C13B573CE008ED860 /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09216C09134ED4A900145064 /* MultitouchSupport.framework */; };
 		096FAB870B56D56B00125FE2 /* mAConsoleMonitorView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 096FAB850B56D56B00125FE2 /* mAConsoleMonitorView.mm */; };
 		09805FFA0AA10D3800915136 /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
 		09805FFB0AA10D3900915136 /* chuck.y in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B360A9A54DA007604EA /* chuck.y */; };
@@ -228,11 +223,9 @@
 		098060350AA14E8800915136 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		098060360AA14E8900915136 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A40BD70A9A57C6007604EA /* IOKit.framework */; };
 		098061AE0AA15BDB00915136 /* chuck_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 098061AD0AA15BDB00915136 /* chuck_main.cpp */; };
-		09812B9A0C6E394A00D1D68C /* uana_extract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09812B980C6E394A00D1D68C /* uana_extract.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
 		09812B9B0C6E394A00D1D68C /* uana_extract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09812B980C6E394A00D1D68C /* uana_extract.cpp */; };
 		09812B9C0C6E394A00D1D68C /* uana_extract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09812B980C6E394A00D1D68C /* uana_extract.cpp */; };
 		09820BA110941F7F001F662E /* miniAudicle_log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09820BA010941F7F001F662E /* miniAudicle_log.cpp */; };
-		09820BA210941F7F001F662E /* miniAudicle_log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09820BA010941F7F001F662E /* miniAudicle_log.cpp */; };
 		098E28AE173A06600044336B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A2173A06600044336B /* InfoPlist.strings */; };
 		098E28AF173A06600044336B /* mADocumentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A4173A06600044336B /* mADocumentView.xib */; };
 		098E28B0173A06600044336B /* mADocumentWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A6173A06600044336B /* mADocumentWindow.xib */; };
@@ -347,64 +340,6 @@
 		09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8914A44DFA0019CD09 /* mAVMMonitorController.mm */; };
 		09D00B8C14A44DFB0019CD09 /* mAVMMonitorController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09D00B8A14A44DFB0019CD09 /* mAVMMonitorController.xib */; };
 		09D9D910164359EC00E6CC4E /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09AC749613E36A970015CC99 /* RtAudio.cpp */; };
-		09E482260B1CF018002087DF /* chuck.y in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B360A9A54DA007604EA /* chuck.y */; };
-		09E482270B1CF019002087DF /* chuck_absyn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B060A9A54DA007604EA /* chuck_absyn.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482280B1CF01A002087DF /* chuck_bbq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B080A9A54DA007604EA /* chuck_bbq.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482290B1CF01C002087DF /* chuck_compile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B0A0A9A54DA007604EA /* chuck_compile.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4822A0B1CF01D002087DF /* chuck_console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B0C0A9A54DA007604EA /* chuck_console.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4822B0B1CF01E002087DF /* chuck_dl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B0F0A9A54DA007604EA /* chuck_dl.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4822C0B1CF01F002087DF /* chuck_emit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B110A9A54DA007604EA /* chuck_emit.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4822D0B1CF023002087DF /* chuck_errmsg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B130A9A54DA007604EA /* chuck_errmsg.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4822E0B1CF023002087DF /* chuck_frame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B150A9A54DA007604EA /* chuck_frame.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4822F0B1CF025002087DF /* chuck_globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B170A9A54DA007604EA /* chuck_globals.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482300B1CF026002087DF /* chuck_instr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B190A9A54DA007604EA /* chuck_instr.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482310B1CF026002087DF /* chuck_lang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B1B0A9A54DA007604EA /* chuck_lang.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482330B1CF028002087DF /* chuck_oo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B1D0A9A54DA007604EA /* chuck_oo.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482340B1CF02B002087DF /* chuck_otf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B1F0A9A54DA007604EA /* chuck_otf.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482350B1CF02B002087DF /* chuck_parse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B210A9A54DA007604EA /* chuck_parse.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482360B1CF02C002087DF /* chuck_scan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B230A9A54DA007604EA /* chuck_scan.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482370B1CF02D002087DF /* chuck_shell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B250A9A54DA007604EA /* chuck_shell.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482380B1CF02D002087DF /* chuck_stats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B270A9A54DA007604EA /* chuck_stats.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482390B1CF02F002087DF /* chuck_symbol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B290A9A54DA007604EA /* chuck_symbol.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4823A0B1CF030002087DF /* chuck_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B2B0A9A54DA007604EA /* chuck_table.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4823B0B1CF030002087DF /* chuck_type.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B2D0A9A54DA007604EA /* chuck_type.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4823C0B1CF031002087DF /* chuck_ugen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B2F0A9A54DA007604EA /* chuck_ugen.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4823D0B1CF032002087DF /* chuck_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B310A9A54DA007604EA /* chuck_utils.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4823E0B1CF033002087DF /* chuck_vm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B330A9A54DA007604EA /* chuck_vm.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4823F0B1CF034002087DF /* digiio_rtaudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B370A9A54DA007604EA /* digiio_rtaudio.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482400B1CF034002087DF /* hidio_sdl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B390A9A54DA007604EA /* hidio_sdl.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482410B1CF036002087DF /* midiio_rtmidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B3B0A9A54DA007604EA /* midiio_rtmidi.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482430B1CF038002087DF /* rtmidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B400A9A54DA007604EA /* rtmidi.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482440B1CF03A002087DF /* ugen_filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B420A9A54DA007604EA /* ugen_filter.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482450B1CF03A002087DF /* ugen_osc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B440A9A54DA007604EA /* ugen_osc.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482460B1CF03B002087DF /* ugen_stk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B460A9A54DA007604EA /* ugen_stk.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482470B1CF03C002087DF /* ugen_xxx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B480A9A54DA007604EA /* ugen_xxx.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482480B1CF03D002087DF /* ulib_machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B4A0A9A54DA007604EA /* ulib_machine.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482490B1CF03E002087DF /* ulib_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B4C0A9A54DA007604EA /* ulib_math.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4824A0B1CF040002087DF /* ulib_opsc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B4E0A9A54DA007604EA /* ulib_opsc.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4824B0B1CF040002087DF /* ulib_std.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B500A9A54DA007604EA /* ulib_std.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4824C0B1CF041002087DF /* util_buffers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B520A9A54DA007604EA /* util_buffers.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4824D0B1CF043002087DF /* util_console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B540A9A54DA007604EA /* util_console.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4824E0B1CF044002087DF /* util_hid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090A5BE70AA75AEA005DC04D /* util_hid.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E4824F0B1CF044002087DF /* util_math.c in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B580A9A54DA007604EA /* util_math.c */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482500B1CF045002087DF /* util_network.c in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B5A0A9A54DA007604EA /* util_network.c */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482510B1CF047002087DF /* util_opsc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B5C0A9A54DA007604EA /* util_opsc.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482520B1CF048002087DF /* util_raw.c in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B5E0A9A54DA007604EA /* util_raw.c */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482530B1CF049002087DF /* util_sndfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B600A9A54DA007604EA /* util_sndfile.c */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482540B1CF049002087DF /* util_string.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B620A9A54DA007604EA /* util_string.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482550B1CF04B002087DF /* util_thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B640A9A54DA007604EA /* util_thread.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482560B1CF04C002087DF /* util_xforms.c in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B660A9A54DA007604EA /* util_xforms.c */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__"; }; };
-		09E482570B1CF04F002087DF /* miniAudicle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40BCE0A9A5662007604EA /* miniAudicle.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__ -D__MA_IMPORT_MAUI__"; }; };
-		09E482580B1CF050002087DF /* miniAudicle_import.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40BC80A9A5662007604EA /* miniAudicle_import.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__"; }; };
-		09E482590B1CF051002087DF /* miniAudicle_shell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40BCA0A9A5662007604EA /* miniAudicle_shell.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__"; }; };
-		09E4825A0B1CF051002087DF /* miniAudicle_ui_elements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40BCC0A9A5662007604EA /* miniAudicle_ui_elements.cpp */; settings = {COMPILER_FLAGS = "-D__MACOSX_CORE__ -D__LINUX__ -DwxUSE_UNICODE=1 -D__MA_WXWIDGETS__"; }; };
-		09E4829F0B1CF129002087DF /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A40BD40A9A57C6007604EA /* Carbon.framework */; };
-		09E482A00B1CF12A002087DF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		09E482A10B1CF12B002087DF /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A40BD50A9A57C6007604EA /* CoreAudio.framework */; };
-		09E482A20B1CF12D002087DF /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A40BD60A9A57C6007604EA /* CoreMIDI.framework */; };
-		09E482A30B1CF12E002087DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
-		09E482A40B1CF12E002087DF /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A40BD70A9A57C6007604EA /* IOKit.framework */; };
-		09E482BE0B1CF292002087DF /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
 		09EBA9B718D8FD4700DCAE0C /* examples in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B5C1769A5CD00A07ADF /* examples */; };
 		09F0442B1918A8810028DD14 /* mALoopCountPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F044291918A8810028DD14 /* mALoopCountPicker.m */; };
 		09F0442C1918A8810028DD14 /* mALoopCountPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09F0442A1918A8810028DD14 /* mALoopCountPicker.xib */; };
@@ -428,6 +363,9 @@
 		09F376EE0BBC97D6005931F6 /* remove.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E90BBC97D6005931F6 /* remove.png */; };
 		09F376EF0BBC97D6005931F6 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376EA0BBC97D6005931F6 /* add.png */; };
 		09F37B070BC075AC005931F6 /* mABrowserController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09F37B050BC075AC005931F6 /* mABrowserController.mm */; };
+		4D3D4C921A5E37DB00B6A06B /* dsym_upload.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4D3D4C901A5E37DB00B6A06B /* dsym_upload.sh */; };
+		4D3D4C931A5E37DB00B6A06B /* libCrittercism_v5_0_7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D3D4C911A5E37DB00B6A06B /* libCrittercism_v5_0_7.a */; };
+		4D3D4C981A5E3A4400B6A06B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D3D4C971A5E3A4400B6A06B /* SystemConfiguration.framework */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -443,15 +381,6 @@
 			);
 		};
 		09A40C870A9A5C2F007604EA /* PBXBuildRule */ = {
-			isa = PBXBuildRule;
-			compilerSpec = com.apple.compilers.lex;
-			filePatterns = "*.lex";
-			fileType = pattern.proxy;
-			isEditable = 1;
-			outputFiles = (
-			);
-		};
-		09E4821A0B1CEF96002087DF /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.lex;
 			filePatterns = "*.lex";
@@ -555,6 +484,9 @@
 		093A212D14BFEF7F00497856 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		093A212F14BFF5DC00497856 /* BLAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLAuthentication.h; path = macosx/BLAuthentication.h; sourceTree = "<group>"; };
 		093A213014BFF5DC00497856 /* BLAuthentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLAuthentication.m; path = macosx/BLAuthentication.m; sourceTree = "<group>"; };
+		093A74B91A5E492D00F54725 /* mAFileNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAFileNavigationController.xib; sourceTree = "<group>"; };
+		093A74BB1A5E495200F54725 /* mAFileNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAFileNavigationController.h; sourceTree = "<group>"; };
+		093A74BC1A5E495200F54725 /* mAFileNavigationController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAFileNavigationController.mm; sourceTree = "<group>"; };
 		093E261114A108C8008694BC /* miniAudicle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miniAudicle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		093E261314A108C8008694BC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		093E261514A108C8008694BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -565,12 +497,12 @@
 		093E262114A108C8008694BC /* miniAudicle iOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "miniAudicle iOS-Prefix.pch"; sourceTree = "<group>"; };
 		093E262214A108C8008694BC /* mAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mAAppDelegate.h; sourceTree = "<group>"; };
 		093E262314A108C8008694BC /* mAAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = mAAppDelegate.mm; sourceTree = "<group>"; };
-		093E262514A108C8008694BC /* mAMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mAMasterViewController.h; sourceTree = "<group>"; };
-		093E262614A108C8008694BC /* mAMasterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = mAMasterViewController.mm; sourceTree = "<group>"; };
+		093E262514A108C8008694BC /* mAFileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mAFileViewController.h; sourceTree = "<group>"; };
+		093E262614A108C8008694BC /* mAFileViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = mAFileViewController.mm; sourceTree = "<group>"; };
 		093E262814A108C8008694BC /* mADetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mADetailViewController.h; sourceTree = "<group>"; };
 		093E262914A108C8008694BC /* mADetailViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = mADetailViewController.mm; sourceTree = "<group>"; };
-		093E262C14A108C8008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/mAMasterViewController~iphone.xib"; sourceTree = "<group>"; };
-		093E262F14A108C8008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/mAMasterViewController~ipad.xib"; sourceTree = "<group>"; };
+		093E262C14A108C8008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/mAFileViewController~iphone.xib"; sourceTree = "<group>"; };
+		093E262F14A108C8008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/mAFileViewController~ipad.xib"; sourceTree = "<group>"; };
 		093E263214A108C9008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/mADetailViewController~iphone.xib"; sourceTree = "<group>"; };
 		093E263514A108C9008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/mADetailViewController~ipad.xib"; sourceTree = "<group>"; };
 		093E267314A12A69008694BC /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
@@ -844,7 +776,6 @@
 		09D00B8A14A44DFB0019CD09 /* mAVMMonitorController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAVMMonitorController.xib; sourceTree = "<group>"; };
 		09E481F80B1CE5AF002087DF /* gauge01.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = gauge01.ck; path = ../test/gauge01.ck; sourceTree = SOURCE_ROOT; };
 		09E481F90B1CE5AF002087DF /* gauge02.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = gauge02.ck; path = ../test/gauge02.ck; sourceTree = SOURCE_ROOT; };
-		09E482060B1CEF41002087DF /* miniAudicle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = miniAudicle; sourceTree = BUILT_PRODUCTS_DIR; };
 		09E5546D0DA61CB700F1A6C8 /* miniAudicle_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = miniAudicle_debug.h; sourceTree = "<group>"; };
 		09F044281918A8810028DD14 /* mALoopCountPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mALoopCountPicker.h; sourceTree = "<group>"; };
 		09F044291918A8810028DD14 /* mALoopCountPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mALoopCountPicker.m; sourceTree = "<group>"; };
@@ -883,6 +814,13 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = macosx/main.m; sourceTree = SOURCE_ROOT; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4D3D4C8D1A5E37DB00B6A06B /* CRFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRFilter.h; sourceTree = "<group>"; };
+		4D3D4C8E1A5E37DB00B6A06B /* Crittercism.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crittercism.h; sourceTree = "<group>"; };
+		4D3D4C8F1A5E37DB00B6A06B /* CrittercismDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismDelegate.h; sourceTree = "<group>"; };
+		4D3D4C901A5E37DB00B6A06B /* dsym_upload.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = dsym_upload.sh; sourceTree = "<group>"; };
+		4D3D4C911A5E37DB00B6A06B /* libCrittercism_v5_0_7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCrittercism_v5_0_7.a; sourceTree = "<group>"; };
+		4D3D4C941A5E392800B6A06B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		4D3D4C971A5E3A4400B6A06B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		8D1107320486CEB800E47090 /* miniAudicle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miniAudicle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -891,7 +829,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D3D4C981A5E3A4400B6A06B /* SystemConfiguration.framework in Frameworks */,
 				094B5F6919C9E1E8004B9B5E /* CoreMotion.framework in Frameworks */,
+				4D3D4C931A5E37DB00B6A06B /* libCrittercism_v5_0_7.a in Frameworks */,
 				09AEF9C719C475AC0081AE4B /* CoreImage.framework in Frameworks */,
 				09AC4E1A18EBC0C400B2561A /* QuartzCore.framework in Frameworks */,
 				093E267614A12A89008694BC /* AudioToolbox.framework in Frameworks */,
@@ -913,25 +853,6 @@
 				098060360AA14E8900915136 /* IOKit.framework in Frameworks */,
 				09297A180B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */,
 				09B66B571768D69100A07ADF /* MultitouchSupport.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		09E482040B1CEF41002087DF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				09E4829F0B1CF129002087DF /* Carbon.framework in Frameworks */,
-				09E482A00B1CF12A002087DF /* Cocoa.framework in Frameworks */,
-				09E482A10B1CF12B002087DF /* CoreAudio.framework in Frameworks */,
-				09E482A20B1CF12D002087DF /* CoreMIDI.framework in Frameworks */,
-				09E482A30B1CF12E002087DF /* Foundation.framework in Frameworks */,
-				09E482A40B1CF12E002087DF /* IOKit.framework in Frameworks */,
-				09297A170B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */,
-				096B324C13B573CE008ED860 /* MultitouchSupport.framework in Frameworks */,
-				093ECDBF13B5781100B645F0 /* libwx_baseud-2.8.dylib in Frameworks */,
-				093ECDC113B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib in Frameworks */,
-				093ECDC313B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib in Frameworks */,
-				093ECDCF13B578B800B645F0 /* libwx_gtk2ud_adv-2.8.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1068,6 +989,7 @@
 				09DAA30A19BA213E00B8A416 /* player */,
 				09DAA30B19BA214300B8A416 /* connect */,
 				09DAA30C19BA214C00B8A416 /* util */,
+				4D3D4C8B1A5E37DB00B6A06B /* libs */,
 				09087C6914A4F63700AD2633 /* Resources */,
 				093E261A14A108C8008694BC /* Supporting Files */,
 			);
@@ -1457,15 +1379,18 @@
 			isa = PBXGroup;
 			children = (
 				099ABE4C1906224B00C5D52D /* mADef.h */,
-				09307E1618DE68B0004AB346 /* mANavigationController~ipad.xib */,
 				093E262214A108C8008694BC /* mAAppDelegate.h */,
 				093E262314A108C8008694BC /* mAAppDelegate.mm */,
+				093A74B91A5E492D00F54725 /* mAFileNavigationController.xib */,
+				093A74BB1A5E495200F54725 /* mAFileNavigationController.h */,
+				093A74BC1A5E495200F54725 /* mAFileNavigationController.mm */,
+				09307E1618DE68B0004AB346 /* mANavigationController~ipad.xib */,
 				09AB222D196FC4670037AF73 /* mADocumentManager.h */,
 				09AB222E196FC4670037AF73 /* mADocumentManager.m */,
-				093E262B14A108C8008694BC /* mAMasterViewController~iphone.xib */,
-				093E262E14A108C8008694BC /* mAMasterViewController~ipad.xib */,
-				093E262514A108C8008694BC /* mAMasterViewController.h */,
-				093E262614A108C8008694BC /* mAMasterViewController.mm */,
+				093E262B14A108C8008694BC /* mAFileViewController~iphone.xib */,
+				093E262E14A108C8008694BC /* mAFileViewController~ipad.xib */,
+				093E262514A108C8008694BC /* mAFileViewController.h */,
+				093E262614A108C8008694BC /* mAFileViewController.mm */,
 				093E263114A108C8008694BC /* mADetailViewController~iphone.xib */,
 				093E263414A108C9008694BC /* mADetailViewController~ipad.xib */,
 				09F09E5618E41F2C0050D963 /* mADetailItem.h */,
@@ -1522,7 +1447,6 @@
 			children = (
 				09805FE70AA10D0C00915136 /* chuck */,
 				8D1107320486CEB800E47090 /* miniAudicle.app */,
-				09E482060B1CEF41002087DF /* miniAudicle */,
 				093E261114A108C8008694BC /* miniAudicle.app */,
 			);
 			name = Products;
@@ -1583,6 +1507,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D3D4C971A5E3A4400B6A06B /* SystemConfiguration.framework */,
+				4D3D4C941A5E392800B6A06B /* SystemConfiguration.framework */,
 				094B5F6819C9E1E8004B9B5E /* CoreMotion.framework */,
 				09AEF9C619C475AC0081AE4B /* CoreImage.framework */,
 				09AC4E1918EBC0C400B2561A /* QuartzCore.framework */,
@@ -1600,6 +1526,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4D3D4C8B1A5E37DB00B6A06B /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				4D3D4C8C1A5E37DB00B6A06B /* Crittercism */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		4D3D4C8C1A5E37DB00B6A06B /* Crittercism */ = {
+			isa = PBXGroup;
+			children = (
+				4D3D4C8D1A5E37DB00B6A06B /* CRFilter.h */,
+				4D3D4C8E1A5E37DB00B6A06B /* Crittercism.h */,
+				4D3D4C8F1A5E37DB00B6A06B /* CrittercismDelegate.h */,
+				4D3D4C901A5E37DB00B6A06B /* dsym_upload.sh */,
+				4D3D4C911A5E37DB00B6A06B /* libCrittercism_v5_0_7.a */,
+			);
+			path = Crittercism;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1611,6 +1557,7 @@
 				093E260D14A108C8008694BC /* Sources */,
 				093E260E14A108C8008694BC /* Frameworks */,
 				093E260F14A108C8008694BC /* Resources */,
+				4D3D4C9A1A5E3FDA00B6A06B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1636,23 +1583,6 @@
 			name = chuck;
 			productName = chuck;
 			productReference = 09805FE70AA10D0C00915136 /* chuck */;
-			productType = "com.apple.product-type.tool";
-		};
-		09E482050B1CEF41002087DF /* miniAudicle GTK */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 09E482170B1CEF65002087DF /* Build configuration list for PBXNativeTarget "miniAudicle GTK" */;
-			buildPhases = (
-				09E482030B1CEF41002087DF /* Sources */,
-				09E482040B1CEF41002087DF /* Frameworks */,
-			);
-			buildRules = (
-				09E4821A0B1CEF96002087DF /* PBXBuildRule */,
-			);
-			dependencies = (
-			);
-			name = "miniAudicle GTK";
-			productName = "miniAudicle GTK";
-			productReference = 09E482060B1CEF41002087DF /* miniAudicle */;
 			productType = "com.apple.product-type.tool";
 		};
 		8D1107260486CEB800E47090 /* miniAudicle */ = {
@@ -1712,7 +1642,6 @@
 			targets = (
 				09805FE60AA10D0C00915136 /* chuck */,
 				8D1107260486CEB800E47090 /* miniAudicle */,
-				09E482050B1CEF41002087DF /* miniAudicle GTK */,
 				093E261014A108C8008694BC /* miniAudicle iOS */,
 			);
 		};
@@ -1724,8 +1653,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				093E261E14A108C8008694BC /* InfoPlist.strings in Resources */,
-				093E262D14A108C8008694BC /* mAMasterViewController~iphone.xib in Resources */,
-				093E263014A108C8008694BC /* mAMasterViewController~ipad.xib in Resources */,
+				093E262D14A108C8008694BC /* mAFileViewController~iphone.xib in Resources */,
+				093E263014A108C8008694BC /* mAFileViewController~ipad.xib in Resources */,
 				09307E2118DFEE57004AB346 /* Images.xcassets in Resources */,
 				09EBA9B718D8FD4700DCAE0C /* examples in Resources */,
 				093E263314A108C9008694BC /* mADetailViewController~iphone.xib in Resources */,
@@ -1733,6 +1662,7 @@
 				09F09E5418E419960050D963 /* remove-noalpha.png in Resources */,
 				093E267914A14E91008694BC /* replace.png in Resources */,
 				09F0442C1918A8810028DD14 /* mALoopCountPicker.xib in Resources */,
+				4D3D4C921A5E37DB00B6A06B /* dsym_upload.sh in Resources */,
 				093E267A14A14E91008694BC /* remove.png in Resources */,
 				09F09E4118E2DAEA0050D963 /* mAPlayerViewController.xib in Resources */,
 				093E267B14A14E91008694BC /* add.png in Resources */,
@@ -1752,6 +1682,7 @@
 				09087C6B14A4F67100AD2633 /* UIRemoveControlMinus.png in Resources */,
 				09094DC519919E41009F4C4C /* mAActivityViewController.xib in Resources */,
 				09608AE014B40DE4009450FE /* mAConsoleMonitor.xib in Resources */,
+				093A74BA1A5E492D00F54725 /* mAFileNavigationController.xib in Resources */,
 				09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1828,6 +1759,19 @@
 			shellPath = /bin/sh;
 			shellScript = "echo \"#define GIT_REVISION \\\"\"`git rev-parse --short HEAD`\"\\\"\" > .git-rev-tmp\ncmp -s .git-rev-tmp \"$DERIVED_FILE_DIR/git-rev.h\" || cp .git-rev-tmp \"$DERIVED_FILE_DIR/git-rev.h\"\nrm .git-rev-tmp\n";
 		};
+		4D3D4C9A1A5E3FDA00B6A06B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"Build configuration = \"${CONFIGURATION}\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    if [ -f ~/.crittercism_keys ]; then\n        source ~/.crittercism_keys\n\n        APP_ID=\"54ad8a2b3cf56b9e0457cf82\"\n        API_KEY=${MINI_AUDICLE_SECRET_KEY}\n\n        source \"${SRCROOT}\"/ios/libs/Crittercism/dsym_upload.sh\n    else\n        echo \"~/.crittercism_keys does not exist. Auto-uploading of dSYM file disabled!\"\n    fi\nelse\n    echo \"Not a release build so not auto-uploading dSYM file\"\nfi";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1838,7 +1782,7 @@
 				093E262014A108C8008694BC /* main.m in Sources */,
 				0921D56618190216008F39D9 /* send.c in Sources */,
 				093E262414A108C8008694BC /* mAAppDelegate.mm in Sources */,
-				093E262714A108C8008694BC /* mAMasterViewController.mm in Sources */,
+				093E262714A108C8008694BC /* mAFileViewController.mm in Sources */,
 				093E262A14A108C8008694BC /* mADetailViewController.mm in Sources */,
 				093E263B14A12201008694BC /* uana_extract.cpp in Sources */,
 				093E263C14A12201008694BC /* uana_xform.cpp in Sources */,
@@ -1878,6 +1822,7 @@
 				093E264D14A12201008694BC /* chuck_stats.cpp in Sources */,
 				093E264E14A12201008694BC /* chuck_symbol.cpp in Sources */,
 				09F09E4F18E3753B0050D963 /* mAScriptPlayerTab.mm in Sources */,
+				093A74BD1A5E495200F54725 /* mAFileNavigationController.mm in Sources */,
 				093E264F14A12201008694BC /* chuck_table.cpp in Sources */,
 				093E265014A12201008694BC /* chuck_type.cpp in Sources */,
 				093E265114A12201008694BC /* chuck_ugen.cpp in Sources */,
@@ -2017,68 +1962,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		09E482030B1CEF41002087DF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				09E482260B1CF018002087DF /* chuck.y in Sources */,
-				09E482270B1CF019002087DF /* chuck_absyn.cpp in Sources */,
-				09E482280B1CF01A002087DF /* chuck_bbq.cpp in Sources */,
-				09E482290B1CF01C002087DF /* chuck_compile.cpp in Sources */,
-				09E4822A0B1CF01D002087DF /* chuck_console.cpp in Sources */,
-				09E4822B0B1CF01E002087DF /* chuck_dl.cpp in Sources */,
-				09E4822C0B1CF01F002087DF /* chuck_emit.cpp in Sources */,
-				09E4822D0B1CF023002087DF /* chuck_errmsg.cpp in Sources */,
-				09E4822E0B1CF023002087DF /* chuck_frame.cpp in Sources */,
-				09E4822F0B1CF025002087DF /* chuck_globals.cpp in Sources */,
-				09E482300B1CF026002087DF /* chuck_instr.cpp in Sources */,
-				09E482310B1CF026002087DF /* chuck_lang.cpp in Sources */,
-				09E482330B1CF028002087DF /* chuck_oo.cpp in Sources */,
-				09E482340B1CF02B002087DF /* chuck_otf.cpp in Sources */,
-				09E482350B1CF02B002087DF /* chuck_parse.cpp in Sources */,
-				09E482360B1CF02C002087DF /* chuck_scan.cpp in Sources */,
-				09E482370B1CF02D002087DF /* chuck_shell.cpp in Sources */,
-				09E482380B1CF02D002087DF /* chuck_stats.cpp in Sources */,
-				09E482390B1CF02F002087DF /* chuck_symbol.cpp in Sources */,
-				09E4823A0B1CF030002087DF /* chuck_table.cpp in Sources */,
-				09E4823B0B1CF030002087DF /* chuck_type.cpp in Sources */,
-				09E4823C0B1CF031002087DF /* chuck_ugen.cpp in Sources */,
-				09E4823D0B1CF032002087DF /* chuck_utils.cpp in Sources */,
-				09E4823E0B1CF033002087DF /* chuck_vm.cpp in Sources */,
-				09E4823F0B1CF034002087DF /* digiio_rtaudio.cpp in Sources */,
-				09E482400B1CF034002087DF /* hidio_sdl.cpp in Sources */,
-				09E482410B1CF036002087DF /* midiio_rtmidi.cpp in Sources */,
-				09E482430B1CF038002087DF /* rtmidi.cpp in Sources */,
-				09E482440B1CF03A002087DF /* ugen_filter.cpp in Sources */,
-				09E482450B1CF03A002087DF /* ugen_osc.cpp in Sources */,
-				09E482460B1CF03B002087DF /* ugen_stk.cpp in Sources */,
-				09E482470B1CF03C002087DF /* ugen_xxx.cpp in Sources */,
-				09E482480B1CF03D002087DF /* ulib_machine.cpp in Sources */,
-				09E482490B1CF03E002087DF /* ulib_math.cpp in Sources */,
-				09E4824A0B1CF040002087DF /* ulib_opsc.cpp in Sources */,
-				09E4824B0B1CF040002087DF /* ulib_std.cpp in Sources */,
-				09E4824C0B1CF041002087DF /* util_buffers.cpp in Sources */,
-				09E4824D0B1CF043002087DF /* util_console.cpp in Sources */,
-				09E4824E0B1CF044002087DF /* util_hid.cpp in Sources */,
-				09E4824F0B1CF044002087DF /* util_math.c in Sources */,
-				09E482500B1CF045002087DF /* util_network.c in Sources */,
-				09E482510B1CF047002087DF /* util_opsc.cpp in Sources */,
-				09E482520B1CF048002087DF /* util_raw.c in Sources */,
-				09E482530B1CF049002087DF /* util_sndfile.c in Sources */,
-				09E482540B1CF049002087DF /* util_string.cpp in Sources */,
-				09E482550B1CF04B002087DF /* util_thread.cpp in Sources */,
-				09E482560B1CF04C002087DF /* util_xforms.c in Sources */,
-				09E482570B1CF04F002087DF /* miniAudicle.cpp in Sources */,
-				09E482580B1CF050002087DF /* miniAudicle_import.cpp in Sources */,
-				09E482590B1CF051002087DF /* miniAudicle_shell.cpp in Sources */,
-				09E4825A0B1CF051002087DF /* miniAudicle_ui_elements.cpp in Sources */,
-				09E482BE0B1CF292002087DF /* chuck.lex in Sources */,
-				090B4B1C0C4F038E00DF5577 /* uana_xform.cpp in Sources */,
-				09812B9A0C6E394A00D1D68C /* uana_extract.cpp in Sources */,
-				09820BA210941F7F001F662E /* miniAudicle_log.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2199,20 +2082,20 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		093E262B14A108C8008694BC /* mAMasterViewController~iphone.xib */ = {
+		093E262B14A108C8008694BC /* mAFileViewController~iphone.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				093E262C14A108C8008694BC /* en */,
 			);
-			name = "mAMasterViewController~iphone.xib";
+			name = "mAFileViewController~iphone.xib";
 			sourceTree = "<group>";
 		};
-		093E262E14A108C8008694BC /* mAMasterViewController~ipad.xib */ = {
+		093E262E14A108C8008694BC /* mAFileViewController~ipad.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				093E262F14A108C8008694BC /* en */,
 			);
-			name = "mAMasterViewController~ipad.xib";
+			name = "mAFileViewController~ipad.xib";
 			sourceTree = "<group>";
 		};
 		093E263114A108C8008694BC /* mADetailViewController~iphone.xib */ = {
@@ -2297,6 +2180,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = ios/miniAudicle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2323,6 +2207,10 @@
 				);
 				INFOPLIST_FILE = "ios/miniAudicle iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ios/libs/Crittercism",
+				);
 				PRODUCT_NAME = miniAudicle;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -2338,16 +2226,17 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = ios/miniAudicle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/miniAudicle iOS-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2360,6 +2249,10 @@
 				);
 				INFOPLIST_FILE = "ios/miniAudicle iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ios/libs/Crittercism",
+				);
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = miniAudicle;
 				PROVISIONING_PROFILE = "";
@@ -2423,56 +2316,6 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = chuck;
-			};
-			name = Release;
-		};
-		09E482180B1CEF65002087DF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G4;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INSTALL_PATH = "$(HOME)/bin";
-				LIBRARY_SEARCH_PATHS = (
-					"$(WX_LIBRARY_DIR)",
-					/usr/X11R6/lib,
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = miniAudicle;
-				SDKROOT = "";
-				WX_INCLUDE_DIR = "/opt/local/include/wx-2.8";
-				WX_LIBRARY_DIR = /opt/local/lib;
-				WX_SETUP_INCLUDE_DIR = "/opt/local/lib/wx/include/gtk2-unicode-debug-2.8/";
-			};
-			name = Debug;
-		};
-		09E482190B1CEF65002087DF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
-					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
-				);
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INSTALL_PATH = "$(HOME)/bin";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					/opt/local/lib,
-				);
-				PRODUCT_NAME = "miniAudicle GTK";
-				WX_INCLUDE_DIR = "/opt/local/include/wx-2.8";
-				WX_LIBRARY_DIR = /opt/local/lib;
-				WX_SETUP_INCLUDE_DIR = "/opt/local/lib/wx/include/gtk2-ansi-release-2.8/";
 			};
 			name = Release;
 		};
@@ -2586,15 +2429,6 @@
 			buildConfigurations = (
 				098060190AA10D6C00915136 /* Debug */,
 				0980601A0AA10D6C00915136 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		09E482170B1CEF65002087DF /* Build configuration list for PBXNativeTarget "miniAudicle GTK" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				09E482180B1CEF65002087DF /* Debug */,
-				09E482190B1CEF65002087DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

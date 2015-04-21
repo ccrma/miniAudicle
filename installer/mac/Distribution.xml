@@ -14,6 +14,7 @@
     <pkg-ref id="edu.stanford.chuck.PanN"/>
     <pkg-ref id="edu.stanford.chuck.PitchTrack"/>
     <pkg-ref id="edu.stanford.chuck.Spectacle"/>
+    <pkg-ref id="edu.stanford.chuck.examples"/>
     
     <title>ChucK</title>
     <background file="chuck_logo.png" alignment="topleft" scaling="none"/>
@@ -22,6 +23,7 @@
     <choices-outline>
         <line choice="edu.stanford.chuck.miniAudicle"/>
         <line choice="edu.stanford.chuck.chuck"/>
+        <line choice="edu.stanford.chuck.examples"/>
         <line choice="ChuGins">
             <line choice="ABSaturator"/>
             <line choice="AmbPan"/>
@@ -103,5 +105,11 @@
         <pkg-ref id="edu.stanford.chuck.Spectacle"/>
     </choice>
     <pkg-ref id="edu.stanford.chuck.Spectacle" version="0" onConclusion="none">Spectacle.chug.pkg</pkg-ref>
+    
+    <choice id="edu.stanford.chuck.examples" title="Examples" description="Example code for the ChucK programming language and related files. Includes sample code from &quot;Programming for Musicians and Digital Artists&quot; (Manning Press). Strongly recommended." description-mime-type="text/html">
+        <pkg-ref id="edu.stanford.chuck.examples"/>
+    </choice>
+    <pkg-ref id="edu.stanford.chuck.examples" version="0" onConclusion="none">examples.pkg</pkg-ref>
+    
     
 </installer-gui-script>

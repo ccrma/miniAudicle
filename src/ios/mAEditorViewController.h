@@ -14,7 +14,7 @@
 #import "mASyntaxHighlighter.h"
 #import "mADetailViewController.h"
 
-@class mAMasterViewController;
+@class mAFileViewController;
 @class mAVMMonitorController;
 @class mATextView;
 
@@ -36,8 +36,6 @@
 @property (strong, nonatomic) IBOutlet mAKeyboardAccessoryViewController *keyboardAccessory;
 @property (strong, nonatomic) UIBarButtonItem * titleButton;
 @property (nonatomic) BOOL showOTFToolbar;
-
-@property (weak, nonatomic) mAMasterViewController *masterViewController;
 
 - (void)saveScript;
 

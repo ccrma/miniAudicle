@@ -12,6 +12,8 @@
 
 @class mANANewScript;
 
+extern NSString * const mADetailItemTitleChangedNotification;
+
 @interface mADetailItem : NSObject
 
 @property (nonatomic) BOOL isUser;

@@ -11,19 +11,21 @@ CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher FIR KasFilter PanN PitchTrack GVerb M
 CHUGINS=$(addsuffix .chug,$(CHUGIN_NAMES))
 CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/$(CHUG).chug)
 
+EXAMPLES=$(CHUCK_SRC_ROOT)/src/examples
+
 # PKGS=$(addsuffix .pkg,$(CHUGINS) miniAudicle.app chuck)
 APP_PKGS=$(addsuffix .pkg,miniAudicle.app)
 BIN_PKGS=$(addsuffix .pkg,chuck)
 CHUGIN_PKGS=$(addsuffix .pkg,$(CHUGINS))
-PKGS=$(APP_PKGS) $(BIN_PKGS) $(CHUGIN_PKGS)
-EXAMPLES=
+EXAMPLES_PKG=examples.pkg
+PKGS=$(APP_PKGS) $(BIN_PKGS) $(CHUGIN_PKGS) $(EXAMPLES_PKG)
 
 INSTALLER=chuck-$(PKG_VERSION).pkg
 
 APP_DIR=/Applications
 BIN_DIR=/usr/bin
 CHUG_DIR=/usr/lib/chuck
-EXAMPLES_DIR=/Library/ChucK/
+EXAMPLES_DST=/Library/ChucK
 
 IDENTIFIER_BASE=edu.stanford.chuck
 CERT=Developer ID Installer: Spencer Salazar (9GU9FHJ3JC)
@@ -37,7 +39,7 @@ upload: $(INSTALLER)
 	@echo "https://ccrma.stanford.edu/~spencer/chuck/$(INSTALLER)"
 
 $(INSTALLER): $(PKGS) miniAudicle.app chuck $(CHUGINS) $(VERSION_MK) Distribution.xml
-	@echo "Creating installer"
+	@echo "--- Creating installer ---"
 	@echo "    chuck path:" $(realpath $(CHUCK_SRC_ROOT))
 	@echo "    miniAudicle path:" $(realpath $(MINI_SRC_ROOT))
 	@echo "    chugin path:" $(realpath $(CHUGINS_SRC_ROOT))
@@ -63,6 +65,13 @@ $(CHUGIN_PKGS): %.pkg: %
 	cp -af $< $<.tmp/$(CHUG_DIR)
 	pkgbuild --root $<.tmp --identifier $(IDENTIFIER_BASE).$(basename $<) $@
 	rm -rf $<.tmp
+
+$(EXAMPLES_PKG): $(EXAMPLES)
+	rm -rf $@.tmp/$(EXAMPLES_DST)
+	mkdir -p $@.tmp/$(EXAMPLES_DST)
+	cp -af $< $@.tmp/$(EXAMPLES_DST)
+	pkgbuild --root $@.tmp --identifier $(IDENTIFIER_BASE).examples $@
+	rm -rf $@.tmp
 
 miniAudicle.app: $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app/Contents/MacOS/miniAudicle
 	rm -rf miniAudicle.app
