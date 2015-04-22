@@ -1,10 +1,7 @@
 ---
-1.3.3
-    - (added) chuck-1.3.5.0
-    - (fixed)(Mac) Ogg export failure
-    - (fixed)(Mac) text replacement issues with ", --, etc.
-    - (fixed)(Mac) text pasting from some copy sources (e.g. PDF files)
-    - (fixed)(Mac) example browser tweaks
+1.3.5.1
+    - (added) sync version number to chuck version number
+    - (added) chuck-1.3.5.1
     
 ---
 1.3.2
