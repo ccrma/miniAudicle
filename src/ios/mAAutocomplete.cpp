@@ -22,6 +22,8 @@ bool skip(const string &name)
        name == "polar" ||
        name == "Class" ||
        name == "Thread" ||
+       name == "DAC" ||
+       name == "ADC" ||
        name == "@function")
         return true;
     return false;
