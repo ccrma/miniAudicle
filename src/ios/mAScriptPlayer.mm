@@ -158,10 +158,10 @@ struct LoopShred
     
     _deleteButton.alpha = 0;
     
-    _addButton.alternatives = @[_loopButton, _loopNButton, _sequenceButton];
-    _addButtonGroup = @[_addButton, _loopButton, _loopNButton, _sequenceButton];
-    _addButton.buttonGroup = _loopButton.buttonGroup = _loopNButton.buttonGroup = _sequenceButton.buttonGroup = _addButtonGroup;
-    _addButton.buttonGroupCenter = _loopButton.buttonGroupCenter = _loopNButton.buttonGroupCenter = _sequenceButton.buttonGroupCenter = _addButton.center;
+//    _addButton.alternatives = @[_loopButton, _loopNButton, _sequenceButton];
+//    _addButtonGroup = @[_addButton, _loopButton, _loopNButton, _sequenceButton];
+//    _addButton.buttonGroup = _loopButton.buttonGroup = _loopNButton.buttonGroup = _sequenceButton.buttonGroup = _addButtonGroup;
+//    _addButton.buttonGroupCenter = _loopButton.buttonGroupCenter = _loopNButton.buttonGroupCenter = _sequenceButton.buttonGroupCenter = _addButton.center;
     
     if(_detailItem.remote) [self makeRemote];
 }
