@@ -37,10 +37,12 @@
 {
     NSMutableString *_text;
     NSMutableString *_initialText;
+    
     FILE *_ckout;
-    FILE *_ckerr;
     std::__stdoutbuf<char> *_ckout_buf;
     std::ostream *_ckout_stream;
+    
+    FILE *_ckerr;
     std::__stdoutbuf<char> *_ckerr_buf;
     std::ostream *_ckerr_stream;
 }
