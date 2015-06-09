@@ -24,10 +24,14 @@
 
 #import "mAConsoleMonitorController.h"
 #import "chuck_errmsg.h"
+#import "chuck_oo.h"
 
-#if defined(DEBUG) && TARGET_IPHONE_SIMULATOR
-#define DISABLE_CONSOLE_MONITOR
-#endif
+#import <iostream>
+#import <__std_stream>
+
+//#if defined(DEBUG) && TARGET_IPHONE_SIMULATOR
+//#define DISABLE_CONSOLE_MONITOR
+//#endif
 
 @interface mAConsoleMonitorController ()
 {
@@ -35,6 +39,10 @@
     NSMutableString *_initialText;
     FILE *_ckout;
     FILE *_ckerr;
+    std::__stdoutbuf<char> *_ckout_buf;
+    std::ostream *_ckout_stream;
+    std::__stdoutbuf<char> *_ckerr_buf;
+    std::ostream *_ckerr_stream;
 }
 
 @property (strong, nonatomic) UITextView * textView;
@@ -78,14 +86,19 @@
 {
     int fd[2];
 #ifndef DISABLE_CONSOLE_MONITOR
-    //#ifndef __CK_DEBUG__
+
+    /*** fake stdout ***/
+
     if( pipe( fd ) )
     {
         //unable to create the pipe!
         return;
     }
     
-    dup2( fd[1], STDOUT_FILENO );
+//    dup2( fd[1], STDOUT_FILENO );
+    _ckout = fdopen(fd[1], "w");
+    _ckout_buf = new std::__stdoutbuf<char>(_ckout, new std::char_traits<char>::state_type);
+    _ckout_stream = new std::ostream(_ckout_buf);
     
     std_out = [[NSFileHandle alloc] initWithFileDescriptor:fd[0]];
     [std_out waitForDataInBackgroundAndNotify];
@@ -95,14 +108,16 @@
                                                  name:NSFileHandleDataAvailableNotification
                                                object:std_out];
     
-    if(setlinebuf(stdout))
+    if(setlinebuf(_ckout))
     {
         EM_log(CK_LOG_SYSTEM, "(miniAudicle): unable to set chout buffering to line-based");
     }
     
-    fflush(stdout);
+    Chuck_IO_Chout::set_stream(_ckout_stream);
+    fflush(_ckout);
     
-#endif // DISABLE_CONSOLE_MONITOR
+    
+    /*** fake stderr ***/
     
     if( pipe( fd ) )
     {
@@ -112,8 +127,9 @@
     
 //    dup2( fd[1], STDERR_FILENO );
     _ckerr = fdopen(fd[1], "w");
-    EM_setfd(_ckerr);
-    
+    _ckerr_buf = new std::__stdoutbuf<char>(_ckerr, new std::char_traits<char>::state_type);
+    _ckerr_stream = new std::ostream(_ckerr_buf);
+
     std_err = [[NSFileHandle alloc] initWithFileDescriptor:fd[0]];
     [std_err waitForDataInBackgroundAndNotify];
     
@@ -127,9 +143,12 @@
         EM_log(CK_LOG_SYSTEM, "(miniAudicle): unable to set cherr to unbuffered mode");
     }
     
+    EM_setfd(_ckerr);
+    Chuck_IO_Cherr::set_stream(_ckout_stream);
+
     fflush(_ckerr);
 
-//#endif // DISABLE_CONSOLE_MONITOR
+#endif // DISABLE_CONSOLE_MONITOR
 }
 
 - (void)didReceiveMemoryWarning
