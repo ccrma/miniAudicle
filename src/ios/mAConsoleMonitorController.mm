@@ -33,6 +33,8 @@
 {
     NSMutableString *_text;
     NSMutableString *_initialText;
+    FILE *_ckout;
+    FILE *_ckerr;
 }
 
 @property (strong, nonatomic) UITextView * textView;
@@ -74,8 +76,8 @@
 
 - (void)setupIO
 {
-#ifndef DISABLE_CONSOLE_MONITOR
     int fd[2];
+#ifndef DISABLE_CONSOLE_MONITOR
     //#ifndef __CK_DEBUG__
     if( pipe( fd ) )
     {
@@ -98,14 +100,19 @@
         EM_log(CK_LOG_SYSTEM, "(miniAudicle): unable to set chout buffering to line-based");
     }
     
-    //#endif
+    fflush(stdout);
+    
+#endif // DISABLE_CONSOLE_MONITOR
+    
     if( pipe( fd ) )
     {
         //unable to create the pipe!
         return;
     }
     
-    dup2( fd[1], STDERR_FILENO );
+//    dup2( fd[1], STDERR_FILENO );
+    _ckerr = fdopen(fd[1], "w");
+    EM_setfd(_ckerr);
     
     std_err = [[NSFileHandle alloc] initWithFileDescriptor:fd[0]];
     [std_err waitForDataInBackgroundAndNotify];
@@ -115,15 +122,14 @@
                                                  name:NSFileHandleDataAvailableNotification
                                                object:std_err];
     
-    if(setvbuf(stderr, NULL, _IONBF, 0))
+    if(setvbuf(_ckerr, NULL, _IONBF, 0))
     {
         EM_log(CK_LOG_SYSTEM, "(miniAudicle): unable to set cherr to unbuffered mode");
     }
     
-    fflush(stdout);
-    fflush(stderr);
+    fflush(_ckerr);
 
-#endif // DISABLE_CONSOLE_MONITOR
+//#endif // DISABLE_CONSOLE_MONITOR
 }
 
 - (void)didReceiveMemoryWarning
