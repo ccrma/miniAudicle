@@ -48,11 +48,16 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.titleButton = [[UIBarButtonItem alloc] initWithTitle:@"Player"
-                                                            style:UIBarButtonItemStylePlain
-                                                           target:nil
-                                                           action:nil];
-        self.titleButton.enabled = NO;
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 32)];
+        titleLabel.text = @"Player";
+        titleLabel.font = [UIFont boldSystemFontOfSize:18];
+        [titleLabel sizeToFit];
+//        self.titleButton = [[UIBarButtonItem alloc] initWithTitle:@"Player"
+//                                                            style:UIBarButtonItemStylePlain
+//                                                           target:nil
+//                                                           action:nil];
+        self.titleButton = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
+//        self.titleButton.enabled = NO;
         
         self.edgesForExtendedLayout = UIRectEdgeNone;
         
