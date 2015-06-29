@@ -24,17 +24,13 @@
 
 #import "mAAppDelegate.h"
 
-#import "mAFileViewController.h"
+#import "mAMasterViewController.h"
 #import "mADetailViewController.h"
-#import "mAEditorViewController.h"
-#import "mAPlayerViewController.h"
 #import "mADetailItem.h"
 #import "mAChucKController.h"
 #import "miniAudicle.h"
 #import "mADocumentManager.h"
 #import "mAAutocomplete.h"
-#import "mAFileNavigationController.h"
-#import "mAMasterViewController.h"
 #import "Crittercism.h"
 
 
@@ -44,10 +40,7 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
 @interface mAAppDelegate ()
 
 @property (strong, nonatomic) mAMasterViewController * masterViewController;
-@property (strong, nonatomic) mAFileViewController * fileViewController;
 @property (strong, nonatomic) mADetailViewController * detailViewController;
-@property (strong, nonatomic) mAEditorViewController * editorViewController;
-@property (strong, nonatomic) mAPlayerViewController * playerViewController;
 
 @end
 
@@ -79,32 +72,25 @@ static mAAppDelegate *g_appDelegate = nil;
 //        self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.fileViewController];
 //        self.window.rootViewController = self.navigationController;
     } else {
-        mAMasterViewController *masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
-        
+        self.masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
         self.detailViewController = [[mADetailViewController alloc] initWithNibName:@"mADetailViewController" bundle:nil];
-    	self.editorViewController = [[mAEditorViewController alloc] initWithNibName:@"mAEditorViewController" bundle:nil];
-    	self.playerViewController = [[mAPlayerViewController alloc] initWithNibName:@"mAPlayerViewController" bundle:nil];
         
-        masterViewController.detailViewController = self.detailViewController;
-        
-        self.detailViewController.editor = self.editorViewController;
-        self.detailViewController.player = self.playerViewController;
-        
-        self.detailViewController.fileViewController = self.fileViewController;
+        self.masterViewController.detailViewController = self.detailViewController;
         
         self.splitViewController = [[UISplitViewController alloc] init];
         self.splitViewController.delegate = self.detailViewController;
         self.splitViewController.presentsWithGesture = NO;
-        self.splitViewController.viewControllers = [NSArray arrayWithObjects:masterViewController, self.detailViewController, nil];
+        self.splitViewController.viewControllers = [NSArray arrayWithObjects:self.masterViewController, self.detailViewController, nil];
         
         self.window.rootViewController = self.splitViewController;
                 
         if([[mADocumentManager manager] recentFiles].count)
-            self.editorViewController.detailItem = [[[mADocumentManager manager] recentFiles] firstObject];
+            [self.detailViewController editItem:[[[mADocumentManager manager] recentFiles] firstObject]];
         else if([[mADocumentManager manager] userScripts].count)
-            self.editorViewController.detailItem = [[[mADocumentManager manager] userScripts] firstObject];
+            [self.detailViewController editItem:[[[mADocumentManager manager] userScripts] firstObject]];
         else
-            [self.fileViewController newScript];
+            ; // TODO
+//            [self.fileViewController newScript];
     }
     
     [self.window makeKeyAndVisible];
@@ -133,8 +119,8 @@ static mAAppDelegate *g_appDelegate = nil;
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
      */
     
-    [[NSUserDefaults standardUserDefaults] setInteger:[self.fileViewController selectedScript]
-                                               forKey:kmAUserDefaultsSelectedScript];
+//    [[NSUserDefaults standardUserDefaults] setInteger:[self.fileViewController selectedScript]
+//                                               forKey:kmAUserDefaultsSelectedScript];
     [self saveScripts];
 }
 
@@ -145,8 +131,8 @@ static mAAppDelegate *g_appDelegate = nil;
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
     
-    [[NSUserDefaults standardUserDefaults] setInteger:[self.fileViewController selectedScript]
-                                               forKey:kmAUserDefaultsSelectedScript];
+//    [[NSUserDefaults standardUserDefaults] setInteger:[self.fileViewController selectedScript]
+//                                               forKey:kmAUserDefaultsSelectedScript];
     [self saveScripts];
 }
 
@@ -172,14 +158,14 @@ static mAAppDelegate *g_appDelegate = nil;
      See also applicationDidEnterBackground:.
      */
     
-    [[NSUserDefaults standardUserDefaults] setInteger:[self.fileViewController selectedScript]
-                                               forKey:kmAUserDefaultsSelectedScript];
+//    [[NSUserDefaults standardUserDefaults] setInteger:[self.fileViewController selectedScript]
+//                                               forKey:kmAUserDefaultsSelectedScript];
     [self saveScripts];
 }
 
 - (void)saveScripts
 {
-    [self.editorViewController saveScript];
+//    [self.editorViewController saveScript];
 }
 
 @end

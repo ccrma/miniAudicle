@@ -36,6 +36,7 @@
 
 @property (strong, nonatomic) mANetworkManager *networkManager;
 
+- (void)setup;
 - (void)vmStatus:(NSNotification *)notification;
 
 @end
@@ -43,30 +44,45 @@
 
 @implementation mAPlayerViewController
 
+- (void)setup
+{
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 32)];
+    titleLabel.text = @"Player";
+    titleLabel.font = [UIFont boldSystemFontOfSize:18];
+    [titleLabel sizeToFit];
+    //        self.titleButton = [[UIBarButtonItem alloc] initWithTitle:@"Player"
+    //                                                            style:UIBarButtonItemStylePlain
+    //                                                           target:nil
+    //                                                           action:nil];
+    self.titleButton = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
+    //        self.titleButton.enabled = NO;
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    self.players = [NSMutableArray array];
+    self.passthroughViews = [NSMutableArray array];
+    _layoutIndex = 0;
+    _layoutOffset = CGPointMake(0, 0);
+    self.networkManager = [mANetworkManager instance];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 32)];
-        titleLabel.text = @"Player";
-        titleLabel.font = [UIFont boldSystemFontOfSize:18];
-        [titleLabel sizeToFit];
-//        self.titleButton = [[UIBarButtonItem alloc] initWithTitle:@"Player"
-//                                                            style:UIBarButtonItemStylePlain
-//                                                           target:nil
-//                                                           action:nil];
-        self.titleButton = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
-//        self.titleButton.enabled = NO;
-        
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-        
-        self.players = [NSMutableArray array];
-        self.passthroughViews = [NSMutableArray array];
-        _layoutIndex = 0;
-        _layoutOffset = CGPointMake(0, 0);
-        self.networkManager = [mANetworkManager instance];
+        [self setup];
     }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if(self = [super initWithCoder:aDecoder])
+    {
+        [self setup];
+    }
+    
     return self;
 }
 

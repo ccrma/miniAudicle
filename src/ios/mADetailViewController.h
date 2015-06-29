@@ -67,15 +67,16 @@ enum mAInteractionMode
 }
 
 @property (strong, nonatomic) UIViewController *clientViewController;
-@property (assign, nonatomic) mAFileViewController * fileViewController;
-@property (strong, nonatomic) mAEditorViewController * editor;
-@property (strong, nonatomic) mAPlayerViewController * player;
+//@property (assign, nonatomic) mAFileViewController * fileViewController;
+@property (strong, nonatomic) IBOutlet mAEditorViewController * editor;
+@property (strong, nonatomic) IBOutlet mAPlayerViewController * player;
 @property (nonatomic) mAInteractionMode interactionMode;
 
 - (void)dismissMasterPopover;
 - (void)setClientViewController:(UIViewController *)viewController;
 
 - (void)showDetailItem:(mADetailItem *)item;
+- (void)editItem:(mADetailItem *)item;
 
 - (IBAction)showVMMonitor:(id)sender;
 - (IBAction)showConsoleMonitor:(id)sender;

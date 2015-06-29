@@ -24,7 +24,6 @@
 
 #import "mADetailViewController.h"
 
-#import "mAFileViewController.h"
 #import "mAChucKController.h"
 #import "mATitleEditorController.h"
 #import "mAEditorViewController.h"
@@ -151,6 +150,17 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = NSLocalizedString(@"Detail", @"Detail");
+        self.interactionMode = MA_IM_NONE;
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if(self = [super initWithCoder:aDecoder])
+    {
+        self.title = NSLocalizedString(@"Detail", @"Detail");
+        self.interactionMode = MA_IM_NONE;
     }
     return self;
 }
@@ -160,9 +170,6 @@
     if(self.clientViewController != viewController)
     {
         _clientViewController = viewController;
-        
-        // force load
-        (void) self.view;
         
         for(UIView *subview in [_clientView subviews])
             [subview removeFromSuperview];
@@ -199,6 +206,12 @@
     {
         [self.player addScript:detailItem];
     }
+}
+
+- (void)editItem:(mADetailItem *)item
+{
+    [self editMode:self];
+    [self showDetailItem:item];
 }
 
 #pragma mark - Split view
@@ -294,6 +307,9 @@
 
 - (IBAction)playMode:(id)sender
 {
+    // force load
+    (void) self.view;
+    
     if(self.interactionMode != MA_IM_PLAY)
     {
         [self.editor saveScript];
@@ -311,6 +327,9 @@
 
 - (IBAction)editMode:(id)sender
 {
+    // force load
+    (void) self.view;
+    
     if(self.interactionMode != MA_IM_EDIT)
     {
         self.interactionMode = MA_IM_EDIT;
