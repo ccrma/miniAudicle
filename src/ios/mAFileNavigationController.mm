@@ -9,6 +9,7 @@
 #import "mAFileNavigationController.h"
 #import "mADocumentManager.h"
 #import "mAFileViewController.h"
+#import "mADocumentManager.h"
 
 
 @interface mAFileNavigationController ()
@@ -16,8 +17,15 @@
     IBOutlet UISegmentedControl *segmentedControl;
 }
 
+@property (strong, nonatomic) IBOutlet UINavigationController *childNavigationController;
+
+@property (strong, nonatomic) mAFileViewController *myScriptsViewController;
+@property (strong, nonatomic) mAFileViewController *recentViewController;
+@property (strong, nonatomic) mAFileViewController *examplesViewController;
+
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 
+- (void)setup;
 - (void)adjustNavigationBar:(UIViewController *)targetViewController animated:(BOOL)animated;
 - (IBAction)selectedMode:(id)sender;
 
@@ -25,37 +33,41 @@
 
 @implementation mAFileNavigationController
 
-- (void)setChildNavigationController:(UINavigationController *)childNavigationController
+- (void)setDetailViewController:(mADetailViewController *)detailViewController
 {
-    // remove existing child views
-    if([self isViewLoaded])
-    {
-        for(UIView *subview in self.contentView.subviews)
-            [subview removeFromSuperview];
-    }
+    _detailViewController = detailViewController;
     
-    _childNavigationController = childNavigationController;
-    _childNavigationController.delegate = self;
-    if(_childNavigationController.viewControllers.count)
-    {
-        // make navigation appear/disappear as needed
-        [self adjustNavigationBar:[_childNavigationController.viewControllers lastObject] animated:NO];
-    }
-    
-    // add to contentView
-    if([self isViewLoaded] && _childNavigationController != nil)
-    {
-        _childNavigationController.view.frame = self.contentView.bounds;
-        [self.contentView addSubview:_childNavigationController.view];
-    }
+    self.myScriptsViewController.detailViewController = self.detailViewController;
+    self.recentViewController.detailViewController = self.detailViewController;
+    self.examplesViewController.detailViewController = self.detailViewController;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    self.myScriptsViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
+    self.myScriptsViewController.scripts = [[mADocumentManager manager] userScripts];
+    self.myScriptsViewController.editable = YES;
+    
+    self.examplesViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
+    self.examplesViewController.scripts = [[mADocumentManager manager] exampleScripts];
+    self.examplesViewController.editable = NO;
+    
+    self.recentViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
+    self.recentViewController.scripts = [[mADocumentManager manager] recentFiles];
+    self.recentViewController.editable = NO;
+    
+    self.myScriptsViewController.detailViewController = self.detailViewController;
+    self.recentViewController.detailViewController = self.detailViewController;
+    self.examplesViewController.detailViewController = self.detailViewController;
+    
+    [self.navigationController pushViewController:self.myScriptsViewController animated:NO];
+    self.navigationController.navigationBar.translucent = NO;
+
     // reset to add subview to contentView
-    self.childNavigationController = self.childNavigationController;
+    _childNavigationController.view.frame = self.contentView.bounds;
+    [self.contentView addSubview:_childNavigationController.view];
     [self.childNavigationController setViewControllers:@[self.myScriptsViewController] animated:NO];
     
     [[NSNotificationCenter defaultCenter] addObserver:self

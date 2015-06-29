@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class mAFileNavigationController;
+@class mADetailViewController;
 
 @interface mAMasterViewController : UIViewController
 
-@property (nonatomic) IBOutlet mAFileNavigationController *fileNavigator;
+@property (strong, nonatomic) mADetailViewController *detailViewController;
 
 @end

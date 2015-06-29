@@ -81,25 +81,16 @@ static mAAppDelegate *g_appDelegate = nil;
     } else {
         mAMasterViewController *masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
         
-        mAFileNavigationController *fileNavigationController = [[mAFileNavigationController alloc] initWithNibName:@"mAFileNavigationController" bundle:nil];
-        masterViewController.fileNavigator = fileNavigationController;
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithNibName:@"mANavigationController" bundle:nil];
-        fileNavigationController.childNavigationController = navigationController;
-        
-        self.fileViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
-        [navigationController pushViewController:self.fileViewController animated:NO];
-        navigationController.navigationBar.translucent = NO;
-        
         self.detailViewController = [[mADetailViewController alloc] initWithNibName:@"mADetailViewController" bundle:nil];
     	self.editorViewController = [[mAEditorViewController alloc] initWithNibName:@"mAEditorViewController" bundle:nil];
     	self.playerViewController = [[mAPlayerViewController alloc] initWithNibName:@"mAPlayerViewController" bundle:nil];
         
+        masterViewController.detailViewController = self.detailViewController;
+        
         self.detailViewController.editor = self.editorViewController;
         self.detailViewController.player = self.playerViewController;
         
-        self.fileViewController.detailViewController = self.detailViewController;
         self.detailViewController.fileViewController = self.fileViewController;
-        
         
         self.splitViewController = [[UISplitViewController alloc] init];
         self.splitViewController.delegate = self.detailViewController;
@@ -107,23 +98,7 @@ static mAAppDelegate *g_appDelegate = nil;
         self.splitViewController.viewControllers = [NSArray arrayWithObjects:masterViewController, self.detailViewController, nil];
         
         self.window.rootViewController = self.splitViewController;
-        
-        self.fileViewController.scripts = [[mADocumentManager manager] userScripts];
-        self.fileViewController.editable = YES;
-        fileNavigationController.myScriptsViewController = self.fileViewController;
-        
-        mAFileViewController *examplesViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
-        examplesViewController.scripts = [[mADocumentManager manager] exampleScripts];
-        examplesViewController.editable = NO;
-        examplesViewController.detailViewController = self.detailViewController;
-        fileNavigationController.examplesViewController = examplesViewController;
-        
-        mAFileViewController *recentViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
-        recentViewController.scripts = [[mADocumentManager manager] recentFiles];
-        recentViewController.editable = NO;
-        recentViewController.detailViewController = self.detailViewController;
-        fileNavigationController.recentViewController = recentViewController;
-        
+                
         if([[mADocumentManager manager] recentFiles].count)
             self.editorViewController.detailItem = [[[mADocumentManager manager] recentFiles] firstObject];
         else if([[mADocumentManager manager] userScripts].count)
