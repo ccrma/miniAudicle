@@ -27,12 +27,15 @@
 #import "mAFileViewController.h"
 #import "mAChucKController.h"
 #import "mATitleEditorController.h"
+#import "mAEditorViewController.h"
+#import "mAPlayerViewController.h"
 #import "mAVMMonitorController.h"
 #import "mAConsoleMonitorController.h"
 #import "mAKeyboardAccessoryViewController.h"
 #import "NSString+NSString_Lines.h"
 #import "mATextView.h"
 #import "mADetailItem.h"
+#import "mADocumentManager.h"
 
 
 /*
@@ -129,6 +132,8 @@
     [items insertObject:[[UIBarButtonItem alloc] initWithCustomView:segmentedControl]
                 atIndex:[items count]];
     [self.toolbar setItems:items animated:NO];
+    
+    [self editMode:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -179,6 +184,20 @@
         [items removeObjectAtIndex:i+1];
         
         [self.toolbar setItems:items animated:YES];
+    }
+}
+
+- (void)showDetailItem:(mADetailItem *)detailItem
+{
+    if(self.interactionMode == MA_IM_EDIT)
+    {
+        [[mADocumentManager manager] addRecentFile:detailItem];
+        self.editor.detailItem = detailItem;
+        [self dismissMasterPopover];
+    }
+    else
+    {
+        [self.player addScript:detailItem];
     }
 }
 
@@ -268,9 +287,36 @@
 {
     UISegmentedControl *segmentedControl = (UISegmentedControl *) sender;
     if(segmentedControl.selectedSegmentIndex == 0)
-        [self.fileViewController editMode:self];
+        [self editMode:sender];
     else
-        [self.fileViewController playMode:self];
+        [self playMode:sender];
+}
+
+- (IBAction)playMode:(id)sender
+{
+    if(self.interactionMode != MA_IM_PLAY)
+    {
+        [self.editor saveScript];
+        
+        self.interactionMode = MA_IM_PLAY;
+        [self setClientViewController:self.player];
+        [self dismissMasterPopover];
+        
+        //        //If in portrait mode, display the master view
+        //        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
+        //            [self.parentViewController.navigationItem.leftBarButtonItem.target performSelector:self.navigationItem.leftBarButtonItem.action withObject:self.navigationItem];
+        //        }
+    }
+}
+
+- (IBAction)editMode:(id)sender
+{
+    if(self.interactionMode != MA_IM_EDIT)
+    {
+        self.interactionMode = MA_IM_EDIT;
+        [self setClientViewController:self.editor];
+        [self dismissMasterPopover];
+    }
 }
 
 #pragma mark - mAConsoleMonitorDelegate

@@ -32,12 +32,6 @@
 #import "mADetailItem.h"
 #import "mADocumentManager.h"
 
-enum mAInteractionMode
-{
-    MA_IM_NONE,
-    MA_IM_EDIT,
-    MA_IM_PLAY,
-};
 
 static mAInteractionMode g_mode = MA_IM_NONE;
 
@@ -115,7 +109,7 @@ static mAInteractionMode g_mode = MA_IM_NONE;
         
         mADetailItem *detailItem = [self.scripts objectAtIndex:script];
         if(!detailItem.isFolder)
-            self.editorViewController.detailItem = detailItem;
+           [self.detailViewController showDetailItem:detailItem];
     }
 }
 
@@ -125,15 +119,15 @@ static mAInteractionMode g_mode = MA_IM_NONE;
 }
 
 
-- (void)scriptDetailChanged
-{
-//    int row = [self selectedScript];
-//    [self.tableView reloadData];
-//    [self selectScript:row];
-    
-    // reload name
-    [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]].textLabel.text = self.editorViewController.detailItem.title;
-}
+//- (void)scriptDetailChanged
+//{
+////    int row = [self selectedScript];
+////    [self.tableView reloadData];
+////    [self selectScript:row];
+//    
+//    // reload name
+//    [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]].textLabel.text = self.editorViewController.detailItem.title;
+//}
 
 - (void)scriptsChanged
 {
@@ -162,7 +156,9 @@ static mAInteractionMode g_mode = MA_IM_NONE;
     [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]].textLabel.text = item.title;
 }
 
+
 #pragma mark - IBActions
+
 
 - (IBAction)newScript
 {
@@ -176,7 +172,7 @@ static mAInteractionMode g_mode = MA_IM_NONE;
     [self.scripts insertObject:detailItem atIndex:insertIndex];
     [self.tableView reloadData];
     
-    self.editorViewController.detailItem = detailItem;
+    [self.detailViewController showDetailItem:detailItem];
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:insertIndex inSection:0] 
                                 animated:YES
                           scrollPosition:UITableViewScrollPositionNone];
@@ -199,27 +195,6 @@ static mAInteractionMode g_mode = MA_IM_NONE;
     }
 }
 
-- (IBAction)playMode:(id)sender
-{
-    if(g_mode != MA_IM_PLAY)
-    {
-        [self.editorViewController saveScript];
-        
-        g_mode = MA_IM_PLAY;
-        [self.detailViewController setClientViewController:self.playerViewController];
-        [self.detailViewController dismissMasterPopover];
-    }
-}
-
-- (IBAction)editMode:(id)sender
-{
-    if(g_mode != MA_IM_EDIT)
-    {
-        g_mode = MA_IM_EDIT;
-        [self.detailViewController setClientViewController:self.editorViewController];
-        [self.detailViewController dismissMasterPopover];
-    }
-}
 
 #pragma mark - UIViewController
 
@@ -368,25 +343,13 @@ static mAInteractionMode g_mode = MA_IM_NONE;
         
         if(!detailItem.isFolder)
         {
-            if(g_mode == MA_IM_EDIT)
-            {
-                [[mADocumentManager manager] addRecentFile:detailItem];
-                self.editorViewController.detailItem = detailItem;
-                [self.detailViewController dismissMasterPopover];
-            }
-            else
-            {
-                [self.playerViewController addScript:detailItem];
-//                [self.detailViewController dismissMasterPopover];
-            }
+            [self.detailViewController showDetailItem:detailItem];
         }
         else
         {
             mAFileViewController *master = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
             
             master.detailViewController = self.detailViewController;
-            master.editorViewController = self.editorViewController;
-            master.playerViewController = self.playerViewController;
             master.navigationItem.title = detailItem.title;
             master.scripts = detailItem.folderItems;
             

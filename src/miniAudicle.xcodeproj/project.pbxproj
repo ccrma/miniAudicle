@@ -169,6 +169,8 @@
 		09664B9019905ABC00AE0B6B /* mAConnectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09664B8F19905ABC00AE0B6B /* mAConnectViewController.xib */; };
 		09678637173F169E003AB462 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678634173F169E003AB462 /* UKFileWatcher.m */; };
 		09678638173F169E003AB462 /* UKFSEventsWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678636173F169E003AB462 /* UKFSEventsWatcher.m */; };
+		096D81051B40C1F800F9B9CA /* mAMasterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 096D81031B40C1F800F9B9CA /* mAMasterViewController.mm */; };
+		096D81061B40C1F800F9B9CA /* mAMasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 096D81041B40C1F800F9B9CA /* mAMasterViewController.xib */; };
 		096FAB870B56D56B00125FE2 /* mAConsoleMonitorView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 096FAB850B56D56B00125FE2 /* mAConsoleMonitorView.mm */; };
 		09805FFA0AA10D3800915136 /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
 		09805FFB0AA10D3900915136 /* chuck.y in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B360A9A54DA007604EA /* chuck.y */; };
@@ -543,6 +545,9 @@
 		09678634173F169E003AB462 /* UKFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFileWatcher.m; sourceTree = "<group>"; };
 		09678635173F169E003AB462 /* UKFSEventsWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKFSEventsWatcher.h; sourceTree = "<group>"; };
 		09678636173F169E003AB462 /* UKFSEventsWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFSEventsWatcher.m; sourceTree = "<group>"; };
+		096D81021B40C1F800F9B9CA /* mAMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAMasterViewController.h; sourceTree = "<group>"; };
+		096D81031B40C1F800F9B9CA /* mAMasterViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAMasterViewController.mm; sourceTree = "<group>"; };
+		096D81041B40C1F800F9B9CA /* mAMasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAMasterViewController.xib; sourceTree = "<group>"; };
 		096FAB840B56D56B00125FE2 /* mAConsoleMonitorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAConsoleMonitorView.h; path = macosx/mAConsoleMonitorView.h; sourceTree = SOURCE_ROOT; };
 		096FAB850B56D56B00125FE2 /* mAConsoleMonitorView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAConsoleMonitorView.mm; path = macosx/mAConsoleMonitorView.mm; sourceTree = SOURCE_ROOT; };
 		09805FE70AA10D0C00915136 /* chuck */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = chuck; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1381,6 +1386,9 @@
 				099ABE4C1906224B00C5D52D /* mADef.h */,
 				093E262214A108C8008694BC /* mAAppDelegate.h */,
 				093E262314A108C8008694BC /* mAAppDelegate.mm */,
+				096D81041B40C1F800F9B9CA /* mAMasterViewController.xib */,
+				096D81021B40C1F800F9B9CA /* mAMasterViewController.h */,
+				096D81031B40C1F800F9B9CA /* mAMasterViewController.mm */,
 				093A74B91A5E492D00F54725 /* mAFileNavigationController.xib */,
 				093A74BB1A5E495200F54725 /* mAFileNavigationController.h */,
 				093A74BC1A5E495200F54725 /* mAFileNavigationController.mm */,
@@ -1665,6 +1673,7 @@
 				4D3D4C921A5E37DB00B6A06B /* dsym_upload.sh in Resources */,
 				093E267A14A14E91008694BC /* remove.png in Resources */,
 				09F09E4118E2DAEA0050D963 /* mAPlayerViewController.xib in Resources */,
+				096D81061B40C1F800F9B9CA /* mAMasterViewController.xib in Resources */,
 				093E267B14A14E91008694BC /* add.png in Resources */,
 				09F09E4618E36DBC0050D963 /* mAScriptPlayer.xib in Resources */,
 				09F09E3C18E2C5E60050D963 /* mAEditorViewController.xib in Resources */,
@@ -1789,6 +1798,7 @@
 				09F09E4918E3712D0050D963 /* mARoundedRectButton.m in Sources */,
 				093E263D14A12201008694BC /* chuck_absyn.cpp in Sources */,
 				0921D55E18190216008F39D9 /* bundle.c in Sources */,
+				096D81051B40C1F800F9B9CA /* mAMasterViewController.mm in Sources */,
 				09AC4E1818EA2C8500B2561A /* mAShredButton.m in Sources */,
 				09094DC419919E41009F4C4C /* mAActivityViewController.m in Sources */,
 				09307E2718E0BEC2004AB346 /* NSString+NSString_Lines.m in Sources */,

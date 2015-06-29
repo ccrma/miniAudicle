@@ -37,8 +37,6 @@
     int untitledNumber;
 }
 
-@property (strong, nonatomic) mAEditorViewController *editorViewController;
-@property (strong, nonatomic) mAPlayerViewController *playerViewController;
 @property (strong, nonatomic) mADetailViewController *detailViewController;
 @property (strong, nonatomic) NSMutableArray * scripts;
 
@@ -46,12 +44,9 @@
 
 - (IBAction)newScript;
 - (IBAction)editScripts;
-- (IBAction)playMode:(id)sender;
-- (IBAction)editMode:(id)sender;
 
 - (void)selectScript:(int)script;
 - (int)selectedScript;
-- (void)scriptDetailChanged;
 - (void)scriptsChanged;
 
 @end

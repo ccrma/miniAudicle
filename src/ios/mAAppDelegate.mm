@@ -34,6 +34,7 @@
 #import "mADocumentManager.h"
 #import "mAAutocomplete.h"
 #import "mAFileNavigationController.h"
+#import "mAMasterViewController.h"
 #import "Crittercism.h"
 
 
@@ -42,6 +43,7 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
 
 @interface mAAppDelegate ()
 
+@property (strong, nonatomic) mAMasterViewController * masterViewController;
 @property (strong, nonatomic) mAFileViewController * fileViewController;
 @property (strong, nonatomic) mADetailViewController * detailViewController;
 @property (strong, nonatomic) mAEditorViewController * editorViewController;
@@ -77,7 +79,10 @@ static mAAppDelegate *g_appDelegate = nil;
 //        self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.fileViewController];
 //        self.window.rootViewController = self.navigationController;
     } else {
+        mAMasterViewController *masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
+        
         mAFileNavigationController *fileNavigationController = [[mAFileNavigationController alloc] initWithNibName:@"mAFileNavigationController" bundle:nil];
+        masterViewController.fileNavigator = fileNavigationController;
         UINavigationController *navigationController = [[UINavigationController alloc] initWithNibName:@"mANavigationController" bundle:nil];
         fileNavigationController.childNavigationController = navigationController;
         
@@ -89,16 +94,17 @@ static mAAppDelegate *g_appDelegate = nil;
     	self.editorViewController = [[mAEditorViewController alloc] initWithNibName:@"mAEditorViewController" bundle:nil];
     	self.playerViewController = [[mAPlayerViewController alloc] initWithNibName:@"mAPlayerViewController" bundle:nil];
         
+        self.detailViewController.editor = self.editorViewController;
+        self.detailViewController.player = self.playerViewController;
+        
         self.fileViewController.detailViewController = self.detailViewController;
         self.detailViewController.fileViewController = self.fileViewController;
         
-        self.fileViewController.editorViewController = self.editorViewController;
-        self.fileViewController.playerViewController = self.playerViewController;
         
         self.splitViewController = [[UISplitViewController alloc] init];
         self.splitViewController.delegate = self.detailViewController;
         self.splitViewController.presentsWithGesture = NO;
-        self.splitViewController.viewControllers = [NSArray arrayWithObjects:fileNavigationController, self.detailViewController, nil];
+        self.splitViewController.viewControllers = [NSArray arrayWithObjects:masterViewController, self.detailViewController, nil];
         
         self.window.rootViewController = self.splitViewController;
         
@@ -110,16 +116,12 @@ static mAAppDelegate *g_appDelegate = nil;
         examplesViewController.scripts = [[mADocumentManager manager] exampleScripts];
         examplesViewController.editable = NO;
         examplesViewController.detailViewController = self.detailViewController;
-        examplesViewController.editorViewController = self.editorViewController;
-        examplesViewController.playerViewController = self.playerViewController;
         fileNavigationController.examplesViewController = examplesViewController;
         
         mAFileViewController *recentViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
         recentViewController.scripts = [[mADocumentManager manager] recentFiles];
         recentViewController.editable = NO;
         recentViewController.detailViewController = self.detailViewController;
-        recentViewController.editorViewController = self.editorViewController;
-        recentViewController.playerViewController = self.playerViewController;
         fileNavigationController.recentViewController = recentViewController;
         
         if([[mADocumentManager manager] recentFiles].count)
@@ -132,7 +134,7 @@ static mAAppDelegate *g_appDelegate = nil;
     
     [self.window makeKeyAndVisible];
     
-    [self.fileViewController editMode:nil];
+//    [self.detailViewController editMode:nil];
     
     [mAChucKController chuckController].ma->start_vm();
     

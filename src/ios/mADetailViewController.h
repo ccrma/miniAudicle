@@ -30,9 +30,20 @@
 #import "mAVMMonitorController.h"
 #import "mASyntaxHighlighter.h"
 
+
 @class mADetailItem;
 @class mAFileViewController;
 @class mAVMMonitorController;
+@class mAEditorViewController;
+@class mAPlayerViewController;
+
+
+enum mAInteractionMode
+{
+    MA_IM_NONE,
+    MA_IM_EDIT,
+    MA_IM_PLAY,
+};
 
 
 @protocol mADetailClient <NSObject>
@@ -57,9 +68,14 @@
 
 @property (strong, nonatomic) UIViewController *clientViewController;
 @property (assign, nonatomic) mAFileViewController * fileViewController;
+@property (strong, nonatomic) mAEditorViewController * editor;
+@property (strong, nonatomic) mAPlayerViewController * player;
+@property (nonatomic) mAInteractionMode interactionMode;
 
 - (void)dismissMasterPopover;
 - (void)setClientViewController:(UIViewController *)viewController;
+
+- (void)showDetailItem:(mADetailItem *)item;
 
 - (IBAction)showVMMonitor:(id)sender;
 - (IBAction)showConsoleMonitor:(id)sender;
