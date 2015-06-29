@@ -27,5 +27,6 @@ extern NSString * const mADocumentManagerRecentFilesChanged;
 - (void)addRecentFile:(mADetailItem *)item;
 
 - (mADetailItem *)newScript:(NSString *)title;
+- (mADetailItem *)newScript;
 
 @end

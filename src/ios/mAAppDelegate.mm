@@ -89,8 +89,7 @@ static mAAppDelegate *g_appDelegate = nil;
         else if([[mADocumentManager manager] userScripts].count)
             [self.detailViewController editItem:[[[mADocumentManager manager] userScripts] firstObject]];
         else
-            ; // TODO
-//            [self.fileViewController newScript];
+            [self.detailViewController editItem:[[mADocumentManager manager] newScript]];
     }
     
     [self.window makeKeyAndVisible];

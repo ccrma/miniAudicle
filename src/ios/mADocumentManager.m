@@ -31,6 +31,8 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     
     NSMutableArray *_recentFiles;
     NSMutableOrderedSet *_recentFilesPaths;
+    
+    int _untitledNum;
 }
 
 @property (strong, nonatomic) id<NSObject, NSCopying, NSCoding> ubiquityIdentityToken;
@@ -68,6 +70,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
             self.baseDocumentPath = [NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
         }
         
+        _untitledNum = 1;
         _recentFiles = [NSMutableArray new];
         _recentFilesPaths = [NSMutableOrderedSet orderedSetWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesRecentFilesKey]];
         
@@ -150,6 +153,16 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
             
             if([_recentFilesPaths containsObject:[fullPath stripDocumentPath]])
                 [_recentFiles addObject:item];
+            
+            // use greatest Untitled N number +1 for next Untitled number
+            NSScanner *titleScanner = [NSScanner scannerWithString:[item title]];
+            int num = 0;
+            if([titleScanner scanString:@"Untitled " intoString:NULL] &&
+               [titleScanner scanInt:&num])
+            {
+                if(num >= _untitledNum)
+                    _untitledNum = num+1;
+            }
         }
     }
     
@@ -182,6 +195,22 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     detailItem.title = title;
     detailItem.path = [[[self.baseDocumentPath URLByAppendingPathComponent:detailItem.title] URLByAppendingPathExtension:@"ck"] path];
     detailItem.text = @"";
+    
+    return detailItem;
+}
+
+- (mADetailItem *)newScript
+{
+    NSString *title = [NSString stringWithFormat:@"Untitled %i", _untitledNum++];
+    
+    mADetailItem * detailItem = [mADetailItem new];
+    
+    detailItem.isUser = YES;
+    detailItem.title = title;
+    detailItem.path = [[[self.baseDocumentPath URLByAppendingPathComponent:detailItem.title] URLByAppendingPathExtension:@"ck"] path];
+    detailItem.text = @"";
+    
+    [_userScripts addObject:detailItem];
     
     return detailItem;
 }

@@ -162,20 +162,22 @@ static mAInteractionMode g_mode = MA_IM_NONE;
 
 - (IBAction)newScript
 {
-    (void) self.view; // force the view to load
-    
-    mADetailItem *detailItem = [[mADocumentManager manager] newScript:[NSString stringWithFormat:@"Untitled %i", untitledNumber++]];
-    detailItem.docid = [mAChucKController chuckController].ma->allocate_document_id();
-    
-    int insertIndex = 0;
-    
-    [self.scripts insertObject:detailItem atIndex:insertIndex];
-    [self.tableView reloadData];
-    
-    [self.detailViewController showDetailItem:detailItem];
-    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:insertIndex inSection:0] 
-                                animated:YES
-                          scrollPosition:UITableViewScrollPositionNone];
+//    (void) self.view; // force the view to load
+//    
+//    mADetailItem *detailItem = [[mADocumentManager manager] newScript:[NSString stringWithFormat:@"Untitled %i", untitledNumber++]];
+//    detailItem.docid = [mAChucKController chuckController].ma->allocate_document_id();
+//    
+//    int insertIndex = 0;
+//    
+//    [self.scripts insertObject:detailItem atIndex:insertIndex];
+//    [self.tableView reloadData];
+//    
+//    [self.detailViewController showDetailItem:detailItem];
+//    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:insertIndex inSection:0] 
+//                                animated:YES
+//                          scrollPosition:UITableViewScrollPositionNone];
+    mADocumentManager *manager = [mADocumentManager manager];
+    [self.detailViewController editItem:[manager newScript]];
 }
 
 
