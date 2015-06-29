@@ -34,7 +34,6 @@
     IBOutlet UIBarButtonItem * _editButton;
     
     NSMutableArray * _scripts;
-    int untitledNumber;
 }
 
 @property (strong, nonatomic) mADetailViewController *detailViewController;

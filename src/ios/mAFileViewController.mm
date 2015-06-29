@@ -33,9 +33,6 @@
 #import "mADocumentManager.h"
 
 
-static mAInteractionMode g_mode = MA_IM_NONE;
-
-
 @interface mAFileViewController ()
 
 @property (strong, nonatomic) UITableView * tableView;
@@ -47,10 +44,6 @@ static mAInteractionMode g_mode = MA_IM_NONE;
 
 
 @implementation mAFileViewController
-
-//@synthesize scripts = _scripts;
-//@synthesize detailViewController = _detailViewController;
-//@synthesize tableView = _tableView, editButton = _editButton;
 
 - (void)setScripts:(NSMutableArray *)scripts
 {
@@ -76,14 +69,12 @@ static mAInteractionMode g_mode = MA_IM_NONE;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self)
     {
-//        self.title = NSLocalizedString(@"Scripts", @"Scripts");
         if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
         {
             self.preferredContentSize = CGSizeMake(320.0, 600.0);
         }
         
         self.scripts = [NSMutableArray new];
-        untitledNumber = 1;
     }
     return self;
 }
@@ -162,18 +153,7 @@ static mAInteractionMode g_mode = MA_IM_NONE;
 
 - (IBAction)newScript
 {
-//    (void) self.view; // force the view to load
-//    
-//    mADetailItem *detailItem = [[mADocumentManager manager] newScript:[NSString stringWithFormat:@"Untitled %i", untitledNumber++]];
-//    detailItem.docid = [mAChucKController chuckController].ma->allocate_document_id();
-//    
-//    int insertIndex = 0;
-//    
-//    [self.scripts insertObject:detailItem atIndex:insertIndex];
-//    [self.tableView reloadData];
-//    
-//    [self.detailViewController showDetailItem:detailItem];
-//    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:insertIndex inSection:0] 
+//    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:insertIndex inSection:0]
 //                                animated:YES
 //                          scrollPosition:UITableViewScrollPositionNone];
     mADocumentManager *manager = [mADocumentManager manager];
@@ -204,12 +184,6 @@ static mAInteractionMode g_mode = MA_IM_NONE;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-//        if(self.scripts.count)
-//            [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
-//                                        animated:NO
-//                                  scrollPosition:UITableViewScrollPositionMiddle];
-    }
 }
 
 - (void)viewDidUnload

@@ -94,8 +94,6 @@ static mAAppDelegate *g_appDelegate = nil;
     
     [self.window makeKeyAndVisible];
     
-//    [self.detailViewController editMode:nil];
-    
     [mAChucKController chuckController].ma->start_vm();
     
     // create autocomplete
@@ -118,8 +116,6 @@ static mAAppDelegate *g_appDelegate = nil;
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
      */
     
-//    [[NSUserDefaults standardUserDefaults] setInteger:[self.fileViewController selectedScript]
-//                                               forKey:kmAUserDefaultsSelectedScript];
     [self saveScripts];
 }
 
@@ -130,8 +126,6 @@ static mAAppDelegate *g_appDelegate = nil;
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
     
-//    [[NSUserDefaults standardUserDefaults] setInteger:[self.fileViewController selectedScript]
-//                                               forKey:kmAUserDefaultsSelectedScript];
     [self saveScripts];
 }
 
@@ -157,8 +151,6 @@ static mAAppDelegate *g_appDelegate = nil;
      See also applicationDidEnterBackground:.
      */
     
-//    [[NSUserDefaults standardUserDefaults] setInteger:[self.fileViewController selectedScript]
-//                                               forKey:kmAUserDefaultsSelectedScript];
     [self saveScripts];
 }
 
