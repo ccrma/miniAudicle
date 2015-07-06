@@ -1,0 +1,121 @@
+<html>
+<link rel="stylesheet" type="text/css" href="ckdoc.css" />
+<link rel="stylesheet" type="text/css" href="class.css" />
+<title>string</title>
+<body>
+<div id="body">
+<div class="classes">
+<a name="string" /><div class="class">
+<h2 class="class_title" name="string">string</h2>
+<h4 class="class_hierarchy">: <a href="Object.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">The string class holds textual data as a sequence of characters, and provides a number of functions for manipulating text.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">charAt</span>(<span class="typename type_int">int</span> index)</p>
+<p class="member_description">Return a character at the specified index.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">erase</span>(<span class="typename type_int">int</span> start, <span class="typename type_int">int</span> length)</p>
+<p class="member_description">Erase length characters of the string from start position.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">find</span>(<span class="typename type_int">int</span> theChar)</p>
+<p class="member_description">Return the index of the first occurence of theChar, or -1 if theChar is not found.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">find</span>(<span class="typename type_int">int</span> theChar, <span class="typename type_int">int</span> start)</p>
+<p class="member_description">Return the index of the first occurence of theChar at or after the start position, or -1 if theChar is not found.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">find</span>(<span class="typename type_string">string</span> str)</p>
+<p class="member_description">Return the index of the first occurence of str, or -1 if str is not found.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">find</span>(<span class="typename type_string">string</span> str, <span class="typename type_int">int</span> start)</p>
+<p class="member_description">Return the index of the first occurence of str at or after the start position, or -1 if str is not found.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">insert</span>(<span class="typename type_int">int</span> position, <span class="typename type_string">string</span> str)</p>
+<p class="member_description">Insert str at the specified position.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">length</span>()</p>
+<p class="member_description">Return the number of characters of the string.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">lower</span>()</p>
+<p class="member_description">Return a new string in which the uppercase characters of the original string have been converted to lowercase.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">ltrim</span>()</p>
+<p class="member_description">Return a new string in which leading whitespace has been removed.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">replace</span>(<span class="typename type_int">int</span> position, <span class="typename type_string">string</span> str)</p>
+<p class="member_description">Replace characters from the start position to the end of the string with str.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">replace</span>(<span class="typename type_int">int</span> position, <span class="typename type_int">int</span> length, <span class="typename type_string">string</span> str)</p>
+<p class="member_description">Replace length characters from the start position with str.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">rfind</span>(<span class="typename type_int">int</span> theChar)</p>
+<p class="member_description">Return the index of the last occurence of theChar, or -1 if theChar is not found.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">rfind</span>(<span class="typename type_int">int</span> theChar, <span class="typename type_int">int</span> start)</p>
+<p class="member_description">Return the index of the last occurence of theChar at or before the start position, or -1 if theChar is not found.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">rfind</span>(<span class="typename type_string">string</span> str)</p>
+<p class="member_description">Return the index of the last occurence of str, or -1 if str is not found.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">rfind</span>(<span class="typename type_string">string</span> str, <span class="typename type_int">int</span> start)</p>
+<p class="member_description">Return the index of the last occurence of str at or before the start position, or -1 if str is not found.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">rtrim</span>()</p>
+<p class="member_description">Return a new string in which trailing whitespace has been removed.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">setCharAt</span>(<span class="typename type_int">int</span> index, <span class="typename type_int">int</span> theChar)</p>
+<p class="member_description">Set the character at the specified index.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">substring</span>(<span class="typename type_int">int</span> start)</p>
+<p class="member_description">Return a new string containing the substring from the start index to the end of the string.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">substring</span>(<span class="typename type_int">int</span> start, <span class="typename type_int">int</span> length)</p>
+<p class="member_description">Return a new string containing the substring from the start index of the specified length.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">toFloat</span>()</p>
+<p class="member_description">Attempt to convert the contents of the string to an float and return the result, or 0 if conversion failed.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">toInt</span>()</p>
+<p class="member_description">Attempt to convert the contents of the string to an integer and return the result, or 0 if conversion failed.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">toString</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">trim</span>()</p>
+<p class="member_description">Return a new string in which leading and trailing whitespace has been removed.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">upper</span>()</p>
+<p class="member_description">Return a new string in which the lowercase characters of the original string have been converted to uppercase.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+</div>
+</div>
+</body>
+</html>

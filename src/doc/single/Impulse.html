@@ -1,0 +1,29 @@
+<html>
+<link rel="stylesheet" type="text/css" href="ckdoc.css" />
+<link rel="stylesheet" type="text/css" href="class.css" />
+<title>Impulse</title>
+<body>
+<div id="body">
+<div class="classes">
+<a name="Impulse" /><div class="class">
+<h2 class="class_title" name="Impulse">Impulse</h2>
+<h4 class="class_hierarchy">: <a href="UGen.html#UGen" class="typename type_UGen">UGen</a> : <a href="Object.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">Pulse generator - can set the value of the current sample. Default for each sample is 0 if not set.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">next</span>(<span class="typename type_float">float</span> next)</p>
+<p class="member_description">Value of next sample to be generated. (Note: if you are using the UGen.last method to read the output of the impulse, the value set by Impulse.next does not appear as the output until after the next sample boundary. In this case, there is a consistent 1::samp offset between setting .next and reading that value using .last.)</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">next</span>()</p>
+<p class="member_description">Value of next sample to be generated.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+</div>
+</div>
+</body>
+</html>

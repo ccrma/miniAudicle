@@ -1,0 +1,129 @@
+<html>
+<link rel="stylesheet" type="text/css" href="ckdoc.css" />
+<link rel="stylesheet" type="text/css" href="class.css" />
+<title>Std</title>
+<body>
+<div id="body">
+<div class="classes">
+<a name="Std" /><div class="class">
+<h2 class="class_title" name="Std">Std</h2>
+<h4 class="class_hierarchy">: <a href="Object.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">Std is a standard library in ChucK, which includes utility functions for random number generation, unit conversions, and absolute value.</p>
+<h3 class="class_section_header">static member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">abs</span>(<span class="typename type_int">int</span> value)</p>
+<p class="member_description">Return absolute value of integer. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">atof</span>(<span class="typename type_string">string</span> value)</p>
+<p class="member_description">Converts ascii (string) to floating point value (float).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">atoi</span>(<span class="typename type_string">string</span> value)</p>
+<p class="member_description">Converts ascii (string) to integer (int).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">clamp</span>(<span class="typename type_int">int</span> value, <span class="typename type_int">int</span> min, <span class="typename type_int">int</span> max)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">clampf</span>(<span class="typename type_float">float</span> value, <span class="typename type_float">float</span> min, <span class="typename type_float">float</span> max)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">dbtolin</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">dbtopow</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Converts decibels (dB) to signal power ratio.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">dbtorms</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Convert </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">fabs</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Return absolute value of float. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">ftoa</span>(<span class="typename type_float">float</span> f, <span class="typename type_int">int</span> precision)</p>
+<p class="member_description">Converts floating point value (float) to ascii (string) with specified precision (number of decimal digits).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">ftoi</span>(<span class="typename type_float">float</span> f)</p>
+<p class="member_description">Convert float to int. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">ftom</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Converts frequency (Hz) to MIDI note number space.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">getenv</span>(<span class="typename type_string">string</span> value)</p>
+<p class="member_description">Returns the value of an environment variable, such as of PATH.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">itoa</span>(<span class="typename type_int">int</span> i)</p>
+<p class="member_description">Converts integer (int) to ascii (string).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">lintodb</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">mtof</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Converts a MIDI note number to frequency (Hz). Note the input value is of type float (supports fractional note number).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">powtodb</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Converts signal power ratio to decibels (dB).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">rand2</span>(<span class="typename type_int">int</span> min, <span class="typename type_int">int</span> max)</p>
+<p class="member_description">Generates random integer in range [min, max]. (NOTE: soon-to-be-deprecated; use Math.random2()).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rand2f</span>(<span class="typename type_float">float</span> min, <span class="typename type_float">float</span> max)</p>
+<p class="member_description">Generates random floating point number in the range [min, max]. (NOTE: soon-to-be-deprecated; use Math.random2f())</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">rand</span>()</p>
+<p class="member_description">Generates random integer between 0 and Std.RAND_MAX. (NOTE: soon-to-be-deprecated; use Math.random2()).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">randf</span>()</p>
+<p class="member_description">Generates random floating point number in the range [-1, 1]. (Note: soon-to-be-deprecated; use Math.randomf())</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rmstodb</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Converts rms to decibels (dB).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">scalef</span>(<span class="typename type_float">float</span> value, <span class="typename type_float">float</span> srcmin, <span class="typename type_float">float</span> srcmax, <span class="typename type_float">float</span> dstmin, <span class="typename type_float">float</span> dstmax)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">setenv</span>(<span class="typename type_string">string</span> key, <span class="typename type_string">string</span> value)</p>
+<p class="member_description">Set value of environment variable named key to value.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">sgn</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Computes the sign of the input as -1.0 (negative), 0 (zero), or 1.0 (positive).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">srand</span>(<span class="typename type_int">int</span> seed)</p>
+<p class="member_description">Provide a seed to the random function. Different seeds will generate very different sequences of random numbers even if the seeds are close together. Alternatively, a sequence of random numbers can be repeated by setting the same seed. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">system</span>(<span class="typename type_string">string</span> cmd)</p>
+<p class="member_description">Pass a command to be executed in the shell (requires --caution-to-the-wind command-line flag).</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+</div>
+</div>
+</body>
+</html>

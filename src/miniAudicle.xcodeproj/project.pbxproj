@@ -169,6 +169,9 @@
 		09664B9019905ABC00AE0B6B /* mAConnectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09664B8F19905ABC00AE0B6B /* mAConnectViewController.xib */; };
 		09678637173F169E003AB462 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678634173F169E003AB462 /* UKFileWatcher.m */; };
 		09678638173F169E003AB462 /* UKFSEventsWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678636173F169E003AB462 /* UKFSEventsWatcher.m */; };
+		09679DA81B4A4AC40043F61B /* mADocumentationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09679DA61B4A4AC40043F61B /* mADocumentationController.mm */; };
+		09679DA91B4A4AC40043F61B /* mADocumentationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09679DA71B4A4AC40043F61B /* mADocumentationController.xib */; };
+		09679DAB1B4A4CC50043F61B /* doc in Resources */ = {isa = PBXBuildFile; fileRef = 09679DAA1B4A4CC50043F61B /* doc */; };
 		096D81051B40C1F800F9B9CA /* mAMasterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 096D81031B40C1F800F9B9CA /* mAMasterViewController.mm */; };
 		096D81061B40C1F800F9B9CA /* mAMasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 096D81041B40C1F800F9B9CA /* mAMasterViewController.xib */; };
 		096FAB870B56D56B00125FE2 /* mAConsoleMonitorView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 096FAB850B56D56B00125FE2 /* mAConsoleMonitorView.mm */; };
@@ -545,6 +548,10 @@
 		09678634173F169E003AB462 /* UKFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFileWatcher.m; sourceTree = "<group>"; };
 		09678635173F169E003AB462 /* UKFSEventsWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKFSEventsWatcher.h; sourceTree = "<group>"; };
 		09678636173F169E003AB462 /* UKFSEventsWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFSEventsWatcher.m; sourceTree = "<group>"; };
+		09679DA51B4A4AC40043F61B /* mADocumentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mADocumentationController.h; path = macosx/mADocumentationController.h; sourceTree = "<group>"; };
+		09679DA61B4A4AC40043F61B /* mADocumentationController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mADocumentationController.mm; path = macosx/mADocumentationController.mm; sourceTree = "<group>"; };
+		09679DA71B4A4AC40043F61B /* mADocumentationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = mADocumentationController.xib; path = macosx/mADocumentationController.xib; sourceTree = "<group>"; };
+		09679DAA1B4A4CC50043F61B /* doc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = doc; sourceTree = "<group>"; };
 		096D81021B40C1F800F9B9CA /* mAMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAMasterViewController.h; sourceTree = "<group>"; };
 		096D81031B40C1F800F9B9CA /* mAMasterViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAMasterViewController.mm; sourceTree = "<group>"; };
 		096D81041B40C1F800F9B9CA /* mAMasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAMasterViewController.xib; sourceTree = "<group>"; };
@@ -930,6 +937,9 @@
 				09B66B601769A65B00A07ADF /* mAExampleBrowser.mm */,
 				0956A0EA17C71C4D00B564F5 /* mADocumentExporter.h */,
 				0956A0EB17C71C4D00B564F5 /* mADocumentExporter.mm */,
+				09679DA51B4A4AC40043F61B /* mADocumentationController.h */,
+				09679DA61B4A4AC40043F61B /* mADocumentationController.mm */,
+				09679DA71B4A4AC40043F61B /* mADocumentationController.xib */,
 			);
 			name = "miniAudicle OS X";
 			sourceTree = "<group>";
@@ -1478,6 +1488,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				09679DAA1B4A4CC50043F61B /* doc */,
 				093659CE17DDD0AA007E342C /* util */,
 				09B66B641769DA9200A07ADF /* ckmini.png */,
 				098E28A2173A06600044336B /* InfoPlist.strings */,
@@ -1720,6 +1731,7 @@
 				0964A38E172F8DC800043ABA /* record.png in Resources */,
 				0964A38F172F8DC800043ABA /* stop.png in Resources */,
 				0962902F1731CCD1007CADBA /* record.ck in Resources */,
+				09679DA91B4A4AC40043F61B /* mADocumentationController.xib in Resources */,
 				096290301731CCD1007CADBA /* recordvu.ck in Resources */,
 				098E28AE173A06600044336B /* InfoPlist.strings in Resources */,
 				098E28AF173A06600044336B /* mADocumentView.xib in Resources */,
@@ -1729,6 +1741,7 @@
 				09B66B4B17683C7300A07ADF /* mAExportAs.xib in Resources */,
 				09B66B501768A1E400A07ADF /* export.ck in Resources */,
 				09B66B531768AC6000A07ADF /* mAExportProgress.xib in Resources */,
+				09679DAB1B4A4CC50043F61B /* doc in Resources */,
 				09B66B5D1769A5CD00A07ADF /* examples in Resources */,
 				09B66B631769A65C00A07ADF /* mAExampleBrowser.xib in Resources */,
 				09B66B651769DA9200A07ADF /* ckmini.png in Resources */,
@@ -2053,6 +2066,7 @@
 				090B4B1D0C4F038E00DF5577 /* uana_xform.cpp in Sources */,
 				09812B9B0C6E394A00D1D68C /* uana_extract.cpp in Sources */,
 				09820BA110941F7F001F662E /* miniAudicle_log.cpp in Sources */,
+				09679DA81B4A4AC40043F61B /* mADocumentationController.mm in Sources */,
 				0921D56B18190216008F39D9 /* timetag.c in Sources */,
 				09AC749A13E36A970015CC99 /* RtAudio.cpp in Sources */,
 				093A212C14BF587500497856 /* mAChuginManager.mm in Sources */,

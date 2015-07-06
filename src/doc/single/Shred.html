@@ -1,0 +1,80 @@
+<html>
+<link rel="stylesheet" type="text/css" href="ckdoc.css" />
+<link rel="stylesheet" type="text/css" href="class.css" />
+<title>Shred</title>
+<body>
+<div id="body">
+<div class="classes">
+<a name="Shred" /><div class="class">
+<h2 class="class_title" name="Shred">Shred</h2>
+<h4 class="class_hierarchy">: <a href="Object.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">Shred facilitates various operations and interactions with shreds running in the ChucK virtual machine.</p>
+<h3 class="class_section_header">static member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_Shred">Shred</span> <span class="membername">fromId</span>(<span class="typename type_int">int</span> id)</p>
+<p class="member_description">Return a Shred object corresponding to the provided shred ID.</p>
+</div>
+</div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">arg</span>(<span class="typename type_int">int</span> index)</p>
+<p class="member_description">Return the argument at the specified index.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">args</span>()</p>
+<p class="member_description">Return the number of arguments provided to the shred.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">clone</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">dir</span>()</p>
+<p class="member_description">Return the enclosing directory of the source code file from which this shred's code is derived (same as .sourceDir()).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">dir</span>(<span class="typename type_int">int</span> levelsUp)</p>
+<p class="member_description">Return the enclosing directory, the specified number of parent directories up.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">done</span>()</p>
+<p class="member_description">Return true if the shred is done processing; false otherwise.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">exit</span>()</p>
+<p class="member_description">Immediately halt the shred's operation and remove it from the virtual machine.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">id</span>()</p>
+<p class="member_description">Return the unique numeric id of the shred.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">path</span>()</p>
+<p class="member_description">Return the file path of the source code file from which this shred's code is derived (same as .sourcePath()).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">running</span>()</p>
+<p class="member_description">Return true if the shred is currently running; false otherwise.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">sourceDir</span>()</p>
+<p class="member_description">Return the enclosing directory of the source code file from which this shred's code is derived.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">sourcePath</span>()</p>
+<p class="member_description">Return the path of the source code file from which this shred's code is derived.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">yield</span>()</p>
+<p class="member_description">Cause the shred to temporarily stop processing, allowing other scheduled shreds to run as needed.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+</div>
+</div>
+</body>
+</html>

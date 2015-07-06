@@ -936,6 +936,9 @@ t_CKBOOL miniAudicle::start_vm()
         for(list<t_CKBOOL (*)(Chuck_Env *)>::iterator i = vm_options.query_funcs.begin(); i != vm_options.query_funcs.end(); i++)
             (*i)( compiler->env );
 
+        // load local copy of typesystem
+        load_type_info();
+        
         // reset the parser
         reset_parse();
         
@@ -1590,3 +1593,79 @@ t_CKBOOL miniAudicle::get_new_class_names( vector< string > & v )
     
     return TRUE;
 }
+
+void miniAudicle::load_type_info()
+{
+    m_ugens.clear();
+    m_classes.clear();
+    
+    Chuck_Env * env = compiler->env;
+    vector<Chuck_Type *> types;
+    env->global()->get_types(types);
+//    sort(types.begin(), types.end(), sortfun_type);
+    
+    for(vector<Chuck_Type *>::iterator t = types.begin(); t != types.end(); t++)
+    {
+        Chuck_Type * type = *t;
+        const string &name = type->name;
+        
+//        if(skip(name)) continue;
+        
+        Chuck_Type *type_parent = type->parent;
+        miniAudicle_TypeInfo *parent = NULL;
+        if(type_parent != NULL)
+        {
+            if(m_classes.count(type_parent->name))
+                parent = &m_classes[type_parent->name];
+            else if(m_ugens.count(type_parent->name))
+                parent = &m_ugens[type_parent->name];
+        }
+        
+        miniAudicle_TypeInfo::Category cat = miniAudicle_TypeInfo::CATEGORY_CLASS;
+        if(isa(type, &t_ugen))
+            cat = miniAudicle_TypeInfo::CATEGORY_UGEN;
+        
+        if(cat == miniAudicle_TypeInfo::CATEGORY_CLASS)
+            m_classes[name] = miniAudicle_TypeInfo(cat, parent, name);
+        else if(cat == miniAudicle_TypeInfo::CATEGORY_UGEN)
+            m_ugens[name] = miniAudicle_TypeInfo(cat, parent, name);
+    }
+}
+
+const std::map<std::string, miniAudicle_TypeInfo> &miniAudicle::get_classes() const
+{
+    return m_classes;
+}
+
+const std::map<std::string, miniAudicle_TypeInfo> &miniAudicle::get_ugens() const
+{
+    return m_ugens;
+}
+
+
+
+
+miniAudicle_TypeInfo::miniAudicle_TypeInfo(Category category,
+                                           miniAudicle_TypeInfo *parent,
+                                           const std::string &name) :
+m_category(category),
+m_parent(parent),
+m_name(name)
+{ }
+
+miniAudicle_TypeInfo::Category miniAudicle_TypeInfo::category()
+{
+    return m_category;
+}
+
+miniAudicle_TypeInfo *miniAudicle_TypeInfo::parent()
+{
+    return m_parent;
+}
+
+std::string &miniAudicle_TypeInfo::name()
+{
+    return m_name;
+}
+
+

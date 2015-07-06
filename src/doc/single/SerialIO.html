@@ -1,0 +1,155 @@
+<html>
+<link rel="stylesheet" type="text/css" href="ckdoc.css" />
+<link rel="stylesheet" type="text/css" href="class.css" />
+<title>SerialIO</title>
+<body>
+<div id="body">
+<div class="classes">
+<a name="SerialIO" /><div class="class">
+<h2 class="class_title" name="SerialIO">SerialIO</h2>
+<h4 class="class_hierarchy">: <a href="IO.html#IO" class="typename type_IO">IO</a> : <a href="Event.html#Event" class="typename type_Event">Event</a> : <a href="Object.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">Handles reading and writing for serial input/output devices, such as Arduino.</p>
+<h3 class="class_section_header">examples</h3><div class="examples"><ul>
+<li><a href="http://chuck.stanford.edu/doc/examples/serial/byte.ck">serial/byte.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/serial/bytes.ck">serial/bytes.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/serial/ints-bin.ck">serial/ints-bin.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/serial/ints.ck">serial/ints.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/serial/lines.ck">serial/lines.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/serial/list.ck">serial/list.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/serial/write-bytes.ck">serial/write-bytes.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/serial/write.ck">serial/write.ck</a></li>
+</ul></div>
+<h3 class="class_section_header">static member variables</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">ASCII</span></p><p class="member_description">ASCII mode</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">B115200</span></p><p class="member_description">115200 baud</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">B14400</span></p><p class="member_description">14400 baud</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">B19200</span></p><p class="member_description">19200 baud</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">B230400</span></p><p class="member_description">230400 baud</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">B2400</span></p><p class="member_description">2400 baud</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">B28800</span></p><p class="member_description">28800 baud</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">B38400</span></p><p class="member_description">38400 baud</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">B4800</span></p><p class="member_description">4800 baud</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">B57600</span></p><p class="member_description">57600 baud</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">B7200</span></p><p class="member_description">7200 baud</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">B76800</span></p><p class="member_description">76800 baud</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">B9600</span></p><p class="member_description">9600 baud</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">BINARY</span></p><p class="member_description">Binary mode</p>
+</div>
+</div>
+<h3 class="class_section_header">static member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span><span class="typename">[]</span> <span class="membername">list</span>()</p>
+<p class="member_description">Return list of available serial devices.</p>
+</div>
+</div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">baudRate</span>(<span class="typename type_int">int</span> r)</p>
+<p class="member_description">Set baud rate.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">baudRate</span>()</p>
+<p class="member_description">Get current baud rate.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">close</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">dataAvailable</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">flush</span>()</p>
+<p class="member_description">Flush the IO buffer.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">getByte</span>()</p>
+<p class="member_description">Get next requested byte. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span><span class="typename">[]</span> <span class="membername">getBytes</span>()</p>
+<p class="member_description">Get next requested number of bytes. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span><span class="typename">[]</span> <span class="membername">getInts</span>()</p>
+<p class="member_description">Get next requested number of integers. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">getLine</span>()</p>
+<p class="member_description">Get next requested line.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_SerialIO">SerialIO</span> <span class="membername">onByte</span>()</p>
+<p class="member_description">Wait for one byte (binary mode only).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_SerialIO">SerialIO</span> <span class="membername">onBytes</span>(<span class="typename type_int">int</span> num)</p>
+<p class="member_description">Wait for requested number of bytes (binary mode only).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_SerialIO">SerialIO</span> <span class="membername">onFloats</span>(<span class="typename type_int">int</span> num)</p>
+<p class="member_description">Wait for requested number of floats (ASCII or binary mode).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_SerialIO">SerialIO</span> <span class="membername">onInts</span>(<span class="typename type_int">int</span> num)</p>
+<p class="member_description">Wait for requested number of ints (ASCII or binary mode).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_SerialIO">SerialIO</span> <span class="membername">onLine</span>()</p>
+<p class="member_description">Wait for one line (ASCII mode only).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">open</span>(<span class="typename type_int">int</span> i, <span class="typename type_int">int</span> baud, <span class="typename type_int">int</span> mode)</p>
+<p class="member_description">Open serial device i with specified baud rate and mode (binary or ASCII).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">readLine</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">writeByte</span>(<span class="typename type_int">int</span> b)</p>
+<p class="member_description">Write a single byte.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">writeBytes</span>(<span class="typename type_int">int</span><span class="typename">[]</span> b)</p>
+<p class="member_description">Write array of bytes.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+</div>
+</div>
+</body>
+</html>

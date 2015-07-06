@@ -78,6 +78,36 @@ enum t_OTF_RESULT
     OTF_UNDEFINED
 };
 
+
+class miniAudicle_TypeInfo
+{
+public:
+    
+    enum Category
+    {
+        CATEGORY_CLASS,
+        CATEGORY_UGEN,
+        CATEGORY_CHUGIN,
+        CATEGORY_USER,
+    };
+    
+    // dummy default constructor to satisfy std::map
+    miniAudicle_TypeInfo() : m_category(CATEGORY_CLASS), m_parent(NULL) {
+    }
+    
+    miniAudicle_TypeInfo(Category category, miniAudicle_TypeInfo *parent, const std::string &name);
+    
+    Category category();
+    miniAudicle_TypeInfo *parent();
+    std::string &name();
+    
+private:
+    Category m_category;
+    miniAudicle_TypeInfo *m_parent;
+    std::string m_name;
+};
+
+
 class miniAudicle
 {
 public:
@@ -123,6 +153,9 @@ public:
     t_CKBOOL highlight_line( string & line, 
                              miniAudicle_SyntaxHighlighting * sh );
 
+    const std::map<std::string, miniAudicle_TypeInfo> &get_classes() const;
+    const std::map<std::string, miniAudicle_TypeInfo> &get_ugens() const;
+    
     t_CKBOOL probe();
 #ifndef __CHIP_MODE__
     const vector< RtAudio::DeviceInfo > & get_interfaces();
@@ -185,6 +218,11 @@ protected:
     Chuck_VM_Status ** status_bufs;
     size_t num_status_bufs;
     size_t status_bufs_read, status_bufs_write;
+    
+    std::map<std::string, miniAudicle_TypeInfo> m_classes;
+    std::map<std::string, miniAudicle_TypeInfo> m_ugens;
+    void load_type_info();
+
     
 #ifndef __CHIP_MODE__
     vector< RtAudio::DeviceInfo > interfaces;

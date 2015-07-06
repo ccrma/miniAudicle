@@ -34,6 +34,7 @@ U.S.A.
 #import "NumberedTextView.h"
 #import "miniAudiclePreferencesController.h"
 #import "mASyntaxHighlighter.h"
+#import "mADocumentationController.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -42,6 +43,15 @@ U.S.A.
 #define MIN_MARGIN_WIDTH 30
 
 #define USE_NEW_SYNTAX_COLORING 0
+
+
+@interface NSTextView (selectedText)
+
+- (NSString *)selectedText;
+- (NSString *)selectedWord;
+
+@end
+
 
 // images for mATextView
 static NSImage * lock_image;
@@ -1005,6 +1015,47 @@ static NSImage * error_image;
     return text_view;
 }
 
+
+#pragma mark NSTextViewDelegate
+
+- (NSMenu *)textView:(NSTextView *)view
+                menu:(NSMenu *)menu
+            forEvent:(NSEvent *)event
+             atIndex:(NSUInteger)charIndex
+{
+    NSArray *savedItems = nil;
+    @try {
+        savedItems= @[[menu itemWithTitle:@"Cut"],
+                      [menu itemWithTitle:@"Copy"],
+                      [menu itemWithTitle:@"Paste"]];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"warning: unable to reset text view context menu");
+    }
+    
+    [menu removeAllItems];
+
+    NSString *selectedWord = [text_view selectedWord];
+    if(selectedWord != nil &&
+       [[mADocumentationController instance] hasDocumentationForTypeName:selectedWord])
+    {
+        NSString *title = [NSString stringWithFormat:@"Show documentation for %@", selectedWord];
+        [menu addItemWithTitle:title action:@selector(stuff:) keyEquivalent:@""];
+        [menu addItem:[NSMenuItem separatorItem]];
+    }
+    
+    if(savedItems)
+    {
+        for(NSMenuItem *item in savedItems)
+            [menu addItem:item];
+        
+        [menu addItem:[NSMenuItem separatorItem]];
+    }
+    
+    return menu;
+}
+
+
 @end
 
 @implementation NumberedTextView (Private)
@@ -1601,6 +1652,30 @@ search backwards for first non-whitespace character
 }
 
 @end
+
+
+@implementation NSTextView (selectedText)
+
+- (NSString *)selectedText
+{
+    return [[self string] substringWithRange:[self selectedRange]];
+}
+
+- (NSString *)selectedWord
+{
+    NSRange selection = [self selectedRange];
+    NSRange doubleClick = [[self attributedString] doubleClickAtIndex:selection.location];
+    
+    // only return the word if selection is entirely contained within it 
+    if(doubleClick.location <= selection.location &&
+       doubleClick.location+doubleClick.length >= selection.location+selection.length)
+        return [[self string] substringWithRange:doubleClick];
+    else
+        return nil;
+}
+
+@end
+
 
 
 

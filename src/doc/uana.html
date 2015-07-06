@@ -1,0 +1,370 @@
+<html>
+<link rel="stylesheet" type="text/css" href="ckdoc.css" />
+<link rel="stylesheet" type="text/css" href="class.css" />
+<title>Unit Analyzers</title>
+<body>
+<a name="top"/>
+<div id="title">
+<div class="titleL"><h1><a href="index.html">ChucK Class Library Reference</a></h1></div>
+<div class="titleR"><h1>Unit Analyzers</h1></div>
+</div>
+<div id="body">
+<div class="toc"><a id="toc"/>
+<p class="toc_class"><a href="#UAna" class="typename type_UAna">UAna</a></p>
+<p class="toc_class"><a href="#UAnaBlob" class="typename type_UAnaBlob">UAnaBlob</a></p>
+<p class="toc_class"><a href="#Windowing" class="typename type_Windowing">Windowing</a></p>
+<p class="toc_class"><a href="#FFT" class="typename type_FFT">FFT</a></p>
+<p class="toc_class"><a href="#IFFT" class="typename type_IFFT">IFFT</a></p>
+<p class="toc_class"><a href="#DCT" class="typename type_DCT">DCT</a></p>
+<p class="toc_class"><a href="#IDCT" class="typename type_IDCT">IDCT</a></p>
+<p class="toc_class"><a href="#Centroid" class="typename type_Centroid">Centroid</a></p>
+<p class="toc_class"><a href="#Flux" class="typename type_Flux">Flux</a></p>
+<p class="toc_class"><a href="#RMS" class="typename type_RMS">RMS</a></p>
+<p class="toc_class"><a href="#RollOff" class="typename type_RollOff">RollOff</a></p>
+<p class="toc_class"><a href="#ZeroX" class="typename type_ZeroX">ZeroX</a></p>
+</div>
+<div class="classes">
+<a name="UAna" /><div class="class">
+<h2 class="class_title" name="UAna">UAna</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member variables</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_UAnaBlob">UAnaBlob</span> <span class="membername">m_blob</span></p><p class="empty_member_description">No description available</p>
+</div>
+</div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_complex">complex</span> <span class="membername">cval</span>(<span class="typename type_int">int</span> index)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_complex">complex</span><span class="typename">[]</span> <span class="membername">cvals</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">fval</span>(<span class="typename type_int">int</span> index)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span><span class="typename">[]</span> <span class="membername">fvals</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">isUpConnectedTo</span>(<span class="typename type_UAna">UAna</span> right)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_UAnaBlob">UAnaBlob</span> <span class="membername">upchuck</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="UAnaBlob" /><div class="class">
+<h2 class="class_title" name="UAnaBlob">UAnaBlob</h2>
+<h4 class="class_hierarchy">: <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member variables</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_complex">complex</span><span class="typename">[]</span> <span class="membername">m_cvals</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span><span class="typename">[]</span> <span class="membername">m_fvals</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_time">time</span> <span class="membername">m_when</span></p><p class="empty_member_description">No description available</p>
+</div>
+</div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_complex">complex</span> <span class="membername">cval</span>(<span class="typename type_int">int</span> index)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_complex">complex</span><span class="typename">[]</span> <span class="membername">cvals</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">fval</span>(<span class="typename type_int">int</span> index)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span><span class="typename">[]</span> <span class="membername">fvals</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_time">time</span> <span class="membername">when</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Windowing" /><div class="class">
+<h2 class="class_title" name="Windowing">Windowing</h2>
+<h4 class="class_hierarchy">: <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">static member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span><span class="typename">[]</span> <span class="membername">blackmanHarris</span>(<span class="typename type_int">int</span> size)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span><span class="typename">[]</span> <span class="membername">hamming</span>(<span class="typename type_int">int</span> size)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span><span class="typename">[]</span> <span class="membername">hann</span>(<span class="typename type_int">int</span> size)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span><span class="typename">[]</span> <span class="membername">rectangle</span>(<span class="typename type_int">int</span> size)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span><span class="typename">[]</span> <span class="membername">triangle</span>(<span class="typename type_int">int</span> size)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="FFT" /><div class="class">
+<h2 class="class_title" name="FFT">FFT</h2>
+<h4 class="class_hierarchy">: <a href="uana.html#UAna" class="typename type_UAna">UAna</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">size</span>(<span class="typename type_int">int</span> size)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">size</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">spectrum</span>(<span class="typename type_complex">complex</span><span class="typename">[]</span> buffer)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">transform</span>(<span class="typename type_float">float</span><span class="typename">[]</span> from)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span><span class="typename">[]</span> <span class="membername">window</span>(<span class="typename type_float">float</span><span class="typename">[]</span> win)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">windowSize</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="IFFT" /><div class="class">
+<h2 class="class_title" name="IFFT">IFFT</h2>
+<h4 class="class_hierarchy">: <a href="uana.html#UAna" class="typename type_UAna">UAna</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">samples</span>(<span class="typename type_float">float</span><span class="typename">[]</span> buffer)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">size</span>(<span class="typename type_int">int</span> size)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">size</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">transform</span>(<span class="typename type_complex">complex</span><span class="typename">[]</span> from)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span><span class="typename">[]</span> <span class="membername">window</span>(<span class="typename type_float">float</span><span class="typename">[]</span> win)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">windowSize</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="DCT" /><div class="class">
+<h2 class="class_title" name="DCT">DCT</h2>
+<h4 class="class_hierarchy">: <a href="uana.html#UAna" class="typename type_UAna">UAna</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">size</span>(<span class="typename type_int">int</span> size)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">size</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">spectrum</span>(<span class="typename type_float">float</span><span class="typename">[]</span> buffer)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">transform</span>(<span class="typename type_float">float</span><span class="typename">[]</span> from)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span><span class="typename">[]</span> <span class="membername">window</span>(<span class="typename type_float">float</span><span class="typename">[]</span> win)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">windowSize</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="IDCT" /><div class="class">
+<h2 class="class_title" name="IDCT">IDCT</h2>
+<h4 class="class_hierarchy">: <a href="uana.html#UAna" class="typename type_UAna">UAna</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">samples</span>(<span class="typename type_float">float</span><span class="typename">[]</span> buffer)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">size</span>(<span class="typename type_int">int</span> size)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">size</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">transform</span>(<span class="typename type_complex">complex</span><span class="typename">[]</span> from)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span><span class="typename">[]</span> <span class="membername">window</span>(<span class="typename type_float">float</span><span class="typename">[]</span> win)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">windowSize</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Centroid" /><div class="class">
+<h2 class="class_title" name="Centroid">Centroid</h2>
+<h4 class="class_hierarchy">: <a href="uana.html#UAna" class="typename type_UAna">UAna</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">static member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">compute</span>(<span class="typename type_float">float</span><span class="typename">[]</span> input)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Flux" /><div class="class">
+<h2 class="class_title" name="Flux">Flux</h2>
+<h4 class="class_hierarchy">: <a href="uana.html#UAna" class="typename type_UAna">UAna</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">static member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">compute</span>(<span class="typename type_float">float</span><span class="typename">[]</span> lhs, <span class="typename type_float">float</span><span class="typename">[]</span> rhs)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">compute</span>(<span class="typename type_float">float</span><span class="typename">[]</span> lhs, <span class="typename type_float">float</span><span class="typename">[]</span> rhs, <span class="typename type_float">float</span><span class="typename">[]</span> diff)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">reset</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="RMS" /><div class="class">
+<h2 class="class_title" name="RMS">RMS</h2>
+<h4 class="class_hierarchy">: <a href="uana.html#UAna" class="typename type_UAna">UAna</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">static member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">compute</span>(<span class="typename type_float">float</span><span class="typename">[]</span> input)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="RollOff" /><div class="class">
+<h2 class="class_title" name="RollOff">RollOff</h2>
+<h4 class="class_hierarchy">: <a href="uana.html#UAna" class="typename type_UAna">UAna</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">static member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">compute</span>(<span class="typename type_float">float</span><span class="typename">[]</span> input, <span class="typename type_float">float</span> percent)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">percent</span>(<span class="typename type_float">float</span> percent)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">percent</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="ZeroX" /><div class="class">
+<h2 class="class_title" name="ZeroX">ZeroX</h2>
+<h4 class="class_hierarchy">: <a href="uana.html#UAna" class="typename type_UAna">UAna</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">static member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">compute</span>(<span class="typename type_float">float</span><span class="typename">[]</span> input)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+</div>
+</div>
+</body>
+</html>

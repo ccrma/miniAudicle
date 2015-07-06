@@ -1,0 +1,107 @@
+<html>
+<link rel="stylesheet" type="text/css" href="ckdoc.css" />
+<link rel="stylesheet" type="text/css" href="class.css" />
+<title>ADSR</title>
+<body>
+<div id="body">
+<div class="classes">
+<a name="ADSR" /><div class="class">
+<h2 class="class_title" name="ADSR">ADSR</h2>
+<h4 class="class_hierarchy">: <a href="Envelope.html#Envelope" class="typename type_Envelope">Envelope</a> : <a href="UGen.html#UGen" class="typename type_UGen">UGen</a> : <a href="Object.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">This Envelope subclass implements a traditional ADSR (Attack, Decay, Sustain, Release) envelope.  It responds to simple keyOn and keyOff messages, keeping track of its state.</p>
+<h3 class="class_section_header">static member variables</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">ATTACK</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">DECAY</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">DONE</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">RELEASE</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">SUSTAIN</span></p><p class="empty_member_description">No description available</p>
+</div>
+</div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">attackRate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set attack rate.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">attackRate</span>()</p>
+<p class="member_description">Get attack rate.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">attackTime</span>(<span class="typename type_dur">dur</span> value)</p>
+<p class="member_description">Set attack time.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">attackTime</span>()</p>
+<p class="member_description">Get attack time.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">decayRate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set decay rate.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">decayRate</span>()</p>
+<p class="member_description">Get decay rate.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">decayTime</span>(<span class="typename type_dur">dur</span> value)</p>
+<p class="member_description">Set decay time.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">decayTime</span>()</p>
+<p class="member_description">Get decay time.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">releaseRate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set release rate.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">releaseRate</span>()</p>
+<p class="member_description">Get release rate.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">releaseTime</span>(<span class="typename type_dur">dur</span> value)</p>
+<p class="member_description">Set release time.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">releaseTime</span>()</p>
+<p class="member_description">Get release time.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">set</span>(<span class="typename type_float">float</span> attackTime, <span class="typename type_float">float</span> decayTime, <span class="typename type_float">float</span> sustainLevel, <span class="typename type_float">float</span> releaseTime)</p>
+<p class="member_description">Set attack, decay, sustain, and release all at once (in seconds).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">set</span>(<span class="typename type_dur">dur</span> attackDuration, <span class="typename type_dur">dur</span> decayDuration, <span class="typename type_float">float</span> sustainLevel, <span class="typename type_dur">dur</span> releaseDuration)</p>
+<p class="member_description">Set attack, decay, sustain, and release all at once.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">state</span>()</p>
+<p class="member_description">Get state; attack=0, decay=1, sustain=2, release=3, done=4</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">sustainLevel</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set sustain level.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">sustainLevel</span>()</p>
+<p class="member_description">Get sustain level.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+</div>
+</div>
+</body>
+</html>

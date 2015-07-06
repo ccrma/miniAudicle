@@ -1,0 +1,63 @@
+<html>
+<link rel="stylesheet" type="text/css" href="ckdoc.css" />
+<link rel="stylesheet" type="text/css" href="class.css" />
+<title>@array</title>
+<body>
+<div id="body">
+<div class="classes">
+<a name="@array" /><div class="class">
+<h2 class="class_title" name="@array">@array</h2>
+<h4 class="class_hierarchy">: <a href="Object.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">The array class is used to store linear sequences of data, also providing capabilities for stack and map data structures.</p>
+<h3 class="class_section_header">examples</h3><div class="examples"><ul>
+<li><a href="http://chuck.stanford.edu/doc/examples/array/array_argument.ck">array/array_argument.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/array/array_assign.ck">array/array_assign.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/array/array_dynamic.ck">array/array_dynamic.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/array/array_mdim.ck">array/array_mdim.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/array/array_mmixed.ck">array/array_mmixed.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/array/array_resize.ck">array/array_resize.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/array/array_storage.ck">array/array_storage.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/array/array_sub_assign.ck">array/array_sub_assign.ck</a></li>
+</ul></div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">cap</span>()</p>
+<p class="member_description">Return current capacity of the array (number of elements that can be held without reallocating internal buffer). </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">clear</span>()</p>
+<p class="member_description">Clear the contents of the array.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">erase</span>(<span class="typename type_string">string</span> key)</p>
+<p class="member_description">Erase all elements with the specified key. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">find</span>(<span class="typename type_string">string</span> key)</p>
+<p class="member_description">Return number of elements with the specified key. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">popBack</span>()</p>
+<p class="member_description">Remove the last item of the array</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">reset</span>()</p>
+<p class="member_description">Reset array to original state; clears the array and sets capacity to 8.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">size</span>()</p>
+<p class="member_description">Return the number of elements in the array.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">size</span>(<span class="typename type_int">int</span> newSize)</p>
+<p class="member_description">Set the size of the array. If the new size is less than the current size, elements will be deleted from the end; if the new size is larger than the current size, 0 or null elements will be added to the end.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+</div>
+</div>
+</body>
+</html>

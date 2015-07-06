@@ -1,0 +1,57 @@
+<html>
+<link rel="stylesheet" type="text/css" href="ckdoc.css" />
+<link rel="stylesheet" type="text/css" href="class.css" />
+<title>UGen</title>
+<body>
+<div id="body">
+<div class="classes">
+<a name="UGen" /><div class="class">
+<h2 class="class_title" name="UGen">UGen</h2>
+<h4 class="class_hierarchy">: <a href="Object.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">Base class for all UGen types in ChucK.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_UGen">UGen</span> <span class="membername">chan</span>(<span class="typename type_int">int</span> num)</p>
+<p class="member_description">Return channel at specified index.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">channels</span>(<span class="typename type_int">int</span> num)</p>
+<p class="member_description">Set number of channels. (Not currently supported.)</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">channels</span>()</p>
+<p class="member_description">Return number of channels.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">gain</span>(<span class="typename type_float">float</span> val)</p>
+<p class="member_description">Set the gain of the ugen.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">gain</span>()</p>
+<p class="member_description">Return the gain of the ugen.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">isConnectedTo</span>(<span class="typename type_UGen">UGen</span> right)</p>
+<p class="member_description">Return true if this ugen's output is connected to the input of the argument. Return false otherwise. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">last</span>()</p>
+<p class="member_description">Return the last sample value of the unit generator.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">op</span>(<span class="typename type_int">int</span> val)</p>
+<p class="member_description">Set the ugen's operation mode. Accepted values are: 1 (sum inputs), 2 (take difference between first input and subsequent inputs), 3 (multiply inputs), 4 (divide first input by subsequent inputs), 0 (do not synthesize audio, output 0) or -1 (passthrough inputs to output).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">op</span>()</p>
+<p class="member_description">Return the ugen's operation mode.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+</div>
+</div>
+</body>
+</html>

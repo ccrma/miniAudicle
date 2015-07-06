@@ -1,0 +1,77 @@
+<html>
+<link rel="stylesheet" type="text/css" href="ckdoc.css" />
+<link rel="stylesheet" type="text/css" href="class.css" />
+<title>Envelope</title>
+<body>
+<div id="body">
+<div class="classes">
+<a name="Envelope" /><div class="class">
+<h2 class="class_title" name="Envelope">Envelope</h2>
+<h4 class="class_hierarchy">: <a href="UGen.html#UGen" class="typename type_UGen">UGen</a> : <a href="Object.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">This class implements a simple envelope generator which is capable of ramping to a target value by a specified rate. It also responds to simple keyOn and keyOff messages, ramping to 1.0 on keyOn and to 0.0 on keyOff.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">duration</span>(<span class="typename type_dur">dur</span> value)</p>
+<p class="member_description">Set duration to reach target.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">duration</span>()</p>
+<p class="member_description">Get duration to reach target.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">keyOff</span>()</p>
+<p class="member_description">Get keyOff state.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">keyOff</span>(<span class="typename type_int">int</span> value)</p>
+<p class="member_description">Start release phase.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">keyOn</span>()</p>
+<p class="member_description">Get keyOn state.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">keyOn</span>(<span class="typename type_int">int</span> value)</p>
+<p class="member_description">Start attack phase.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set rate of change.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>()</p>
+<p class="member_description">Get rate of change.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">target</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set value to ramp to.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">target</span>()</p>
+<p class="member_description">Get value to ramp to.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">time</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set time to reach target (in seconds).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">time</span>()</p>
+<p class="member_description">Get time to reach target (in seconds).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">value</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set immediate value.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">value</span>()</p>
+<p class="member_description">Get immediate value.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+</div>
+</div>
+</body>
+</html>

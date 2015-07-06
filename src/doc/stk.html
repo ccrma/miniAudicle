@@ -1,0 +1,1926 @@
+<html>
+<link rel="stylesheet" type="text/css" href="ckdoc.css" />
+<link rel="stylesheet" type="text/css" href="class.css" />
+<title>Synthesis Toolkit (STK)</title>
+<body>
+<a name="top"/>
+<div id="title">
+<div class="titleL"><h1><a href="index.html">ChucK Class Library Reference</a></h1></div>
+<div class="titleR"><h1>Synthesis Toolkit (STK)</h1></div>
+</div>
+<div id="body">
+<div class="toc"><a id="toc"/>
+<p class="toc_class"><a href="#Envelope" class="typename type_Envelope">Envelope</a></p>
+<p class="toc_class"><a href="#ADSR" class="typename type_ADSR">ADSR</a></p>
+<p class="toc_class"><a href="#Delay" class="typename type_Delay">Delay</a></p>
+<p class="toc_class"><a href="#DelayA" class="typename type_DelayA">DelayA</a></p>
+<p class="toc_class"><a href="#DelayL" class="typename type_DelayL">DelayL</a></p>
+<p class="toc_class"><a href="#Echo" class="typename type_Echo">Echo</a></p>
+<p class="toc_class"><a href="#JCRev" class="typename type_JCRev">JCRev</a></p>
+<p class="toc_class"><a href="#NRev" class="typename type_NRev">NRev</a></p>
+<p class="toc_class"><a href="#PRCRev" class="typename type_PRCRev">PRCRev</a></p>
+<p class="toc_class"><a href="#Chorus" class="typename type_Chorus">Chorus</a></p>
+<p class="toc_class"><a href="#Modulate" class="typename type_Modulate">Modulate</a></p>
+<p class="toc_class"><a href="#PitShift" class="typename type_PitShift">PitShift</a></p>
+<p class="toc_class"><a href="#SubNoise" class="typename type_SubNoise">SubNoise</a></p>
+<p class="toc_class"><a href="#BLT" class="typename type_BLT">BLT</a></p>
+<p class="toc_class"><a href="#Blit" class="typename type_Blit">Blit</a></p>
+<p class="toc_class"><a href="#BlitSaw" class="typename type_BlitSaw">BlitSaw</a></p>
+<p class="toc_class"><a href="#BlitSquare" class="typename type_BlitSquare">BlitSquare</a></p>
+<p class="toc_class"><a href="#WvIn" class="typename type_WvIn">WvIn</a></p>
+<p class="toc_class"><a href="#WaveLoop" class="typename type_WaveLoop">WaveLoop</a></p>
+<p class="toc_class"><a href="#WvOut" class="typename type_WvOut">WvOut</a></p>
+<p class="toc_class"><a href="#StkInstrument" class="typename type_StkInstrument">StkInstrument</a></p>
+<p class="toc_class"><a href="#BandedWG" class="typename type_BandedWG">BandedWG</a></p>
+<p class="toc_class"><a href="#BlowBotl" class="typename type_BlowBotl">BlowBotl</a></p>
+<p class="toc_class"><a href="#BlowHole" class="typename type_BlowHole">BlowHole</a></p>
+<p class="toc_class"><a href="#Bowed" class="typename type_Bowed">Bowed</a></p>
+<p class="toc_class"><a href="#Brass" class="typename type_Brass">Brass</a></p>
+<p class="toc_class"><a href="#Clarinet" class="typename type_Clarinet">Clarinet</a></p>
+<p class="toc_class"><a href="#Flute" class="typename type_Flute">Flute</a></p>
+<p class="toc_class"><a href="#Mandolin" class="typename type_Mandolin">Mandolin</a></p>
+<p class="toc_class"><a href="#ModalBar" class="typename type_ModalBar">ModalBar</a></p>
+<p class="toc_class"><a href="#Moog" class="typename type_Moog">Moog</a></p>
+<p class="toc_class"><a href="#Saxofony" class="typename type_Saxofony">Saxofony</a></p>
+<p class="toc_class"><a href="#Shakers" class="typename type_Shakers">Shakers</a></p>
+<p class="toc_class"><a href="#Sitar" class="typename type_Sitar">Sitar</a></p>
+<p class="toc_class"><a href="#StifKarp" class="typename type_StifKarp">StifKarp</a></p>
+<p class="toc_class"><a href="#VoicForm" class="typename type_VoicForm">VoicForm</a></p>
+<p class="toc_class"><a href="#FM" class="typename type_FM">FM</a></p>
+<p class="toc_class"><a href="#BeeThree" class="typename type_BeeThree">BeeThree</a></p>
+<p class="toc_class"><a href="#FMVoices" class="typename type_FMVoices">FMVoices</a></p>
+<p class="toc_class"><a href="#HevyMetl" class="typename type_HevyMetl">HevyMetl</a></p>
+<p class="toc_class"><a href="#PercFlut" class="typename type_PercFlut">PercFlut</a></p>
+<p class="toc_class"><a href="#Rhodey" class="typename type_Rhodey">Rhodey</a></p>
+<p class="toc_class"><a href="#TubeBell" class="typename type_TubeBell">TubeBell</a></p>
+<p class="toc_class"><a href="#Wurley" class="typename type_Wurley">Wurley</a></p>
+</div>
+<div class="classes">
+<a name="Envelope" /><div class="class">
+<h2 class="class_title" name="Envelope">Envelope</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">This class implements a simple envelope generator which is capable of ramping to a target value by a specified rate. It also responds to simple keyOn and keyOff messages, ramping to 1.0 on keyOn and to 0.0 on keyOff.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">duration</span>(<span class="typename type_dur">dur</span> value)</p>
+<p class="member_description">Set duration to reach target.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">duration</span>()</p>
+<p class="member_description">Get duration to reach target.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">keyOff</span>()</p>
+<p class="member_description">Get keyOff state.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">keyOff</span>(<span class="typename type_int">int</span> value)</p>
+<p class="member_description">Start release phase.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">keyOn</span>()</p>
+<p class="member_description">Get keyOn state.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">keyOn</span>(<span class="typename type_int">int</span> value)</p>
+<p class="member_description">Start attack phase.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set rate of change.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>()</p>
+<p class="member_description">Get rate of change.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">target</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set value to ramp to.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">target</span>()</p>
+<p class="member_description">Get value to ramp to.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">time</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set time to reach target (in seconds).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">time</span>()</p>
+<p class="member_description">Get time to reach target (in seconds).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">value</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set immediate value.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">value</span>()</p>
+<p class="member_description">Get immediate value.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="ADSR" /><div class="class">
+<h2 class="class_title" name="ADSR">ADSR</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#Envelope" class="typename type_Envelope">Envelope</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">This Envelope subclass implements a traditional ADSR (Attack, Decay, Sustain, Release) envelope.  It responds to simple keyOn and keyOff messages, keeping track of its state.</p>
+<h3 class="class_section_header">static member variables</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">ATTACK</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">DECAY</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">DONE</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">RELEASE</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">SUSTAIN</span></p><p class="empty_member_description">No description available</p>
+</div>
+</div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">attackRate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set attack rate.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">attackRate</span>()</p>
+<p class="member_description">Get attack rate.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">attackTime</span>(<span class="typename type_dur">dur</span> value)</p>
+<p class="member_description">Set attack time.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">attackTime</span>()</p>
+<p class="member_description">Get attack time.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">decayRate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set decay rate.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">decayRate</span>()</p>
+<p class="member_description">Get decay rate.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">decayTime</span>(<span class="typename type_dur">dur</span> value)</p>
+<p class="member_description">Set decay time.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">decayTime</span>()</p>
+<p class="member_description">Get decay time.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">releaseRate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set release rate.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">releaseRate</span>()</p>
+<p class="member_description">Get release rate.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">releaseTime</span>(<span class="typename type_dur">dur</span> value)</p>
+<p class="member_description">Set release time.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">releaseTime</span>()</p>
+<p class="member_description">Get release time.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">set</span>(<span class="typename type_float">float</span> attackTime, <span class="typename type_float">float</span> decayTime, <span class="typename type_float">float</span> sustainLevel, <span class="typename type_float">float</span> releaseTime)</p>
+<p class="member_description">Set attack, decay, sustain, and release all at once (in seconds).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">set</span>(<span class="typename type_dur">dur</span> attackDuration, <span class="typename type_dur">dur</span> decayDuration, <span class="typename type_float">float</span> sustainLevel, <span class="typename type_dur">dur</span> releaseDuration)</p>
+<p class="member_description">Set attack, decay, sustain, and release all at once.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">state</span>()</p>
+<p class="member_description">Get state; attack=0, decay=1, sustain=2, release=3, done=4</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">sustainLevel</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set sustain level.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">sustainLevel</span>()</p>
+<p class="member_description">Get sustain level.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Delay" /><div class="class">
+<h2 class="class_title" name="Delay">Delay</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">delay</span>(<span class="typename type_dur">dur</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">delay</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">max</span>(<span class="typename type_dur">dur</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">max</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="DelayA" /><div class="class">
+<h2 class="class_title" name="DelayA">DelayA</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">delay</span>(<span class="typename type_dur">dur</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">delay</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">max</span>(<span class="typename type_dur">dur</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">max</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="DelayL" /><div class="class">
+<h2 class="class_title" name="DelayL">DelayL</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">delay</span>(<span class="typename type_dur">dur</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">delay</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">max</span>(<span class="typename type_dur">dur</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">max</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Echo" /><div class="class">
+<h2 class="class_title" name="Echo">Echo</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">delay</span>(<span class="typename type_dur">dur</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">delay</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">max</span>(<span class="typename type_dur">dur</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">max</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">mix</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">mix</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="JCRev" /><div class="class">
+<h2 class="class_title" name="JCRev">JCRev</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">John Chowning's reverberator class. This class is derived from the CLM NRev function, which is based on the use of networks of simple allpass and comb delay filters.  This particular arrangement consists of 6 comb filters in parallel, followed by 3 allpass filters, a lowpass filter, and another allpass in series, followed by two allpass filters in parallel with corresponding right and left outputs.</p>
+<h3 class="class_section_header">examples</h3><div class="examples"><ul>
+<li><a href="http://chuck.stanford.edu/doc/examples/reverb/jcrev.ck">reverb/jcrev.ck</a></li>
+</ul></div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">mix</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set mix level.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">mix</span>()</p>
+<p class="member_description">Get mix level.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="NRev" /><div class="class">
+<h2 class="class_title" name="NRev">NRev</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">CCRMA's NRev reverberator class. This class is derived from the CLM NRev function, which is based on the use of networks of simple allpass and comb delay filters.  This particular arrangement consists of 6 comb filters in parallel, followed by 3 allpass filters, a lowpass filter, and another allpass in series, followed by two allpass filters in parallel with corresponding rightand left outputs.</p>
+<h3 class="class_section_header">examples</h3><div class="examples"><ul>
+<li><a href="http://chuck.stanford.edu/doc/examples/reverb/nrev.ck">reverb/nrev.ck</a></li>
+</ul></div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">mix</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set mix level.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">mix</span>()</p>
+<p class="member_description">Get mix level.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="PRCRev" /><div class="class">
+<h2 class="class_title" name="PRCRev">PRCRev</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">Perry's simple reverberator class. This class is based on some of the famous Stanford/CCRMA reverbs (NRev, KipRev), which were based on the Chowning/Moorer/Schroeder reverberators using networks of simple allpass and comb delay filters.  This class implements two series allpass units and two parallel comb filters.</p>
+<h3 class="class_section_header">examples</h3><div class="examples"><ul>
+<li><a href="http://chuck.stanford.edu/doc/examples/reverb/prcrev.ck">reverb/prcrev.ck</a></li>
+</ul></div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">mix</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set mix level.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">mix</span>()</p>
+<p class="member_description">Get mix level.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Chorus" /><div class="class">
+<h2 class="class_title" name="Chorus">Chorus</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">Implements a chorus effect.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">baseDelay</span>(<span class="typename type_dur">dur</span> value)</p>
+<p class="member_description">Set base delay.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">baseDelay</span>()</p>
+<p class="member_description">Get base delay.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">max</span>(<span class="typename type_dur">dur</span> baseDelay, <span class="typename type_float">float</span> modDepth)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">mix</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set effect mix.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">mix</span>()</p>
+<p class="member_description">Get effect mix.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">modDepth</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set modulation depth.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">modDepth</span>()</p>
+<p class="member_description">Get modulation depth.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">modFreq</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set modulation frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">modFreq</span>()</p>
+<p class="member_description">Get modulation frequency.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Modulate" /><div class="class">
+<h2 class="class_title" name="Modulate">Modulate</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">This class combines random and periodic modulations to give a nice, natural human modulation function.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">randomGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set gain for random contribution</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">randomGain</span>()</p>
+<p class="member_description">Get gain for random contribution</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set gain for vibrato.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>()</p>
+<p class="member_description">Get gain for vibrato.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoRate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set rate for vibrato.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoRate</span>()</p>
+<p class="member_description">Get rate for vibrato.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="PitShift" /><div class="class">
+<h2 class="class_title" name="PitShift">PitShift</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">This class combines random and periodic modulations to give a nice, natural human modulation function.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">effectMix</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set effect mix level</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">effectMix</span>()</p>
+<p class="member_description">Get effect mix level</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">mix</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set mix level</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">mix</span>()</p>
+<p class="member_description">Get mix level</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">shift</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set degree of pitch shifting</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">shift</span>()</p>
+<p class="member_description">Get degree of pitch shifting</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="SubNoise" /><div class="class">
+<h2 class="class_title" name="SubNoise">SubNoise</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">Generates a new random number every 'rate' ticks using the C rand() function. The quality of the rand() function varies from one OS to another.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">rate</span>(<span class="typename type_int">int</span> value)</p>
+<p class="member_description">Set subsampling rate</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">rate</span>()</p>
+<p class="member_description">Get subsampling rate</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="BLT" /><div class="class">
+<h2 class="class_title" name="BLT">BLT</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">harmonics</span>(<span class="typename type_int">int</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">harmonics</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">phase</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">phase</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Blit" /><div class="class">
+<h2 class="class_title" name="Blit">Blit</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#BLT" class="typename type_BLT">BLT</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="BlitSaw" /><div class="class">
+<h2 class="class_title" name="BlitSaw">BlitSaw</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#BLT" class="typename type_BLT">BLT</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="BlitSquare" /><div class="class">
+<h2 class="class_title" name="BlitSquare">BlitSquare</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#BLT" class="typename type_BLT">BLT</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="WvIn" /><div class="class">
+<h2 class="class_title" name="WvIn">WvIn</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">path</span>(<span class="typename type_string">string</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">path</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="WaveLoop" /><div class="class">
+<h2 class="class_title" name="WaveLoop">WaveLoop</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#WvIn" class="typename type_WvIn">WvIn</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">addPhase</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">addPhase</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">addPhaseOffset</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">addPhaseOffset</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="WvOut" /><div class="class">
+<h2 class="class_title" name="WvOut">WvOut</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">aifFilename</span>(<span class="typename type_string">string</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">autoPrefix</span>(<span class="typename type_string">string</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">autoPrefix</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">closeFile</span>(<span class="typename type_string">string</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">closeFile</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">fileGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">fileGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">filename</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">matFilename</span>(<span class="typename type_string">string</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">rawFilename</span>(<span class="typename type_string">string</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">record</span>(<span class="typename type_int">int</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">record</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">sndFilename</span>(<span class="typename type_string">string</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">wavFilename</span>(<span class="typename type_string">string</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="StkInstrument" /><div class="class">
+<h2 class="class_title" name="StkInstrument">StkInstrument</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">controlChange</span>(<span class="typename type_int">int</span> ctrl, <span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">noteOff</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">noteOn</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="BandedWG" /><div class="class">
+<h2 class="class_title" name="BandedWG">BandedWG</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">bowMotion</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">bowMotion</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">bowPressure</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">bowPressure</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">bowRate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">bowRate</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">integrationConstant</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">integrationConstant</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">modesGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">modesGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pluck</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">preset</span>(<span class="typename type_int">int</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">preset</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">startBowing</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stopBowing</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">strikePosition</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">strikePosition</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="BlowBotl" /><div class="class">
+<h2 class="class_title" name="BlowBotl">BlowBotl</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">noiseGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">noiseGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">startBlowing</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stopBlowing</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">volume</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">volume</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="BlowHole" /><div class="class">
+<h2 class="class_title" name="BlowHole">BlowHole</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">noiseGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">noiseGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pressure</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pressure</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">reed</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">reed</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">startBlowing</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stopBlowing</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">tonehole</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">tonehole</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vent</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vent</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Bowed" /><div class="class">
+<h2 class="class_title" name="Bowed">Bowed</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">bowPosition</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">bowPosition</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">bowPressure</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">bowPressure</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">startBowing</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stopBowing</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">volume</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">volume</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Brass" /><div class="class">
+<h2 class="class_title" name="Brass">Brass</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">clear</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">lip</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">lip</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">slide</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">slide</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">startBlowing</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stopBlowing</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">volume</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">volume</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Clarinet" /><div class="class">
+<h2 class="class_title" name="Clarinet">Clarinet</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">clear</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">noiseGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">noiseGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pressure</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pressure</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">reed</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">reed</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">startBlowing</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stopBlowing</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Flute" /><div class="class">
+<h2 class="class_title" name="Flute">Flute</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">clear</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">endReflection</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">endReflection</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">jetDelay</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">jetDelay</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">jetReflection</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">jetReflection</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">noiseGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">noiseGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pressure</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pressure</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">startBlowing</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stopBlowing</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Mandolin" /><div class="class">
+<h2 class="class_title" name="Mandolin">Mandolin</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">afterTouch</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">bodyIR</span>(<span class="typename type_string">string</span> path)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">bodyIR</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">bodySize</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">bodySize</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pluck</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pluckPos</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pluckPos</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stringDamping</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stringDamping</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stringDetune</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stringDetune</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="ModalBar" /><div class="class">
+<h2 class="class_title" name="ModalBar">ModalBar</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">clear</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">damp</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">directGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">directGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">masterGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">masterGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">mode</span>(<span class="typename type_int">int</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">mode</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">modeGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">modeGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">modeRadius</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">modeRadius</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">modeRatio</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">modeRatio</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">preset</span>(<span class="typename type_int">int</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">preset</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stickHardness</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stickHardness</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">strike</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">strikePosition</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">strikePosition</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">volume</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">volume</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Moog" /><div class="class">
+<h2 class="class_title" name="Moog">Moog</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">afterTouch</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">filterQ</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">filterQ</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">filterSweepRate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">filterSweepRate</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">lfoDepth</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">lfoDepth</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">lfoSpeed</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">lfoSpeed</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">modDepth</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">modDepth</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">modSpeed</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">modSpeed</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">volume</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">volume</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Saxofony" /><div class="class">
+<h2 class="class_title" name="Saxofony">Saxofony</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">aperture</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">aperture</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">blowPosition</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">blowPosition</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">clear</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">noiseGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">noiseGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pressure</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pressure</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">startBlowing</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stiffness</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stiffness</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stopBlowing</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Shakers" /><div class="class">
+<h2 class="class_title" name="Shakers">Shakers</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">decay</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">decay</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">energy</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">energy</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">noteOff</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">noteOn</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">objects</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">objects</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">preset</span>(<span class="typename type_int">int</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">preset</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">which</span>(<span class="typename type_int">int</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">which</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Sitar" /><div class="class">
+<h2 class="class_title" name="Sitar">Sitar</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">This class implements a sitar plucked string physical model based on the Karplus-Strong algorithm. This is a digital waveguide model, making its use possibly subject to patents held by Stanford University, Yamaha, and others. There exist at least two patents, assigned to Stanford, bearing the names of Karplus and/or Strong.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">clear</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Reset.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pluck</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Pluck string.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="StifKarp" /><div class="class">
+<h2 class="class_title" name="StifKarp">StifKarp</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">baseLoopGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">baseLoopGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">clear</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pickupPosition</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pickupPosition</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pluck</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stretch</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">stretch</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">sustain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">sustain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="VoicForm" /><div class="class">
+<h2 class="class_title" name="VoicForm">VoicForm</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">loudness</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">loudness</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">phoneme</span>(<span class="typename type_string">string</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">phoneme</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">phonemeNum</span>(<span class="typename type_int">int</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">phonemeNum</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pitchSweepRate</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pitchSweepRate</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">quiet</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">speak</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">unVoiced</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">unVoiced</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoFreq</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vibratoGain</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">voiceMix</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">voiceMix</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">voiced</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">voiced</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="FM" /><div class="class">
+<h2 class="class_title" name="FM">FM</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">afterTouch</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">afterTouch</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">controlOne</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">controlOne</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">controlTwo</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">controlTwo</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">lfoDepth</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">lfoDepth</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">lfoSpeed</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">lfoSpeed</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="BeeThree" /><div class="class">
+<h2 class="class_title" name="BeeThree">BeeThree</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#FM" class="typename type_FM">FM</a> : <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="FMVoices" /><div class="class">
+<h2 class="class_title" name="FMVoices">FMVoices</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#FM" class="typename type_FM">FM</a> : <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">adsrTarget</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">adsrTarget</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">spectralTilt</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">spectralTilt</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vowel</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">vowel</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="HevyMetl" /><div class="class">
+<h2 class="class_title" name="HevyMetl">HevyMetl</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#FM" class="typename type_FM">FM</a> : <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="PercFlut" /><div class="class">
+<h2 class="class_title" name="PercFlut">PercFlut</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#FM" class="typename type_FM">FM</a> : <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Rhodey" /><div class="class">
+<h2 class="class_title" name="Rhodey">Rhodey</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#FM" class="typename type_FM">FM</a> : <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="TubeBell" /><div class="class">
+<h2 class="class_title" name="TubeBell">TubeBell</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#FM" class="typename type_FM">FM</a> : <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Wurley" /><div class="class">
+<h2 class="class_title" name="Wurley">Wurley</h2>
+<h4 class="class_hierarchy">: <a href="stk.html#FM" class="typename type_FM">FM</a> : <a href="stk.html#StkInstrument" class="typename type_StkInstrument">StkInstrument</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+</div>
+</div>
+</body>
+</html>

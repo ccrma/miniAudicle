@@ -1,0 +1,124 @@
+<html>
+<link rel="stylesheet" type="text/css" href="ckdoc.css" />
+<link rel="stylesheet" type="text/css" href="class.css" />
+<title>SndBuf</title>
+<body>
+<div id="body">
+<div class="classes">
+<a name="SndBuf" /><div class="class">
+<h2 class="class_title" name="SndBuf">SndBuf</h2>
+<h4 class="class_hierarchy">: <a href="UGen.html#UGen" class="typename type_UGen">UGen</a> : <a href="Object.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">Interpolating sound buffer with single-channel output. Reads from a variety of uncompressed formats.</p>
+<h3 class="class_section_header">examples</h3><div class="examples"><ul>
+<li><a href="http://chuck.stanford.edu/doc/examples/basic/sndbuf.ck">basic/sndbuf.ck</a></li>
+</ul></div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">channel</span>(<span class="typename type_int">int</span> channel)</p>
+<p class="member_description">If the sound file contains more than one channel of audio, select which channel to play.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">channel</span>()</p>
+<p class="member_description">If the sound file contains more than one channel of audio, the selected channel to play.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">channels</span>()</p>
+<p class="member_description">Number of channels available in the sound file.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">chunks</span>(<span class="typename type_int">int</span> frames)</p>
+<p class="member_description">Chunk size, in frames, for loading the file from disk. Set to 0 to disable chunking.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">chunks</span>()</p>
+<p class="member_description">Chunk size, in frames, for loading the file from disk. 0 indicates that chunking is disabled.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>(<span class="typename type_float">float</span> freq)</p>
+<p class="member_description">Loop rate (in file loops per second).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>()</p>
+<p class="member_description">Loop rate (in file loops per second).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">interp</span>(<span class="typename type_int">int</span> interp)</p>
+<p class="member_description">Interpolation mode. 0: drop sample, 1: linear interpolation, 2: sinc interpolation</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">interp</span>()</p>
+<p class="member_description">Interpolation mode. 0: drop sample, 1: linear interpolation, 2: sinc interpolation</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_dur">dur</span> <span class="membername">length</span>()</p>
+<p class="member_description">Total length of the file.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">loop</span>(<span class="typename type_int">int</span> loop)</p>
+<p class="member_description">Toggle for looping file playback.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">loop</span>()</p>
+<p class="member_description">Toggle for looping file playback.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">phase</span>(<span class="typename type_float">float</span> phase)</p>
+<p class="member_description">Phase position, normalized to [0,1).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">phase</span>()</p>
+<p class="member_description">Phase position, normalized to [0,1).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">phaseOffset</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Advance the playhead by the specified phase offset in [0,1), where 0 is no advance and 1 advance the entire length of the file.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">play</span>(<span class="typename type_float">float</span> play)</p>
+<p class="member_description">Same as .rate. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">play</span>()</p>
+<p class="member_description">Same as .rate. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">pos</span>(<span class="typename type_int">int</span> pos)</p>
+<p class="member_description">Set position (between 0 and number of samples).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">pos</span>()</p>
+<p class="member_description">Current position (between 0 and number of samples).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>(<span class="typename type_float">float</span> rate)</p>
+<p class="member_description">Playback rate (relative to file's natural speed). For example, 0.5 is half speed and 2 is twice as fast.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rate</span>()</p>
+<p class="member_description">Playback rate (relative to file's natural speed). For example, 0.5 is half speed and 2 is twice as fast.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">read</span>(<span class="typename type_string">string</span> read)</p>
+<p class="member_description">Load file for reading.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">samples</span>()</p>
+<p class="member_description">Total number of sample frames in the file.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">valueAt</span>(<span class="typename type_int">int</span> pos)</p>
+<p class="member_description">Sample value at given position (in samples). </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">write</span>(<span class="typename type_string">string</span> read)</p>
+<p class="member_description">Set file for writing (currently unsupported).</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<html>
+<link rel="stylesheet" type="text/css" href="ckdoc.css" />
+<link rel="stylesheet" type="text/css" href="class.css" />
+<title>BiQuad</title>
+<body>
+<div id="body">
+<div class="classes">
+<a name="BiQuad" /><div class="class">
+<h2 class="class_title" name="BiQuad">BiQuad</h2>
+<h4 class="class_hierarchy">: <a href="UGen.html#UGen" class="typename type_UGen">UGen</a> : <a href="Object.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">STK biquad (two-pole, two-zero) filter class. A method is provided for creating a resonance in the frequency response while maintaining a constant filter gain.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a0</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a0</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a1</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a1</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a2</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a2</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b0</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b0</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b1</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b1</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b2</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b2</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">eqzs</span>(<span class="typename type_int">int</span> value)</p>
+<p class="member_description">Toggle equal-gain zeroes. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">norm</span>(<span class="typename type_int">int</span> value)</p>
+<p class="member_description">Toggle normalization.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">norm</span>()</p>
+<p class="member_description">Get normalization.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pfreq</span>(<span class="typename type_float">float</span> freq)</p>
+<p class="member_description">Set resonance frequency (poles).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pfreq</span>()</p>
+<p class="member_description">Get resonance frequency (poles).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">prad</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set Pole radius (values greater than 1 will be unstable).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">prad</span>()</p>
+<p class="member_description">Get pole radius.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pregain</span>(<span class="typename type_float">float</span> level)</p>
+<p class="member_description">Set pregain.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pregain</span>()</p>
+<p class="member_description">Get pregain.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">zfreq</span>(<span class="typename type_float">float</span> freq)</p>
+<p class="member_description">Set notch frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">zfreq</span>()</p>
+<p class="member_description">Get notch frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">zrad</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set zero radius.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">zrad</span>()</p>
+<p class="member_description">Get zero radius.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,727 @@
+<html>
+<link rel="stylesheet" type="text/css" href="ckdoc.css" />
+<link rel="stylesheet" type="text/css" href="class.css" />
+<title>Standard Classes and Libraries</title>
+<body>
+<a name="top"/>
+<div id="title">
+<div class="titleL"><h1><a href="index.html">ChucK Class Library Reference</a></h1></div>
+<div class="titleR"><h1>Standard Classes and Libraries</h1></div>
+</div>
+<div id="body">
+<div class="toc"><a id="toc"/>
+<p class="toc_class"><a href="#Object" class="typename type_Object">Object</a></p>
+<p class="toc_class"><a href="#@array" class="typename type__array">@array</a></p>
+<p class="toc_class"><a href="#string" class="typename type_string">string</a></p>
+<p class="toc_class"><a href="#Event" class="typename type_Event">Event</a></p>
+<p class="toc_class"><a href="#Std" class="typename type_Std">Std</a></p>
+<p class="toc_class"><a href="#Machine" class="typename type_Machine">Machine</a></p>
+<p class="toc_class"><a href="#Math" class="typename type_Math">Math</a></p>
+<p class="toc_class"><a href="#Shred" class="typename type_Shred">Shred</a></p>
+<p class="toc_class"><a href="#RegEx" class="typename type_RegEx">RegEx</a></p>
+</div>
+<div class="classes">
+<a name="Object" /><div class="class">
+<h2 class="class_title" name="Object">Object</h2>
+<p class="class_description">Base class for all class types in ChucK.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">toString</span>()</p>
+<p class="member_description">Return a textual description of this object.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="@array" /><div class="class">
+<h2 class="class_title" name="@array">@array</h2>
+<h4 class="class_hierarchy">: <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">The array class is used to store linear sequences of data, also providing capabilities for stack and map data structures.</p>
+<h3 class="class_section_header">examples</h3><div class="examples"><ul>
+<li><a href="http://chuck.stanford.edu/doc/examples/array/array_argument.ck">array/array_argument.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/array/array_assign.ck">array/array_assign.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/array/array_dynamic.ck">array/array_dynamic.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/array/array_mdim.ck">array/array_mdim.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/array/array_mmixed.ck">array/array_mmixed.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/array/array_resize.ck">array/array_resize.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/array/array_storage.ck">array/array_storage.ck</a></li>
+<li><a href="http://chuck.stanford.edu/doc/examples/array/array_sub_assign.ck">array/array_sub_assign.ck</a></li>
+</ul></div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">cap</span>()</p>
+<p class="member_description">Return current capacity of the array (number of elements that can be held without reallocating internal buffer). </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">clear</span>()</p>
+<p class="member_description">Clear the contents of the array.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">erase</span>(<span class="typename type_string">string</span> key)</p>
+<p class="member_description">Erase all elements with the specified key. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">find</span>(<span class="typename type_string">string</span> key)</p>
+<p class="member_description">Return number of elements with the specified key. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">popBack</span>()</p>
+<p class="member_description">Remove the last item of the array</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">reset</span>()</p>
+<p class="member_description">Reset array to original state; clears the array and sets capacity to 8.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">size</span>()</p>
+<p class="member_description">Return the number of elements in the array.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">size</span>(<span class="typename type_int">int</span> newSize)</p>
+<p class="member_description">Set the size of the array. If the new size is less than the current size, elements will be deleted from the end; if the new size is larger than the current size, 0 or null elements will be added to the end.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="string" /><div class="class">
+<h2 class="class_title" name="string">string</h2>
+<h4 class="class_hierarchy">: <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">The string class holds textual data as a sequence of characters, and provides a number of functions for manipulating text.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">charAt</span>(<span class="typename type_int">int</span> index)</p>
+<p class="member_description">Return a character at the specified index.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">erase</span>(<span class="typename type_int">int</span> start, <span class="typename type_int">int</span> length)</p>
+<p class="member_description">Erase length characters of the string from start position.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">find</span>(<span class="typename type_int">int</span> theChar)</p>
+<p class="member_description">Return the index of the first occurence of theChar, or -1 if theChar is not found.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">find</span>(<span class="typename type_int">int</span> theChar, <span class="typename type_int">int</span> start)</p>
+<p class="member_description">Return the index of the first occurence of theChar at or after the start position, or -1 if theChar is not found.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">find</span>(<span class="typename type_string">string</span> str)</p>
+<p class="member_description">Return the index of the first occurence of str, or -1 if str is not found.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">find</span>(<span class="typename type_string">string</span> str, <span class="typename type_int">int</span> start)</p>
+<p class="member_description">Return the index of the first occurence of str at or after the start position, or -1 if str is not found.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">insert</span>(<span class="typename type_int">int</span> position, <span class="typename type_string">string</span> str)</p>
+<p class="member_description">Insert str at the specified position.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">length</span>()</p>
+<p class="member_description">Return the number of characters of the string.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">lower</span>()</p>
+<p class="member_description">Return a new string in which the uppercase characters of the original string have been converted to lowercase.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">ltrim</span>()</p>
+<p class="member_description">Return a new string in which leading whitespace has been removed.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">replace</span>(<span class="typename type_int">int</span> position, <span class="typename type_string">string</span> str)</p>
+<p class="member_description">Replace characters from the start position to the end of the string with str.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">replace</span>(<span class="typename type_int">int</span> position, <span class="typename type_int">int</span> length, <span class="typename type_string">string</span> str)</p>
+<p class="member_description">Replace length characters from the start position with str.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">rfind</span>(<span class="typename type_int">int</span> theChar)</p>
+<p class="member_description">Return the index of the last occurence of theChar, or -1 if theChar is not found.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">rfind</span>(<span class="typename type_int">int</span> theChar, <span class="typename type_int">int</span> start)</p>
+<p class="member_description">Return the index of the last occurence of theChar at or before the start position, or -1 if theChar is not found.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">rfind</span>(<span class="typename type_string">string</span> str)</p>
+<p class="member_description">Return the index of the last occurence of str, or -1 if str is not found.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">rfind</span>(<span class="typename type_string">string</span> str, <span class="typename type_int">int</span> start)</p>
+<p class="member_description">Return the index of the last occurence of str at or before the start position, or -1 if str is not found.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">rtrim</span>()</p>
+<p class="member_description">Return a new string in which trailing whitespace has been removed.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">setCharAt</span>(<span class="typename type_int">int</span> index, <span class="typename type_int">int</span> theChar)</p>
+<p class="member_description">Set the character at the specified index.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">substring</span>(<span class="typename type_int">int</span> start)</p>
+<p class="member_description">Return a new string containing the substring from the start index to the end of the string.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">substring</span>(<span class="typename type_int">int</span> start, <span class="typename type_int">int</span> length)</p>
+<p class="member_description">Return a new string containing the substring from the start index of the specified length.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">toFloat</span>()</p>
+<p class="member_description">Attempt to convert the contents of the string to an float and return the result, or 0 if conversion failed.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">toInt</span>()</p>
+<p class="member_description">Attempt to convert the contents of the string to an integer and return the result, or 0 if conversion failed.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">toString</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">trim</span>()</p>
+<p class="member_description">Return a new string in which leading and trailing whitespace has been removed.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">upper</span>()</p>
+<p class="member_description">Return a new string in which the lowercase characters of the original string have been converted to uppercase.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Event" /><div class="class">
+<h2 class="class_title" name="Event">Event</h2>
+<h4 class="class_hierarchy">: <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">The Event class allows exact synchronization across an arbitrary number of shreds.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">broadcast</span>()</p>
+<p class="member_description">Signal all shreds that are waiting on this event.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">can_wait</span>()</p>
+<p class="member_description">Whether or not the event can be waited on. Currently always returns true.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">signal</span>()</p>
+<p class="member_description">Signal one shred that is waiting on this event. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">wait</span>(<span class="typename type_Shred">Shred</span> me)</p>
+<p class="member_description">(Currently unsupported.)</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Std" /><div class="class">
+<h2 class="class_title" name="Std">Std</h2>
+<h4 class="class_hierarchy">: <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">Std is a standard library in ChucK, which includes utility functions for random number generation, unit conversions, and absolute value.</p>
+<h3 class="class_section_header">static member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">abs</span>(<span class="typename type_int">int</span> value)</p>
+<p class="member_description">Return absolute value of integer. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">atof</span>(<span class="typename type_string">string</span> value)</p>
+<p class="member_description">Converts ascii (string) to floating point value (float).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">atoi</span>(<span class="typename type_string">string</span> value)</p>
+<p class="member_description">Converts ascii (string) to integer (int).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">clamp</span>(<span class="typename type_int">int</span> value, <span class="typename type_int">int</span> min, <span class="typename type_int">int</span> max)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">clampf</span>(<span class="typename type_float">float</span> value, <span class="typename type_float">float</span> min, <span class="typename type_float">float</span> max)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">dbtolin</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">dbtopow</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Converts decibels (dB) to signal power ratio.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">dbtorms</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Convert </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">fabs</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Return absolute value of float. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">ftoa</span>(<span class="typename type_float">float</span> f, <span class="typename type_int">int</span> precision)</p>
+<p class="member_description">Converts floating point value (float) to ascii (string) with specified precision (number of decimal digits).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">ftoi</span>(<span class="typename type_float">float</span> f)</p>
+<p class="member_description">Convert float to int. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">ftom</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Converts frequency (Hz) to MIDI note number space.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">getenv</span>(<span class="typename type_string">string</span> value)</p>
+<p class="member_description">Returns the value of an environment variable, such as of PATH.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">itoa</span>(<span class="typename type_int">int</span> i)</p>
+<p class="member_description">Converts integer (int) to ascii (string).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">lintodb</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">mtof</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Converts a MIDI note number to frequency (Hz). Note the input value is of type float (supports fractional note number).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">powtodb</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Converts signal power ratio to decibels (dB).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">rand2</span>(<span class="typename type_int">int</span> min, <span class="typename type_int">int</span> max)</p>
+<p class="member_description">Generates random integer in range [min, max]. (NOTE: soon-to-be-deprecated; use Math.random2()).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rand2f</span>(<span class="typename type_float">float</span> min, <span class="typename type_float">float</span> max)</p>
+<p class="member_description">Generates random floating point number in the range [min, max]. (NOTE: soon-to-be-deprecated; use Math.random2f())</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">rand</span>()</p>
+<p class="member_description">Generates random integer between 0 and Std.RAND_MAX. (NOTE: soon-to-be-deprecated; use Math.random2()).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">randf</span>()</p>
+<p class="member_description">Generates random floating point number in the range [-1, 1]. (Note: soon-to-be-deprecated; use Math.randomf())</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rmstodb</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Converts rms to decibels (dB).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">scalef</span>(<span class="typename type_float">float</span> value, <span class="typename type_float">float</span> srcmin, <span class="typename type_float">float</span> srcmax, <span class="typename type_float">float</span> dstmin, <span class="typename type_float">float</span> dstmax)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">setenv</span>(<span class="typename type_string">string</span> key, <span class="typename type_string">string</span> value)</p>
+<p class="member_description">Set value of environment variable named key to value.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">sgn</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Computes the sign of the input as -1.0 (negative), 0 (zero), or 1.0 (positive).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">srand</span>(<span class="typename type_int">int</span> seed)</p>
+<p class="member_description">Provide a seed to the random function. Different seeds will generate very different sequences of random numbers even if the seeds are close together. Alternatively, a sequence of random numbers can be repeated by setting the same seed. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">system</span>(<span class="typename type_string">string</span> cmd)</p>
+<p class="member_description">Pass a command to be executed in the shell (requires --caution-to-the-wind command-line flag).</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Machine" /><div class="class">
+<h2 class="class_title" name="Machine">Machine</h2>
+<h4 class="class_hierarchy">: <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">static member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">add</span>(<span class="typename type_string">string</span> path)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">crash</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">intsize</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">remove</span>(<span class="typename type_int">int</span> id)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">replace</span>(<span class="typename type_int">int</span> id, <span class="typename type_string">string</span> path)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span><span class="typename">[]</span> <span class="membername">shreds</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">status</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Math" /><div class="class">
+<h2 class="class_title" name="Math">Math</h2>
+<h4 class="class_hierarchy">: <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">static member variables</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">E</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">FLOAT_MAX</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">FLOAT_MIN_MAG</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_complex">complex</span> <span class="membername">I</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">INFINITY</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">INT_MAX</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_complex">complex</span> <span class="membername">J</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">PI</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">RANDOM_MAX</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">TWO_PI</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">e</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_complex">complex</span> <span class="membername">i</span></p><p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_complex">complex</span> <span class="membername">j</span></p><p class="empty_member_description">No description available</p>
+</div>
+</div>
+<h3 class="class_section_header">static member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">abs</span>(<span class="typename type_int">int</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">acos</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">asin</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">atan2</span>(<span class="typename type_float">float</span> y, <span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">atan</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">ceil</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">cos</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">cosh</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">dbtopow</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">dbtorms</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">ensurePow2</span>(<span class="typename type_int">int</span> n)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">exp</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">fabs</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">floor</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">fmod</span>(<span class="typename type_float">float</span> x, <span class="typename type_float">float</span> y)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">ftom</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">hypot</span>(<span class="typename type_float">float</span> x, <span class="typename type_float">float</span> y)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">im</span>(<span class="typename type_complex">complex</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">isinf</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">isnan</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">log10</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">log2</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">log</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">mag</span>(<span class="typename type_polar">polar</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">max</span>(<span class="typename type_float">float</span> x, <span class="typename type_float">float</span> y)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">min</span>(<span class="typename type_float">float</span> x, <span class="typename type_float">float</span> y)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">mtof</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">nextpow2</span>(<span class="typename type_int">int</span> n)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">phase</span>(<span class="typename type_polar">polar</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pow</span>(<span class="typename type_float">float</span> x, <span class="typename type_float">float</span> y)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">powtodb</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">ptor</span>(<span class="typename type_polar">polar</span><span class="typename">[]</span> from, <span class="typename type_complex">complex</span><span class="typename">[]</span> to)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">random2</span>(<span class="typename type_int">int</span> min, <span class="typename type_int">int</span> max)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">random2f</span>(<span class="typename type_float">float</span> min, <span class="typename type_float">float</span> max)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">random</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">randomf</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">re</span>(<span class="typename type_complex">complex</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">remainder</span>(<span class="typename type_float">float</span> x, <span class="typename type_float">float</span> y)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">rmstodb</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">round</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">rtop</span>(<span class="typename type_complex">complex</span><span class="typename">[]</span> from, <span class="typename type_polar">polar</span><span class="typename">[]</span> to)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">sgn</span>(<span class="typename type_float">float</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">sin</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">sinh</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">sqrt</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">srandom</span>(<span class="typename type_int">int</span> seed)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">tan</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">tanh</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">trunc</span>(<span class="typename type_float">float</span> x)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="Shred" /><div class="class">
+<h2 class="class_title" name="Shred">Shred</h2>
+<h4 class="class_hierarchy">: <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">Shred facilitates various operations and interactions with shreds running in the ChucK virtual machine.</p>
+<h3 class="class_section_header">static member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_Shred">Shred</span> <span class="membername">fromId</span>(<span class="typename type_int">int</span> id)</p>
+<p class="member_description">Return a Shred object corresponding to the provided shred ID.</p>
+</div>
+</div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">arg</span>(<span class="typename type_int">int</span> index)</p>
+<p class="member_description">Return the argument at the specified index.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">args</span>()</p>
+<p class="member_description">Return the number of arguments provided to the shred.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">clone</span>()</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">dir</span>()</p>
+<p class="member_description">Return the enclosing directory of the source code file from which this shred's code is derived (same as .sourceDir()).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">dir</span>(<span class="typename type_int">int</span> levelsUp)</p>
+<p class="member_description">Return the enclosing directory, the specified number of parent directories up.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">done</span>()</p>
+<p class="member_description">Return true if the shred is done processing; false otherwise.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">exit</span>()</p>
+<p class="member_description">Immediately halt the shred's operation and remove it from the virtual machine.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">id</span>()</p>
+<p class="member_description">Return the unique numeric id of the shred.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">path</span>()</p>
+<p class="member_description">Return the file path of the source code file from which this shred's code is derived (same as .sourcePath()).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">running</span>()</p>
+<p class="member_description">Return true if the shred is currently running; false otherwise.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">sourceDir</span>()</p>
+<p class="member_description">Return the enclosing directory of the source code file from which this shred's code is derived.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">sourcePath</span>()</p>
+<p class="member_description">Return the path of the source code file from which this shred's code is derived.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">yield</span>()</p>
+<p class="member_description">Cause the shred to temporarily stop processing, allowing other scheduled shreds to run as needed.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="RegEx" /><div class="class">
+<h2 class="class_title" name="RegEx">RegEx</h2>
+<h4 class="class_hierarchy">: <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">static member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">match</span>(<span class="typename type_string">string</span> pattern, <span class="typename type_string">string</span> str)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">match</span>(<span class="typename type_string">string</span> pattern, <span class="typename type_string">string</span> str, <span class="typename type_string">string</span><span class="typename">[]</span> matches)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">replace</span>(<span class="typename type_string">string</span> pattern, <span class="typename type_string">string</span> replacement, <span class="typename type_string">string</span> str)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">replaceAll</span>(<span class="typename type_string">string</span> pattern, <span class="typename type_string">string</span> replacement, <span class="typename type_string">string</span> str)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+</div>
+</div>
+</body>
+</html>

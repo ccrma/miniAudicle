@@ -1,0 +1,37 @@
+<html>
+<link rel="stylesheet" type="text/css" href="ckdoc.css" />
+<link rel="stylesheet" type="text/css" href="class.css" />
+<title>Event</title>
+<body>
+<div id="body">
+<div class="classes">
+<a name="Event" /><div class="class">
+<h2 class="class_title" name="Event">Event</h2>
+<h4 class="class_hierarchy">: <a href="Object.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">The Event class allows exact synchronization across an arbitrary number of shreds.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">broadcast</span>()</p>
+<p class="member_description">Signal all shreds that are waiting on this event.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">can_wait</span>()</p>
+<p class="member_description">Whether or not the event can be waited on. Currently always returns true.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">signal</span>()</p>
+<p class="member_description">Signal one shred that is waiting on this event. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">wait</span>(<span class="typename type_Shred">Shred</span> me)</p>
+<p class="member_description">(Currently unsupported.)</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+</div>
+</div>
+</body>
+</html>

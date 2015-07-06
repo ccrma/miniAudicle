@@ -1,0 +1,576 @@
+<html>
+<link rel="stylesheet" type="text/css" href="ckdoc.css" />
+<link rel="stylesheet" type="text/css" href="class.css" />
+<title>Filters</title>
+<body>
+<a name="top"/>
+<div id="title">
+<div class="titleL"><h1><a href="index.html">ChucK Class Library Reference</a></h1></div>
+<div class="titleR"><h1>Filters</h1></div>
+</div>
+<div id="body">
+<div class="toc"><a id="toc"/>
+<p class="toc_class"><a href="#FilterBasic" class="typename type_FilterBasic">FilterBasic</a></p>
+<p class="toc_class"><a href="#BPF" class="typename type_BPF">BPF</a></p>
+<p class="toc_class"><a href="#BRF" class="typename type_BRF">BRF</a></p>
+<p class="toc_class"><a href="#LPF" class="typename type_LPF">LPF</a></p>
+<p class="toc_class"><a href="#HPF" class="typename type_HPF">HPF</a></p>
+<p class="toc_class"><a href="#ResonZ" class="typename type_ResonZ">ResonZ</a></p>
+<p class="toc_class"><a href="#BiQuad" class="typename type_BiQuad">BiQuad</a></p>
+<p class="toc_class"><a href="#OnePole" class="typename type_OnePole">OnePole</a></p>
+<p class="toc_class"><a href="#TwoPole" class="typename type_TwoPole">TwoPole</a></p>
+<p class="toc_class"><a href="#OneZero" class="typename type_OneZero">OneZero</a></p>
+<p class="toc_class"><a href="#TwoZero" class="typename type_TwoZero">TwoZero</a></p>
+<p class="toc_class"><a href="#PoleZero" class="typename type_PoleZero">PoleZero</a></p>
+<p class="toc_class"><a href="#FilterStk" class="typename type_FilterStk">FilterStk</a></p>
+</div>
+<div class="classes">
+<a name="FilterBasic" /><div class="class">
+<h2 class="class_title" name="FilterBasic">FilterBasic</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">Filter base class.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">Q</span>(<span class="typename type_float">float</span> val)</p>
+<p class="member_description">Set filter resonance.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">Q</span>()</p>
+<p class="member_description">Get filter resonance.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>(<span class="typename type_float">float</span> val)</p>
+<p class="member_description">Set filter cutoff/center frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>()</p>
+<p class="member_description">Get filter cutoff/center frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">set</span>(<span class="typename type_float">float</span> freq, <span class="typename type_float">float</span> Q)</p>
+<p class="member_description">Set filter frequency and resonance at the same time.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="BPF" /><div class="class">
+<h2 class="class_title" name="BPF">BPF</h2>
+<h4 class="class_hierarchy">: <a href="filter.html#FilterBasic" class="typename type_FilterBasic">FilterBasic</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">Bandpass filter (2nd order Butterworth).</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">Q</span>(<span class="typename type_float">float</span> val)</p>
+<p class="member_description">Set filter resonance.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">Q</span>()</p>
+<p class="member_description">Get filter resonance.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>(<span class="typename type_float">float</span> val)</p>
+<p class="member_description">Set filter center frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>()</p>
+<p class="member_description">Set filter center frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">set</span>(<span class="typename type_float">float</span> freq, <span class="typename type_float">float</span> Q)</p>
+<p class="member_description">Set filter frequency and resonance at the same time.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="BRF" /><div class="class">
+<h2 class="class_title" name="BRF">BRF</h2>
+<h4 class="class_hierarchy">: <a href="filter.html#FilterBasic" class="typename type_FilterBasic">FilterBasic</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">Band-reject filter (2nd order Butterworth).</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">Q</span>(<span class="typename type_float">float</span> val)</p>
+<p class="member_description">Set filter resonance.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">Q</span>()</p>
+<p class="member_description">Get filter resonance.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>(<span class="typename type_float">float</span> val)</p>
+<p class="member_description">Set filter center frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>()</p>
+<p class="member_description">Get filter center frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">set</span>(<span class="typename type_float">float</span> freq, <span class="typename type_float">float</span> Q)</p>
+<p class="member_description">Set filter frequency and resonance at the same time.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="LPF" /><div class="class">
+<h2 class="class_title" name="LPF">LPF</h2>
+<h4 class="class_hierarchy">: <a href="filter.html#FilterBasic" class="typename type_FilterBasic">FilterBasic</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">Resonant low-pass filter (2nd order Butterworth).</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">Q</span>(<span class="typename type_float">float</span> val)</p>
+<p class="member_description">Set filter resonance.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">Q</span>()</p>
+<p class="member_description">Get filter resonance.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>(<span class="typename type_float">float</span> val)</p>
+<p class="member_description">Set filter cutoff frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>()</p>
+<p class="member_description">Get filter cutoff frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">set</span>(<span class="typename type_float">float</span> freq, <span class="typename type_float">float</span> Q)</p>
+<p class="member_description">Set filter frequency and resonance at the same time.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="HPF" /><div class="class">
+<h2 class="class_title" name="HPF">HPF</h2>
+<h4 class="class_hierarchy">: <a href="filter.html#FilterBasic" class="typename type_FilterBasic">FilterBasic</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">Resonant high-pass filter (2nd order Butterworth).</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">Q</span>(<span class="typename type_float">float</span> val)</p>
+<p class="member_description">Set filter resonance.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">Q</span>()</p>
+<p class="member_description">Get filter resonance.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>(<span class="typename type_float">float</span> val)</p>
+<p class="member_description">Set filter cutoff frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>()</p>
+<p class="member_description">Get filter cutoff frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">set</span>(<span class="typename type_float">float</span> freq, <span class="typename type_float">float</span> Q)</p>
+<p class="member_description">Set filter frequency and resonance at the same time.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="ResonZ" /><div class="class">
+<h2 class="class_title" name="ResonZ">ResonZ</h2>
+<h4 class="class_hierarchy">: <a href="filter.html#FilterBasic" class="typename type_FilterBasic">FilterBasic</a> : <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">Resonant filter. BiQuad with equal-gain zeros, keeps gain under control independent of frequency.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">Q</span>(<span class="typename type_float">float</span> val)</p>
+<p class="member_description">Set filter resonance.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">Q</span>()</p>
+<p class="member_description">Get filter resonance.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>(<span class="typename type_float">float</span> val)</p>
+<p class="member_description">Set filter center frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>()</p>
+<p class="member_description">Get filter center frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_void">void</span> <span class="membername">set</span>(<span class="typename type_float">float</span> freq, <span class="typename type_float">float</span> Q)</p>
+<p class="member_description">Set filter frequency and resonance at the same time.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="BiQuad" /><div class="class">
+<h2 class="class_title" name="BiQuad">BiQuad</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">STK biquad (two-pole, two-zero) filter class. A method is provided for creating a resonance in the frequency response while maintaining a constant filter gain.</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a0</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a0</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a1</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a1</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a2</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a2</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b0</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b0</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b1</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b1</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b2</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b2</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">eqzs</span>(<span class="typename type_int">int</span> value)</p>
+<p class="member_description">Toggle equal-gain zeroes. </p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">norm</span>(<span class="typename type_int">int</span> value)</p>
+<p class="member_description">Toggle normalization.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">norm</span>()</p>
+<p class="member_description">Get normalization.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pfreq</span>(<span class="typename type_float">float</span> freq)</p>
+<p class="member_description">Set resonance frequency (poles).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pfreq</span>()</p>
+<p class="member_description">Get resonance frequency (poles).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">prad</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set Pole radius (values greater than 1 will be unstable).</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">prad</span>()</p>
+<p class="member_description">Get pole radius.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pregain</span>(<span class="typename type_float">float</span> level)</p>
+<p class="member_description">Set pregain.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pregain</span>()</p>
+<p class="member_description">Get pregain.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">zfreq</span>(<span class="typename type_float">float</span> freq)</p>
+<p class="member_description">Set notch frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">zfreq</span>()</p>
+<p class="member_description">Get notch frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">zrad</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set zero radius.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">zrad</span>()</p>
+<p class="member_description">Get zero radius.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="OnePole" /><div class="class">
+<h2 class="class_title" name="OnePole">OnePole</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">This protected Filter subclass implements a one-pole digital filter.  A method is provided for setting the pole position along the real axis of the z-plane while maintaining a constant peak filter gain.</p>
+<h3 class="class_section_header">examples</h3><div class="examples"><ul>
+<li><a href="http://chuck.stanford.edu/doc/examples/filter/onepole.ck">filter/onepole.ck</a></li>
+</ul></div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a1</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a1</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b0</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b0</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pole</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set pole position along real axis of z-plane.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">pole</span>()</p>
+<p class="member_description">Get pole position along real axis of z-plane.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="TwoPole" /><div class="class">
+<h2 class="class_title" name="TwoPole">TwoPole</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">This protected Filter subclass implements a two-pole digital filter.  A method is provided for creating a resonance in the frequency response while maintaining a nearly constant filter gain.</p>
+<h3 class="class_section_header">examples</h3><div class="examples"><ul>
+<li><a href="http://chuck.stanford.edu/doc/examples/filter/twopole.ck">filter/twopole.ck</a></li>
+</ul></div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a1</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a1</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a2</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a2</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b0</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b0</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter resonance frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>()</p>
+<p class="member_description">Get filter resonance frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">norm</span>(<span class="typename type_int">int</span> value)</p>
+<p class="member_description">Set filter normalization</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_int">int</span> <span class="membername">norm</span>()</p>
+<p class="member_description">Get filter normalization</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">radius</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter radius resonance.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">radius</span>()</p>
+<p class="member_description">Get filter radius resonance.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="OneZero" /><div class="class">
+<h2 class="class_title" name="OneZero">OneZero</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description"> This protected Filter subclass implements a one-zero digital filter.  A method is provided for setting the zero position along the real axis of the z-plane while maintaining a constant filter gain.</p>
+<h3 class="class_section_header">examples</h3><div class="examples"><ul>
+<li><a href="http://chuck.stanford.edu/doc/examples/filter/onezero.ck">filter/onezero.ck</a></li>
+</ul></div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b0</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b0</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b1</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b1</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">zero</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set zero position</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">zero</span>()</p>
+<p class="member_description">Get zero position</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="TwoZero" /><div class="class">
+<h2 class="class_title" name="TwoZero">TwoZero</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">This protected Filter subclass implements a two-zero digital filter.  A method is provided for creating a 'notch' in the frequency response while maintaining a constant filter gain.</p>
+<h3 class="class_section_header">examples</h3><div class="examples"><ul>
+<li><a href="http://chuck.stanford.edu/doc/examples/filter/twozero.ck">filter/twozero.ck</a></li>
+</ul></div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b0</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b0</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b1</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b1</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b2</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b2</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter notch frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">freq</span>()</p>
+<p class="member_description">Get filter notch frequency.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">radius</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter notch radius.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">radius</span>()</p>
+<p class="member_description">Get filter notch radius.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="PoleZero" /><div class="class">
+<h2 class="class_title" name="PoleZero">PoleZero</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="class_description">This protected Filter subclass implements a two-zero digital filter.  A method is provided for creating a 'notch' in the frequency response while maintaining a constant filter gain.</p>
+<h3 class="class_section_header">examples</h3><div class="examples"><ul>
+<li><a href="http://chuck.stanford.edu/doc/examples/filter/twozero.ck">filter/twozero.ck</a></li>
+</ul></div>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a1</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">a1</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">allpass</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set allpass filter with given coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">allpass</span>()</p>
+<p class="member_description">Get allpass filter with given coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b0</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b0</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b1</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">b1</span>()</p>
+<p class="member_description">Get filter coefficient.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">blockZero</span>(<span class="typename type_float">float</span> value)</p>
+<p class="member_description">Set DC blocking filter with given pole position.</p>
+</div>
+<div class="member">
+<p class="member_declaration"><span class="typename type_float">float</span> <span class="membername">blockZero</span>()</p>
+<p class="member_description">Get DC blocking filter with given pole position.</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+<a name="FilterStk" /><div class="class">
+<h2 class="class_title" name="FilterStk">FilterStk</h2>
+<h4 class="class_hierarchy">: <a href="ugen.html#UGen" class="typename type_UGen">UGen</a> : <a href="stdlib.html#Object" class="typename type_Object">Object</a> </h4>
+<p class="empty_class_description">No description available</p>
+<h3 class="class_section_header">member functions</h3>
+<div class="members">
+<div class="member">
+<p class="member_declaration"><span class="typename type_string">string</span> <span class="membername">coefs</span>(<span class="typename type_string">string</span> value)</p>
+<p class="empty_member_description">No description available</p>
+</div>
+</div>
+<p class="top_link">[ <a href="#top">top</a> ]</p>
+</div>
+<hr />
+</div>
+</div>
+</body>
+</html>
