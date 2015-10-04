@@ -135,20 +135,21 @@ U.S.A.
 //-----------------------------------------------------------------------------
 - (void)awakeFromNib
 {
-#ifdef __USE_NEW_CONSOLE_MONITOR__
-    panel = new_panel;
-#else
-    [text_view setFont:[NSFont fontWithName:@"Monaco" size:10]];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(boundsOrFrameDidChange:)
-                                                 name:NSViewFrameDidChangeNotification
-                                               object:text_view];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(boundsOrFrameDidChange:)
-                                                 name:NSViewBoundsDidChangeNotification
-                                               object:text_view];
-    [text_view setPostsFrameChangedNotifications:YES];
-#endif
+    if(_useCustomConsoleMonitor)
+        panel = new_panel;
+    else
+    {
+        [text_view setFont:[NSFont fontWithName:@"Monaco" size:10]];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(boundsOrFrameDidChange:)
+                                                     name:NSViewFrameDidChangeNotification
+                                                   object:text_view];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(boundsOrFrameDidChange:)
+                                                     name:NSViewBoundsDidChangeNotification
+                                                   object:text_view];
+        [text_view setPostsFrameChangedNotifications:YES];
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -195,36 +196,38 @@ U.S.A.
         ]];
     
     
-#ifdef __USE_NEW_CONSOLE_MONITOR__
-    //printf( "%s", [t_string cString] );
-    [view appendString:t_string];
-#else
-    // append the string to the text view
-    NSTextStorage * ts = [text_view textStorage];
-//    [ts replaceCharactersInRange:NSMakeRange( [ts length], 0 )
-//                      withString:t_string];
-    [ts appendAttributedString:[[NSAttributedString alloc] initWithString:t_string
-                                                               attributes:@{
-                                                                            NSFontAttributeName: [NSFont fontWithName:@"Monaco" size:10]
-                                                                            }]];
-//    [text_view setFont:[NSFont fontWithName:@"Monaco" size:10]];
-    
-    // delete lines in excess of the buffer size
-    NSString * text = [text_view string];
-    unsigned len = [text length];
-    if( len > scrollback_size )
+    if(_useCustomConsoleMonitor)
     {
-        NSRange range = NSMakeRange( 0, len - scrollback_size );
-        NSUInteger line_end;
-        [text getLineStart:NULL end:&line_end 
-               contentsEnd:NULL forRange:range];
-        range.length = line_end;
-        [ts deleteCharactersInRange:range];
+        //printf( "%s", [t_string cString] );
+        [view appendString:t_string];
     }
-    
-    [text_view setNeedsDisplay:YES];
-    
-#endif // __CK_DEBUG__
+    else
+    {
+        // append the string to the text view
+        NSTextStorage * ts = [text_view textStorage];
+        //    [ts replaceCharactersInRange:NSMakeRange( [ts length], 0 )
+        //                      withString:t_string];
+        [ts appendAttributedString:[[NSAttributedString alloc] initWithString:t_string
+                                                                   attributes:@{
+                                                                                NSFontAttributeName: [NSFont fontWithName:@"Monaco" size:10]
+                                                                                }]];
+        //    [text_view setFont:[NSFont fontWithName:@"Monaco" size:10]];
+        
+        // delete lines in excess of the buffer size
+        NSString * text = [text_view string];
+        unsigned len = [text length];
+        if( len > scrollback_size )
+        {
+            NSRange range = NSMakeRange( 0, len - scrollback_size );
+            NSUInteger line_end;
+            [text getLineStart:NULL end:&line_end
+                   contentsEnd:NULL forRange:range];
+            range.length = line_end;
+            [ts deleteCharactersInRange:range];
+        }
+        
+        [text_view setNeedsDisplay:YES];
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -234,12 +237,13 @@ U.S.A.
 //-----------------------------------------------------------------------------
 - (void)boundsOrFrameDidChange:(NSNotification *)n
 {
-#ifdef __USE_NEW_CONSOLE_MONITOR__
-    
-#else
-    [text_view scrollRectToVisible:NSMakeRect( 0.0, NSMaxY( [text_view frame] ), 
-                                               1.0, 0.0 )];
-#endif
+    if(_useCustomConsoleMonitor)
+    { }
+    else
+    {
+        [text_view scrollRectToVisible:NSMakeRect( 0.0, NSMaxY( [text_view frame] ),
+                                                  1.0, 0.0 )];
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -248,12 +252,15 @@ U.S.A.
 //-----------------------------------------------------------------------------
 - (void)clearBuffer:(id)sender
 {
-#ifdef __USE_NEW_CONSOLE_MONITOR__
-    [view clear];
-#else
-    NSMutableString * s = [[text_view textStorage] mutableString];
-    [s deleteCharactersInRange:NSMakeRange( 0, [s length] )];
-#endif
+    if(_useCustomConsoleMonitor)
+    {
+        [view clear];
+    }
+    else
+    {
+        NSMutableString * s = [[text_view textStorage] mutableString];
+        [s deleteCharactersInRange:NSMakeRange( 0, [s length] )];
+    }
 }
 
 //-----------------------------------------------------------------------------
