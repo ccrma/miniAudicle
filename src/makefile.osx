@@ -3,14 +3,14 @@
 
 include version.mk
 
-ifneq ($(shell sw_vers -productVersion | egrep '10\.(6|7|8|9|10)(\.[0-9]+)?'),)
+ifneq ($(shell sw_vers -productVersion | egrep '^10\.(0|1|2|3|4|5)(\.[0-9]+)?$$'),)
+ISYSROOT=-isysroot /Developer/SDKs/MacOSX10.4u.sdk
+LINK_EXTRAS=
+else
 SDK=$(shell xcodebuild -sdk macosx -version | grep '^Path:' | sed 's/Path: \(.*\)/\1/')
 ISYSROOT=-isysroot $(SDK)
 LINK_EXTRAS=-F/System/Library/PrivateFrameworks \
     -weak_framework MultitouchSupport
-else
-ISYSROOT=-isysroot /Developer/SDKs/MacOSX10.4u.sdk
-LINK_EXTRAS=
 endif
 
 CHUCK_SRC_DIR=chuck/src
@@ -26,7 +26,7 @@ CXX=g++
 LEX=flex
 YACC=bison
 
-ifneq ($(shell sw_vers -productVersion | egrep '10\.[789](\.[0-9]+)?'),)
+ifneq ($(shell sw_vers -productVersion | egrep '^10\.[0123456](\.[0-9]+)?$$'),)
 CC=clang
 CXX=clang++
 endif
