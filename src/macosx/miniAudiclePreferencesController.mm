@@ -85,6 +85,7 @@ NSString * mAPreferencesLogLevel = @"LogLevel";
 NSString * mAPreferencesSoundfilesDirectory = @"SoundfilesDirectory";
 NSString * mAPreferencesOpenDocumentsInNewTab = @"OpenDocumentsInNewTab";
 NSString * mAPreferencesBackupSuffix = @"BackupSuffix";
+NSString * mAPreferencesUseCustomConsoleMonitor = @"UseCustomConsoleMonitor";
 
 NSString * mAPreferencesEnableChugins = @"EnableChugins";
 NSString * mAPreferencesLibraryPath = @"LibraryPath";
@@ -128,6 +129,11 @@ std::string g_rtaudio_blacklist[] = { "Apple Inc.: AirPlay" };
         [defaults setObject:[@"~/" stringByExpandingTildeInPath] forKey:mAPreferencesSoundfilesDirectory];
         [defaults setObject:[NSNumber numberWithInt:NSOffState] forKey:mAPreferencesAcceptsNetworkCommands];
         [defaults setObject:@"-backup" forKey:mAPreferencesBackupSuffix];
+        if(NSAppKitVersionNumber > NSAppKitVersionNumber10_10_Max)
+            // OS X 10.11 and greater
+            [defaults setObject:[NSNumber numberWithBool:NO] forKey:mAPreferencesUseCustomConsoleMonitor];
+        else
+            [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesUseCustomConsoleMonitor];
         
         /* set up default syntax highlighting */
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesEnableSyntaxHighlighting];

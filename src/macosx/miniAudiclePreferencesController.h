@@ -67,6 +67,7 @@ extern NSString * mAPreferencesEnableOTFVisuals;
 extern NSString * mAPreferencesSoundfilesDirectory;
 extern NSString * mAPreferencesOpenDocumentsInNewTab;
 extern NSString * mAPreferencesBackupSuffix;
+extern NSString * mAPreferencesUseCustomConsoleMonitor;
 
 extern NSString * mAPreferencesLibraryPath;
 extern NSString * mAPreferencesChuginPaths;

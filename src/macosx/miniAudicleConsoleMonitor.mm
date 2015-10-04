@@ -36,8 +36,8 @@ U.S.A.
 #import <unistd.h>
 #import "chuck_errmsg.h"
 
-#define __USE_NEW_CONSOLE_MONITOR__ 1
-
+//#define __USE_NEW_CONSOLE_MONITOR__ 1
+#undef __CK_DEBUG__
 @implementation miniAudicleConsoleMonitor
 
 //-----------------------------------------------------------------------------
@@ -48,6 +48,16 @@ U.S.A.
 {
     if( self = [super init] )
     {
+        _useCustomConsoleMonitor = YES;
+        
+        if(NSAppKitVersionNumber > NSAppKitVersionNumber10_10_Max)
+            // OS X 10.11 and greater
+            _useCustomConsoleMonitor = NO;
+        
+        NSNumber * useCustom = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesUseCustomConsoleMonitor];
+        if(useCustom != nil)
+            _useCustomConsoleMonitor = [useCustom boolValue];
+        
 #ifndef __CK_DEBUG__
         int fd[2];
         
@@ -109,7 +119,9 @@ U.S.A.
         scrollback_size = 10000;
         NSNumber * sbs = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesScrollbackBufferSize];
         if( sbs != nil )
-            scrollback_size = [sbs intValue];        
+            scrollback_size = [sbs intValue];
+        if(scrollback_size == 0)
+            scrollback_size = 10000;
     }
     
     return self;
@@ -189,9 +201,13 @@ U.S.A.
 #else
     // append the string to the text view
     NSTextStorage * ts = [text_view textStorage];
-    [ts replaceCharactersInRange:NSMakeRange( [ts length], 0 )
-                      withString:t_string];
-    [text_view setFont:[NSFont fontWithName:@"Monaco" size:10]];
+//    [ts replaceCharactersInRange:NSMakeRange( [ts length], 0 )
+//                      withString:t_string];
+    [ts appendAttributedString:[[NSAttributedString alloc] initWithString:t_string
+                                                               attributes:@{
+                                                                            NSFontAttributeName: [NSFont fontWithName:@"Monaco" size:10]
+                                                                            }]];
+//    [text_view setFont:[NSFont fontWithName:@"Monaco" size:10]];
     
     // delete lines in excess of the buffer size
     NSString * text = [text_view string];
@@ -199,12 +215,15 @@ U.S.A.
     if( len > scrollback_size )
     {
         NSRange range = NSMakeRange( 0, len - scrollback_size );
-        unsigned line_end;
+        NSUInteger line_end;
         [text getLineStart:NULL end:&line_end 
                contentsEnd:NULL forRange:range];
         range.length = line_end;
         [ts deleteCharactersInRange:range];
     }
+    
+    [text_view setNeedsDisplay:YES];
+    
 #endif // __CK_DEBUG__
 }
 
@@ -243,7 +262,11 @@ U.S.A.
 //-----------------------------------------------------------------------------
 - (void)preferencesChanged:(NSNotification *)n
 {
-    scrollback_size = [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesScrollbackBufferSize] intValue];
+    NSNumber *sbs = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesScrollbackBufferSize];
+    if( sbs != nil )
+        scrollback_size = [sbs intValue];
+    if(scrollback_size == 0)
+        scrollback_size = 10000;
 }
 
 @end
