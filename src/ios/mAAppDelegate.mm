@@ -111,6 +111,7 @@ static mAAppDelegate *g_appDelegate = nil;
         examplesViewController.editable = NO;
         examplesViewController.detailViewController = self.detailViewController;
         examplesViewController.editorViewController = self.editorViewController;
+        examplesViewController.playerViewController = self.playerViewController;
         fileNavigationController.examplesViewController = examplesViewController;
         
         mAFileViewController *recentViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
@@ -118,6 +119,7 @@ static mAAppDelegate *g_appDelegate = nil;
         recentViewController.editable = NO;
         recentViewController.detailViewController = self.detailViewController;
         recentViewController.editorViewController = self.editorViewController;
+        recentViewController.playerViewController = self.playerViewController;
         fileNavigationController.recentViewController = recentViewController;
         
         if([[mADocumentManager manager] recentFiles].count)
