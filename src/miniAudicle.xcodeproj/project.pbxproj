@@ -2323,7 +2323,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
-				ENV_MA_VERSION = "1.3.1-beta-3";
+				ENV_MA_VERSION = "1.3.5.2-beta-2";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
@@ -2356,7 +2356,7 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ENV_MA_VERSION = "1.3.1-beta-3";
+				ENV_MA_VERSION = "1.3.5.2-beta-2";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
