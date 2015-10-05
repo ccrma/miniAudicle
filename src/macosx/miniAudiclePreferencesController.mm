@@ -34,6 +34,7 @@ U.S.A.
 #import "miniAudicleController.h"
 #import "miniAudicle.h"
 #import "mASyntaxHighlighter.h"
+#import "miniAudicle_version.h"
 
 #import "chuck_dl.h"
 #import "util_string.h"
@@ -101,98 +102,9 @@ t_CKINT g_rtaudio_blacklist_size = 1;
 std::string g_rtaudio_blacklist[] = { "Apple Inc.: AirPlay" };
 
 
-struct Chuck_Version
+miniAudicle_Version str2version(NSString *str)
 {
-    int major;
-    int minor;
-    int patch;
-    int bugfix;
-    
-    Chuck_Version(int _major, int _minor, int _patch, int _bugfix) :
-    major(_major), minor(_minor), patch(_patch), bugfix(_bugfix)
-    { }
-    
-    bool operator >(const Chuck_Version &v)
-    {
-        if(major > v.major) return true;
-        if(major < v.major) return false;
-        
-        if(minor > v.minor) return true;
-        if(minor < v.minor) return false;
-        
-        if(patch > v.patch) return true;
-        if(patch < v.patch) return false;
-        
-        if(bugfix > v.bugfix) return true;
-        
-        return false;
-    }
-    
-    bool operator >=(const Chuck_Version &v)
-    {
-        if(major > v.major) return true;
-        if(major < v.major) return false;
-        
-        if(minor > v.minor) return true;
-        if(minor < v.minor) return false;
-        
-        if(patch > v.patch) return true;
-        if(patch < v.patch) return false;
-        
-        if(bugfix > v.bugfix) return true;
-        if(bugfix < v.bugfix) return false;
-        
-        return true;
-    }
-    
-    bool operator <(const Chuck_Version &v)
-    {
-        if(major < v.major) return true;
-        if(major > v.major) return false;
-        
-        if(minor < v.minor) return true;
-        if(minor > v.minor) return false;
-        
-        if(patch < v.patch) return true;
-        if(patch > v.patch) return false;
-        
-        if(bugfix < v.bugfix) return true;
-        
-        return false;
-    }
-    
-    bool operator <=(const Chuck_Version &v)
-    {
-        if(major < v.major) return true;
-        if(major > v.major) return false;
-        
-        if(minor < v.minor) return true;
-        if(minor > v.minor) return false;
-        
-        if(patch < v.patch) return true;
-        if(patch > v.patch) return false;
-        
-        if(bugfix < v.bugfix) return true;
-        if(bugfix > v.bugfix) return false;
-        
-        return true;
-    }
-    
-    bool operator ==(const Chuck_Version &v)
-    {
-        if(major == v.major &&
-           minor == v.minor &&
-           patch == v.patch &&
-           bugfix == v.bugfix)
-            return true;
-        
-        return false;
-    }
-};
-
-Chuck_Version str2version(NSString *str)
-{
-    Chuck_Version v = Chuck_Version(0, 0, 0, 0);
+    miniAudicle_Version v = miniAudicle_Version(0, 0, 0, 0);
     if(str != nil)
     {
         // split into @[@"a.b.c.d", @"beta-x"]
@@ -215,13 +127,13 @@ Chuck_Version str2version(NSString *str)
     return v;
 }
 
-NSString *version2str(const Chuck_Version &v)
+NSString *version2str(const miniAudicle_Version &v)
 {
     return [NSString stringWithFormat:@"%i.%i.%i.%i",
             v.major, v.minor, v.patch, v.bugfix];
 }
 
-Chuck_Version currentVersion()
+miniAudicle_Version currentVersion()
 {
     return str2version([NSString stringWithUTF8String:ENV_MA_VERSION]);
 }
@@ -378,14 +290,14 @@ Chuck_Version currentVersion()
     NSString *oldVersionStr = [defaults stringForKey:mAPreferencesVersion];
     NSString *newVersionStr = [NSString stringWithUTF8String:ENV_MA_VERSION];
     
-    Chuck_Version oldVersion = str2version(oldVersionStr);
-    Chuck_Version newVersion = str2version(newVersionStr);
+    miniAudicle_Version oldVersion = str2version(oldVersionStr);
+    miniAudicle_Version newVersion = str2version(newVersionStr);
     
     if(newVersion > oldVersion)
     {
         // version upgrade scenario
         
-        if(oldVersion < Chuck_Version(1,3,5,2))
+        if(oldVersion < miniAudicle_Version(1,3,5,2))
         {
             // force-replace chugin path
             std::list<std::string> default_chugin_pathv;

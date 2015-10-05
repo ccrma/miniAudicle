@@ -64,6 +64,7 @@
 		0921D57618190283008F39D9 /* timetag.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D55818190216008F39D9 /* timetag.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
 		09297A160B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
 		09297A180B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092979FB0B4DED60005C3B7A /* IOBluetooth.framework */; };
+		092B8E9D1BC206C8000033B3 /* miniAudicle_version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092B8E9B1BC206C8000033B3 /* miniAudicle_version.cpp */; settings = {ASSET_TAGS = (); }; };
 		09307E1A18DE76D0004AB346 /* mAKeyboardAccessoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09307E1818DE76D0004AB346 /* mAKeyboardAccessoryViewController.m */; };
 		09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09307E1918DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib */; };
 		09307E1F18DFB5E7004AB346 /* mASyntaxHighlighter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09307E1E18DFB5E7004AB346 /* mASyntaxHighlighter.mm */; };
@@ -466,6 +467,8 @@
 		0921D55718190216008F39D9 /* server_thread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = server_thread.c; sourceTree = "<group>"; };
 		0921D55818190216008F39D9 /* timetag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = timetag.c; sourceTree = "<group>"; };
 		092979FB0B4DED60005C3B7A /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = /System/Library/Frameworks/IOBluetooth.framework; sourceTree = "<absolute>"; };
+		092B8E9B1BC206C8000033B3 /* miniAudicle_version.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = miniAudicle_version.cpp; sourceTree = "<group>"; };
+		092B8E9C1BC206C8000033B3 /* miniAudicle_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = miniAudicle_version.h; sourceTree = "<group>"; };
 		09307E1618DE68B0004AB346 /* mANavigationController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "mANavigationController~ipad.xib"; sourceTree = "<group>"; };
 		09307E1718DE76D0004AB346 /* mAKeyboardAccessoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAKeyboardAccessoryViewController.h; sourceTree = "<group>"; };
 		09307E1818DE76D0004AB346 /* mAKeyboardAccessoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAKeyboardAccessoryViewController.m; sourceTree = "<group>"; };
@@ -1187,6 +1190,8 @@
 				09E5546D0DA61CB700F1A6C8 /* miniAudicle_debug.h */,
 				09820B9F10941F7F001F662E /* miniAudicle_log.h */,
 				09820BA010941F7F001F662E /* miniAudicle_log.cpp */,
+				092B8E9C1BC206C8000033B3 /* miniAudicle_version.h */,
+				092B8E9B1BC206C8000033B3 /* miniAudicle_version.cpp */,
 			);
 			name = miniAudicle;
 			sourceTree = "<group>";
@@ -2018,6 +2023,7 @@
 				09A40B970A9A54DA007604EA /* util_thread.cpp in Sources */,
 				0921D55F18190216008F39D9 /* message.c in Sources */,
 				09A40B980A9A54DA007604EA /* util_xforms.c in Sources */,
+				092B8E9D1BC206C8000033B3 /* miniAudicle_version.cpp in Sources */,
 				09A40BBE0A9A55EC007604EA /* mASyntaxHighlighter.mm in Sources */,
 				0921D56518190216008F39D9 /* send.c in Sources */,
 				09A40BBF0A9A55EC007604EA /* miniAudicle_ui_elements.mm in Sources */,
