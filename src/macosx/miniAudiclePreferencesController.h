@@ -34,7 +34,8 @@ U.S.A.
 
 @class miniAudicleController;
 
-extern NSString * mAPreferencesAcceptsNetworkCommands;
+extern NSString * mAPreferencesVersion;
+
 extern NSString * mAPreferencesEnableAudio;
 extern NSString * mAPreferencesEnableCallback;
 extern NSString * mAPreferencesEnableBlocking;
