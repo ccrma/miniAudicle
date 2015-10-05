@@ -7,8 +7,10 @@ VERSION_MK=$(MINI_SRC_ROOT)/src/version.mk
 
 include $(VERSION_MK)
 
-CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher FIR KasFilter PanN PitchTrack GVerb \
-    Mesh2D Spectacle Elliptic PowerADSR WinFuncEnv
+CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher Elliptic ExpDelay FIR \
+    FoldbackSaturator GVerb KasFilter MagicSine Mesh2D Multicomb \
+    PanN PitchTrack PowerADSR Sigmund Spectacle WinFuncEnv WPDiodeLadder \
+    WPKorg35
 CHUGINS=$(addsuffix .chug,$(CHUGIN_NAMES))
 CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/$(CHUG).chug)
 
@@ -24,8 +26,8 @@ PKGS=$(APP_PKGS) $(BIN_PKGS) $(CHUGIN_PKGS) $(EXAMPLES_PKG)
 INSTALLER=chuck-$(PKG_VERSION).pkg
 
 APP_DIR=/Applications
-BIN_DIR=/usr/bin
-CHUG_DIR=/usr/lib/chuck
+BIN_DIR=/usr/local/bin
+CHUG_DIR=/usr/local/lib/chuck
 EXAMPLES_DST=/Library/ChucK
 
 IDENTIFIER_BASE=edu.stanford.chuck
