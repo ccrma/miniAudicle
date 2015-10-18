@@ -35,6 +35,8 @@ U.S.A.
 
 #include "mAsciLexerChucK.h"
 #include "mAExportDialog.h"
+#include "ZSettings.h"
+#include "mAPreferencesWindow.h"
 
 #include "util_string.h"
 
@@ -81,6 +83,8 @@ mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file
 //    ui->textEdit->setIndicatorForegroundColor(QColor(0xFF, 0x00, 0x00, 0x40), m_indicator);
 //    ui->textEdit->setIndicatorOutlineColor(QColor(0xFF, 0x00, 0x00, 0x40), m_indicator);
 
+    preferencesChanged();
+    
     m_docid = m_ma->allocate_document_id();
 }
 
@@ -95,7 +99,12 @@ mADocumentView::~mADocumentView()
 
 void mADocumentView::preferencesChanged()
 {
-    ((mAsciLexerChucK *)ui->textEdit->lexer())->preferencesChanged();
+    ZSettings settings;
+    // set caret text color
+    QColor fgColor = QColor(settings.get(mAPreferencesSyntaxColoringNormalText).toUInt());
+    ui->textEdit->setCaretForegroundColor(fgColor);
+    
+    ((mAsciLexerChucK *)ui->textEdit->lexer())->preferencesChanged();    
 //    ui->textEdit->recolor();
 }
 
