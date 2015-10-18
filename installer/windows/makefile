@@ -9,7 +9,9 @@ VERSION_MK=$(MINI_SRC_ROOT)/src/version.mk
 include $(VERSION_MK)
 WIN32_VERSION=$(shell echo $(PKG_VERSION) | egrep -o '^[0-9]+(\.[0-9]+(\.[0-9]+(\.[0-9]+)?)?)?')
 
-CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher FIR KasFilter PanN PitchTrack GVerb Mesh2D Spectacle Elliptic
+CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher KasFilter MagicSine FIR FoldbackSaturator \
+	PanN PitchTrack GVerb Mesh2D Spectacle Elliptic Sigmund ExpDelay Overdrive \
+	Multicomb PowerADSR WinFuncEnv WPDiodeLadder WPKorg35
 CHUGINS=$(addsuffix .chug,$(CHUGIN_NAMES))
 CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/Release/$(CHUG).chug)
 
