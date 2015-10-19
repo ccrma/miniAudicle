@@ -163,11 +163,11 @@ void mADocumentView::exportAsWav()
         QProcess process;
         QStringList args;
         args << "--silent" << "--standalone" << fileArg;
-        process.setProcessChannelMode(QProcess::ForwardedChannels);
+        process.setProcessChannelMode(QProcess::MergedChannels);
         if(file) process.setWorkingDirectory(QFileInfo(*file).dir().canonicalPath());
         process.start(which("chuck"), args);
         
-        QProgressDialog progress("Running ChucK Script", "Cancel", 0, 0, this);
+        QProgressDialog progress("Exporting ChucK Script", "Cancel", 0, 0, this);
         progress.setWindowModality(Qt::WindowModal);
         progress.setValue(0);
         
@@ -192,8 +192,23 @@ void mADocumentView::exportAsWav()
                 // palm => face
                 if(process.state() == QProcess::NotRunning || process.waitForFinished(10)) break;
 #endif // WIN32
+                
+                QByteArray output = process.readAllStandardOutput();
+                if(output.length())
+                {
+                    fwrite(output.data(), 1, output.length(), stderr);
+                    fflush(stderr);
+                }
+                
                 QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
             }
+            
+            QByteArray output = process.readAllStandardOutput();
+            if(output.length())
+            {
+                fwrite(output.data(), 1, output.length(), stderr);
+                fflush(stderr);
+            }            
             
             if(cancelled) break;
             
