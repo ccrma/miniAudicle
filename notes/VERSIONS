@@ -1,4 +1,11 @@
 ---
+1.3.5.2
+    - (added) chuck-1.3.5.2
+    - (fixed)(Mac) Console Monitor display bug in Mac OS X 10.11 "El Capitan"
+    - (fixed)(Win/Linux) fix custom syntax coloring bug
+    - (fixed)(Win/Linux) output from exported scripts is displayed
+    
+---
 1.3.5.1
     - (added) sync version number to chuck version number
     - (added) chuck-1.3.5.1
