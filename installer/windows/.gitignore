@@ -1,0 +1,5 @@
+chugins/
+chugins.wxs
+examples
+examples.wxs
+*.wixpdb
