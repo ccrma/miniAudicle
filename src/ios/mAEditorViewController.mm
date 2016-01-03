@@ -176,6 +176,14 @@
     
     _singleCharSize = [@" " sizeWithAttributes:[self defaultTextAttributes]];
     
+    // remove undo/redo/clipboard toolbar
+    // iOS 9 only
+    if([self.textView respondsToSelector:@selector(inputAssistantItem)])
+    {
+        self.textView.inputAssistantItem.leadingBarButtonGroups = @[];
+        self.textView.inputAssistantItem.trailingBarButtonGroups = @[];
+    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
