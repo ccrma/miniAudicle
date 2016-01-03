@@ -69,12 +69,14 @@
     CGContextAddEllipseInRect(ctx, self.bounds);
     CGContextClip(ctx);
     
+    CGContextSetBlendMode(ctx, kCGBlendModeNormal);
+    
 //    [[self titleColorForState:self.state] set];
     
-    [[UIColor whiteColor] set];
+//    [[UIColor whiteColor] set];
     
-    CGContextAddEllipseInRect(ctx, self.bounds);
-    CGContextFillPath(ctx);
+//    CGContextAddEllipseInRect(ctx, self.bounds);
+//    CGContextFillPath(ctx);
     
 //    CGContextBeginPath(ctx);
 //    CGContextMoveToPoint(ctx, center.x, center.y);
@@ -86,14 +88,30 @@
     CGColorSpaceRef rgbColorspace;
     size_t num_locations = 2;
     CGFloat locations[2] = { 0.0, 1.0 };
-    CGFloat components[8] = { 1.0, 1.0, 1.0, 0.05,  // Start color
-        0.1, 0.9, 0.1, 0.9 }; // End color
+//    CGFloat components[8] = { 1.0, 1.0, 1.0, 0.05,  // Start color
+//        0.1, 0.9, 0.1, 0.9 }; // End color
+    CGFloat components[8] = { 0.25, 0.9, 0.25, 0.9,  // Start color
+        0.25, 0.9, 0.25, 0.00 }; // End color
+    
+//    [[UIColor colorWithRed:0.1 green:0.9 blue:0.1 alpha:0.25] set];
+//    CGContextAddEllipseInRect(ctx, self.bounds);
+//    CGContextFillPath(ctx);
     
     rgbColorspace = CGColorSpaceCreateDeviceRGB();
     glossGradient = CGGradientCreateWithColorComponents(rgbColorspace, components, locations, num_locations);
     
-    CGContextDrawRadialGradient(ctx, glossGradient, center, 0,
-                                center, (0.5*(1+sinf(2*M_PI*t*0.5))+0.1)*self.bounds.size.width*0.4, kCGGradientDrawsAfterEndLocation);
+    float rate = 0.5;
+    float scale = (0.5*(1+sinf(2*M_PI*t*rate)));
+    radius = (0.7+scale);
+    float inner = 0.65*self.bounds.size.width*0.4;
+    float outer = radius*self.bounds.size.width*0.4;
+    CGContextDrawRadialGradient(ctx, glossGradient, center, inner,
+                                center, outer, kCGGradientDrawsBeforeStartLocation);
+    
+    CGContextSetBlendMode(ctx, kCGBlendModePlusLighter);
+    
+    CGContextDrawRadialGradient(ctx, glossGradient, center, inner,
+                                center, outer, kCGGradientDrawsBeforeStartLocation);
 //    CGContextDrawRadialGradient(ctx, glossGradient, center, 0,
 //                                center, (1.1)*self.bounds.size.width*0.4, kCGGradientDrawsAfterEndLocation);
     
@@ -106,6 +124,8 @@
         CGContextAddEllipseInRect(ctx, self.bounds);
         CGContextFillPath(ctx);
     }
+    
+    CGContextSetBlendMode(ctx, kCGBlendModeNormal);
     
 //    CGContextRestoreGState(ctx);
 }
