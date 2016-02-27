@@ -151,6 +151,7 @@
 		093E267F14A1B3B3008694BC /* mAChucKController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E267E14A1B3B2008694BC /* mAChucKController.mm */; };
 		0942B6F71362466700C870F2 /* chugin-mini.png in Resources */ = {isa = PBXBuildFile; fileRef = 0942B6F51362466700C870F2 /* chugin-mini.png */; };
 		0942B6F81362466700C870F2 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0942B6F61362466700C870F2 /* folder.png */; };
+		094312681C79AE88007075DB /* ASTProgram.mm in Sources */ = {isa = PBXBuildFile; fileRef = 094312671C79AE88007075DB /* ASTProgram.mm */; };
 		0949BD5018F61E56005191AC /* mAPlayerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0949BD4F18F61E56005191AC /* mAPlayerScrollView.m */; };
 		094B5F6719C9DBE0004B9B5E /* ulib_motion.mm in Sources */ = {isa = PBXBuildFile; fileRef = 094B5F6519C9DBE0004B9B5E /* ulib_motion.mm */; };
 		094B5F6919C9E1E8004B9B5E /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094B5F6819C9E1E8004B9B5E /* CoreMotion.framework */; };
@@ -519,6 +520,8 @@
 		093ECDCE13B578B800B645F0 /* libwx_gtk2ud_adv-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_gtk2ud_adv-2.8.dylib"; path = "/opt/local/lib/libwx_gtk2ud_adv-2.8.dylib"; sourceTree = "<absolute>"; };
 		0942B6F51362466700C870F2 /* chugin-mini.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chugin-mini.png"; path = "macosx/icon/chugin-mini.png"; sourceTree = "<group>"; };
 		0942B6F61362466700C870F2 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = folder.png; path = macosx/icon/folder.png; sourceTree = "<group>"; };
+		094312661C79AE88007075DB /* ASTProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASTProgram.h; sourceTree = "<group>"; };
+		094312671C79AE88007075DB /* ASTProgram.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ASTProgram.mm; sourceTree = "<group>"; };
 		0949BD4E18F61E56005191AC /* mAPlayerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAPlayerScrollView.h; sourceTree = "<group>"; };
 		0949BD4F18F61E56005191AC /* mAPlayerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAPlayerScrollView.m; sourceTree = "<group>"; };
 		094B5F6519C9DBE0004B9B5E /* ulib_motion.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ulib_motion.mm; sourceTree = "<group>"; };
@@ -1309,6 +1312,8 @@
 				09307E1918DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib */,
 				09307E1D18DFB5E7004AB346 /* mASyntaxHighlighter.h */,
 				09307E1E18DFB5E7004AB346 /* mASyntaxHighlighter.mm */,
+				094312661C79AE88007075DB /* ASTProgram.h */,
+				094312671C79AE88007075DB /* ASTProgram.mm */,
 			);
 			name = editor;
 			sourceTree = "<group>";
@@ -1834,6 +1839,7 @@
 				093E264E14A12201008694BC /* chuck_symbol.cpp in Sources */,
 				09F09E4F18E3753B0050D963 /* mAScriptPlayerTab.mm in Sources */,
 				093A74BD1A5E495200F54725 /* mAFileNavigationController.mm in Sources */,
+				094312681C79AE88007075DB /* ASTProgram.mm in Sources */,
 				093E264F14A12201008694BC /* chuck_table.cpp in Sources */,
 				093E265014A12201008694BC /* chuck_type.cpp in Sources */,
 				093E265114A12201008694BC /* chuck_ugen.cpp in Sources */,
