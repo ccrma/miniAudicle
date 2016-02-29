@@ -337,6 +337,9 @@
 		09B66B621769A65C00A07ADF /* mAExampleBrowser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09B66B601769A65B00A07ADF /* mAExampleBrowser.mm */; };
 		09B66B631769A65C00A07ADF /* mAExampleBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B611769A65B00A07ADF /* mAExampleBrowser.xib */; };
 		09B66B651769DA9200A07ADF /* ckmini.png in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B641769DA9200A07ADF /* ckmini.png */; };
+		09C758571C83BDCA00B1324C /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C758561C83BDCA00B1324C /* libGoogleAnalytics.a */; };
+		09C7585A1C83C0E100B1324C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C758581C83C0E100B1324C /* CoreData.framework */; };
+		09C7585E1C83CBE300B1324C /* mAAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 09C7585D1C83CBE300B1324C /* mAAnalytics.m */; };
 		09D00B8414A3C4010019CD09 /* TitleEditView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */; };
 		09D00B8714A3C44B0019CD09 /* mATitleEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */; };
 		09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8914A44DFA0019CD09 /* mAVMMonitorController.mm */; };
@@ -630,7 +633,7 @@
 		09A40B320A9A54DA007604EA /* chuck_utils.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = chuck_utils.h; sourceTree = "<group>"; };
 		09A40B330A9A54DA007604EA /* chuck_vm.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_vm.cpp; sourceTree = "<group>"; };
 		09A40B340A9A54DA007604EA /* chuck_vm.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = chuck_vm.h; sourceTree = "<group>"; };
-		09A40B350A9A54DA007604EA /* chuck.lex */ = {isa = PBXFileReference; explicitFileType = sourcecode.lex; fileEncoding = 30; languageSpecificationIdentifier = c; path = chuck.lex; sourceTree = "<group>"; };
+		09A40B350A9A54DA007604EA /* chuck.lex */ = {isa = PBXFileReference; explicitFileType = sourcecode.lex; fileEncoding = 30; path = chuck.lex; sourceTree = "<group>"; };
 		09A40B360A9A54DA007604EA /* chuck.y */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.yacc; path = chuck.y; sourceTree = "<group>"; };
 		09A40B370A9A54DA007604EA /* digiio_rtaudio.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = digiio_rtaudio.cpp; sourceTree = "<group>"; };
 		09A40B380A9A54DA007604EA /* digiio_rtaudio.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = digiio_rtaudio.h; sourceTree = "<group>"; };
@@ -774,6 +777,21 @@
 		09B66B601769A65B00A07ADF /* mAExampleBrowser.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAExampleBrowser.mm; path = macosx/mAExampleBrowser.mm; sourceTree = "<group>"; };
 		09B66B611769A65B00A07ADF /* mAExampleBrowser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = mAExampleBrowser.xib; path = macosx/Resources/English.lproj/mAExampleBrowser.xib; sourceTree = "<group>"; };
 		09B66B641769DA9200A07ADF /* ckmini.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ckmini.png; path = macosx/icon/ckmini.png; sourceTree = "<group>"; };
+		09C7584B1C83BDCA00B1324C /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		09C7584C1C83BDCA00B1324C /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		09C7584D1C83BDCA00B1324C /* GAIEcommerceFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceFields.h; sourceTree = "<group>"; };
+		09C7584E1C83BDCA00B1324C /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProduct.h; sourceTree = "<group>"; };
+		09C7584F1C83BDCA00B1324C /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProductAction.h; sourceTree = "<group>"; };
+		09C758501C83BDCA00B1324C /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommercePromotion.h; sourceTree = "<group>"; };
+		09C758511C83BDCA00B1324C /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		09C758521C83BDCA00B1324C /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		09C758531C83BDCA00B1324C /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		09C758541C83BDCA00B1324C /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		09C758561C83BDCA00B1324C /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
+		09C758581C83C0E100B1324C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		09C758591C83C0E100B1324C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		09C7585C1C83CBE300B1324C /* mAAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAAnalytics.h; sourceTree = "<group>"; };
+		09C7585D1C83CBE300B1324C /* mAAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAAnalytics.m; sourceTree = "<group>"; };
 		09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleEditView_iPad.xib; sourceTree = "<group>"; };
 		09D00B8514A3C44A0019CD09 /* mATitleEditorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mATitleEditorController.h; sourceTree = "<group>"; };
 		09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mATitleEditorController.m; sourceTree = "<group>"; };
@@ -835,6 +853,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09C7585A1C83C0E100B1324C /* CoreData.framework in Frameworks */,
 				4D3D4C981A5E3A4400B6A06B /* SystemConfiguration.framework in Frameworks */,
 				094B5F6919C9E1E8004B9B5E /* CoreMotion.framework in Frameworks */,
 				4D3D4C931A5E37DB00B6A06B /* libCrittercism_v5_0_7.a in Frameworks */,
@@ -844,6 +863,7 @@
 				093E267414A12A69008694BC /* CoreAudio.framework in Frameworks */,
 				093E261414A108C8008694BC /* UIKit.framework in Frameworks */,
 				093E261614A108C8008694BC /* Foundation.framework in Frameworks */,
+				09C758571C83BDCA00B1324C /* libGoogleAnalytics.a in Frameworks */,
 				093E261814A108C8008694BC /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1285,6 +1305,49 @@
 			name = ChucK;
 			sourceTree = "<group>";
 		};
+		09C758481C83BDCA00B1324C /* GoogleAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				09C758491C83BDCA00B1324C /* Headers */,
+				09C758551C83BDCA00B1324C /* Libraries */,
+			);
+			name = GoogleAnalytics;
+			path = ios/GoogleAnalytics;
+			sourceTree = SOURCE_ROOT;
+		};
+		09C758491C83BDCA00B1324C /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				09C7584A1C83BDCA00B1324C /* Public */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		09C7584A1C83BDCA00B1324C /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				09C7584B1C83BDCA00B1324C /* GAI.h */,
+				09C7584C1C83BDCA00B1324C /* GAIDictionaryBuilder.h */,
+				09C7584D1C83BDCA00B1324C /* GAIEcommerceFields.h */,
+				09C7584E1C83BDCA00B1324C /* GAIEcommerceProduct.h */,
+				09C7584F1C83BDCA00B1324C /* GAIEcommerceProductAction.h */,
+				09C758501C83BDCA00B1324C /* GAIEcommercePromotion.h */,
+				09C758511C83BDCA00B1324C /* GAIFields.h */,
+				09C758521C83BDCA00B1324C /* GAILogger.h */,
+				09C758531C83BDCA00B1324C /* GAITrackedViewController.h */,
+				09C758541C83BDCA00B1324C /* GAITracker.h */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
+		09C758551C83BDCA00B1324C /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				09C758561C83BDCA00B1324C /* libGoogleAnalytics.a */,
+			);
+			path = Libraries;
+			sourceTree = "<group>";
+		};
 		09DAA30919BA211A00B8A416 /* editor */ = {
 			isa = PBXGroup;
 			children = (
@@ -1419,6 +1482,8 @@
 				09608ADE14B40DE4009450FE /* mAConsoleMonitor.xib */,
 				094B5F6619C9DBE0004B9B5E /* ulib_motion.h */,
 				094B5F6519C9DBE0004B9B5E /* ulib_motion.mm */,
+				09C7585C1C83CBE300B1324C /* mAAnalytics.h */,
+				09C7585D1C83CBE300B1324C /* mAAnalytics.m */,
 			);
 			name = main;
 			sourceTree = "<group>";
@@ -1516,6 +1581,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				09C758581C83C0E100B1324C /* CoreData.framework */,
+				09C758591C83C0E100B1324C /* SystemConfiguration.framework */,
 				4D3D4C971A5E3A4400B6A06B /* SystemConfiguration.framework */,
 				4D3D4C941A5E392800B6A06B /* SystemConfiguration.framework */,
 				094B5F6819C9E1E8004B9B5E /* CoreMotion.framework */,
@@ -1538,6 +1605,7 @@
 		4D3D4C8B1A5E37DB00B6A06B /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				09C758481C83BDCA00B1324C /* GoogleAnalytics */,
 				4D3D4C8C1A5E37DB00B6A06B /* Crittercism */,
 			);
 			path = libs;
@@ -1841,6 +1909,7 @@
 				093E265314A12201008694BC /* chuck_vm.cpp in Sources */,
 				09664B8D19905A7300AE0B6B /* mAConnectViewController.m in Sources */,
 				09094DCB199406C5009F4C4C /* mANetworkRoomView.m in Sources */,
+				09C7585E1C83CBE300B1324C /* mAAnalytics.m in Sources */,
 				099ABE4F19086DD800C5D52D /* mAKeyboardButtonAlternatives.m in Sources */,
 				093E265414A12234008694BC /* chuck.y in Sources */,
 				09307E1A18DE76D0004AB346 /* mAKeyboardAccessoryViewController.m in Sources */,
@@ -2216,12 +2285,19 @@
 				HEADER_SEARCH_PATHS = (
 					ios,
 					chuck/src,
+					GoogleAnalytics/Headers/Public,
 				);
 				INFOPLIST_FILE = "ios/miniAudicle iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ios/libs/Crittercism",
+					"$(PROJECT_DIR)/ios/GoogleAnalytics",
+					"$(PROJECT_DIR)/ios/GoogleAnalytics/Libraries",
+				);
+				OTHER_LDFLAGS = (
+					"-lz",
+					"-lsqlite3",
 				);
 				PRODUCT_NAME = miniAudicle;
 				PROVISIONING_PROFILE = "";
@@ -2259,14 +2335,21 @@
 				HEADER_SEARCH_PATHS = (
 					ios,
 					chuck/src,
+					GoogleAnalytics/Headers/Public,
 				);
 				INFOPLIST_FILE = "ios/miniAudicle iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ios/libs/Crittercism",
+					"$(PROJECT_DIR)/ios/GoogleAnalytics",
+					"$(PROJECT_DIR)/ios/GoogleAnalytics/Libraries",
 				);
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-lz",
+					"-lsqlite3",
+				);
 				PRODUCT_NAME = miniAudicle;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;

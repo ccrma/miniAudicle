@@ -32,6 +32,8 @@
 #import "mADocumentManager.h"
 #import "mAAutocomplete.h"
 #import "Crittercism.h"
+#import "mAAnalytics.h"
+
 
 
 NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript";
@@ -105,6 +107,8 @@ static mAAppDelegate *g_appDelegate = nil;
     
     // for testing Crittercism crash logging; do NOT commit this uncommented
     // [[NSArray arrayWithObject:@6] objectAtIndex:9];
+    
+    [[mAAnalytics instance] appLaunch];
     
     return YES;
 }
