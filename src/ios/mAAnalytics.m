@@ -75,7 +75,9 @@ static NSString * const mAAnalyticsOptOut = @"mAAnalyticsOptOut";
         
         // Provide unhandled exceptions reports.
         GAI *gai = [GAI sharedInstance];
+#if !DEBUG
         gai.trackUncaughtExceptions = YES;
+#endif
 //        gai.logger.logLevel = kGAILogLevelVerbose;  // remove before app release
         
         _lastActionWasEdit = NO;
