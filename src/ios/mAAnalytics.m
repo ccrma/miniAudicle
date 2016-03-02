@@ -8,6 +8,7 @@
 
 #import "mAAnalytics.h"
 #import "GAI.h"
+#import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 
 //static NSString * const mAAnalyticsNeedsOptOutSelection = @"mAAnalyticsNeedsOptOutSelection";
@@ -86,6 +87,20 @@ static NSString * const mAAnalyticsOptOut = @"mAAnalyticsOptOut";
 - (id<GAITracker>)tracker
 {
     return [GAI sharedInstance].defaultTracker;
+}
+
+- (void)editorScreen
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Editor"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+}
+
+- (void)playerScreen
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Player"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)appLaunch

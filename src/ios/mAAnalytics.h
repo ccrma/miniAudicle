@@ -14,6 +14,10 @@
 + (BOOL)needsOptOutSelection;
 + (void)setOptOut:(BOOL)optOut;
 
+// screens
+- (void)editorScreen;
+- (void)playerScreen;
+
 // general
 - (void)appLaunch;
 

@@ -56,6 +56,7 @@
 @property (strong, nonatomic) UIPopoverController * popover;
 @property (strong, nonatomic) mATitleEditorController * titleEditor;
 
+- (void)setup;
 - (NSDictionary *)defaultTextAttributes;
 - (NSDictionary *)errorTextAttributes;
 - (void)configureView;
@@ -128,17 +129,21 @@
     }
 }
 
+- (void)setup
+{
+    self.titleButton = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                        style:UIBarButtonItemStylePlain
+                                                       target:self
+                                                       action:@selector(editTitle:)];
+    _lockAutoFormat = NO;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        
-        self.titleButton = [[UIBarButtonItem alloc] initWithTitle:@""
-                                                            style:UIBarButtonItemStylePlain
-                                                           target:self
-                                                           action:@selector(editTitle:)];
-        _lockAutoFormat = NO;
+        [self setup];
     }
     return self;
 }
@@ -148,12 +153,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         // Custom initialization
-        
-        self.titleButton = [[UIBarButtonItem alloc] initWithTitle:@""
-                                                            style:UIBarButtonItemStylePlain
-                                                           target:self
-                                                           action:@selector(editTitle:)];
-        _lockAutoFormat = NO;
+        [self setup];
     }
     return self;
 }
@@ -199,6 +199,10 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+    
+    [[mAAnalytics instance] editorScreen];
+    
     [self.textView becomeFirstResponder];
 }
 
