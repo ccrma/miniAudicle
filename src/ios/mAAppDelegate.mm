@@ -44,6 +44,8 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
 @property (strong, nonatomic) mAMasterViewController * masterViewController;
 @property (strong, nonatomic) mADetailViewController * detailViewController;
 
+- (void)finishLaunch;
+
 @end
 
 static mAAppDelegate *g_appDelegate = nil;
@@ -68,11 +70,55 @@ static mAAppDelegate *g_appDelegate = nil;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    if([mAAnalytics needsOptOutSelection])
+    {
+        self.window.rootViewController = [[UIViewController alloc] initWithNibName:@"LaunchView" bundle:nil];
+        [self.window makeKeyAndVisible];
+
+#if BETA
+        NSString *analyticsTitle = @"Anonymous Usage Information";
+        NSString *analyticsMessage = @"Thank you for trying this beta version of miniAudicle for iPad!\n\n"
+        @"To best understand how people use miniAudicle for iPad and to help improve future versions, "
+        @"this app collects anonymized information about your usage of the app and shares it with the developers of the app. "
+        @"The information cannot be used to identify you and does not include filenames or code text.\n\n"
+        @"Given the app's beta status, your continued use of this app is taken as consent to collect this information. "
+        @"Please contact the app's developers if you have any questions or concerns!";
+#else
+        NSString *analyticsTitle = @"Help Improve miniAudicle for iPad";
+        NSString *analyticsMessage = @"Thank you for using miniAudicle for iPad!\n\n";
+#endif
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:analyticsTitle
+                                                                       message:analyticsMessage
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action) {
+                                                    [mAAnalytics setOptOut:NO];
+                                                    
+                                                    [self finishLaunch];
+                                                }]];
+        [self.window.rootViewController presentViewController:alert
+                                                     animated:YES
+                                                   completion:^{ }];
+    }
+    else
+    {
+        [self finishLaunch];
+    }
+    
+    return YES;
+}
+
+- (void)finishLaunch
+{
+    [[mAAnalytics instance] appLaunch];
+    
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-//        self.fileViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
-//        self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.fileViewController];
-//        self.window.rootViewController = self.navigationController;
+        //        self.fileViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
+        //        self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.fileViewController];
+        //        self.window.rootViewController = self.navigationController;
     } else {
         self.masterViewController = [[mAMasterViewController alloc] initWithNibName:@"mAMasterViewController" bundle:nil];
         self.detailViewController = [[mADetailViewController alloc] initWithNibName:@"mADetailViewController" bundle:nil];
@@ -85,7 +131,7 @@ static mAAppDelegate *g_appDelegate = nil;
         self.splitViewController.viewControllers = [NSArray arrayWithObjects:self.masterViewController, self.detailViewController, nil];
         
         self.window.rootViewController = self.splitViewController;
-                
+        
         if([[mADocumentManager manager] recentFiles].count)
             [self.detailViewController editItem:[[[mADocumentManager manager] recentFiles] firstObject]];
         else if([[mADocumentManager manager] userScripts].count)
@@ -107,38 +153,6 @@ static mAAppDelegate *g_appDelegate = nil;
     
     // for testing Crittercism crash logging; do NOT commit this uncommented
     // [[NSArray arrayWithObject:@6] objectAtIndex:9];
-    
-    if([mAAnalytics needsOptOutSelection])
-    {
-#if BETA
-        NSString *analyticsTitle = @"Anonymous Usage Information";
-        NSString *analyticsMessage = @"Thank you for trying this beta version of miniAudicle for iPad!\n\n"
-        @"To best understand how people use miniAudicle for iPad and to help improve future versions, "
-        @"this app collects anonymized information about your usage of the app and shares it with the developers of the app. "
-        @"The information cannot be used to identify you and does not include filenames or code text.\n\n"
-        @"Given the app's beta status, your continued use of this app is taken as consent to collect this information. "
-        @"Please contact the app's developers if you have any questions or concerns!";
-#else
-        NSString *analyticsTitle = @"Help Improve miniAudicle for iPad";
-        NSString *analyticsMessage = @"Thank you for using miniAudicle for iPad!\n\n";
-#endif
-        
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:analyticsTitle
-                                                                       message:analyticsMessage
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                handler:^(UIAlertAction * _Nonnull action) {
-                                                    [mAAnalytics setOptOut:NO];
-                                                    [[mAAnalytics instance] appLaunch];
-                                                }]];
-        [self.window.rootViewController presentViewController:alert
-                                                     animated:YES
-                                                   completion:^{ }];
-    }
-    
-    [[mAAnalytics instance] appLaunch];
-    
-    return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

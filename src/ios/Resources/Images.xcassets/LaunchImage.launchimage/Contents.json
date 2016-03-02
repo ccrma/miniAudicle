@@ -42,9 +42,9 @@
     {
       "orientation" : "portrait",
       "idiom" : "ipad",
+      "filename" : "Launch2-1.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "Launch2-1.png",
       "scale" : "1x"
     },
     {
@@ -57,9 +57,9 @@
     {
       "orientation" : "portrait",
       "idiom" : "ipad",
+      "filename" : "Launch2.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "Launch2.png",
       "scale" : "2x"
     },
     {

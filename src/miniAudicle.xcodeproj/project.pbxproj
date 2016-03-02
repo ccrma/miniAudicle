@@ -67,7 +67,6 @@
 		09307E1A18DE76D0004AB346 /* mAKeyboardAccessoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09307E1818DE76D0004AB346 /* mAKeyboardAccessoryViewController.m */; };
 		09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09307E1918DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib */; };
 		09307E1F18DFB5E7004AB346 /* mASyntaxHighlighter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09307E1E18DFB5E7004AB346 /* mASyntaxHighlighter.mm */; };
-		09307E2118DFEE57004AB346 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09307E2018DFEE57004AB346 /* Images.xcassets */; };
 		09307E2418DFF892004AB346 /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 095B59710BC6D0F900E8759D /* error.png */; };
 		09307E2718E0BEC2004AB346 /* NSString+NSString_Lines.m in Sources */ = {isa = PBXBuildFile; fileRef = 09307E2618E0BEC2004AB346 /* NSString+NSString_Lines.m */; };
 		09307E2A18E0CDA1004AB346 /* mATextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09307E2918E0CDA1004AB346 /* mATextView.mm */; };
@@ -163,6 +162,9 @@
 		096290301731CCD1007CADBA /* recordvu.ck in Resources */ = {isa = PBXBuildFile; fileRef = 0962902E1731CCD1007CADBA /* recordvu.ck */; };
 		0962903317323065007CADBA /* NSString+STLString.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0962903217323065007CADBA /* NSString+STLString.mm */; };
 		096310BA1C86B96300A36F8F /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 096310B91C86B96300A36F8F /* NSString+Hash.m */; };
+		096310BC1C86F35900A36F8F /* mALaunchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 096310BB1C86F35900A36F8F /* mALaunchView.xib */; };
+		096310BD1C86F55D00A36F8F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09307E2018DFEE57004AB346 /* Images.xcassets */; };
+		096310BF1C86F71600A36F8F /* Launch2.png in Resources */ = {isa = PBXBuildFile; fileRef = 096310BE1C86F71600A36F8F /* Launch2.png */; };
 		0964A38E172F8DC800043ABA /* record.png in Resources */ = {isa = PBXBuildFile; fileRef = 0964A38C172F8DC800043ABA /* record.png */; };
 		0964A38F172F8DC800043ABA /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 0964A38D172F8DC800043ABA /* stop.png */; };
 		0964A395172F8FD800043ABA /* mARecordSessionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0964A394172F8FD800043ABA /* mARecordSessionController.mm */; };
@@ -541,6 +543,8 @@
 		0962903217323065007CADBA /* NSString+STLString.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "NSString+STLString.mm"; path = "macosx/NSString+STLString.mm"; sourceTree = "<group>"; };
 		096310B81C86B96300A36F8F /* NSString+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
 		096310B91C86B96300A36F8F /* NSString+Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hash.m"; sourceTree = "<group>"; };
+		096310BB1C86F35900A36F8F /* mALaunchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mALaunchView.xib; sourceTree = "<group>"; };
+		096310BE1C86F71600A36F8F /* Launch2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Launch2.png; path = Images.xcassets/LaunchImage.launchimage/Launch2.png; sourceTree = "<group>"; };
 		0964A38C172F8DC800043ABA /* record.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = record.png; path = macosx/icon/record.png; sourceTree = "<group>"; };
 		0964A38D172F8DC800043ABA /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stop.png; path = macosx/icon/stop.png; sourceTree = "<group>"; };
 		0964A393172F8FD800043ABA /* mARecordSessionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mARecordSessionController.h; path = macosx/mARecordSessionController.h; sourceTree = "<group>"; };
@@ -961,6 +965,7 @@
 		09087C6914A4F63700AD2633 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				096310BE1C86F71600A36F8F /* Launch2.png */,
 				0934BE43190D038B0084D10E /* sequence.png */,
 				099ABE53190CF45400C5D52D /* loop.png */,
 				09AC4E1B18EC211600B2561A /* forward-100.png */,
@@ -1453,6 +1458,7 @@
 			isa = PBXGroup;
 			children = (
 				099ABE4C1906224B00C5D52D /* mADef.h */,
+				096310BB1C86F35900A36F8F /* mALaunchView.xib */,
 				093E262214A108C8008694BC /* mAAppDelegate.h */,
 				093E262314A108C8008694BC /* mAAppDelegate.mm */,
 				096D81041B40C1F800F9B9CA /* mAMasterViewController.xib */,
@@ -1737,7 +1743,6 @@
 				093E261E14A108C8008694BC /* InfoPlist.strings in Resources */,
 				093E262D14A108C8008694BC /* mAFileViewController~iphone.xib in Resources */,
 				093E263014A108C8008694BC /* mAFileViewController~ipad.xib in Resources */,
-				09307E2118DFEE57004AB346 /* Images.xcassets in Resources */,
 				09EBA9B718D8FD4700DCAE0C /* examples in Resources */,
 				093E263314A108C9008694BC /* mADetailViewController~iphone.xib in Resources */,
 				093E263614A108C9008694BC /* mADetailViewController~ipad.xib in Resources */,
@@ -1746,8 +1751,10 @@
 				09F0442C1918A8810028DD14 /* mALoopCountPicker.xib in Resources */,
 				4D3D4C921A5E37DB00B6A06B /* dsym_upload.sh in Resources */,
 				093E267A14A14E91008694BC /* remove.png in Resources */,
+				096310BD1C86F55D00A36F8F /* Images.xcassets in Resources */,
 				09F09E4118E2DAEA0050D963 /* mAPlayerViewController.xib in Resources */,
 				096D81061B40C1F800F9B9CA /* mAMasterViewController.xib in Resources */,
+				096310BF1C86F71600A36F8F /* Launch2.png in Resources */,
 				093E267B14A14E91008694BC /* add.png in Resources */,
 				09F09E4618E36DBC0050D963 /* mAScriptPlayer.xib in Resources */,
 				09F09E3C18E2C5E60050D963 /* mAEditorViewController.xib in Resources */,
@@ -1761,6 +1768,7 @@
 				09664B9019905ABC00AE0B6B /* mAConnectViewController.xib in Resources */,
 				0934BE44190D038B0084D10E /* sequence.png in Resources */,
 				09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */,
+				096310BC1C86F35900A36F8F /* mALaunchView.xib in Resources */,
 				09307E2418DFF892004AB346 /* error.png in Resources */,
 				09087C6B14A4F67100AD2633 /* UIRemoveControlMinus.png in Resources */,
 				09094DC519919E41009F4C4C /* mAActivityViewController.xib in Resources */,
