@@ -25,5 +25,6 @@
 #define NSLogFun() NSLog((@"%s [Line %d] "), __PRETTY_FUNCTION__, __LINE__)
 #define NSLogFun(fmt, ...) NSLog((@"%s: " fmt), __PRETTY_FUNCTION__, ##__VA_ARGS__)
 
+#define BETA 1
 
 #endif

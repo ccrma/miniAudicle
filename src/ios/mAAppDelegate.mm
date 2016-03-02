@@ -108,6 +108,34 @@ static mAAppDelegate *g_appDelegate = nil;
     // for testing Crittercism crash logging; do NOT commit this uncommented
     // [[NSArray arrayWithObject:@6] objectAtIndex:9];
     
+    if([mAAnalytics needsOptOutSelection])
+    {
+#if BETA
+        NSString *analyticsTitle = @"Anonymous Usage Information";
+        NSString *analyticsMessage = @"Thank you for trying this beta version of miniAudicle for iPad!\n\n"
+        @"To best understand how people use miniAudicle for iPad and to help improve future versions, "
+        @"this app collects anonymized information about your usage of the app and shares it with the developers of the app. "
+        @"The information cannot be used to identify you and does not include filenames or code text.\n\n"
+        @"Given the app's beta status, your continued use of this app is taken as consent to collect this information. "
+        @"Please contact the app's developers if you have any questions or concerns!";
+#else
+        NSString *analyticsTitle = @"Help Improve miniAudicle for iPad";
+        NSString *analyticsMessage = @"Thank you for using miniAudicle for iPad!\n\n";
+#endif
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:analyticsTitle
+                                                                       message:analyticsMessage
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action) {
+                                                    [mAAnalytics setOptOut:NO];
+                                                    [[mAAnalytics instance] appLaunch];
+                                                }]];
+        [self.window.rootViewController presentViewController:alert
+                                                     animated:YES
+                                                   completion:^{ }];
+    }
+    
     [[mAAnalytics instance] appLaunch];
     
     return YES;

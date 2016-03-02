@@ -11,8 +11,8 @@
 @interface mAAnalytics : NSObject
 
 + (instancetype)instance;
-
-- (id)init;
++ (BOOL)needsOptOutSelection;
++ (void)setOptOut:(BOOL)optOut;
 
 // general
 - (void)appLaunch;

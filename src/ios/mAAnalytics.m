@@ -10,6 +10,9 @@
 #import "GAI.h"
 #import "GAIDictionaryBuilder.h"
 
+//static NSString * const mAAnalyticsNeedsOptOutSelection = @"mAAnalyticsNeedsOptOutSelection";
+static NSString * const mAAnalyticsOptOut = @"mAAnalyticsOptOut";
+
 @interface mAAnalytics ()
 {
     BOOL _lastActionWasEdit;
@@ -24,14 +27,38 @@
 + (instancetype)instance
 {
     static mAAnalytics *_instance = nil;
+    
     @synchronized(self)
     {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        // return nil of opt-out has not been set one way or another
+        if([userDefaults objectForKey:mAAnalyticsOptOut] == nil)
+            return nil;
+        // return nil if opt-out has been set to true
+        if([userDefaults boolForKey:mAAnalyticsOptOut])
+            return nil;
+        
         if(_instance == nil)
-        {
             _instance = [mAAnalytics new];
-        }
     }
+    
     return _instance;
+}
+
++ (BOOL)needsOptOutSelection
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if([userDefaults objectForKey:mAAnalyticsOptOut] == nil)
+        return YES;
+    else
+        return NO;
+}
+
++ (void)setOptOut:(BOOL)optOut
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:optOut forKey:mAAnalyticsOptOut];
+    [userDefaults synchronize];
 }
 
 - (id)init
