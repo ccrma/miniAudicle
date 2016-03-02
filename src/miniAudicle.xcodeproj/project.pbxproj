@@ -2312,6 +2312,7 @@
 					"-lz",
 					"-lsqlite3",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.ccrma.miniAudicle;
 				PRODUCT_NAME = miniAudicle;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -2362,6 +2363,7 @@
 					"-lz",
 					"-lsqlite3",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.ccrma.miniAudicle;
 				PRODUCT_NAME = miniAudicle;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
