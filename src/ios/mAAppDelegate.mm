@@ -71,6 +71,9 @@ static mAAppDelegate *g_appDelegate = nil;
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    // for now: analytics by default
+    [mAAnalytics setOptOut:NO];
+    
     if([mAAnalytics needsOptOutSelection])
     {
         self.window.rootViewController = [[UIViewController alloc] initWithNibName:@"LaunchView" bundle:nil];
