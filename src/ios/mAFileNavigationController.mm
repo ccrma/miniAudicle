@@ -10,6 +10,7 @@
 #import "mADocumentManager.h"
 #import "mAFileViewController.h"
 #import "mADocumentManager.h"
+#import "mAAnalytics.h"
 
 
 @interface mAFileNavigationController ()
@@ -87,12 +88,15 @@
     switch([segmentedControl selectedSegmentIndex])
     {
         case 0:
+            [[mAAnalytics instance] myScripts];
             [self.childNavigationController setViewControllers:@[self.myScriptsViewController] animated:NO];
             break;
         case 1:
+            [[mAAnalytics instance] recentScripts];
             [self.childNavigationController setViewControllers:@[self.recentViewController] animated:NO];
             break;
         case 2:
+            [[mAAnalytics instance] exampleScripts];
             [self.childNavigationController setViewControllers:@[self.examplesViewController] animated:NO];
             break;
         default: ; // uhh

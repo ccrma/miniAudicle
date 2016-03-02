@@ -111,6 +111,66 @@
                                                                 value:@1] build]];
 }
 
+- (void)myScripts
+{
+    _lastActionWasEdit = NO;
+    
+    [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"General"
+                                                               action:@"MyScripts"
+                                                                label:@""
+                                                                value:@1] build]];
+}
+
+- (void)recentScripts
+{
+    _lastActionWasEdit = NO;
+    
+    [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"General"
+                                                               action:@"RecentScripts"
+                                                                label:@""
+                                                                value:@1] build]];
+}
+
+- (void)exampleScripts
+{
+    _lastActionWasEdit = NO;
+    
+    [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"General"
+                                                               action:@"ExampleScripts"
+                                                                label:@""
+                                                                value:@1] build]];
+}
+
+- (void)createNewScript
+{
+    _lastActionWasEdit = NO;
+    
+    [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"General"
+                                                               action:@"NewScript"
+                                                                label:@""
+                                                                value:@1] build]];
+}
+
+- (void)editScriptList
+{
+    _lastActionWasEdit = NO;
+    
+    [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"General"
+                                                               action:@"EditScriptList"
+                                                                label:@""
+                                                                value:@1] build]];
+}
+
+- (void)deleteFromScriptList:(NSString *)file
+{
+    _lastActionWasEdit = NO;
+    
+    [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"General"
+                                                               action:@"DeleteFromScriptList"
+                                                                label:file
+                                                                value:@1] build]];
+}
+
 
 - (void)editAddButton:(NSString *)file
 {
@@ -142,7 +202,7 @@
                                                                 value:@1] build]];
 }
 
-- (void)editEditAction:(NSString *)file
+- (void)editEditScript:(NSString *)file
 {
     // only record start of editing
     if(_lastActionWasEdit) return;
@@ -150,13 +210,33 @@
     _lastActionWasEdit = YES;
     
     [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"EditMode"
-                                                               action:@"Edit"
+                                                               action:@"EditScript"
+                                                                label:file
+                                                                value:@1] build]];
+}
+
+- (void)editTitleButton:(NSString *)file
+{
+    _lastActionWasEdit = NO;
+    
+    [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"EditMode"
+                                                               action:@"Title"
                                                                 label:file
                                                                 value:@1] build]];
 }
 
 
 - (void)playAddButton:(NSString *)file
+{
+    _lastActionWasEdit = NO;
+    
+    [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"PlayMode"
+                                                               action:@"AddShred"
+                                                                label:file
+                                                                value:@1] build]];
+}
+
+- (void)playAddScript:(NSString *)file
 {
     _lastActionWasEdit = NO;
     
@@ -182,6 +262,26 @@
     
     [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"PlayMode"
                                                                action:@"RemoveShred"
+                                                                label:file
+                                                                value:@1] build]];
+}
+
+- (void)playEditButton:(NSString *)file
+{
+    _lastActionWasEdit = NO;
+    
+    [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"PlayMode"
+                                                               action:@"EditScript"
+                                                                label:file
+                                                                value:@1] build]];
+}
+
+- (void)playDeleteButton:(NSString *)file
+{
+    _lastActionWasEdit = NO;
+    
+    [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"PlayMode"
+                                                               action:@"DeletePlayer"
                                                                 label:file
                                                                 value:@1] build]];
 }

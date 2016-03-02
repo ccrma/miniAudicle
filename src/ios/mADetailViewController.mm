@@ -35,6 +35,7 @@
 #import "mATextView.h"
 #import "mADetailItem.h"
 #import "mADocumentManager.h"
+#import "mAAnalytics.h"
 
 
 /*
@@ -248,6 +249,8 @@
 
 - (IBAction)showVMMonitor:(id)sender
 {
+    [[mAAnalytics instance] shredsButton];
+
     if(self.vmMonitorPopover == nil)
     {
         self.vmMonitorPopover = [[UIPopoverController alloc] initWithContentViewController:self.vmMonitor];
@@ -272,6 +275,8 @@
 
 - (IBAction)showConsoleMonitor:(id)sender
 {
+    [[mAAnalytics instance] consoleButton];
+
     _consoleMonitorButton.title = @"Console";
 
     if(self.consoleMonitorPopover == nil)
@@ -307,6 +312,8 @@
 
 - (IBAction)playMode:(id)sender
 {
+    [[mAAnalytics instance] playButton];
+    
     // force load
     (void) self.view;
     
@@ -327,6 +334,8 @@
 
 - (IBAction)editMode:(id)sender
 {
+    [[mAAnalytics instance] editButton];
+
     // force load
     (void) self.view;
     

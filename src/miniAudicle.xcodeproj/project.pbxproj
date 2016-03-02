@@ -162,6 +162,7 @@
 		0962902F1731CCD1007CADBA /* record.ck in Resources */ = {isa = PBXBuildFile; fileRef = 0962902D1731CCD1007CADBA /* record.ck */; };
 		096290301731CCD1007CADBA /* recordvu.ck in Resources */ = {isa = PBXBuildFile; fileRef = 0962902E1731CCD1007CADBA /* recordvu.ck */; };
 		0962903317323065007CADBA /* NSString+STLString.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0962903217323065007CADBA /* NSString+STLString.mm */; };
+		096310BA1C86B96300A36F8F /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 096310B91C86B96300A36F8F /* NSString+Hash.m */; };
 		0964A38E172F8DC800043ABA /* record.png in Resources */ = {isa = PBXBuildFile; fileRef = 0964A38C172F8DC800043ABA /* record.png */; };
 		0964A38F172F8DC800043ABA /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 0964A38D172F8DC800043ABA /* stop.png */; };
 		0964A395172F8FD800043ABA /* mARecordSessionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0964A394172F8FD800043ABA /* mARecordSessionController.mm */; };
@@ -538,6 +539,8 @@
 		0962902E1731CCD1007CADBA /* recordvu.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = recordvu.ck; sourceTree = "<group>"; };
 		0962903117323065007CADBA /* NSString+STLString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+STLString.h"; path = "macosx/NSString+STLString.h"; sourceTree = "<group>"; };
 		0962903217323065007CADBA /* NSString+STLString.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "NSString+STLString.mm"; path = "macosx/NSString+STLString.mm"; sourceTree = "<group>"; };
+		096310B81C86B96300A36F8F /* NSString+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
+		096310B91C86B96300A36F8F /* NSString+Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hash.m"; sourceTree = "<group>"; };
 		0964A38C172F8DC800043ABA /* record.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = record.png; path = macosx/icon/record.png; sourceTree = "<group>"; };
 		0964A38D172F8DC800043ABA /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stop.png; path = macosx/icon/stop.png; sourceTree = "<group>"; };
 		0964A393172F8FD800043ABA /* mARecordSessionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mARecordSessionController.h; path = macosx/mARecordSessionController.h; sourceTree = "<group>"; };
@@ -1440,6 +1443,8 @@
 				09094DCD19940E7B009F4C4C /* NSMutableArray+MapFilterReduce.m */,
 				09A14A1019B9AD5E00D28255 /* UIColor+iOS7BlueColor.h */,
 				09A14A1119B9AD5E00D28255 /* UIColor+iOS7BlueColor.m */,
+				096310B81C86B96300A36F8F /* NSString+Hash.h */,
+				096310B91C86B96300A36F8F /* NSString+Hash.m */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -1924,6 +1929,7 @@
 				093E265814A12234008694BC /* midiio_rtmidi.cpp in Sources */,
 				093E265914A12234008694BC /* ugen_filter.cpp in Sources */,
 				093E265A14A12234008694BC /* ugen_osc.cpp in Sources */,
+				096310BA1C86B96300A36F8F /* NSString+Hash.m in Sources */,
 				09F09E4018E2DAEA0050D963 /* mAPlayerViewController.mm in Sources */,
 				093E265B14A12234008694BC /* ugen_stk.cpp in Sources */,
 				099ABE52190CCA2D00C5D52D /* mAOTFButton.m in Sources */,

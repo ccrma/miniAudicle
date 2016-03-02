@@ -11,6 +11,7 @@
 #import "miniAudicle.h"
 #import "mANetworkAction.h"
 #import "mANetworkManager.h"
+#import "NSString+Hash.h"
 
 NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChangedNotification";
 
@@ -35,12 +36,27 @@ NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChang
 
 @end
 
+@interface mADetailItem ()
+
+- (NSString *)generateUUID;
+
+@end
+
 
 @implementation mADetailItem
+
+- (NSString *)uuid
+{
+    if(_uuid == nil)
+        _uuid = [self generateUUID];
+    return _uuid;
+}
 
 - (void)setTitle:(NSString *)title
 {
     _title = title;
+    self.uuid = [self generateUUID];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:mADetailItemTitleChangedNotification object:self];
 }
 
@@ -52,6 +68,7 @@ NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChang
     detailItem.path = path;
     detailItem.title = [[path lastPathComponent] stringByDeletingPathExtension];
     detailItem.isUser = isUser;
+    NSLog(@"uuid: %@", detailItem.uuid);
     
     if([fileManager isDirectory:path])
     {
@@ -164,6 +181,14 @@ NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChang
     [dictionary setObject:self.text forKey:@"text"];
     
     return [NSDictionary dictionaryWithDictionary:dictionary];
+}
+
+- (NSString *)generateUUID
+{
+    return [[[NSString stringWithFormat:@"%@:%@",
+              self.title,
+              [UIDevice currentDevice].identifierForVendor]
+             sha1] base64EncodedStringWithOptions:0];
 }
 
 @end

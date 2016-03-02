@@ -20,6 +20,7 @@
 #import "mANetworkManager.h"
 #import "mANetworkAction.h"
 #import "mAPlayerContainerView.h"
+#import "mAAnalytics.h"
 
 #import <map>
 #import <list>
@@ -188,6 +189,8 @@ struct LoopShred
 - (IBAction)addShred:(id)sender
 {
     if(self.detailItem == nil) return;
+    
+    [[mAAnalytics instance] playAddButton:self.detailItem.uuid];
     
     // save script if necessary
     if(self.detailItem == self.playerViewController.editor.detailItem)
@@ -458,6 +461,8 @@ struct LoopShred
 {
     if(self.detailItem == nil) return;
     
+    [[mAAnalytics instance] playReplaceButton:self.detailItem.uuid];
+
     // save script if necessary
     if(self.detailItem == self.playerViewController.editor.detailItem)
        [self.playerViewController.editor saveScript];
@@ -540,6 +545,8 @@ struct LoopShred
 {
     if(self.detailItem == nil) return;
     
+    [[mAAnalytics instance] playRemoveButton:self.detailItem.uuid];
+    
     if(!self.detailItem.remote && [[mANetworkManager instance] isConnected])
     {
         mANARemoveShred *removeShred = [mANARemoveShred new];
@@ -566,11 +573,15 @@ struct LoopShred
 
 - (IBAction)edit:(id)sender
 {
+    [[mAAnalytics instance] playEditButton:self.detailItem.uuid];
+
     [self.playerViewController showEditorForScriptPlayer:self];
 }
 
 - (IBAction)deletePlayer:(id)sender;
 {
+    [[mAAnalytics instance] playDeleteButton:self.detailItem.uuid];
+
     [self hideDeleteButton];
     [self.playerViewController deleteScriptPlayer:self];
 }

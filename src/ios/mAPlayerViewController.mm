@@ -17,6 +17,7 @@
 #import "mAConnectViewController.h"
 #import "mAActivityViewController.h"
 #import "mANetworkRoomView.h"
+#import "mAAnalytics.h"
 
 
 @interface mAPlayerViewController ()
@@ -117,6 +118,8 @@
 
 - (void)addScript:(mADetailItem *)script
 {
+    [[mAAnalytics instance] playAddScript:script.uuid];
+    
     mAScriptPlayer *player = [[mAScriptPlayer alloc] initWithNibName:@"mAScriptPlayer" bundle:nil];
     
     player.detailItem = script;

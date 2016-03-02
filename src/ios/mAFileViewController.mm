@@ -31,6 +31,7 @@
 #import "miniAudicle.h"
 #import "mADetailItem.h"
 #import "mADocumentManager.h"
+#import "mAAnalytics.h"
 
 
 @interface mAFileViewController ()
@@ -156,6 +157,8 @@
 //    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:insertIndex inSection:0]
 //                                animated:YES
 //                          scrollPosition:UITableViewScrollPositionNone];
+    [[mAAnalytics instance] createNewScript];
+
     mADocumentManager *manager = [mADocumentManager manager];
     [self.detailViewController editItem:[manager newScript]];
 }
@@ -163,6 +166,8 @@
 
 - (IBAction)editScripts
 {
+    [[mAAnalytics instance] editScriptList];
+
     if(self.tableView.isEditing)
     {
         [self.tableView setEditing:NO animated:YES];
@@ -353,6 +358,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     if(editingStyle == UITableViewCellEditingStyleDelete)
     {
         mADetailItem *item = [self.scripts objectAtIndex:[indexPath row]];
+        
+        [[mAAnalytics instance] deleteFromScriptList:item.uuid];
+        
         [[mADocumentManager manager] deleteScript:item];
         [self.scripts removeObjectAtIndex:[indexPath row]];
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]

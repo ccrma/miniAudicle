@@ -18,6 +18,7 @@
 #import "NSString+STLString.h"
 #import "mAAutocomplete.h"
 #import "mATextCompletionView.h"
+#import "mAAnalytics.h"
 
 
 @interface NSString (CharacterEnumeration)
@@ -243,6 +244,8 @@
 {
     if(self.detailItem == nil) return;
     
+    [[mAAnalytics instance] editAddButton:self.detailItem.uuid];
+    
     std::string code = [self.textView.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
     std::string filepath;
@@ -304,6 +307,8 @@
 {
     if(self.detailItem == nil) return;
     
+    [[mAAnalytics instance] editReplaceButton:self.detailItem.uuid];
+
     std::string code = [self.textView.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
     std::string filepath;
@@ -358,6 +363,8 @@
 {
     if(self.detailItem == nil) return;
     
+    [[mAAnalytics instance] editRemoveButton:self.detailItem.uuid];
+
     t_CKUINT shred_id;
     std::string output;
     
@@ -386,6 +393,8 @@
 
 - (IBAction)editTitle:(id)sender
 {
+    [[mAAnalytics instance] editTitleButton:self.detailItem.uuid];
+    
     if(self.popover == nil)
     {
         self.popover = [[UIPopoverController alloc] initWithContentViewController:self.titleEditor];
@@ -825,6 +834,11 @@
         return NO;
     
     return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    [[mAAnalytics instance] editEditScript:self.detailItem.uuid];
 }
 
 

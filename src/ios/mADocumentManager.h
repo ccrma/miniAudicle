@@ -18,7 +18,7 @@ extern NSString * const mADocumentManagerRecentFilesChanged;
 @property (readonly) NSArray *userScripts;
 @property (readonly) NSArray *exampleScripts;
 
-+ (id)manager;
++ (instancetype)manager;
 
 - (void)saveScripts;
 - (void)renameScript:(mADetailItem *)item to:(NSString *)title;
