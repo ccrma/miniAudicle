@@ -36,7 +36,8 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 }
 
 @property (strong, nonatomic) id<NSObject, NSCopying, NSCoding> ubiquityIdentityToken;
-@property (copy, nonatomic) NSURL *baseDocumentPath;
+@property (copy, nonatomic) NSURL *iCloudDocumentPath;
+@property (copy, nonatomic) NSURL *localDocumentPath;
 
 - (NSMutableArray *)loadScripts;
 - (NSMutableArray *)loadExamples;
@@ -59,15 +60,13 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 {
     if(self = [super init])
     {
+        self.localDocumentPath = [NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
+        
         self.ubiquityIdentityToken = [[NSFileManager defaultManager] ubiquityIdentityToken];
         
         if(self.ubiquityIdentityToken)
         {
-            self.baseDocumentPath = [[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil] URLByAppendingPathComponent:@"Documents"];
-        }
-        else
-        {
-            self.baseDocumentPath = [NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
+            self.iCloudDocumentPath = [[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil] URLByAppendingPathComponent:@"Documents"];
         }
         
         _untitledNum = 1;
@@ -144,7 +143,32 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
         _userScripts = [NSMutableArray array];
         
         NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSString *path = [self.baseDocumentPath path];
+        
+        if(self.iCloudDocumentPath)
+        {
+            NSString *path = [self.iCloudDocumentPath path];
+            for(NSString *subpath in [fileManager contentsOfDirectoryAtPath:path error:NULL])
+            {
+                NSString *fullPath = [path stringByAppendingPathComponent:subpath];
+                mADetailItem *item = [mADetailItem detailItemFromPath:fullPath isUser:YES];
+                [_userScripts addObject:item];
+                
+                if([_recentFilesPaths containsObject:[fullPath stripDocumentPath]])
+                    [_recentFiles addObject:item];
+                
+                // use greatest Untitled N number +1 for next Untitled number
+                NSScanner *titleScanner = [NSScanner scannerWithString:[item title]];
+                int num = 0;
+                if([titleScanner scanString:@"Untitled " intoString:NULL] &&
+                   [titleScanner scanInt:&num])
+                {
+                    if(num >= _untitledNum)
+                        _untitledNum = num+1;
+                }
+            }
+        }
+        
+        NSString *path = [self.localDocumentPath path];
         for(NSString *subpath in [fileManager contentsOfDirectoryAtPath:path error:NULL])
         {
             NSString *fullPath = [path stringByAppendingPathComponent:subpath];
@@ -164,6 +188,12 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
                     _untitledNum = num+1;
             }
         }
+        
+        [_userScripts sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            mADetailItem *item1 = obj1;
+            mADetailItem *item2 = obj2;
+            return [item1.title compare:item2.title];
+        }];
     }
     
     return _userScripts;
@@ -193,7 +223,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     
     detailItem.isUser = YES;
     detailItem.title = title;
-    detailItem.path = [[[self.baseDocumentPath URLByAppendingPathComponent:detailItem.title] URLByAppendingPathExtension:@"ck"] path];
+    detailItem.path = [[[self.iCloudDocumentPath URLByAppendingPathComponent:detailItem.title] URLByAppendingPathExtension:@"ck"] path];
     detailItem.text = @"";
     
     return detailItem;
@@ -207,7 +237,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     
     detailItem.isUser = YES;
     detailItem.title = title;
-    detailItem.path = [[[self.baseDocumentPath URLByAppendingPathComponent:detailItem.title] URLByAppendingPathExtension:@"ck"] path];
+    detailItem.path = [[[self.iCloudDocumentPath URLByAppendingPathComponent:detailItem.title] URLByAppendingPathExtension:@"ck"] path];
     detailItem.text = @"";
     
     [_userScripts addObject:detailItem];

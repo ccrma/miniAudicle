@@ -68,7 +68,7 @@ NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChang
     detailItem.path = path;
     detailItem.title = [[path lastPathComponent] stringByDeletingPathExtension];
     detailItem.isUser = isUser;
-    NSLog(@"uuid: %@", detailItem.uuid);
+    NSLog(@"document uuid: %@", detailItem.uuid);
     
     if([fileManager isDirectory:path])
     {
