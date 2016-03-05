@@ -8,11 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
+#define mAAnalyticsLogError(err) \
+do { \
+   [[mAAnalytics instance] logError:err function:__PRETTY_FUNCTION__ line:__LINE__]; \
+} while(0)
+
 @interface mAAnalytics : NSObject
 
 + (instancetype)instance;
 + (BOOL)needsOptOutSelection;
 + (void)setOptOut:(BOOL)optOut;
+
+- (void)logError:(NSError *)error
+        function:(const char *)func
+            line:(int)line;
 
 // screens
 - (void)editorScreen;

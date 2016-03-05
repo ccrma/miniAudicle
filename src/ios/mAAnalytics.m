@@ -78,7 +78,7 @@ static NSString * const mAAnalyticsOptOut = @"mAAnalyticsOptOut";
 #if !DEBUG
         gai.trackUncaughtExceptions = YES;
 #endif
-//        gai.logger.logLevel = kGAILogLevelVerbose;  // remove before app release
+        gai.logger.logLevel = kGAILogLevelVerbose;  // remove before app release
         
         _lastActionWasEdit = NO;
     }
@@ -89,6 +89,16 @@ static NSString * const mAAnalyticsOptOut = @"mAAnalyticsOptOut";
 - (id<GAITracker>)tracker
 {
     return [GAI sharedInstance].defaultTracker;
+}
+
+- (void)logError:(NSError *)error
+        function:(const char *)func
+            line:(int)line;
+{
+    NSString *errorDescription = [NSString stringWithFormat:@"Received error on %s:%i: %@", func, line, error];
+    NSLog(@"%@", errorDescription);
+    [self.tracker send:[[GAIDictionaryBuilder createExceptionWithDescription:errorDescription
+                                                                   withFatal:@NO] build]];
 }
 
 - (void)editorScreen

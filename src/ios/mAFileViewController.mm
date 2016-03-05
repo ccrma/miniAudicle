@@ -24,6 +24,8 @@
 
 #import "mAFileViewController.h"
 
+#import <AVFoundation/AVFoundation.h>
+
 #import "mADetailViewController.h"
 #import "mAEditorViewController.h"
 #import "mAPlayerViewController.h"
@@ -34,10 +36,175 @@
 #import "mAAnalytics.h"
 
 
+@interface mAAudioFileTableViewCell : UITableViewCell<AVAudioPlayerDelegate>
+{
+    IBOutlet UIProgressView *_playbackProgress;
+    IBOutlet UILabel *_playbackTimeLabel;
+    IBOutlet UIButton *_playButton;
+    
+    BOOL _active;
+}
+
+@property (strong, nonatomic) AVAudioPlayer *audioPlayer;
+@property (strong, nonatomic) NSTimer *timer;
+
+- (void)playDetailItem:(mADetailItem *)item;
+
+- (void)loadFile:(NSString *)path;
+- (void)play;
+- (void)stop;
+
+- (void)activate;
+- (void)deactivate;
+- (void)updatePlaybackTime:(NSTimeInterval)playbackTime;
+- (void)updatePlaybackPercent:(float)playbackPct;
+
+- (IBAction)togglePlay:(id)sender;
+
+@end
+
+
+@implementation mAAudioFileTableViewCell
+
+- (void)awakeFromNib
+{
+    _active = NO;
+    _playbackProgress.alpha = 0;
+    _playbackTimeLabel.alpha = 0;
+    _playButton.alpha = 0;
+    
+    [_playButton setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+}
+
+- (void)playDetailItem:(mADetailItem *)item
+{
+    [self loadFile:item.path];
+    [self play];
+}
+
+- (void)loadFile:(NSString *)path
+{
+    NSURL *url = [NSURL fileURLWithPath:path];
+    NSError *error = NULL;
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url
+                                                              error:&error];
+    if(error != NULL)
+        mAAnalyticsLogError(error);
+    
+    self.audioPlayer.delegate = self;
+}
+
+- (void)play
+{
+    self.audioPlayer.currentTime = 0;
+    [self.audioPlayer play];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.011
+                                                  target:[NSBlockOperation blockOperationWithBlock:^{
+        [self updatePlaybackTime:self.audioPlayer.currentTime];
+        [self updatePlaybackPercent:self.audioPlayer.currentTime/self.audioPlayer.duration];
+    }]
+                                                selector:@selector(main)
+                                                userInfo:nil
+                                                 repeats:YES];
+    
+    [_playButton setImage:[UIImage imageNamed:@"stop"] forState:UIControlStateNormal];
+}
+
+- (void)stop
+{
+    [self.timer invalidate];
+    self.timer = nil;
+    [self.audioPlayer stop];
+    
+    [self updatePlaybackTime:0.0];
+    [self updatePlaybackPercent:0.0];
+    
+    [_playButton setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+}
+
+- (void)activate
+{
+    if(!_active)
+    {
+        _active = YES;
+        [UIView animateWithDuration:0.1
+                         animations:^{
+                             _playbackProgress.alpha = 1;
+                             _playbackTimeLabel.alpha = 1;
+                             _playButton.alpha = 1;
+                         }];
+    }
+}
+
+- (void)deactivate
+{
+    if(_active)
+    {
+        _active = NO;
+        [UIView animateWithDuration:0.1
+                         animations:^{
+                             _playbackProgress.alpha = 0;
+                             _playbackTimeLabel.alpha = 0;
+                             _playButton.alpha = 0;
+                         }];
+        
+        [self stop];
+        
+        self.audioPlayer = nil;
+    }
+}
+
+- (void)updatePlaybackTime:(NSTimeInterval)playbackTime
+{
+    int elapsedSecs = (int)floorf(playbackTime);
+    int hrs = elapsedSecs/3600;
+    int mins = (elapsedSecs%3600)/60;
+    int secs = (elapsedSecs%3600)%60;
+    int millis = ((int)floorf(playbackTime*1000.0f))%1000;
+    
+    if(hrs > 0)
+        _playbackTimeLabel.text = [NSString stringWithFormat:@"%i:%02i:%02i", hrs, mins, secs];
+    else
+        _playbackTimeLabel.text = [NSString stringWithFormat:@"%i:%02i.%03i", mins, secs, millis];
+}
+
+- (void)updatePlaybackPercent:(float)playbackPct
+{
+    _playbackProgress.progress = playbackPct;
+}
+
+- (IBAction)togglePlay:(id)sender
+{
+    if(self.audioPlayer)
+    {
+        if(self.audioPlayer.isPlaying)
+            [self stop];
+        else
+            [self play];
+    }
+}
+
+#pragma mark - AVAudioPlayerDelegate
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+    [self.timer invalidate];
+    self.timer = nil;
+    
+    [self updatePlaybackTime:self.audioPlayer.duration];
+    [self updatePlaybackPercent:1.0];
+    
+    [_playButton setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+}
+
+@end
+
+
 @interface mAFileViewController ()
 
 @property (strong, nonatomic) UITableView * tableView;
 @property (strong, nonatomic) UIBarButtonItem * editButton;
+@property (strong, nonatomic) NSIndexPath *activeAudioFilePath;
 
 - (void)detailItemTitleChanged:(NSNotification *)n;
 
@@ -80,11 +247,40 @@
     return self;
 }
 
+#pragma mark - UIViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"mAAudioFileTableViewCell"
+                                               bundle:NULL]
+         forCellReuseIdentifier:@"AudioFileCell"];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    } else {
+        return YES;
+    }
+}
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    if(self.activeAudioFilePath)
+    {
+        mAAudioFileTableViewCell *cell = (mAAudioFileTableViewCell *) [self.tableView cellForRowAtIndexPath:self.activeAudioFilePath];
+        [cell deactivate];
+    }
 }
 
 
@@ -183,52 +379,6 @@
 }
 
 
-#pragma mark - UIViewController
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-    } else {
-        return YES;
-    }
-}
-
-
 #pragma mark - UITableViewDelegate
 
 // Customize the number of sections in the table view.
@@ -248,17 +398,34 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
-    }
+    static NSString *AudioFileCellIdentifier = @"AudioFileCell";
     
     int index = indexPath.row;
     mADetailItem *detailItem = [self.scripts objectAtIndex:index];
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if(detailItem.type == DETAILITEM_AUDIO_FILE)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:AudioFileCellIdentifier];
+        if(!cell)
+        {
+            // uh
+            assert(0);
+        }
+    }
+    else
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+        }
+    }
+    
 
     // Configure the cell.
     cell.textLabel.text = detailItem.title;
@@ -326,6 +493,24 @@
         {
             [self.detailViewController showDetailItem:detailItem];
         }
+        else if(detailItem.type == DETAILITEM_AUDIO_FILE)
+        {
+            mAAudioFileTableViewCell *activeCell = (mAAudioFileTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
+            mAAudioFileTableViewCell *oldCell = nil;
+            
+            if(self.activeAudioFilePath)
+                oldCell = (mAAudioFileTableViewCell *) [self.tableView cellForRowAtIndexPath:self.activeAudioFilePath];
+            
+            if(oldCell != activeCell)
+            {
+                [oldCell deactivate];
+                [activeCell activate];
+            }
+            
+            [activeCell playDetailItem:detailItem];
+            
+            self.activeAudioFilePath = indexPath;
+        }
         else if(detailItem.type == DETAILITEM_DIRECTORY)
         {
             mAFileViewController *master = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
@@ -368,5 +553,5 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     }
 }
 
-
 @end
+

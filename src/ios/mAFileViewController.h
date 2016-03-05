@@ -23,12 +23,13 @@
  -----------------------------------------------------------------------------*/
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @class mADetailViewController;
 @class mAEditorViewController;
 @class mAPlayerViewController;
 
-@interface mAFileViewController : UIViewController
+@interface mAFileViewController : UIViewController<AVAudioPlayerDelegate>
 {
     IBOutlet UITableView * _tableView;
     IBOutlet UIBarButtonItem * _editButton;

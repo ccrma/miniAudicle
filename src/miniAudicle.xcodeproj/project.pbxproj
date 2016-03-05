@@ -180,6 +180,8 @@
 		09735F441C870B2D003965CA /* ck-doc320.png in Resources */ = {isa = PBXBuildFile; fileRef = 09735F421C870B2D003965CA /* ck-doc320.png */; };
 		09735F491C8A5BBC003965CA /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 09735F471C8A5BBC003965CA /* play.png */; };
 		09735F4A1C8A5BBC003965CA /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 09735F481C8A5BBC003965CA /* stop.png */; };
+		09735F6F1C8A9407003965CA /* mAAudioFileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09735F6E1C8A9407003965CA /* mAAudioFileTableViewCell.xib */; };
+		09735F711C8AEE87003965CA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09735F701C8AEE87003965CA /* AVFoundation.framework */; };
 		09805FFA0AA10D3800915136 /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
 		09805FFB0AA10D3900915136 /* chuck.y in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B360A9A54DA007604EA /* chuck.y */; };
 		09805FFC0AA10D3900915136 /* chuck_absyn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B060A9A54DA007604EA /* chuck_absyn.cpp */; };
@@ -570,6 +572,8 @@
 		09735F421C870B2D003965CA /* ck-doc320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ck-doc320.png"; sourceTree = "<group>"; };
 		09735F471C8A5BBC003965CA /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
 		09735F481C8A5BBC003965CA /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop.png; sourceTree = "<group>"; };
+		09735F6E1C8A9407003965CA /* mAAudioFileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAAudioFileTableViewCell.xib; sourceTree = "<group>"; };
+		09735F701C8AEE87003965CA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		09805FE70AA10D0C00915136 /* chuck */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = chuck; sourceTree = BUILT_PRODUCTS_DIR; };
 		098060400AA1596900915136 /* led01.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = led01.ck; path = ../test/led01.ck; sourceTree = SOURCE_ROOT; };
 		098060410AA1596900915136 /* mand-o-ui.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = "mand-o-ui.ck"; path = "../test/mand-o-ui.ck"; sourceTree = SOURCE_ROOT; };
@@ -869,6 +873,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09735F711C8AEE87003965CA /* AVFoundation.framework in Frameworks */,
 				09C7585A1C83C0E100B1324C /* CoreData.framework in Frameworks */,
 				4D3D4C981A5E3A4400B6A06B /* SystemConfiguration.framework in Frameworks */,
 				094B5F6919C9E1E8004B9B5E /* CoreMotion.framework in Frameworks */,
@@ -1485,6 +1490,7 @@
 				09AB222E196FC4670037AF73 /* mADocumentManager.m */,
 				093E262B14A108C8008694BC /* mAFileViewController~iphone.xib */,
 				093E262E14A108C8008694BC /* mAFileViewController~ipad.xib */,
+				09735F6E1C8A9407003965CA /* mAAudioFileTableViewCell.xib */,
 				093E262514A108C8008694BC /* mAFileViewController.h */,
 				093E262614A108C8008694BC /* mAFileViewController.mm */,
 				093E263114A108C8008694BC /* mADetailViewController~iphone.xib */,
@@ -1605,6 +1611,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				09735F701C8AEE87003965CA /* AVFoundation.framework */,
 				09C758581C83C0E100B1324C /* CoreData.framework */,
 				09C758591C83C0E100B1324C /* SystemConfiguration.framework */,
 				4D3D4C971A5E3A4400B6A06B /* SystemConfiguration.framework */,
@@ -1761,6 +1768,7 @@
 				093E263314A108C9008694BC /* mADetailViewController~iphone.xib in Resources */,
 				09735F441C870B2D003965CA /* ck-doc320.png in Resources */,
 				093E263614A108C9008694BC /* mADetailViewController~ipad.xib in Resources */,
+				09735F6F1C8A9407003965CA /* mAAudioFileTableViewCell.xib in Resources */,
 				09F09E5418E419960050D963 /* remove-noalpha.png in Resources */,
 				093E267914A14E91008694BC /* replace.png in Resources */,
 				09F0442C1918A8810028DD14 /* mALoopCountPicker.xib in Resources */,

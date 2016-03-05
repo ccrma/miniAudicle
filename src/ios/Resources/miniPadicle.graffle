@@ -28,7 +28,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2016-03-04 03:05:19 +0000</string>
+	<string>2016-03-05 07:46:00 +0000</string>
 	<key>Modifier</key>
 	<string>Spencer Salazar</string>
 	<key>NotesVisible</key>
@@ -984,6 +984,18 @@
 					<integer>1</integer>
 					<key>Style</key>
 					<dict>
+						<key>fill</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<real>1</real>
+								<key>g</key>
+								<real>0.50196081399917603</real>
+								<key>r</key>
+								<real>0.0</real>
+							</dict>
+						</dict>
 						<key>shadow</key>
 						<dict>
 							<key>Draws</key>
@@ -1024,9 +1036,9 @@
 								<key>b</key>
 								<real>1</real>
 								<key>g</key>
-								<real>1</real>
+								<real>0.50196081399917603</real>
 								<key>r</key>
-								<real>1</real>
+								<real>0.0</real>
 							</dict>
 							<key>Width</key>
 							<real>3</real>
@@ -1054,9 +1066,9 @@
 							<key>Color</key>
 							<dict>
 								<key>b</key>
-								<real>0.0</real>
+								<real>1</real>
 								<key>g</key>
-								<real>0.0</real>
+								<real>0.50196081399917603</real>
 								<key>r</key>
 								<real>0.0</real>
 							</dict>
@@ -1101,6 +1113,15 @@
 						</dict>
 						<key>stroke</key>
 						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<real>1</real>
+								<key>g</key>
+								<real>0.50196081399917603</real>
+								<key>r</key>
+								<real>0.0</real>
+							</dict>
 							<key>Width</key>
 							<real>3</real>
 						</dict>
@@ -1189,7 +1210,7 @@
 		<key>TopSlabHeight</key>
 		<real>250</real>
 		<key>VisibleRegion</key>
-		<string>{{-34, 143.5}, {644, 582}}</string>
+		<string>{{-26, 151}, {629, 582}}</string>
 		<key>Zoom</key>
 		<real>1</real>
 		<key>ZoomValues</key>
