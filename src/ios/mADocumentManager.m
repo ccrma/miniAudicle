@@ -133,6 +133,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
             detailItem.text = @"";
             detailItem.isFolder = YES;
             detailItem.folderItems = [NSMutableArray array];
+            detailItem.type = DETAILITEM_DIRECTORY;
             
             if(processor)
                 processor(detailItem);

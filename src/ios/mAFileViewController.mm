@@ -322,11 +322,11 @@
         int index = indexPath.row;
         mADetailItem *detailItem = [self.scripts objectAtIndex:index];
         
-        if(!detailItem.isFolder)
+        if(detailItem.type == DETAILITEM_CHUCK_SCRIPT)
         {
             [self.detailViewController showDetailItem:detailItem];
         }
-        else
+        else if(detailItem.type == DETAILITEM_DIRECTORY)
         {
             mAFileViewController *master = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
             

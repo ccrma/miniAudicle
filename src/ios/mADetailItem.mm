@@ -83,9 +83,9 @@ NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChang
     
     if(detailItem.type == DETAILITEM_DIRECTORY)
     {
+        detailItem.isFolder = YES;
         assert(0); // currently this code should be inactive
-//        detailItem.isFolder = YES;
-//        
+//
 //        NSMutableArray *items;
 //        for(NSString *subpath in [fileManager contentsOfDirectoryAtPath:path error:NULL])
 //        {
