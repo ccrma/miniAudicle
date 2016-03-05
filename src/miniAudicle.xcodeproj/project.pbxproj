@@ -178,6 +178,8 @@
 		096FAB870B56D56B00125FE2 /* mAConsoleMonitorView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 096FAB850B56D56B00125FE2 /* mAConsoleMonitorView.mm */; };
 		09735F431C870B2D003965CA /* ck-doc64.png in Resources */ = {isa = PBXBuildFile; fileRef = 09735F411C870B2D003965CA /* ck-doc64.png */; };
 		09735F441C870B2D003965CA /* ck-doc320.png in Resources */ = {isa = PBXBuildFile; fileRef = 09735F421C870B2D003965CA /* ck-doc320.png */; };
+		09735F491C8A5BBC003965CA /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 09735F471C8A5BBC003965CA /* play.png */; };
+		09735F4A1C8A5BBC003965CA /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 09735F481C8A5BBC003965CA /* stop.png */; };
 		09805FFA0AA10D3800915136 /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
 		09805FFB0AA10D3900915136 /* chuck.y in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B360A9A54DA007604EA /* chuck.y */; };
 		09805FFC0AA10D3900915136 /* chuck_absyn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B060A9A54DA007604EA /* chuck_absyn.cpp */; };
@@ -566,6 +568,8 @@
 		096FAB850B56D56B00125FE2 /* mAConsoleMonitorView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAConsoleMonitorView.mm; path = macosx/mAConsoleMonitorView.mm; sourceTree = SOURCE_ROOT; };
 		09735F411C870B2D003965CA /* ck-doc64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ck-doc64.png"; sourceTree = "<group>"; };
 		09735F421C870B2D003965CA /* ck-doc320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ck-doc320.png"; sourceTree = "<group>"; };
+		09735F471C8A5BBC003965CA /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
+		09735F481C8A5BBC003965CA /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop.png; sourceTree = "<group>"; };
 		09805FE70AA10D0C00915136 /* chuck */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = chuck; sourceTree = BUILT_PRODUCTS_DIR; };
 		098060400AA1596900915136 /* led01.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = led01.ck; path = ../test/led01.ck; sourceTree = SOURCE_ROOT; };
 		098060410AA1596900915136 /* mand-o-ui.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = "mand-o-ui.ck"; path = "../test/mand-o-ui.ck"; sourceTree = SOURCE_ROOT; };
@@ -970,6 +974,8 @@
 		09087C6914A4F63700AD2633 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				09735F471C8A5BBC003965CA /* play.png */,
+				09735F481C8A5BBC003965CA /* stop.png */,
 				09735F411C870B2D003965CA /* ck-doc64.png */,
 				09735F421C870B2D003965CA /* ck-doc320.png */,
 				096310BE1C86F71600A36F8F /* Launch2.png */,
@@ -1748,6 +1754,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				093E261E14A108C8008694BC /* InfoPlist.strings in Resources */,
+				09735F4A1C8A5BBC003965CA /* stop.png in Resources */,
 				093E262D14A108C8008694BC /* mAFileViewController~iphone.xib in Resources */,
 				093E263014A108C8008694BC /* mAFileViewController~ipad.xib in Resources */,
 				09EBA9B718D8FD4700DCAE0C /* examples in Resources */,
@@ -1758,6 +1765,7 @@
 				093E267914A14E91008694BC /* replace.png in Resources */,
 				09F0442C1918A8810028DD14 /* mALoopCountPicker.xib in Resources */,
 				4D3D4C921A5E37DB00B6A06B /* dsym_upload.sh in Resources */,
+				09735F491C8A5BBC003965CA /* play.png in Resources */,
 				093E267A14A14E91008694BC /* remove.png in Resources */,
 				096310BD1C86F55D00A36F8F /* Images.xcassets in Resources */,
 				091060D81C87064800858157 /* ck.icns in Resources */,
