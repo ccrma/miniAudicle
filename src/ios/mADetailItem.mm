@@ -68,27 +68,33 @@ NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChang
     detailItem.path = path;
     detailItem.title = [path lastPathComponent];
     detailItem.isUser = isUser;
+    
     NSString *extension = [detailItem.path pathExtension];
-    if([extension isEqualToString:@"ck"])
+    if([fileManager isDirectory:path])
+        detailItem.type = DETAILITEM_DIRECTORY;
+    else if([extension isEqualToString:@"ck"])
         detailItem.type = DETAILITEM_CHUCK_SCRIPT;
     else if([extension isEqualToString:@"wav"] || [extension isEqualToString:@"aif"] || [extension isEqualToString:@"aiff"])
         detailItem.type = DETAILITEM_AUDIO_FILE;
+    else
+        detailItem.type = DETAILITEM_UNDEFINED;
     
     NSLog(@"document uuid: %@", detailItem.uuid);
     
-    if([fileManager isDirectory:path])
+    if(detailItem.type == DETAILITEM_DIRECTORY)
     {
-        detailItem.isFolder = YES;
-        
-        NSMutableArray *items;
-        for(NSString *subpath in [fileManager contentsOfDirectoryAtPath:path error:NULL])
-        {
-            [items addObject:[mADetailItem detailItemFromPath:[path stringByAppendingPathComponent:subpath]
-                                                       isUser:isUser]];
-        }
-        detailItem.folderItems = items;
+        assert(0); // currently this code should be inactive
+//        detailItem.isFolder = YES;
+//        
+//        NSMutableArray *items;
+//        for(NSString *subpath in [fileManager contentsOfDirectoryAtPath:path error:NULL])
+//        {
+//            [items addObject:[mADetailItem detailItemFromPath:[path stringByAppendingPathComponent:subpath]
+//                                                       isUser:isUser]];
+//        }
+//        detailItem.folderItems = items;
     }
-    else
+    else if(detailItem.type == DETAILITEM_CHUCK_SCRIPT)
     {
         NSError *error;
         detailItem.isFolder = NO;
