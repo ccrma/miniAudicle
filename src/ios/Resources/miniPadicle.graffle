@@ -4,8 +4,8 @@
 <dict>
 	<key>ApplicationVersion</key>
 	<array>
-		<string>com.omnigroup.OmniGrafflePro</string>
-		<string>139.18.0.187838</string>
+		<string>com.omnigroup.OmniGraffle6</string>
+		<string>169.8.0.255486</string>
 	</array>
 	<key>CreationDate</key>
 	<string>2014-04-15 09:44:08 +0000</string>
@@ -14,7 +14,7 @@
 	<key>FileType</key>
 	<string>flat</string>
 	<key>GraphDocumentVersion</key>
-	<integer>8</integer>
+	<integer>12</integer>
 	<key>GuidesLocked</key>
 	<string>NO</string>
 	<key>GuidesVisible</key>
@@ -28,7 +28,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2014-04-27 09:58:15 +0000</string>
+	<string>2016-03-04 03:05:19 +0000</string>
 	<key>Modifier</key>
 	<string>Spencer Salazar</string>
 	<key>NotesVisible</key>
@@ -57,12 +57,12 @@
 		<key>NSPaperSize</key>
 		<array>
 			<string>size</string>
-			<string>{612.00000953674316, 792}</string>
+			<string>{611.99999046325684, 792}</string>
 		</array>
 		<key>NSPrintReverseOrientation</key>
 		<array>
-			<string>int</string>
-			<string>0</string>
+			<string>coded</string>
+			<string>BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU051bWJlcgCEhAdOU1ZhbHVlAISECE5TT2JqZWN0AIWEASqEhAFxlwCG</string>
 		</array>
 		<key>NSRightMargin</key>
 		<array>
@@ -87,18 +87,13 @@
 			<key>BackgroundGraphic</key>
 			<dict>
 				<key>Bounds</key>
-				<string>{{0, 0}, {576.00000953674316, 733}}</string>
+				<string>{{0, 0}, {575.99999046325684, 733}}</string>
 				<key>Class</key>
 				<string>SolidGraphic</string>
 				<key>ID</key>
 				<integer>2</integer>
 				<key>Style</key>
 				<dict>
-					<key>shadow</key>
-					<dict>
-						<key>Draws</key>
-						<string>NO</string>
-					</dict>
 					<key>stroke</key>
 					<dict>
 						<key>Draws</key>
@@ -115,7 +110,7 @@
 			<key>ColumnSpacing</key>
 			<real>36</real>
 			<key>DisplayScale</key>
-			<string>1 0/72 in = 1.0000 in</string>
+			<string>1 in = 1.00000 in</string>
 			<key>GraphicsList</key>
 			<array>
 				<dict>
@@ -134,13 +129,13 @@
 							<key>Color</key>
 							<dict>
 								<key>a</key>
-								<string>0.75</string>
+								<real>0.75</real>
 								<key>b</key>
-								<string>1</string>
+								<real>1</real>
 								<key>g</key>
-								<string>1</string>
+								<real>1</real>
 								<key>r</key>
-								<string>1</string>
+								<real>1</real>
 							</dict>
 							<key>FillType</key>
 							<integer>2</integer>
@@ -174,7 +169,7 @@
 					<key>Text</key>
 					<dict>
 						<key>VerticalPad</key>
-						<integer>0</integer>
+						<real>0.0</real>
 					</dict>
 				</dict>
 				<dict>
@@ -193,11 +188,11 @@
 							<key>Color</key>
 							<dict>
 								<key>b</key>
-								<string>0.0572131</string>
+								<real>0.057213100000000003</real>
 								<key>g</key>
-								<string>0.806361</string>
+								<real>0.80636099999999999</real>
 								<key>r</key>
-								<string>0.163205</string>
+								<real>0.16320499999999999</real>
 							</dict>
 							<key>MiddleFraction</key>
 							<real>0.2077752947807312</real>
@@ -220,7 +215,7 @@
 					<key>Text</key>
 					<dict>
 						<key>VerticalPad</key>
-						<integer>0</integer>
+						<real>0.0</real>
 					</dict>
 				</dict>
 				<dict>
@@ -264,11 +259,11 @@
 							<key>Color</key>
 							<dict>
 								<key>b</key>
-								<string>0.0588235</string>
+								<real>0.058823500000000001</real>
 								<key>g</key>
-								<string>0.803922</string>
+								<real>0.80392200000000003</real>
 								<key>r</key>
-								<string>0.156863</string>
+								<real>0.156863</real>
 							</dict>
 							<key>Width</key>
 							<real>64</real>
@@ -277,7 +272,7 @@
 					<key>Text</key>
 					<dict>
 						<key>VerticalPad</key>
-						<integer>0</integer>
+						<real>0.0</real>
 					</dict>
 				</dict>
 			</array>
@@ -310,6 +305,8 @@
 				<real>0.0</real>
 				<key>layoutEngine</key>
 				<string>dot</string>
+				<key>neatoLineLength</key>
+				<real>0.20000000298023224</real>
 				<key>neatoSeparation</key>
 				<real>0.0</real>
 				<key>twopiSeparation</key>
@@ -338,18 +335,13 @@
 			<key>BackgroundGraphic</key>
 			<dict>
 				<key>Bounds</key>
-				<string>{{0, 0}, {576.00000953674316, 733}}</string>
+				<string>{{0, 0}, {575.99999046325684, 733}}</string>
 				<key>Class</key>
 				<string>SolidGraphic</string>
 				<key>ID</key>
 				<integer>2</integer>
 				<key>Style</key>
 				<dict>
-					<key>shadow</key>
-					<dict>
-						<key>Draws</key>
-						<string>NO</string>
-					</dict>
 					<key>stroke</key>
 					<dict>
 						<key>Draws</key>
@@ -366,7 +358,7 @@
 			<key>ColumnSpacing</key>
 			<real>36</real>
 			<key>DisplayScale</key>
-			<string>1 0/72 in = 1.0000 in</string>
+			<string>1 in = 1.00000 in</string>
 			<key>GraphicsList</key>
 			<array>
 				<dict>
@@ -385,13 +377,13 @@
 							<key>Color</key>
 							<dict>
 								<key>a</key>
-								<string>0.75</string>
+								<real>0.75</real>
 								<key>b</key>
-								<string>1</string>
+								<real>1</real>
 								<key>g</key>
-								<string>1</string>
+								<real>1</real>
 								<key>r</key>
-								<string>1</string>
+								<real>1</real>
 							</dict>
 							<key>FillType</key>
 							<integer>2</integer>
@@ -423,7 +415,7 @@
 					<key>Text</key>
 					<dict>
 						<key>VerticalPad</key>
-						<integer>0</integer>
+						<real>0.0</real>
 					</dict>
 				</dict>
 				<dict>
@@ -449,8 +441,6 @@
 					</dict>
 					<key>ID</key>
 					<integer>29</integer>
-					<key>Shape</key>
-					<string>Rectangle</string>
 					<key>Style</key>
 					<dict>
 						<key>fill</key>
@@ -472,16 +462,16 @@
 					<key>Text</key>
 					<dict>
 						<key>Pad</key>
-						<integer>0</integer>
+						<real>0.0</real>
 						<key>Text</key>
-						<string>{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf400
-\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
 \f0\fs464 \cf0 4}</string>
 						<key>VerticalPad</key>
-						<integer>0</integer>
+						<real>0.0</real>
 					</dict>
 				</dict>
 				<dict>
@@ -500,11 +490,11 @@
 							<key>Color</key>
 							<dict>
 								<key>b</key>
-								<string>0.265567</string>
+								<real>0.265567</real>
 								<key>g</key>
-								<string>0.967197</string>
+								<real>0.96719699999999997</real>
 								<key>r</key>
-								<string>0.126745</string>
+								<real>0.126745</real>
 							</dict>
 						</dict>
 						<key>shadow</key>
@@ -525,7 +515,7 @@
 					<key>Text</key>
 					<dict>
 						<key>VerticalPad</key>
-						<integer>0</integer>
+						<real>0.0</real>
 					</dict>
 				</dict>
 				<dict>
@@ -567,11 +557,11 @@
 							<key>Color</key>
 							<dict>
 								<key>b</key>
-								<string>0.237778</string>
+								<real>0.23777799999999999</real>
 								<key>g</key>
-								<string>0.962492</string>
+								<real>0.96249200000000001</real>
 								<key>r</key>
-								<string>0.126186</string>
+								<real>0.12618599999999999</real>
 							</dict>
 							<key>Width</key>
 							<real>64</real>
@@ -580,7 +570,7 @@
 					<key>Text</key>
 					<dict>
 						<key>VerticalPad</key>
-						<integer>0</integer>
+						<real>0.0</real>
 					</dict>
 				</dict>
 			</array>
@@ -613,6 +603,8 @@
 				<real>0.0</real>
 				<key>layoutEngine</key>
 				<string>dot</string>
+				<key>neatoLineLength</key>
+				<real>0.20000000298023224</real>
 				<key>neatoSeparation</key>
 				<real>0.0</real>
 				<key>twopiSeparation</key>
@@ -641,18 +633,13 @@
 			<key>BackgroundGraphic</key>
 			<dict>
 				<key>Bounds</key>
-				<string>{{0, 0}, {576.00000953674316, 733}}</string>
+				<string>{{0, 0}, {575.99999046325684, 733}}</string>
 				<key>Class</key>
 				<string>SolidGraphic</string>
 				<key>ID</key>
 				<integer>2</integer>
 				<key>Style</key>
 				<dict>
-					<key>shadow</key>
-					<dict>
-						<key>Draws</key>
-						<string>NO</string>
-					</dict>
 					<key>stroke</key>
 					<dict>
 						<key>Draws</key>
@@ -669,7 +656,7 @@
 			<key>ColumnSpacing</key>
 			<real>36</real>
 			<key>DisplayScale</key>
-			<string>1 0/72 in = 1.0000 in</string>
+			<string>1 in = 1.00000 in</string>
 			<key>GraphicsList</key>
 			<array>
 				<dict>
@@ -688,13 +675,13 @@
 							<key>Color</key>
 							<dict>
 								<key>a</key>
-								<string>0.75</string>
+								<real>0.75</real>
 								<key>b</key>
-								<string>1</string>
+								<real>1</real>
 								<key>g</key>
-								<string>1</string>
+								<real>1</real>
 								<key>r</key>
-								<string>1</string>
+								<real>1</real>
 							</dict>
 							<key>FillType</key>
 							<integer>2</integer>
@@ -728,7 +715,7 @@
 					<key>Text</key>
 					<dict>
 						<key>VerticalPad</key>
-						<integer>0</integer>
+						<real>0.0</real>
 					</dict>
 				</dict>
 				<dict>
@@ -747,11 +734,11 @@
 							<key>Color</key>
 							<dict>
 								<key>b</key>
-								<string>1</string>
+								<real>1</real>
 								<key>g</key>
-								<string>0.058517</string>
+								<real>0.058517</real>
 								<key>r</key>
-								<string>0</string>
+								<real>0.0</real>
 							</dict>
 						</dict>
 						<key>shadow</key>
@@ -773,8 +760,6 @@
 					<string>ShapedGraphic</string>
 					<key>ID</key>
 					<integer>31</integer>
-					<key>Shape</key>
-					<string>Rectangle</string>
 					<key>Style</key>
 					<dict>
 						<key>fill</key>
@@ -782,11 +767,11 @@
 							<key>Color</key>
 							<dict>
 								<key>b</key>
-								<string>1</string>
+								<real>1</real>
 								<key>g</key>
-								<string>0.058517</string>
+								<real>0.058517</real>
 								<key>r</key>
-								<string>0</string>
+								<real>0.0</real>
 							</dict>
 						</dict>
 						<key>shadow</key>
@@ -817,11 +802,11 @@
 							<key>Color</key>
 							<dict>
 								<key>b</key>
-								<string>0.0572131</string>
+								<real>0.057213100000000003</real>
 								<key>g</key>
-								<string>0.806361</string>
+								<real>0.80636099999999999</real>
 								<key>r</key>
-								<string>0.163205</string>
+								<real>0.16320499999999999</real>
 							</dict>
 							<key>MiddleFraction</key>
 							<real>0.2077752947807312</real>
@@ -844,7 +829,7 @@
 					<key>Text</key>
 					<dict>
 						<key>VerticalPad</key>
-						<integer>0</integer>
+						<real>0.0</real>
 					</dict>
 				</dict>
 				<dict>
@@ -888,11 +873,11 @@
 							<key>Color</key>
 							<dict>
 								<key>b</key>
-								<string>0.0588235</string>
+								<real>0.058823500000000001</real>
 								<key>g</key>
-								<string>0.803922</string>
+								<real>0.80392200000000003</real>
 								<key>r</key>
-								<string>0.156863</string>
+								<real>0.156863</real>
 							</dict>
 							<key>Width</key>
 							<real>64</real>
@@ -901,7 +886,7 @@
 					<key>Text</key>
 					<dict>
 						<key>VerticalPad</key>
-						<integer>0</integer>
+						<real>0.0</real>
 					</dict>
 				</dict>
 			</array>
@@ -934,6 +919,8 @@
 				<real>0.0</real>
 				<key>layoutEngine</key>
 				<string>dot</string>
+				<key>neatoLineLength</key>
+				<real>0.20000000298023224</real>
 				<key>neatoSeparation</key>
 				<real>0.0</real>
 				<key>twopiSeparation</key>
@@ -954,6 +941,228 @@
 			<key>VPages</key>
 			<integer>1</integer>
 		</dict>
+		<dict>
+			<key>ActiveLayerIndex</key>
+			<integer>0</integer>
+			<key>AutoAdjust</key>
+			<true/>
+			<key>BackgroundGraphic</key>
+			<dict>
+				<key>Bounds</key>
+				<string>{{0, 0}, {575.99999046325684, 733}}</string>
+				<key>Class</key>
+				<string>SolidGraphic</string>
+				<key>ID</key>
+				<integer>2</integer>
+				<key>Style</key>
+				<dict>
+					<key>stroke</key>
+					<dict>
+						<key>Draws</key>
+						<string>NO</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>BaseZoom</key>
+			<integer>0</integer>
+			<key>CanvasOrigin</key>
+			<string>{0, 0}</string>
+			<key>ColumnAlign</key>
+			<integer>1</integer>
+			<key>ColumnSpacing</key>
+			<real>36</real>
+			<key>DisplayScale</key>
+			<string>1 in = 1.00000 in</string>
+			<key>GraphicsList</key>
+			<array>
+				<dict>
+					<key>Bounds</key>
+					<string>{{262.05983471870422, 550.29982794821262}, {51.880321025848389, 51.880321025848389}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>ID</key>
+					<integer>1</integer>
+					<key>Style</key>
+					<dict>
+						<key>shadow</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>stroke</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+					</dict>
+				</dict>
+				<dict>
+					<key>Bounds</key>
+					<string>{{227.99999523162842, 516.23998846113682}, {120, 120}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>ID</key>
+					<integer>30</integer>
+					<key>Shape</key>
+					<string>Circle</string>
+					<key>Style</key>
+					<dict>
+						<key>fill</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>shadow</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>stroke</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<real>1</real>
+								<key>g</key>
+								<real>1</real>
+								<key>r</key>
+								<real>1</real>
+							</dict>
+							<key>Width</key>
+							<real>3</real>
+						</dict>
+					</dict>
+					<key>Text</key>
+					<dict>
+						<key>VerticalPad</key>
+						<real>0.0</real>
+					</dict>
+				</dict>
+				<dict>
+					<key>Bounds</key>
+					<string>{{268.11999402940273, 334.63999256491661}, {51.880321025848389, 63.519998535513878}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>ID</key>
+					<integer>13</integer>
+					<key>Shape</key>
+					<string>HorizontalTriangle</string>
+					<key>Style</key>
+					<dict>
+						<key>fill</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<real>0.0</real>
+								<key>g</key>
+								<real>0.0</real>
+								<key>r</key>
+								<real>0.0</real>
+							</dict>
+						</dict>
+						<key>shadow</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>stroke</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+					</dict>
+					<key>Text</key>
+					<dict>
+						<key>VerticalPad</key>
+						<real>0.0</real>
+					</dict>
+				</dict>
+				<dict>
+					<key>Bounds</key>
+					<string>{{227.99999523162842, 306.5}, {120, 120}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>ID</key>
+					<integer>28</integer>
+					<key>Shape</key>
+					<string>Circle</string>
+					<key>Style</key>
+					<dict>
+						<key>fill</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>shadow</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>stroke</key>
+						<dict>
+							<key>Width</key>
+							<real>3</real>
+						</dict>
+					</dict>
+					<key>Text</key>
+					<dict>
+						<key>VerticalPad</key>
+						<real>0.0</real>
+					</dict>
+				</dict>
+			</array>
+			<key>GridInfo</key>
+			<dict/>
+			<key>HPages</key>
+			<integer>1</integer>
+			<key>KeepToScale</key>
+			<false/>
+			<key>Layers</key>
+			<array>
+				<dict>
+					<key>Lock</key>
+					<string>NO</string>
+					<key>Name</key>
+					<string>Layer 1</string>
+					<key>Print</key>
+					<string>YES</string>
+					<key>View</key>
+					<string>YES</string>
+				</dict>
+			</array>
+			<key>LayoutInfo</key>
+			<dict>
+				<key>Animate</key>
+				<string>NO</string>
+				<key>circoMinDist</key>
+				<real>18</real>
+				<key>circoSeparation</key>
+				<real>0.0</real>
+				<key>layoutEngine</key>
+				<string>dot</string>
+				<key>neatoLineLength</key>
+				<real>0.20000000298023224</real>
+				<key>neatoSeparation</key>
+				<real>0.0</real>
+				<key>twopiSeparation</key>
+				<real>0.0</real>
+			</dict>
+			<key>Orientation</key>
+			<integer>2</integer>
+			<key>PrintOnePage</key>
+			<false/>
+			<key>RowAlign</key>
+			<integer>1</integer>
+			<key>RowSpacing</key>
+			<real>36</real>
+			<key>SheetTitle</key>
+			<string>Canvas 4</string>
+			<key>UniqueID</key>
+			<integer>4</integer>
+			<key>VPages</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>SmartAlignmentGuidesActive</key>
 	<string>YES</string>
@@ -964,30 +1173,23 @@
 	<key>WindowInfo</key>
 	<dict>
 		<key>CurrentSheet</key>
-		<integer>2</integer>
-		<key>ExpandedCanvases</key>
-		<array>
-			<dict>
-				<key>name</key>
-				<string>Canvas 1</string>
-			</dict>
-		</array>
+		<integer>3</integer>
+		<key>Expanded_Canvases</key>
+		<array/>
 		<key>Frame</key>
-		<string>{{284, 113}, {862, 739}}</string>
-		<key>ListView</key>
-		<true/>
-		<key>OutlineWidth</key>
-		<integer>142</integer>
-		<key>RightSidebar</key>
+		<string>{{102, 138}, {1158, 739}}</string>
+		<key>ShowInfo</key>
 		<true/>
 		<key>ShowRuler</key>
 		<true/>
 		<key>Sidebar</key>
 		<true/>
 		<key>SidebarWidth</key>
-		<integer>120</integer>
+		<integer>200</integer>
+		<key>TopSlabHeight</key>
+		<real>250</real>
 		<key>VisibleRegion</key>
-		<string>{{-4, 0}, {584, 600}}</string>
+		<string>{{-34, 143.5}, {644, 582}}</string>
 		<key>Zoom</key>
 		<real>1</real>
 		<key>ZoomValues</key>
@@ -1004,6 +1206,11 @@
 			</array>
 			<array>
 				<string>Canvas 3</string>
+				<real>1</real>
+				<real>1</real>
+			</array>
+			<array>
+				<string>Canvas 4</string>
 				<real>1</real>
 				<real>1</real>
 			</array>
