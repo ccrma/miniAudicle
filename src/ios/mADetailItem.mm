@@ -66,8 +66,14 @@ NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChang
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     detailItem.path = path;
-    detailItem.title = [[path lastPathComponent] stringByDeletingPathExtension];
+    detailItem.title = [path lastPathComponent];
     detailItem.isUser = isUser;
+    NSString *extension = [detailItem.path pathExtension];
+    if([extension isEqualToString:@"ck"])
+        detailItem.type = DETAILITEM_CHUCK_SCRIPT;
+    else if([extension isEqualToString:@"wav"] || [extension isEqualToString:@"aif"] || [extension isEqualToString:@"aiff"])
+        detailItem.type = DETAILITEM_AUDIO_FILE;
+    
     NSLog(@"document uuid: %@", detailItem.uuid);
     
     if([fileManager isDirectory:path])

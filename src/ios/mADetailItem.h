@@ -14,6 +14,13 @@
 
 extern NSString * const mADetailItemTitleChangedNotification;
 
+typedef enum DetailItemType
+{
+    DETAILITEM_UNDEFINED,
+    DETAILITEM_CHUCK_SCRIPT,
+    DETAILITEM_AUDIO_FILE
+} DetailItemType;
+
 @interface mADetailItem : NSObject
 
 @property (nonatomic) BOOL isUser;
@@ -30,6 +37,7 @@ extern NSString * const mADetailItemTitleChangedNotification;
 @property (copy, nonatomic) NSString *remoteUUID;
 @property (copy, nonatomic) NSString *remoteUsername;
 @property (nonatomic) BOOL hasLocalEdits;
+@property (nonatomic) DetailItemType type;
 
 + (mADetailItem *)detailItemFromPath:(NSString *)path isUser:(BOOL)isUser;
 + (mADetailItem *)folderDetailItemWithTitle:(NSString *)title
