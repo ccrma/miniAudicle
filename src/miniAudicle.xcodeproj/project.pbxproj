@@ -149,6 +149,9 @@
 		093E267B14A14E91008694BC /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376EA0BBC97D6005931F6 /* add.png */; };
 		093E267C14A14E91008694BC /* miniAudicle.icns in Resources */ = {isa = PBXBuildFile; fileRef = 09A40C670A9A57FA007604EA /* miniAudicle.icns */; };
 		093E267F14A1B3B3008694BC /* mAChucKController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E267E14A1B3B2008694BC /* mAChucKController.mm */; };
+		09400F341C903FD400C1E52E /* KVOMutableArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 09400F2E1C903FD400C1E52E /* KVOMutableArray.m */; };
+		09400F351C903FD400C1E52E /* KVOMutableArrayObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 09400F301C903FD400C1E52E /* KVOMutableArrayObserver.m */; };
+		09400F361C903FD400C1E52E /* NSObject+BlockObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 09400F321C903FD400C1E52E /* NSObject+BlockObservation.m */; };
 		0942B6F71362466700C870F2 /* chugin-mini.png in Resources */ = {isa = PBXBuildFile; fileRef = 0942B6F51362466700C870F2 /* chugin-mini.png */; };
 		0942B6F81362466700C870F2 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0942B6F61362466700C870F2 /* folder.png */; };
 		0949BD5018F61E56005191AC /* mAPlayerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0949BD4F18F61E56005191AC /* mAPlayerScrollView.m */; };
@@ -530,6 +533,14 @@
 		093ECDC013B5781100B645F0 /* libwx_gtk2ud_core-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_gtk2ud_core-2.8.dylib"; path = "/opt/local/lib/libwx_gtk2ud_core-2.8.dylib"; sourceTree = "<absolute>"; };
 		093ECDC213B5781100B645F0 /* libwx_gtk2ud_stc-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_gtk2ud_stc-2.8.dylib"; path = "/opt/local/lib/libwx_gtk2ud_stc-2.8.dylib"; sourceTree = "<absolute>"; };
 		093ECDCE13B578B800B645F0 /* libwx_gtk2ud_adv-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_gtk2ud_adv-2.8.dylib"; path = "/opt/local/lib/libwx_gtk2ud_adv-2.8.dylib"; sourceTree = "<absolute>"; };
+		09400F2B1C903FD400C1E52E /* KVOMutableArray+ReactiveCocoaSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KVOMutableArray+ReactiveCocoaSupport.h"; sourceTree = "<group>"; };
+		09400F2C1C903FD400C1E52E /* KVOMutableArray+ReactiveCocoaSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KVOMutableArray+ReactiveCocoaSupport.m"; sourceTree = "<group>"; };
+		09400F2D1C903FD400C1E52E /* KVOMutableArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVOMutableArray.h; sourceTree = "<group>"; };
+		09400F2E1C903FD400C1E52E /* KVOMutableArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVOMutableArray.m; sourceTree = "<group>"; };
+		09400F2F1C903FD400C1E52E /* KVOMutableArrayObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVOMutableArrayObserver.h; sourceTree = "<group>"; };
+		09400F301C903FD400C1E52E /* KVOMutableArrayObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVOMutableArrayObserver.m; sourceTree = "<group>"; };
+		09400F311C903FD400C1E52E /* NSObject+BlockObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+BlockObservation.h"; sourceTree = "<group>"; };
+		09400F321C903FD400C1E52E /* NSObject+BlockObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BlockObservation.m"; sourceTree = "<group>"; };
 		0942B6F51362466700C870F2 /* chugin-mini.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chugin-mini.png"; path = "macosx/icon/chugin-mini.png"; sourceTree = "<group>"; };
 		0942B6F61362466700C870F2 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = folder.png; path = macosx/icon/folder.png; sourceTree = "<group>"; };
 		0949BD4E18F61E56005191AC /* mAPlayerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAPlayerScrollView.h; sourceTree = "<group>"; };
@@ -1061,6 +1072,21 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		09400F2A1C903FD400C1E52E /* KVOMutableArray */ = {
+			isa = PBXGroup;
+			children = (
+				09400F2B1C903FD400C1E52E /* KVOMutableArray+ReactiveCocoaSupport.h */,
+				09400F2C1C903FD400C1E52E /* KVOMutableArray+ReactiveCocoaSupport.m */,
+				09400F2D1C903FD400C1E52E /* KVOMutableArray.h */,
+				09400F2E1C903FD400C1E52E /* KVOMutableArray.m */,
+				09400F2F1C903FD400C1E52E /* KVOMutableArrayObserver.h */,
+				09400F301C903FD400C1E52E /* KVOMutableArrayObserver.m */,
+				09400F311C903FD400C1E52E /* NSObject+BlockObservation.h */,
+				09400F321C903FD400C1E52E /* NSObject+BlockObservation.m */,
+			);
+			path = KVOMutableArray;
+			sourceTree = "<group>";
+		};
 		0964A396172F976F00043ABA /* ChucK Scripts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1451,6 +1477,7 @@
 		09DAA30C19BA214C00B8A416 /* util */ = {
 			isa = PBXGroup;
 			children = (
+				09400F2A1C903FD400C1E52E /* KVOMutableArray */,
 				09307E2518E0BEC2004AB346 /* NSString+NSString_Lines.h */,
 				09307E2618E0BEC2004AB346 /* NSString+NSString_Lines.m */,
 				09F09E4718E3712D0050D963 /* mARoundedRectButton.h */,
@@ -1906,6 +1933,7 @@
 				09F09E4918E3712D0050D963 /* mARoundedRectButton.m in Sources */,
 				093E263D14A12201008694BC /* chuck_absyn.cpp in Sources */,
 				0921D55E18190216008F39D9 /* bundle.c in Sources */,
+				09400F341C903FD400C1E52E /* KVOMutableArray.m in Sources */,
 				096D81051B40C1F800F9B9CA /* mAMasterViewController.mm in Sources */,
 				09AC4E1818EA2C8500B2561A /* mAShredButton.m in Sources */,
 				09094DC419919E41009F4C4C /* mAActivityViewController.m in Sources */,
@@ -1924,6 +1952,7 @@
 				093E264614A12201008694BC /* chuck_instr.cpp in Sources */,
 				093E264714A12201008694BC /* chuck_lang.cpp in Sources */,
 				093E264814A12201008694BC /* chuck_oo.cpp in Sources */,
+				09400F351C903FD400C1E52E /* KVOMutableArrayObserver.m in Sources */,
 				09F0442B1918A8810028DD14 /* mALoopCountPicker.m in Sources */,
 				0921D56A18190216008F39D9 /* server_thread.c in Sources */,
 				09F09E3B18E2C5E60050D963 /* mAEditorViewController.mm in Sources */,
@@ -1963,6 +1992,7 @@
 				093E265814A12234008694BC /* midiio_rtmidi.cpp in Sources */,
 				093E265914A12234008694BC /* ugen_filter.cpp in Sources */,
 				093E265A14A12234008694BC /* ugen_osc.cpp in Sources */,
+				09400F361C903FD400C1E52E /* NSObject+BlockObservation.m in Sources */,
 				096310BA1C86B96300A36F8F /* NSString+Hash.m in Sources */,
 				09F09E4018E2DAEA0050D963 /* mAPlayerViewController.mm in Sources */,
 				093E265B14A12234008694BC /* ugen_stk.cpp in Sources */,

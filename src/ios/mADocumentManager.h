@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "KVOMutableArray.h"
 
 @class mADetailItem;
 
@@ -15,7 +16,7 @@ extern NSString * const mADocumentManagerRecentFilesChanged;
 @interface mADocumentManager : NSObject
 
 @property (readonly) NSMutableArray *recentFiles;
-@property (readonly) NSArray *userScripts;
+@property (readonly) KVOMutableArray *userScripts;
 @property (readonly) NSArray *exampleScripts;
 
 + (instancetype)manager;

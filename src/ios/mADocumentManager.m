@@ -28,7 +28,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 
 @interface mADocumentManager ()
 {
-    NSMutableArray *_userScripts;
+    KVOMutableArray *_userScripts;
     NSMutableArray *_exampleScripts;
     
     NSMutableArray *_recentFiles;
@@ -49,6 +49,10 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 - (void)_uniqueTitleAndPathForTitle:(NSString *)title
                               title:(NSString **)newTitle
                                path:(NSString **)path;
+
+/* KVC/KVO for userScripts */
+- (void)insertObject:(id)object inUserScriptsAtIndex:(NSUInteger)index;
+- (void)removeObjectFromUserScriptsAtIndex:(NSUInteger)index;
 
 @end
 
@@ -145,10 +149,8 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
             mADetailItem *detailItem = [mADetailItem new];
             detailItem.isUser = NO;
             detailItem.title = path;
-            detailItem.text = @"";
-            detailItem.isFolder = YES;
-            detailItem.folderItems = [NSMutableArray array];
             detailItem.type = DETAILITEM_DIRECTORY;
+            detailItem.folderItems = [NSMutableArray array];
             
             if(processor)
                 processor(detailItem);
@@ -168,7 +170,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 {
     if(_userScripts == nil)
     {
-        _userScripts = [NSMutableArray array];
+        _userScripts = [KVOMutableArray new];
         
         if(self.iCloudDocumentPath)
         {
@@ -294,15 +296,11 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     detailItem.title = title;
     detailItem.path = path;
     
-    if([ext isEqualToString:@"ck"])
+    if([detailItem.path hasPathExtension:@[@"ck"]])
     {
         detailItem.type = DETAILITEM_CHUCK_SCRIPT;
-        detailItem.text = [NSString stringWithContentsOfURL:url
-                                                   encoding:NSUTF8StringEncoding
-                                                      error:&error];
-        mAAnalyticsLogError(error);
     }
-    else if([ext hasPathExtension:[mADocumentManager audioFileExtensions]])
+    else if([detailItem.path hasPathExtension:[mADocumentManager audioFileExtensions]])
     {
         detailItem.type = DETAILITEM_AUDIO_FILE;
     }
@@ -421,6 +419,29 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
         *_newTitle = title;
     if(_path)
         *_path = path;
+}
+
+
+#pragma mark KVC
+/* KVC/KVO for userScripts */
+-(NSUInteger)countOfUserScripts
+{
+    return [self.userScripts count];
+}
+
+-(id)objectInUserScriptsAtIndex:(NSUInteger)index
+{
+    return self.userScripts[index];
+}
+
+- (void)insertObject:(id)object inUserScriptsAtIndex:(NSUInteger)index
+{
+    [_userScripts insertObject:object atIndex:index];
+}
+
+- (void)removeObjectFromUserScriptsAtIndex:(NSUInteger)index
+{
+    [_userScripts removeObjectAtIndex:index];
 }
 
 

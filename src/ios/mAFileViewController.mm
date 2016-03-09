@@ -201,6 +201,10 @@
 
 
 @interface mAFileViewController ()
+{
+    AMBlockToken *_scriptKVOBlockToken;
+    BOOL _isDeletingScript;
+}
 
 @property (strong, nonatomic) UITableView * tableView;
 @property (strong, nonatomic) UIBarButtonItem * editButton;
@@ -215,18 +219,33 @@
 
 - (void)setScripts:(NSMutableArray *)scripts
 {
+    // remove update notifications
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:mADetailItemTitleChangedNotification
                                                   object:nil];
+    [_scriptKVOBlockToken removeObserver];
+    _scriptKVOBlockToken = nil;
     
+    // set value
     _scripts = scripts;
     
+    // add update notifications
     for(mADetailItem *item in _scripts)
     {
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(detailItemTitleChanged:)
                                                      name:mADetailItemTitleChangedNotification
                                                    object:item];
+    }
+    
+    if([_scripts isKindOfClass:[KVOMutableArray class]])
+    {
+        KVOMutableArray *_kvoScripts = (KVOMutableArray *)_scripts;
+        _scriptKVOBlockToken = [_kvoScripts addObserverWithTask:^BOOL(id obj, NSDictionary *change) {
+            if(!_isDeletingScript)
+                [self.tableView reloadData];
+            return YES;
+        }];
     }
     
     [self.tableView reloadData];
@@ -542,14 +561,20 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(editingStyle == UITableViewCellEditingStyleDelete)
     {
+        _isDeletingScript = YES;
+
         mADetailItem *item = [self.scripts objectAtIndex:[indexPath row]];
         
         [[mAAnalytics instance] deleteFromScriptList:item.uuid];
         
         [[mADocumentManager manager] deleteScript:item];
+        
         [self.scripts removeObjectAtIndex:[indexPath row]];
+        
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                               withRowAnimation:UITableViewRowAnimationFade];
+        
+        _isDeletingScript = NO;
     }
 }
 
