@@ -8,6 +8,7 @@
 
 #import "mADocumentManager.h"
 #import "mADetailItem.h"
+#import "mAAnalytics.h"
 
 
 static const int MAX_RECENT_ITEMS = 12;
@@ -41,8 +42,13 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 @property (copy, nonatomic) NSURL *localDocumentPath;
 
 + (NSArray *)documentExtensions;
++ (NSArray *)audioFileExtensions;
+
 - (NSMutableArray *)loadScripts;
 - (NSMutableArray *)loadExamples;
+- (void)_uniqueTitleAndPathForTitle:(NSString *)title
+                              title:(NSString **)newTitle
+                               path:(NSString **)path;
 
 @end
 
@@ -52,6 +58,11 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 + (NSArray *)documentExtensions
 {
     return @[@"ck", @"wav", @"aif", @"aiff"];
+}
+
++ (NSArray *)audioFileExtensions
+{
+    return @[@"wav", @"aif", @"aiff"];
 }
 
 + (id)manager
@@ -104,6 +115,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 - (void)appendScriptsFromDirectory:(NSString *)dir
                            toArray:(NSMutableArray *)array
                             isUser:(BOOL)isUser
+                            filter:(BOOL (^)(NSString *fullPath))filter
                          processor:(void (^)(mADetailItem *))processor
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -112,6 +124,9 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     {
         BOOL isDirectory = NO;
         NSString *fullPath = [dir stringByAppendingPathComponent:path];
+        
+        if(filter && filter(fullPath))
+            continue;
         
         if([path hasPathExtension:[mADocumentManager documentExtensions]])
         {
@@ -141,6 +156,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
             [self appendScriptsFromDirectory:fullPath
                                      toArray:detailItem.folderItems
                                       isUser:isUser
+                                      filter:filter
                                    processor:processor];
             
             [array addObject:detailItem];
@@ -159,11 +175,12 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
             [self appendScriptsFromDirectory:[self.iCloudDocumentPath path]
                                      toArray:_userScripts
                                       isUser:YES
-                                   processor:^(mADetailItem *detailItem){
-                                       // use greatest Untitled N number +1 for next Untitled number
+                                      filter:nil
+                                   processor:^(mADetailItem *detailItem) {
+                                       // use greatest untitledN number +1 for next Untitled number
                                        NSScanner *titleScanner = [NSScanner scannerWithString:detailItem.title];
                                        int num = 0;
-                                       if([titleScanner scanString:@"Untitled " intoString:NULL] &&
+                                       if([titleScanner scanString:@"untitled" intoString:NULL] &&
                                           [titleScanner scanInt:&num])
                                        {
                                            if(num >= _untitledNum)
@@ -175,11 +192,16 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
         [self appendScriptsFromDirectory:[self.localDocumentPath path]
                                  toArray:_userScripts
                                   isUser:YES
-                               processor:^(mADetailItem *detailItem){
-                                   // use greatest Untitled N number +1 for next Untitled number
+                                  filter:^BOOL (NSString *fullPath){
+                                      if([[fullPath stripDocumentPath] isEqualToString:@"Inbox"])
+                                          return YES;
+                                      return NO;
+                                  }
+                               processor:^(mADetailItem *detailItem) {
+                                   // use greatest untitledN number +1 for next Untitled number
                                    NSScanner *titleScanner = [NSScanner scannerWithString:detailItem.title];
                                    int num = 0;
-                                   if([titleScanner scanString:@"Untitled " intoString:NULL] &&
+                                   if([titleScanner scanString:@"untitled" intoString:NULL] &&
                                       [titleScanner scanInt:&num])
                                    {
                                        if(num >= _untitledNum)
@@ -206,6 +228,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
         [self appendScriptsFromDirectory:[self examplesPath]
                                  toArray:_exampleScripts
                                   isUser:NO
+                                  filter:NULL
                                processor:NULL];
     }
     
@@ -231,7 +254,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 
 - (mADetailItem *)newScript
 {
-    NSString *title = [NSString stringWithFormat:@"Untitled %i.ck", _untitledNum++];
+    NSString *title = [NSString stringWithFormat:@"untitled%i.ck", _untitledNum++];
     
     mADetailItem * detailItem = [mADetailItem new];
     
@@ -246,6 +269,50 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     
     [_userScripts addObject:detailItem];
     
+    return detailItem;
+}
+
+- (mADetailItem *)newItemFromURL:(NSURL *)url
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error = nil;
+    
+    NSString *urlString = [url path];
+    NSString *title = [[urlString pathComponents] lastObject];
+    NSString *path;
+    
+    [self _uniqueTitleAndPathForTitle:title title:&title path:&path];
+    
+    [fileManager copyItemAtURL:url toURL:[NSURL fileURLWithPath:path] error:&error];
+    mAAnalyticsLogError(error);
+
+    mADetailItem * detailItem = [mADetailItem new];
+    
+    NSString *ext = [urlString pathExtension];
+    
+    detailItem.isUser = YES;
+    detailItem.title = title;
+    detailItem.path = path;
+    
+    if([ext isEqualToString:@"ck"])
+    {
+        detailItem.type = DETAILITEM_CHUCK_SCRIPT;
+        detailItem.text = [NSString stringWithContentsOfURL:url
+                                                   encoding:NSUTF8StringEncoding
+                                                      error:&error];
+        mAAnalyticsLogError(error);
+    }
+    else if([ext hasPathExtension:[mADocumentManager audioFileExtensions]])
+    {
+        detailItem.type = DETAILITEM_AUDIO_FILE;
+    }
+    else
+    {
+        detailItem.type = DETAILITEM_MISC;
+    }
+    
+    [_userScripts addObject:detailItem];
+        
     return detailItem;
 }
 
@@ -308,6 +375,55 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     [[NSUserDefaults standardUserDefaults] setObject:[_recentFilesPaths array] forKey:mAPreferencesRecentFilesKey];
 }
 
+- (void)_uniqueTitleAndPathForTitle:(NSString *)title
+                              title:(NSString **)_newTitle
+                               path:(NSString **)_path
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *documentPath;
+    
+    if(self.iCloudDocumentPath)
+        documentPath = self.iCloudDocumentPath;
+    else
+        documentPath = self.localDocumentPath;
+    
+    NSString *path = [[documentPath URLByAppendingPathComponent:title] path];
+    
+    if([fileManager fileExistsAtPath:path])
+    {
+        int fileNo = 1;
+        
+        NSString *base = [title stringByDeletingPathExtension];
+        NSString *ext = [title pathExtension];
+        char lastBaseChar = [base characterAtIndex:[base length]-1];
+        
+        while([fileManager fileExistsAtPath:path])
+        {
+            NSString *fileNoSuffix;
+            if(isdigit(lastBaseChar))
+                fileNoSuffix = [NSString stringWithFormat:@"-%i", fileNo];
+            else
+                fileNoSuffix = [NSString stringWithFormat:@"%i", fileNo];
+            
+            if(ext)
+                title = [NSString stringWithFormat:@"%@%@.%@", base, fileNoSuffix, ext];
+            else
+                title = [NSString stringWithFormat:@"%@%@", base, fileNoSuffix];
+            
+            path = [[documentPath URLByAppendingPathComponent:title] path];
+            fileNo++;
+            
+            assert(fileNo < 100);
+        }
+    }
+    
+    if(_newTitle)
+        *_newTitle = title;
+    if(_path)
+        *_path = path;
+}
+
+
 @end
 
 
@@ -327,11 +443,11 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 
 - (NSString *)stripDocumentPath
 {
-    NSRange range = [self rangeOfString:@"examples"];
-    if(range.location != NSNotFound) return [self substringFromIndex:range.location];
+    NSRange range = [self rangeOfString:@"examples/"];
+    if(range.location != NSNotFound) return [self substringFromIndex:range.location+range.length];
     
-    range = [self rangeOfString:@"Documents"];
-    if(range.location != NSNotFound) return [self substringFromIndex:range.location];
+    range = [self rangeOfString:@"Documents/"];
+    if(range.location != NSNotFound) return [self substringFromIndex:range.location+range.length];
     
     return nil;
 }

@@ -28,5 +28,6 @@ extern NSString * const mADocumentManagerRecentFilesChanged;
 
 - (mADetailItem *)newScript:(NSString *)title;
 - (mADetailItem *)newScript;
+- (mADetailItem *)newItemFromURL:(NSURL *)url;
 
 @end

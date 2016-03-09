@@ -20,6 +20,8 @@ typedef enum DetailItemType
     DETAILITEM_CHUCK_SCRIPT,
     DETAILITEM_AUDIO_FILE,
     DETAILITEM_DIRECTORY,
+    DETAILITEM_TEXT,
+    DETAILITEM_MISC,
 } DetailItemType;
 
 @interface mADetailItem : NSObject

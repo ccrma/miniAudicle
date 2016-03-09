@@ -44,7 +44,7 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
 @property (strong, nonatomic) mAMasterViewController * masterViewController;
 @property (strong, nonatomic) mADetailViewController * detailViewController;
 
-- (void)finishLaunch;
+- (void)finishLaunchWithOptions:(NSDictionary *)launchOptions;
 
 @end
 
@@ -99,7 +99,7 @@ static mAAppDelegate *g_appDelegate = nil;
                                                 handler:^(UIAlertAction * _Nonnull action) {
                                                     [mAAnalytics setOptOut:NO];
                                                     
-                                                    [self finishLaunch];
+                                                    [self finishLaunchWithOptions:launchOptions];
                                                 }]];
         [self.window.rootViewController presentViewController:alert
                                                      animated:YES
@@ -107,16 +107,29 @@ static mAAppDelegate *g_appDelegate = nil;
     }
     else
     {
-        [self finishLaunch];
+        [self finishLaunchWithOptions:launchOptions];
     }
     
     return YES;
 }
 
-- (void)finishLaunch
+- (void)finishLaunchWithOptions:(NSDictionary *)launchOptions
 {
     [[mAAnalytics instance] appLaunch];
     
+    NSURL *openURL = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
+    mADetailItem *launchItem = nil;
+    if(openURL)
+    {
+        launchItem = [[mADocumentManager manager] newItemFromURL:openURL];
+        
+        // delete original
+        NSError *error;
+        [[NSFileManager defaultManager] removeItemAtURL:openURL error:&error];
+        if(error)
+            mAAnalyticsLogError(error);        
+    }
+
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         //        self.fileViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
@@ -135,7 +148,9 @@ static mAAppDelegate *g_appDelegate = nil;
         
         self.window.rootViewController = self.splitViewController;
         
-        if([[mADocumentManager manager] recentFiles].count)
+        if(launchItem != nil && launchItem.type == DETAILITEM_CHUCK_SCRIPT)
+            [self.detailViewController editItem:launchItem];
+        else if([[mADocumentManager manager] recentFiles].count)
             [self.detailViewController editItem:[[[mADocumentManager manager] recentFiles] firstObject]];
         else if([[mADocumentManager manager] userScripts].count)
             [self.detailViewController editItem:[[[mADocumentManager manager] userScripts] firstObject]];
@@ -201,6 +216,22 @@ static mAAppDelegate *g_appDelegate = nil;
      */
     
     [self saveScripts];
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    mADetailItem *launchItem = [[mADocumentManager manager] newItemFromURL:url];
+    
+    // delete original
+    NSError *error;
+    [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
+    if(error)
+        mAAnalyticsLogError(error);
+        
+    if(launchItem.type == DETAILITEM_CHUCK_SCRIPT)
+        [self.detailViewController editItem:launchItem];
+
+    return YES;
 }
 
 - (void)saveScripts
