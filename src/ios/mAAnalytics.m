@@ -11,6 +11,8 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 
+#define VERBOSE_LOGGING 0
+
 //static NSString * const mAAnalyticsNeedsOptOutSelection = @"mAAnalyticsNeedsOptOutSelection";
 static NSString * const mAAnalyticsOptOut = @"mAAnalyticsOptOut";
 
@@ -74,12 +76,16 @@ static NSString * const mAAnalyticsOptOut = @"mAAnalyticsOptOut";
         (void) [[GAI sharedInstance] trackerWithTrackingId:trackingId];
         
         // Provide unhandled exceptions reports.
+#if !DEBUG || VERBOSE_LOGGING
         GAI *gai = [GAI sharedInstance];
 #if !DEBUG
         gai.trackUncaughtExceptions = YES;
 #endif
+#if VERBOSE_LOGGING
         gai.logger.logLevel = kGAILogLevelVerbose;  // remove before app release
-        
+#endif // VERBOSE_LOGGING
+#endif
+
         _lastActionWasEdit = NO;
     }
     

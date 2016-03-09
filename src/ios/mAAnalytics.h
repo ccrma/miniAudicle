@@ -10,7 +10,8 @@
 
 #define mAAnalyticsLogError(err) \
 do { \
-   [[mAAnalytics instance] logError:err function:__PRETTY_FUNCTION__ line:__LINE__]; \
+    if(err) \
+        [[mAAnalytics instance] logError:err function:__PRETTY_FUNCTION__ line:__LINE__]; \
 } while(0)
 
 @interface mAAnalytics : NSObject
