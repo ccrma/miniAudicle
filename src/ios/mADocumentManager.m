@@ -20,7 +20,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 @interface NSString (mADocumentManager)
 
 - (BOOL)hasPathExtension:(NSArray *)extensions;
-- (NSString *)stripDocumentPath;
+- (NSString *)stripPath:(NSString *)path;
 - (BOOL)matchesDocumentPath:(NSString *)documentPath;
 
 @end
@@ -31,7 +31,9 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     KVOMutableArray *_userScripts;
     NSMutableArray *_exampleScripts;
     
-    NSMutableArray *_recentFiles;
+    KVOMutableArray *_recentFiles;
+    // the paths are what is serialized
+    // cache this structure as it is serialized every time the user opens a file
     NSMutableOrderedSet *_recentFilesPaths;
     
     int _untitledNum;
@@ -44,15 +46,12 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 + (NSArray *)documentExtensions;
 + (NSArray *)audioFileExtensions;
 
+- (NSString *)examplesPath;
 - (NSMutableArray *)loadScripts;
 - (NSMutableArray *)loadExamples;
 - (void)_uniqueTitleAndPathForTitle:(NSString *)title
                               title:(NSString **)newTitle
                                path:(NSString **)path;
-
-/* KVC/KVO for userScripts */
-- (void)insertObject:(id)object inUserScriptsAtIndex:(NSUInteger)index;
-- (void)removeObjectFromUserScriptsAtIndex:(NSUInteger)index;
 
 @end
 
@@ -92,15 +91,15 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
         }
         
         _untitledNum = 1;
-        _recentFiles = [NSMutableArray new];
+        _recentFiles = [KVOMutableArray new];
         _recentFilesPaths = [NSMutableOrderedSet orderedSetWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesRecentFilesKey]];
         
         [self loadScripts];
         [self loadExamples];
         
         [_recentFiles sortUsingComparator:^NSComparisonResult(mADetailItem *obj1, mADetailItem *obj2) {
-            int index1 = [_recentFilesPaths indexOfObject:[[obj1 path] stripDocumentPath]];
-            int index2 = [_recentFilesPaths indexOfObject:[[obj2 path] stripDocumentPath]];
+            int index1 = [_recentFilesPaths indexOfObject:[obj1 path]];
+            int index2 = [_recentFilesPaths indexOfObject:[obj2 path]];
             
             if(index1 < index2) return NSOrderedAscending;
             if(index1 > index2) return NSOrderedDescending;
@@ -138,7 +137,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
             
             [array addObject:detailItem];
             
-            if([_recentFilesPaths containsObject:[fullPath stripDocumentPath]])
+            if([_recentFilesPaths containsObject:fullPath])
                 [_recentFiles addObject:detailItem];
             
             if(processor)
@@ -195,7 +194,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
                                  toArray:_userScripts
                                   isUser:YES
                                   filter:^BOOL (NSString *fullPath){
-                                      if([[fullPath stripDocumentPath] isEqualToString:@"Inbox"])
+                                      if([[fullPath stripPath:[self.localDocumentPath path]] isEqualToString:@"Inbox"])
                                           return YES;
                                       return NO;
                                   }
@@ -290,8 +289,6 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 
     mADetailItem * detailItem = [mADetailItem new];
     
-    NSString *ext = [urlString pathExtension];
-    
     detailItem.isUser = YES;
     detailItem.title = title;
     detailItem.path = path;
@@ -352,7 +349,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     // should probably use NSSet but it would involve a complicated refactor
     
     // ensure only one copy in the array
-    NSString *documentPath = [item.path stripDocumentPath];
+    NSString *documentPath = item.path;
     if([_recentFiles containsObject:item])
         [_recentFiles removeObject:item];
     if([_recentFilesPaths containsObject:documentPath])
@@ -422,29 +419,6 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 }
 
 
-#pragma mark KVC
-/* KVC/KVO for userScripts */
--(NSUInteger)countOfUserScripts
-{
-    return [self.userScripts count];
-}
-
--(id)objectInUserScriptsAtIndex:(NSUInteger)index
-{
-    return self.userScripts[index];
-}
-
-- (void)insertObject:(id)object inUserScriptsAtIndex:(NSUInteger)index
-{
-    [_userScripts insertObject:object atIndex:index];
-}
-
-- (void)removeObjectFromUserScriptsAtIndex:(NSUInteger)index
-{
-    [_userScripts removeObjectAtIndex:index];
-}
-
-
 @end
 
 
@@ -462,13 +436,32 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     return NO;
 }
 
-- (NSString *)stripDocumentPath
+- (NSString *)stripBundlePath
 {
-    NSRange range = [self rangeOfString:@"examples/"];
+    NSString *path = [[NSBundle mainBundle] resourcePath];
+    NSRange range = [self rangeOfString:path];
     if(range.location != NSNotFound) return [self substringFromIndex:range.location+range.length];
     
-    range = [self rangeOfString:@"Documents/"];
+    return nil;
+}
+
+- (NSString *)stripDocumentPath
+{
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSRange range = [self rangeOfString:path];
     if(range.location != NSNotFound) return [self substringFromIndex:range.location+range.length];
+    
+    return nil;
+}
+
+- (NSString *)stripPath:(NSString *)path
+{
+    // add trailing slash if needed
+    if(![path hasSuffix:@"/"])
+        path = [NSString stringWithFormat:@"%@/", path];
+    NSRange range = [self rangeOfString:path];
+    if(range.location != NSNotFound && range.location == 0)
+        return [self substringFromIndex:range.location+range.length];
     
     return nil;
 }

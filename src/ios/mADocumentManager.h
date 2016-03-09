@@ -15,7 +15,7 @@ extern NSString * const mADocumentManagerRecentFilesChanged;
 
 @interface mADocumentManager : NSObject
 
-@property (readonly) NSMutableArray *recentFiles;
+@property (readonly) KVOMutableArray *recentFiles;
 @property (readonly) KVOMutableArray *userScripts;
 @property (readonly) NSArray *exampleScripts;
 
