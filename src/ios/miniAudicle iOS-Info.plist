@@ -29,20 +29,10 @@
 			<key>CFBundleTypeIconFiles</key>
 			<array/>
 			<key>CFBundleTypeName</key>
-			<string>WAV audio file</string>
+			<string>Audio file</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.microsoft.waveform-​audio</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeIconFiles</key>
-			<array/>
-			<key>CFBundleTypeName</key>
-			<string>AIFF audio file</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>public.aiff-audio</string>
+				<string>public.audio</string>
 			</array>
 		</dict>
 	</array>
