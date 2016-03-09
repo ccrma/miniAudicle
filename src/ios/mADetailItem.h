@@ -30,7 +30,7 @@ typedef enum DetailItemType
 @property (strong, nonatomic) NSString * title;
 @property (strong, nonatomic) NSString * text;
 @property (nonatomic) t_CKUINT docid;
-@property (nonatomic) BOOL isFolder;
+@property (nonatomic, readonly) BOOL isFolder;
 @property (strong, nonatomic) NSMutableArray *folderItems;
 @property (strong, nonatomic) NSString *path;
 @property (nonatomic) t_CKUINT numShreds;

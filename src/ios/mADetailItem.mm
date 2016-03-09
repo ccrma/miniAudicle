@@ -12,6 +12,7 @@
 #import "mANetworkAction.h"
 #import "mANetworkManager.h"
 #import "NSString+Hash.h"
+#import "mAAnalytics.h"
 
 NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChangedNotification";
 
@@ -52,6 +53,25 @@ NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChang
     return _uuid;
 }
 
+- (NSString *)text
+{
+    if(_text == nil)
+    {
+        NSError *error = nil;
+        _text = [NSString stringWithContentsOfFile:self.path encoding:NSUTF8StringEncoding error:&error];
+        mAAnalyticsLogError(error);
+        if(error)
+            _text = @"";
+    }
+    
+    return _text;
+}
+
+- (BOOL)isFolder
+{
+    return self.type == DETAILITEM_DIRECTORY;
+}
+
 - (void)setTitle:(NSString *)title
 {
     _title = title;
@@ -81,33 +101,6 @@ NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChang
     
     NSLog(@"document uuid: %@", detailItem.uuid);
     
-    if(detailItem.type == DETAILITEM_DIRECTORY)
-    {
-        detailItem.isFolder = YES;
-        assert(0); // currently this code should be inactive
-//
-//        NSMutableArray *items;
-//        for(NSString *subpath in [fileManager contentsOfDirectoryAtPath:path error:NULL])
-//        {
-//            [items addObject:[mADetailItem detailItemFromPath:[path stringByAppendingPathComponent:subpath]
-//                                                       isUser:isUser]];
-//        }
-//        detailItem.folderItems = items;
-    }
-    else if(detailItem.type == DETAILITEM_CHUCK_SCRIPT)
-    {
-        NSError *error;
-        detailItem.isFolder = NO;
-        detailItem.text = [NSString stringWithContentsOfFile:path
-                                                    encoding:NSUTF8StringEncoding
-                                                       error:&error];
-        if(error != nil)
-        {
-            NSLog(@"error loading file %@: %@", detailItem.title, error);
-            detailItem.text = @"";
-        }
-    }
-    
     return detailItem;
 }
 
@@ -120,8 +113,8 @@ NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChang
     detailItem.isUser = user;
     detailItem.title = title;
     detailItem.text = nil;
+    detailItem.type = DETAILITEM_DIRECTORY;
     
-    detailItem.isFolder = YES;
     detailItem.folderItems = items;
     
     return detailItem;
@@ -166,11 +159,9 @@ NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChang
     NSError *error = NULL;
     
     if(!self.isFolder && self.isUser)
-        [self.text writeToFile:self.path atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    
-    if(error != NULL)
     {
-        NSLogFun(@"error: %@", error);
+        [self.text writeToFile:self.path atomically:YES encoding:NSUTF8StringEncoding error:&error];
+        mAAnalyticsLogError(error);
     }
 }
 
