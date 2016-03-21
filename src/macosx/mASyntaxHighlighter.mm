@@ -38,6 +38,8 @@ U.S.A.
     @"complex",
     @"void",
     @"same",
+    @"vec3",
+    @"vec4",
     
     @"if",
     @"else",
