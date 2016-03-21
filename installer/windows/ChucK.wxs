@@ -16,7 +16,7 @@
     </Upgrade> 
 
     <InstallExecuteSequence>
-      <RemoveExistingProducts After="InstallFinalize" />
+      <RemoveExistingProducts After="InstallValidate" />
     </InstallExecuteSequence>
 
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' />
