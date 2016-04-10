@@ -3,14 +3,14 @@
 
 include version.mk
 
-ifneq ($(shell sw_vers -productVersion | egrep '10\.(6|7|8|9|10)(\.[0-9]+)?'),)
+ifneq ($(shell sw_vers -productVersion | egrep '^10\.(0|1|2|3|4|5)(\.[0-9]+)?$$'),)
+ISYSROOT=-isysroot /Developer/SDKs/MacOSX10.4u.sdk
+LINK_EXTRAS=
+else
 SDK=$(shell xcodebuild -sdk macosx -version | grep '^Path:' | sed 's/Path: \(.*\)/\1/')
 ISYSROOT=-isysroot $(SDK)
 LINK_EXTRAS=-F/System/Library/PrivateFrameworks \
     -weak_framework MultitouchSupport
-else
-ISYSROOT=-isysroot /Developer/SDKs/MacOSX10.4u.sdk
-LINK_EXTRAS=
 endif
 
 CHUCK_SRC_DIR=chuck/src
@@ -26,7 +26,7 @@ CXX=g++
 LEX=flex
 YACC=bison
 
-ifneq ($(shell sw_vers -productVersion | egrep '10\.[789](\.[0-9]+)?'),)
+ifneq ($(shell sw_vers -productVersion | egrep '^10\.[0123456](\.[0-9]+)?$$'),)
 CC=clang
 CXX=clang++
 endif
@@ -111,7 +111,7 @@ CHUCK_CXXSRCS= $(CHUCK_SRC_DIR)/chuck_absyn.cpp $(CHUCK_SRC_DIR)/chuck_parse.cpp
 	$(CHUCK_SRC_DIR)/chuck_ugen.cpp $(CHUCK_SRC_DIR)/chuck_globals.cpp \
 	$(CHUCK_SRC_DIR)/chuck_otf.cpp $(CHUCK_SRC_DIR)/chuck_stats.cpp \
 	$(CHUCK_SRC_DIR)/chuck_bbq.cpp $(CHUCK_SRC_DIR)/chuck_shell.cpp \
-    $(CHUCK_SRC_DIR)/chuck_io.cpp \
+    $(CHUCK_SRC_DIR)/chuck_io.cpp $(CHUCK_SRC_DIR)/chuck_system.cpp \
 	$(CHUCK_SRC_DIR)/chuck_console.cpp $(CHUCK_SRC_DIR)/digiio_rtaudio.cpp \
 	$(CHUCK_SRC_DIR)/hidio_sdl.cpp \
 	$(CHUCK_SRC_DIR)/midiio_rtmidi.cpp $(CHUCK_SRC_DIR)/RtAudio/RtAudio.cpp \
@@ -126,7 +126,7 @@ CHUCK_CXXSRCS= $(CHUCK_SRC_DIR)/chuck_absyn.cpp $(CHUCK_SRC_DIR)/chuck_parse.cpp
 	$(CHUCK_SRC_DIR)/util_string.cpp \
 	$(CHUCK_SRC_DIR)/util_thread.cpp \
 	$(CHUCK_SRC_DIR)/util_opsc.cpp $(CHUCK_SRC_DIR)/util_hid.cpp \
-    $(CHUCK_SRC_DIR)/util_serial.cpp
+    $(CHUCK_SRC_DIR)/util_serial.cpp 
 
 LO_CSRCS+= lo/address.c lo/blob.c lo/bundle.c lo/message.c lo/method.c \
     lo/pattern_match.c lo/send.c lo/server.c lo/server_thread.c lo/timetag.c

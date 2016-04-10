@@ -45,6 +45,8 @@ U.S.A.
 #include <vector>
 #include <queue>
 
+class BBQ;
+
 using namespace std;
 
 struct miniAudicle_Code
@@ -179,6 +181,7 @@ protected:
     CHUCK_THREAD vm_tid;
     CHUCK_THREAD otf_tid;
     
+    BBQ * bbq;
     Chuck_VM * vm;
     Chuck_Compiler * compiler;
     

@@ -68,7 +68,7 @@ class miniAudicle;
 
 @property (readonly, strong, nonatomic) NSString * data;
 @property (readonly, strong, nonatomic) mADocumentViewController * viewController;
-@property (weak, nonatomic) NSWindowController * windowController;
+@property (weak, nonatomic) mAMultiDocWindowController * windowController;
 @property (nonatomic) BOOL readOnly;
 
 - (id)init;

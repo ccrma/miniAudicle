@@ -34,6 +34,7 @@ U.S.A.
 #import "miniAudicleController.h"
 #import "miniAudicle.h"
 #import "mASyntaxHighlighter.h"
+#import "miniAudicle_version.h"
 
 #import "chuck_dl.h"
 #import "util_string.h"
@@ -51,6 +52,8 @@ static int sh_tokens[] =
     IDEKit_kLangColor_Background,
     IDEKit_kLangColor_End
 };
+
+NSString * mAPreferencesVersion = @"mAPreferencesVersion";
 
 NSString * mAPreferencesEnableAudio = @"EnableAudio";
 NSString * mAPreferencesAcceptsNetworkCommands = @"AcceptsNetworkCommands";
@@ -85,6 +88,7 @@ NSString * mAPreferencesLogLevel = @"LogLevel";
 NSString * mAPreferencesSoundfilesDirectory = @"SoundfilesDirectory";
 NSString * mAPreferencesOpenDocumentsInNewTab = @"OpenDocumentsInNewTab";
 NSString * mAPreferencesBackupSuffix = @"BackupSuffix";
+NSString * mAPreferencesUseCustomConsoleMonitor = @"UseCustomConsoleMonitor";
 
 NSString * mAPreferencesEnableChugins = @"EnableChugins";
 NSString * mAPreferencesLibraryPath = @"LibraryPath";
@@ -98,6 +102,50 @@ t_CKINT g_rtaudio_blacklist_size = 1;
 std::string g_rtaudio_blacklist[] = { "Apple Inc.: AirPlay" };
 
 
+miniAudicle_Version str2version(NSString *str)
+{
+    miniAudicle_Version v = miniAudicle_Version(0, 0, 0, 0);
+    if(str != nil)
+    {
+        // split into @[@"a.b.c.d", @"beta-x"]
+        NSArray *pre_post = [str componentsSeparatedByString:@"-"];
+        if([pre_post count] >= 1)
+        {
+            // split into @[@"a", @"b", @"c", @"d"]
+            NSArray *cmpnts = [pre_post[0] componentsSeparatedByString:@"."];
+            if([cmpnts count] > 0)
+                v.major = [cmpnts[0] intValue];
+            if([cmpnts count] > 1)
+                v.minor = [cmpnts[1] intValue];
+            if([cmpnts count] > 2)
+                v.patch = [cmpnts[2] intValue];
+            if([cmpnts count] > 3)
+                v.bugfix = [cmpnts[3] intValue];
+        }
+    }
+    
+    return v;
+}
+
+NSString *version2str(const miniAudicle_Version &v)
+{
+    return [NSString stringWithFormat:@"%i.%i.%i.%i",
+            v.major, v.minor, v.patch, v.bugfix];
+}
+
+miniAudicle_Version currentVersion()
+{
+    return str2version([NSString stringWithUTF8String:ENV_MA_VERSION]);
+}
+
+
+@interface miniAudiclePreferencesController ()
+
+- (void)_updatePreferencesVersioning;
+
+@end
+
+
 
 @implementation miniAudiclePreferencesController
 
@@ -108,6 +156,8 @@ std::string g_rtaudio_blacklist[] = { "Apple Inc.: AirPlay" };
         [[NSUserDefaultsController sharedUserDefaultsController] setAppliesImmediately:NO];
         
         NSMutableDictionary * defaults = [[[NSMutableDictionary alloc] init] autorelease];
+        
+        [defaults setObject:@"0.0.0.0" forKey:mAPreferencesVersion];
         
         [defaults setObject:[NSNumber numberWithInt:NSOnState] forKey:mAPreferencesEnableAudio];
         [defaults setObject:[NSNumber numberWithInt:-1] forKey:mAPreferencesAudioInput];
@@ -128,6 +178,11 @@ std::string g_rtaudio_blacklist[] = { "Apple Inc.: AirPlay" };
         [defaults setObject:[@"~/" stringByExpandingTildeInPath] forKey:mAPreferencesSoundfilesDirectory];
         [defaults setObject:[NSNumber numberWithInt:NSOffState] forKey:mAPreferencesAcceptsNetworkCommands];
         [defaults setObject:@"-backup" forKey:mAPreferencesBackupSuffix];
+        if(NSAppKitVersionNumber > NSAppKitVersionNumber10_10_Max)
+            // OS X 10.11 and greater
+            [defaults setObject:[NSNumber numberWithBool:NO] forKey:mAPreferencesUseCustomConsoleMonitor];
+        else
+            [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesUseCustomConsoleMonitor];
         
         /* set up default syntax highlighting */
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesEnableSyntaxHighlighting];
@@ -220,11 +275,52 @@ std::string g_rtaudio_blacklist[] = { "Apple Inc.: AirPlay" };
             [new_sh setObject:@"ffffff" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Background )];
             [[NSUserDefaults standardUserDefaults] setObject:new_sh forKey:IDEKit_TextColorsPrefKey];
         }
+        
+        [self _updatePreferencesVersioning];
     }
     
     return self;
 }
+
+
+- (void)_updatePreferencesVersioning
+{
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     
+    NSString *oldVersionStr = [defaults stringForKey:mAPreferencesVersion];
+    NSString *newVersionStr = [NSString stringWithUTF8String:ENV_MA_VERSION];
+    
+    miniAudicle_Version oldVersion = str2version(oldVersionStr);
+    miniAudicle_Version newVersion = str2version(newVersionStr);
+    
+    if(newVersion > oldVersion)
+    {
+        // version upgrade scenario
+        
+        if(oldVersion < miniAudicle_Version(1,3,5,2))
+        {
+            // force-replace chugin path
+            std::list<std::string> default_chugin_pathv;
+            std::string path_list = g_default_chugin_path;
+            parse_path_list(path_list, default_chugin_pathv);
+            NSMutableArray * chugin_path_array = [NSMutableArray arrayWithCapacity:default_chugin_pathv.size()];
+            for(std::list<std::string>::iterator i = default_chugin_pathv.begin();
+                i != default_chugin_pathv.end(); i++)
+            {
+                [chugin_path_array addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                              [NSString stringWithUTF8String:i->c_str()], @"location",
+                                              @"folder", @"type", nil]];
+            }
+            
+            [defaults setObject:chugin_path_array forKey:mAPreferencesChuginPaths];
+            [defaults synchronize];
+        }
+    }
+    
+    [defaults setObject:newVersionStr forKey:mAPreferencesVersion];
+}
+
+
 - (void)loadGUIFromDefaults
 {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];

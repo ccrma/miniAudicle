@@ -7,15 +7,22 @@
     <pkg-ref id="edu.stanford.chuck.AmbPan"/>
     <pkg-ref id="edu.stanford.chuck.Bitcrusher"/>
     <pkg-ref id="edu.stanford.chuck.Elliptic"/>
+    <pkg-ref id="edu.stanford.chuck.ExpDelay"/>
     <pkg-ref id="edu.stanford.chuck.FIR"/>
+    <pkg-ref id="edu.stanford.chuck.FoldbackSaturator"/>
     <pkg-ref id="edu.stanford.chuck.GVerb"/>
     <pkg-ref id="edu.stanford.chuck.KasFilter"/>
+    <pkg-ref id="edu.stanford.chuck.MagicSine"/>
     <pkg-ref id="edu.stanford.chuck.Mesh2D"/>
+    <pkg-ref id="edu.stanford.chuck.Multicomb"/>
     <pkg-ref id="edu.stanford.chuck.PanN"/>
     <pkg-ref id="edu.stanford.chuck.PitchTrack"/>
-    <pkg-ref id="edu.stanford.chuck.Spectacle"/>
     <pkg-ref id="edu.stanford.chuck.PowerADSR"/>
+    <pkg-ref id="edu.stanford.chuck.Sigmund"/>
+    <pkg-ref id="edu.stanford.chuck.Spectacle"/>
     <pkg-ref id="edu.stanford.chuck.WinFuncEnv"/>
+    <pkg-ref id="edu.stanford.chuck.WPDiodeLadder"/>
+    <pkg-ref id="edu.stanford.chuck.WPKorg35"/>
     <pkg-ref id="edu.stanford.chuck.examples"/>
     
     <title>ChucK</title>
@@ -31,15 +38,22 @@
             <line choice="AmbPan"/>
             <line choice="Bitcrusher"/>
             <line choice="Elliptic"/>
+            <line choice="ExpDelay"/>
             <line choice="FIR"/>
+            <line choice="FoldbackSaturator"/>
             <line choice="GVerb"/>
             <line choice="KasFilter"/>
+            <line choice="MagicSine"/>
             <line choice="Mesh2D"/>
+            <line choice="Multicomb"/>
             <line choice="PanN"/>
             <line choice="PitchTrack"/>
-            <line choice="Spectacle"/>
             <line choice="PowerADSR"/>
+            <line choice="Sigmund"/>
+            <line choice="Spectacle"/>
             <line choice="WinFuncEnv"/>
+            <line choice="WPDiodeLadder"/>
+            <line choice="WPKorg35"/>
         </line>
     </choices-outline>
     
@@ -75,10 +89,20 @@
     </choice>
     <pkg-ref id="edu.stanford.chuck.Elliptic" version="0" onConclusion="none">Elliptic.chug.pkg</pkg-ref>
     
+    <choice id="ExpDelay" title="ExpDelay" description="" enabled="0">
+        <pkg-ref id="edu.stanford.chuck.ExpDelay"/>
+    </choice>
+    <pkg-ref id="edu.stanford.chuck.ExpDelay" version="0" onConclusion="none">ExpDelay.chug.pkg</pkg-ref>
+    
     <choice id="FIR" title="FIR" description="Arbitrary order FIR filter. By Perry Cook. " enabled="0">
         <pkg-ref id="edu.stanford.chuck.FIR"/>
     </choice>
     <pkg-ref id="edu.stanford.chuck.FIR" version="0" onConclusion="none">FIR.chug.pkg</pkg-ref>
+    
+    <choice id="FoldbackSaturator" title="FoldbackSaturator" description="Foldback Saturator for nasty distortion. By Ness Morris." enabled="0">
+        <pkg-ref id="edu.stanford.chuck.FoldbackSaturator"/>
+    </choice>
+    <pkg-ref id="edu.stanford.chuck.FoldbackSaturator" version="0" onConclusion="none">FoldbackSaturator.chug.pkg</pkg-ref>
     
     <choice id="GVerb" title="GVerb" description="Good quality stereo reverb with adjustable parameters. By Joel Matthys." enabled="0">
         <pkg-ref id="edu.stanford.chuck.GVerb"/>
@@ -90,10 +114,20 @@
     </choice>
     <pkg-ref id="edu.stanford.chuck.KasFilter" version="0" onConclusion="none">KasFilter.chug.pkg</pkg-ref>
     
+    <choice id="MagicSine" title="MagicSine" description="Efficient means of computing a sine wave with 2 adds and 2 multiples per sample, at the expense of being able to dynamically adjust phase." enabled="0">
+        <pkg-ref id="edu.stanford.chuck.MagicSine"/>
+    </choice>
+    <pkg-ref id="edu.stanford.chuck.MagicSine" version="0" onConclusion="none">MagicSine.chug.pkg</pkg-ref>
+    
     <choice id="Mesh2D" title="Mesh2D" description="STK instrument that simulates a rectilinear, 2-dimensional digital waveguide mesh structure. Basically sounds like striking a metal plate. By Joel Matthys. " enabled="0">
         <pkg-ref id="edu.stanford.chuck.Mesh2D"/>
     </choice>
     <pkg-ref id="edu.stanford.chuck.Mesh2D" version="0" onConclusion="none">Mesh2D.chug.pkg</pkg-ref>
+    
+    <choice id="Multicomb" title="Multicomb" description="" enabled="0">
+        <pkg-ref id="edu.stanford.chuck.Multicomb"/>
+    </choice>
+    <pkg-ref id="edu.stanford.chuck.Multicomb" version="0" onConclusion="none">Multicomb.chug.pkg</pkg-ref>
     
     <choice id="PanN" title="PanN" description="Basic equal-power panners for 4, 8, and 16 channels. " enabled="0">
         <pkg-ref id="edu.stanford.chuck.PanN"/>
@@ -105,20 +139,35 @@
     </choice>
     <pkg-ref id="edu.stanford.chuck.PitchTrack" version="0" onConclusion="none">PitchTrack.chug.pkg</pkg-ref>
     
-    <choice id="Spectacle" title="Spectacle" description="FFT-based spectral delay and EQ. By Joel Matthys. " enabled="0">
-        <pkg-ref id="edu.stanford.chuck.Spectacle"/>
-    </choice>
-    <pkg-ref id="edu.stanford.chuck.Spectacle" version="0" onConclusion="none">Spectacle.chug.pkg</pkg-ref>
-    
     <choice id="PowerADSR" title="PowerADSR" description="Power function ADSR envelope. By Eric Heep. " enabled="0">
         <pkg-ref id="edu.stanford.chuck.PowerADSR"/>
     </choice>
     <pkg-ref id="edu.stanford.chuck.PowerADSR" version="0" onConclusion="none">PowerADSR.chug.pkg</pkg-ref>
     
+    <choice id="Sigmund" title="Sigmund" description="" enabled="0">
+        <pkg-ref id="edu.stanford.chuck.Sigmund"/>
+    </choice>
+    <pkg-ref id="edu.stanford.chuck.Sigmund" version="0" onConclusion="none">Sigmund.chug.pkg</pkg-ref>
+    
+    <choice id="Spectacle" title="Spectacle" description="FFT-based spectral delay and EQ. By Joel Matthys. " enabled="0">
+        <pkg-ref id="edu.stanford.chuck.Spectacle"/>
+    </choice>
+    <pkg-ref id="edu.stanford.chuck.Spectacle" version="0" onConclusion="none">Spectacle.chug.pkg</pkg-ref>
+    
     <choice id="WinFuncEnv" title="WinFuncEnv" description="Envelope built on window functions. By Eric Heep. " enabled="0">
         <pkg-ref id="edu.stanford.chuck.WinFuncEnv"/>
     </choice>
     <pkg-ref id="edu.stanford.chuck.WinFuncEnv" version="0" onConclusion="none">WinFuncEnv.chug.pkg</pkg-ref>
+    
+    <choice id="WPDiodeLadder" title="WPDiodeLadder" description="Virtual analog model of diode ladder filter based on Will Pirkle's design and implementation. By Owen Vallis. " enabled="0">
+        <pkg-ref id="edu.stanford.chuck.WPDiodeLadder"/>
+    </choice>
+    <pkg-ref id="edu.stanford.chuck.WPDiodeLadder" version="0" onConclusion="none">WPDiodeLadder.chug.pkg</pkg-ref>
+    
+    <choice id="WPKorg35" title="WPKorg35" description="Virtual analog model of Korg35 resonant LPF based on Will Pirkle's design and implementation. By Owen Vallis. " enabled="0">
+        <pkg-ref id="edu.stanford.chuck.WPKorg35"/>
+    </choice>
+    <pkg-ref id="edu.stanford.chuck.WPKorg35" version="0" onConclusion="none">WPKorg35.chug.pkg</pkg-ref>
     
     <choice id="edu.stanford.chuck.examples" title="Examples" description="Example code for the ChucK programming language and related files. Includes sample code from &quot;Programming for Musicians and Digital Artists&quot; (Manning Press). Strongly recommended." description-mime-type="text/html">
         <pkg-ref id="edu.stanford.chuck.examples"/>

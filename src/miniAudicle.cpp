@@ -48,6 +48,7 @@ U.S.A.
 #include "chuck_otf.h"
 #include "chuck_errmsg.h"
 #include "chuck_globals.h"
+#include "chuck_bbq.h"
 #include "util_string.h"
 #include "version.h"
 #ifndef __PLATFORM_WIN32__
@@ -133,12 +134,88 @@ void * vm_cb( void * v )
         }
     }
     
-    
     // run the vm
-    g_vm->run();
+    // log
+    EM_log( CK_LOG_SYSTEM, "running main loop..." );
+    // push indent
+    EM_pushlog();
     
+    // set run state
+    g_vm->start();
+    
+    EM_log( CK_LOG_SEVERE, "initializing audio buffers..." );
+    if( !g_bbq->digi_out()->initialize( ) )
+    {
+        EM_log( CK_LOG_SYSTEM,
+               "cannot open audio output (use --silent/-s)" );
+        exit(1);
+    }
+    
+    // initialize input
+    g_bbq->digi_in()->initialize( );
+    
+    // log
+    EM_log( CK_LOG_SEVERE, "virtual machine running..." );
+    // pop indent
+    EM_poplog();
+    
+    // NOTE: non-blocking callback only, ge: 1.3.5.3
+    
+    // compute shreds before first sample
+    if( !g_vm->compute() )
+    {
+        // done, 1.3.5.3
+        g_vm->stop();
+        // log
+        EM_log( CK_LOG_SYSTEM, "virtual machine stopped..." );
+    }
+    
+    // start audio
+    EM_log( CK_LOG_SEVERE, "starting real-time audio..." );
+    g_bbq->digi_out()->start();
+    g_bbq->digi_in()->start();
+    
+    // silent mode buffers
+//    SAMPLE * input = new SAMPLE[buffer_size*adc_chans];
+//    SAMPLE * output = new SAMPLE[buffer_size*dac_chans];
+//    // zero out
+//    memset( input, 0, sizeof(SAMPLE)*buffer_size*adc_chans );
+//    memset( output, 0, sizeof(SAMPLE)*buffer_size*dac_chans );
+    
+    // wait
+    while( g_vm && g_vm->running() )
+    {
+        // real-time audio
+        if( g_enable_realtime_audio )
+        {
+//            if( g_main_thread_hook && g_main_thread_quit )
+//                g_main_thread_hook( g_main_thread_bindle );
+//            else
+            usleep( 1000 );
+        }
+        else // silent mode
+        {
+            // keep running as fast as possible
+            // this->run( input, output, buffer_size );
+        }
+    }
+    
+    //
+    all_stop();
     // detach
     all_detach();
+    
+    // shutdown audio
+    if( g_enable_realtime_audio )
+    {
+        // log
+        EM_log( CK_LOG_SYSTEM, "shutting down real-time audio..." );
+        
+        g_bbq->digi_out()->cleanup();
+        g_bbq->digi_in()->cleanup();
+        g_bbq->shutdown();
+        // m_audio = FALSE;
+    }
     
     // log
     EM_log( CK_LOG_SEVERE, "VM callback process ending..." );
@@ -851,6 +928,7 @@ t_CKBOOL miniAudicle::start_vm()
         EM_log( CK_LOG_INFO, "allocating VM..." );
         t_CKBOOL enable_audio = vm_options.enable_audio;
         t_CKBOOL vm_halt = FALSE;
+        t_CKBOOL force_srate = TRUE;
         t_CKUINT srate = vm_options.srate;
         t_CKUINT buffer_size = vm_options.buffer_size;
         t_CKUINT num_buffers = NUM_BUFFERS_DEFAULT;
@@ -860,6 +938,7 @@ t_CKBOOL miniAudicle::start_vm()
         t_CKBOOL block = vm_options.enable_block;
         t_CKUINT output_channels = vm_options.num_outputs;
         t_CKUINT input_channels = vm_options.num_inputs;
+        t_CKUINT adaptive_size = 0;
         
         // lets make up some magic numbers...
         vm_sleep_time = vm_options.buffer_size * 1000000 / vm_options.srate;
@@ -885,17 +964,63 @@ t_CKBOOL miniAudicle::start_vm()
         
         // allocate the vm - needs the type system
         vm = g_vm = new Chuck_VM;
-
-        if( !vm->initialize( enable_audio, vm_halt, srate, buffer_size,
-                             num_buffers, dac, adc, output_channels, 
-                             input_channels, block ) )
+        
+        if( !vm->initialize( srate, output_channels,
+                             input_channels, adaptive_size, vm_halt ) )
         {
             fprintf( stderr, "[chuck]: %s\n", vm->last_error() );
             // pop
             EM_poplog();
             return FALSE;
         }
-            
+
+        //--------------------------- AUDIO I/O SETUP ---------------------------------
+        
+        // ge: 1.3.5.3
+        bbq = g_bbq = new BBQ;
+        // set some parameters
+        bbq->set_srate( srate );
+        bbq->set_bufsize( buffer_size );
+        bbq->set_numbufs( num_buffers );
+        bbq->set_inouts( adc, dac );
+        bbq->set_chans( input_channels, output_channels );
+        
+        // log
+        EM_log( CK_LOG_SYSTEM, "initializing audio I/O..." );
+        // push
+        EM_pushlog();
+        // log
+        EM_log( CK_LOG_SYSTEM, "probing '%s' audio subsystem...", g_enable_realtime_audio ? "real-time" : "fake-time" );
+        
+        // probe / init (this shouldn't start audio yet...
+        // moved here 1.3.1.2; to main ge: 1.3.5.3)
+        if( !bbq->initialize( output_channels, input_channels, srate, 16, buffer_size, num_buffers,
+                              dac, adc, block, vm, g_enable_realtime_audio, NULL, NULL, force_srate ) )
+        {
+            EM_log( CK_LOG_SYSTEM,
+                   "cannot initialize audio device (use --silent/-s for non-realtime)" );
+            // pop
+            EM_poplog();
+            // done
+            exit( 1 );
+        }
+        
+        // log
+        EM_log( CK_LOG_SYSTEM, "real-time audio: %s", g_enable_realtime_audio ? "YES" : "NO" );
+        EM_log( CK_LOG_SYSTEM, "mode: %s", block ? "BLOCKING" : "CALLBACK" );
+        EM_log( CK_LOG_SYSTEM, "sample rate: %ld", srate );
+        EM_log( CK_LOG_SYSTEM, "buffer size: %ld", buffer_size );
+        if( g_enable_realtime_audio )
+        {
+            EM_log( CK_LOG_SYSTEM, "num buffers: %ld", num_buffers );
+            EM_log( CK_LOG_SYSTEM, "adc: %ld dac: %d", adc, dac );
+            EM_log( CK_LOG_SYSTEM, "adaptive block processing: %ld", adaptive_size > 1 ? adaptive_size : 0 );
+        }
+        EM_log( CK_LOG_SYSTEM, "channels in: %ld out: %ld", input_channels, output_channels );
+        
+        // pop
+        EM_poplog();
+        
         // log
         EM_log( CK_LOG_INFO, "allocating compiler..." );
 
@@ -1064,7 +1189,11 @@ t_CKBOOL miniAudicle::stop_vm()
 
             // stop
             the_vm->stop();
-        
+//            // set state
+//            Digitalio::m_end = TRUE;
+//            // stop things
+//            if( g_enable_realtime_audio ) g_bbq->shutdown();
+            
             // wait a bit
             usleep( 100000 );
 
