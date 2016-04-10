@@ -164,7 +164,8 @@ SOURCES += \
     qt/mAExportDialog.cpp \
     qt/ZSettings.cpp \
     qt/mASocketManager.cpp \ 
-    qt/mADeviceBrowser.cpp
+    qt/mADeviceBrowser.cpp \
+    chuck/src/chuck_system.cpp
 !linux-g++ {
     SOURCES += chuck/src/util_sndfile.c
 }
@@ -270,7 +271,8 @@ HEADERS  += qt/mAMainWindow.h \
     chuck/src/lo/lo_endian.h \
     chuck/src/lo/lo.h \
     chuck/src/lo/config.h \ 
-    qt/mADeviceBrowser.h
+    qt/mADeviceBrowser.h \
+    chuck/src/chuck_system.h
 
 FORMS += \
     qt/mAMainWindow.ui \
