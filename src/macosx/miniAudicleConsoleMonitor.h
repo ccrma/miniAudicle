@@ -39,10 +39,12 @@ U.S.A.
 //-----------------------------------------------------------------------------
 @interface miniAudicleConsoleMonitor : NSObject
 {
-    NSWindow * panel; // the window that this appears in 
-    NSTextView * text_view; // for the stderr/stdout text
-    NSWindow * new_panel; // for implementing/debugging new console monitor
-    mAConsoleMonitorView * view; // for implementing/debugging new console monitor
+    IBOutlet NSWindow * panel; // the window that this appears in
+    IBOutlet NSTextView * text_view; // for the stderr/stdout text
+    IBOutlet NSWindow * new_panel; // for implementing/debugging new console monitor
+    IBOutlet mAConsoleMonitorView * view; // for implementing/debugging new console monitor
+    
+    bool _useCustomConsoleMonitor;
     
     NSFileHandle * std_out; // encapsulation of piped stdout
     NSFileHandle * std_err; //encapsulation of piped stderr

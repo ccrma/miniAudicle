@@ -46,7 +46,7 @@ CHUCK_OBJS=$(CHUCK_SRC_DIR)/chuck.tab.o $(CHUCK_SRC_DIR)/chuck.yy.o \
 	$(CHUCK_SRC_DIR)/chuck_ugen.o $(CHUCK_SRC_DIR)/chuck_globals.o \
 	$(CHUCK_SRC_DIR)/chuck_otf.o $(CHUCK_SRC_DIR)/chuck_stats.o \
 	$(CHUCK_SRC_DIR)/chuck_bbq.o $(CHUCK_SRC_DIR)/chuck_shell.o \
-	$(CHUCK_SRC_DIR)/chuck_io.o \
+    $(CHUCK_SRC_DIR)/chuck_io.cpp $(CHUCK_SRC_DIR)/chuck_system.cpp \
 	$(CHUCK_SRC_DIR)/chuck_console.o $(CHUCK_SRC_DIR)/digiio_rtaudio.o \
     $(CHUCK_SRC_DIR)/hidio_sdl.o \
 	$(CHUCK_SRC_DIR)/midiio_rtmidi.o $(CHUCK_SRC_DIR)/RtAudio/RtAaudio.o \

@@ -16,7 +16,7 @@
     </Upgrade> 
 
     <InstallExecuteSequence>
-      <RemoveExistingProducts After="InstallFinalize" />
+      <RemoveExistingProducts After="InstallValidate" />
     </InstallExecuteSequence>
 
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' />
@@ -44,6 +44,12 @@
                 <File Id='chuckEXE' Name='chuck.exe' DiskId='1' Source='chuck.exe' KeyPath='yes' />
                 <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]/bin" Permanent="no" Part="last" Action="set" System="yes" />
               </Component>
+              <Component Id='msvcr100DLL' Guid='{DD4F537B-E8E7-47c8-99BF-D4254B065AA3}'>
+                <File Id='msvcr100DLL' Name='msvcr100.dll' DiskId='1' Source='msvcr100.dll' KeyPath='yes' />
+              </Component>
+              <Component Id='msvcp100DLL' Guid='{431A3761-9918-413c-B068-31B8EDFDE0C4}'>
+                <File Id='msvcp100DLL' Name='msvcp100.dll' DiskId='1' Source='msvcp100.dll' KeyPath='yes' />
+              </Component>
             </Directory>
             
             <Directory Id="util" Name="util">
@@ -52,41 +58,6 @@
               </Component>
             </Directory>
             
-            <Directory Id="chugins" Name="chugins">
-              <Component Id='ABSaturator' Guid='6A3BEC65-62B0-49bf-81BB-9B36D2FF02B1'>
-                <File Id='ABSaturator' Name='ABSaturator.chug' DiskId='1' Source='ABSaturator.chug' KeyPath='yes' />
-              </Component>
-              <Component Id='AmbPan' Guid='{EB8FC45E-F247-4240-92FF-E5CF5F9E1FD1}'>
-                <File Id='AmbPan' Name='AmbPan.chug' DiskId='1' Source='AmbPan.chug' KeyPath='yes' />
-              </Component>
-              <Component Id='Bitcrusher' Guid='19FEF87A-4399-4263-B508-08B6CC8496AA'>
-                <File Id='Bitcrusher' Name='Bitcrusher.chug' DiskId='1' Source='Bitcrusher.chug' KeyPath='yes' />
-              </Component>
-              <Component Id='Elliptic' Guid='{3BD64E38-5439-4abf-AED7-3F3076027FCF}'>
-                <File Id='Elliptic' Name='Elliptic.chug' DiskId='1' Source='Elliptic.chug' KeyPath='yes' />
-              </Component>
-              <Component Id='FIR' Guid='7B688BF5-1974-4fe8-9DB0-E71CB749630D'>
-                <File Id='FIR' Name='FIR.chug' DiskId='1' Source='FIR.chug' KeyPath='yes' />
-              </Component>
-              <Component Id='GVerb' Guid='{BA99005C-EFE8-4e7c-BF1A-4C43BB5DF7ED}'>
-                <File Id='GVerb' Name='GVerb.chug' DiskId='1' Source='GVerb.chug' KeyPath='yes' />
-              </Component>
-              <Component Id='KasFilter' Guid='8AF0BF3A-E7BC-4e61-A1B4-9F7303175726'>
-                <File Id='KasFilter' Name='KasFilter.chug' DiskId='1' Source='KasFilter.chug' KeyPath='yes' />
-              </Component>
-              <Component Id='Mesh2D' Guid='{13753037-719F-4ed6-81DF-CF2DFA888490}'>
-                <File Id='Mesh2D' Name='Mesh2D.chug' DiskId='1' Source='Mesh2D.chug' KeyPath='yes' />
-              </Component>
-              <Component Id='PanN' Guid='D5D71D69-B054-4b24-9FD4-D90F34FF97A2'>
-                <File Id='PanN' Name='PanN.chug' DiskId='1' Source='PanN.chug' KeyPath='yes' />
-              </Component>
-              <Component Id='PitchTrack' Guid='{6441F2BE-52F7-41cb-AE46-B0A466DB817B}'>
-                <File Id='PitchTrack' Name='PitchTrack.chug' DiskId='1' Source='PitchTrack.chug' KeyPath='yes' />
-              </Component>
-              <Component Id='Spectacle' Guid='{3FFA8084-3BD4-488b-8FEF-BB54CE6DC772}'>
-                <File Id='Spectacle' Name='Spectacle.chug' DiskId='1' Source='PanN.chug' KeyPath='yes' />
-              </Component>
-            </Directory>
           </Directory>
       </Directory>
 
@@ -110,19 +81,11 @@
       </Feature>
       <Feature Id='chuckEXE' Title='chuck.exe' Description='chuck.exe command line executable.' Level='1'>
         <ComponentRef Id='chuckEXE' />
+        <ComponentRef Id='msvcr100DLL' />
+        <ComponentRef Id='msvcp100DLL' />
       </Feature>
       <Feature Id='chugins' Title='ChuGins' Description='ChuGins extend the native capabilities of ChucK with additional unit generators.' Level='1'>
-        <ComponentRef Id='ABSaturator' />
-        <ComponentRef Id='AmbPan' />
-        <ComponentRef Id='Bitcrusher' />
-        <ComponentRef Id='Elliptic' />
-        <ComponentRef Id='FIR' />
-        <ComponentRef Id='GVerb' />
-        <ComponentRef Id='KasFilter' />
-        <ComponentRef Id='Mesh2D' />
-        <ComponentRef Id='PanN' />
-        <ComponentRef Id='PitchTrack' />
-        <ComponentRef Id='Spectacle' />
+        <ComponentGroupRef Id='chugins' />
       </Feature>
       <Feature Id='examples' Title='ChucK examples' Description='Example programs demonstrating the ChucK language.' Level='1'>
         <ComponentGroupRef Id='examples' />

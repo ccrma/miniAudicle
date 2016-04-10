@@ -34,7 +34,8 @@ U.S.A.
 
 @class miniAudicleController;
 
-extern NSString * mAPreferencesAcceptsNetworkCommands;
+extern NSString * mAPreferencesVersion;
+
 extern NSString * mAPreferencesEnableAudio;
 extern NSString * mAPreferencesEnableCallback;
 extern NSString * mAPreferencesEnableBlocking;
@@ -67,6 +68,7 @@ extern NSString * mAPreferencesEnableOTFVisuals;
 extern NSString * mAPreferencesSoundfilesDirectory;
 extern NSString * mAPreferencesOpenDocumentsInNewTab;
 extern NSString * mAPreferencesBackupSuffix;
+extern NSString * mAPreferencesUseCustomConsoleMonitor;
 
 extern NSString * mAPreferencesLibraryPath;
 extern NSString * mAPreferencesChuginPaths;
