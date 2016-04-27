@@ -1378,7 +1378,7 @@
 				09C758551C83BDCA00B1324C /* Libraries */,
 			);
 			name = GoogleAnalytics;
-			path = ios/GoogleAnalytics;
+			path = ios/libs/GoogleAnalytics;
 			sourceTree = SOURCE_ROOT;
 		};
 		09C758491C83BDCA00B1324C /* Headers */ = {
@@ -2380,8 +2380,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ios/libs/Crittercism",
-					"$(PROJECT_DIR)/ios/GoogleAnalytics",
-					"$(PROJECT_DIR)/ios/GoogleAnalytics/Libraries",
+					"$(PROJECT_DIR)/ios/libs/GoogleAnalytics",
+					"$(PROJECT_DIR)/ios/libs/GoogleAnalytics/Libraries",
 				);
 				OTHER_LDFLAGS = (
 					"-lz",
@@ -2431,8 +2431,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ios/libs/Crittercism",
-					"$(PROJECT_DIR)/ios/GoogleAnalytics",
-					"$(PROJECT_DIR)/ios/GoogleAnalytics/Libraries",
+					"$(PROJECT_DIR)/ios/libs/GoogleAnalytics",
+					"$(PROJECT_DIR)/ios/libs/GoogleAnalytics/Libraries",
 				);
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
