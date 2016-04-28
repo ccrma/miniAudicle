@@ -115,10 +115,14 @@ public:
     void free_document_id( t_CKUINT docid );
     
     t_CKUINT shred_count();
-
+    
     t_CKBOOL start_vm();
+    t_CKBOOL main_loop();
+    t_CKBOOL post_init();
     t_CKBOOL stop_vm();
     t_CKBOOL is_on();
+
+    t_CKBOOL process_audio( int numFrames, SAMPLE * input, SAMPLE * output) ;
     
     t_CKBOOL get_new_class_names( vector< string > & v);
 
@@ -152,6 +156,8 @@ public:
     t_CKBOOL get_blocking();
     t_CKBOOL set_enable_std_system( t_CKBOOL enable );
     t_CKBOOL get_enable_std_system();
+    t_CKBOOL set_client_mode( t_CKBOOL client_mode );
+    t_CKBOOL get_client_mode();
     t_CKBOOL set_library_paths( list< string > & paths );
     t_CKBOOL get_library_paths( list< string > & paths );
     t_CKBOOL set_named_chugins( list< string > & chugins );
@@ -159,6 +165,7 @@ public:
     t_CKBOOL add_query_func(t_CKBOOL (*func)(Chuck_Env *));
     
 protected:
+
     map< t_CKUINT, vector< t_CKUINT > * > documents; // maps documents to shreds
 
     struct _doc_shred { t_CKUINT docid; vector< t_CKUINT >::size_type index; };
@@ -177,6 +184,7 @@ protected:
     t_CKUINT next_document_id;
     
     t_CKBOOL vm_on;
+    t_CKBOOL m_post_init;
     
     CHUCK_THREAD vm_tid;
     CHUCK_THREAD otf_tid;
@@ -209,6 +217,7 @@ protected:
         t_CKBOOL enable_audio;
         t_CKBOOL enable_network;
         t_CKBOOL enable_block;
+        t_CKBOOL client_mode;
         list< string > library_paths;
         list< string > named_chugins;
         list< t_CKBOOL (*)(Chuck_Env *) > query_funcs;

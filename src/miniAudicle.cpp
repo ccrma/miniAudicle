@@ -121,7 +121,9 @@ http://chuck.cs.princeton.edu/\n";
 // desc: thread routine to run vm 
 //-----------------------------------------------------------------------------
 void * vm_cb( void * v )
-{   
+{
+    miniAudicle *ma = (miniAudicle *) v;
+    
     // boost priority
     if( Chuck_VM::our_priority != 0x7fffffff )
     {
@@ -134,97 +136,9 @@ void * vm_cb( void * v )
         }
     }
     
-    // run the vm
-    // log
-    EM_log( CK_LOG_SYSTEM, "running main loop..." );
-    // push indent
-    EM_pushlog();
+    ma->post_init();
     
-    // set run state
-    g_vm->start();
-    
-    EM_log( CK_LOG_SEVERE, "initializing audio buffers..." );
-    if( !g_bbq->digi_out()->initialize( ) )
-    {
-        EM_log( CK_LOG_SYSTEM,
-               "cannot open audio output (use --silent/-s)" );
-        exit(1);
-    }
-    
-    // initialize input
-    g_bbq->digi_in()->initialize( );
-    
-    // log
-    EM_log( CK_LOG_SEVERE, "virtual machine running..." );
-    // pop indent
-    EM_poplog();
-    
-    // NOTE: non-blocking callback only, ge: 1.3.5.3
-    
-    // compute shreds before first sample
-    if( !g_vm->compute() )
-    {
-        // done, 1.3.5.3
-        g_vm->stop();
-        // log
-        EM_log( CK_LOG_SYSTEM, "virtual machine stopped..." );
-    }
-    
-    // start audio
-    EM_log( CK_LOG_SEVERE, "starting real-time audio..." );
-    g_bbq->digi_out()->start();
-    g_bbq->digi_in()->start();
-    
-    // silent mode buffers
-//    SAMPLE * input = new SAMPLE[buffer_size*adc_chans];
-//    SAMPLE * output = new SAMPLE[buffer_size*dac_chans];
-//    // zero out
-//    memset( input, 0, sizeof(SAMPLE)*buffer_size*adc_chans );
-//    memset( output, 0, sizeof(SAMPLE)*buffer_size*dac_chans );
-    
-    // wait
-    while( g_vm && g_vm->running() )
-    {
-        // real-time audio
-        if( g_enable_realtime_audio )
-        {
-//            if( g_main_thread_hook && g_main_thread_quit )
-//                g_main_thread_hook( g_main_thread_bindle );
-//            else
-            usleep( 1000 );
-        }
-        else // silent mode
-        {
-            // keep running as fast as possible
-            // this->run( input, output, buffer_size );
-        }
-    }
-    
-    //
-    all_stop();
-    // detach
-    all_detach();
-    
-    // shutdown audio
-    if( g_enable_realtime_audio )
-    {
-        // log
-        EM_log( CK_LOG_SYSTEM, "shutting down real-time audio..." );
-        
-        g_bbq->digi_out()->cleanup();
-        g_bbq->digi_in()->cleanup();
-        g_bbq->shutdown();
-        // m_audio = FALSE;
-    }
-    
-    // log
-    EM_log( CK_LOG_SEVERE, "VM callback process ending..." );
-    
-    // free vm
-    //g_vm = NULL; SAFE_DELETE( g_vm );
-    //SAFE_DELETE( g_vm );
-    // free the compiler
-    //SAFE_DELETE( compiler );
+    ma->main_loop();
     
     return NULL;
 }
@@ -927,6 +841,9 @@ t_CKBOOL miniAudicle::start_vm()
         // log
         EM_log( CK_LOG_INFO, "allocating VM..." );
         t_CKBOOL enable_audio = vm_options.enable_audio;
+        t_CKBOOL client_mode = vm_options.client_mode;
+        if(client_mode)
+            enable_audio = FALSE;
         t_CKBOOL vm_halt = FALSE;
         t_CKBOOL force_srate = TRUE;
         t_CKUINT srate = vm_options.srate;
@@ -939,6 +856,11 @@ t_CKBOOL miniAudicle::start_vm()
         t_CKUINT output_channels = vm_options.num_outputs;
         t_CKUINT input_channels = vm_options.num_inputs;
         t_CKUINT adaptive_size = 0;
+        
+        g_enable_realtime_audio = enable_audio;
+        
+        // reset post_init
+        m_post_init = FALSE;
         
         // lets make up some magic numbers...
         vm_sleep_time = vm_options.buffer_size * 1000000 / vm_options.srate;
@@ -1002,7 +924,7 @@ t_CKBOOL miniAudicle::start_vm()
             // pop
             EM_poplog();
             // done
-            exit( 1 );
+            return FALSE;
         }
         
         // log
@@ -1114,12 +1036,15 @@ t_CKBOOL miniAudicle::start_vm()
         // load user namespace
         compiler->env->load_user_namespace();
         
-        // start the vm handler threads
+        if(!vm_options.client_mode)
+        {
+            // start the vm handler threads
 #ifndef __PLATFORM_WIN32__
-        pthread_create( &vm_tid, NULL, vm_cb, NULL );
+            pthread_create( &vm_tid, NULL, vm_cb, NULL );
 #else
-        vm_tid = CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)vm_cb, NULL, 0, 0 );
+            vm_tid = CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)vm_cb, NULL, 0, 0 );
 #endif
+        }
     }
 
     // check it
@@ -1150,6 +1075,133 @@ t_CKBOOL miniAudicle::start_vm()
     EM_poplog();
     
     return vm_on;
+}
+
+//-----------------------------------------------------------------------------
+// name: post_init()
+// desc: additional initialize for VM thread or in client mode processAudio()
+//-----------------------------------------------------------------------------
+t_CKBOOL miniAudicle::post_init()
+{
+    // run the vm
+    // log
+    EM_log( CK_LOG_SYSTEM, "running main loop..." );
+    // push indent
+    EM_pushlog();
+    
+    // set run state
+    vm->start();
+    
+    EM_log( CK_LOG_SEVERE, "initializing audio buffers..." );
+    if( !g_bbq->digi_out()->initialize( ) )
+    {
+        EM_log( CK_LOG_SYSTEM,
+               "cannot open audio output (use --silent/-s)" );
+        return FALSE;
+    }
+    
+    // initialize input
+    g_bbq->digi_in()->initialize( );
+    
+    // log
+    EM_log( CK_LOG_SEVERE, "virtual machine running..." );
+    // pop indent
+    EM_poplog();
+    
+    // NOTE: non-blocking callback only, ge: 1.3.5.3
+    
+    // compute shreds before first sample
+    if( !vm->compute() )
+    {
+        // done, 1.3.5.3
+        vm->stop();
+        // log
+        EM_log( CK_LOG_SYSTEM, "virtual machine stopped..." );
+    }
+    
+    return TRUE;
+}
+
+//-----------------------------------------------------------------------------
+// name: main_loop()
+// desc: main chuck loop (called from vm thread unless in client mode)
+//-----------------------------------------------------------------------------
+t_CKBOOL miniAudicle::main_loop()
+{
+    if( g_enable_realtime_audio )
+    {
+        // start audio
+        EM_log( CK_LOG_SEVERE, "starting real-time audio..." );
+        g_bbq->digi_out()->start();
+        g_bbq->digi_in()->start();
+    }
+    
+    if( !g_enable_realtime_audio )
+    {
+        // silent mode buffers
+        SAMPLE * input = new SAMPLE[vm_options.buffer_size*vm_options.num_inputs];
+        SAMPLE * output = new SAMPLE[vm_options.buffer_size*vm_options.num_outputs];
+        // zero out
+        memset( input, 0, sizeof(SAMPLE)*vm_options.buffer_size*vm_options.num_inputs );
+        memset( output, 0, sizeof(SAMPLE)*vm_options.buffer_size*vm_options.num_outputs );
+        
+        while( g_vm && g_vm->running() )
+            g_vm->run( vm_options.buffer_size, input, output );
+    }
+    else
+    {
+        // wait
+        while( g_vm && g_vm->running() )
+        {
+            usleep( 1000 );
+        }
+    }
+    
+    //
+    all_stop();
+    // detach
+    all_detach();
+    
+    // shutdown audio
+    if( g_enable_realtime_audio )
+    {
+        // log
+        EM_log( CK_LOG_SYSTEM, "shutting down real-time audio..." );
+        
+        g_bbq->digi_out()->cleanup();
+        g_bbq->digi_in()->cleanup();
+        g_bbq->shutdown();
+        // m_audio = FALSE;
+    }
+    
+    // log
+    EM_log( CK_LOG_SEVERE, "VM callback process ending..." );
+    
+    // free vm
+    //g_vm = NULL; SAFE_DELETE( g_vm );
+    //SAFE_DELETE( g_vm );
+    // free the compiler
+    //SAFE_DELETE( compiler );
+    
+    return TRUE;
+}
+
+//-----------------------------------------------------------------------------
+// name: process_audio()
+// desc: ...
+//-----------------------------------------------------------------------------
+t_CKBOOL miniAudicle::process_audio( int numFrames, SAMPLE * input, SAMPLE * output )
+{
+    if(!m_post_init)
+    {
+        post_init();
+        
+        m_post_init = TRUE;
+    }
+    
+    vm->run( numFrames, input, output );
+    
+    return TRUE;
 }
 
 //-----------------------------------------------------------------------------
@@ -1507,6 +1559,30 @@ t_CKBOOL miniAudicle::set_enable_audio( t_CKBOOL en )
 t_CKBOOL miniAudicle::get_enable_audio()
 {
     return vm_options.enable_audio;
+}
+
+//-----------------------------------------------------------------------------
+// name: set_client_mode()
+// desc: specify whether or not to enable client mode
+// if so, processAudio() must be called repeatedly for the VM to run
+//-----------------------------------------------------------------------------
+t_CKBOOL miniAudicle::set_client_mode( t_CKBOOL en )
+{
+    if( en )
+        vm_options.client_mode = TRUE;
+    else
+        vm_options.client_mode = FALSE;
+    
+    return TRUE;
+}
+
+//-----------------------------------------------------------------------------
+// name: get_client_mode()
+// desc: determine if in client mode
+//-----------------------------------------------------------------------------
+t_CKBOOL miniAudicle::get_client_mode()
+{
+    return vm_options.client_mode;
 }
 
 //-----------------------------------------------------------------------------
