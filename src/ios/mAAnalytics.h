@@ -36,6 +36,7 @@ do { \
 - (void)playButton;
 - (void)consoleButton;
 - (void)shredsButton;
+- (void)settingsButton;
 
 - (void)myScripts;
 - (void)recentScripts;

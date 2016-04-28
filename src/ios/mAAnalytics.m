@@ -171,6 +171,16 @@ static NSString * const mAAnalyticsOptOut = @"mAAnalyticsOptOut";
                                                                 value:@1] build]];
 }
 
+- (void)settingsButton
+{
+    _lastActionWasEdit = NO;
+    
+    [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"General"
+                                                               action:@"SettingsOpen"
+                                                                label:@""
+                                                                value:@1] build]];
+}
+
 - (void)myScripts
 {
     _lastActionWasEdit = NO;

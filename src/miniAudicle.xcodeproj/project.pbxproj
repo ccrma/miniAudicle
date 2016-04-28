@@ -188,6 +188,8 @@
 		09735F4A1C8A5BBC003965CA /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 09735F481C8A5BBC003965CA /* stop.png */; };
 		09735F6F1C8A9407003965CA /* mAAudioFileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09735F6E1C8A9407003965CA /* mAAudioFileTableViewCell.xib */; };
 		09735F711C8AEE87003965CA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09735F701C8AEE87003965CA /* AVFoundation.framework */; };
+		097397361CD2B00000D8B74D /* mAPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 097397351CD2B00000D8B74D /* mAPreferencesViewController.m */; };
+		0973973E1CD2B0CE00D8B74D /* mAPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0973973D1CD2B0CE00D8B74D /* mAPreferencesViewController.xib */; };
 		09805FFA0AA10D3800915136 /* chuck.lex in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B350A9A54DA007604EA /* chuck.lex */; };
 		09805FFB0AA10D3900915136 /* chuck.y in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B360A9A54DA007604EA /* chuck.y */; };
 		09805FFC0AA10D3900915136 /* chuck_absyn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B060A9A54DA007604EA /* chuck_absyn.cpp */; };
@@ -364,6 +366,8 @@
 		09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8914A44DFA0019CD09 /* mAVMMonitorController.mm */; };
 		09D00B8C14A44DFB0019CD09 /* mAVMMonitorController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09D00B8A14A44DFB0019CD09 /* mAVMMonitorController.xib */; };
 		09D9D910164359EC00E6CC4E /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09AC749613E36A970015CC99 /* RtAudio.cpp */; };
+		09E449D41CD2D1E5004BCBA0 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 09E449D31CD2D1E5004BCBA0 /* gear.png */; };
+		09E449D81CD2D2FF004BCBA0 /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09E449D71CD2D2FF004BCBA0 /* gear@2x.png */; };
 		09EBA9B718D8FD4700DCAE0C /* examples in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B5C1769A5CD00A07ADF /* examples */; };
 		09F0442B1918A8810028DD14 /* mALoopCountPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F044291918A8810028DD14 /* mALoopCountPicker.m */; };
 		09F0442C1918A8810028DD14 /* mALoopCountPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09F0442A1918A8810028DD14 /* mALoopCountPicker.xib */; };
@@ -417,6 +421,20 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
+		097397391CD2B00100D8B74D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 09B449ED1CD0B5AA00387883 /* TheAmazingAudioEngine.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7A5687101B54610900243427;
+			remoteInfo = "TheAmazingAudioEngine OS X";
+		};
+		0973973B1CD2B00100D8B74D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 09B449ED1CD0B5AA00387883 /* TheAmazingAudioEngine.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 17BB5B401BECD101007A2892;
+			remoteInfo = "TheAmazingAudioEngine tvOS";
+		};
 		09B449F31CD0B5AA00387883 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 09B449ED1CD0B5AA00387883 /* TheAmazingAudioEngine.xcodeproj */;
@@ -608,6 +626,9 @@
 		09735F481C8A5BBC003965CA /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop.png; sourceTree = "<group>"; };
 		09735F6E1C8A9407003965CA /* mAAudioFileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAAudioFileTableViewCell.xib; sourceTree = "<group>"; };
 		09735F701C8AEE87003965CA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		097397341CD2B00000D8B74D /* mAPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAPreferencesViewController.h; sourceTree = "<group>"; };
+		097397351CD2B00000D8B74D /* mAPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAPreferencesViewController.m; sourceTree = "<group>"; };
+		0973973D1CD2B0CE00D8B74D /* mAPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAPreferencesViewController.xib; sourceTree = "<group>"; };
 		09805FE70AA10D0C00915136 /* chuck */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = chuck; sourceTree = BUILT_PRODUCTS_DIR; };
 		098060400AA1596900915136 /* led01.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = led01.ck; path = ../test/led01.ck; sourceTree = SOURCE_ROOT; };
 		098060410AA1596900915136 /* mand-o-ui.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = "mand-o-ui.ck"; path = "../test/mand-o-ui.ck"; sourceTree = SOURCE_ROOT; };
@@ -856,6 +877,8 @@
 		09D00B8814A44DFA0019CD09 /* mAVMMonitorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAVMMonitorController.h; sourceTree = "<group>"; };
 		09D00B8914A44DFA0019CD09 /* mAVMMonitorController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAVMMonitorController.mm; sourceTree = "<group>"; };
 		09D00B8A14A44DFB0019CD09 /* mAVMMonitorController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAVMMonitorController.xib; sourceTree = "<group>"; };
+		09E449D31CD2D1E5004BCBA0 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
+		09E449D71CD2D2FF004BCBA0 /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear@2x.png"; sourceTree = "<group>"; };
 		09E481F80B1CE5AF002087DF /* gauge01.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = gauge01.ck; path = ../test/gauge01.ck; sourceTree = SOURCE_ROOT; };
 		09E481F90B1CE5AF002087DF /* gauge02.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = gauge02.ck; path = ../test/gauge02.ck; sourceTree = SOURCE_ROOT; };
 		09E5546D0DA61CB700F1A6C8 /* miniAudicle_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = miniAudicle_debug.h; sourceTree = "<group>"; };
@@ -1020,6 +1043,8 @@
 		09087C6914A4F63700AD2633 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				09E449D31CD2D1E5004BCBA0 /* gear.png */,
+				09E449D71CD2D2FF004BCBA0 /* gear@2x.png */,
 				09735F471C8A5BBC003965CA /* play.png */,
 				09735F481C8A5BBC003965CA /* stop.png */,
 				09735F411C870B2D003965CA /* ck-doc64.png */,
@@ -1387,6 +1412,8 @@
 			isa = PBXGroup;
 			children = (
 				09B449F41CD0B5AA00387883 /* libTheAmazingAudioEngine.a */,
+				0973973A1CD2B00100D8B74D /* libTheAmazingAudioEngine OS X.a */,
+				0973973C1CD2B00100D8B74D /* libTheAmazingAudioEngine tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1583,6 +1610,9 @@
 				094B5F6519C9DBE0004B9B5E /* ulib_motion.mm */,
 				09C7585C1C83CBE300B1324C /* mAAnalytics.h */,
 				09C7585D1C83CBE300B1324C /* mAAnalytics.m */,
+				097397341CD2B00000D8B74D /* mAPreferencesViewController.h */,
+				097397351CD2B00000D8B74D /* mAPreferencesViewController.m */,
+				0973973D1CD2B0CE00D8B74D /* mAPreferencesViewController.xib */,
 			);
 			name = main;
 			sourceTree = "<group>";
@@ -1835,6 +1865,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		0973973A1CD2B00100D8B74D /* libTheAmazingAudioEngine OS X.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libTheAmazingAudioEngine OS X.a";
+			remoteRef = 097397391CD2B00100D8B74D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0973973C1CD2B00100D8B74D /* libTheAmazingAudioEngine tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libTheAmazingAudioEngine tvOS.a";
+			remoteRef = 0973973B1CD2B00100D8B74D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		09B449F41CD0B5AA00387883 /* libTheAmazingAudioEngine.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1853,6 +1897,7 @@
 				09735F4A1C8A5BBC003965CA /* stop.png in Resources */,
 				093E262D14A108C8008694BC /* mAFileViewController~iphone.xib in Resources */,
 				093E263014A108C8008694BC /* mAFileViewController~ipad.xib in Resources */,
+				09E449D41CD2D1E5004BCBA0 /* gear.png in Resources */,
 				09EBA9B718D8FD4700DCAE0C /* examples in Resources */,
 				093E263314A108C9008694BC /* mADetailViewController~iphone.xib in Resources */,
 				09735F441C870B2D003965CA /* ck-doc320.png in Resources */,
@@ -1862,6 +1907,8 @@
 				093E267914A14E91008694BC /* replace.png in Resources */,
 				09F0442C1918A8810028DD14 /* mALoopCountPicker.xib in Resources */,
 				4D3D4C921A5E37DB00B6A06B /* dsym_upload.sh in Resources */,
+				0973973E1CD2B0CE00D8B74D /* mAPreferencesViewController.xib in Resources */,
+				09E449D81CD2D2FF004BCBA0 /* gear@2x.png in Resources */,
 				09735F491C8A5BBC003965CA /* play.png in Resources */,
 				093E267A14A14E91008694BC /* remove.png in Resources */,
 				096310BD1C86F55D00A36F8F /* Images.xcassets in Resources */,
@@ -2072,6 +2119,7 @@
 				09A14A1219B9AD5E00D28255 /* UIColor+iOS7BlueColor.m in Sources */,
 				09B596C119B0517D0091D45F /* NSString+STLString.mm in Sources */,
 				093E266114A12234008694BC /* util_buffers.cpp in Sources */,
+				097397361CD2B00000D8B74D /* mAPreferencesViewController.m in Sources */,
 				09F09E4518E36DBC0050D963 /* mAScriptPlayer.mm in Sources */,
 				093E266214A12234008694BC /* util_console.cpp in Sources */,
 				093E266314A12234008694BC /* util_hid.cpp in Sources */,
