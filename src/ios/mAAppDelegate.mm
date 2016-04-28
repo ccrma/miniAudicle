@@ -160,7 +160,7 @@ static mAAppDelegate *g_appDelegate = nil;
     
     [self.window makeKeyAndVisible];
     
-    [mAChucKController chuckController].ma->start_vm();
+    [[mAChucKController chuckController] start];
     
     // create autocomplete
     mAAutocomplete::autocomplete();

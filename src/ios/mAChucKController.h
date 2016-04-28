@@ -36,4 +36,6 @@ class miniAudicle;
 
 + (mAChucKController *)chuckController;
 
+- (void)start;
+
 @end
