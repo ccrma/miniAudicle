@@ -324,6 +324,7 @@
         [self _closeOpenPopovers];
         
         self.settingsPopover.delegate = self;
+        self.preferences.popoverController = self.settingsPopover;
         
         [self.settingsPopover presentPopoverFromBarButtonItem:sender
                                      permittedArrowDirections:UIPopoverArrowDirectionUp

@@ -23,10 +23,21 @@
  -----------------------------------------------------------------------------*/
 
 #import "mAChucKController.h"
+
 #import "TheAmazingAudioEngine/TheAmazingAudioEngine.h"
+
 #import "miniAudicle.h"
 #import "ulib_motion.h"
+#import "mAAnalytics.h"
+#import "util_buffers.h"
+
 #import <vector>
+
+
+NSString * const mAAudioInputEnabledPreference = @"audio.input_enabled";
+NSString * const mAAudioBufferSizePreference = @"audio.buffer_size";
+NSString * const mAAudioAdaptiveBufferingPreference = @"audio.adaptive_buffering";
+NSString * const mAAudioBackgroundAudioPreference = @"audio.background_audio";
 
 
 static mAChucKController * g_chuckController = nil;
@@ -35,9 +46,16 @@ static mAChucKController * g_chuckController = nil;
 {
     std::vector<float> _inputBuffer;
     std::vector<float> _outputBuffer;
+    
+    BOOL _processAudio;
+    
+    CircularBuffer<void (^)()> *_audioOperationQueue;
 }
 
 @property (strong) AEAudioController *audioController;
+
+- (void)_startVM;
+- (void)_startAudioIO;
 
 @end
 
@@ -45,6 +63,38 @@ static mAChucKController * g_chuckController = nil;
 @implementation mAChucKController
 
 @synthesize ma;
+
+- (void)setEnableInput:(BOOL)enableInput
+{
+    _enableInput = enableInput;
+    
+    if(self.audioController)
+    {
+        NSError *error = NULL;
+        [self.audioController setInputEnabled:_enableInput error:&error];
+        mAAnalyticsLogError(error);
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setBool:_enableInput forKey:mAAudioInputEnabledPreference];
+}
+
+- (void)setBufferSize:(int)bufferSize
+{
+    _bufferSize = bufferSize;
+    [[NSUserDefaults standardUserDefaults] setInteger:_bufferSize forKey:mAAudioBufferSizePreference];
+}
+
+- (void)setAdaptiveBuffering:(BOOL)adaptiveBuffering
+{
+    _adaptiveBuffering = adaptiveBuffering;
+    [[NSUserDefaults standardUserDefaults] setBool:_adaptiveBuffering forKey:mAAudioAdaptiveBufferingPreference];
+}
+
+- (void)setBackgroundAudio:(BOOL)backgroundAudio
+{
+    _backgroundAudio = backgroundAudio;
+    [[NSUserDefaults standardUserDefaults] setBool:_backgroundAudio forKey:mAAudioBackgroundAudioPreference];
+}
 
 + (void)initialize
 {
@@ -61,21 +111,25 @@ static mAChucKController * g_chuckController = nil;
 {
     if(self = [super init])
     {
+        _audioOperationQueue = new CircularBuffer<void (^)()>(32);
+        _processAudio = NO;
+        
         ma = new miniAudicle;
+        
+        self.enableInput = [[NSUserDefaults standardUserDefaults] boolForKey:mAAudioInputEnabledPreference];
+        self.bufferSize = [[NSUserDefaults standardUserDefaults] integerForKey:mAAudioBufferSizePreference];
+        self.adaptiveBuffering = [[NSUserDefaults standardUserDefaults] boolForKey:mAAudioAdaptiveBufferingPreference];
+        self.sampleRate = 44100;
+        self.backgroundAudio = [[NSUserDefaults standardUserDefaults] boolForKey:mAAudioBackgroundAudioPreference];
     }
     
     return self;
 }
 
-- (void)start
+- (void)_startVM
 {
-#ifdef TARGET_IPHONE_SIMULATOR
-    ma->set_sample_rate(44100);
-    ma->set_buffer_size(512);
-#else
-    ma->set_sample_rate(44100);
-    ma->set_buffer_size(256);
-#endif // TARGET_IPHONE_SIMULATOR
+    ma->set_sample_rate(self.sampleRate);
+    ma->set_buffer_size(self.bufferSize);
     
     ma->add_query_func(motion_query);
     
@@ -87,8 +141,13 @@ static mAChucKController * g_chuckController = nil;
     
     ma->start_vm();
     
-    _inputBuffer.resize(ma->get_buffer_size()*ma->get_num_inputs());
-    _outputBuffer.resize(ma->get_buffer_size()*ma->get_num_outputs());
+    _processAudio = YES;
+}
+
+- (void)_startAudioIO
+{
+    _inputBuffer.resize(self.bufferSize*ma->get_num_inputs());
+    _outputBuffer.resize(self.bufferSize*ma->get_num_outputs());
     
     AudioStreamBasicDescription audioDescription;
     memset(&audioDescription, 0, sizeof(audioDescription));
@@ -99,44 +158,62 @@ static mAChucKController * g_chuckController = nil;
     audioDescription.mFramesPerPacket   = 1;
     audioDescription.mBytesPerFrame     = sizeof(float);
     audioDescription.mBitsPerChannel    = 8 * sizeof(float);
-    audioDescription.mSampleRate        = 44100;
+    audioDescription.mSampleRate        = self.sampleRate;
     
-    self.audioController = [[AEAudioController alloc] initWithAudioDescription:audioDescription inputEnabled:YES];
-    _audioController.preferredBufferDuration = ma->get_buffer_size()/((float) ma->get_sample_rate());
+    self.audioController = [[AEAudioController alloc] initWithAudioDescription:audioDescription inputEnabled:self.enableInput];
+    _audioController.preferredBufferDuration = self.bufferSize/((float) self.sampleRate);
     
     [_audioController addChannels:@[[AEBlockChannel channelWithBlock:^(const AudioTimeStamp *time,
                                                                        UInt32 frames,
                                                                        AudioBufferList *audio) {
-        if(_inputBuffer.size() < frames*ma->get_num_inputs())
+        if(_processAudio)
         {
-            NSLog(@"miniAudicle: warning: input buffer resized in audio I/O process");
-            _inputBuffer.resize(frames*ma->get_num_inputs());
+            if(_inputBuffer.size() < frames*ma->get_num_inputs())
+            {
+                NSLog(@"miniAudicle: warning: input buffer resized in audio I/O process");
+                _inputBuffer.resize(frames*ma->get_num_inputs());
+            }
+            
+            if(_outputBuffer.size() < frames*ma->get_num_outputs())
+            {
+                NSLog(@"miniAudicle: warning: output buffer resized in audio I/O process");
+                _outputBuffer.resize(frames*ma->get_num_outputs());
+            }
+            
+            // interleave input
+            for(int i = 0; i < frames; i++)
+            {
+                _inputBuffer[i*2] = ((float*)(audio->mBuffers[0].mData))[i];
+                _inputBuffer[i*2+1] = ((float*)(audio->mBuffers[1].mData))[i];
+            }
+            
+            ma->process_audio(frames, _inputBuffer.data(), _outputBuffer.data());
+            
+            // deinterleave output
+            for(int i = 0; i < frames; i++)
+            {
+                ((float*)(audio->mBuffers[0].mData))[i] = _outputBuffer[i*2];
+                ((float*)(audio->mBuffers[1].mData))[i] = _outputBuffer[i*2+1];
+            }
         }
         
-        if(_outputBuffer.size() < frames*ma->get_num_outputs())
-        {
-            NSLog(@"miniAudicle: warning: output buffer resized in audio I/O process");
-            _outputBuffer.resize(frames*ma->get_num_outputs());
-        }
-        
-        // interleave input
-        for(int i = 0; i < frames; i++)
-        {
-            _inputBuffer[i*2] = ((float*)(audio->mBuffers[0].mData))[i];
-            _inputBuffer[i*2+1] = ((float*)(audio->mBuffers[1].mData))[i];
-        }
-        
-        ma->process_audio(frames, _inputBuffer.data(), _outputBuffer.data());
-        
-        // deinterleave output
-        for(int i = 0; i < frames; i++)
-        {
-            ((float*)(audio->mBuffers[0].mData))[i] = _outputBuffer[i*2];
-            ((float*)(audio->mBuffers[1].mData))[i] = _outputBuffer[i*2+1];
-        }
+        void (^audioOperation)();
+        while(_audioOperationQueue->get(audioOperation))
+            audioOperation();
     }]]];
     
     [_audioController start:NULL];
+}
+
+- (void)start
+{
+    [self _startVM];
+    [self _startAudioIO];
+}
+
+- (void)restart
+{
+    // TODO
 }
 
 @end

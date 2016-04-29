@@ -24,7 +24,11 @@
 
 #import <Foundation/Foundation.h>
 
+#ifdef __cplusplus
 class miniAudicle;
+#else
+typedef void miniAudicle;
+#endif
 
 
 @interface mAChucKController : NSObject
@@ -33,9 +37,15 @@ class miniAudicle;
 }
 
 @property (nonatomic) miniAudicle * ma;
+@property (nonatomic) BOOL enableInput;
+@property (nonatomic) int bufferSize;
+@property (nonatomic) BOOL adaptiveBuffering;
+@property (nonatomic) int sampleRate;
+@property (nonatomic) BOOL backgroundAudio;
 
 + (mAChucKController *)chuckController;
 
 - (void)start;
+- (void)restart;
 
 @end

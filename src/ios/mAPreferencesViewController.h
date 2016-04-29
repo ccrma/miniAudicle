@@ -10,4 +10,6 @@
 
 @interface mAPreferencesViewController : UIViewController
 
+@property (strong) UIPopoverController *popoverController;
+
 @end
