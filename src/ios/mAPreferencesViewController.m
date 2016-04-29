@@ -56,8 +56,8 @@
 
 - (IBAction)adaptiveBufferingChanged:(id)sender
 {
-    [mAChucKController chuckController].adaptiveBuffering = _adaptiveBufferingSwitch.on;
-    _updateVM = YES;
+//    _adaptiveBuffering = _adaptiveBufferingSwitch.on;
+//    _updateVM = YES;
 }
 
 - (IBAction)backgroundAudioChanged:(id)sender
@@ -67,6 +67,11 @@
 
 - (IBAction)done:(id)sender
 {
+    _updateVM = NO;
+    
+    if(_adaptiveBufferingSwitch.on != [mAChucKController chuckController].adaptiveBuffering)
+        _updateVM = YES;
+    
     if(_updateVM)
     {
         UIAlertMessage2(@"Some of the modified settings require restarting the ChucK Virtual Machine. This will stop any currently running ChucK programs. Restart the Virtual Machine?",
@@ -74,6 +79,8 @@
                             [self.popoverController dismissPopoverAnimated:YES];
                         },
                         @"Restart", ^{
+                            [mAChucKController chuckController].adaptiveBuffering = _adaptiveBufferingSwitch.on;
+
                             [[mAChucKController chuckController] restart];
                             [self.popoverController dismissPopoverAnimated:YES];
                         });
