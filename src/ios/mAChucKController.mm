@@ -56,6 +56,7 @@ static mAChucKController * g_chuckController = nil;
 @property (strong) AEAudioController *audioController;
 @property (readonly) AEBlockChannel *outputChannel;
 @property (readonly) AEBlockFilter *inputOutputChannel;
+@property (strong) NSCondition *processCondition;
 
 - (void)_updateAudioChannel;
 - (void)_startVM;
@@ -134,7 +135,7 @@ static mAChucKController * g_chuckController = nil;
 - (void)_startVM
 {
     ma->set_sample_rate(self.sampleRate);
-    ma->set_buffer_size(self.bufferSize);
+    ma->set_buffer_size((int) (self.audioController.currentBufferDuration*self.sampleRate));
     
     ma->add_query_func(motion_query);
     
@@ -143,17 +144,26 @@ static mAChucKController * g_chuckController = nil;
     ma->set_enable_audio(TRUE);
     ma->set_log_level(5);
     ma->set_client_mode(TRUE);
+    if(self.adaptiveBuffering)
+        ma->set_adaptive_size(ma->get_buffer_size());
+    else
+        ma->set_adaptive_size(0);
     
-    ma->start_vm();
+    t_CKBOOL result = ma->start_vm();
+    if(!result)
+    {
+        NSLog(@"miniAudicle: error starting VM");
+        return;
+    }
+    
+    _inputBuffer.resize(ma->get_buffer_size()*ma->get_num_inputs());
+    _outputBuffer.resize(ma->get_buffer_size()*ma->get_num_outputs());
     
     _processAudio = YES;
 }
 
 - (void)_startAudioIO
 {
-    _inputBuffer.resize(self.bufferSize*ma->get_num_inputs());
-    _outputBuffer.resize(self.bufferSize*ma->get_num_outputs());
-    
     AudioStreamBasicDescription audioDescription;
     memset(&audioDescription, 0, sizeof(audioDescription));
     audioDescription.mFormatID          = kAudioFormatLinearPCM;
@@ -175,13 +185,37 @@ static mAChucKController * g_chuckController = nil;
 
 - (void)start
 {
-    [self _startVM];
     [self _startAudioIO];
+    [self _startVM];
 }
 
 - (void)restart
 {
     // TODO
+    if(self.processCondition == nil)
+        self.processCondition = [NSCondition new];
+    
+    // ensure VM is not locked up
+    ma->abort_current_shred();
+    
+    _processAudio = NO;
+    
+    // use condition variable to ensure out of audio loop
+    [self.processCondition lock];
+    
+    _audioOperationQueue->put(^{
+        [self.processCondition lock];
+        [self.processCondition signal];
+        [self.processCondition unlock];
+    });
+    
+    [self.processCondition waitUntilDate:[NSDate dateWithTimeIntervalSinceNow:30]];
+    
+    [self.processCondition unlock];
+    
+    ma->stop_vm();
+    
+    [self _startVM];
 }
 
 - (void)_updateAudioChannel
@@ -227,13 +261,15 @@ static mAChucKController * g_chuckController = nil;
             {
                 if(_inputBuffer.size() < frames*ma->get_num_inputs())
                 {
-                    NSLog(@"miniAudicle: warning: input buffer resized in audio I/O process");
+                    NSLog(@"miniAudicle: warning: input buffer resized from %li to %li in audio I/O process",
+                          _inputBuffer.size(), frames*ma->get_num_inputs());
                     _inputBuffer.resize(frames*ma->get_num_inputs());
                 }
                 
                 if(_outputBuffer.size() < frames*ma->get_num_outputs())
                 {
-                    NSLog(@"miniAudicle: warning: output buffer resized in audio I/O process");
+                    NSLog(@"miniAudicle: warning: output buffer resized from %li to %li in audio I/O process",
+                          _outputBuffer.size(), frames*ma->get_num_outputs());
                     _outputBuffer.resize(frames*ma->get_num_outputs());
                 }
                 
@@ -275,13 +311,15 @@ static mAChucKController * g_chuckController = nil;
                 
                 if(_inputBuffer.size() < frames*ma->get_num_inputs())
                 {
-                    NSLog(@"miniAudicle: warning: input buffer resized in audio I/O process");
+                    NSLog(@"miniAudicle: warning: input buffer resized from %li to %li in audio I/O process",
+                          _inputBuffer.size(), frames*ma->get_num_inputs());
                     _inputBuffer.resize(frames*ma->get_num_inputs());
                 }
                 
                 if(_outputBuffer.size() < frames*ma->get_num_outputs())
                 {
-                    NSLog(@"miniAudicle: warning: output buffer resized in audio I/O process");
+                    NSLog(@"miniAudicle: warning: output buffer resized from %li to %li in audio I/O process",
+                          _outputBuffer.size(), frames*ma->get_num_outputs());
                     _outputBuffer.resize(frames*ma->get_num_outputs());
                 }
                 
