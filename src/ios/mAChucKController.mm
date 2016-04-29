@@ -31,14 +31,10 @@
 #import "ulib_motion.h"
 #import "mAAnalytics.h"
 #import "util_buffers.h"
+#import "mAPreferences.h"
 
 #import <vector>
 
-
-NSString * const mAAudioInputEnabledPreference = @"audio.input_enabled";
-NSString * const mAAudioBufferSizePreference = @"audio.buffer_size";
-NSString * const mAAudioAdaptiveBufferingPreference = @"audio.adaptive_buffering";
-NSString * const mAAudioBackgroundAudioPreference = @"audio.background_audio";
 
 
 static mAChucKController * g_chuckController = nil;

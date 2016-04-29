@@ -11,6 +11,7 @@
                 <outlet property="_backgroundAudioSwitch" destination="SSE-pP-ShJ" id="0wi-Uw-1u5"/>
                 <outlet property="_bufferSizeButton" destination="E6w-DI-5bM" id="Ahc-Vg-w7j"/>
                 <outlet property="_enableInputSwitch" destination="mqS-90-cYX" id="z53-1x-ISY"/>
+                <outlet property="bufferSizeSelector" destination="P5r-ts-7Qx" id="qRo-V6-el8"/>
                 <outlet property="view" destination="GVA-Xr-lMD" id="TkG-eu-Rpn"/>
             </connections>
         </placeholder>
@@ -192,5 +193,103 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="453" y="413"/>
         </view>
+        <viewController id="P5r-ts-7Qx" customClass="mABufferSizeSelectorViewController">
+            <layoutGuides>
+                <viewControllerLayoutGuide type="top" id="yWC-f4-2XD"/>
+                <viewControllerLayoutGuide type="bottom" id="QKE-3C-tny"/>
+            </layoutGuides>
+            <view key="view" contentMode="scaleToFill" id="0M9-Lb-Jnd">
+                <rect key="frame" x="0.0" y="0.0" width="72" height="276"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <button opaque="NO" tag="32" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eEW-ES-k9P">
+                        <rect key="frame" x="8" y="8" width="56" height="30"/>
+                        <state key="normal" title="32"/>
+                        <connections>
+                            <action selector="selectBufferSize:" destination="P5r-ts-7Qx" eventType="touchUpInside" id="Blf-hu-Hpn"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="64" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dYV-2P-nqC">
+                        <rect key="frame" x="8" y="46" width="56" height="30"/>
+                        <state key="normal" title="64"/>
+                        <connections>
+                            <action selector="selectBufferSize:" destination="P5r-ts-7Qx" eventType="touchUpInside" id="59J-Fq-beB"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="128" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Num-9H-ExO">
+                        <rect key="frame" x="8" y="84" width="56" height="30"/>
+                        <state key="normal" title="128"/>
+                        <connections>
+                            <action selector="selectBufferSize:" destination="P5r-ts-7Qx" eventType="touchUpInside" id="QJc-yT-oMR"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="256" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLn-WW-NId">
+                        <rect key="frame" x="8" y="122" width="56" height="30"/>
+                        <state key="normal" title="256"/>
+                        <connections>
+                            <action selector="selectBufferSize:" destination="P5r-ts-7Qx" eventType="touchUpInside" id="acz-Xo-NJz"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="512" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ba2-DR-aWK">
+                        <rect key="frame" x="8" y="160" width="56" height="30"/>
+                        <state key="normal" title="512"/>
+                        <connections>
+                            <action selector="selectBufferSize:" destination="P5r-ts-7Qx" eventType="touchUpInside" id="Ulo-bV-Y5E"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="1024" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rAI-GN-wvS">
+                        <rect key="frame" x="8" y="198" width="56" height="30"/>
+                        <state key="normal" title="1024"/>
+                        <connections>
+                            <action selector="selectBufferSize:" destination="P5r-ts-7Qx" eventType="touchUpInside" id="gE1-Ez-CXF"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="2048" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WEi-Zt-dds">
+                        <rect key="frame" x="8" y="236" width="56" height="30"/>
+                        <state key="normal" title="2048"/>
+                        <connections>
+                            <action selector="selectBufferSize:" destination="P5r-ts-7Qx" eventType="touchUpInside" id="FKf-JQ-cO0"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="zLn-WW-NId" firstAttribute="leading" secondItem="0M9-Lb-Jnd" secondAttribute="leading" constant="8" id="0OB-cf-ERH"/>
+                    <constraint firstItem="rAI-GN-wvS" firstAttribute="leading" secondItem="0M9-Lb-Jnd" secondAttribute="leading" constant="8" id="1Ww-MN-eG8"/>
+                    <constraint firstItem="rAI-GN-wvS" firstAttribute="top" secondItem="ba2-DR-aWK" secondAttribute="bottom" constant="8" id="3ly-Ys-Wwb"/>
+                    <constraint firstItem="Num-9H-ExO" firstAttribute="leading" secondItem="0M9-Lb-Jnd" secondAttribute="leading" constant="8" id="5VU-ya-VUq"/>
+                    <constraint firstItem="WEi-Zt-dds" firstAttribute="leading" secondItem="0M9-Lb-Jnd" secondAttribute="leading" constant="8" id="86W-Dn-bC4"/>
+                    <constraint firstItem="WEi-Zt-dds" firstAttribute="centerX" secondItem="0M9-Lb-Jnd" secondAttribute="centerX" id="8Sb-s0-N7t"/>
+                    <constraint firstItem="ba2-DR-aWK" firstAttribute="leading" secondItem="0M9-Lb-Jnd" secondAttribute="leading" constant="8" id="9qY-Ak-Lms"/>
+                    <constraint firstAttribute="trailing" secondItem="ba2-DR-aWK" secondAttribute="trailing" constant="8" id="CFt-jG-DDe"/>
+                    <constraint firstAttribute="trailing" secondItem="dYV-2P-nqC" secondAttribute="trailing" constant="8" id="EI9-JF-i4u"/>
+                    <constraint firstItem="eEW-ES-k9P" firstAttribute="leading" secondItem="0M9-Lb-Jnd" secondAttribute="leading" constant="8" id="NEC-cV-3kb"/>
+                    <constraint firstItem="rAI-GN-wvS" firstAttribute="centerX" secondItem="0M9-Lb-Jnd" secondAttribute="centerX" id="P68-Zi-lnp"/>
+                    <constraint firstItem="eEW-ES-k9P" firstAttribute="centerX" secondItem="0M9-Lb-Jnd" secondAttribute="centerX" id="PDQ-KE-k73"/>
+                    <constraint firstItem="zLn-WW-NId" firstAttribute="centerX" secondItem="0M9-Lb-Jnd" secondAttribute="centerX" id="PE8-bb-WHk"/>
+                    <constraint firstAttribute="trailing" secondItem="eEW-ES-k9P" secondAttribute="trailing" constant="8" id="PhR-Zv-zro"/>
+                    <constraint firstItem="Num-9H-ExO" firstAttribute="centerX" secondItem="0M9-Lb-Jnd" secondAttribute="centerX" id="Q4N-VL-T1s"/>
+                    <constraint firstItem="dYV-2P-nqC" firstAttribute="top" secondItem="eEW-ES-k9P" secondAttribute="bottom" constant="8" id="U9e-KV-uXf"/>
+                    <constraint firstItem="ba2-DR-aWK" firstAttribute="centerX" secondItem="0M9-Lb-Jnd" secondAttribute="centerX" id="XWx-K5-mys"/>
+                    <constraint firstItem="Num-9H-ExO" firstAttribute="top" secondItem="dYV-2P-nqC" secondAttribute="bottom" constant="8" id="ZzV-i3-Rcw"/>
+                    <constraint firstAttribute="trailing" secondItem="WEi-Zt-dds" secondAttribute="trailing" constant="8" id="bB2-9P-BbB"/>
+                    <constraint firstAttribute="trailing" secondItem="zLn-WW-NId" secondAttribute="trailing" constant="8" id="fza-EV-rr7"/>
+                    <constraint firstItem="dYV-2P-nqC" firstAttribute="centerX" secondItem="0M9-Lb-Jnd" secondAttribute="centerX" id="kLm-tZ-u6A"/>
+                    <constraint firstItem="zLn-WW-NId" firstAttribute="top" secondItem="Num-9H-ExO" secondAttribute="bottom" constant="8" id="orC-1a-Gfs"/>
+                    <constraint firstItem="eEW-ES-k9P" firstAttribute="top" secondItem="yWC-f4-2XD" secondAttribute="bottom" constant="8" id="p9m-SY-h1t"/>
+                    <constraint firstItem="dYV-2P-nqC" firstAttribute="leading" secondItem="0M9-Lb-Jnd" secondAttribute="leading" constant="8" id="ped-zG-zIw"/>
+                    <constraint firstItem="WEi-Zt-dds" firstAttribute="top" secondItem="rAI-GN-wvS" secondAttribute="bottom" constant="8" id="poB-DR-PW1"/>
+                    <constraint firstItem="ba2-DR-aWK" firstAttribute="top" secondItem="zLn-WW-NId" secondAttribute="bottom" constant="8" id="qlw-6i-sgX"/>
+                    <constraint firstAttribute="trailing" secondItem="rAI-GN-wvS" secondAttribute="trailing" constant="8" id="rMI-xH-dKK"/>
+                    <constraint firstAttribute="trailing" secondItem="Num-9H-ExO" secondAttribute="trailing" constant="8" id="w3W-qV-3wt"/>
+                    <constraint firstItem="QKE-3C-tny" firstAttribute="top" relation="greaterThanOrEqual" secondItem="WEi-Zt-dds" secondAttribute="bottom" constant="8" id="wLO-Ym-hGc"/>
+                </constraints>
+            </view>
+            <value key="contentSizeForViewInPopover" type="size" width="72" height="276"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <size key="freeformSize" width="72" height="276"/>
+            <point key="canvasLocation" x="446" y="978"/>
+        </viewController>
     </objects>
 </document>

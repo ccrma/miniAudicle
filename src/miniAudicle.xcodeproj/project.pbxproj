@@ -179,6 +179,7 @@
 		09664B9019905ABC00AE0B6B /* mAConnectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09664B8F19905ABC00AE0B6B /* mAConnectViewController.xib */; };
 		09678637173F169E003AB462 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678634173F169E003AB462 /* UKFileWatcher.m */; };
 		09678638173F169E003AB462 /* UKFSEventsWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678636173F169E003AB462 /* UKFSEventsWatcher.m */; };
+		096BFF811CD363C6006653F5 /* mAPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 096BFF7F1CD36334006653F5 /* mAPreferences.m */; };
 		096D81051B40C1F800F9B9CA /* mAMasterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 096D81031B40C1F800F9B9CA /* mAMasterViewController.mm */; };
 		096D81061B40C1F800F9B9CA /* mAMasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 096D81041B40C1F800F9B9CA /* mAMasterViewController.xib */; };
 		096FAB870B56D56B00125FE2 /* mAConsoleMonitorView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 096FAB850B56D56B00125FE2 /* mAConsoleMonitorView.mm */; };
@@ -615,6 +616,8 @@
 		09678634173F169E003AB462 /* UKFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFileWatcher.m; sourceTree = "<group>"; };
 		09678635173F169E003AB462 /* UKFSEventsWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKFSEventsWatcher.h; sourceTree = "<group>"; };
 		09678636173F169E003AB462 /* UKFSEventsWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFSEventsWatcher.m; sourceTree = "<group>"; };
+		096BFF7C1CD36320006653F5 /* mAPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mAPreferences.h; sourceTree = "<group>"; };
+		096BFF7F1CD36334006653F5 /* mAPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAPreferences.m; sourceTree = "<group>"; };
 		096D81021B40C1F800F9B9CA /* mAMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAMasterViewController.h; sourceTree = "<group>"; };
 		096D81031B40C1F800F9B9CA /* mAMasterViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAMasterViewController.mm; sourceTree = "<group>"; };
 		096D81041B40C1F800F9B9CA /* mAMasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAMasterViewController.xib; sourceTree = "<group>"; };
@@ -1613,6 +1616,8 @@
 				097397341CD2B00000D8B74D /* mAPreferencesViewController.h */,
 				097397351CD2B00000D8B74D /* mAPreferencesViewController.m */,
 				0973973D1CD2B0CE00D8B74D /* mAPreferencesViewController.xib */,
+				096BFF7C1CD36320006653F5 /* mAPreferences.h */,
+				096BFF7F1CD36334006653F5 /* mAPreferences.m */,
 			);
 			name = main;
 			sourceTree = "<group>";
@@ -2141,6 +2146,7 @@
 				093E267F14A1B3B3008694BC /* mAChucKController.mm in Sources */,
 				09D00B8714A3C44B0019CD09 /* mATitleEditorController.m in Sources */,
 				0921D56418190216008F39D9 /* pattern_match.c in Sources */,
+				096BFF811CD363C6006653F5 /* mAPreferences.m in Sources */,
 				09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */,
 				09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.mm in Sources */,
 				09608ADF14B40DE4009450FE /* mAConsoleMonitorController.mm in Sources */,

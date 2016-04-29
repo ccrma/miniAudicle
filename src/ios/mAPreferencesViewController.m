@@ -11,12 +11,18 @@
 #import "mAChucKController.h"
 #import "UIAlert.h"
 
+@interface mABufferSizeSelectorViewController : UIViewController
+
+@property (strong) void (^didSelectBufferSize)(int bufferSize);
+
+@end
+
+
 @interface mAPreferencesViewController ()
 {
     BOOL _updateVM;
     
     IBOutlet UISwitch *_enableInputSwitch;
-    IBOutlet UIButton *_bufferSizeButton;
     IBOutlet UISwitch *_adaptiveBufferingSwitch;
     IBOutlet UISwitch *_backgroundAudioSwitch;
     
@@ -25,9 +31,18 @@
     int _sampleRate;
 }
 
+@property (strong) IBOutlet mABufferSizeSelectorViewController *bufferSizeSelector;
+@property int bufferSize;
+@property (strong) IBOutlet UIButton *bufferSizeButton;
+
 @end
 
 @implementation mAPreferencesViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -36,7 +51,7 @@
     _enableInputSwitch.on = [mAChucKController chuckController].enableInput;
     
     _bufferSize = [mAChucKController chuckController].bufferSize;
-    _bufferSizeButton.titleLabel.text = [NSString stringWithFormat:@"%i", _bufferSize];
+    [self.bufferSizeButton setTitle:[NSString stringWithFormat:@"%i", _bufferSize] forState:UIControlStateNormal];
     
     _adaptiveBuffering = [mAChucKController chuckController].adaptiveBuffering;
     _adaptiveBufferingSwitch.on = _adaptiveBuffering;
@@ -51,13 +66,24 @@
 
 - (IBAction)openBufferSize:(id)sender
 {
+    __weak typeof(self) weakSelf = self;
+    self.bufferSizeSelector.didSelectBufferSize = ^(int bufferSize) {
+        NSLog(@"didSelectBufferSize %i", bufferSize);
+        assert(bufferSize > 0);
+        
+        weakSelf.bufferSize = bufferSize;
+        [weakSelf.bufferSizeButton setTitle:[NSString stringWithFormat:@"%i", bufferSize] forState:UIControlStateNormal];
+    };
+
+    [self presentViewController:self.bufferSizeSelector animated:YES completion:^{}];
     
+    UIPopoverPresentationController *popoverController = self.bufferSizeSelector.popoverPresentationController;
+    popoverController.sourceView = _bufferSizeButton.superview;
+    popoverController.sourceRect = _bufferSizeButton.frame;
 }
 
 - (IBAction)adaptiveBufferingChanged:(id)sender
 {
-//    _adaptiveBuffering = _adaptiveBufferingSwitch.on;
-//    _updateVM = YES;
 }
 
 - (IBAction)backgroundAudioChanged:(id)sender
@@ -71,6 +97,8 @@
     
     if(_adaptiveBufferingSwitch.on != [mAChucKController chuckController].adaptiveBuffering)
         _updateVM = YES;
+    if(_bufferSize != [mAChucKController chuckController].bufferSize)
+        _updateVM = YES;
     
     if(_updateVM)
     {
@@ -80,6 +108,7 @@
                         },
                         @"Restart", ^{
                             [mAChucKController chuckController].adaptiveBuffering = _adaptiveBufferingSwitch.on;
+                            [mAChucKController chuckController].bufferSize = _bufferSize;
 
                             [[mAChucKController chuckController] restart];
                             [self.popoverController dismissPopoverAnimated:YES];
@@ -92,3 +121,24 @@
 }
 
 @end
+
+
+
+@implementation mABufferSizeSelectorViewController
+
+- (void)viewDidLoad
+{
+    self.modalPresentationStyle = UIModalPresentationPopover;
+}
+
+- (IBAction)selectBufferSize:(id)sender
+{
+    int bufferSize = [sender tag];
+    if(self.didSelectBufferSize)
+        self.didSelectBufferSize(bufferSize);
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+@end
+
+
