@@ -137,8 +137,8 @@ void * vm_cb( void * v )
     }
     
     ma->post_init();
-    
     ma->main_loop();
+    ma->pre_shutdown();
     
     return NULL;
 }
@@ -855,7 +855,9 @@ t_CKBOOL miniAudicle::start_vm()
         t_CKBOOL block = vm_options.enable_block;
         t_CKUINT output_channels = vm_options.num_outputs;
         t_CKUINT input_channels = vm_options.num_inputs;
-        t_CKUINT adaptive_size = 0;
+        t_CKUINT adaptive_size = vm_options.adaptive_size;
+        
+        current_options = vm_options;
         
         g_enable_realtime_audio = enable_audio;
         
@@ -1157,6 +1159,15 @@ t_CKBOOL miniAudicle::main_loop()
         }
     }
     
+    return TRUE;
+}
+
+//-----------------------------------------------------------------------------
+// name: pre_shutdown()
+// desc: pre-shutdown (called from vm thread unless in client mode)
+//-----------------------------------------------------------------------------
+t_CKBOOL miniAudicle::pre_shutdown()
+{
     //
     all_stop();
     // detach
@@ -1170,9 +1181,10 @@ t_CKBOOL miniAudicle::main_loop()
         
         g_bbq->digi_out()->cleanup();
         g_bbq->digi_in()->cleanup();
-        g_bbq->shutdown();
         // m_audio = FALSE;
     }
+    
+    g_bbq->shutdown();
     
     // log
     EM_log( CK_LOG_SEVERE, "VM callback process ending..." );
@@ -1182,9 +1194,8 @@ t_CKBOOL miniAudicle::main_loop()
     //SAFE_DELETE( g_vm );
     // free the compiler
     //SAFE_DELETE( compiler );
-    
-    return TRUE;
 }
+
 
 //-----------------------------------------------------------------------------
 // name: process_audio()
@@ -1241,13 +1252,17 @@ t_CKBOOL miniAudicle::stop_vm()
 
             // stop
             the_vm->stop();
+            
 //            // set state
 //            Digitalio::m_end = TRUE;
 //            // stop things
 //            if( g_enable_realtime_audio ) g_bbq->shutdown();
             
-            // wait a bit
-            usleep( 100000 );
+            if(current_options.client_mode)
+                pre_shutdown();
+            else
+                // wait a bit
+                usleep( 100000 );
 
             // detach
             // all_detach();
@@ -1717,6 +1732,17 @@ t_CKBOOL miniAudicle::set_buffer_size( t_CKUINT size )
 t_CKUINT miniAudicle::get_buffer_size()
 {
     return vm_options.buffer_size;
+}
+
+t_CKBOOL miniAudicle::set_adaptive_size( t_CKUINT size )
+{
+    vm_options.adaptive_size = next_power_2( size - 1 );
+    return TRUE;
+}
+
+t_CKUINT miniAudicle::get_adaptive_size()
+{
+    return vm_options.adaptive_size;
 }
 
 t_CKBOOL miniAudicle::set_blocking( t_CKBOOL block )

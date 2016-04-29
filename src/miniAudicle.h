@@ -119,6 +119,7 @@ public:
     t_CKBOOL start_vm();
     t_CKBOOL main_loop();
     t_CKBOOL post_init();
+    t_CKBOOL pre_shutdown();
     t_CKBOOL stop_vm();
     t_CKBOOL is_on();
 
@@ -152,6 +153,8 @@ public:
     t_CKUINT get_sample_rate();
     t_CKBOOL set_buffer_size( t_CKUINT size );
     t_CKUINT get_buffer_size();
+    t_CKBOOL set_adaptive_size( t_CKUINT size );
+    t_CKUINT get_adaptive_size();
     t_CKBOOL set_blocking( t_CKBOOL block );
     t_CKBOOL get_blocking();
     t_CKBOOL set_enable_std_system( t_CKBOOL enable );
@@ -213,6 +216,7 @@ protected:
         t_CKUINT num_inputs;
         t_CKUINT num_outputs;
         t_CKUINT buffer_size;
+        t_CKUINT adaptive_size;
         t_CKUINT num_buffers;
         t_CKBOOL enable_audio;
         t_CKBOOL enable_network;
@@ -221,7 +225,7 @@ protected:
         list< string > library_paths;
         list< string > named_chugins;
         list< t_CKBOOL (*)(Chuck_Env *) > query_funcs;
-    } vm_options;
+    } vm_options, current_options;
 };
 
 
