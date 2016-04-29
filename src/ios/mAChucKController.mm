@@ -210,6 +210,7 @@ static mAChucKController * g_chuckController = nil;
         [self.audioController addFilter:self.inputOutputChannel];
         
         _playthroughChannel = [[AEPlaythroughChannel alloc] init];
+        _playthroughChannel.channelIsMuted = YES;
         [self.audioController addInputReceiver:_playthroughChannel];
         [self.audioController addChannels:@[_playthroughChannel]];
     }
@@ -273,6 +274,9 @@ static mAChucKController * g_chuckController = nil;
                                                                AudioBufferList *audio) {
             if(_processAudio)
             {
+                if(_playthroughChannel.channelIsMuted)
+                    _playthroughChannel.channelIsMuted = NO;
+                
                 if(_inputBuffer.size() < frames*ma->get_num_inputs())
                 {
                     NSLog(@"miniAudicle: warning: input buffer resized in audio I/O process");
