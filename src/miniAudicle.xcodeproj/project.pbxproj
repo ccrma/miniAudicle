@@ -2475,6 +2475,7 @@
 					chuck/src,
 					GoogleAnalytics/Headers/Public,
 					"$(PROJECT_DIR)/ios/libs/TheAmazingAudioEngine/",
+					"$(PROJECT_DIR)/ios/libs/TheAmazingAudioEngine/TheAmazingAudioEngine",
 				);
 				INFOPLIST_FILE = "ios/miniAudicle iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2527,6 +2528,7 @@
 					chuck/src,
 					GoogleAnalytics/Headers/Public,
 					"$(PROJECT_DIR)/ios/libs/TheAmazingAudioEngine/",
+					"$(PROJECT_DIR)/ios/libs/TheAmazingAudioEngine/TheAmazingAudioEngine",
 				);
 				INFOPLIST_FILE = "ios/miniAudicle iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

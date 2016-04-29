@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09E449DC1CD31E85004BCBA0 /* AEPlaythroughChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA689C01542DC8C00AF8DDD /* AEPlaythroughChannel.m */; };
 		17BB5B491BECD1D9007A2892 /* TheAmazingAudioEngine.h in Sources */ = {isa = PBXBuildFile; fileRef = 4CAD569315162822003CE861 /* TheAmazingAudioEngine.h */; };
 		17BB5B4A1BECD1D9007A2892 /* AEAudioController.h in Sources */ = {isa = PBXBuildFile; fileRef = 4CAD56801516281D003CE861 /* AEAudioController.h */; };
 		17BB5B4B1BECD1D9007A2892 /* AEAudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAD56811516281D003CE861 /* AEAudioController.m */; };
@@ -767,6 +768,7 @@
 				4C70F9AD1BB0D2FE0064CF73 /* AENewTimePitchFilter.m in Sources */,
 				4CCAFEFF1C0BCFF100B87416 /* AEAudioBufferManager.m in Sources */,
 				4C70F9B31BB0D2FE0064CF73 /* AEReverbFilter.m in Sources */,
+				09E449DC1CD31E85004BCBA0 /* AEPlaythroughChannel.m in Sources */,
 				4C70F99F1BB0D2FE0064CF73 /* AEDelayFilter.m in Sources */,
 				4C70F9B11BB0D2FE0064CF73 /* AEPeakLimiterFilter.m in Sources */,
 				4C70F9B71BB0D2FE0064CF73 /* AEVarispeedFilter.m in Sources */,
