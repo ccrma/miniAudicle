@@ -334,8 +334,9 @@
 
 - (void)_closeOpenPopovers
 {
-    [self.vmMonitorPopover dismissPopoverAnimated:NO];
     [self.masterPopoverController dismissPopoverAnimated:NO];
+    [self.vmMonitorPopover dismissPopoverAnimated:NO];
+    [self.consoleMonitorPopover dismissPopoverAnimated:NO];
     [self.settingsPopover dismissPopoverAnimated:NO];
 }
 
