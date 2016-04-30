@@ -175,6 +175,7 @@
 		0964A38E172F8DC800043ABA /* record.png in Resources */ = {isa = PBXBuildFile; fileRef = 0964A38C172F8DC800043ABA /* record.png */; };
 		0964A38F172F8DC800043ABA /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 0964A38D172F8DC800043ABA /* stop.png */; };
 		0964A395172F8FD800043ABA /* mARecordSessionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0964A394172F8FD800043ABA /* mARecordSessionController.mm */; };
+		0964FC2C1CD44B2D00943789 /* mAAudioFileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0964FC2B1CD44B2D00943789 /* mAAudioFileTableViewCell.m */; };
 		09664B8D19905A7300AE0B6B /* mAConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09664B8B19905A7300AE0B6B /* mAConnectViewController.m */; };
 		09664B9019905ABC00AE0B6B /* mAConnectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09664B8F19905ABC00AE0B6B /* mAConnectViewController.xib */; };
 		09678637173F169E003AB462 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678634173F169E003AB462 /* UKFileWatcher.m */; };
@@ -574,6 +575,8 @@
 		0964A38D172F8DC800043ABA /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stop.png; path = macosx/icon/stop.png; sourceTree = "<group>"; };
 		0964A393172F8FD800043ABA /* mARecordSessionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mARecordSessionController.h; path = macosx/mARecordSessionController.h; sourceTree = "<group>"; };
 		0964A394172F8FD800043ABA /* mARecordSessionController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mARecordSessionController.mm; path = macosx/mARecordSessionController.mm; sourceTree = "<group>"; };
+		0964FC2A1CD44B2D00943789 /* mAAudioFileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAAudioFileTableViewCell.h; sourceTree = "<group>"; };
+		0964FC2B1CD44B2D00943789 /* mAAudioFileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAAudioFileTableViewCell.m; sourceTree = "<group>"; };
 		09664B8A19905A7300AE0B6B /* mAConnectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAConnectViewController.h; sourceTree = "<group>"; };
 		09664B8B19905A7300AE0B6B /* mAConnectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAConnectViewController.m; sourceTree = "<group>"; };
 		09664B8F19905ABC00AE0B6B /* mAConnectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAConnectViewController.xib; sourceTree = "<group>"; };
@@ -1534,6 +1537,8 @@
 				09735F6E1C8A9407003965CA /* mAAudioFileTableViewCell.xib */,
 				093E262514A108C8008694BC /* mAFileViewController.h */,
 				093E262614A108C8008694BC /* mAFileViewController.mm */,
+				0964FC2A1CD44B2D00943789 /* mAAudioFileTableViewCell.h */,
+				0964FC2B1CD44B2D00943789 /* mAAudioFileTableViewCell.m */,
 				093E263114A108C8008694BC /* mADetailViewController~iphone.xib */,
 				093E263414A108C9008694BC /* mADetailViewController~ipad.xib */,
 				09F09E5618E41F2C0050D963 /* mADetailItem.h */,
@@ -2002,6 +2007,7 @@
 				09094DC019916F68009F4C4C /* NSObject+KVCSerialization.m in Sources */,
 				093E265514A12234008694BC /* chuck.lex in Sources */,
 				093E265614A12234008694BC /* digiio_rtaudio.cpp in Sources */,
+				0964FC2C1CD44B2D00943789 /* mAAudioFileTableViewCell.m in Sources */,
 				099C04F518FB715C00AC27C3 /* mANetworkManager.m in Sources */,
 				093E265714A12234008694BC /* hidio_sdl.cpp in Sources */,
 				0921D56218190216008F39D9 /* method.c in Sources */,
