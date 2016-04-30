@@ -134,6 +134,8 @@ static mAChucKController * g_chuckController = nil;
 
 - (void)_startVM
 {
+    self.audioController.preferredBufferDuration = self.bufferSize/((float) self.sampleRate);
+    
     ma->set_sample_rate(self.sampleRate);
     ma->set_buffer_size((int) (self.audioController.currentBufferDuration*self.sampleRate));
     
