@@ -33,6 +33,7 @@
 #import "mADocumentManager.h"
 #import "mAAnalytics.h"
 #import "mAAudioFileTableViewCell.h"
+#import "QBPopupMenu.h"
 
 
 @interface mAFileViewController ()
@@ -45,6 +46,9 @@
 @property (strong, nonatomic) UIBarButtonItem * editButton;
 @property (strong, nonatomic) NSIndexPath *activeAudioFilePath;
 
+@property (strong, nonatomic) UIButton *addButton;
+@property (strong, nonatomic) QBPopupMenu *addMenu;
+
 - (void)detailItemTitleChanged:(NSNotification *)n;
 
 @end
@@ -52,7 +56,7 @@
 
 @implementation mAFileViewController
 
-- (void)setScripts:(NSMutableArray *)scripts
+- (void)setFolder:(mADetailItem *)folder
 {
     // remove update notifications
     [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -62,10 +66,10 @@
     _scriptKVOBlockToken = nil;
     
     // set value
-    _scripts = scripts;
+    _folder = folder;
     
     // add update notifications
-    for(mADetailItem *item in _scripts)
+    for(mADetailItem *item in _folder.folderItems)
     {
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(detailItemTitleChanged:)
@@ -73,9 +77,9 @@
                                                    object:item];
     }
     
-    if([_scripts isKindOfClass:[KVOMutableArray class]])
+    if([_folder.folderItems isKindOfClass:[KVOMutableArray class]])
     {
-        KVOMutableArray *_kvoScripts = (KVOMutableArray *)_scripts;
+        KVOMutableArray *_kvoScripts = (KVOMutableArray *)_folder.folderItems;
         _scriptKVOBlockToken = [_kvoScripts addObserverWithTask:^BOOL(id obj, NSDictionary *change) {
             if(!_isDeletingScript)
                 [self.tableView reloadData];
@@ -96,7 +100,7 @@
             self.preferredContentSize = CGSizeMake(320.0, 600.0);
         }
         
-        self.scripts = [NSMutableArray new];
+        self.folder = nil;
     }
     return self;
 }
@@ -142,14 +146,14 @@
 {
     (void) self.view; // force the view to load
     
-    if(script >= 0 && script < [self.scripts count])
+    if(script >= 0 && script < [self.folder.folderItems count])
     {
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:script
                                                                 inSection:0]
                                     animated:YES
                               scrollPosition:UITableViewScrollPositionNone];
         
-        mADetailItem *detailItem = [self.scripts objectAtIndex:script];
+        mADetailItem *detailItem = [self.folder.folderItems objectAtIndex:script];
         if(!detailItem.isFolder)
            [self.detailViewController showDetailItem:detailItem];
     }
@@ -174,7 +178,7 @@
 - (void)scriptsChanged
 {
     // force reload
-    self.scripts = self.scripts;
+    self.folder = self.folder;
 }
 
 - (UINavigationItem *)navigationItem
@@ -183,9 +187,19 @@
     
     if(self.editable)
     {
-        navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                                                                          target:self
-                                                                                          action:@selector(newScript)];
+        self.addButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [self.addButton setTitle:@"+" forState:UIControlStateNormal];
+//        [self.addButton setImage:[UIImage imageNamed:@"gear.png"] forState:UIControlStateNormal];
+        [self.addButton sizeToFit];
+        self.addButton.titleLabel.font = [UIFont systemFontOfSize:38 weight:UIFontWeightUltraLight];
+        self.addButton.titleLabel.textColor = self.view.tintColor;
+        [self.addButton addTarget:self action:@selector(newScript) forControlEvents:UIControlEventTouchUpInside];
+        
+        UILongPressGestureRecognizer *longPress = [UILongPressGestureRecognizer new];
+        [longPress addTarget:self action:@selector(openAddMenu)];
+        [self.addButton addGestureRecognizer:longPress];
+        
+        navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.addButton];
     }
     
     return navigationItem;
@@ -194,7 +208,7 @@
 - (void)detailItemTitleChanged:(NSNotification *)n
 {
     mADetailItem *item = [n object];
-    int index = [self.scripts indexOfObject:item];
+    int index = [self.folder.folderItems indexOfObject:item];
     [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]].textLabel.text = item.title;
 }
 
@@ -204,15 +218,37 @@
 
 - (IBAction)newScript
 {
-//    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:insertIndex inSection:0]
-//                                animated:YES
-//                          scrollPosition:UITableViewScrollPositionNone];
+    //    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:insertIndex inSection:0]
+    //                                animated:YES
+    //                          scrollPosition:UITableViewScrollPositionNone];
     [[mAAnalytics instance] createNewScript];
-
+    
     mADocumentManager *manager = [mADocumentManager manager];
     [self.detailViewController editItem:[manager newScript]];
 }
 
+- (IBAction)newFolder
+{
+    //    [[mAAnalytics instance] createNewScript];
+    // TODO: analytics
+    
+    mADocumentManager *manager = [mADocumentManager manager];
+    [manager newFolderUnderParent:self.folder];
+}
+
+- (IBAction)openAddMenu
+{
+    if(self.addMenu == nil)
+    {
+        QBPopupMenuItem *addScriptItem = [QBPopupMenuItem itemWithTitle:@"Script" target:self action:@selector(newScript)];
+        QBPopupMenuItem *addFolderItem = [QBPopupMenuItem itemWithTitle:@"Folder" target:self action:@selector(newFolder)];
+        
+        self.addMenu = [[QBPopupMenu alloc] initWithItems:@[addScriptItem, addFolderItem]];
+        self.addMenu.arrowDirection = QBPopupMenuArrowDirectionRight;
+    }
+    
+    [self.addMenu showInView:self.addButton.superview targetRect:self.addButton.frame animated:YES];
+}
 
 - (IBAction)editScripts
 {
@@ -244,7 +280,7 @@
 - (NSInteger)tableView:(UITableView *)tableView 
  numberOfRowsInSection:(NSInteger)section
 {
-    return [self.scripts count];
+    return [self.folder.folderItems count];
 }
 
 // Customize the appearance of table view cells.
@@ -255,7 +291,7 @@
     static NSString *AudioFileCellIdentifier = @"AudioFileCell";
     
     int index = indexPath.row;
-    mADetailItem *detailItem = [self.scripts objectAtIndex:index];
+    mADetailItem *detailItem = [self.folder.folderItems objectAtIndex:index];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
@@ -341,7 +377,7 @@
     else
     {
         int index = indexPath.row;
-        mADetailItem *detailItem = [self.scripts objectAtIndex:index];
+        mADetailItem *detailItem = [self.folder.folderItems objectAtIndex:index];
         
         if(detailItem.type == DETAILITEM_CHUCK_SCRIPT)
         {
@@ -367,13 +403,13 @@
         }
         else if(detailItem.type == DETAILITEM_DIRECTORY)
         {
-            mAFileViewController *master = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
+            mAFileViewController *fileView = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
             
-            master.detailViewController = self.detailViewController;
-            master.navigationItem.title = detailItem.title;
-            master.scripts = detailItem.folderItems;
+            fileView.detailViewController = self.detailViewController;
+            fileView.navigationItem.title = detailItem.title;
+            fileView.folder = detailItem;
             
-            [self.navigationController pushViewController:master animated:YES];
+            [self.navigationController pushViewController:fileView animated:YES];
         }
     }
 }
@@ -382,7 +418,7 @@
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     int index = indexPath.row;
-    mADetailItem *detailItem = [self.scripts objectAtIndex:index];
+    mADetailItem *detailItem = [self.folder.folderItems objectAtIndex:index];
     
     if(detailItem.isUser)
         return UITableViewCellEditingStyleDelete;
@@ -398,13 +434,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     {
         _isDeletingScript = YES;
 
-        mADetailItem *item = [self.scripts objectAtIndex:[indexPath row]];
+        mADetailItem *item = [self.folder.folderItems objectAtIndex:[indexPath row]];
         
         [[mAAnalytics instance] deleteFromScriptList:item.uuid];
         
         [[mADocumentManager manager] deleteScript:item];
         
-        [self.scripts removeObjectAtIndex:[indexPath row]];
+        [self.folder.folderItems removeObjectAtIndex:[indexPath row]];
         
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                               withRowAnimation:UITableViewRowAnimationFade];

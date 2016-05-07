@@ -176,6 +176,12 @@
 		0964A38F172F8DC800043ABA /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 0964A38D172F8DC800043ABA /* stop.png */; };
 		0964A395172F8FD800043ABA /* mARecordSessionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0964A394172F8FD800043ABA /* mARecordSessionController.mm */; };
 		0964FC2C1CD44B2D00943789 /* mAAudioFileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0964FC2B1CD44B2D00943789 /* mAAudioFileTableViewCell.m */; };
+		0964FC3A1CD451A000943789 /* QBPlasticPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0964FC2F1CD451A000943789 /* QBPlasticPopupMenu.m */; };
+		0964FC3B1CD451A000943789 /* QBPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0964FC311CD451A000943789 /* QBPopupMenu.m */; };
+		0964FC3C1CD451A000943789 /* QBPopupMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0964FC331CD451A000943789 /* QBPopupMenuItem.m */; };
+		0964FC3D1CD451A000943789 /* QBPopupMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0964FC351CD451A000943789 /* QBPopupMenuItemView.m */; };
+		0964FC3E1CD451A000943789 /* QBPopupMenuOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0964FC371CD451A000943789 /* QBPopupMenuOverlayView.m */; };
+		0964FC3F1CD451A000943789 /* QBPopupMenuPagenatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0964FC391CD451A000943789 /* QBPopupMenuPagenatorView.m */; };
 		09664B8D19905A7300AE0B6B /* mAConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09664B8B19905A7300AE0B6B /* mAConnectViewController.m */; };
 		09664B9019905ABC00AE0B6B /* mAConnectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09664B8F19905ABC00AE0B6B /* mAConnectViewController.xib */; };
 		09678637173F169E003AB462 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678634173F169E003AB462 /* UKFileWatcher.m */; };
@@ -577,6 +583,18 @@
 		0964A394172F8FD800043ABA /* mARecordSessionController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mARecordSessionController.mm; path = macosx/mARecordSessionController.mm; sourceTree = "<group>"; };
 		0964FC2A1CD44B2D00943789 /* mAAudioFileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAAudioFileTableViewCell.h; sourceTree = "<group>"; };
 		0964FC2B1CD44B2D00943789 /* mAAudioFileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAAudioFileTableViewCell.m; sourceTree = "<group>"; };
+		0964FC2E1CD451A000943789 /* QBPlasticPopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBPlasticPopupMenu.h; sourceTree = "<group>"; };
+		0964FC2F1CD451A000943789 /* QBPlasticPopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBPlasticPopupMenu.m; sourceTree = "<group>"; };
+		0964FC301CD451A000943789 /* QBPopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBPopupMenu.h; sourceTree = "<group>"; };
+		0964FC311CD451A000943789 /* QBPopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBPopupMenu.m; sourceTree = "<group>"; };
+		0964FC321CD451A000943789 /* QBPopupMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBPopupMenuItem.h; sourceTree = "<group>"; };
+		0964FC331CD451A000943789 /* QBPopupMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBPopupMenuItem.m; sourceTree = "<group>"; };
+		0964FC341CD451A000943789 /* QBPopupMenuItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBPopupMenuItemView.h; sourceTree = "<group>"; };
+		0964FC351CD451A000943789 /* QBPopupMenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBPopupMenuItemView.m; sourceTree = "<group>"; };
+		0964FC361CD451A000943789 /* QBPopupMenuOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBPopupMenuOverlayView.h; sourceTree = "<group>"; };
+		0964FC371CD451A000943789 /* QBPopupMenuOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBPopupMenuOverlayView.m; sourceTree = "<group>"; };
+		0964FC381CD451A000943789 /* QBPopupMenuPagenatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBPopupMenuPagenatorView.h; sourceTree = "<group>"; };
+		0964FC391CD451A000943789 /* QBPopupMenuPagenatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBPopupMenuPagenatorView.m; sourceTree = "<group>"; };
 		09664B8A19905A7300AE0B6B /* mAConnectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAConnectViewController.h; sourceTree = "<group>"; };
 		09664B8B19905A7300AE0B6B /* mAConnectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAConnectViewController.m; sourceTree = "<group>"; };
 		09664B8F19905ABC00AE0B6B /* mAConnectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAConnectViewController.xib; sourceTree = "<group>"; };
@@ -1109,6 +1127,25 @@
 			);
 			name = "ChucK Scripts";
 			path = "macosx/ChucK Scripts";
+			sourceTree = "<group>";
+		};
+		0964FC2D1CD451A000943789 /* QBPopupMenu */ = {
+			isa = PBXGroup;
+			children = (
+				0964FC2E1CD451A000943789 /* QBPlasticPopupMenu.h */,
+				0964FC2F1CD451A000943789 /* QBPlasticPopupMenu.m */,
+				0964FC301CD451A000943789 /* QBPopupMenu.h */,
+				0964FC311CD451A000943789 /* QBPopupMenu.m */,
+				0964FC321CD451A000943789 /* QBPopupMenuItem.h */,
+				0964FC331CD451A000943789 /* QBPopupMenuItem.m */,
+				0964FC341CD451A000943789 /* QBPopupMenuItemView.h */,
+				0964FC351CD451A000943789 /* QBPopupMenuItemView.m */,
+				0964FC361CD451A000943789 /* QBPopupMenuOverlayView.h */,
+				0964FC371CD451A000943789 /* QBPopupMenuOverlayView.m */,
+				0964FC381CD451A000943789 /* QBPopupMenuPagenatorView.h */,
+				0964FC391CD451A000943789 /* QBPopupMenuPagenatorView.m */,
+			);
+			path = QBPopupMenu;
 			sourceTree = "<group>";
 		};
 		09678632173F169E003AB462 /* UliKit */ = {
@@ -1683,6 +1720,7 @@
 		4D3D4C8B1A5E37DB00B6A06B /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				0964FC2D1CD451A000943789 /* QBPopupMenu */,
 				09C758481C83BDCA00B1324C /* GoogleAnalytics */,
 				4D3D4C8C1A5E37DB00B6A06B /* Crittercism */,
 			);
@@ -1947,6 +1985,7 @@
 				0921D56618190216008F39D9 /* send.c in Sources */,
 				093E262414A108C8008694BC /* mAAppDelegate.mm in Sources */,
 				093E262714A108C8008694BC /* mAFileViewController.mm in Sources */,
+				0964FC3A1CD451A000943789 /* QBPlasticPopupMenu.m in Sources */,
 				093E262A14A108C8008694BC /* mADetailViewController.mm in Sources */,
 				093E263B14A12201008694BC /* uana_extract.cpp in Sources */,
 				093E263C14A12201008694BC /* uana_xform.cpp in Sources */,
@@ -1978,8 +2017,10 @@
 				09F09E3B18E2C5E60050D963 /* mAEditorViewController.mm in Sources */,
 				09094DC81991BC4A009F4C4C /* UIAlert.m in Sources */,
 				094B5F6719C9DBE0004B9B5E /* ulib_motion.mm in Sources */,
+				0964FC3E1CD451A000943789 /* QBPopupMenuOverlayView.m in Sources */,
 				09F09E5818E41F2C0050D963 /* mADetailItem.mm in Sources */,
 				093E264914A12201008694BC /* chuck_otf.cpp in Sources */,
+				0964FC3B1CD451A000943789 /* QBPopupMenu.m in Sources */,
 				093E264A14A12201008694BC /* chuck_parse.cpp in Sources */,
 				0921D56018190216008F39D9 /* message.c in Sources */,
 				0900B70B1CC0D33B00210EF3 /* rtmidi.cpp in Sources */,
@@ -2005,6 +2046,7 @@
 				0921D55C18190216008F39D9 /* blob.c in Sources */,
 				09094DCE19940E7B009F4C4C /* NSMutableArray+MapFilterReduce.m in Sources */,
 				09094DC019916F68009F4C4C /* NSObject+KVCSerialization.m in Sources */,
+				0964FC3F1CD451A000943789 /* QBPopupMenuPagenatorView.m in Sources */,
 				093E265514A12234008694BC /* chuck.lex in Sources */,
 				093E265614A12234008694BC /* digiio_rtaudio.cpp in Sources */,
 				0964FC2C1CD44B2D00943789 /* mAAudioFileTableViewCell.m in Sources */,
@@ -2027,6 +2069,7 @@
 				0949BD5018F61E56005191AC /* mAPlayerScrollView.m in Sources */,
 				093E265F14A12234008694BC /* ulib_opsc.cpp in Sources */,
 				093E266014A12234008694BC /* ulib_std.cpp in Sources */,
+				0964FC3D1CD451A000943789 /* QBPopupMenuItemView.m in Sources */,
 				09F09E4C18E374C10050D963 /* mACGContext.c in Sources */,
 				09A14A1219B9AD5E00D28255 /* UIColor+iOS7BlueColor.m in Sources */,
 				09B596C119B0517D0091D45F /* NSString+STLString.mm in Sources */,
@@ -2058,6 +2101,7 @@
 				0921D55A18190216008F39D9 /* address.c in Sources */,
 				090F4B43171C61A700530FC7 /* chuck_io.cpp in Sources */,
 				090F4B46171C61A700530FC7 /* util_serial.cpp in Sources */,
+				0964FC3C1CD451A000943789 /* QBPopupMenuItem.m in Sources */,
 				09B1E32317A7338800050DF3 /* ulib_regex.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

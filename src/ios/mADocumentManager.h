@@ -15,9 +15,13 @@ extern NSString * const mADocumentManagerRecentFilesChanged;
 
 @interface mADocumentManager : NSObject
 
-@property (readonly) KVOMutableArray *recentFiles;
-@property (readonly) KVOMutableArray *userScripts;
-@property (readonly) NSArray *exampleScripts;
+//@property (readonly) KVOMutableArray *recentFiles;
+//@property (readonly) KVOMutableArray *userScripts;
+//@property (readonly) NSArray *exampleScripts;
+
+@property (readonly) mADetailItem *recentFilesFolderItem;
+@property (readonly) mADetailItem *userScriptsFolderItem;
+@property (readonly) mADetailItem *exampleScriptsFolderItem;
 
 + (instancetype)manager;
 
@@ -29,6 +33,7 @@ extern NSString * const mADocumentManagerRecentFilesChanged;
 
 - (mADetailItem *)newScript:(NSString *)title;
 - (mADetailItem *)newScript;
+- (mADetailItem *)newFolderUnderParent:(mADetailItem *)parent;
 - (mADetailItem *)newItemFromURL:(NSURL *)url;
 
 @end

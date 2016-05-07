@@ -11,6 +11,7 @@
 #import "miniAudicle.h"
 #import "mANetworkAction.h"
 #import "mANetworkManager.h"
+#import "KVOMutableArray.h"
 #import "NSString+Hash.h"
 #import "mAAnalytics.h"
 
@@ -115,7 +116,10 @@ NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChang
     detailItem.text = nil;
     detailItem.type = DETAILITEM_DIRECTORY;
     
-    detailItem.folderItems = items;
+    if([items isKindOfClass:[KVOMutableArray class]])
+        detailItem.folderItems = items;
+    else
+        detailItem.folderItems = [[KVOMutableArray alloc] initWithMutableArray:items];
     
     return detailItem;
 }

@@ -37,6 +37,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     NSMutableOrderedSet *_recentFilesPaths;
     
     int _untitledNum;
+    int _untitledFolderNum;
 }
 
 @property (strong, nonatomic) id<NSObject, NSCopying, NSCoding> ubiquityIdentityToken;
@@ -46,6 +47,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 + (NSArray *)documentExtensions;
 + (NSArray *)audioFileExtensions;
 
+- (NSURL *)defaultDocumentPath;
 - (NSString *)examplesPath;
 - (NSMutableArray *)loadScripts;
 - (NSMutableArray *)loadExamples;
@@ -77,20 +79,27 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     return s_manager;
 }
 
+- (NSURL *)defaultDocumentPath
+{
+    return self.localDocumentPath;
+}
+
 - (id)init
 {
     if(self = [super init])
     {
         self.localDocumentPath = [NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
         
-        self.ubiquityIdentityToken = [[NSFileManager defaultManager] ubiquityIdentityToken];
-        
-        if(self.ubiquityIdentityToken)
-        {
-            self.iCloudDocumentPath = [[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil] URLByAppendingPathComponent:@"Documents"];
-        }
+        // disable iCloud for now
+//        self.ubiquityIdentityToken = [[NSFileManager defaultManager] ubiquityIdentityToken];
+//        
+//        if(self.ubiquityIdentityToken)
+//        {
+//            self.iCloudDocumentPath = [[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil] URLByAppendingPathComponent:@"Documents"];
+//        }
         
         _untitledNum = 1;
+        _untitledFolderNum = 1;
         _recentFiles = [KVOMutableArray new];
         _recentFilesPaths = [NSMutableOrderedSet orderedSetWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesRecentFilesKey]];
         
@@ -105,6 +114,18 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
             if(index1 > index2) return NSOrderedDescending;
             return NSOrderedSame;
         }];
+        
+        _userScriptsFolderItem = [mADetailItem folderDetailItemWithTitle:@"Scripts"
+                                                                   items:_userScripts
+                                                                  isUser:YES];
+        _userScriptsFolderItem.path = [self.defaultDocumentPath path];
+        
+        _recentFilesFolderItem = [mADetailItem folderDetailItemWithTitle:@"Recent"
+                                                                   items:_recentFiles
+                                                                  isUser:YES];
+        _exampleScriptsFolderItem = [mADetailItem folderDetailItemWithTitle:@"Examples"
+                                                                      items:_exampleScripts
+                                                                     isUser:YES];
     }
     
     return self;
@@ -249,6 +270,40 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     detailItem.title = title;
     detailItem.path = [[[self.iCloudDocumentPath URLByAppendingPathComponent:detailItem.title] URLByAppendingPathExtension:@"ck"] path];
     detailItem.text = @"";
+    
+    return detailItem;
+}
+
+- (mADetailItem *)newFolderUnderParent:(mADetailItem *)parent
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    NSString *title;
+    NSString *path;
+    do {
+        if(_untitledFolderNum > 0)
+            title = [NSString stringWithFormat:@"untitled folder %i", _untitledFolderNum++];
+        else
+            title = @"untitled folder";
+        path = [parent.path stringByAppendingPathComponent:title];
+    } while([fileManager fileExistsAtPath:title]);
+
+    NSError *error;
+    [fileManager createDirectoryAtPath:path
+           withIntermediateDirectories:NO attributes:nil error:&error];
+    
+    if(error != nil)
+    {
+        mAAnalyticsLogError(error);
+        return nil;
+    }
+    
+    mADetailItem * detailItem = [mADetailItem folderDetailItemWithTitle:title
+                                                                  items:[NSMutableArray array]
+                                                                 isUser:YES];
+    
+    detailItem.path = path;
+    [parent.folderItems addObject:detailItem];
     
     return detailItem;
 }

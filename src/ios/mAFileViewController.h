@@ -25,6 +25,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
+@class mADetailItem;
 @class mADetailViewController;
 @class mAEditorViewController;
 @class mAPlayerViewController;
@@ -33,16 +34,16 @@
 {
     IBOutlet UITableView * _tableView;
     IBOutlet UIBarButtonItem * _editButton;
-    
-    NSMutableArray * _scripts;
 }
 
 @property (strong, nonatomic) mADetailViewController *detailViewController;
-@property (strong, nonatomic) NSMutableArray * scripts;
+@property (strong, nonatomic) mADetailItem *folder;
+//@property (strong, nonatomic) NSMutableArray * scripts;
 
 @property (nonatomic) BOOL editable;
 
 - (IBAction)newScript;
+- (IBAction)newFolder;
 - (IBAction)editScripts;
 
 - (void)selectScript:(int)script;

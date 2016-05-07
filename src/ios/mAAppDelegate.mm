@@ -150,10 +150,10 @@ static mAAppDelegate *g_appDelegate = nil;
         
         if(launchItem != nil && launchItem.type == DETAILITEM_CHUCK_SCRIPT)
             [self.detailViewController editItem:launchItem];
-        else if([[mADocumentManager manager] recentFiles].count)
-            [self.detailViewController editItem:[[[mADocumentManager manager] recentFiles] firstObject]];
-        else if([[mADocumentManager manager] userScripts].count)
-            [self.detailViewController editItem:[[[mADocumentManager manager] userScripts] firstObject]];
+        else if([[mADocumentManager manager] recentFilesFolderItem].folderItems.count)
+            [self.detailViewController editItem:[[[mADocumentManager manager] recentFilesFolderItem].folderItems firstObject]];
+        else if([[mADocumentManager manager] userScriptsFolderItem].folderItems.count)
+            [self.detailViewController editItem:[[[mADocumentManager manager] userScriptsFolderItem].folderItems firstObject]];
         else
             [self.detailViewController editItem:[[mADocumentManager manager] newScript]];
     }

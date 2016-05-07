@@ -48,15 +48,15 @@
     [super viewDidLoad];
     
     self.myScriptsViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
-    self.myScriptsViewController.scripts = [[mADocumentManager manager] userScripts];
+    self.myScriptsViewController.folder = [[mADocumentManager manager] userScriptsFolderItem];
     self.myScriptsViewController.editable = YES;
     
     self.examplesViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
-    self.examplesViewController.scripts = [[mADocumentManager manager] exampleScripts];
+    self.examplesViewController.folder = [[mADocumentManager manager] exampleScriptsFolderItem];
     self.examplesViewController.editable = NO;
     
     self.recentViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
-    self.recentViewController.scripts = [[mADocumentManager manager] recentFiles];
+    self.recentViewController.folder = [[mADocumentManager manager] recentFilesFolderItem];
     self.recentViewController.editable = NO;
     
     self.myScriptsViewController.detailViewController = self.detailViewController;
@@ -116,7 +116,7 @@
 
 - (void)recentFilesChanged:(NSNotification *)n
 {
-    [self.recentViewController scriptsChanged];
+//    [self.recentViewController scriptsChanged];
 }
 
 
