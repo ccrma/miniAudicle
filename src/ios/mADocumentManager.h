@@ -29,10 +29,12 @@ extern NSString * const mADocumentManagerRecentFilesChanged;
 - (void)renameScript:(mADetailItem *)item to:(NSString *)title;
 - (void)deleteScript:(mADetailItem *)item;
 
+- (mADetailItem *)firstUserScript;
+
 - (void)addRecentFile:(mADetailItem *)item;
 
 - (mADetailItem *)newScript:(NSString *)title;
-- (mADetailItem *)newScript;
+- (mADetailItem *)newScriptUnderParent:(mADetailItem *)parent;
 - (mADetailItem *)newFolderUnderParent:(mADetailItem *)parent;
 - (mADetailItem *)newItemFromURL:(NSURL *)url;
 

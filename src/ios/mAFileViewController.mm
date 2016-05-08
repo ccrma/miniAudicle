@@ -224,7 +224,7 @@
     [[mAAnalytics instance] createNewScript];
     
     mADocumentManager *manager = [mADocumentManager manager];
-    [self.detailViewController editItem:[manager newScript]];
+    [self.detailViewController editItem:[manager newScriptUnderParent:self.folder]];
 }
 
 - (IBAction)newFolder
@@ -408,6 +408,7 @@
             fileView.detailViewController = self.detailViewController;
             fileView.navigationItem.title = detailItem.title;
             fileView.folder = detailItem;
+            fileView.editable = detailItem.isUser;
             
             [self.navigationController pushViewController:fileView animated:YES];
         }

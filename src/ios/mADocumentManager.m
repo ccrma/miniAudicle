@@ -167,10 +167,11 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
         else if([fileManager fileExistsAtPath:fullPath isDirectory:&isDirectory] && isDirectory)
         {
             mADetailItem *detailItem = [mADetailItem new];
-            detailItem.isUser = NO;
+            detailItem.isUser = isUser;
             detailItem.title = path;
             detailItem.type = DETAILITEM_DIRECTORY;
             detailItem.folderItems = [NSMutableArray array];
+            detailItem.path = fullPath;
             
             if(processor)
                 processor(detailItem);
@@ -308,7 +309,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     return detailItem;
 }
 
-- (mADetailItem *)newScript
+- (mADetailItem *)newScriptUnderParent:(mADetailItem *)parent
 {
     NSString *title = [NSString stringWithFormat:@"untitled%i.ck", _untitledNum++];
     
@@ -316,14 +317,11 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     
     detailItem.isUser = YES;
     detailItem.title = title;
-    if(self.iCloudDocumentPath)
-        detailItem.path = [[self.iCloudDocumentPath URLByAppendingPathComponent:detailItem.title] path];
-    else
-        detailItem.path = [[self.localDocumentPath URLByAppendingPathComponent:detailItem.title] path];
+    detailItem.path = [parent.path stringByAppendingPathComponent:detailItem.title];
     detailItem.text = @"";
     detailItem.type = DETAILITEM_CHUCK_SCRIPT;
     
-    [_userScripts addObject:detailItem];
+    [parent.folderItems addObject:detailItem];
     
     return detailItem;
 }
@@ -397,6 +395,22 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     {
         NSLogFun(@"error: %@", error);
     }
+}
+
+- (mADetailItem *)firstUserScript
+{
+    mADetailItem *userScript = nil;
+    
+    for(mADetailItem *script in _userScripts)
+    {
+        if(!script.isFolder)
+        {
+            userScript = script;
+            break;
+        }
+    }
+    
+    return userScript;
 }
 
 - (void)addRecentFile:(mADetailItem *)item

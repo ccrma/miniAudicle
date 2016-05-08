@@ -148,14 +148,16 @@ static mAAppDelegate *g_appDelegate = nil;
         
         self.window.rootViewController = self.splitViewController;
         
+        mADocumentManager *docMgr = [mADocumentManager manager];
+        
         if(launchItem != nil && launchItem.type == DETAILITEM_CHUCK_SCRIPT)
             [self.detailViewController editItem:launchItem];
-        else if([[mADocumentManager manager] recentFilesFolderItem].folderItems.count)
-            [self.detailViewController editItem:[[[mADocumentManager manager] recentFilesFolderItem].folderItems firstObject]];
-        else if([[mADocumentManager manager] userScriptsFolderItem].folderItems.count)
-            [self.detailViewController editItem:[[[mADocumentManager manager] userScriptsFolderItem].folderItems firstObject]];
+        else if([docMgr recentFilesFolderItem].folderItems.count)
+            [self.detailViewController editItem:[[docMgr recentFilesFolderItem].folderItems firstObject]];
+        else if([docMgr firstUserScript])
+            [self.detailViewController editItem:[docMgr firstUserScript]];
         else
-            [self.detailViewController editItem:[[mADocumentManager manager] newScript]];
+            [self.detailViewController editItem:[docMgr newScriptUnderParent:docMgr.userScriptsFolderItem]];
     }
     
     [self.window makeKeyAndVisible];
