@@ -30,6 +30,7 @@
 #import "mAPlayerViewController.h"
 #import "mAVMMonitorController.h"
 #import "mAConsoleMonitorController.h"
+#import "mAPreferencesViewController.h"
 #import "mAKeyboardAccessoryViewController.h"
 #import "NSString+NSString_Lines.h"
 #import "mATextView.h"
@@ -90,7 +91,11 @@
 @property (strong, nonatomic) UIPopoverController * consoleMonitorPopover;
 @property (strong, nonatomic) mAConsoleMonitorController * consoleMonitor;
 
+@property (strong, nonatomic) UIPopoverController * settingsPopover;
+@property (strong, nonatomic) IBOutlet mAPreferencesViewController * preferences;
+
 - (void)changeMode:(id)sender;
+- (void)_closeOpenPopovers;
 
 @end
 
@@ -178,6 +183,8 @@
         viewController.view.frame = _clientView.bounds;
         [_clientView addSubview:viewController.view];
         
+        // update title button
+        // i.e. button with tag == -1
         NSMutableArray * items = [NSMutableArray arrayWithArray:self.toolbar.items];
         int i;
         for(i = 0; i < [items count]; i++)
@@ -241,7 +248,6 @@
     NSMutableArray * items = [NSMutableArray arrayWithArray:self.toolbar.items];
     [items removeObject:barButtonItem];
     [self.toolbar setItems:items animated:YES];
-
     
     self.masterPopoverController = nil;
 }
@@ -262,8 +268,7 @@
     }
     else
     {
-        [self.consoleMonitorPopover dismissPopoverAnimated:NO];
-        [self.masterPopoverController dismissPopoverAnimated:NO];
+        [self _closeOpenPopovers];
         
         self.vmMonitorPopover.delegate = self;
         
@@ -276,9 +281,10 @@
 - (IBAction)showConsoleMonitor:(id)sender
 {
     [[mAAnalytics instance] consoleButton];
-
+    
+    // clear "new data" indicator
     _consoleMonitorButton.title = @"Console";
-
+    
     if(self.consoleMonitorPopover == nil)
     {
         self.consoleMonitorPopover = [[UIPopoverController alloc] initWithContentViewController:self.consoleMonitor];
@@ -290,8 +296,7 @@
     }
     else
     {
-        [self.vmMonitorPopover dismissPopoverAnimated:NO];
-        [self.masterPopoverController dismissPopoverAnimated:NO];
+        [self _closeOpenPopovers];
         
         self.consoleMonitorPopover.delegate = self;
         
@@ -299,6 +304,40 @@
                                            permittedArrowDirections:UIPopoverArrowDirectionUp
                                                            animated:YES];
     }
+}
+
+- (IBAction)showSettings:(id)sender
+{
+    [[mAAnalytics instance] settingsButton];
+    
+    if(self.settingsPopover == nil)
+    {
+        self.settingsPopover = [[UIPopoverController alloc] initWithContentViewController:self.preferences];
+    }
+    
+    if(self.settingsPopover.isPopoverVisible)
+    {
+        [self.settingsPopover dismissPopoverAnimated:YES];
+    }
+    else
+    {
+        [self _closeOpenPopovers];
+        
+        self.settingsPopover.delegate = self;
+        self.preferences.popoverController = self.settingsPopover;
+        
+        [self.settingsPopover presentPopoverFromBarButtonItem:sender
+                                     permittedArrowDirections:UIPopoverArrowDirectionUp
+                                                     animated:YES];
+    }
+}
+
+- (void)_closeOpenPopovers
+{
+    [self.masterPopoverController dismissPopoverAnimated:NO];
+    [self.vmMonitorPopover dismissPopoverAnimated:NO];
+    [self.consoleMonitorPopover dismissPopoverAnimated:NO];
+    [self.settingsPopover dismissPopoverAnimated:NO];
 }
 
 - (void)changeMode:(id)sender

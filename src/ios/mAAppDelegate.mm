@@ -33,6 +33,7 @@
 #import "mAAutocomplete.h"
 #import "Crittercism.h"
 #import "mAAnalytics.h"
+#import "mAPreferences.h"
 
 
 
@@ -45,6 +46,7 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
 @property (strong, nonatomic) mADetailViewController * detailViewController;
 
 - (void)finishLaunchWithOptions:(NSDictionary *)launchOptions;
+- (void)_registerDefaults;
 
 @end
 
@@ -69,6 +71,8 @@ static mAAppDelegate *g_appDelegate = nil;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self _registerDefaults];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     // for now: analytics by default
@@ -162,7 +166,7 @@ static mAAppDelegate *g_appDelegate = nil;
     
     [self.window makeKeyAndVisible];
     
-    [mAChucKController chuckController].ma->start_vm();
+    [[mAChucKController chuckController] start];
     
     // create autocomplete
     mAAutocomplete::autocomplete();
@@ -239,6 +243,17 @@ static mAAppDelegate *g_appDelegate = nil;
 - (void)saveScripts
 {
 //    [self.editorViewController saveScript];
+}
+
+- (void)_registerDefaults
+{
+    NSDictionary *defaults = @{
+                               mAAudioInputEnabledPreference: @NO,
+                               mAAudioBufferSizePreference: @256,
+                               mAAudioAdaptiveBufferingPreference: @NO,
+                               mAAudioBackgroundAudioPreference: @NO
+                               };
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
 
 @end

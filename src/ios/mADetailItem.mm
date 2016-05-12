@@ -100,7 +100,7 @@ NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChang
     else
         detailItem.type = DETAILITEM_UNDEFINED;
     
-    NSLog(@"document uuid: %@", detailItem.uuid);
+    // NSLog(@"document uuid: %@", detailItem.uuid);
     
     return detailItem;
 }
