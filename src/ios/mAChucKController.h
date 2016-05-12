@@ -42,6 +42,7 @@ typedef void miniAudicle;
 @property (nonatomic) BOOL adaptiveBuffering;
 @property (nonatomic) int sampleRate;
 @property (nonatomic) BOOL backgroundAudio;
+@property (readonly, nonatomic) BOOL running;
 
 + (mAChucKController *)chuckController;
 

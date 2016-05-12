@@ -1834,6 +1834,12 @@
 					093E261014A108C8008694BC = {
 						DevelopmentTeam = 9GU9FHJ3JC;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InterAppAudio = {
+								enabled = 1;
+							};
 							com.apple.iCloud = {
 								enabled = 1;
 							};

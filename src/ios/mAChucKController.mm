@@ -62,6 +62,9 @@ static mAChucKController * g_chuckController = nil;
 - (void)_startVM;
 - (void)_startAudioIO;
 
+- (void)applicationWillEnterForeground:(NSNotification *)n;
+- (void)applicationDidEnterBackground:(NSNotification *)n;
+
 @end
 
 
@@ -127,6 +130,15 @@ static mAChucKController * g_chuckController = nil;
         self.adaptiveBuffering = [[NSUserDefaults standardUserDefaults] boolForKey:mAAudioAdaptiveBufferingPreference];
         self.sampleRate = 44100;
         self.backgroundAudio = [[NSUserDefaults standardUserDefaults] boolForKey:mAAudioBackgroundAudioPreference];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(applicationWillEnterForeground:)
+                                                     name:UIApplicationWillEnterForegroundNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(applicationDidEnterBackground:)
+                                                     name:UIApplicationDidEnterBackgroundNotification
+                                                   object:nil];
     }
     
     return self;
@@ -166,29 +178,38 @@ static mAChucKController * g_chuckController = nil;
 
 - (void)_startAudioIO
 {
-    AudioStreamBasicDescription audioDescription;
-    memset(&audioDescription, 0, sizeof(audioDescription));
-    audioDescription.mFormatID          = kAudioFormatLinearPCM;
-    audioDescription.mFormatFlags       = kAudioFormatFlagIsFloat | kAudioFormatFlagIsPacked | kAudioFormatFlagIsNonInterleaved;
-    audioDescription.mChannelsPerFrame  = 2;
-    audioDescription.mBytesPerPacket    = sizeof(float);
-    audioDescription.mFramesPerPacket   = 1;
-    audioDescription.mBytesPerFrame     = sizeof(float);
-    audioDescription.mBitsPerChannel    = 8 * sizeof(float);
-    audioDescription.mSampleRate        = self.sampleRate;
+    if(self.audioController == nil)
+    {
+        AudioStreamBasicDescription audioDescription;
+        memset(&audioDescription, 0, sizeof(audioDescription));
+        audioDescription.mFormatID          = kAudioFormatLinearPCM;
+        audioDescription.mFormatFlags       = kAudioFormatFlagIsFloat | kAudioFormatFlagIsPacked | kAudioFormatFlagIsNonInterleaved;
+        audioDescription.mChannelsPerFrame  = 2;
+        audioDescription.mBytesPerPacket    = sizeof(float);
+        audioDescription.mFramesPerPacket   = 1;
+        audioDescription.mBytesPerFrame     = sizeof(float);
+        audioDescription.mBitsPerChannel    = 8 * sizeof(float);
+        audioDescription.mSampleRate        = self.sampleRate;
+        
+        self.audioController = [[AEAudioController alloc] initWithAudioDescription:audioDescription inputEnabled:self.enableInput];
+        self.audioController.allowMixingWithOtherApps = NO;
+    }
     
-    self.audioController = [[AEAudioController alloc] initWithAudioDescription:audioDescription inputEnabled:self.enableInput];
     self.audioController.preferredBufferDuration = self.bufferSize/((float) self.sampleRate);
     
     [self _updateAudioChannel];
     
-    [self.audioController start:NULL];
+    NSError *error;
+    [self.audioController start:&error];
+    mAAnalyticsLogError(error);
 }
 
 - (void)start
 {
     [self _startAudioIO];
     [self _startVM];
+    
+    _running = YES;
 }
 
 - (void)restart
@@ -219,6 +240,31 @@ static mAChucKController * g_chuckController = nil;
     
     [self _startVM];
 }
+
+#pragma mark Application state handling
+
+- (void)applicationWillEnterForeground:(NSNotification *)n
+{
+    if(self.running)
+    {
+        NSError *error;
+        [self.audioController start:&error];
+        mAAnalyticsLogError(error);
+    }
+}
+
+- (void)applicationDidEnterBackground:(NSNotification *)n
+{
+    if(self.running)
+    {
+        if(!self.backgroundAudio)
+        {
+            [self.audioController stop];
+        }
+    }
+}
+
+#pragma mark Audio I/O integration
 
 - (void)_updateAudioChannel
 {
