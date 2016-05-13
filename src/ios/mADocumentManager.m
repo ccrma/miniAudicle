@@ -16,6 +16,9 @@ NSString * const mADocumentManagerRecentFilesChanged = @"mADocumentManagerRecent
 
 NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 
+static NSString * const mAUntitledScriptName = @"untitled";
+static NSString * const mAUntitledFolderName = @"untitled folder";
+
 
 @interface NSString (mADocumentManager)
 
@@ -170,7 +173,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
             detailItem.isUser = isUser;
             detailItem.title = path;
             detailItem.type = DETAILITEM_DIRECTORY;
-            detailItem.folderItems = [NSMutableArray array];
+            detailItem.folderItems = [KVOMutableArray array];
             detailItem.path = fullPath;
             
             if(processor)
@@ -203,11 +206,20 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
                                        // use greatest untitledN number +1 for next Untitled number
                                        NSScanner *titleScanner = [NSScanner scannerWithString:detailItem.title];
                                        int num = 0;
-                                       if([titleScanner scanString:@"untitled" intoString:NULL] &&
+                                       if([titleScanner scanString:mAUntitledScriptName intoString:NULL] &&
                                           [titleScanner scanInt:&num])
                                        {
                                            if(num >= _untitledNum)
                                                _untitledNum = num+1;
+                                       }
+                                       
+                                       // reset scanner
+                                       titleScanner.scanLocation = 0;
+                                       if([titleScanner scanString:mAUntitledFolderName intoString:NULL] &&
+                                          [titleScanner scanInt:&num])
+                                       {
+                                           if(num >= _untitledFolderNum)
+                                               _untitledFolderNum = num+1;
                                        }
                                    }];
         }
@@ -224,11 +236,20 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
                                    // use greatest untitledN number +1 for next Untitled number
                                    NSScanner *titleScanner = [NSScanner scannerWithString:detailItem.title];
                                    int num = 0;
-                                   if([titleScanner scanString:@"untitled" intoString:NULL] &&
+                                   if([titleScanner scanString:mAUntitledScriptName intoString:NULL] &&
                                       [titleScanner scanInt:&num])
                                    {
                                        if(num >= _untitledNum)
                                            _untitledNum = num+1;
+                                   }
+                                   
+                                   // reset scanner
+                                   titleScanner.scanLocation = 0;
+                                   if([titleScanner scanString:mAUntitledFolderName intoString:NULL] &&
+                                      [titleScanner scanInt:&num])
+                                   {
+                                       if(num >= _untitledFolderNum)
+                                           _untitledFolderNum = num+1;
                                    }
                                }];
         
@@ -282,10 +303,10 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     NSString *title;
     NSString *path;
     do {
-        if(_untitledFolderNum > 0)
-            title = [NSString stringWithFormat:@"untitled folder %i", _untitledFolderNum++];
+        if(_untitledFolderNum > 1)
+            title = [NSString stringWithFormat:@"%@ %i", mAUntitledFolderName, _untitledFolderNum++];
         else
-            title = @"untitled folder";
+            title = mAUntitledFolderName;
         path = [parent.path stringByAppendingPathComponent:title];
     } while([fileManager fileExistsAtPath:title]);
 
@@ -300,7 +321,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     }
     
     mADetailItem * detailItem = [mADetailItem folderDetailItemWithTitle:title
-                                                                  items:[NSMutableArray array]
+                                                                  items:[KVOMutableArray array]
                                                                  isUser:YES];
     
     detailItem.path = path;
@@ -311,7 +332,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 
 - (mADetailItem *)newScriptUnderParent:(mADetailItem *)parent
 {
-    NSString *title = [NSString stringWithFormat:@"untitled%i.ck", _untitledNum++];
+    NSString *title = [NSString stringWithFormat:@"%@%i.ck", mAUntitledScriptName, _untitledNum++];
     
     mADetailItem * detailItem = [mADetailItem new];
     
@@ -376,7 +397,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
     
     if(error != NULL)
     {
-        NSLogFun(@"error: %@", error);
+        mAAnalyticsLogError(error);
         return;
     }
 
