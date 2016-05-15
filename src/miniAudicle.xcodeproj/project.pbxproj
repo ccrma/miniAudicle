@@ -254,6 +254,8 @@
 		09812B9B0C6E394A00D1D68C /* uana_extract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09812B980C6E394A00D1D68C /* uana_extract.cpp */; };
 		09812B9C0C6E394A00D1D68C /* uana_extract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09812B980C6E394A00D1D68C /* uana_extract.cpp */; };
 		09820BA110941F7F001F662E /* miniAudicle_log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09820BA010941F7F001F662E /* miniAudicle_log.cpp */; };
+		0985624F1CE7FE1F00FCBF21 /* mAFolderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0985624E1CE7FE1F00FCBF21 /* mAFolderTableViewCell.m */; };
+		098562531CE92FCD00FCBF21 /* mAFolderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098562521CE92FCD00FCBF21 /* mAFolderTableViewCell.xib */; };
 		098E28AE173A06600044336B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A2173A06600044336B /* InfoPlist.strings */; };
 		098E28AF173A06600044336B /* mADocumentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A4173A06600044336B /* mADocumentView.xib */; };
 		098E28B0173A06600044336B /* mADocumentWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A6173A06600044336B /* mADocumentWindow.xib */; };
@@ -666,6 +668,9 @@
 		09812B990C6E394A00D1D68C /* uana_extract.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = uana_extract.h; sourceTree = "<group>"; };
 		09820B9F10941F7F001F662E /* miniAudicle_log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = miniAudicle_log.h; sourceTree = "<group>"; };
 		09820BA010941F7F001F662E /* miniAudicle_log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = miniAudicle_log.cpp; sourceTree = "<group>"; };
+		0985624D1CE7FE1F00FCBF21 /* mAFolderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAFolderTableViewCell.h; sourceTree = "<group>"; };
+		0985624E1CE7FE1F00FCBF21 /* mAFolderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAFolderTableViewCell.m; sourceTree = "<group>"; };
+		098562521CE92FCD00FCBF21 /* mAFolderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAFolderTableViewCell.xib; sourceTree = "<group>"; };
 		098E28A3173A06600044336B /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = macosx/Resources/English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		098E28A5173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mADocumentView.xib; sourceTree = "<group>"; };
 		098E28A7173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mADocumentWindow.xib; sourceTree = "<group>"; };
@@ -1629,11 +1634,14 @@
 				09AB222E196FC4670037AF73 /* mADocumentManager.m */,
 				093E262B14A108C8008694BC /* mAFileViewController~iphone.xib */,
 				093E262E14A108C8008694BC /* mAFileViewController~ipad.xib */,
-				09735F6E1C8A9407003965CA /* mAAudioFileTableViewCell.xib */,
 				093E262514A108C8008694BC /* mAFileViewController.h */,
 				093E262614A108C8008694BC /* mAFileViewController.mm */,
+				09735F6E1C8A9407003965CA /* mAAudioFileTableViewCell.xib */,
 				0964FC2A1CD44B2D00943789 /* mAAudioFileTableViewCell.h */,
 				0964FC2B1CD44B2D00943789 /* mAAudioFileTableViewCell.m */,
+				098562521CE92FCD00FCBF21 /* mAFolderTableViewCell.xib */,
+				0985624D1CE7FE1F00FCBF21 /* mAFolderTableViewCell.h */,
+				0985624E1CE7FE1F00FCBF21 /* mAFolderTableViewCell.m */,
 				093E263114A108C8008694BC /* mADetailViewController~iphone.xib */,
 				093E263414A108C9008694BC /* mADetailViewController~ipad.xib */,
 				09F09E5618E41F2C0050D963 /* mADetailItem.h */,
@@ -1988,6 +1996,7 @@
 				09307E2418DFF892004AB346 /* error.png in Resources */,
 				09087C6B14A4F67100AD2633 /* UIRemoveControlMinus.png in Resources */,
 				09094DC519919E41009F4C4C /* mAActivityViewController.xib in Resources */,
+				098562531CE92FCD00FCBF21 /* mAFolderTableViewCell.xib in Resources */,
 				09608AE014B40DE4009450FE /* mAConsoleMonitor.xib in Resources */,
 				093A74BA1A5E492D00F54725 /* mAFileNavigationController.xib in Resources */,
 				09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */,
@@ -2201,6 +2210,7 @@
 				093E267F14A1B3B3008694BC /* mAChucKController.mm in Sources */,
 				09D00B8714A3C44B0019CD09 /* mATitleEditorController.m in Sources */,
 				0921D56418190216008F39D9 /* pattern_match.c in Sources */,
+				0985624F1CE7FE1F00FCBF21 /* mAFolderTableViewCell.m in Sources */,
 				096BFF811CD363C6006653F5 /* mAPreferences.m in Sources */,
 				09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */,
 				09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.mm in Sources */,

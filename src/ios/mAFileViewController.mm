@@ -33,7 +33,13 @@
 #import "mADocumentManager.h"
 #import "mAAnalytics.h"
 #import "mAAudioFileTableViewCell.h"
+#import "mAFolderTableViewCell.h"
 #import "QBPopupMenu.h"
+
+
+static NSString *CellIdentifier = @"Cell";
+static NSString *AudioFileCellIdentifier = @"AudioFileCell";
+static NSString *FolderCellIdentifier = @"FolderCell";
 
 
 @interface mAFileViewController ()
@@ -113,7 +119,10 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"mAAudioFileTableViewCell"
                                                bundle:NULL]
-         forCellReuseIdentifier:@"AudioFileCell"];
+         forCellReuseIdentifier:AudioFileCellIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:@"mAFolderTableViewCell"
+                                               bundle:NULL]
+         forCellReuseIdentifier:FolderCellIdentifier];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -209,7 +218,9 @@
 {
     mADetailItem *item = [n object];
     int index = [self.folder.folderItems indexOfObject:item];
-    [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]].textLabel.text = item.title;
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    if(!item.isFolder)
+        cell.textLabel.text = item.title;
 }
 
 
@@ -234,6 +245,8 @@
     
     mADocumentManager *manager = [mADocumentManager manager];
     [manager newFolderUnderParent:self.folder];
+    
+    NSLog(@"here");
 }
 
 - (IBAction)openAddMenu
@@ -287,13 +300,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView 
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    static NSString *AudioFileCellIdentifier = @"AudioFileCell";
-    
     int index = indexPath.row;
     mADetailItem *detailItem = [self.folder.folderItems objectAtIndex:index];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = nil;
     
     if(detailItem.type == DETAILITEM_AUDIO_FILE)
     {
@@ -303,6 +313,21 @@
             // uh
             assert(0);
         }
+        
+        cell.textLabel.text = detailItem.title;
+    }
+    else if(detailItem.isFolder)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:FolderCellIdentifier];
+        if(!cell)
+        {
+            // uh
+            assert(0);
+        }
+        
+        mAFolderTableViewCell *folderCell = (mAFolderTableViewCell *) cell;
+        
+        folderCell.item = detailItem;
     }
     else
     {
@@ -314,12 +339,10 @@
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
         }
+        
+        cell.textLabel.text = detailItem.title;
     }
-    
 
-    // Configure the cell.
-    cell.textLabel.text = detailItem.title;
-    
     if(detailItem.isFolder)
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     else
@@ -333,10 +356,12 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+    int index = indexPath.row;
+    mADetailItem *detailItem = [self.folder.folderItems objectAtIndex:index];
+    
+    return detailItem.isFolder;
 }
 */
-
 /*
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath

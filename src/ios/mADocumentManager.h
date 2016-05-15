@@ -26,7 +26,7 @@ extern NSString * const mADocumentManagerRecentFilesChanged;
 + (instancetype)manager;
 
 - (void)saveScripts;
-- (void)renameScript:(mADetailItem *)item to:(NSString *)title;
+- (void)renameItem:(mADetailItem *)item to:(NSString *)title;
 - (void)deleteScript:(mADetailItem *)item;
 
 - (mADetailItem *)firstUserScript;

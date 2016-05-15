@@ -162,11 +162,15 @@ NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChang
 {
     NSError *error = NULL;
     
-    if(!self.isFolder && self.isUser)
+    if(self.type == DETAILITEM_CHUCK_SCRIPT && self.isUser)
     {
         [self.text writeToFile:self.path atomically:YES encoding:NSUTF8StringEncoding error:&error];
         mAAnalyticsLogError(error);
     }
+}
+
+- (void)rename:(NSString *)title
+{
 }
 
 - (t_CKUINT)docid

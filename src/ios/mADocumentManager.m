@@ -385,13 +385,16 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     return detailItem;
 }
 
-- (void)renameScript:(mADetailItem *)item to:(NSString *)title
+- (void)renameItem:(mADetailItem *)item to:(NSString *)title
 {
     NSError *error = NULL;
 
     [item save];
     
-    NSString *newPath = [[[item.path stringByDeletingLastPathComponent] stringByAppendingPathComponent:title] stringByAppendingPathExtension:@"ck"];
+    NSString *extension = [item.path pathExtension];
+    NSString *newPath = [[item.path stringByDeletingLastPathComponent] stringByAppendingPathComponent:title];
+    if([extension length])
+        newPath = [newPath stringByAppendingString:extension];
 
     [[NSFileManager defaultManager] moveItemAtPath:item.path toPath:newPath error:&error];
     

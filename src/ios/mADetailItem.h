@@ -48,6 +48,7 @@ typedef enum DetailItemType
                                      isUser:(BOOL)user;
 + (mADetailItem *)remoteDetailItemWithNewScriptAction:(mANANewScript *)action;
 
+- (void)rename:(NSString *)title;
 - (NSDictionary *)dictionary;
 - (void)save;
 
