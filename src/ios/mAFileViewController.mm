@@ -196,19 +196,34 @@ static NSString *FolderCellIdentifier = @"FolderCell";
     
     if(self.editable)
     {
-        self.addButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [self.addButton setTitle:@"+" forState:UIControlStateNormal];
-//        [self.addButton setImage:[UIImage imageNamed:@"gear.png"] forState:UIControlStateNormal];
-        [self.addButton sizeToFit];
-        self.addButton.titleLabel.font = [UIFont systemFontOfSize:38 weight:UIFontWeightUltraLight];
-        self.addButton.titleLabel.textColor = self.view.tintColor;
-        [self.addButton addTarget:self action:@selector(newScript) forControlEvents:UIControlEventTouchUpInside];
-        
-        UILongPressGestureRecognizer *longPress = [UILongPressGestureRecognizer new];
-        [longPress addTarget:self action:@selector(openAddMenu)];
-        [self.addButton addGestureRecognizer:longPress];
-        
-        navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.addButton];
+//        self.addButton = [UIButton buttonWithType:UIButtonTypeSystem];
+//        [self.addButton setImage:[UIImage imageNamed:@"AddFile"] forState:UIControlStateNormal];
+//        [self.addButton sizeToFit];
+//        CGRect frame = self.addButton.frame;
+//        frame.size.width *= 1.5;
+//        [self.addButton setFrame:frame];
+//        self.addButton.titleLabel.font = [UIFont systemFontOfSize:38 weight:UIFontWeightUltraLight];
+//        self.addButton.titleLabel.textColor = self.view.tintColor;
+//        [self.addButton addTarget:self action:@selector(newScript) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        UIButton *_addFolderButton = [UIButton buttonWithType:UIButtonTypeSystem];
+//        [_addFolderButton setImage:[UIImage imageNamed:@"AddFolder"] forState:UIControlStateNormal];
+//        [_addFolderButton sizeToFit];
+//        frame = _addFolderButton.frame;
+//        frame.size.width *= 1.5;
+//        [_addFolderButton setFrame:frame];
+//        [_addFolderButton addTarget:self action:@selector(newFolder) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:self.addButton],
+//                                               [[UIBarButtonItem alloc] initWithCustomView:_addFolderButton]];
+        navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddFile"]
+                                                                                style:UIBarButtonItemStylePlain
+                                                                               target:self
+                                                                               action:@selector(newScript)],
+                                               [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddFolder"]
+                                                                                style:UIBarButtonItemStylePlain
+                                                                               target:self
+                                                                               action:@selector(newFolder)]];
     }
     
     return navigationItem;
