@@ -9,6 +9,7 @@
 #import "mAPreferencesViewController.h"
 
 #import "mAChucKController.h"
+#import "mAAboutViewController.h"
 #import "UIAlert.h"
 
 @interface mABufferSizeSelectorViewController : UIViewController
@@ -34,6 +35,7 @@
 @property (strong) IBOutlet mABufferSizeSelectorViewController *bufferSizeSelector;
 @property int bufferSize;
 @property (strong) IBOutlet UIButton *bufferSizeButton;
+@property (strong) IBOutlet mAAboutViewController *aboutBox;
 
 @end
 
@@ -89,6 +91,13 @@
 - (IBAction)backgroundAudioChanged:(id)sender
 {
     [mAChucKController chuckController].backgroundAudio = _backgroundAudioSwitch.on;
+}
+
+- (IBAction)about:(id)sender
+{
+    (void) self.aboutBox.view;
+//    [self.view addSubview:self.aboutBox.view];
+    [self presentViewController:self.aboutBox animated:YES completion:nil];
 }
 
 - (IBAction)done:(id)sender

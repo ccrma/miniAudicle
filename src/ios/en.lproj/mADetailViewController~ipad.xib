@@ -79,7 +79,7 @@
         <viewController nibName="mAEditorViewController" id="JTK-eG-J0y" customClass="mAEditorViewController"/>
         <viewController nibName="mAPlayerViewController" id="DUG-gC-Iza" customClass="mAPlayerViewController"/>
         <viewController autoresizesArchivedViewToFullSize="NO" nibName="mAPreferencesViewController" id="hdA-2g-acq" customClass="mAPreferencesViewController">
-            <value key="contentSizeForViewInPopover" type="size" width="364" height="392"/>
+            <value key="contentSizeForViewInPopover" type="size" width="364" height="448"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <size key="freeformSize" width="400" height="392"/>

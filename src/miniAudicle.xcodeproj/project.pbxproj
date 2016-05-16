@@ -379,6 +379,10 @@
 		09E288831CE9C86D006E6AE4 /* AddFolder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09E288811CE9C86D006E6AE4 /* AddFolder@2x.png */; };
 		09E288841CE9C86D006E6AE4 /* AddColumn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09E288821CE9C86D006E6AE4 /* AddColumn@2x.png */; };
 		09E288881CE9C9E6006E6AE4 /* AddFile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09E288871CE9C9E6006E6AE4 /* AddFile@2x.png */; };
+		09E288921CEA7CE6006E6AE4 /* mAAboutViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09E288911CEA7CE6006E6AE4 /* mAAboutViewController.mm */; };
+		09E288941CEA88AE006E6AE4 /* chuck_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 09E288931CEA88AE006E6AE4 /* chuck_logo.png */; };
+		09E288961CEA8A08006E6AE4 /* chuck_logo_freq.png in Resources */ = {isa = PBXBuildFile; fileRef = 09E288951CEA8A08006E6AE4 /* chuck_logo_freq.png */; };
+		09E288981CEA93BA006E6AE4 /* mAAboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09E288971CEA93BA006E6AE4 /* mAAboutView.xib */; };
 		09E449D41CD2D1E5004BCBA0 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 09E449D31CD2D1E5004BCBA0 /* gear.png */; };
 		09E449D81CD2D2FF004BCBA0 /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09E449D71CD2D2FF004BCBA0 /* gear@2x.png */; };
 		09EBA9B718D8FD4700DCAE0C /* examples in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B5C1769A5CD00A07ADF /* examples */; };
@@ -912,6 +916,11 @@
 		09E288811CE9C86D006E6AE4 /* AddFolder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddFolder@2x.png"; sourceTree = "<group>"; };
 		09E288821CE9C86D006E6AE4 /* AddColumn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddColumn@2x.png"; sourceTree = "<group>"; };
 		09E288871CE9C9E6006E6AE4 /* AddFile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddFile@2x.png"; sourceTree = "<group>"; };
+		09E288901CEA7CE6006E6AE4 /* mAAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAAboutViewController.h; sourceTree = "<group>"; };
+		09E288911CEA7CE6006E6AE4 /* mAAboutViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAAboutViewController.mm; sourceTree = "<group>"; };
+		09E288931CEA88AE006E6AE4 /* chuck_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chuck_logo.png; sourceTree = "<group>"; };
+		09E288951CEA8A08006E6AE4 /* chuck_logo_freq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chuck_logo_freq.png; sourceTree = "<group>"; };
+		09E288971CEA93BA006E6AE4 /* mAAboutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAAboutView.xib; sourceTree = "<group>"; };
 		09E449D31CD2D1E5004BCBA0 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
 		09E449D71CD2D2FF004BCBA0 /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear@2x.png"; sourceTree = "<group>"; };
 		09E481F80B1CE5AF002087DF /* gauge01.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = gauge01.ck; path = ../test/gauge01.ck; sourceTree = SOURCE_ROOT; };
@@ -1078,6 +1087,8 @@
 		09087C6914A4F63700AD2633 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				09E288951CEA8A08006E6AE4 /* chuck_logo_freq.png */,
+				09E288931CEA88AE006E6AE4 /* chuck_logo.png */,
 				09E288871CE9C9E6006E6AE4 /* AddFile@2x.png */,
 				09E288811CE9C86D006E6AE4 /* AddFolder@2x.png */,
 				09E288821CE9C86D006E6AE4 /* AddColumn@2x.png */,
@@ -1675,6 +1686,9 @@
 				097397341CD2B00000D8B74D /* mAPreferencesViewController.h */,
 				097397351CD2B00000D8B74D /* mAPreferencesViewController.m */,
 				0973973D1CD2B0CE00D8B74D /* mAPreferencesViewController.xib */,
+				09E288901CEA7CE6006E6AE4 /* mAAboutViewController.h */,
+				09E288911CEA7CE6006E6AE4 /* mAAboutViewController.mm */,
+				09E288971CEA93BA006E6AE4 /* mAAboutView.xib */,
 				096BFF7C1CD36320006653F5 /* mAPreferences.h */,
 				096BFF7F1CD36334006653F5 /* mAPreferences.m */,
 			);
@@ -1979,6 +1993,7 @@
 				09F0442C1918A8810028DD14 /* mALoopCountPicker.xib in Resources */,
 				4D3D4C921A5E37DB00B6A06B /* dsym_upload.sh in Resources */,
 				0973973E1CD2B0CE00D8B74D /* mAPreferencesViewController.xib in Resources */,
+				09E288961CEA8A08006E6AE4 /* chuck_logo_freq.png in Resources */,
 				09E449D81CD2D2FF004BCBA0 /* gear@2x.png in Resources */,
 				09735F491C8A5BBC003965CA /* play.png in Resources */,
 				093E267A14A14E91008694BC /* remove.png in Resources */,
@@ -2004,12 +2019,14 @@
 				0934BE44190D038B0084D10E /* sequence.png in Resources */,
 				09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */,
 				096310BC1C86F35900A36F8F /* mALaunchView.xib in Resources */,
+				09E288941CEA88AE006E6AE4 /* chuck_logo.png in Resources */,
 				09307E2418DFF892004AB346 /* error.png in Resources */,
 				09E288831CE9C86D006E6AE4 /* AddFolder@2x.png in Resources */,
 				09087C6B14A4F67100AD2633 /* UIRemoveControlMinus.png in Resources */,
 				09094DC519919E41009F4C4C /* mAActivityViewController.xib in Resources */,
 				098562531CE92FCD00FCBF21 /* mAFolderTableViewCell.xib in Resources */,
 				09608AE014B40DE4009450FE /* mAConsoleMonitor.xib in Resources */,
+				09E288981CEA93BA006E6AE4 /* mAAboutView.xib in Resources */,
 				093A74BA1A5E492D00F54725 /* mAFileNavigationController.xib in Resources */,
 				09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */,
 			);
@@ -2159,6 +2176,7 @@
 				09F09E4F18E3753B0050D963 /* mAScriptPlayerTab.mm in Sources */,
 				093A74BD1A5E495200F54725 /* mAFileNavigationController.mm in Sources */,
 				093E264F14A12201008694BC /* chuck_table.cpp in Sources */,
+				09E288921CEA7CE6006E6AE4 /* mAAboutViewController.mm in Sources */,
 				093E265014A12201008694BC /* chuck_type.cpp in Sources */,
 				093E265114A12201008694BC /* chuck_ugen.cpp in Sources */,
 				093E265214A12201008694BC /* chuck_utils.cpp in Sources */,
