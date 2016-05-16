@@ -48,11 +48,7 @@
     // TODO: analytics
     self.textField.enabled = YES;
     [self.textField becomeFirstResponder];
-}
-
-- (void)beginEditingFolderTitle
-{
-    [self.textField becomeFirstResponder];
+    self.textField.borderStyle = UITextBorderStyleRoundedRect;
 }
 
 - (void)detailItemTitleChanged:(NSNotification *)n
@@ -73,6 +69,7 @@
         [[mADocumentManager manager] renameItem:self.item to:self.textField.text];
     
     self.textField.enabled = NO;
+    self.textField.borderStyle = UITextBorderStyleNone;
     [self.textField resignFirstResponder];
 }
 

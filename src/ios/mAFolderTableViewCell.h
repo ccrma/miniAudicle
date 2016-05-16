@@ -14,6 +14,6 @@
 
 @property (strong, nonatomic) mADetailItem *item;
 
-- (void)beginEditingFolderTitle;
+- (IBAction)editFolderName:(id)sender;
 
 @end
