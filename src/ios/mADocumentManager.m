@@ -408,7 +408,7 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     item.path = newPath;
 }
 
-- (void)deleteScript:(mADetailItem *)item
+- (void)deleteItem:(mADetailItem *)item
 {
     NSError *error = NULL;
 

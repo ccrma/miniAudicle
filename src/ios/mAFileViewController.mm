@@ -464,7 +464,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         
         [[mAAnalytics instance] deleteFromScriptList:item.uuid];
         
-        [[mADocumentManager manager] deleteScript:item];
+        [[mADocumentManager manager] deleteItem:item];
         
         [self.folder.folderItems removeObjectAtIndex:[indexPath row]];
         
