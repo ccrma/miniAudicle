@@ -391,10 +391,7 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
 
     [item save];
     
-    NSString *extension = [item.path pathExtension];
     NSString *newPath = [[item.path stringByDeletingLastPathComponent] stringByAppendingPathComponent:title];
-    if([extension length])
-        newPath = [newPath stringByAppendingString:extension];
 
     [[NSFileManager defaultManager] moveItemAtPath:item.path toPath:newPath error:&error];
     
