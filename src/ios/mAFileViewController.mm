@@ -356,6 +356,10 @@ static NSString *FolderCellIdentifier = @"FolderCell";
         }
         
         cell.textLabel.text = detailItem.title;
+        if(detailItem.type != DETAILITEM_CHUCK_SCRIPT)
+            cell.textLabel.textColor = [UIColor grayColor];
+        else
+            cell.textLabel.textColor = [UIColor blackColor];
     }
 
     if(detailItem.isFolder)

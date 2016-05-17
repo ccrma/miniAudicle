@@ -98,7 +98,7 @@ NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChang
     else if([extension isEqualToString:@"wav"] || [extension isEqualToString:@"aif"] || [extension isEqualToString:@"aiff"])
         detailItem.type = DETAILITEM_AUDIO_FILE;
     else
-        detailItem.type = DETAILITEM_UNDEFINED;
+        detailItem.type = DETAILITEM_MISC;
     
     // NSLog(@"document uuid: %@", detailItem.uuid);
     

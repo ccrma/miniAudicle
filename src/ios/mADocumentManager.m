@@ -155,19 +155,7 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
         if(filter && filter(fullPath))
             continue;
         
-        if([path hasPathExtension:[mADocumentManager documentExtensions]])
-        {
-            mADetailItem *detailItem = [mADetailItem detailItemFromPath:fullPath isUser:isUser];
-            
-            [array addObject:detailItem];
-            
-            if([_recentFilesPaths containsObject:fullPath])
-                [_recentFiles addObject:detailItem];
-            
-            if(processor)
-                processor(detailItem);
-        }
-        else if([fileManager fileExistsAtPath:fullPath isDirectory:&isDirectory] && isDirectory)
+        if([fileManager fileExistsAtPath:fullPath isDirectory:&isDirectory] && isDirectory)
         {
             mADetailItem *detailItem = [mADetailItem new];
             detailItem.isUser = isUser;
@@ -186,6 +174,18 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
                                    processor:processor];
             
             [array addObject:detailItem];
+        }
+        else
+        {
+            mADetailItem *detailItem = [mADetailItem detailItemFromPath:fullPath isUser:isUser];
+            
+            [array addObject:detailItem];
+            
+            if([_recentFilesPaths containsObject:fullPath])
+                [_recentFiles addObject:detailItem];
+            
+            if(processor)
+                processor(detailItem);
         }
     }
 }
