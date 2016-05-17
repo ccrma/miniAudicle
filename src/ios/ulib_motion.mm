@@ -203,9 +203,9 @@ struct MotionMsg
     {
         type = _type;
         timestamp = _timestamp;
-        accel.x = _x;
-        accel.y = _y;
-        accel.z = _z;
+        x = _x;
+        y = _y;
+        z = _z;
     }
     
     MotionMsg(t_CKINT _type, t_CKTIME _timestamp, t_CKFLOAT _heading)
@@ -231,7 +231,7 @@ struct MotionMsg
         struct
         {
             t_CKFLOAT x, y, z;
-        } accel, gyro, mag, attitude;
+        };
         
         t_CKFLOAT heading;
         
@@ -307,11 +307,12 @@ CK_DLL_MFUN(motion_recv)
         OBJ_MEMBER_INT(msgobj, motionmsg_mvar_type) = msg.type;
         OBJ_MEMBER_TIME(msgobj, motionmsg_mvar_timestamp) = msg.timestamp;
         
-        if(msg.type == MOTIONTYPE_ACCEL)
+        if(msg.type == MOTIONTYPE_ACCEL || msg.type == MOTIONTYPE_GYRO ||
+           msg.type == MOTIONTYPE_MAG || msg.type == MOTIONTYPE_ATTITUDE)
         {
-            OBJ_MEMBER_FLOAT(msgobj, motionmsg_mvar_x) = msg.accel.x;
-            OBJ_MEMBER_FLOAT(msgobj, motionmsg_mvar_y) = msg.accel.y;
-            OBJ_MEMBER_FLOAT(msgobj, motionmsg_mvar_z) = msg.accel.z;
+            OBJ_MEMBER_FLOAT(msgobj, motionmsg_mvar_x) = msg.x;
+            OBJ_MEMBER_FLOAT(msgobj, motionmsg_mvar_y) = msg.y;
+            OBJ_MEMBER_FLOAT(msgobj, motionmsg_mvar_z) = msg.z;
         }
     }
     
