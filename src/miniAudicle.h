@@ -169,6 +169,8 @@ public:
     
 protected:
 
+    t_CKBOOL load_query_funcs( Chuck_Env * env );
+    
     map< t_CKUINT, vector< t_CKUINT > * > documents; // maps documents to shreds
 
     struct _doc_shred { t_CKUINT docid; vector< t_CKUINT >::size_type index; };

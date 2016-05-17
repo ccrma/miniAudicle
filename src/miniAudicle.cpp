@@ -969,6 +969,14 @@ t_CKBOOL miniAudicle::start_vm()
         // set auto depend
         compiler->set_auto_depend( FALSE );
 
+#ifdef __MA_IMPORT_MAUI__
+        // import api
+        init_maui( compiler->env );
+#endif
+        
+        load_query_funcs( compiler->env );
+        
+
         // vm synthesis subsystem - needs the type system
         if( !vm->initialize_synthesis() )
         {
@@ -978,13 +986,6 @@ t_CKBOOL miniAudicle::start_vm()
             return FALSE;
         }
         
-#ifdef __MA_IMPORT_MAUI__
-        // import api
-        init_maui( compiler->env );
-#endif
-        for(list<t_CKBOOL (*)(Chuck_Env *)>::iterator i = vm_options.query_funcs.begin(); i != vm_options.query_funcs.end(); i++)
-            (*i)( compiler->env );
-
         // reset the parser
         reset_parse();
         
@@ -1077,6 +1078,48 @@ t_CKBOOL miniAudicle::start_vm()
     EM_poplog();
     
     return vm_on;
+}
+
+t_CKBOOL miniAudicle::load_query_funcs( Chuck_Env * env )
+{
+    // log
+    EM_log( CK_LOG_SEVERE, "loading additional modules..." );
+    // push indent level
+    EM_pushlog();
+    
+    // make context
+    Chuck_Context * context = type_engine_make_context( NULL, "@[miniAudicle]" );
+    // reset env - not needed since we just created the env
+    env->reset();
+    // load it
+    type_engine_load_context( env, context );
+    
+    for(list<t_CKBOOL (*)(Chuck_Env *)>::iterator i = vm_options.query_funcs.begin(); i != vm_options.query_funcs.end(); i++)
+        (*i)( env );
+    
+    // clear context
+    type_engine_unload_context( env );
+    
+    // commit what is in the type checker at this point
+    env->global()->commit();
+    
+    // pop indent level
+    EM_poplog();
+    
+    return TRUE;
+    
+error:
+    
+    // probably dangerous: rollback
+    env->global()->rollback();
+    
+    // clear context
+    type_engine_unload_context( env );
+    
+    // pop indent level
+    EM_poplog();
+    
+    return FALSE;
 }
 
 //-----------------------------------------------------------------------------
