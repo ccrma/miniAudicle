@@ -247,7 +247,10 @@ struct MotionMsg
 - (id)initWithVM:(Chuck_VM *)vm;
 - (void)startAccelerometer:(Chuck_Event *)event toQueue:(CircularBuffer<MotionMsg> *)queue;
 - (void)startGyroscope:(Chuck_Event *)event toQueue:(CircularBuffer<MotionMsg> *)queue;
+- (void)startMagnetometer:(Chuck_Event *)event toQueue:(CircularBuffer<MotionMsg> *)queue;
+- (void)startAttitude:(Chuck_Event *)event toQueue:(CircularBuffer<MotionMsg> *)queue;
 - (void)stop:(Chuck_Event *)event onCompletion:(void (^)())completion;
+- (void)enqueueToThread:(void (^)())block;
 
 @end
 
@@ -282,16 +285,24 @@ CK_DLL_MFUN(motion_start)
     
     if(type == MOTIONTYPE_ACCEL)
         [g_motionManager startAccelerometer:(Chuck_Event *)SELF toQueue:queue];
+    else if(type == MOTIONTYPE_GYRO)
+        [g_motionManager startGyroscope:(Chuck_Event *)SELF toQueue:queue];
+    else if(type == MOTIONTYPE_MAG)
+        [g_motionManager startMagnetometer:(Chuck_Event *)SELF toQueue:queue];
+    else if(type == MOTIONTYPE_ATTITUDE)
+        [g_motionManager startAttitude:(Chuck_Event *)SELF toQueue:queue];
     
     RETURN->v_int = 1;
 }
 
 CK_DLL_MFUN(motion_stop)
 {
+    [g_motionManager stop:(Chuck_Event *)SELF onCompletion:nil];
 }
 
 CK_DLL_MFUN(motion_stop_all)
 {
+    [g_motionManager stop:(Chuck_Event *)SELF onCompletion:nil];
 }
 
 CK_DLL_MFUN(motion_recv)
@@ -327,13 +338,16 @@ CK_DLL_MFUN(motion_recv)
     Chuck_VM *_vm;
     CBufferSimple *_eventBuffer;
     
-    std::list<Chuck_Event *> _accelListeners;
+    std::map<t_CKINT, std::list<Chuck_Event *> > _listeners;
     std::map<Chuck_Event *, CircularBuffer<MotionMsg> *> _messageQueue;
 }
 
 @property (strong, nonatomic) CMMotionManager *motionManager;
 
 - (void)_updateAccelerometer:(CMAccelerometerData *)accelerometerData;
+- (void)_updateGyroscope:(CMGyroData *)gyroData;
+- (void)_updateMagnetometer:(CMMagnetometerData *)magData;
+- (void)_updateAttitude:(CMDeviceMotion *)motionData;
 
 @end
 
@@ -365,7 +379,7 @@ CK_DLL_MFUN(motion_recv)
 - (void)startAccelerometer:(Chuck_Event *)event toQueue:(CircularBuffer<MotionMsg> *)queue
 {
     dispatch_async(_dispatchQueue, ^{
-        _accelListeners.push_back(event);
+        _listeners[MOTIONTYPE_ACCEL].push_back(event);
         _messageQueue[event] = queue;
     });
     
@@ -384,7 +398,7 @@ CK_DLL_MFUN(motion_recv)
     CMAcceleration accel = accelerometerData.acceleration;
     MotionMsg msg(MOTIONTYPE_ACCEL, 0, accel.x, accel.y, accel.z);
     
-    for(auto event : _accelListeners)
+    for(auto event : _listeners[MOTIONTYPE_ACCEL])
     {
         if(_messageQueue.count(event) != 0 && _messageQueue[event])
             _messageQueue[event]->put(msg);
@@ -394,21 +408,116 @@ CK_DLL_MFUN(motion_recv)
 
 - (void)startGyroscope:(Chuck_Event *)event toQueue:(CircularBuffer<MotionMsg> *)queue
 {
+    dispatch_async(_dispatchQueue, ^{
+        _listeners[MOTIONTYPE_GYRO].push_back(event);
+        _messageQueue[event] = queue;
+    });
     
+    if(!self.motionManager.gyroActive)
+    {
+        [self.motionManager startGyroUpdatesToQueue:_queue
+                                        withHandler:^(CMGyroData * _Nullable gyroData, NSError * _Nullable error) {
+                                            [self _updateGyroscope:gyroData];
+                                        }];
+    }
+}
+
+- (void)_updateGyroscope:(CMGyroData *)gyroData
+{
+    CMRotationRate rot = gyroData.rotationRate;
+    MotionMsg msg(MOTIONTYPE_GYRO, 0, rot.x, rot.y, rot.z);
+    
+    for(auto event : _listeners[MOTIONTYPE_GYRO])
+    {
+        if(_messageQueue.count(event) != 0 && _messageQueue[event])
+            _messageQueue[event]->put(msg);
+        event->queue_broadcast(_eventBuffer);
+    }
+}
+
+- (void)startMagnetometer:(Chuck_Event *)event toQueue:(CircularBuffer<MotionMsg> *)queue
+{
+    dispatch_async(_dispatchQueue, ^{
+        _listeners[MOTIONTYPE_MAG].push_back(event);
+        _messageQueue[event] = queue;
+    });
+    
+    if(!self.motionManager.magnetometerActive)
+    {
+        [self.motionManager startMagnetometerUpdatesToQueue:_queue
+                                                withHandler:^(CMMagnetometerData * _Nullable magnetometerData, NSError * _Nullable error) {
+                                                    [self _updateMagnetometer:magnetometerData];
+                                                }];
+    }
+}
+
+- (void)_updateMagnetometer:(CMMagnetometerData *)magData
+{
+    CMMagneticField mag = magData.magneticField;
+    MotionMsg msg(MOTIONTYPE_MAG, 0, mag.x, mag.y, mag.z);
+    
+    for(auto event : _listeners[MOTIONTYPE_MAG])
+    {
+        if(_messageQueue.count(event) != 0 && _messageQueue[event])
+            _messageQueue[event]->put(msg);
+        event->queue_broadcast(_eventBuffer);
+    }
+}
+
+- (void)startAttitude:(Chuck_Event *)event toQueue:(CircularBuffer<MotionMsg> *)queue
+{
+    dispatch_async(_dispatchQueue, ^{
+        _listeners[MOTIONTYPE_ATTITUDE].push_back(event);
+        _messageQueue[event] = queue;
+    });
+    
+    if(!self.motionManager.deviceMotionActive)
+    {
+        [self.motionManager startDeviceMotionUpdatesToQueue:_queue
+                                                withHandler:^(CMDeviceMotion * _Nullable motion, NSError * _Nullable error) {
+                                                    [self _updateAttitude:motion];
+                                                }];
+    }
+}
+
+- (void)_updateAttitude:(CMDeviceMotion *)motionData
+{
+    CMAttitude *att = motionData.attitude;
+    MotionMsg msg(MOTIONTYPE_ATTITUDE, 0, att.roll, att.pitch, att.yaw);
+    
+    for(auto event : _listeners[MOTIONTYPE_ATTITUDE])
+    {
+        if(_messageQueue.count(event) != 0 && _messageQueue[event])
+            _messageQueue[event]->put(msg);
+        event->queue_broadcast(_eventBuffer);
+    }
 }
 
 - (void)stop:(Chuck_Event *)event onCompletion:(void (^)())completion
 {
     dispatch_async(_dispatchQueue, ^{
-        _accelListeners.remove(event);
+        for(auto _typeListener : _listeners)
+            _typeListener.second.remove(event);
         _messageQueue.erase(event);
         
         if(completion)
             completion();
         
-        if(_accelListeners.size() == 0)
+        if(_listeners.count(MOTIONTYPE_ACCEL) && _listeners[MOTIONTYPE_ACCEL].size() == 0)
             [self.motionManager stopAccelerometerUpdates];
+        if(_listeners.count(MOTIONTYPE_GYRO) && _listeners[MOTIONTYPE_GYRO].size() == 0)
+            [self.motionManager stopGyroUpdates];
+        if(_listeners.count(MOTIONTYPE_MAG) && _listeners[MOTIONTYPE_MAG].size() == 0)
+            [self.motionManager stopMagnetometerUpdates];
+        if(_listeners.count(MOTIONTYPE_ATTITUDE) && _listeners[MOTIONTYPE_ATTITUDE].size() == 0)
+            [self.motionManager stopDeviceMotionUpdates];
     });
+}
+
+- (void)enqueueToThread:(void (^)())block
+{
+    assert(block != nil);
+    dispatch_async(_dispatchQueue, block);
 }
 
 @end
