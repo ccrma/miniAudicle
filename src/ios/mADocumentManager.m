@@ -293,6 +293,8 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     detailItem.path = [[[self.iCloudDocumentPath URLByAppendingPathComponent:detailItem.title] URLByAppendingPathExtension:@"ck"] path];
     detailItem.text = @"";
     
+    [detailItem save];
+    
     return detailItem;
 }
 
@@ -343,6 +345,8 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     detailItem.type = DETAILITEM_CHUCK_SCRIPT;
     
     [parent.folderItems addObject:detailItem];
+    
+    [detailItem save];
     
     return detailItem;
 }

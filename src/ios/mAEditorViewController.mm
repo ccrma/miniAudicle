@@ -44,6 +44,7 @@
     NSRange _errorRange;
     NSRange _completionRange;
     BOOL _lockAutoFormat;
+    BOOL _dirty;
     CGSize _singleCharSize;
     mATextCompletionView *_textCompletionView;
     
@@ -136,6 +137,7 @@
                                                        target:self
                                                        action:@selector(editTitle:)];
     _lockAutoFormat = NO;
+    _dirty = NO;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -227,6 +229,8 @@
         self.textView.attributedText = text;
         _lockAutoFormat = NO;
         
+        _dirty = NO;
+        
         if(self.detailItem.numShreds > 0)
             _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
         else
@@ -241,6 +245,7 @@
 {
     self.detailItem.text = self.textView.text;
     [self.detailItem save];
+    _dirty = NO;
 }
 
 
@@ -249,6 +254,9 @@
     if(self.detailItem == nil) return;
     
     [[mAAnalytics instance] editAddButton:self.detailItem.uuid];
+    
+    if(_dirty)
+        [self saveScript];
     
     std::string code = [self.textView.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
@@ -313,6 +321,9 @@
     
     [[mAAnalytics instance] editReplaceButton:self.detailItem.uuid];
 
+    if(_dirty)
+        [self saveScript];
+
     std::string code = [self.textView.text UTF8String];
     std::string name = [self.detailItem.title UTF8String];
     std::string filepath;
@@ -368,7 +379,10 @@
     if(self.detailItem == nil) return;
     
     [[mAAnalytics instance] editRemoveButton:self.detailItem.uuid];
-
+    
+    if(_dirty)
+        [self saveScript];
+    
     t_CKUINT shred_id;
     std::string output;
     
@@ -843,6 +857,7 @@
 - (void)textViewDidChange:(UITextView *)textView
 {
     [[mAAnalytics instance] editEditScript:self.detailItem.uuid];
+    _dirty = YES;
 }
 
 
