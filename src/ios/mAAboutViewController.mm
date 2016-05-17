@@ -31,4 +31,9 @@ extern const char MA_VERSION[];
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
+{
+    return YES;
+}
+
 @end
