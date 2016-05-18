@@ -428,7 +428,7 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     
     for(mADetailItem *script in _userScripts)
     {
-        if(!script.isFolder)
+        if(script.type == DETAILITEM_CHUCK_SCRIPT)
         {
             userScript = script;
             break;
