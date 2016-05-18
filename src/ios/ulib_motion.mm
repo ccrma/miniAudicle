@@ -12,6 +12,7 @@
 #include "util_buffers.h"
 
 #import <CoreMotion/CoreMotion.h>
+#import <CoreLocation/CoreLocation.h>
 
 /* member vars for MotionMsg */
 static t_CKUINT motionmsg_mvar_timestamp = 0;
@@ -242,13 +243,17 @@ struct MotionMsg
     };
 };
 
-@interface mAMotionManager : NSObject
+@interface mAMotionManager : NSObject<CLLocationManagerDelegate>
 
 - (id)initWithVM:(Chuck_VM *)vm;
+
 - (void)startAccelerometer:(Chuck_Event *)event toQueue:(CircularBuffer<MotionMsg> *)queue;
 - (void)startGyroscope:(Chuck_Event *)event toQueue:(CircularBuffer<MotionMsg> *)queue;
 - (void)startMagnetometer:(Chuck_Event *)event toQueue:(CircularBuffer<MotionMsg> *)queue;
 - (void)startAttitude:(Chuck_Event *)event toQueue:(CircularBuffer<MotionMsg> *)queue;
+- (void)startHeading:(Chuck_Event *)event toQueue:(CircularBuffer<MotionMsg> *)queue;
+- (void)startLocation:(Chuck_Event *)event toQueue:(CircularBuffer<MotionMsg> *)queue;
+
 - (void)stop:(Chuck_Event *)event onCompletion:(void (^)())completion;
 - (void)enqueueToThread:(void (^)())block;
 
@@ -291,6 +296,10 @@ CK_DLL_MFUN(motion_start)
         [g_motionManager startMagnetometer:(Chuck_Event *)SELF toQueue:queue];
     else if(type == MOTIONTYPE_ATTITUDE)
         [g_motionManager startAttitude:(Chuck_Event *)SELF toQueue:queue];
+    else if(type == MOTIONTYPE_HEADING)
+        [g_motionManager startHeading:(Chuck_Event *)SELF toQueue:queue];
+    else if(type == MOTIONTYPE_LOCATION)
+        [g_motionManager startLocation:(Chuck_Event *)SELF toQueue:queue];
     
     RETURN->v_int = 1;
 }
@@ -325,6 +334,15 @@ CK_DLL_MFUN(motion_recv)
             OBJ_MEMBER_FLOAT(msgobj, motionmsg_mvar_y) = msg.y;
             OBJ_MEMBER_FLOAT(msgobj, motionmsg_mvar_z) = msg.z;
         }
+        else if(msg.type == MOTIONTYPE_HEADING)
+        {
+            OBJ_MEMBER_FLOAT(msgobj, motionmsg_mvar_heading) = msg.heading;
+        }
+        else if(msg.type == MOTIONTYPE_LOCATION)
+        {
+            OBJ_MEMBER_FLOAT(msgobj, motionmsg_mvar_latitude) = msg.location.latitude;
+            OBJ_MEMBER_FLOAT(msgobj, motionmsg_mvar_longitude) = msg.location.longitude;
+        }
     }
     
     RETURN->v_int = gotit;
@@ -343,6 +361,7 @@ CK_DLL_MFUN(motion_recv)
 }
 
 @property (strong, nonatomic) CMMotionManager *motionManager;
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
 - (void)_updateAccelerometer:(CMAccelerometerData *)accelerometerData;
 - (void)_updateGyroscope:(CMGyroData *)gyroData;
@@ -359,6 +378,17 @@ CK_DLL_MFUN(motion_recv)
     if(_motionManager == nil)
         _motionManager = [CMMotionManager new];
     return _motionManager;
+}
+
+- (CLLocationManager *)locationManager
+{
+    if(_locationManager == nil)
+    {
+        _locationManager = [CLLocationManager new];
+        _locationManager.delegate = self;
+    }
+    
+    return _locationManager;
 }
 
 - (id)initWithVM:(Chuck_VM *)vm;
@@ -493,6 +523,87 @@ CK_DLL_MFUN(motion_recv)
     }
 }
 
+- (void)startHeading:(Chuck_Event *)event toQueue:(CircularBuffer<MotionMsg> *)queue
+{
+    dispatch_async(_dispatchQueue, ^{
+        _listeners[MOTIONTYPE_HEADING].push_back(event);
+        _messageQueue[event] = queue;
+    });
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.locationManager startUpdatingHeading];
+    });
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
+{
+    dispatch_async(_dispatchQueue, ^{
+        MotionMsg msg(MOTIONTYPE_HEADING, 0, newHeading.magneticHeading);
+        
+        for(auto event : _listeners[MOTIONTYPE_HEADING])
+        {
+            if(_messageQueue.count(event) != 0 && _messageQueue[event])
+                _messageQueue[event]->put(msg);
+            event->queue_broadcast(_eventBuffer);
+        }
+    });
+}
+
+- (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
+{
+    return YES;
+}
+
+- (void)startLocation:(Chuck_Event *)event toQueue:(CircularBuffer<MotionMsg> *)queue
+{
+    dispatch_async(_dispatchQueue, ^{
+        _listeners[MOTIONTYPE_LOCATION].push_back(event);
+        _messageQueue[event] = queue;
+    });
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)
+            [self.locationManager requestWhenInUseAuthorization];
+        else
+        {
+            [self.locationManager startUpdatingLocation];
+            [self.locationManager requestLocation];
+        }
+    });
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    if(status == kCLAuthorizationStatusAuthorizedAlways ||
+       status == kCLAuthorizationStatusAuthorizedWhenInUse)
+    {
+        [self.locationManager startUpdatingLocation];
+        [self.locationManager requestLocation];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
+{
+    CLLocation *location = [locations lastObject];
+    CLLocationCoordinate2D coord = location.coordinate;
+    
+    dispatch_async(_dispatchQueue, ^{
+        MotionMsg msg(MOTIONTYPE_LOCATION, 0, coord.latitude, coord.longitude);
+        
+        for(auto event : _listeners[MOTIONTYPE_LOCATION])
+        {
+            if(_messageQueue.count(event) != 0 && _messageQueue[event])
+                _messageQueue[event]->put(msg);
+            event->queue_broadcast(_eventBuffer);
+        }
+    });
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"locationManager:didFailWithError: %@", error);
+}
+
 - (void)stop:(Chuck_Event *)event onCompletion:(void (^)())completion
 {
     dispatch_async(_dispatchQueue, ^{
@@ -511,6 +622,12 @@ CK_DLL_MFUN(motion_recv)
             [self.motionManager stopMagnetometerUpdates];
         if(_listeners.count(MOTIONTYPE_ATTITUDE) && _listeners[MOTIONTYPE_ATTITUDE].size() == 0)
             [self.motionManager stopDeviceMotionUpdates];
+        if(_listeners.count(MOTIONTYPE_HEADING) && _listeners[MOTIONTYPE_HEADING].size() == 0)
+            [self.locationManager stopUpdatingHeading];
+        if(_listeners.count(MOTIONTYPE_LOCATION) && _listeners[MOTIONTYPE_LOCATION].size() == 0)
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.locationManager stopUpdatingLocation];
+            });
     });
 }
 

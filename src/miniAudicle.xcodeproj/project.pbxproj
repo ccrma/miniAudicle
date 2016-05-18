@@ -402,6 +402,7 @@
 		09F09E5418E419960050D963 /* remove-noalpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F09E5118E419960050D963 /* remove-noalpha.png */; };
 		09F09E5518E419960050D963 /* replace-noalpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F09E5218E419960050D963 /* replace-noalpha.png */; };
 		09F09E5818E41F2C0050D963 /* mADetailItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09F09E5718E41F2C0050D963 /* mADetailItem.mm */; };
+		09F2D4681CEC7C7B006E488B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F2D4671CEC7C7B006E488B /* CoreLocation.framework */; };
 		09F376EB0BBC97D6005931F6 /* removelast.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E60BBC97D6005931F6 /* removelast.png */; };
 		09F376EC0BBC97D6005931F6 /* removeall.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E70BBC97D6005931F6 /* removeall.png */; };
 		09F376ED0BBC97D6005931F6 /* replace.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E80BBC97D6005931F6 /* replace.png */; };
@@ -951,6 +952,7 @@
 		09F09E5218E419960050D963 /* replace-noalpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "replace-noalpha.png"; sourceTree = "<group>"; };
 		09F09E5618E41F2C0050D963 /* mADetailItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mADetailItem.h; sourceTree = "<group>"; };
 		09F09E5718E41F2C0050D963 /* mADetailItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mADetailItem.mm; sourceTree = "<group>"; };
+		09F2D4671CEC7C7B006E488B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
 		09F376E60BBC97D6005931F6 /* removelast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = removelast.png; path = macosx/icon/removelast.png; sourceTree = SOURCE_ROOT; };
 		09F376E70BBC97D6005931F6 /* removeall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = removeall.png; path = macosx/icon/removeall.png; sourceTree = SOURCE_ROOT; };
 		09F376E80BBC97D6005931F6 /* replace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = replace.png; path = macosx/icon/replace.png; sourceTree = SOURCE_ROOT; };
@@ -978,6 +980,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09F2D4681CEC7C7B006E488B /* CoreLocation.framework in Frameworks */,
 				09B449FF1CD0B95800387883 /* Accelerate.framework in Frameworks */,
 				09B449FB1CD0B5BD00387883 /* libTheAmazingAudioEngine.a in Frameworks */,
 				0900B70D1CC0D8A400210EF3 /* CoreMIDI.framework in Frameworks */,
@@ -1788,6 +1791,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				09F2D4671CEC7C7B006E488B /* CoreLocation.framework */,
 				09B449FE1CD0B95800387883 /* Accelerate.framework */,
 				0900B70C1CC0D8A400210EF3 /* CoreMIDI.framework */,
 				09735F701C8AEE87003965CA /* AVFoundation.framework */,

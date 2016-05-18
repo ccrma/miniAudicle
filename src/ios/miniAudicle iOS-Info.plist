@@ -58,6 +58,8 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>A ChucK program requested your location. </string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
