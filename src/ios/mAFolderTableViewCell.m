@@ -9,6 +9,7 @@
 #import "mAFolderTableViewCell.h"
 #import "mADetailItem.h"
 #import "mADocumentManager.h"
+#import "UIAlert.h"
 
 @interface mAFolderTableViewCell ()
 
@@ -65,12 +66,33 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    if(![self.textField.text isEqualToString:self.item.title])
-        [[mADocumentManager manager] renameItem:self.item to:self.textField.text];
+    NSError *error = nil;
     
-    self.textField.enabled = NO;
-    self.textField.borderStyle = UITextBorderStyleNone;
-    [self.textField resignFirstResponder];
+    if(![self.textField.text isEqualToString:self.item.title])
+    {
+        [[mADocumentManager manager] renameItem:self.item to:self.textField.text error:&error];
+    }
+    
+    if(error != nil)
+    {
+        UIAlertMessage2a(@"The file could not be renamed.",
+                         error.localizedFailureReason,
+                         @"Cancel", ^{
+                             self.textField.text = self.item.title;
+                             self.textField.enabled = NO;
+                             self.textField.borderStyle = UITextBorderStyleNone;
+                             [self.textField resignFirstResponder];
+                         },
+                         @"Choose Another Name", ^{
+                             [self editFolderName:nil];
+                         });
+    }
+    else
+    {
+        self.textField.enabled = NO;
+        self.textField.borderStyle = UITextBorderStyleNone;
+        [self.textField resignFirstResponder];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

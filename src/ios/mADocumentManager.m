@@ -306,9 +306,10 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     NSString *path;
     do {
         if(_untitledFolderNum > 1)
-            title = [NSString stringWithFormat:@"%@ %i", mAUntitledFolderName, _untitledFolderNum++];
+            title = [NSString stringWithFormat:@"%@ %i", mAUntitledFolderName, _untitledFolderNum];
         else
             title = mAUntitledFolderName;
+        _untitledFolderNum++;
         path = [parent.path stringByAppendingPathComponent:title];
     } while([fileManager fileExistsAtPath:title]);
 
@@ -389,7 +390,7 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     return detailItem;
 }
 
-- (void)renameItem:(mADetailItem *)item to:(NSString *)title
+- (BOOL)renameItem:(mADetailItem *)item to:(NSString *)title error:(NSError **)returnError
 {
     NSError *error = NULL;
 
@@ -401,12 +402,17 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     
     if(error != NULL)
     {
-        mAAnalyticsLogError(error);
-        return;
+        if(returnError == NULL)
+            mAAnalyticsLogError(error);
+        else
+            *returnError = error;
+        return NO;
     }
 
     item.title = title;
     item.path = newPath;
+    
+    return YES;
 }
 
 - (void)deleteItem:(mADetailItem *)item

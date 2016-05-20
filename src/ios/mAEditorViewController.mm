@@ -19,6 +19,7 @@
 #import "mAAutocomplete.h"
 #import "mATextCompletionView.h"
 #import "mAAnalytics.h"
+#import "UIAlert.h"
 
 
 @interface NSString (CharacterEnumeration)
@@ -435,11 +436,26 @@
     [self saveScript];
     
     //self.detailItem.title = self.titleEditor.editedTitle;
-    [[mADocumentManager manager] renameItem:self.detailItem to:self.titleEditor.editedTitle];
-    
-    [self configureView];
-    
-    [self.textView becomeFirstResponder];
+    NSError *error;
+    [[mADocumentManager manager] renameItem:self.detailItem
+                                         to:self.titleEditor.editedTitle
+                                      error:&error];
+    if(error != nil)
+    {
+        UIAlertMessage2a(@"The file could not be renamed.",
+                         error.localizedFailureReason,
+                         @"Cancel", ^{
+                             [self.textView becomeFirstResponder];
+                         },
+                         @"Choose Another Name", ^{
+                             [self editTitle:nil];
+                         });
+    }
+    else
+    {
+        [self configureView];
+        [self.textView becomeFirstResponder];
+    }
 }
 
 

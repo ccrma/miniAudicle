@@ -260,8 +260,6 @@ static NSString *FolderCellIdentifier = @"FolderCell";
     
     mADocumentManager *manager = [mADocumentManager manager];
     [manager newFolderUnderParent:self.folder];
-    
-    NSLog(@"here");
 }
 
 - (IBAction)openAddMenu
