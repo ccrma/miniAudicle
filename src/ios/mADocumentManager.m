@@ -306,9 +306,10 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     NSString *path;
     do {
         if(_untitledFolderNum > 1)
-            title = [NSString stringWithFormat:@"%@ %i", mAUntitledFolderName, _untitledFolderNum++];
+            title = [NSString stringWithFormat:@"%@ %i", mAUntitledFolderName, _untitledFolderNum];
         else
             title = mAUntitledFolderName;
+        _untitledFolderNum++;
         path = [parent.path stringByAppendingPathComponent:title];
     } while([fileManager fileExistsAtPath:title]);
 
