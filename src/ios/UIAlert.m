@@ -51,6 +51,24 @@ void UIAlertMessage2(NSString *message,
     [alertView show];
 }
 
+void UIAlertMessage2a(NSString *title, NSString *message,
+                      NSString *button1, void (^button1Handler)(),
+                      NSString *button2, void (^button2Handler)())
+{
+    UIAlertHelper *helper = [UIAlertHelper new];
+    helper.button1Handler = button1Handler;
+    helper.button2Handler = button2Handler;
+    helper.strongSelf = helper;
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                        message:message
+                                                       delegate:helper
+                                              cancelButtonTitle:button1
+                                              otherButtonTitles:button2, nil];
+    
+    [alertView show];
+}
+
 
 @implementation UIAlertHelper
 

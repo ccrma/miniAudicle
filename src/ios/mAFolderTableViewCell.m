@@ -66,7 +66,10 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     if(![self.textField.text isEqualToString:self.item.title])
-        [[mADocumentManager manager] renameItem:self.item to:self.textField.text];
+    {
+        NSError *error;
+        [[mADocumentManager manager] renameItem:self.item to:self.textField.text error:&error];
+    }
     
     self.textField.enabled = NO;
     self.textField.borderStyle = UITextBorderStyleNone;

@@ -389,7 +389,7 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     return detailItem;
 }
 
-- (void)renameItem:(mADetailItem *)item to:(NSString *)title
+- (BOOL)renameItem:(mADetailItem *)item to:(NSString *)title error:(NSError **)returnError
 {
     NSError *error = NULL;
 
@@ -401,12 +401,17 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     
     if(error != NULL)
     {
-        mAAnalyticsLogError(error);
-        return;
+        if(returnError == NULL)
+            mAAnalyticsLogError(error);
+        else
+            *returnError = error;
+        return NO;
     }
 
     item.title = title;
     item.path = newPath;
+    
+    return YES;
 }
 
 - (void)deleteItem:(mADetailItem *)item
