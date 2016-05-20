@@ -54,6 +54,11 @@
     
     // sanitize input
     NSString *title = self.textField.text;
+    
+    // remove leading/trailing space
+    title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    // force .ck extension
     NSString *extension = [title pathExtension];
     if(!extension || ![extension isEqualToString:@"ck"])
         title = [title stringByAppendingPathExtension:@"ck"];
