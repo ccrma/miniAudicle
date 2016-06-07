@@ -46,6 +46,8 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 {
     AMBlockToken *_scriptKVOBlockToken;
     BOOL _isDeletingScript;
+    NSArray *_defaultRowActions;
+    NSArray *_editToolbarItems;
 }
 
 @property (strong, nonatomic) UITableView * tableView;
@@ -56,6 +58,8 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 @property (strong, nonatomic) QBPopupMenu *addMenu;
 
 - (void)detailItemTitleChanged:(NSNotification *)n;
+- (void)moveSelectedItems;
+- (void)deleteSelectedItems;
 
 @end
 
@@ -141,13 +145,23 @@ static NSString *FolderCellIdentifier = @"FolderCell";
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setToolbarHidden:NO animated:animated];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [self.navigationController setToolbarHidden:YES animated:animated];
+
     if(self.activeAudioFilePath)
     {
         mAAudioFileTableViewCell *cell = (mAAudioFileTableViewCell *) [self.tableView cellForRowAtIndexPath:self.activeAudioFilePath];
         [cell deactivate];
     }
+    
+    if(self.tableView.editing)
+        [self toggleEditingScripts];
 }
 
 
@@ -216,14 +230,22 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 //        
 //        navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:self.addButton],
 //                                               [[UIBarButtonItem alloc] initWithCustomView:_addFolderButton]];
-        navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddFile"]
-                                                                                style:UIBarButtonItemStylePlain
-                                                                               target:self
-                                                                               action:@selector(newScript)],
-                                               [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddFolder"]
-                                                                                style:UIBarButtonItemStylePlain
-                                                                               target:self
-                                                                               action:@selector(newFolder)]];
+        
+//        navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddFile"]
+//                                                                                style:UIBarButtonItemStylePlain
+//                                                                               target:self
+//                                                                               action:@selector(newScript)],
+//                                               [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddFolder"]
+//                                                                                style:UIBarButtonItemStylePlain
+//                                                                               target:self
+//                                                                               action:@selector(newFolder)]];
+        
+        if(self.editButton == nil)
+            self.editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
+                                                               style:UIBarButtonItemStylePlain
+                                                              target:self
+                                                              action:@selector(toggleEditingScripts)];
+        navigationItem.rightBarButtonItem = self.editButton;
     }
     
     return navigationItem;
@@ -276,7 +298,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
     [self.addMenu showInView:self.addButton.superview targetRect:self.addButton.frame animated:YES];
 }
 
-- (IBAction)editScripts
+- (IBAction)toggleEditingScripts
 {
     [[mAAnalytics instance] editScriptList];
 
@@ -285,15 +307,67 @@ static NSString *FolderCellIdentifier = @"FolderCell";
         [self.tableView setEditing:NO animated:YES];
         self.editButton.title = @"Edit";
         self.editButton.style = UIBarButtonItemStylePlain;
+        
+        [self setToolbarItems:@[] animated:NO];
     }
     else
     {
         [self.tableView setEditing:YES animated:YES];
         self.editButton.title = @"Done";
         self.editButton.style = UIBarButtonItemStyleDone;
+        
+        if(_editToolbarItems == nil)
+        {
+            UIBarButtonItem *moveToolbarItem = [[UIBarButtonItem alloc] initWithTitle:@"Move"
+                                                                                style:UIBarButtonItemStylePlain
+                                                                               target:self
+                                                                               action:@selector(moveSelectedItems)];
+            UIBarButtonItem *deleteToolbarItem = [[UIBarButtonItem alloc] initWithTitle:@"Delete"
+                                                                                  style:UIBarButtonItemStylePlain
+                                                                                 target:self
+                                                                                 action:@selector(deleteSelectedItems)];
+            
+            _editToolbarItems = @[moveToolbarItem,
+                                  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                                  deleteToolbarItem];
+        }
+        
+        [self setToolbarItems:_editToolbarItems animated:YES];
     }
 }
 
+- (void)moveSelectedItems
+{
+    // TODO: analytics
+    
+    //[self toggleEditingScripts];
+}
+
+- (void)deleteSelectedItems
+{
+    // TODO: analytics
+    
+    _isDeletingScript = YES;
+
+    NSArray *indexPaths = [self.tableView indexPathsForSelectedRows];
+    NSMutableArray *itemsToDelete = [NSMutableArray arrayWithCapacity:indexPaths.count];
+    
+    for(NSIndexPath *indexPath in indexPaths)
+    {
+        mADetailItem *item = [self.folder.folderItems objectAtIndex:[indexPath row]];
+        [itemsToDelete addObject:item];
+        [[mADocumentManager manager] deleteItem:item];
+    }
+    
+    [self.folder.folderItems removeObjectsInArray:itemsToDelete];
+    
+    [self.tableView deleteRowsAtIndexPaths:indexPaths
+                          withRowAnimation:UITableViewRowAnimationFade];
+    
+    _isDeletingScript = NO;
+    
+    [self toggleEditingScripts];
+}
 
 #pragma mark - UITableViewDelegate
 
@@ -368,6 +442,26 @@ static NSString *FolderCellIdentifier = @"FolderCell";
     return cell;
 }
 
+//- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if(_defaultRowActions == nil)
+//    {
+//        UITableViewRowAction *moveAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal
+//                                                                              title:@"Move"
+//                                                                            handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+//                                                                                
+//                                                                            }];
+//        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive
+//                                                                                title:@"Delete"
+//                                                                              handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+//                                                                                  
+//                                                                              }];
+//        _defaultRowActions = @[moveAction, deleteAction];
+//    }
+//    
+//    return _defaultRowActions;
+//}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -410,6 +504,9 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(self.tableView.isEditing)
+        return;
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
 	    if (!self.detailViewController) {
 	        self.detailViewController = [[mADetailViewController alloc] initWithNibName:@"mADetailViewController" bundle:nil];

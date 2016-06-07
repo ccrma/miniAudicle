@@ -44,7 +44,7 @@
 
 - (IBAction)newScript;
 - (IBAction)newFolder;
-- (IBAction)editScripts;
+- (IBAction)toggleEditingScripts;
 
 - (void)selectScript:(int)script;
 - (int)selectedScript;
