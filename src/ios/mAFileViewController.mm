@@ -255,7 +255,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 
 - (IBAction)newFolder
 {
-    //    [[mAAnalytics instance] createNewScript];
+    [[mAAnalytics instance] createNewFolder];
     // TODO: analytics
     
     mADocumentManager *manager = [mADocumentManager manager];
@@ -284,7 +284,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
     {
         [self.tableView setEditing:NO animated:YES];
         self.editButton.title = @"Edit";
-        self.editButton.style = UIBarButtonItemStyleBordered;
+        self.editButton.style = UIBarButtonItemStylePlain;
     }
     else
     {

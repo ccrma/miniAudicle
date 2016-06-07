@@ -42,6 +42,7 @@ do { \
 - (void)recentScripts;
 - (void)exampleScripts;
 - (void)createNewScript;
+- (void)createNewFolder;
 - (void)editScriptList;
 - (void)deleteFromScriptList:(NSString *)file;
 

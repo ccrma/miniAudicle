@@ -221,6 +221,16 @@ static NSString * const mAAnalyticsOptOut = @"mAAnalyticsOptOut";
                                                                 value:@1] build]];
 }
 
+- (void)createNewFolder
+{
+    _lastActionWasEdit = NO;
+    
+    [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"General"
+                                                               action:@"NewFolder"
+                                                                label:@""
+                                                                value:@1] build]];
+}
+
 - (void)editScriptList
 {
     _lastActionWasEdit = NO;
