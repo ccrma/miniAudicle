@@ -15,10 +15,6 @@ extern NSString * const mADocumentManagerRecentFilesChanged;
 
 @interface mADocumentManager : NSObject
 
-//@property (readonly) KVOMutableArray *recentFiles;
-//@property (readonly) KVOMutableArray *userScripts;
-//@property (readonly) NSArray *exampleScripts;
-
 @property (readonly) mADetailItem *recentFilesFolderItem;
 @property (readonly) mADetailItem *userScriptsFolderItem;
 @property (readonly) mADetailItem *exampleScriptsFolderItem;
@@ -27,7 +23,9 @@ extern NSString * const mADocumentManagerRecentFilesChanged;
 
 - (void)saveScripts;
 - (BOOL)renameItem:(mADetailItem *)item to:(NSString *)title error:(NSError **)error;
+// TODO: handle re-parenting in mADetailItem structure
 - (BOOL)moveItem:(mADetailItem *)item toDirectory:(mADetailItem *)dir error:(NSError **)error;
+// TODO: handle de-parenting in mADetailItem structure
 - (void)deleteItem:(mADetailItem *)item;
 
 - (mADetailItem *)firstUserScript;

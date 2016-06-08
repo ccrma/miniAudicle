@@ -68,6 +68,19 @@ static NSString *CellIdentifier = @"Cell";
     self.expandedDirectoryList = list;
 }
 
+- (void)_expandDirectory:(mADetailItem *)item
+                 toArray:(NSMutableArray *)list
+                   level:(NSInteger)level
+{
+    [list addObject:[mAExpandedDirectoryListing listingWithDirectoryItem:item
+                                                                   level:level]];
+    for(mADetailItem *subitem in item.folderItems)
+    {
+        if(subitem.isFolder)
+            [self _expandDirectory:subitem toArray:list level:level+1];
+    }
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -115,24 +128,6 @@ static NSString *CellIdentifier = @"Cell";
     navigationItem.rightBarButtonItem = cancelButton;
     
     return navigationItem;
-}
-
-- (void)_expandDirectory:(mADetailItem *)item
-                 toArray:(NSMutableArray *)list
-                   level:(NSInteger)level
-{
-    if(item.isFolder)
-    {
-        for(mADetailItem *subitem in item.folderItems)
-        {
-            if(subitem.isFolder)
-            {
-                [list addObject:[mAExpandedDirectoryListing listingWithDirectoryItem:subitem
-                                                                               level:level]];
-                [self _expandDirectory:subitem toArray:list level:level+1];
-            }
-        }
-    }
 }
 
 #pragma mark - IBActions

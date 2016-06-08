@@ -118,7 +118,7 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
             return NSOrderedSame;
         }];
         
-        _userScriptsFolderItem = [mADetailItem folderDetailItemWithTitle:@"Scripts"
+        _userScriptsFolderItem = [mADetailItem folderDetailItemWithTitle:@"My Scripts"
                                                                    items:_userScripts
                                                                   isUser:YES];
         _userScriptsFolderItem.path = [self.defaultDocumentPath path];
