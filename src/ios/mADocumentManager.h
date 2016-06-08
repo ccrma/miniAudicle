@@ -27,6 +27,7 @@ extern NSString * const mADocumentManagerRecentFilesChanged;
 
 - (void)saveScripts;
 - (BOOL)renameItem:(mADetailItem *)item to:(NSString *)title error:(NSError **)error;
+- (BOOL)moveItem:(mADetailItem *)item toDirectory:(mADetailItem *)dir error:(NSError **)error;
 - (void)deleteItem:(mADetailItem *)item;
 
 - (mADetailItem *)firstUserScript;

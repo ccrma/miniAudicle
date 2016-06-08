@@ -415,6 +415,33 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     return YES;
 }
 
+- (BOOL)moveItem:(mADetailItem *)item toDirectory:(mADetailItem *)dir error:(NSError **)returnError
+{
+    NSError *error = NULL;
+    
+    if(!dir.isFolder)
+        return NO;
+    
+    [item save];
+    
+    NSString *newPath = [dir.path stringByAppendingPathComponent:[item.path lastPathComponent]];
+    
+    [[NSFileManager defaultManager] moveItemAtPath:item.path toPath:newPath error:&error];
+    
+    if(error != NULL)
+    {
+        if(returnError == NULL)
+            mAAnalyticsLogError(error);
+        else
+            *returnError = error;
+        return NO;
+    }
+    
+    item.path = newPath;
+    
+    return YES;
+}
+
 - (void)deleteItem:(mADetailItem *)item
 {
     NSError *error = NULL;

@@ -34,6 +34,7 @@
 #import "mAAnalytics.h"
 #import "mAAudioFileTableViewCell.h"
 #import "mAFolderTableViewCell.h"
+#import "mADirectoryViewController.h"
 #import "QBPopupMenu.h"
 
 
@@ -45,14 +46,17 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 @interface mAFileViewController ()
 {
     AMBlockToken *_scriptKVOBlockToken;
-    BOOL _isDeletingScript;
-    NSArray *_defaultRowActions;
+    BOOL _isModifyingScripts;
+    NSArray *_defaultToolbarItems;
     NSArray *_editToolbarItems;
 }
 
 @property (strong, nonatomic) UITableView * tableView;
 @property (strong, nonatomic) UIBarButtonItem * editButton;
 @property (strong, nonatomic) NSIndexPath *activeAudioFilePath;
+
+@property (strong, nonatomic) mADirectoryViewController *directoryView;
+//@property (strong, nonatomic) NSArray *savedNavigationViewControllers;
 
 @property (strong, nonatomic) UIButton *addButton;
 @property (strong, nonatomic) QBPopupMenu *addMenu;
@@ -91,7 +95,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
     {
         KVOMutableArray *_kvoScripts = (KVOMutableArray *)_folder.folderItems;
         _scriptKVOBlockToken = [_kvoScripts addObserverWithTask:^BOOL(id obj, NSDictionary *change) {
-            if(!_isDeletingScript)
+            if(!_isModifyingScripts)
                 [self.tableView reloadData];
             return YES;
         }];
@@ -127,6 +131,17 @@ static NSString *FolderCellIdentifier = @"FolderCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"mAFolderTableViewCell"
                                                bundle:NULL]
          forCellReuseIdentifier:FolderCellIdentifier];
+    
+    _defaultToolbarItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddFile"]
+                                                              style:UIBarButtonItemStylePlain
+                                                             target:self
+                                                             action:@selector(newScript)],
+                             [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddFolder"]
+                                                              style:UIBarButtonItemStylePlain
+                                                             target:self
+                                                             action:@selector(newFolder)]];
+    [self setToolbarItems:_defaultToolbarItems
+                 animated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -308,7 +323,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
         self.editButton.title = @"Edit";
         self.editButton.style = UIBarButtonItemStylePlain;
         
-        [self setToolbarItems:@[] animated:NO];
+        [self setToolbarItems:_defaultToolbarItems animated:NO];
     }
     else
     {
@@ -340,23 +355,77 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 {
     // TODO: analytics
     
-    //[self toggleEditingScripts];
+    if(self.directoryView == nil)
+        self.directoryView = [[mADirectoryViewController alloc] initWithNibName:@"mADirectoryViewController" bundle:nil];
+    self.directoryView.folder = [mADocumentManager manager].userScriptsFolderItem;
+    
+    // cache nav controller
+    // (will be set to nil when self.directoryView presented)
+    UINavigationController *navigationController = self.navigationController;
+    // cache current nav controller stack
+    NSArray *savedNavigationViewControllers = self.navigationController.viewControllers;
+    // cache selected indexes
+    // (will be reset when editing mode is deactivated)
+    NSArray *selectedPaths = self.tableView.indexPathsForSelectedRows;
+    
+    __weak typeof(self) weakSelf = self;
+    
+    self.directoryView.didCancel = ^{
+        [navigationController setViewControllers:savedNavigationViewControllers animated:YES];
+        // clear - no longer needed
+        weakSelf.directoryView = nil;
+    };
+    self.directoryView.didChooseDirectory = ^(mADetailItem *directory){
+        // move the items
+        
+        if(directory != self.folder)
+        {
+            NSMutableArray *moveItems = [NSMutableArray arrayWithCapacity:selectedPaths.count];
+            for(NSIndexPath *path in selectedPaths)
+                [moveItems addObject:[weakSelf.folder.folderItems objectAtIndex:path.row]];
+            
+            // set to avoid triggering a reload of the tableview
+            _isModifyingScripts = YES;
+            
+            mADocumentManager *docManager = [mADocumentManager manager];
+            for(mADetailItem *item in moveItems)
+            {
+                [directory.folderItems addObject:item];
+                [weakSelf.folder.folderItems removeObject:item];
+                [docManager moveItem:item toDirectory:directory error:nil];
+            }
+            
+            _isModifyingScripts = NO;
+            
+            [weakSelf.tableView deleteRowsAtIndexPaths:selectedPaths
+                                      withRowAnimation:UITableViewRowAnimationFade];
+        }
+        
+        [navigationController setViewControllers:savedNavigationViewControllers animated:YES];
+        // clear - no longer needed
+        weakSelf.directoryView = nil;
+    };
+    
+    // this will cause the current FileViewController to disappear
+    // (and disengage editing mode)
+    [self.navigationController setViewControllers:@[self.directoryView] animated:YES];
 }
 
 - (void)deleteSelectedItems
 {
     // TODO: analytics
     
-    _isDeletingScript = YES;
+    _isModifyingScripts = YES;
 
     NSArray *indexPaths = [self.tableView indexPathsForSelectedRows];
     NSMutableArray *itemsToDelete = [NSMutableArray arrayWithCapacity:indexPaths.count];
     
+    mADocumentManager *docManager = [mADocumentManager manager];
     for(NSIndexPath *indexPath in indexPaths)
     {
         mADetailItem *item = [self.folder.folderItems objectAtIndex:[indexPath row]];
         [itemsToDelete addObject:item];
-        [[mADocumentManager manager] deleteItem:item];
+        [docManager deleteItem:item];
     }
     
     [self.folder.folderItems removeObjectsInArray:itemsToDelete];
@@ -364,7 +433,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
     [self.tableView deleteRowsAtIndexPaths:indexPaths
                           withRowAnimation:UITableViewRowAnimationFade];
     
-    _isDeletingScript = NO;
+    _isModifyingScripts = NO;
     
     [self toggleEditingScripts];
 }
@@ -572,7 +641,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(editingStyle == UITableViewCellEditingStyleDelete)
     {
-        _isDeletingScript = YES;
+        _isModifyingScripts = YES;
 
         mADetailItem *item = [self.folder.folderItems objectAtIndex:[indexPath row]];
         
@@ -585,7 +654,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                               withRowAnimation:UITableViewRowAnimationFade];
         
-        _isDeletingScript = NO;
+        _isModifyingScripts = NO;
     }
 }
 
