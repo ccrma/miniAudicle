@@ -202,6 +202,11 @@ NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChang
              sha1] base64EncodedStringWithOptions:0];
 }
 
+- (NSString *)description
+{
+    return self.title;
+}
+
 @end
 
 

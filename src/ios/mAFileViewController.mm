@@ -35,6 +35,7 @@
 #import "mAAudioFileTableViewCell.h"
 #import "mAFolderTableViewCell.h"
 #import "mADirectoryViewController.h"
+#import "UIAlert.h"
 #import "QBPopupMenu.h"
 
 
@@ -380,25 +381,77 @@ static NSString *FolderCellIdentifier = @"FolderCell";
         
         if(directory != self.folder)
         {
-            NSMutableArray *moveItems = [NSMutableArray arrayWithCapacity:selectedPaths.count];
+            NSMutableArray *movedItems = [NSMutableArray array];
+            NSMutableArray *movedIndexPaths = [NSMutableArray array];
+            NSMutableArray *failedMoves = [NSMutableArray array];
+            
+            mADocumentManager *docManager = [mADocumentManager manager];
+
             for(NSIndexPath *path in selectedPaths)
-                [moveItems addObject:[weakSelf.folder.folderItems objectAtIndex:path.row]];
+            {
+                NSError *error;
+                mADetailItem *item = [weakSelf.folder.folderItems objectAtIndex:path.row];
+                if([docManager moveItem:item toDirectory:directory error:&error])
+                {
+                    [movedItems addObject:[weakSelf.folder.folderItems objectAtIndex:path.row]];
+                    [movedIndexPaths addObject:path];
+                }
+                else
+                {
+                    mAAnalyticsLogError(error);
+                    [failedMoves addObject:item];
+                }
+            }
             
             // set to avoid triggering a reload of the tableview
             _isModifyingScripts = YES;
-            
-            mADocumentManager *docManager = [mADocumentManager manager];
-            for(mADetailItem *item in moveItems)
+                
+            for(mADetailItem *item in movedItems)
             {
                 [directory.folderItems addObject:item];
                 [weakSelf.folder.folderItems removeObject:item];
-                [docManager moveItem:item toDirectory:directory error:nil];
             }
             
             _isModifyingScripts = NO;
             
-            [weakSelf.tableView deleteRowsAtIndexPaths:selectedPaths
+            [weakSelf.tableView deleteRowsAtIndexPaths:movedIndexPaths
                                       withRowAnimation:UITableViewRowAnimationFade];
+            
+            if(failedMoves.count)
+            {
+                NSString *failedItemsDesc;
+                
+                if(failedMoves.count == 1)
+                {
+                    failedItemsDesc = [NSString stringWithFormat:
+                                       @"The following item could not be moved: %@",
+                                       failedMoves[0]];
+                }
+                else if(failedMoves.count == 2)
+                {
+                    failedItemsDesc = [NSString stringWithFormat:
+                                       @"The following items could not be moved: %@ and %@",
+                                       failedMoves[0], failedMoves[1]];
+                }
+                else if(failedMoves.count == 3)
+                {
+                    failedItemsDesc = [NSString stringWithFormat:
+                                       @"The following items could not be moved: %@, %@, and %@",
+                                       failedMoves[0], failedMoves[1], failedMoves[2]];
+                }
+                else
+                {
+                    failedItemsDesc = [NSString stringWithFormat:
+                                       @"The following items could not be moved: "
+                                       @"%@, %@, %@, and %i others",
+                                       failedMoves[0], failedMoves[1], failedMoves[2],
+                                       failedMoves.count-3];
+                }
+                
+                UIAlertMessage2a(@"Could not move some items",
+                                 failedItemsDesc,
+                                 @"OK", ^{}, nil, nil);
+            }
         }
         
         [navigationController setViewControllers:savedNavigationViewControllers animated:YES];
