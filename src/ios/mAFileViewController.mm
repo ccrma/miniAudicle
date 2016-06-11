@@ -133,14 +133,19 @@ static NSString *FolderCellIdentifier = @"FolderCell";
                                                bundle:NULL]
          forCellReuseIdentifier:FolderCellIdentifier];
     
-    _defaultToolbarItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddFile"]
+    UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                           target:nil action:nil];
+    space.width = 10;
+    _defaultToolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                           target:nil action:nil],
+                             [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddFile"]
                                                               style:UIBarButtonItemStylePlain
-                                                             target:self
-                                                             action:@selector(newScript)],
+                                                             target:self action:@selector(newScript)],
+                             space,
                              [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddFolder"]
                                                               style:UIBarButtonItemStylePlain
-                                                             target:self
-                                                             action:@selector(newFolder)]];
+                                                             target:self action:@selector(newFolder)]
+                             ];
     [self setToolbarItems:_defaultToolbarItems
                  animated:YES];
 }
