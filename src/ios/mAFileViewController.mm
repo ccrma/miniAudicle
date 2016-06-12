@@ -36,7 +36,7 @@
 #import "mAFolderTableViewCell.h"
 #import "mADirectoryViewController.h"
 #import "UIAlert.h"
-#import "QBPopupMenu.h"
+#import "mATableViewCell.h"
 
 
 static NSString *CellIdentifier = @"Cell";
@@ -60,7 +60,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 //@property (strong, nonatomic) NSArray *savedNavigationViewControllers;
 
 @property (strong, nonatomic) UIButton *addButton;
-@property (strong, nonatomic) QBPopupMenu *addMenu;
+//@property (strong, nonatomic) QBPopupMenu *addMenu;
 
 - (void)detailItemTitleChanged:(NSNotification *)n;
 - (void)moveSelectedItems;
@@ -305,19 +305,19 @@ static NSString *FolderCellIdentifier = @"FolderCell";
     [manager newFolderUnderParent:self.folder];
 }
 
-- (IBAction)openAddMenu
-{
-    if(self.addMenu == nil)
-    {
-        QBPopupMenuItem *addScriptItem = [QBPopupMenuItem itemWithTitle:@"Script" target:self action:@selector(newScript)];
-        QBPopupMenuItem *addFolderItem = [QBPopupMenuItem itemWithTitle:@"Folder" target:self action:@selector(newFolder)];
-        
-        self.addMenu = [[QBPopupMenu alloc] initWithItems:@[addScriptItem, addFolderItem]];
-        self.addMenu.arrowDirection = QBPopupMenuArrowDirectionRight;
-    }
-    
-    [self.addMenu showInView:self.addButton.superview targetRect:self.addButton.frame animated:YES];
-}
+//- (IBAction)openAddMenu
+//{
+//    if(self.addMenu == nil)
+//    {
+//        QBPopupMenuItem *addScriptItem = [QBPopupMenuItem itemWithTitle:@"Script" target:self action:@selector(newScript)];
+//        QBPopupMenuItem *addFolderItem = [QBPopupMenuItem itemWithTitle:@"Folder" target:self action:@selector(newFolder)];
+//        
+//        self.addMenu = [[QBPopupMenu alloc] initWithItems:@[addScriptItem, addFolderItem]];
+//        self.addMenu.arrowDirection = QBPopupMenuArrowDirectionRight;
+//    }
+//    
+//    [self.addMenu showInView:self.addButton.superview targetRect:self.addButton.frame animated:YES];
+//}
 
 - (IBAction)toggleEditingScripts
 {
@@ -540,25 +540,26 @@ static NSString *FolderCellIdentifier = @"FolderCell";
         }
         
         mAFolderTableViewCell *folderCell = (mAFolderTableViewCell *) cell;
-        
         folderCell.item = detailItem;
     }
     else
     {
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if (cell == nil)
+        {
+            cell = [[mATableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            }
         }
         
-        cell.textLabel.text = detailItem.title;
         if(detailItem.type != DETAILITEM_CHUCK_SCRIPT)
             cell.textLabel.textColor = [UIColor grayColor];
         else
             cell.textLabel.textColor = [UIColor blackColor];
+        
+        mATableViewCell *itemCell = (mATableViewCell *) cell;
+        itemCell.item = detailItem;
     }
 
     if(detailItem.isFolder)
