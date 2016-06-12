@@ -11,6 +11,12 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 
+#if TARGET_OS_SIMULATOR
+#define DISABLE_ANALYTICS (1)
+#else
+#define DISABLE_ANALYTICS (0)
+#endif // TARGET_OS_SIMULATOR
+
 #define VERBOSE_LOGGING 0
 
 //static NSString * const mAAnalyticsNeedsOptOutSelection = @"mAAnalyticsNeedsOptOutSelection";
@@ -68,6 +74,7 @@ static NSString * const mAAnalyticsOptOut = @"mAAnalyticsOptOut";
 {
     if(self = [super init])
     {
+#if !DISABLE_ANALYTICS
         // set up Google Analytics
         // Initialize the default tracker. After initialization, [GAI sharedInstance].defaultTracker
         // returns this same tracker.
@@ -87,6 +94,7 @@ static NSString * const mAAnalyticsOptOut = @"mAAnalyticsOptOut";
 #endif
 
         _lastActionWasEdit = NO;
+#endif // !DISABLE_ANALYTICS
     }
     
     return self;
@@ -94,7 +102,11 @@ static NSString * const mAAnalyticsOptOut = @"mAAnalyticsOptOut";
 
 - (id<GAITracker>)tracker
 {
+#if DISABLE_ANALYTICS
+    return nil;
+#else
     return [GAI sharedInstance].defaultTracker;
+#endif
 }
 
 - (void)logError:(NSError *)error
@@ -109,16 +121,14 @@ static NSString * const mAAnalyticsOptOut = @"mAAnalyticsOptOut";
 
 - (void)editorScreen
 {
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Editor"];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [self.tracker set:kGAIScreenName value:@"Editor"];
+    [self.tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)playerScreen
 {
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Player"];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [self.tracker set:kGAIScreenName value:@"Player"];
+    [self.tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)appLaunch

@@ -2580,6 +2580,7 @@
 					__MACOSX_CORE__,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GOOGLE_ANALYTICS_ID = "$(MINIIPAD_GA_ID)";
 				HEADER_SEARCH_PATHS = (
 					ios,
 					chuck/src,
@@ -2633,6 +2634,7 @@
 					__CHIP_MODE__,
 					__MACOSX_CORE__,
 				);
+				GOOGLE_ANALYTICS_ID = "$(MINIIPAD_GA_ID)";
 				HEADER_SEARCH_PATHS = (
 					ios,
 					chuck/src,
