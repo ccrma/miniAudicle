@@ -29,6 +29,15 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
 @end
 
 
+//@interface mARecentItemsList : NSObject
+//
+//- (KVOMutableArray *)items;
+//- (void)addItem:(mADetailItem *)item;
+//- (void)removeItem:(mADetailItem *)item;
+//- (void)save;
+//
+//@end
+
 @interface mADocumentManager ()
 {
     KVOMutableArray *_userScripts;
@@ -41,11 +50,13 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     
     int _untitledNum;
     int _untitledFolderNum;
+    
+    NSURL *_localDocumentPath;
 }
 
 @property (strong, nonatomic) id<NSObject, NSCopying, NSCoding> ubiquityIdentityToken;
 @property (copy, nonatomic) NSURL *iCloudDocumentPath;
-@property (copy, nonatomic) NSURL *localDocumentPath;
+@property (readonly, nonatomic) NSURL *localDocumentPath;
 
 + (NSArray *)documentExtensions;
 + (NSArray *)audioFileExtensions;
@@ -57,6 +68,8 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
 - (void)_uniqueTitleAndPathForTitle:(NSString *)title
                               title:(NSString **)newTitle
                                path:(NSString **)path;
+- (NSString *)documentRelativePath:(NSString *)path;
+- (NSString *)documentAbsolutePath:(NSString *)path;
 
 @end
 
@@ -76,10 +89,17 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
 + (id)manager
 {
     static mADocumentManager *s_manager = nil;
+    @synchronized(self) {
+        if(s_manager == nil)
+            s_manager = [mADocumentManager new];
+    }
     
-    if(s_manager == nil) s_manager = [mADocumentManager new];
-        
     return s_manager;
+}
+
+- (NSURL *)localDocumentPath
+{
+    return _localDocumentPath ?: ([NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]]);
 }
 
 - (NSURL *)defaultDocumentPath
@@ -91,8 +111,6 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
 {
     if(self = [super init])
     {
-        self.localDocumentPath = [NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
-        
         // disable iCloud for now
 //        self.ubiquityIdentityToken = [[NSFileManager defaultManager] ubiquityIdentityToken];
 //        
@@ -110,8 +128,11 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
         [self loadExamples];
         
         [_recentFiles sortUsingComparator:^NSComparisonResult(mADetailItem *obj1, mADetailItem *obj2) {
-            int index1 = [_recentFilesPaths indexOfObject:[obj1 path]];
-            int index2 = [_recentFilesPaths indexOfObject:[obj2 path]];
+            NSString *path1 = [self documentRelativePath:obj1.path];
+            NSString *path2 = [self documentRelativePath:obj2.path];
+            
+            int index1 = [_recentFilesPaths indexOfObject:path1];
+            int index2 = [_recentFilesPaths indexOfObject:path2];
             
             if(index1 < index2) return NSOrderedAscending;
             if(index1 > index2) return NSOrderedDescending;
@@ -178,10 +199,11 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
         else
         {
             mADetailItem *detailItem = [mADetailItem detailItemFromPath:fullPath isUser:isUser];
+            NSString *relativePath = [self documentRelativePath:fullPath];
             
             [array addObject:detailItem];
             
-            if([_recentFilesPaths containsObject:fullPath])
+            if([_recentFilesPaths containsObject:relativePath])
                 [_recentFiles addObject:detailItem];
             
             if(processor)
@@ -408,7 +430,17 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
             *returnError = error;
         return NO;
     }
-
+    
+    // fix recentItems if needed
+    NSString *relativeOldPath = [self documentRelativePath:item.path];
+    if([_recentFilesPaths containsObject:relativeOldPath])
+    {
+        NSInteger idx = [_recentFilesPaths indexOfObject:relativeOldPath];
+        [_recentFilesPaths setObject:[self documentRelativePath:newPath] atIndex:idx];
+        // save
+        [[NSUserDefaults standardUserDefaults] setObject:[_recentFilesPaths array] forKey:mAPreferencesRecentFilesKey];
+    }
+    
     item.title = title;
     item.path = newPath;
     
@@ -437,6 +469,15 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
         return NO;
     }
     
+    NSString *relativeOldPath = [self documentRelativePath:item.path];
+    if([_recentFilesPaths containsObject:relativeOldPath])
+    {
+        NSInteger idx = [_recentFilesPaths indexOfObject:relativeOldPath];
+        [_recentFilesPaths setObject:[self documentRelativePath:newPath] atIndex:idx];
+        // save
+        [[NSUserDefaults standardUserDefaults] setObject:[_recentFilesPaths array] forKey:mAPreferencesRecentFilesKey];
+    }
+    
     item.path = newPath;
     
     return YES;
@@ -452,6 +493,16 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     if(error != NULL)
     {
         NSLogFun(@"error: %@", error);
+        return;
+    }
+    
+    NSString *relativePath = [self documentRelativePath:item.path];
+    if([_recentFilesPaths containsObject:relativePath])
+    {
+        [_recentFilesPaths removeObject:relativePath];
+        [_recentFiles removeObject:item];
+        // save
+        [[NSUserDefaults standardUserDefaults] setObject:[_recentFilesPaths array] forKey:mAPreferencesRecentFilesKey];
     }
 }
 
@@ -476,7 +527,8 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     // should probably use NSSet but it would involve a complicated refactor
     
     // ensure only one copy in the array
-    NSString *documentPath = item.path;
+    NSString *documentPath = [self documentRelativePath:item.path];
+//    NSLog(@"placeholderPath: %@", documentPath);
     if([_recentFiles containsObject:item])
         [_recentFiles removeObject:item];
     if([_recentFilesPaths containsObject:documentPath])
@@ -495,6 +547,8 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     [[NSNotificationCenter defaultCenter] postNotificationName:mADocumentManagerRecentFilesChanged object:self];
     
     [[NSUserDefaults standardUserDefaults] setObject:[_recentFilesPaths array] forKey:mAPreferencesRecentFilesKey];
+    
+//    NSLog(@"_recentFilesPaths: %@", _recentFilesPaths);
 }
 
 - (void)_uniqueTitleAndPathForTitle:(NSString *)title
@@ -545,6 +599,35 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
         *_path = path;
 }
 
+- (NSString *)documentRelativePath:(NSString *)path
+{
+    NSRange range = [path rangeOfString:self.examplesPath];
+    if(range.location == 0)
+        // needs to be at the beginning
+        return [path stringByReplacingCharactersInRange:range withString:@"@examples"];
+    
+    range = [path rangeOfString:[self.localDocumentPath path]];
+    if(range.location == 0)
+        // needs to be at the beginning
+        return [path stringByReplacingCharactersInRange:range withString:@"@local"];
+    
+    return path;
+}
+
+- (NSString *)documentAbsolutePath:(NSString *)path
+{
+    NSRange range = [path rangeOfString:@"@examples"];
+    if(range.location == 0)
+        // needs to be at the beginning
+        return [path stringByReplacingCharactersInRange:range withString:self.examplesPath];
+    
+    range = [path rangeOfString:@"@local"];
+    if(range.location == 0)
+        // needs to be at the beginning
+        return [path stringByReplacingCharactersInRange:range withString:[self.localDocumentPath path]];
+    
+    return path;
+}
 
 @end
 
@@ -561,24 +644,6 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     }
     
     return NO;
-}
-
-- (NSString *)stripBundlePath
-{
-    NSString *path = [[NSBundle mainBundle] resourcePath];
-    NSRange range = [self rangeOfString:path];
-    if(range.location != NSNotFound) return [self substringFromIndex:range.location+range.length];
-    
-    return nil;
-}
-
-- (NSString *)stripDocumentPath
-{
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSRange range = [self rangeOfString:path];
-    if(range.location != NSNotFound) return [self substringFromIndex:range.location+range.length];
-    
-    return nil;
 }
 
 - (NSString *)stripPath:(NSString *)path
