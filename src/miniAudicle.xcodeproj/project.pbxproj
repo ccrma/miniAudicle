@@ -924,6 +924,7 @@
 		09E481F80B1CE5AF002087DF /* gauge01.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = gauge01.ck; path = ../test/gauge01.ck; sourceTree = SOURCE_ROOT; };
 		09E481F90B1CE5AF002087DF /* gauge02.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = gauge02.ck; path = ../test/gauge02.ck; sourceTree = SOURCE_ROOT; };
 		09E5546D0DA61CB700F1A6C8 /* miniAudicle_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = miniAudicle_debug.h; sourceTree = "<group>"; };
+		09E9CF8D1D0EAF8C009B03A1 /* default.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = default.xcconfig; sourceTree = "<group>"; };
 		09E9FE0E1D079069002A2D63 /* mADirectoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mADirectoryViewController.h; sourceTree = "<group>"; };
 		09E9FE0F1D079069002A2D63 /* mADirectoryViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mADirectoryViewController.mm; sourceTree = "<group>"; };
 		09E9FE101D079069002A2D63 /* mADirectoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mADirectoryViewController.xib; sourceTree = "<group>"; };
@@ -1172,6 +1173,7 @@
 		093E261A14A108C8008694BC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				09E9CF8D1D0EAF8C009B03A1 /* default.xcconfig */,
 				09AB222C196FAA020037AF73 /* miniAudicle.entitlements */,
 				093E261B14A108C8008694BC /* miniAudicle iOS-Info.plist */,
 				093E261C14A108C8008694BC /* InfoPlist.strings */,
@@ -2553,9 +2555,10 @@
 /* Begin XCBuildConfiguration section */
 		093E263714A108C9008694BC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09E9CF8D1D0EAF8C009B03A1 /* default.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
@@ -2580,7 +2583,6 @@
 					__MACOSX_CORE__,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GOOGLE_ANALYTICS_ID = "$(MINIIPAD_GA_ID)";
 				HEADER_SEARCH_PATHS = (
 					ios,
 					chuck/src,
@@ -2611,9 +2613,10 @@
 		};
 		093E263814A108C9008694BC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09E9CF8D1D0EAF8C009B03A1 /* default.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
@@ -2634,7 +2637,6 @@
 					__CHIP_MODE__,
 					__MACOSX_CORE__,
 				);
-				GOOGLE_ANALYTICS_ID = "$(MINIIPAD_GA_ID)";
 				HEADER_SEARCH_PATHS = (
 					ios,
 					chuck/src,
