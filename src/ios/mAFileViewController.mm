@@ -337,7 +337,6 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 - (IBAction)newFolder
 {
     [[mAAnalytics instance] createNewFolder];
-    // TODO: analytics
     
     mADocumentManager *manager = [mADocumentManager manager];
     [manager newFolderUnderParent:self.folder];
@@ -397,7 +396,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 
 - (void)moveSelectedItems
 {
-    // TODO: analytics
+    [[mAAnalytics instance] moveSelectedItems];
     
     if(self.directoryView == nil)
         self.directoryView = [[mADirectoryViewController alloc] initWithNibName:@"mADirectoryViewController" bundle:nil];
@@ -509,7 +508,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 
 - (void)deleteSelectedItems
 {
-    // TODO: analytics
+    [[mAAnalytics instance] deleteSelectedItems];
     
     _isModifyingScripts = YES;
 

@@ -10,6 +10,7 @@
 #import "mADetailItem.h"
 #import "mADocumentManager.h"
 #import "UIAlert.h"
+#import "mAAnalytics.h"
 
 @interface mAFolderTableViewCell ()
 
@@ -46,7 +47,7 @@
 
 - (IBAction)editFolderName:(id)sender
 {
-    // TODO: analytics
+    [[mAAnalytics instance] editFolderName];
     self.textField.enabled = YES;
     [self.textField becomeFirstResponder];
     self.textField.borderStyle = UITextBorderStyleRoundedRect;
