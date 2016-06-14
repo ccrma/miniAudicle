@@ -20,6 +20,7 @@
 #import "mATextCompletionView.h"
 #import "mAAnalytics.h"
 #import "UIAlert.h"
+#import "UIColor+iOS7BlueColor.h"
 
 
 @interface NSString (CharacterEnumeration)
@@ -222,6 +223,19 @@
     if(self.detailItem)
     {
         self.titleButton.title = self.detailItem.title;
+        if(self.detailItem.isUser)
+        {
+            self.titleButton.enabled = YES;
+            [self.titleButton setTitleTextAttributes:@{ }
+                                            forState:UIControlStateNormal];
+        }
+        else
+        {
+            self.titleButton.enabled = NO;
+            [self.titleButton setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor blackColor], }
+                                            forState:UIControlStateNormal];
+        }
+        
         NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:self.detailItem.text
                                                                                  attributes:[self defaultTextAttributes]];
         [[mASyntaxHighlighting sharedHighlighter] colorString:text range:NSMakeRange(0, [text length]-1) colorer:nil];
