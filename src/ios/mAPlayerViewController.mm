@@ -197,8 +197,10 @@
         self.editorPopover = [[UIPopoverController alloc] initWithContentViewController:self.editor];
     }
     
+    (void) self.editor.view; // force load
     self.editor.detailItem = player.detailItem;
     self.editor.showOTFToolbar = NO;
+    self.editor.isPlayerEditor = YES;
     self.editorPopover.popoverContentSize = CGSizeMake(480, 600);
     self.editorPopover.backgroundColor = [UIColor clearColor];
     self.editorPopover.delegate = self;

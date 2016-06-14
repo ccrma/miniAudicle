@@ -882,6 +882,8 @@
 - (void)keyboardWillShow:(NSNotification *)n
 {
 //    NSLogFun();
+    if(self.isPlayerEditor)
+        return;
     
     CGRect kbRect = [[[n userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     kbRect = [self.view convertRect:kbRect fromView:self.view.window];
@@ -914,6 +916,9 @@
 - (void)keyboardWillHide:(NSNotification *)n
 {
 //    NSLogFun();
+    
+    if(self.isPlayerEditor)
+        return;
 
     CGRect kbRect = [[[n userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     kbRect = [self.view convertRect:kbRect fromView:self.view.window];

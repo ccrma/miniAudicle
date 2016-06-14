@@ -36,6 +36,7 @@
 @property (strong, nonatomic) IBOutlet mAKeyboardAccessoryViewController *keyboardAccessory;
 @property (strong, nonatomic) UIBarButtonItem * titleButton;
 @property (nonatomic) BOOL showOTFToolbar;
+@property (nonatomic) BOOL isPlayerEditor;
 
 - (void)saveScript;
 
