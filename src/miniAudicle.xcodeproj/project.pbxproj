@@ -74,6 +74,7 @@
 		09307E2418DFF892004AB346 /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 095B59710BC6D0F900E8759D /* error.png */; };
 		09307E2718E0BEC2004AB346 /* NSString+NSString_Lines.m in Sources */ = {isa = PBXBuildFile; fileRef = 09307E2618E0BEC2004AB346 /* NSString+NSString_Lines.m */; };
 		09307E2A18E0CDA1004AB346 /* mATextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09307E2918E0CDA1004AB346 /* mATextView.mm */; };
+		0930AA911D10B803007BB19E /* motion in Copy Files */ = {isa = PBXBuildFile; fileRef = 0930AA8F1D10B7F3007BB19E /* motion */; };
 		0934BE44190D038B0084D10E /* sequence.png in Resources */ = {isa = PBXBuildFile; fileRef = 0934BE43190D038B0084D10E /* sequence.png */; };
 		093659D017DDD0AA007E342C /* oggenc in Resources */ = {isa = PBXBuildFile; fileRef = 093659CF17DDD0AA007E342C /* oggenc */; };
 		093A212C14BF587500497856 /* mAChuginManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A212B14BF587500497856 /* mAChuginManager.mm */; };
@@ -484,6 +485,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0930AA8E1D10B7D4007BB19E /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = examples;
+			dstSubfolderSpec = 7;
+			files = (
+				0930AA911D10B803007BB19E /* motion in Copy Files */,
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -552,6 +564,7 @@
 		09307E2618E0BEC2004AB346 /* NSString+NSString_Lines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NSString_Lines.m"; sourceTree = "<group>"; };
 		09307E2818E0CDA1004AB346 /* mATextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mATextView.h; sourceTree = "<group>"; };
 		09307E2918E0CDA1004AB346 /* mATextView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mATextView.mm; sourceTree = "<group>"; };
+		0930AA8F1D10B7F3007BB19E /* motion */ = {isa = PBXFileReference; lastKnownFileType = folder; name = motion; path = ../examples/motion; sourceTree = "<group>"; };
 		0934BE43190D038B0084D10E /* sequence.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sequence.png; sourceTree = "<group>"; };
 		093659CF17DDD0AA007E342C /* oggenc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = oggenc; sourceTree = "<group>"; };
 		093A212A14BF587500497856 /* mAChuginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAChuginManager.h; path = macosx/mAChuginManager.h; sourceTree = "<group>"; };
@@ -1113,6 +1126,7 @@
 				09F09E5218E419960050D963 /* replace-noalpha.png */,
 				09087C6A14A4F67100AD2633 /* UIRemoveControlMinus.png */,
 				09307E2018DFEE57004AB346 /* Images.xcassets */,
+				0930AA8F1D10B7F3007BB19E /* motion */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1860,6 +1874,7 @@
 				093E260E14A108C8008694BC /* Frameworks */,
 				093E260F14A108C8008694BC /* Resources */,
 				4D3D4C9A1A5E3FDA00B6A06B /* ShellScript */,
+				0930AA8E1D10B7D4007BB19E /* Copy Files */,
 			);
 			buildRules = (
 			);
