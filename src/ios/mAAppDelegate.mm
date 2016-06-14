@@ -34,6 +34,7 @@
 #import "Crittercism.h"
 #import "mAAnalytics.h"
 #import "mAPreferences.h"
+#import "UIAlert.h"
 
 
 
@@ -44,6 +45,7 @@ NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript"
 
 @property (strong, nonatomic) mAMasterViewController * masterViewController;
 @property (strong, nonatomic) mADetailViewController * detailViewController;
+@property (strong, nonatomic) void (^codenameInputBlock)();
 
 - (void)finishLaunchWithOptions:(NSDictionary *)launchOptions;
 - (void)_registerDefaults;
@@ -75,12 +77,49 @@ static mAAppDelegate *g_appDelegate = nil;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    mAAnalytics *analytics = [mAAnalytics instance];
+    if(analytics.analyticsLabel == nil)
+    {
+        self.window.rootViewController = [[UIViewController alloc] initWithNibName:@"mALaunchView" bundle:nil];
+        [self.window makeKeyAndVisible];
+        
+        __weak typeof(self) weakSelf = self;
+        self.codenameInputBlock = ^{
+            UIAlertMessageInput(@"User Study Codename", @"Please enter your user study codename.",
+                                ^(NSString *input){
+                                    
+                                    if(input.length > 0)
+                                    {
+                                        analytics.analyticsLabel = input;
+                                        weakSelf.codenameInputBlock = nil;
+                                        [weakSelf finishLaunchWithOptions2:launchOptions];
+                                    }
+                                    else
+                                    {
+                                        UIAlertMessage(@"Please enter a valid codename", ^{
+                                            weakSelf.codenameInputBlock();
+                                        });
+                                    }
+                                });
+        };
+        self.codenameInputBlock();
+    }
+    else
+    {
+        [self finishLaunchWithOptions2:launchOptions];
+    }
+    
+    return YES;
+}
+
+- (void)finishLaunchWithOptions2:(NSDictionary *)launchOptions
+{
     // for now: analytics by default
     [mAAnalytics setOptOut:NO];
     
     if([mAAnalytics needsOptOutSelection])
     {
-        self.window.rootViewController = [[UIViewController alloc] initWithNibName:@"LaunchView" bundle:nil];
+        self.window.rootViewController = [[UIViewController alloc] initWithNibName:@"mALaunchView" bundle:nil];
         [self.window makeKeyAndVisible];
 
 #if BETA
@@ -103,7 +142,7 @@ static mAAppDelegate *g_appDelegate = nil;
                                                 handler:^(UIAlertAction * _Nonnull action) {
                                                     [mAAnalytics setOptOut:NO];
                                                     
-                                                    [self finishLaunchWithOptions:launchOptions];
+                                                    [self finishLaunchWithOptions3:launchOptions];
                                                 }]];
         [self.window.rootViewController presentViewController:alert
                                                      animated:YES
@@ -111,13 +150,11 @@ static mAAppDelegate *g_appDelegate = nil;
     }
     else
     {
-        [self finishLaunchWithOptions:launchOptions];
+        [self finishLaunchWithOptions3:launchOptions];
     }
-    
-    return YES;
 }
 
-- (void)finishLaunchWithOptions:(NSDictionary *)launchOptions
+- (void)finishLaunchWithOptions3:(NSDictionary *)launchOptions
 {
     [[mAAnalytics instance] appLaunch];
     

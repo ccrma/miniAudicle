@@ -21,6 +21,7 @@
 
 //static NSString * const mAAnalyticsNeedsOptOutSelection = @"mAAnalyticsNeedsOptOutSelection";
 static NSString * const mAAnalyticsOptOut = @"mAAnalyticsOptOut";
+static NSString * const mAAnalyticsLabel = @"analytics.label";
 
 @interface mAAnalytics ()
 {
@@ -70,6 +71,18 @@ static NSString * const mAAnalyticsOptOut = @"mAAnalyticsOptOut";
     [userDefaults synchronize];
 }
 
+- (NSString *)analyticsLabel
+{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:mAAnalyticsLabel];
+}
+
+- (void)setAnalyticsLabel:(NSString *)analyticsLabel
+{
+    [self.tracker set:kGAIUserId value:analyticsLabel];
+    [[NSUserDefaults standardUserDefaults] setObject:analyticsLabel forKey:mAAnalyticsLabel];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (id)init
 {
     if(self = [super init])
@@ -81,6 +94,9 @@ static NSString * const mAAnalyticsOptOut = @"mAAnalyticsOptOut";
         // TODO: Replace the tracker-id with your app one from https://www.google.com/analytics/web/
         NSString *trackingId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GAITrackingID"];
         (void) [[GAI sharedInstance] trackerWithTrackingId:trackingId];
+        
+        if(self.analyticsLabel)
+            [self.tracker set:kGAIUserId value:self.analyticsLabel];
         
         // Provide unhandled exceptions reports.
 #if !DEBUG || VERBOSE_LOGGING

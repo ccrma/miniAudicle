@@ -20,6 +20,8 @@ do { \
 + (BOOL)needsOptOutSelection;
 + (void)setOptOut:(BOOL)optOut;
 
+@property (nonatomic) NSString *analyticsLabel;
+
 - (void)logError:(NSError *)error
         function:(const char *)func
             line:(int)line;
