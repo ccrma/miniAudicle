@@ -55,6 +55,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 @property (strong, nonatomic) UITableView * tableView;
 @property (strong, nonatomic) UIBarButtonItem * editButton;
 @property (strong, nonatomic) NSIndexPath *activeAudioFilePath;
+@property (readonly, nonatomic) NSArray *defaultToolbarItems;
 
 @property (strong, nonatomic) mADirectoryViewController *directoryView;
 //@property (strong, nonatomic) NSArray *savedNavigationViewControllers;
@@ -102,7 +103,42 @@ static NSString *FolderCellIdentifier = @"FolderCell";
         }];
     }
     
+    if(self.editable)
+    {
+        [self.navigationController setToolbarHidden:NO animated:YES];
+        [self setToolbarItems:self.defaultToolbarItems
+                     animated:YES];
+    }
+    else
+    {
+        [self.navigationController setToolbarHidden:YES animated:YES];
+        [self setToolbarItems:@[]
+                     animated:YES];
+    }
+    
     [self.tableView reloadData];
+}
+
+- (NSArray *)defaultToolbarItems
+{
+    if(_defaultToolbarItems == nil)
+    {
+        UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                               target:nil action:nil];
+        space.width = 10;
+        
+        _defaultToolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                               target:nil action:nil],
+                                 [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddFile"]
+                                                                  style:UIBarButtonItemStylePlain
+                                                                 target:self action:@selector(newScript)],
+                                 space,
+                                 [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddFolder"]
+                                                                  style:UIBarButtonItemStylePlain
+                                                                 target:self action:@selector(newFolder)]
+                                 ];
+    }
+    return _defaultToolbarItems;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -133,21 +169,19 @@ static NSString *FolderCellIdentifier = @"FolderCell";
                                                bundle:NULL]
          forCellReuseIdentifier:FolderCellIdentifier];
     
-    UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                                                           target:nil action:nil];
-    space.width = 10;
-    _defaultToolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                           target:nil action:nil],
-                             [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddFile"]
-                                                              style:UIBarButtonItemStylePlain
-                                                             target:self action:@selector(newScript)],
-                             space,
-                             [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddFolder"]
-                                                              style:UIBarButtonItemStylePlain
-                                                             target:self action:@selector(newFolder)]
-                             ];
-    [self setToolbarItems:_defaultToolbarItems
-                 animated:YES];
+    // reload detail item
+    if(self.editable)
+    {
+        [self.navigationController setToolbarHidden:NO animated:YES];
+        [self setToolbarItems:self.defaultToolbarItems
+                     animated:YES];
+    }
+    else
+    {
+        [self.navigationController setToolbarHidden:YES animated:YES];
+        [self setToolbarItems:@[]
+                     animated:YES];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -168,12 +202,16 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.navigationController setToolbarHidden:NO animated:animated];
+    if(self.editable)
+        [self.navigationController setToolbarHidden:NO animated:YES];
+    else
+        [self.navigationController setToolbarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [self.navigationController setToolbarHidden:YES animated:animated];
+    if(self.editable)
+        [self.navigationController setToolbarHidden:YES animated:YES];
 
     if(self.activeAudioFilePath)
     {
