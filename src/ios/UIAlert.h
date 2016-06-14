@@ -19,6 +19,8 @@ void UIAlertMessage2(NSString *message,
 void UIAlertMessage2a(NSString *title, NSString *message,
                       NSString *button1, void (^button1Handler)(),
                       NSString *button2, void (^button2Handler)());
+void UIAlertMessageInput(NSString *title, NSString *message,
+                         void (^handler)(NSString *));
 
 #ifdef __cplusplus
 }
