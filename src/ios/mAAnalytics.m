@@ -277,6 +277,36 @@ static NSString * const mAAnalyticsLabel = @"analytics.label";
                                                                 value:@1] build]];
 }
 
+- (void)moveSelectedItems
+{
+    _lastActionWasEdit = NO;
+    
+    [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"General"
+                                                               action:@"MoveSelectedItems"
+                                                                label:@""
+                                                                value:@1] build]];
+}
+
+- (void)deleteSelectedItems
+{
+    _lastActionWasEdit = NO;
+    
+    [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"General"
+                                                               action:@"DeleteSelectedItems"
+                                                                label:@""
+                                                                value:@1] build]];
+}
+
+- (void)editFolderName
+{
+    _lastActionWasEdit = NO;
+    
+    [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"General"
+                                                               action:@"EditFolderName"
+                                                                label:@""
+                                                                value:@1] build]];
+}
+
 
 - (void)editAddButton:(NSString *)file
 {

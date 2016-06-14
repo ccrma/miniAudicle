@@ -47,6 +47,9 @@ do { \
 - (void)createNewFolder;
 - (void)editScriptList;
 - (void)deleteFromScriptList:(NSString *)file;
+- (void)moveSelectedItems;
+- (void)deleteSelectedItems;
+- (void)editFolderName;
 
 - (void)editAddButton:(NSString *)file;
 - (void)editReplaceButton:(NSString *)file;
