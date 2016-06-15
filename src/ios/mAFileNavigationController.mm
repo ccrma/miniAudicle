@@ -23,6 +23,7 @@
 @property (strong, nonatomic) mAFileViewController *myScriptsViewController;
 @property (strong, nonatomic) mAFileViewController *recentViewController;
 @property (strong, nonatomic) mAFileViewController *examplesViewController;
+@property (strong, nonatomic) mAFileViewController *sharedViewController;
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 
@@ -57,6 +58,10 @@
     
     self.recentViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
     self.recentViewController.folder = [[mADocumentManager manager] recentFilesFolderItem];
+    self.recentViewController.editable = NO;
+    
+    self.sharedViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
+    self.recentViewController.folder = nil;
     self.recentViewController.editable = NO;
     
     self.myScriptsViewController.detailViewController = self.detailViewController;
@@ -98,6 +103,10 @@
         case 2:
             [[mAAnalytics instance] exampleScripts];
             [self.childNavigationController setViewControllers:@[self.examplesViewController] animated:NO];
+            break;
+        case 3:
+            // TODO: analytics
+            [self.childNavigationController setViewControllers:@[self.sharedViewController] animated:NO];
             break;
         default: ; // uhh
     }
