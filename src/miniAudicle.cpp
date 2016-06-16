@@ -116,6 +116,12 @@ http://audicle.cs.princeton.edu/mini/\n\
 ChucK-%s\n\
 http://chuck.cs.princeton.edu/\n";
 
+
+// from chuck_compile.h
+extern t_CKBOOL load_module( Chuck_Env * env, f_ck_query query,
+                            const char * name, const char * nspc );
+
+
 //-----------------------------------------------------------------------------
 // name: vm_cb
 // desc: thread routine to run vm 
@@ -1097,6 +1103,9 @@ t_CKBOOL miniAudicle::load_query_funcs( Chuck_Env * env )
     for(list<t_CKBOOL (*)(Chuck_Env *)>::iterator i = vm_options.query_funcs.begin(); i != vm_options.query_funcs.end(); i++)
         (*i)( env );
     
+    for(list< pair<string, f_ck_query> >::iterator i = vm_options.query_funcs2.begin(); i != vm_options.query_funcs2.end(); i++)
+        load_module(env, i->second, i->first.c_str(), "global");
+    
     // clear context
     type_engine_unload_context( env );
     
@@ -1837,6 +1846,12 @@ t_CKBOOL miniAudicle::get_named_chugins( list< string > & chugins )
 t_CKBOOL miniAudicle::add_query_func(t_CKBOOL (*func)(Chuck_Env *))
 {
     vm_options.query_funcs.push_back(func);
+    return TRUE;
+}
+
+t_CKBOOL miniAudicle::add_query_func(f_ck_query func, const char *name)
+{
+    vm_options.query_funcs2.push_back(pair<string, f_ck_query>(name, func));
     return TRUE;
 }
 
