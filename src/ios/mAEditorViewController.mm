@@ -51,6 +51,9 @@
     mATextCompletionView *_textCompletionView;
     
     IBOutlet UILabel *_shredCountLabel;
+    IBOutlet UIButton *_addButton;
+    IBOutlet UIButton *_replaceButton;
+    IBOutlet UIButton *_removeButton;
 }
 
 @property (strong, nonatomic) mATextView * textView;
@@ -120,15 +123,24 @@
             // save text
             [self saveScript];
             [[mAAppDelegate appDelegate] saveScripts];
+            
+            [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                            name:mADetailItemDeletedNotification
+                                                          object:_detailItem];
         }
         
         _detailItem = newDetailItem;
         
-        self.textView.errorMessage = nil;
-        self.textView.errorLine = -1;
-        
         // Update the view.
         [self configureView];
+        
+        if(_detailItem)
+        {
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(detailItemWasDeleted:)
+                                                         name:mADetailItemDeletedNotification
+                                                       object:_detailItem];
+        }
     }
 }
 
@@ -222,16 +234,23 @@
     
     if(self.detailItem)
     {
+        self.textView.editable = YES;
+        _addButton.enabled = YES;
+        _replaceButton.enabled = YES;
+        _removeButton.enabled = YES;
+
         self.titleButton.title = self.detailItem.title;
         if(self.detailItem.isUser)
         {
             self.titleButton.enabled = YES;
+            // set default attributes (blue text color)
             [self.titleButton setTitleTextAttributes:@{ }
                                             forState:UIControlStateNormal];
         }
         else
         {
             self.titleButton.enabled = NO;
+            // set black text color
             [self.titleButton setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor blackColor], }
                                             forState:UIControlStateNormal];
         }
@@ -243,14 +262,41 @@
         _lockAutoFormat = YES;
         self.textView.attributedText = text;
         _lockAutoFormat = NO;
-        
-        _dirty = NO;
-        
-        if(self.detailItem.numShreds > 0)
-            _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
-        else
-            _shredCountLabel.text = @"";
     }
+    else
+    {
+        self.textView.editable = NO;
+        _addButton.enabled = NO;
+        _replaceButton.enabled = NO;
+        _removeButton.enabled = NO;
+        
+        self.titleButton.title = @"";
+        self.titleButton.enabled = NO;
+        [self.titleButton setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor blackColor], }
+                                        forState:UIControlStateNormal];
+        
+        NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@""
+                                                                                 attributes:[self defaultTextAttributes]];
+
+        _lockAutoFormat = YES;
+        self.textView.attributedText = text;
+        _lockAutoFormat = NO;
+    }
+    
+    self.textView.errorMessage = nil;
+    self.textView.errorLine = -1;
+    
+    _dirty = NO;
+    
+    if(self.detailItem.numShreds > 0)
+        _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
+    else
+        _shredCountLabel.text = @"";
+}
+
+- (void)detailItemWasDeleted:(NSNotification *)n
+{
+    self.detailItem = nil;
 }
 
 

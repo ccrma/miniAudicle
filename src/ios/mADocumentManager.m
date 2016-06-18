@@ -487,6 +487,9 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
 {
     NSError *error = NULL;
 
+    [[NSNotificationCenter defaultCenter] postNotificationName:mADetailItemDeletedNotification
+                                                        object:item];
+    
     [[NSFileManager defaultManager] removeItemAtPath:item.path
                                                error:&error];
     
