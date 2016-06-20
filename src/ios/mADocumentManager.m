@@ -131,8 +131,8 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
             NSString *path1 = [self documentRelativePath:obj1.path];
             NSString *path2 = [self documentRelativePath:obj2.path];
             
-            int index1 = [_recentFilesPaths indexOfObject:path1];
-            int index2 = [_recentFilesPaths indexOfObject:path2];
+            NSUInteger index1 = [_recentFilesPaths indexOfObject:path1];
+            NSUInteger index2 = [_recentFilesPaths indexOfObject:path2];
             
             if(index1 < index2) return NSOrderedAscending;
             if(index1 > index2) return NSOrderedDescending;

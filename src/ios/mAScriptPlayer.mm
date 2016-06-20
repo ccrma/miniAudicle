@@ -114,6 +114,16 @@ struct LoopShred
 
 - (void)setDetailItem:(mADetailItem *)detailItem
 {
+    if(_detailItem)
+    {
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:mADetailItemDeletedNotification
+                                                      object:_detailItem];
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:mADetailItemTitleChangedNotification
+                                                      object:_detailItem];
+    }
+    
     _detailItem = detailItem;
     self.titleLabel.text = detailItem.title;
     if(self.detailItem.remote)
@@ -121,6 +131,18 @@ struct LoopShred
     else
         _usernameLabel.text = @"";
     if(_detailItem.remote) [self makeRemote];
+    
+    if(_detailItem)
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(detailItemWasDeleted:)
+                                                     name:mADetailItemDeletedNotification
+                                                   object:_detailItem];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(detailItemTitleChanged:)
+                                                     name:mADetailItemTitleChangedNotification
+                                                   object:_detailItem];
+    }
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -183,6 +205,14 @@ struct LoopShred
     [_removeButton removeFromSuperview];
 }
 
+- (void)detailItemWasDeleted:(NSNotification *)n
+{
+}
+
+- (void)detailItemTitleChanged:(NSNotification *)n
+{
+    
+}
 
 #pragma mark - IBActions
 
@@ -374,7 +404,7 @@ struct LoopShred
     __weak typeof(self) weakSelf = self;
     
     self.loopCountPicker.pickedLoopCount = ^(NSInteger count){
-        [weakSelf loopWithCount:count];
+        [weakSelf loopWithCount:(int)count];
         weakLoopNButton.text = [NSString stringWithFormat:@"%i", (int)count];
         
         [weakSelf.loopCountPickerPopover dismissPopoverAnimated:YES];
@@ -640,7 +670,7 @@ struct LoopShred
     for(map<t_CKUINT, Shred>::iterator myShred = _shreds.begin();
         myShred != _shreds.end(); myShred++)
     {
-        int shredId = myShred->first;
+        NSInteger shredId = myShred->first;
         
         // todo: optimize this somehow? 
         bool foundIt = false;

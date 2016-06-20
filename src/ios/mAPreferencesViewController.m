@@ -14,7 +14,7 @@
 
 @interface mABufferSizeSelectorViewController : UIViewController
 
-@property (strong) void (^didSelectBufferSize)(int bufferSize);
+@property (strong) void (^didSelectBufferSize)(NSInteger bufferSize);
 
 @end
 
@@ -69,12 +69,12 @@
 - (IBAction)openBufferSize:(id)sender
 {
     __weak typeof(self) weakSelf = self;
-    self.bufferSizeSelector.didSelectBufferSize = ^(int bufferSize) {
-        NSLog(@"didSelectBufferSize %i", bufferSize);
+    self.bufferSizeSelector.didSelectBufferSize = ^(NSInteger bufferSize) {
+        NSLog(@"didSelectBufferSize %li", (long)bufferSize);
         assert(bufferSize > 0);
         
-        weakSelf.bufferSize = bufferSize;
-        [weakSelf.bufferSizeButton setTitle:[NSString stringWithFormat:@"%i", bufferSize] forState:UIControlStateNormal];
+        weakSelf.bufferSize = (int) bufferSize;
+        [weakSelf.bufferSizeButton setTitle:[NSString stringWithFormat:@"%li", (long)bufferSize] forState:UIControlStateNormal];
     };
 
     [self presentViewController:self.bufferSizeSelector animated:YES completion:^{}];
@@ -142,7 +142,7 @@
 
 - (IBAction)selectBufferSize:(id)sender
 {
-    int bufferSize = [sender tag];
+    NSInteger bufferSize = [sender tag];
     if(self.didSelectBufferSize)
         self.didSelectBufferSize(bufferSize);
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];

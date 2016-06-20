@@ -12,8 +12,8 @@
 
 - (NSRange)rangeOfLine:(NSInteger)lineNumber
 {
-    unsigned length = [self length];
-    unsigned lineStart = 0, lineEnd = 0, contentsEnd = 0;
+    NSUInteger length = [self length];
+    NSUInteger lineStart = 0, lineEnd = 0, contentsEnd = 0;
     int line = 0;
     NSRange currentRange;
 
@@ -34,7 +34,7 @@
 
 - (NSInteger)indexOfPreviousNewline:(NSInteger)index
 {
-    for(int i = index-1; i >= 0; i--)
+    for(NSInteger i = index-1; i >= 0; i--)
     {
         unichar c = [self characterAtIndex:i];
         if(c == '\n' || c == '\r')
@@ -47,7 +47,7 @@
 - (NSRange)rangeOfLeadingWhitespace:(NSInteger)index
 {
     int whitespace = 0;
-    for(int i = index; i >= 0; i--)
+    for(NSInteger i = index; i >= 0; i--)
     {
         unichar c = [self characterAtIndex:i];
         

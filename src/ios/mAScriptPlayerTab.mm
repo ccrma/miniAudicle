@@ -88,7 +88,7 @@
     
     if(_highlightedForSequencing)
     {
-        float offset = 0;
+//        float offset = 0;
         float widthFactor = 0.17;
         
         CGRect bounds1 = self.bounds, bounds2 = self.bounds;

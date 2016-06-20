@@ -145,7 +145,7 @@ static mAChucKController * g_chuckController = nil;
         ma = new miniAudicle;
         
         self.enableInput = [[NSUserDefaults standardUserDefaults] boolForKey:mAAudioInputEnabledPreference];
-        self.bufferSize = [[NSUserDefaults standardUserDefaults] integerForKey:mAAudioBufferSizePreference];
+        self.bufferSize = (int) [[NSUserDefaults standardUserDefaults] integerForKey:mAAudioBufferSizePreference];
         self.adaptiveBuffering = [[NSUserDefaults standardUserDefaults] boolForKey:mAAudioAdaptiveBufferingPreference];
         self.sampleRate = 44100;
         self.backgroundAudio = [[NSUserDefaults standardUserDefaults] boolForKey:mAAudioBackgroundAudioPreference];
@@ -413,7 +413,7 @@ static mAChucKController * g_chuckController = nil;
                 OSStatus status = producer(producerToken, audio, &frames);
                 if(status != noErr)
                 {
-                    NSLog(@"miniAudicle: warning: received error %li generating audio input", status);
+                    NSLog(@"miniAudicle: warning: received error %i generating audio input", (int)status);
                     memset(_inputBuffer.data(), 0, sizeof(float)*frames*ma->get_num_outputs());
                 }
                 else

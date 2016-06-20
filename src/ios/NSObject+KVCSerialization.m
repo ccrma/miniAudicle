@@ -13,10 +13,13 @@
 
 - (id)initWithDictionary:(NSDictionary *)dict
 {
-    for(NSString *key in dict)
+    if(self = [self init])
     {
-        if([self keyExists:key])
-            [self setValue:[dict objectForKey:key] forKey:key];
+        for(NSString *key in dict)
+        {
+            if([self keyExists:key])
+                [self setValue:[dict objectForKey:key] forKey:key];
+        }
     }
     
     return self;

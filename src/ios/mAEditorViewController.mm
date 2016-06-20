@@ -70,7 +70,7 @@
 - (void)showCompletions:(NSArray *)completions forTextRange:(NSRange)range;
 - (void)hideCompletions;
 - (void)completeText:(id)sender;
-- (int)indentationForTextPosition:(int)position
+- (int)indentationForTextPosition:(NSUInteger)position
                      bracketLevel:(int)bracketLevel
                        parenLevel:(int)parenLevel;
 
@@ -618,7 +618,7 @@
     }
 }
 
-- (int)indentationForTextPosition:(int)position
+- (int)indentationForTextPosition:(NSUInteger)position
                      bracketLevel:(int)bracketLevel
                        parenLevel:(int)parenLevel
 {
@@ -715,7 +715,7 @@
     int charDelta = 0;
     for(int i = 0; i < editedRange.length && editedRange.location + i < [textStorage length]; i++)
     {
-        int index = editedRange.location + i;
+        NSUInteger index = editedRange.location + i;
         unichar c = [[textStorage string] characterAtIndex:index];
         if(c == '\n' || c == '\r')
         {
@@ -728,7 +728,7 @@
                                                      withString:@" "
                                                 startingAtIndex:0];
                 // TODO: replace spaces after \n instead of blind insert
-                __block int endSpacePos = [textStorage length];
+                __block NSUInteger endSpacePos = [textStorage length];
                 [[textStorage string] enumerateCharacters:^BOOL(int pos, unichar c) {
                     if(c == ' ' || c == '\t') return YES;
                     endSpacePos = pos;

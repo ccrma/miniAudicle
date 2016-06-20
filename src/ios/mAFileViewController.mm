@@ -241,7 +241,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
     }
 }
 
-- (int)selectedScript
+- (NSInteger)selectedScript
 {
     return [[self.tableView indexPathForSelectedRow] row];
 }
@@ -313,7 +313,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 - (void)detailItemTitleChanged:(NSNotification *)n
 {
     mADetailItem *item = [n object];
-    int index = [self.folder.folderItems indexOfObject:item];
+    NSUInteger index = [self.folder.folderItems indexOfObject:item];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
     if(!item.isFolder)
         cell.textLabel.text = item.title;
@@ -485,7 +485,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
                 {
                     failedItemsDesc = [NSString stringWithFormat:
                                        @"The following items could not be moved: "
-                                       @"%@, %@, %@, and %i others",
+                                       @"%@, %@, %@, and %lu others",
                                        failedMoves[0], failedMoves[1], failedMoves[2],
                                        failedMoves.count-3];
                 }
@@ -551,7 +551,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView 
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int index = indexPath.row;
+    NSInteger index = indexPath.row;
     mADetailItem *detailItem = [self.folder.folderItems objectAtIndex:index];
     
     UITableViewCell *cell = nil;
@@ -680,7 +680,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
     }
     else
     {
-        int index = indexPath.row;
+        NSInteger index = indexPath.row;
         mADetailItem *detailItem = [self.folder.folderItems objectAtIndex:index];
         
         if(detailItem.type == DETAILITEM_CHUCK_SCRIPT)
@@ -722,7 +722,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int index = indexPath.row;
+    NSInteger index = indexPath.row;
     mADetailItem *detailItem = [self.folder.folderItems objectAtIndex:index];
     
     if(detailItem.isUser)

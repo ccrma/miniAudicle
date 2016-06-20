@@ -399,7 +399,7 @@
 - (void)vmMonitor:(mAVMMonitorController *)vmMonitor isShowingNumberOfShreds:(NSInteger)nShreds
 {
     if(nShreds)
-        _vmMonitorButton.title = [NSString stringWithFormat:@"Shreds (%i)", nShreds];
+        _vmMonitorButton.title = [NSString stringWithFormat:@"Shreds (%li)", (long)nShreds];
     else
         _vmMonitorButton.title = [NSString stringWithFormat:@"Shreds"];
 }

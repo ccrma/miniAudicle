@@ -274,7 +274,7 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
     
     if(most_recent_status != nil)
     {
-        int index = indexPath.row;
+        NSInteger index = indexPath.row;
         
         Chuck_VM_Shred_Status * shred = most_recent_status->list[index];
         

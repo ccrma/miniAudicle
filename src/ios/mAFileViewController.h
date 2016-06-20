@@ -47,7 +47,7 @@
 - (IBAction)toggleEditingScripts;
 
 - (void)selectScript:(int)script;
-- (int)selectedScript;
+- (NSInteger)selectedScript;
 - (void)scriptsChanged;
 
 @end
