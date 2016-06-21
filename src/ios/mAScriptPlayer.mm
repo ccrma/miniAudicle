@@ -207,11 +207,12 @@ struct LoopShred
 
 - (void)detailItemWasDeleted:(NSNotification *)n
 {
+    [self.playerViewController deleteScriptPlayer:self];
 }
 
 - (void)detailItemTitleChanged:(NSNotification *)n
 {
-    
+    self.titleLabel.text = self.detailItem.title;
 }
 
 #pragma mark - IBActions
