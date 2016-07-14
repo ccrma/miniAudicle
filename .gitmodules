@@ -4,3 +4,6 @@
 [submodule "src/chugins"]
 	path = src/chugins
 	url = https://github.com/ccrma/chugins.git
+[submodule "src/chugl"]
+	path = src/chugl
+	url = https://github.com/spencersalazar/chugl.git

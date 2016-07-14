@@ -97,6 +97,9 @@
 		0930AA911D10B803007BB19E /* motion in Copy Files */ = {isa = PBXBuildFile; fileRef = 0930AA8F1D10B7F3007BB19E /* motion */; };
 		0934BE44190D038B0084D10E /* sequence.png in Resources */ = {isa = PBXBuildFile; fileRef = 0934BE43190D038B0084D10E /* sequence.png */; };
 		093659D017DDD0AA007E342C /* oggenc in Resources */ = {isa = PBXBuildFile; fileRef = 093659CF17DDD0AA007E342C /* oggenc */; };
+		09367ED21D3842C4009B30AD /* chugl.schug in Frameworks */ = {isa = PBXBuildFile; fileRef = 09367EB31D384293009B30AD /* chugl.schug */; };
+		09367ED51D3843FC009B30AD /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09367ED31D3843FC009B30AD /* GLKit.framework */; };
+		09367ED61D3843FC009B30AD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09367ED41D3843FC009B30AD /* OpenGLES.framework */; };
 		093A212C14BF587500497856 /* mAChuginManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A212B14BF587500497856 /* mAChuginManager.mm */; };
 		093A212E14BFEF7F00497856 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093A212D14BFEF7F00497856 /* Security.framework */; };
 		093A213114BFF5DC00497856 /* BLAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A213014BFF5DC00497856 /* BLAuthentication.m */; };
@@ -737,6 +740,27 @@
 			remoteGlobalIDString = 0929B8861D12A85B00B8DE4D;
 			remoteInfo = WPKorg35;
 		};
+		09367EB01D384293009B30AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 09367EAB1D384293009B30AD /* chugl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 091B7B4A1B385D7400412635;
+			remoteInfo = chugl;
+		};
+		09367EB21D384293009B30AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 09367EAB1D384293009B30AD /* chugl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 09367E9F1D3818F4009B30AD;
+			remoteInfo = "chugl-es";
+		};
+		09367ECC1D3842BB009B30AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 09367EAB1D384293009B30AD /* chugl.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 09367E851D3818F4009B30AD;
+			remoteInfo = "chugl-es";
+		};
 		097397391CD2B00100D8B74D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 09B449ED1CD0B5AA00387883 /* TheAmazingAudioEngine.xcodeproj */;
@@ -887,6 +911,9 @@
 		0930AA8F1D10B7F3007BB19E /* motion */ = {isa = PBXFileReference; lastKnownFileType = folder; path = motion; sourceTree = "<group>"; };
 		0934BE43190D038B0084D10E /* sequence.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sequence.png; sourceTree = "<group>"; };
 		093659CF17DDD0AA007E342C /* oggenc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = oggenc; sourceTree = "<group>"; };
+		09367EAB1D384293009B30AD /* chugl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = chugl.xcodeproj; path = chugl/chugl.xcodeproj; sourceTree = SOURCE_ROOT; };
+		09367ED31D3843FC009B30AD /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/GLKit.framework; sourceTree = DEVELOPER_DIR; };
+		09367ED41D3843FC009B30AD /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
 		093A212A14BF587500497856 /* mAChuginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAChuginManager.h; path = macosx/mAChuginManager.h; sourceTree = "<group>"; };
 		093A212B14BF587500497856 /* mAChuginManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAChuginManager.mm; path = macosx/mAChuginManager.mm; sourceTree = "<group>"; };
 		093A212D14BFEF7F00497856 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -1316,6 +1343,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09367ED51D3843FC009B30AD /* GLKit.framework in Frameworks */,
+				09367ED61D3843FC009B30AD /* OpenGLES.framework in Frameworks */,
+				09367ED21D3842C4009B30AD /* chugl.schug in Frameworks */,
 				0929B9EC1D133BB900B8DE4D /* ExpDelay.schug in Frameworks */,
 				0929B9ED1D133BB900B8DE4D /* FIR.schug in Frameworks */,
 				0929B9EE1D133BB900B8DE4D /* FoldbackSaturator.schug in Frameworks */,
@@ -1511,6 +1541,7 @@
 		0929B8AA1D12ADD300B8DE4D /* chugins */ = {
 			isa = PBXGroup;
 			children = (
+				09367EAB1D384293009B30AD /* chugl.xcodeproj */,
 				0929B8AB1D12ADE800B8DE4D /* ABSaturator.xcodeproj */,
 				0929B8B11D12ADF000B8DE4D /* Bitcrusher.xcodeproj */,
 				0929B8B71D12ADFC00B8DE4D /* Elliptic.xcodeproj */,
@@ -1702,6 +1733,15 @@
 			);
 			name = util;
 			path = macosx/util;
+			sourceTree = "<group>";
+		};
+		09367EAC1D384293009B30AD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				09367EB11D384293009B30AD /* chugl.chug */,
+				09367EB31D384293009B30AD /* chugl.schug */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		093E261914A108C8008694BC /* miniAudicle iOS */ = {
@@ -2351,6 +2391,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				09367ED31D3843FC009B30AD /* GLKit.framework */,
+				09367ED41D3843FC009B30AD /* OpenGLES.framework */,
 				09F2D4671CEC7C7B006E488B /* CoreLocation.framework */,
 				09B449FE1CD0B95800387883 /* Accelerate.framework */,
 				0900B70C1CC0D8A400210EF3 /* CoreMIDI.framework */,
@@ -2416,6 +2458,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				09367ECD1D3842BB009B30AD /* PBXTargetDependency */,
 				0929B9CB1D133BAC00B8DE4D /* PBXTargetDependency */,
 				0929B9CD1D133BAC00B8DE4D /* PBXTargetDependency */,
 				0929B9CF1D133BAC00B8DE4D /* PBXTargetDependency */,
@@ -2527,6 +2570,10 @@
 				{
 					ProductGroup = 0929B8B21D12ADF000B8DE4D /* Products */;
 					ProjectRef = 0929B8B11D12ADF000B8DE4D /* Bitcrusher.xcodeproj */;
+				},
+				{
+					ProductGroup = 09367EAC1D384293009B30AD /* Products */;
+					ProjectRef = 09367EAB1D384293009B30AD /* chugl.xcodeproj */;
 				},
 				{
 					ProductGroup = 0929B8B81D12ADFC00B8DE4D /* Products */;
@@ -2753,6 +2800,20 @@
 			fileType = archive.ar;
 			path = WPKorg35.schug;
 			remoteRef = 0929B9C81D133B8E00B8DE4D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		09367EB11D384293009B30AD /* chugl.chug */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = chugl.chug;
+			remoteRef = 09367EB01D384293009B30AD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		09367EB31D384293009B30AD /* chugl.schug */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = chugl.schug;
+			remoteRef = 09367EB21D384293009B30AD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		0973973A1CD2B00100D8B74D /* libTheAmazingAudioEngine OS X.a */ = {
@@ -3332,6 +3393,11 @@
 			isa = PBXTargetDependency;
 			name = WPKorg35;
 			targetProxy = 0929B9EA1D133BAC00B8DE4D /* PBXContainerItemProxy */;
+		};
+		09367ECD1D3842BB009B30AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "chugl-es";
+			targetProxy = 09367ECC1D3842BB009B30AD /* PBXContainerItemProxy */;
 		};
 		09B449FA1CD0B5B800387883 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
