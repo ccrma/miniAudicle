@@ -100,6 +100,23 @@
 		09367ED21D3842C4009B30AD /* chugl.schug in Frameworks */ = {isa = PBXBuildFile; fileRef = 09367EB31D384293009B30AD /* chugl.schug */; };
 		09367ED51D3843FC009B30AD /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09367ED31D3843FC009B30AD /* GLKit.framework */; };
 		09367ED61D3843FC009B30AD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09367ED41D3843FC009B30AD /* OpenGLES.framework */; };
+		09367F201D385717009B30AD /* ellipse.ck in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09367F0F1D3856FB009B30AD /* ellipse.ck */; };
+		09367F211D385717009B30AD /* flare.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09367F101D3856FB009B30AD /* flare.png */; };
+		09367F221D385717009B30AD /* flares.ck in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09367F111D3856FB009B30AD /* flares.ck */; };
+		09367F231D385717009B30AD /* gl.ck in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09367F121D3856FB009B30AD /* gl.ck */; };
+		09367F241D385717009B30AD /* hand.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09367F131D3856FB009B30AD /* hand.jpg */; };
+		09367F251D385717009B30AD /* img.ck in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09367F141D3856FB009B30AD /* img.ck */; };
+		09367F261D385717009B30AD /* ix in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09367F151D3856FB009B30AD /* ix */; };
+		09367F271D385717009B30AD /* shapes.ck in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09367F161D3856FB009B30AD /* shapes.ck */; };
+		09367F281D385717009B30AD /* spec-circle.ck in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09367F171D3856FB009B30AD /* spec-circle.ck */; };
+		09367F291D385717009B30AD /* spec-gl.ck in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09367F181D3856FB009B30AD /* spec-gl.ck */; };
+		09367F2A1D385717009B30AD /* spectrogram.ck in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09367F191D3856FB009B30AD /* spectrogram.ck */; };
+		09367F2B1D385717009B30AD /* stream.ck in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09367F1A1D3856FB009B30AD /* stream.ck */; };
+		09367F2C1D385717009B30AD /* test01.ck in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09367F1B1D3856FB009B30AD /* test01.ck */; };
+		09367F2D1D385717009B30AD /* test02.ck in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09367F1C1D3856FB009B30AD /* test02.ck */; };
+		09367F2E1D385717009B30AD /* test03.ck in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09367F1D1D3856FB009B30AD /* test03.ck */; };
+		09367F2F1D385717009B30AD /* tex.ck in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09367F1E1D3856FB009B30AD /* tex.ck */; };
+		09367F301D385717009B30AD /* tree.ck in CopyFiles */ = {isa = PBXBuildFile; fileRef = 09367F1F1D3856FB009B30AD /* tree.ck */; };
 		093A212C14BF587500497856 /* mAChuginManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A212B14BF587500497856 /* mAChuginManager.mm */; };
 		093A212E14BFEF7F00497856 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093A212D14BFEF7F00497856 /* Security.framework */; };
 		093A213114BFF5DC00497856 /* BLAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A213014BFF5DC00497856 /* BLAuthentication.m */; };
@@ -820,6 +837,32 @@
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		09367F0E1D3856C6009B30AD /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = examples/chugl;
+			dstSubfolderSpec = 7;
+			files = (
+				09367F201D385717009B30AD /* ellipse.ck in CopyFiles */,
+				09367F211D385717009B30AD /* flare.png in CopyFiles */,
+				09367F221D385717009B30AD /* flares.ck in CopyFiles */,
+				09367F231D385717009B30AD /* gl.ck in CopyFiles */,
+				09367F241D385717009B30AD /* hand.jpg in CopyFiles */,
+				09367F251D385717009B30AD /* img.ck in CopyFiles */,
+				09367F261D385717009B30AD /* ix in CopyFiles */,
+				09367F271D385717009B30AD /* shapes.ck in CopyFiles */,
+				09367F281D385717009B30AD /* spec-circle.ck in CopyFiles */,
+				09367F291D385717009B30AD /* spec-gl.ck in CopyFiles */,
+				09367F2A1D385717009B30AD /* spectrogram.ck in CopyFiles */,
+				09367F2B1D385717009B30AD /* stream.ck in CopyFiles */,
+				09367F2C1D385717009B30AD /* test01.ck in CopyFiles */,
+				09367F2D1D385717009B30AD /* test02.ck in CopyFiles */,
+				09367F2E1D385717009B30AD /* test03.ck in CopyFiles */,
+				09367F2F1D385717009B30AD /* tex.ck in CopyFiles */,
+				09367F301D385717009B30AD /* tree.ck in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -914,6 +957,23 @@
 		09367EAB1D384293009B30AD /* chugl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = chugl.xcodeproj; path = chugl/chugl.xcodeproj; sourceTree = SOURCE_ROOT; };
 		09367ED31D3843FC009B30AD /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/GLKit.framework; sourceTree = DEVELOPER_DIR; };
 		09367ED41D3843FC009B30AD /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
+		09367F0F1D3856FB009B30AD /* ellipse.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = ellipse.ck; path = chugl/test/ellipse.ck; sourceTree = SOURCE_ROOT; };
+		09367F101D3856FB009B30AD /* flare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flare.png; path = chugl/test/flare.png; sourceTree = SOURCE_ROOT; };
+		09367F111D3856FB009B30AD /* flares.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = flares.ck; path = chugl/test/flares.ck; sourceTree = SOURCE_ROOT; };
+		09367F121D3856FB009B30AD /* gl.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = gl.ck; path = chugl/test/gl.ck; sourceTree = SOURCE_ROOT; };
+		09367F131D3856FB009B30AD /* hand.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = hand.jpg; path = chugl/test/hand.jpg; sourceTree = SOURCE_ROOT; };
+		09367F141D3856FB009B30AD /* img.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = img.ck; path = chugl/test/img.ck; sourceTree = SOURCE_ROOT; };
+		09367F151D3856FB009B30AD /* ix */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ix; path = chugl/test/ix; sourceTree = SOURCE_ROOT; };
+		09367F161D3856FB009B30AD /* shapes.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = shapes.ck; path = chugl/test/shapes.ck; sourceTree = SOURCE_ROOT; };
+		09367F171D3856FB009B30AD /* spec-circle.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "spec-circle.ck"; path = "chugl/test/spec-circle.ck"; sourceTree = SOURCE_ROOT; };
+		09367F181D3856FB009B30AD /* spec-gl.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "spec-gl.ck"; path = "chugl/test/spec-gl.ck"; sourceTree = SOURCE_ROOT; };
+		09367F191D3856FB009B30AD /* spectrogram.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = spectrogram.ck; path = chugl/test/spectrogram.ck; sourceTree = SOURCE_ROOT; };
+		09367F1A1D3856FB009B30AD /* stream.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = stream.ck; path = chugl/test/stream.ck; sourceTree = SOURCE_ROOT; };
+		09367F1B1D3856FB009B30AD /* test01.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = test01.ck; path = chugl/test/test01.ck; sourceTree = SOURCE_ROOT; };
+		09367F1C1D3856FB009B30AD /* test02.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = test02.ck; path = chugl/test/test02.ck; sourceTree = SOURCE_ROOT; };
+		09367F1D1D3856FB009B30AD /* test03.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = test03.ck; path = chugl/test/test03.ck; sourceTree = SOURCE_ROOT; };
+		09367F1E1D3856FB009B30AD /* tex.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = tex.ck; path = chugl/test/tex.ck; sourceTree = SOURCE_ROOT; };
+		09367F1F1D3856FB009B30AD /* tree.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = tree.ck; path = chugl/test/tree.ck; sourceTree = SOURCE_ROOT; };
 		093A212A14BF587500497856 /* mAChuginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAChuginManager.h; path = macosx/mAChuginManager.h; sourceTree = "<group>"; };
 		093A212B14BF587500497856 /* mAChuginManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAChuginManager.mm; path = macosx/mAChuginManager.mm; sourceTree = "<group>"; };
 		093A212D14BFEF7F00497856 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -1532,6 +1592,7 @@
 		0929B85B1D1114C300B8DE4D /* examples */ = {
 			isa = PBXGroup;
 			children = (
+				09367EEA1D385695009B30AD /* chugl */,
 				0930AA8F1D10B7F3007BB19E /* motion */,
 			);
 			name = examples;
@@ -1742,6 +1803,30 @@
 				09367EB31D384293009B30AD /* chugl.schug */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		09367EEA1D385695009B30AD /* chugl */ = {
+			isa = PBXGroup;
+			children = (
+				09367F0F1D3856FB009B30AD /* ellipse.ck */,
+				09367F101D3856FB009B30AD /* flare.png */,
+				09367F111D3856FB009B30AD /* flares.ck */,
+				09367F121D3856FB009B30AD /* gl.ck */,
+				09367F131D3856FB009B30AD /* hand.jpg */,
+				09367F141D3856FB009B30AD /* img.ck */,
+				09367F151D3856FB009B30AD /* ix */,
+				09367F161D3856FB009B30AD /* shapes.ck */,
+				09367F171D3856FB009B30AD /* spec-circle.ck */,
+				09367F181D3856FB009B30AD /* spec-gl.ck */,
+				09367F191D3856FB009B30AD /* spectrogram.ck */,
+				09367F1A1D3856FB009B30AD /* stream.ck */,
+				09367F1B1D3856FB009B30AD /* test01.ck */,
+				09367F1C1D3856FB009B30AD /* test02.ck */,
+				09367F1D1D3856FB009B30AD /* test03.ck */,
+				09367F1E1D3856FB009B30AD /* tex.ck */,
+				09367F1F1D3856FB009B30AD /* tree.ck */,
+			);
+			name = chugl;
 			sourceTree = "<group>";
 		};
 		093E261914A108C8008694BC /* miniAudicle iOS */ = {
@@ -2454,6 +2539,7 @@
 				093E260F14A108C8008694BC /* Resources */,
 				4D3D4C9A1A5E3FDA00B6A06B /* ShellScript */,
 				0930AA8E1D10B7D4007BB19E /* Copy Files */,
+				09367F0E1D3856C6009B30AD /* CopyFiles */,
 			);
 			buildRules = (
 			);
