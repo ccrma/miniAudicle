@@ -288,10 +288,11 @@
     
     _dirty = NO;
     
-    if(self.detailItem.numShreds > 0)
-        _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
-    else
-        _shredCountLabel.text = @"";
+//    if(self.detailItem.numShreds > 0)
+//        _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
+//    else
+//        _shredCountLabel.text = @"";
+    _shredCountLabel.text = @"";
 }
 
 - (void)detailItemWasDeleted:(NSNotification *)n
@@ -340,11 +341,11 @@
         self.textView.errorMessage = nil;
         [self.textView animateAdd];
         
-        self.detailItem.numShreds = self.detailItem.numShreds+1;
-        if(self.detailItem.numShreds > 0)
-            _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
-        else
-            _shredCountLabel.text = @"";
+//        self.detailItem.numShreds = self.detailItem.numShreds+1;
+//        if(self.detailItem.numShreds > 0)
+//            _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
+//        else
+//            _shredCountLabel.text = @"";
     }
     else if( otf_result == OTF_VM_TIMEOUT )
     {
@@ -454,11 +455,11 @@
     {
         [self.textView animateRemove];
         
-        self.detailItem.numShreds = self.detailItem.numShreds-1;
-        if(self.detailItem.numShreds > 0)
-            _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
-        else
-            _shredCountLabel.text = @"";
+//        self.detailItem.numShreds = self.detailItem.numShreds-1;
+//        if(self.detailItem.numShreds > 0)
+//            _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
+//        else
+//            _shredCountLabel.text = @"";
     }
     else if(result == OTF_VM_TIMEOUT)
     {
@@ -469,6 +470,39 @@
     }
 }
 
+- (IBAction)removeLastShred
+{
+    std::string output;
+    t_OTF_RESULT result = [mAChucKController chuckController].ma->removelast(self.detailItem.docid, output);
+    
+    if(result == OTF_SUCCESS)
+    {
+    }
+    else if(result == OTF_VM_TIMEOUT)
+    {
+    }
+    else
+    {
+        [self.textView animateError];
+    }
+}
+
+- (IBAction)removeAllShreds
+{
+    std::string output;
+    t_OTF_RESULT result = [mAChucKController chuckController].ma->removeall(self.detailItem.docid, output);
+    
+    if(result == OTF_SUCCESS)
+    {
+    }
+    else if(result == OTF_VM_TIMEOUT)
+    {
+    }
+    else
+    {
+        [self.textView animateError];
+    }
+}
 
 - (IBAction)editTitle:(id)sender
 {

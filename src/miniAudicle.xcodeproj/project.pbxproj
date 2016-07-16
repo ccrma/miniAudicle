@@ -97,6 +97,8 @@
 		0930AA911D10B803007BB19E /* motion in Copy Files */ = {isa = PBXBuildFile; fileRef = 0930AA8F1D10B7F3007BB19E /* motion */; };
 		0934BE44190D038B0084D10E /* sequence.png in Resources */ = {isa = PBXBuildFile; fileRef = 0934BE43190D038B0084D10E /* sequence.png */; };
 		093659D017DDD0AA007E342C /* oggenc in Resources */ = {isa = PBXBuildFile; fileRef = 093659CF17DDD0AA007E342C /* oggenc */; };
+		093681231D3AE75B009B30AD /* removeall.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E70BBC97D6005931F6 /* removeall.png */; };
+		093681241D3AE75E009B30AD /* removelast.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E60BBC97D6005931F6 /* removelast.png */; };
 		093A212C14BF587500497856 /* mAChuginManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A212B14BF587500497856 /* mAChuginManager.mm */; };
 		093A212E14BFEF7F00497856 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093A212D14BFEF7F00497856 /* Security.framework */; };
 		093A213114BFF5DC00497856 /* BLAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A213014BFF5DC00497856 /* BLAuthentication.m */; };
@@ -2811,6 +2813,7 @@
 				096310BF1C86F71600A36F8F /* Launch2.png in Resources */,
 				093E267B14A14E91008694BC /* add.png in Resources */,
 				09735F431C870B2D003965CA /* ck-doc64.png in Resources */,
+				093681231D3AE75B009B30AD /* removeall.png in Resources */,
 				09F09E4618E36DBC0050D963 /* mAScriptPlayer.xib in Resources */,
 				09F09E3C18E2C5E60050D963 /* mAEditorViewController.xib in Resources */,
 				093E267C14A14E91008694BC /* miniAudicle.icns in Resources */,
@@ -2835,6 +2838,7 @@
 				09E288981CEA93BA006E6AE4 /* mAAboutView.xib in Resources */,
 				093A74BA1A5E492D00F54725 /* mAFileNavigationController.xib in Resources */,
 				09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */,
+				093681241D3AE75E009B30AD /* removelast.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
