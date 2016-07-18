@@ -956,10 +956,41 @@
 
 #pragma mark - UITextViewDelegate
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)replacementText
 {
-    if([text isEqualToString:@". "] && range.location != [textView selectedRange].location)
+    // override/disable automatic spacing of .
+    if([replacementText isEqualToString:@". "] && range.location != [textView selectedRange].location)
         return NO;
+    
+    NSString *text = [textView text];
+    NSString *textToChange = [[textView text] substringWithRange:range];
+    
+    // deletion of a character
+    if([replacementText length] == 0 && [textToChange length] == 1)
+    {
+        // if there are any more characters after the deleted one
+        if(range.location+1 < [text length])
+        {
+            // if the deleted character is { and the next character is a } delete that too
+            if([textToChange characterAtIndex:0] == '{' &&
+               [text characterAtIndex:range.location+1] == '}')
+            {
+                [[textView textStorage] deleteCharactersInRange:NSMakeRange(range.location+1, 1)];
+            }
+            // if the deleted character is [ and the next character is a ] delete that too
+            else if([textToChange characterAtIndex:0] == '[' &&
+               [text characterAtIndex:range.location+1] == ']')
+            {
+                [[textView textStorage] deleteCharactersInRange:NSMakeRange(range.location+1, 1)];
+            }
+            // if the deleted character is ( and the next character is a ) delete that too
+            else if([textToChange characterAtIndex:0] == '(' &&
+               [text characterAtIndex:range.location+1] == ')')
+            {
+                [[textView textStorage] deleteCharactersInRange:NSMakeRange(range.location+1, 1)];
+            }
+        }
+    }
     
     return YES;
 }
