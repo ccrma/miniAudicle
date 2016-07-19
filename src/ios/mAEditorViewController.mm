@@ -25,9 +25,20 @@
 
 @interface NSString (CharacterEnumeration)
 
-- (void)enumerateCharacters:(BOOL (^)(int pos, unichar c))block
-               fromPosition:(NSInteger)index
-                    reverse:(BOOL)reverse;
+/**
+ * Enumerate characters of the string with the specified block.
+ * @param block A block taking the current position in the string and the character at that
+ *              position. This should return YES to continue enumeration or NO to stop it.
+ * @param fromPosition The position in the string to start at.
+ * @param reverse Whether to enumerate in reverse or forward direction.
+ */
+- (void)enumerateCharacters:(BOOL (^)(int pos, unichar c))block fromPosition:(NSInteger)index reverse:(BOOL)reverse;
+
+/**
+ * Enumerate characters of the string with the specified block.
+ * @param block A block taking the current position in the string and the character at that
+ *              position. This should return YES to continue enumeration or NO to stop it.
+ */
 - (void)enumerateCharacters:(BOOL (^)(int pos, unichar c))block;
 
 @end
@@ -73,6 +84,7 @@
 - (int)indentationForTextPosition:(NSUInteger)position
                      bracketLevel:(int)bracketLevel
                        parenLevel:(int)parenLevel;
+- (NSInteger)tabSize;
 
 @end
 
@@ -298,6 +310,11 @@
 - (void)detailItemWasDeleted:(NSNotification *)n
 {
     self.detailItem = nil;
+}
+
+- (NSInteger)tabSize
+{
+    return 4;
 }
 
 
@@ -717,8 +734,8 @@
             return 0;
     }
     
-    int addSpace = (braceCount>0 ? braceCount : 0) *4;
-    int removeSpace = (brace1Count<0 ? brace1Count : 0) *4;
+    int addSpace = (braceCount>0 ? braceCount : 0) * self.tabSize;
+    int removeSpace = (brace1Count<0 ? brace1Count : 0) * self.tabSize;
     
     if(newline2Index == -1) return addSpace;
     
@@ -739,10 +756,24 @@
               range:(NSRange)editedRange
      changeInLength:(NSInteger)delta
 {
-//    if(_lockAutoFormat || !(editedMask & NSTextStorageEditedCharacters))
-//        return;
     if(_lockAutoFormat)
         return;
+    
+    NSLog(@"textStorageWillProcessEditing %li:%li ∂:%li",
+          editedRange.location, editedRange.length, delta );
+    
+    if(editedRange.length == 0)
+        [self textStorageRemovedText:textStorage range:editedRange];
+    else if(editedRange.length == delta)
+        [self textStorageAddedText:textStorage range:editedRange];
+    else
+        [self textStorageReplacedText:textStorage range:editedRange];
+}
+
+- (void)textStorageAddedText:(NSTextStorage *)textStorage
+                       range:(NSRange)editedRange
+{
+    // any characters are inserted before the editing is processed
     
     // scan for newline or close brace
     // add/remove indentation as needed
@@ -754,7 +785,7 @@
         if(c == '\n' || c == '\r')
         {
             int nSpaces = [self indentationForTextPosition:index+1 bracketLevel:0 parenLevel:0];
-//            NSLog(@"%d spaces", nSpaces);
+            //            NSLog(@"%d spaces", nSpaces);
             if(nSpaces != 0)
             {
                 charDelta += nSpaces;
@@ -770,22 +801,41 @@
                 } fromPosition:index+1 reverse:NO];
                 [textStorage replaceCharactersInRange:NSMakeRange(index+1, endSpacePos-(index+1)) withString:spaces];
                 i += nSpaces;
+                index += nSpaces;
                 editedRange.length += nSpaces;
             }
+            
+            // check next character, if its past the edited range
+            if(index+1 < [textStorage length] && i+1 >= editedRange.length)
+            {
+                unichar cc = [[textStorage string] characterAtIndex:index+1];
+                if(cc == '}')
+                {
+                    // add another newline
+                    [textStorage replaceCharactersInRange:NSMakeRange(index+1, 0) withString:@"\n"];
+                    
+                    // add spaces
+                    int nSpaces2 = ::max<int>(0, nSpaces-self.tabSize);
+                    NSString *spaces = [@"" stringByPaddingToLength:nSpaces2
+                                                         withString:@" "
+                                                    startingAtIndex:0];
+                    [textStorage replaceCharactersInRange:NSMakeRange(index+2, 0) withString:spaces];
+                }
+            }
         }
-        if(c == '}')
+        else if(c == '}')
         {
             // remove spaces
             int nSpaces = [self indentationForTextPosition:index+1 bracketLevel:0 parenLevel:0];
             //nSpaces = ::max(0, nSpaces-4);
-//            int newlineIndexPlus1 = [[textStorage string] indexOfPreviousNewline:index]+1;
-//            
+            //            int newlineIndexPlus1 = [[textStorage string] indexOfPreviousNewline:index]+1;
+            //
             NSRange wsRange = [[textStorage string] rangeOfLeadingWhitespace:index];
             charDelta += nSpaces-wsRange.length;
             NSString *spaces = [@"" stringByPaddingToLength:nSpaces
                                                  withString:@" "
                                             startingAtIndex:0];
-//            [textStorage replaceCharactersInRange:NSMakeRange(newlineIndexPlus1, index-newlineIndexPlus1) withString:spaces];
+            //            [textStorage replaceCharactersInRange:NSMakeRange(newlineIndexPlus1, index-newlineIndexPlus1) withString:spaces];
             [textStorage replaceCharactersInRange:wsRange withString:spaces];
             editedRange.location += nSpaces-wsRange.length;
         }
@@ -794,7 +844,7 @@
     NSRange selectedRange = self.textView.selectedRange;
     if(charDelta != 0)
     {
-//        NSLog(@"charDelta: %d", charDelta);
+        //        NSLog(@"charDelta: %d", charDelta);
         if(selectedRange.length == 0)
             self.textView.selectedRange = NSMakeRange(selectedRange.location+charDelta, 0);
         else
@@ -802,6 +852,17 @@
     }
 }
 
+- (void)textStorageReplacedText:(NSTextStorage *)textStorage
+                          range:(NSRange)editedRange
+{
+    
+}
+
+- (void)textStorageRemovedText:(NSTextStorage *)textStorage
+                         range:(NSRange)editedRange
+{
+    
+}
 
 - (void)textStorage:(NSTextStorage *)textStorage
   didProcessEditing:(NSTextStorageEditActions)editedMask
@@ -810,6 +871,8 @@
 {
     if(_lockAutoFormat)
         return;
+    
+    // syntax highlighting and autocomplete is done after the editing is processed
     
     NSUInteger start_index, line_end_index, contents_end_index;
     [[textStorage string] getLineStart:&start_index
