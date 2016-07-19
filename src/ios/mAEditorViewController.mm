@@ -815,7 +815,7 @@
                     [textStorage replaceCharactersInRange:NSMakeRange(index+1, 0) withString:@"\n"];
                     
                     // add spaces
-                    int nSpaces2 = ::max<int>(0, nSpaces-self.tabSize);
+                    int nSpaces2 = ::max<NSInteger>(0, nSpaces-self.tabSize);
                     NSString *spaces = [@"" stringByPaddingToLength:nSpaces2
                                                          withString:@" "
                                                     startingAtIndex:0];
@@ -1026,31 +1026,100 @@
         return NO;
     
     NSString *text = [textView text];
-    NSString *textToChange = [[textView text] substringWithRange:range];
+//    NSString *textToChange = [[textView text] substringWithRange:range];
     
     // deletion of a character
-    if([replacementText length] == 0 && [textToChange length] == 1)
+    if([replacementText length] == 0 && range.length == 1)
     {
+        unichar deletedChar = [text characterAtIndex:range.location];
+        
         // if there are any more characters after the deleted one
         if(range.location+1 < [text length])
         {
+            unichar nextChar = [text characterAtIndex:range.location+1];
             // if the deleted character is { and the next character is a } delete that too
-            if([textToChange characterAtIndex:0] == '{' &&
-               [text characterAtIndex:range.location+1] == '}')
-            {
+            if(deletedChar == '{' && nextChar == '}')
                 [[textView textStorage] deleteCharactersInRange:NSMakeRange(range.location+1, 1)];
-            }
             // if the deleted character is [ and the next character is a ] delete that too
-            else if([textToChange characterAtIndex:0] == '[' &&
-               [text characterAtIndex:range.location+1] == ']')
-            {
+            else if(deletedChar == '[' && nextChar == ']')
                 [[textView textStorage] deleteCharactersInRange:NSMakeRange(range.location+1, 1)];
-            }
             // if the deleted character is ( and the next character is a ) delete that too
-            else if([textToChange characterAtIndex:0] == '(' &&
-               [text characterAtIndex:range.location+1] == ')')
-            {
+            else if(deletedChar == '(' && nextChar == ')')
                 [[textView textStorage] deleteCharactersInRange:NSMakeRange(range.location+1, 1)];
+        }
+
+        // delete to next tab stop in leading whitespace
+        if(deletedChar == ' ')
+        {
+            // count backwards amount of whitespace
+            // if a tab is found before a tabs worth of space, delete to that tab
+            __block int nSpaces = 0;
+            __block BOOL isLeading = NO;
+            [text enumerateCharacters:^BOOL(int pos, unichar c) {
+                if(c == ' ') { nSpaces++; return YES; }
+                else if(c == '\n' || c == '\r') { isLeading = YES; return NO; }
+                else { return NO; }
+            } fromPosition:range.location reverse:YES];
+            
+            if(isLeading)
+            {
+                // round to next lowest multiple of tab size
+                int tabSize = self.tabSize;
+                int remainder = nSpaces % tabSize;
+                int nTargetSpaces = remainder ? nSpaces-remainder : nSpaces-tabSize;
+                int spacesToDelete = nSpaces - nTargetSpaces;
+                if(spacesToDelete > 0)
+                {
+                    NSLog(@"deleting leading whitespace");
+                    // move cursor
+                    NSRange selectionRange = self.textView.selectedRange;
+                    selectionRange.location -= spacesToDelete;
+                    self.textView.selectedRange = selectionRange;
+                    // delete
+                    [[textView textStorage] deleteCharactersInRange:NSMakeRange(range.location-spacesToDelete+1, spacesToDelete)];
+//                    [[textView textStorage] addAttribute:NSBackgroundColorAttributeName
+//                                                   value:[UIColor redColor]
+//                                                   range:NSMakeRange(range.location-spacesToDelete+1, spacesToDelete)];
+                    return NO;
+                }
+            }
+        }
+
+        if(range.location+2 < [text length])
+        {
+            // if the deleted character is \n and the next characters are \n [whitespace]* }
+            // then delete the 2nd \n, whitespace, and }
+            if([text characterAtIndex:range.location] == '\n')
+            {
+                __block NSRange delRange = NSMakeRange(range.location+1, 0);
+                __block int numNewline = 0;
+                [text enumerateCharacters:^BOOL(int pos, unichar c) {
+                    switch(c)
+                    {
+                        case '\n':
+                        case '\r':
+                            numNewline++;
+                            if(numNewline >= 2)
+                                // if theres more than 1 newline, dont delete
+                                return NO;
+                            else
+                                return YES;
+                        case ' ':
+                        case '\t':
+                            return YES;
+                        case '}':
+                            delRange.length = ::max<NSInteger>(0, pos-1-range.location);
+                            return NO;
+                        default:
+                            return NO;
+                    }
+                } fromPosition:range.location+1 reverse:NO];
+                
+                if(delRange.length)
+                {
+                    NSLog(@"deleting trailing newline/space before close brace");
+                    [[textView textStorage] deleteCharactersInRange:delRange];
+                }
             }
         }
     }
