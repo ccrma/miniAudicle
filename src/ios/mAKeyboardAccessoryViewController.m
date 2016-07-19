@@ -71,7 +71,7 @@ static NSArray *g_chuckKeyboard = nil;
                             /* column */
                             @[ @{ CKKB_NAME: @"::", },
                                @{ CKKB_NAME: @"<<<>>>", CKKB_ATTRIBUTES: smallCodeAttributes,
-                                  CKKB_OFFSET: @-1, CKKB_TEXT: @"<<<>>>", }, ],
+                                  CKKB_OFFSET: @-3, CKKB_TEXT: @"<<<>>>", }, ],
                             /* column */
                             @[ @{ CKKB_NAME: @"dac", CKKB_ATTRIBUTES: coloredCodeAttributes,
                                   CKKB_ALTERNATES: @[ @{ CKKB_NAME: @"adc", CKKB_ATTRIBUTES: coloredCodeAttributes, } ]
