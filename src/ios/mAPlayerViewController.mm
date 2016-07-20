@@ -218,14 +218,15 @@
 
 - (void)playerTabMoved:(mAScriptPlayerTab *)playerTab
 {
-    CGRect frame = playerTab.superview.frame;
-    if(!CGRectContainsRect(self.fieldView.bounds, frame))
-    {
-        frame.origin.x -= 10; frame.origin.y -= 10;
-        frame.size.width += 20; frame.size.height += 20;
-        self.fieldView.bounds = CGRectUnion(self.fieldView.bounds, frame);
-//        ((UIScrollView *) self.view).contentSize = self.fieldView.bounds.size;
-    }
+    // disable scrolling
+//    CGRect frame = playerTab.superview.frame;
+//    if(!CGRectContainsRect(self.fieldView.bounds, frame))
+//    {
+//        frame.origin.x -= 10; frame.origin.y -= 10;
+//        frame.size.width += 20; frame.size.height += 20;
+//        self.fieldView.bounds = CGRectUnion(self.fieldView.bounds, frame);
+////        ((UIScrollView *) self.view).contentSize = self.fieldView.bounds.size;
+//    }
 }
 
 - (void)enterSequenceMode:(mAScriptPlayer *)source
