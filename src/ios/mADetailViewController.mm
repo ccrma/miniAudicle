@@ -108,6 +108,11 @@
 
 #pragma mark - Managing the detail item
 
+- (void)showMasterPopover
+{
+    self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryOverlay;
+}
+
 - (void)dismissMasterPopover
 {
     if (self.masterPopoverController != nil) {
@@ -362,7 +367,8 @@
         
         self.interactionMode = MA_IM_PLAY;
         [self setClientViewController:self.player];
-        [self dismissMasterPopover];
+        if(self.player.allPlayers.count == 0)
+            [self showMasterPopover];
         
         //        //If in portrait mode, display the master view
         //        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
