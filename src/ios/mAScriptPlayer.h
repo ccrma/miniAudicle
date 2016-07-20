@@ -17,7 +17,7 @@
 @class mARoundedRectButton;
 class Chuck_VM_Status;
 
-@interface mAScriptPlayer : UIViewController<mATapOutsideListener>
+@interface mAScriptPlayer : UIViewController<mATapOutsideListener, UIGestureRecognizerDelegate>
 {
 }
 

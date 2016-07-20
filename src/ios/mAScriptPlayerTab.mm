@@ -14,6 +14,7 @@
 @interface mAScriptPlayerTab ()
 {
     CGPoint _initialTouchPosition;
+    BOOL _trackTouchForMoving;
     BOOL _highlightedForSequencing;
 }
 
@@ -86,6 +87,8 @@
     
     CGContextRestoreGState(ctx);
     
+    // draw move handle on left side
+    
     if(_highlightedForSequencing)
     {
 //        float offset = 0;
@@ -124,6 +127,10 @@
     }
 
     _initialTouchPosition = [[touches anyObject] locationInView:self];
+    if(_initialTouchPosition.x < self.bounds.origin.x+self.bounds.size.width*0.2)
+        _trackTouchForMoving = YES;
+    else
+        _trackTouchForMoving = NO;
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -139,7 +146,7 @@
         else
             _highlightedForSequencing = NO;
     }
-    else
+    else if(_trackTouchForMoving)
     {
         CGPoint touchPosition = [[touches anyObject] locationInView:self];
         self.superview.center = CGPointMake(self.superview.center.x + (touchPosition.x - _initialTouchPosition.x),
@@ -165,7 +172,7 @@
             [self.scriptPlayer playerTabEvent:UIControlEventTouchUpInside];
         }
     }
-    else
+    else if(_trackTouchForMoving)
     {
         [self.scriptPlayer playerTabFinishedMoving];
     }

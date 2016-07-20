@@ -61,6 +61,8 @@ struct LoopShred
     IBOutlet UILabel *_titleLabel;
     IBOutlet UILabel *_usernameLabel;
     IBOutlet mAScriptPlayerTab *_playerTabView;
+    UISwipeGestureRecognizer *_leftSwipeGestureRecognizer;
+    IBOutlet UIButton *_removePlayerButton;
     
     IBOutlet mAOTFButton *_addButton;
     NSArray *_addButtonGroup;
@@ -98,6 +100,7 @@ struct LoopShred
 - (void)addShredButton:(t_CKUINT)shredId;
 - (void)removeShredButton:(t_CKUINT)shredId;
 - (void)relayoutShredButtons;
+- (void)showSwipeDeleteButton;
 
 @end
 
@@ -187,6 +190,16 @@ struct LoopShred
 //    _addButton.buttonGroupCenter = _loopButton.buttonGroupCenter = _loopNButton.buttonGroupCenter = _sequenceButton.buttonGroupCenter = _addButton.center;
     
     if(_detailItem.remote) [self makeRemote];
+    
+    _leftSwipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(showSwipeDeleteButton)];
+    _leftSwipeGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    _leftSwipeGestureRecognizer.delegate = self;
+    [_playerTabView addGestureRecognizer:_leftSwipeGestureRecognizer];
+    
+    CGRect frame = _removePlayerButton.frame;
+    frame.origin.x = self.view.bounds.origin.x+self.view.bounds.size.width;
+    frame.size.width = 0;
+    _removePlayerButton.frame = frame;
 }
 
 - (void)didReceiveMemoryWarning
@@ -633,6 +646,25 @@ struct LoopShred
     [UIView animateWithDuration:G_RATIO-1 animations:^{
         _deleteButton.alpha = 0;
     }];
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        CGRect frame = _removePlayerButton.frame;
+        frame.origin.x = self.view.bounds.origin.x+self.view.bounds.size.width;
+        frame.size.width = 0;
+        _removePlayerButton.frame = frame;
+    }];
+}
+
+- (void)showSwipeDeleteButton
+{
+    [self.playerViewController.playerContainerView addTapListener:self];
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        CGRect frame = _removePlayerButton.frame;
+        frame.origin.x = self.view.bounds.origin.x+self.view.bounds.size.width-64;
+        frame.size.width = 64;
+        _removePlayerButton.frame = frame;
+    }];
 }
 
 - (void)tapOutside
@@ -852,6 +884,28 @@ struct LoopShred
                                          NSLog(@"error submitting editScript action: %@", error);
                                      }];
     }
+}
+
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    // only accept right swipes from left 20% of playertab
+    if(gestureRecognizer == _leftSwipeGestureRecognizer)
+    {
+        UIView *view = gestureRecognizer.view;
+        CGPoint position = [touch locationInView:view];
+        if(position.x >= view.frame.origin.x+view.frame.size.width*0.8)
+        {
+            NSLog(@"YES shouldReceiveTouch");
+            return YES;
+        }
+    }
+    
+    NSLog(@"NO shouldReceiveTouch");
+    
+    return NO;
 }
 
 @end
