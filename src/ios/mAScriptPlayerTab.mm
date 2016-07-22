@@ -85,9 +85,27 @@
         CGContextFillPath(ctx);
     }
     
-    CGContextRestoreGState(ctx);
+    /* draw move handle on left side */
+//    [[UIColor colorWithWhite:0.8 alpha:1.0] set];
+    [[UIColor colorWithWhite:0.3 alpha:1.0] set];
+    CGContextSetLineWidth(ctx, 1.0);
     
-    // draw move handle on left side
+    CGContextMoveToPoint(ctx, self.bounds.origin.x+6, self.bounds.origin.y+12);
+    CGContextAddLineToPoint(ctx, self.bounds.origin.x+6, self.bounds.origin.y+self.bounds.size.height-12);
+    CGContextStrokePath(ctx);
+    
+    CGContextMoveToPoint(ctx, self.bounds.origin.x+12, self.bounds.origin.y+12);
+    CGContextAddLineToPoint(ctx, self.bounds.origin.x+12, self.bounds.origin.y+self.bounds.size.height-12);
+    CGContextStrokePath(ctx);
+    
+    /* draw pull drawer on right side */
+    CGContextSetLineWidth(ctx, 1.0);
+    CGContextMoveToPoint(ctx, self.bounds.origin.x+self.bounds.size.width-6, self.bounds.origin.y+12);
+    CGContextAddLineToPoint(ctx, self.bounds.origin.x+self.bounds.size.width-12, self.bounds.origin.y+self.bounds.size.height/2);
+    CGContextAddLineToPoint(ctx, self.bounds.origin.x+self.bounds.size.width-6, self.bounds.origin.y+self.bounds.size.height-12);
+    CGContextStrokePath(ctx);
+    
+    CGContextRestoreGState(ctx);
     
     if(_highlightedForSequencing)
     {
