@@ -99,6 +99,9 @@
 		093659D017DDD0AA007E342C /* oggenc in Resources */ = {isa = PBXBuildFile; fileRef = 093659CF17DDD0AA007E342C /* oggenc */; };
 		093681231D3AE75B009B30AD /* removeall.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E70BBC97D6005931F6 /* removeall.png */; };
 		093681241D3AE75E009B30AD /* removelast.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E60BBC97D6005931F6 /* removelast.png */; };
+		093681261D42AC0C009B30AD /* icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 093681251D42AC0C009B30AD /* icons.xcassets */; };
+		093681281D42AF8A009B30AD /* mAEditingBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093681271D42AF8A009B30AD /* mAEditingBarViewController.xib */; };
+		0936812B1D42B9E6009B30AD /* mAEditingBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0936812A1D42B9E6009B30AD /* mAEditingBarViewController.m */; };
 		093A212C14BF587500497856 /* mAChuginManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A212B14BF587500497856 /* mAChuginManager.mm */; };
 		093A212E14BFEF7F00497856 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093A212D14BFEF7F00497856 /* Security.framework */; };
 		093A213114BFF5DC00497856 /* BLAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A213014BFF5DC00497856 /* BLAuthentication.m */; };
@@ -889,6 +892,10 @@
 		0930AA8F1D10B7F3007BB19E /* motion */ = {isa = PBXFileReference; lastKnownFileType = folder; path = motion; sourceTree = "<group>"; };
 		0934BE43190D038B0084D10E /* sequence.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sequence.png; sourceTree = "<group>"; };
 		093659CF17DDD0AA007E342C /* oggenc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = oggenc; sourceTree = "<group>"; };
+		093681251D42AC0C009B30AD /* icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = icons.xcassets; sourceTree = "<group>"; };
+		093681271D42AF8A009B30AD /* mAEditingBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAEditingBarViewController.xib; sourceTree = "<group>"; };
+		093681291D42B9E6009B30AD /* mAEditingBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAEditingBarViewController.h; sourceTree = "<group>"; };
+		0936812A1D42B9E6009B30AD /* mAEditingBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAEditingBarViewController.m; sourceTree = "<group>"; };
 		093A212A14BF587500497856 /* mAChuginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAChuginManager.h; path = macosx/mAChuginManager.h; sourceTree = "<group>"; };
 		093A212B14BF587500497856 /* mAChuginManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAChuginManager.mm; path = macosx/mAChuginManager.mm; sourceTree = "<group>"; };
 		093A212D14BFEF7F00497856 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -1469,6 +1476,7 @@
 				09087C6A14A4F67100AD2633 /* UIRemoveControlMinus.png */,
 				09307E2018DFEE57004AB346 /* Images.xcassets */,
 				0929B85B1D1114C300B8DE4D /* examples */,
+				093681251D42AC0C009B30AD /* icons.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2112,6 +2120,9 @@
 				09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */,
 				09D00B8514A3C44A0019CD09 /* mATitleEditorController.h */,
 				09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */,
+				093681291D42B9E6009B30AD /* mAEditingBarViewController.h */,
+				0936812A1D42B9E6009B30AD /* mAEditingBarViewController.m */,
+				093681271D42AF8A009B30AD /* mAEditingBarViewController.xib */,
 				09F09E3518E0F5AE0050D963 /* mAKeyboardButton.h */,
 				09F09E3618E0F5AE0050D963 /* mAKeyboardButton.m */,
 				099ABE4D19086DD800C5D52D /* mAKeyboardButtonAlternatives.h */,
@@ -2798,6 +2809,7 @@
 				09F09E5418E419960050D963 /* remove-noalpha.png in Resources */,
 				093E267914A14E91008694BC /* replace.png in Resources */,
 				09F0442C1918A8810028DD14 /* mALoopCountPicker.xib in Resources */,
+				093681281D42AF8A009B30AD /* mAEditingBarViewController.xib in Resources */,
 				4D3D4C921A5E37DB00B6A06B /* dsym_upload.sh in Resources */,
 				0973973E1CD2B0CE00D8B74D /* mAPreferencesViewController.xib in Resources */,
 				09E288961CEA8A08006E6AE4 /* chuck_logo_freq.png in Resources */,
@@ -2819,6 +2831,7 @@
 				093E267C14A14E91008694BC /* miniAudicle.icns in Resources */,
 				099ABE54190CF45400C5D52D /* loop.png in Resources */,
 				09D00B8414A3C4010019CD09 /* TitleEditView_iPad.xib in Resources */,
+				093681261D42AC0C009B30AD /* icons.xcassets in Resources */,
 				09F09E5318E419960050D963 /* add-noalpha.png in Resources */,
 				09AC4E1C18EC211600B2561A /* forward-100.png in Resources */,
 				09D00B8C14A44DFB0019CD09 /* mAVMMonitorController.xib in Resources */,
@@ -2979,6 +2992,7 @@
 				09B19B48199D679B00B9ADA3 /* mAPlayerContainerView.m in Sources */,
 				09307E2A18E0CDA1004AB346 /* mATextView.mm in Sources */,
 				093E264C14A12201008694BC /* chuck_shell.cpp in Sources */,
+				0936812B1D42B9E6009B30AD /* mAEditingBarViewController.m in Sources */,
 				093E264D14A12201008694BC /* chuck_stats.cpp in Sources */,
 				093E264E14A12201008694BC /* chuck_symbol.cpp in Sources */,
 				09F09E4F18E3753B0050D963 /* mAScriptPlayerTab.mm in Sources */,

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="mAEditingBarViewController">
+            <connections>
+                <outlet property="leftBar" destination="TPS-an-SQD" id="Quy-XW-drm"/>
+                <outlet property="rightBar" destination="AWB-AA-lgn" id="ynC-c8-4XU"/>
+                <outlet property="view" destination="iN0-l3-epB" id="Wom-3b-KpV"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TPS-an-SQD">
+                    <rect key="frame" x="0.0" y="0.0" width="384" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="5mG-6D-Yco"/>
+                    </constraints>
+                    <items>
+                        <barButtonItem image="UIButtonBarKeyboardUndo" id="SCX-MU-Fo2">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem image="UIButtonBarKeyboardRedo" id="r4q-IH-mzx">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem image="UIButtonBarKeyboardCut" id="DFn-SH-gea">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem image="UIButtonBarKeyboardCopy" id="1Wq-u1-WTD">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem image="UIButtonBarKeyboardPaste" id="87E-hW-LBu">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem title="Item" systemItem="flexibleSpace" id="rhM-g6-Eqv"/>
+                    </items>
+                </toolbar>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AWB-AA-lgn">
+                    <rect key="frame" x="384" y="0.0" width="384" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="97w-U6-v3Q"/>
+                    </constraints>
+                    <items>
+                        <barButtonItem title="Item" systemItem="flexibleSpace" id="ZQA-Dr-yav"/>
+                        <barButtonItem image="indent" id="kZQ-6f-SVp">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem image="indentall" id="yHM-A5-fZQ">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </items>
+                </toolbar>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="TPS-an-SQD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="2YA-fn-Vwr"/>
+                <constraint firstItem="AWB-AA-lgn" firstAttribute="width" secondItem="TPS-an-SQD" secondAttribute="width" id="8B6-mG-l71"/>
+                <constraint firstAttribute="bottom" secondItem="AWB-AA-lgn" secondAttribute="bottom" id="LYg-yD-QaT"/>
+                <constraint firstItem="AWB-AA-lgn" firstAttribute="leading" secondItem="TPS-an-SQD" secondAttribute="trailing" id="Tot-pd-MsV"/>
+                <constraint firstAttribute="trailing" secondItem="AWB-AA-lgn" secondAttribute="trailing" id="W4T-c0-f0V"/>
+                <constraint firstAttribute="bottom" secondItem="TPS-an-SQD" secondAttribute="bottom" id="eJe-WV-jw1"/>
+                <constraint firstItem="AWB-AA-lgn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="qFZ-IU-Rkm"/>
+                <constraint firstItem="TPS-an-SQD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="zYQ-tE-IYb"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="505" y="369"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="UIButtonBarKeyboardCopy" width="20" height="20"/>
+        <image name="UIButtonBarKeyboardCut" width="29" height="19"/>
+        <image name="UIButtonBarKeyboardPaste" width="19" height="21"/>
+        <image name="UIButtonBarKeyboardRedo" width="22" height="20"/>
+        <image name="UIButtonBarKeyboardUndo" width="29" height="20"/>
+        <image name="indent" width="37" height="21"/>
+        <image name="indentall" width="37" height="21"/>
+    </resources>
+</document>

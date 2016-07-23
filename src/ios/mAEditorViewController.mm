@@ -11,6 +11,7 @@
 #import "miniAudicle.h"
 #import "mAChucKController.h"
 #import "mAFileViewController.h"
+#import "mAEditingBarViewController.h"
 #import "mADetailItem.h"
 #import "mAAppDelegate.h"
 #import "mADocumentManager.h"
@@ -72,6 +73,8 @@
 
 @property (strong, nonatomic) UIPopoverController * popover;
 @property (strong, nonatomic) mATitleEditorController * titleEditor;
+
+@property (strong, nonatomic) IBOutlet mAEditingBarViewController *editingBar;
 
 - (void)setup;
 - (NSDictionary *)defaultTextAttributes;
@@ -195,8 +198,31 @@
     
     self.textView.font = [UIFont fontWithName:@"Menlo" size:14];
     
-    self.textView.inputAccessoryView = self.keyboardAccessory.view;
+    /* set up keyboard accessory view(s) */
+    CGRect frame;
+    
+    frame = self.editingBar.view.frame;
+    frame.origin = CGPointMake(0, 0);
+    frame.size = CGSizeMake(self.view.window.frame.size.width, 44);
+    self.editingBar.view.frame = frame;
+    
+    frame = self.keyboardAccessory.view.frame;
+    frame.origin = CGPointMake(0, self.editingBar.view.frame.size.height);
+    self.keyboardAccessory.view.frame = frame;
+
+    frame = CGRectMake(0, 0,
+                       self.editingBar.view.frame.size.width,
+                       self.editingBar.view.frame.size.height+self.keyboardAccessory.view.frame.size.height);
+    UIView *inputAccessoryView = [[UIView alloc] initWithFrame:frame];
+    
+    [inputAccessoryView addSubview:self.editingBar.view];
+    [inputAccessoryView addSubview:self.keyboardAccessory.view];
+    
     self.keyboardAccessory.delegate = self;
+    
+    self.textView.inputAccessoryView = inputAccessoryView;
+    
+    /* ... */
     
     self.textView.textStorage.delegate = self;
     

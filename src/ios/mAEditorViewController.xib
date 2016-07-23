@@ -14,6 +14,7 @@
                 <outlet property="_shredCountLabel" destination="8iV-kw-VLz" id="rto-9R-kGa"/>
                 <outlet property="_textView" destination="XGY-BH-Hh5" id="es0-14-oMT"/>
                 <outlet property="_titleEditor" destination="wCI-hz-oKN" id="489-fY-xr6"/>
+                <outlet property="editingBar" destination="e44-9J-zsw" id="yse-jf-JUf"/>
                 <outlet property="keyboardAccessory" destination="kOf-ba-pgT" id="qQF-EC-AJE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -174,6 +175,11 @@
         <viewController autoresizesArchivedViewToFullSize="NO" nibName="TitleEditView_iPad" id="wCI-hz-oKN" customClass="mATitleEditorController">
             <extendedEdge key="edgesForExtendedLayout"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
+        </viewController>
+        <viewController autoresizesArchivedViewToFullSize="NO" nibName="mAEditingBarViewController" id="e44-9J-zsw" customClass="mAEditingBarViewController">
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <size key="freeformSize" width="768" height="44"/>
         </viewController>
     </objects>
     <resources>
