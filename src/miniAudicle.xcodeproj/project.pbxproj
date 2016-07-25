@@ -433,6 +433,8 @@
 		09F330151D46CC7A002792BA /* Patch.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F330081D46CC7A002792BA /* Patch.m */; };
 		09F330161D46CC7A002792BA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F3300A1D46CC7A002792BA /* User.m */; };
 		09F330171D46CC7A002792BA /* FXKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F3300D1D46CC7A002792BA /* FXKeychain.m */; };
+		09F330361D46D37B002792BA /* mASocialFileViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09F330351D46D37B002792BA /* mASocialFileViewController.mm */; };
+		09F3303A1D46D4AC002792BA /* mASocialFileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09F330391D46D4AC002792BA /* mASocialFileViewController.xib */; };
 		09F376EB0BBC97D6005931F6 /* removelast.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E60BBC97D6005931F6 /* removelast.png */; };
 		09F376EC0BBC97D6005931F6 /* removeall.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E70BBC97D6005931F6 /* removeall.png */; };
 		09F376ED0BBC97D6005931F6 /* replace.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E80BBC97D6005931F6 /* replace.png */; };
@@ -1322,6 +1324,9 @@
 		09F3300A1D46CC7A002792BA /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		09F3300C1D46CC7A002792BA /* FXKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXKeychain.h; sourceTree = "<group>"; };
 		09F3300D1D46CC7A002792BA /* FXKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXKeychain.m; sourceTree = "<group>"; };
+		09F330341D46D37B002792BA /* mASocialFileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mASocialFileViewController.h; sourceTree = "<group>"; };
+		09F330351D46D37B002792BA /* mASocialFileViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mASocialFileViewController.mm; sourceTree = "<group>"; };
+		09F330391D46D4AC002792BA /* mASocialFileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mASocialFileViewController.xib; sourceTree = "<group>"; };
 		09F376E60BBC97D6005931F6 /* removelast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = removelast.png; path = macosx/icon/removelast.png; sourceTree = SOURCE_ROOT; };
 		09F376E70BBC97D6005931F6 /* removeall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = removeall.png; path = macosx/icon/removeall.png; sourceTree = SOURCE_ROOT; };
 		09F376E80BBC97D6005931F6 /* replace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = replace.png; path = macosx/icon/replace.png; sourceTree = SOURCE_ROOT; };
@@ -2248,6 +2253,9 @@
 				093E262E14A108C8008694BC /* mAFileViewController~ipad.xib */,
 				093E262514A108C8008694BC /* mAFileViewController.h */,
 				093E262614A108C8008694BC /* mAFileViewController.mm */,
+				09F330391D46D4AC002792BA /* mASocialFileViewController.xib */,
+				09F330341D46D37B002792BA /* mASocialFileViewController.h */,
+				09F330351D46D37B002792BA /* mASocialFileViewController.mm */,
 				09E9FE101D079069002A2D63 /* mADirectoryViewController.xib */,
 				09E9FE0E1D079069002A2D63 /* mADirectoryViewController.h */,
 				09E9FE0F1D079069002A2D63 /* mADirectoryViewController.mm */,
@@ -2892,6 +2900,7 @@
 				09E288841CE9C86D006E6AE4 /* AddColumn@2x.png in Resources */,
 				09E288881CE9C9E6006E6AE4 /* AddFile@2x.png in Resources */,
 				091060D81C87064800858157 /* ck.icns in Resources */,
+				09F3303A1D46D4AC002792BA /* mASocialFileViewController.xib in Resources */,
 				09F09E4118E2DAEA0050D963 /* mAPlayerViewController.xib in Resources */,
 				096D81061B40C1F800F9B9CA /* mAMasterViewController.xib in Resources */,
 				096310BF1C86F71600A36F8F /* Launch2.png in Resources */,
@@ -3069,6 +3078,7 @@
 				09F09E4F18E3753B0050D963 /* mAScriptPlayerTab.mm in Sources */,
 				093A74BD1A5E495200F54725 /* mAFileNavigationController.mm in Sources */,
 				093E264F14A12201008694BC /* chuck_table.cpp in Sources */,
+				09F330361D46D37B002792BA /* mASocialFileViewController.mm in Sources */,
 				09E288921CEA7CE6006E6AE4 /* mAAboutViewController.mm in Sources */,
 				093E265014A12201008694BC /* chuck_type.cpp in Sources */,
 				09F330171D46CC7A002792BA /* FXKeychain.m in Sources */,

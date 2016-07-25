@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="mASocialFileViewController">
+            <connections>
+                <outlet property="_loadingStatusLabel" destination="euA-IP-ArE" id="WQd-5n-jhz"/>
+                <outlet property="_loadingView" destination="GwX-6L-dln" id="ZP2-7P-p8A"/>
+                <outlet property="_tableView" destination="2" id="12"/>
+                <outlet property="tableView" destination="2" id="c5s-Xg-ckG"/>
+                <outlet property="view" destination="6" id="11"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="6">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="1024"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="2">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="1024"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="4"/>
+                        <outlet property="delegate" destination="-1" id="5"/>
+                    </connections>
+                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GwX-6L-dln">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="1024"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="5MY-Wc-cm2">
+                            <rect key="frame" x="142" y="250" width="37" height="37"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="37" id="HnJ-AE-tQ8"/>
+                                <constraint firstAttribute="height" constant="37" id="bBw-Do-khc"/>
+                            </constraints>
+                        </activityIndicatorView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euA-IP-ArE">
+                            <rect key="frame" x="8" y="189" width="304" height="53"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="53" id="6EV-aF-4mA"/>
+                            </constraints>
+                            <string key="text">Loading
+Stuff</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.25" alpha="0.5" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="5MY-Wc-cm2" firstAttribute="top" secondItem="euA-IP-ArE" secondAttribute="bottom" constant="8" id="8Xx-bD-aiW"/>
+                        <constraint firstAttribute="trailing" secondItem="euA-IP-ArE" secondAttribute="trailing" constant="8" id="WG4-Yf-7aa"/>
+                        <constraint firstItem="5MY-Wc-cm2" firstAttribute="centerX" secondItem="GwX-6L-dln" secondAttribute="centerX" id="cVV-Rt-DTw"/>
+                        <constraint firstItem="euA-IP-ArE" firstAttribute="leading" secondItem="GwX-6L-dln" secondAttribute="leading" constant="8" id="rco-Px-aAQ"/>
+                        <constraint firstItem="5MY-Wc-cm2" firstAttribute="top" secondItem="GwX-6L-dln" secondAttribute="top" constant="250" id="yCB-QB-QyZ"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="GwX-6L-dln" firstAttribute="top" secondItem="6" secondAttribute="top" id="0ht-Ey-Hd5"/>
+                <constraint firstAttribute="trailing" secondItem="GwX-6L-dln" secondAttribute="trailing" id="3vp-bg-amM"/>
+                <constraint firstAttribute="bottom" secondItem="2" secondAttribute="bottom" id="G5U-mo-hK8"/>
+                <constraint firstItem="2" firstAttribute="leading" secondItem="6" secondAttribute="leading" id="PiD-5L-Rsb"/>
+                <constraint firstItem="GwX-6L-dln" firstAttribute="leading" secondItem="6" secondAttribute="leading" id="Tdf-U4-hez"/>
+                <constraint firstAttribute="bottom" secondItem="GwX-6L-dln" secondAttribute="bottom" id="rVh-Om-c8Z"/>
+                <constraint firstAttribute="trailing" secondItem="2" secondAttribute="trailing" id="ubH-f4-4Gr"/>
+                <constraint firstItem="2" firstAttribute="top" secondItem="6" secondAttribute="top" id="ywX-wd-yLU"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

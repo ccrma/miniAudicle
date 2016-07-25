@@ -9,6 +9,7 @@
 #import "mAFileNavigationController.h"
 #import "mADocumentManager.h"
 #import "mAFileViewController.h"
+#import "mASocialFileViewController.h"
 #import "mADocumentManager.h"
 #import "mAAnalytics.h"
 
@@ -23,7 +24,7 @@
 @property (strong, nonatomic) mAFileViewController *myScriptsViewController;
 @property (strong, nonatomic) mAFileViewController *recentViewController;
 @property (strong, nonatomic) mAFileViewController *examplesViewController;
-@property (strong, nonatomic) mAFileViewController *sharedViewController;
+@property (strong, nonatomic) mASocialFileViewController *sharedViewController;
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 
@@ -41,6 +42,7 @@
     self.myScriptsViewController.detailViewController = self.detailViewController;
     self.recentViewController.detailViewController = self.detailViewController;
     self.examplesViewController.detailViewController = self.detailViewController;
+    self.sharedViewController.detailViewController = self.detailViewController;
 }
 
 - (void)viewDidLoad
@@ -59,14 +61,13 @@
     self.recentViewController.folder = [[mADocumentManager manager] recentFilesFolderItem];
     self.recentViewController.editable = NO;
     
-    self.sharedViewController = [[mAFileViewController alloc] initWithNibName:@"mAFileViewController" bundle:nil];
-    self.recentViewController.folder = nil;
-    self.recentViewController.editable = NO;
+    self.sharedViewController = [[mASocialFileViewController alloc] initWithNibName:@"mASocialFileViewController" bundle:nil];
     
     self.myScriptsViewController.detailViewController = self.detailViewController;
     self.recentViewController.detailViewController = self.detailViewController;
     self.examplesViewController.detailViewController = self.detailViewController;
-    
+    self.sharedViewController.detailViewController = self.detailViewController;
+
     [self.navigationController pushViewController:self.myScriptsViewController animated:NO];
     self.navigationController.navigationBar.translucent = NO;
 
@@ -74,11 +75,6 @@
     _childNavigationController.view.frame = self.contentView.bounds;
     [self.contentView addSubview:_childNavigationController.view];
     [self.childNavigationController setViewControllers:@[self.myScriptsViewController] animated:NO];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(recentFilesChanged:)
-                                                 name:mADocumentManagerRecentFilesChanged
-                                               object:[mADocumentManager manager]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -120,11 +116,6 @@
         [_childNavigationController setNavigationBarHidden:YES animated:animated];
     else
         [_childNavigationController setNavigationBarHidden:NO animated:animated];
-}
-
-- (void)recentFilesChanged:(NSNotification *)n
-{
-//    [self.recentViewController scriptsChanged];
 }
 
 
