@@ -247,16 +247,6 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 }
 
 
-//- (void)scriptDetailChanged
-//{
-////    int row = [self selectedScript];
-////    [self.tableView reloadData];
-////    [self selectScript:row];
-//    
-//    // reload name
-//    [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]].textLabel.text = self.editorViewController.detailItem.title;
-//}
-
 - (void)scriptsChanged
 {
     // force reload
@@ -269,36 +259,6 @@ static NSString *FolderCellIdentifier = @"FolderCell";
     
     if(self.editable)
     {
-//        self.addButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//        [self.addButton setImage:[UIImage imageNamed:@"AddFile"] forState:UIControlStateNormal];
-//        [self.addButton sizeToFit];
-//        CGRect frame = self.addButton.frame;
-//        frame.size.width *= 1.5;
-//        [self.addButton setFrame:frame];
-//        self.addButton.titleLabel.font = [UIFont systemFontOfSize:38 weight:UIFontWeightUltraLight];
-//        self.addButton.titleLabel.textColor = self.view.tintColor;
-//        [self.addButton addTarget:self action:@selector(newScript) forControlEvents:UIControlEventTouchUpInside];
-//        
-//        UIButton *_addFolderButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//        [_addFolderButton setImage:[UIImage imageNamed:@"AddFolder"] forState:UIControlStateNormal];
-//        [_addFolderButton sizeToFit];
-//        frame = _addFolderButton.frame;
-//        frame.size.width *= 1.5;
-//        [_addFolderButton setFrame:frame];
-//        [_addFolderButton addTarget:self action:@selector(newFolder) forControlEvents:UIControlEventTouchUpInside];
-//        
-//        navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:self.addButton],
-//                                               [[UIBarButtonItem alloc] initWithCustomView:_addFolderButton]];
-        
-//        navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddFile"]
-//                                                                                style:UIBarButtonItemStylePlain
-//                                                                               target:self
-//                                                                               action:@selector(newScript)],
-//                                               [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddFolder"]
-//                                                                                style:UIBarButtonItemStylePlain
-//                                                                               target:self
-//                                                                               action:@selector(newFolder)]];
-        
         if(self.editButton == nil)
             self.editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
                                                                style:UIBarButtonItemStylePlain
@@ -325,9 +285,6 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 
 - (IBAction)newScript
 {
-    //    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:insertIndex inSection:0]
-    //                                animated:YES
-    //                          scrollPosition:UITableViewScrollPositionNone];
     [[mAAnalytics instance] createNewScript];
     
     mADocumentManager *manager = [mADocumentManager manager];
@@ -341,20 +298,6 @@ static NSString *FolderCellIdentifier = @"FolderCell";
     mADocumentManager *manager = [mADocumentManager manager];
     [manager newFolderUnderParent:self.folder];
 }
-
-//- (IBAction)openAddMenu
-//{
-//    if(self.addMenu == nil)
-//    {
-//        QBPopupMenuItem *addScriptItem = [QBPopupMenuItem itemWithTitle:@"Script" target:self action:@selector(newScript)];
-//        QBPopupMenuItem *addFolderItem = [QBPopupMenuItem itemWithTitle:@"Folder" target:self action:@selector(newFolder)];
-//        
-//        self.addMenu = [[QBPopupMenu alloc] initWithItems:@[addScriptItem, addFolderItem]];
-//        self.addMenu.arrowDirection = QBPopupMenuArrowDirectionRight;
-//    }
-//    
-//    [self.addMenu showInView:self.addButton.superview targetRect:self.addButton.frame animated:YES];
-//}
 
 - (IBAction)toggleEditingScripts
 {
@@ -606,66 +549,6 @@ static NSString *FolderCellIdentifier = @"FolderCell";
     
     return cell;
 }
-
-//- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if(_defaultRowActions == nil)
-//    {
-//        UITableViewRowAction *moveAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal
-//                                                                              title:@"Move"
-//                                                                            handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-//                                                                                
-//                                                                            }];
-//        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive
-//                                                                                title:@"Delete"
-//                                                                              handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-//                                                                                  
-//                                                                              }];
-//        _defaultRowActions = @[moveAction, deleteAction];
-//    }
-//    
-//    return _defaultRowActions;
-//}
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    int index = indexPath.row;
-    mADetailItem *detailItem = [self.folder.folderItems objectAtIndex:index];
-    
-    return detailItem.isFolder;
-}
-*/
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source.
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
