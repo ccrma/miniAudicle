@@ -423,16 +423,6 @@
 		09F09E5518E419960050D963 /* replace-noalpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F09E5218E419960050D963 /* replace-noalpha.png */; };
 		09F09E5818E41F2C0050D963 /* mADetailItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09F09E5718E41F2C0050D963 /* mADetailItem.mm */; };
 		09F2D4681CEC7C7B006E488B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F2D4671CEC7C7B006E488B /* CoreLocation.framework */; };
-		09F3300E1D46CC7A002792BA /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F32FF81D46CC7A002792BA /* AFHTTPSessionManager.m */; };
-		09F3300F1D46CC7A002792BA /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F32FFB1D46CC7A002792BA /* AFNetworkReachabilityManager.m */; };
-		09F330101D46CC7A002792BA /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F32FFD1D46CC7A002792BA /* AFSecurityPolicy.m */; };
-		09F330111D46CC7A002792BA /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F32FFF1D46CC7A002792BA /* AFURLRequestSerialization.m */; };
-		09F330121D46CC7A002792BA /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F330011D46CC7A002792BA /* AFURLResponseSerialization.m */; };
-		09F330131D46CC7A002792BA /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F330031D46CC7A002792BA /* AFURLSessionManager.m */; };
-		09F330141D46CC7A002792BA /* ChuckPadSocial.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F330061D46CC7A002792BA /* ChuckPadSocial.m */; };
-		09F330151D46CC7A002792BA /* Patch.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F330081D46CC7A002792BA /* Patch.m */; };
-		09F330161D46CC7A002792BA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F3300A1D46CC7A002792BA /* User.m */; };
-		09F330171D46CC7A002792BA /* FXKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F3300D1D46CC7A002792BA /* FXKeychain.m */; };
 		09F330361D46D37B002792BA /* mASocialFileViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09F330351D46D37B002792BA /* mASocialFileViewController.mm */; };
 		09F3303A1D46D4AC002792BA /* mASocialFileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09F330391D46D4AC002792BA /* mASocialFileViewController.xib */; };
 		09F376EB0BBC97D6005931F6 /* removelast.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E60BBC97D6005931F6 /* removelast.png */; };
@@ -1303,27 +1293,6 @@
 		09F09E5618E41F2C0050D963 /* mADetailItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mADetailItem.h; sourceTree = "<group>"; };
 		09F09E5718E41F2C0050D963 /* mADetailItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mADetailItem.mm; sourceTree = "<group>"; };
 		09F2D4671CEC7C7B006E488B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
-		09F32FF71D46CC7A002792BA /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
-		09F32FF81D46CC7A002792BA /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
-		09F32FF91D46CC7A002792BA /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
-		09F32FFA1D46CC7A002792BA /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
-		09F32FFB1D46CC7A002792BA /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
-		09F32FFC1D46CC7A002792BA /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
-		09F32FFD1D46CC7A002792BA /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
-		09F32FFE1D46CC7A002792BA /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLRequestSerialization.h; sourceTree = "<group>"; };
-		09F32FFF1D46CC7A002792BA /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLRequestSerialization.m; sourceTree = "<group>"; };
-		09F330001D46CC7A002792BA /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLResponseSerialization.h; sourceTree = "<group>"; };
-		09F330011D46CC7A002792BA /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
-		09F330021D46CC7A002792BA /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
-		09F330031D46CC7A002792BA /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
-		09F330051D46CC7A002792BA /* ChuckPadSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChuckPadSocial.h; sourceTree = "<group>"; };
-		09F330061D46CC7A002792BA /* ChuckPadSocial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChuckPadSocial.m; sourceTree = "<group>"; };
-		09F330071D46CC7A002792BA /* Patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Patch.h; sourceTree = "<group>"; };
-		09F330081D46CC7A002792BA /* Patch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Patch.m; sourceTree = "<group>"; };
-		09F330091D46CC7A002792BA /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		09F3300A1D46CC7A002792BA /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		09F3300C1D46CC7A002792BA /* FXKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXKeychain.h; sourceTree = "<group>"; };
-		09F3300D1D46CC7A002792BA /* FXKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXKeychain.m; sourceTree = "<group>"; };
 		09F330341D46D37B002792BA /* mASocialFileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mASocialFileViewController.h; sourceTree = "<group>"; };
 		09F330351D46D37B002792BA /* mASocialFileViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mASocialFileViewController.mm; sourceTree = "<group>"; };
 		09F330391D46D4AC002792BA /* mASocialFileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mASocialFileViewController.xib; sourceTree = "<group>"; };
@@ -2303,53 +2272,8 @@
 		09F32FF51D46CC7A002792BA /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				09F32FF61D46CC7A002792BA /* AFNetworking */,
-				09F3300B1D46CC7A002792BA /* FXKeychain */,
-				09F330041D46CC7A002792BA /* chuckpad-social */,
 			);
 			path = libs;
-			sourceTree = "<group>";
-		};
-		09F32FF61D46CC7A002792BA /* AFNetworking */ = {
-			isa = PBXGroup;
-			children = (
-				09F32FF71D46CC7A002792BA /* AFHTTPSessionManager.h */,
-				09F32FF81D46CC7A002792BA /* AFHTTPSessionManager.m */,
-				09F32FF91D46CC7A002792BA /* AFNetworking.h */,
-				09F32FFA1D46CC7A002792BA /* AFNetworkReachabilityManager.h */,
-				09F32FFB1D46CC7A002792BA /* AFNetworkReachabilityManager.m */,
-				09F32FFC1D46CC7A002792BA /* AFSecurityPolicy.h */,
-				09F32FFD1D46CC7A002792BA /* AFSecurityPolicy.m */,
-				09F32FFE1D46CC7A002792BA /* AFURLRequestSerialization.h */,
-				09F32FFF1D46CC7A002792BA /* AFURLRequestSerialization.m */,
-				09F330001D46CC7A002792BA /* AFURLResponseSerialization.h */,
-				09F330011D46CC7A002792BA /* AFURLResponseSerialization.m */,
-				09F330021D46CC7A002792BA /* AFURLSessionManager.h */,
-				09F330031D46CC7A002792BA /* AFURLSessionManager.m */,
-			);
-			path = AFNetworking;
-			sourceTree = "<group>";
-		};
-		09F330041D46CC7A002792BA /* chuckpad-social */ = {
-			isa = PBXGroup;
-			children = (
-				09F330051D46CC7A002792BA /* ChuckPadSocial.h */,
-				09F330061D46CC7A002792BA /* ChuckPadSocial.m */,
-				09F330071D46CC7A002792BA /* Patch.h */,
-				09F330081D46CC7A002792BA /* Patch.m */,
-				09F330091D46CC7A002792BA /* User.h */,
-				09F3300A1D46CC7A002792BA /* User.m */,
-			);
-			path = "chuckpad-social";
-			sourceTree = "<group>";
-		};
-		09F3300B1D46CC7A002792BA /* FXKeychain */ = {
-			isa = PBXGroup;
-			children = (
-				09F3300C1D46CC7A002792BA /* FXKeychain.h */,
-				09F3300D1D46CC7A002792BA /* FXKeychain.m */,
-			);
-			path = FXKeychain;
 			sourceTree = "<group>";
 		};
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
@@ -3060,7 +2984,6 @@
 				09400F351C903FD400C1E52E /* KVOMutableArrayObserver.m in Sources */,
 				09F0442B1918A8810028DD14 /* mALoopCountPicker.m in Sources */,
 				0921D56A18190216008F39D9 /* server_thread.c in Sources */,
-				09F330121D46CC7A002792BA /* AFURLResponseSerialization.m in Sources */,
 				09F09E3B18E2C5E60050D963 /* mAEditorViewController.mm in Sources */,
 				09094DC81991BC4A009F4C4C /* UIAlert.m in Sources */,
 				094B5F6719C9DBE0004B9B5E /* ulib_motion.mm in Sources */,
@@ -3081,13 +3004,10 @@
 				09F330361D46D37B002792BA /* mASocialFileViewController.mm in Sources */,
 				09E288921CEA7CE6006E6AE4 /* mAAboutViewController.mm in Sources */,
 				093E265014A12201008694BC /* chuck_type.cpp in Sources */,
-				09F330171D46CC7A002792BA /* FXKeychain.m in Sources */,
 				093E265114A12201008694BC /* chuck_ugen.cpp in Sources */,
 				093E265214A12201008694BC /* chuck_utils.cpp in Sources */,
 				093E265314A12201008694BC /* chuck_vm.cpp in Sources */,
 				09664B8D19905A7300AE0B6B /* mAConnectViewController.m in Sources */,
-				09F330161D46CC7A002792BA /* User.m in Sources */,
-				09F330101D46CC7A002792BA /* AFSecurityPolicy.m in Sources */,
 				09094DCB199406C5009F4C4C /* mANetworkRoomView.m in Sources */,
 				09C7585E1C83CBE300B1324C /* mAAnalytics.m in Sources */,
 				099ABE4F19086DD800C5D52D /* mAKeyboardButtonAlternatives.m in Sources */,
@@ -3103,13 +3023,10 @@
 				093E265714A12234008694BC /* hidio_sdl.cpp in Sources */,
 				0921D56218190216008F39D9 /* method.c in Sources */,
 				093E265814A12234008694BC /* midiio_rtmidi.cpp in Sources */,
-				09F330131D46CC7A002792BA /* AFURLSessionManager.m in Sources */,
 				093E265914A12234008694BC /* ugen_filter.cpp in Sources */,
 				093E265A14A12234008694BC /* ugen_osc.cpp in Sources */,
-				09F330151D46CC7A002792BA /* Patch.m in Sources */,
 				09400F361C903FD400C1E52E /* NSObject+BlockObservation.m in Sources */,
 				096310BA1C86B96300A36F8F /* NSString+Hash.m in Sources */,
-				09F3300E1D46CC7A002792BA /* AFHTTPSessionManager.m in Sources */,
 				09F09E4018E2DAEA0050D963 /* mAPlayerViewController.mm in Sources */,
 				093E265B14A12234008694BC /* ugen_stk.cpp in Sources */,
 				099ABE52190CCA2D00C5D52D /* mAOTFButton.m in Sources */,
@@ -3128,7 +3045,6 @@
 				093E266114A12234008694BC /* util_buffers.cpp in Sources */,
 				097397361CD2B00000D8B74D /* mAPreferencesViewController.m in Sources */,
 				09F09E4518E36DBC0050D963 /* mAScriptPlayer.mm in Sources */,
-				09F3300F1D46CC7A002792BA /* AFNetworkReachabilityManager.m in Sources */,
 				093E266214A12234008694BC /* util_console.cpp in Sources */,
 				093E266314A12234008694BC /* util_hid.cpp in Sources */,
 				093E266414A12234008694BC /* util_math.c in Sources */,
@@ -3137,7 +3053,6 @@
 				093E266714A12234008694BC /* util_raw.c in Sources */,
 				09307E1F18DFB5E7004AB346 /* mASyntaxHighlighter.mm in Sources */,
 				093E266814A12234008694BC /* util_sndfile.c in Sources */,
-				09F330141D46CC7A002792BA /* ChuckPadSocial.m in Sources */,
 				09AB222F196FC4670037AF73 /* mADocumentManager.m in Sources */,
 				093E266914A12234008694BC /* util_string.cpp in Sources */,
 				093E266A14A12234008694BC /* util_thread.cpp in Sources */,
@@ -3151,7 +3066,6 @@
 				09D00B8714A3C44B0019CD09 /* mATitleEditorController.m in Sources */,
 				0921D56418190216008F39D9 /* pattern_match.c in Sources */,
 				0985624F1CE7FE1F00FCBF21 /* mAFolderTableViewCell.m in Sources */,
-				09F330111D46CC7A002792BA /* AFURLRequestSerialization.m in Sources */,
 				096BFF811CD363C6006653F5 /* mAPreferences.m in Sources */,
 				09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */,
 				09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.mm in Sources */,
