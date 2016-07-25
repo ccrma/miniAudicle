@@ -4,3 +4,6 @@
 [submodule "src/chugins"]
 	path = src/chugins
 	url = https://github.com/ccrma/chugins.git
+[submodule "src/libs/chuckpad-social"]
+	path = src/libs/chuckpad-social
+	url = git@github.com:markcerqueira/chuckpad-social-ios.git
