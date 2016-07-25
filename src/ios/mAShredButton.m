@@ -64,7 +64,7 @@
     
     CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     CGFloat radius = self.bounds.size.width/2;
-    CGFloat leadAngle = -M_PI*0.5f + 2.0f*M_PI*(t/60.0f);
+    // CGFloat leadAngle = -M_PI*0.5f + 2.0f*M_PI*(t/60.0f);
 
     CGContextAddEllipseInRect(ctx, self.bounds);
     CGContextClip(ctx);

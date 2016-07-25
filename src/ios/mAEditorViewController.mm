@@ -25,9 +25,20 @@
 
 @interface NSString (CharacterEnumeration)
 
-- (void)enumerateCharacters:(BOOL (^)(int pos, unichar c))block
-               fromPosition:(NSInteger)index
-                    reverse:(BOOL)reverse;
+/**
+ * Enumerate characters of the string with the specified block.
+ * @param block A block taking the current position in the string and the character at that
+ *              position. This should return YES to continue enumeration or NO to stop it.
+ * @param fromPosition The position in the string to start at.
+ * @param reverse Whether to enumerate in reverse or forward direction.
+ */
+- (void)enumerateCharacters:(BOOL (^)(int pos, unichar c))block fromPosition:(NSInteger)index reverse:(BOOL)reverse;
+
+/**
+ * Enumerate characters of the string with the specified block.
+ * @param block A block taking the current position in the string and the character at that
+ *              position. This should return YES to continue enumeration or NO to stop it.
+ */
 - (void)enumerateCharacters:(BOOL (^)(int pos, unichar c))block;
 
 @end
@@ -51,6 +62,9 @@
     mATextCompletionView *_textCompletionView;
     
     IBOutlet UILabel *_shredCountLabel;
+    IBOutlet UIButton *_addButton;
+    IBOutlet UIButton *_replaceButton;
+    IBOutlet UIButton *_removeButton;
 }
 
 @property (strong, nonatomic) mATextView * textView;
@@ -67,9 +81,10 @@
 - (void)showCompletions:(NSArray *)completions forTextRange:(NSRange)range;
 - (void)hideCompletions;
 - (void)completeText:(id)sender;
-- (int)indentationForTextPosition:(int)position
+- (int)indentationForTextPosition:(NSUInteger)position
                      bracketLevel:(int)bracketLevel
                        parenLevel:(int)parenLevel;
+- (NSInteger)tabSize;
 
 @end
 
@@ -120,15 +135,24 @@
             // save text
             [self saveScript];
             [[mAAppDelegate appDelegate] saveScripts];
+            
+            [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                            name:mADetailItemDeletedNotification
+                                                          object:_detailItem];
         }
         
         _detailItem = newDetailItem;
         
-        self.textView.errorMessage = nil;
-        self.textView.errorLine = -1;
-        
         // Update the view.
         [self configureView];
+        
+        if(_detailItem)
+        {
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(detailItemWasDeleted:)
+                                                         name:mADetailItemDeletedNotification
+                                                       object:_detailItem];
+        }
     }
 }
 
@@ -222,16 +246,23 @@
     
     if(self.detailItem)
     {
+        self.textView.editable = YES;
+        _addButton.enabled = YES;
+        _replaceButton.enabled = YES;
+        _removeButton.enabled = YES;
+
         self.titleButton.title = self.detailItem.title;
         if(self.detailItem.isUser)
         {
             self.titleButton.enabled = YES;
+            // set default attributes (blue text color)
             [self.titleButton setTitleTextAttributes:@{ }
                                             forState:UIControlStateNormal];
         }
         else
         {
             self.titleButton.enabled = NO;
+            // set black text color
             [self.titleButton setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor blackColor], }
                                             forState:UIControlStateNormal];
         }
@@ -243,14 +274,47 @@
         _lockAutoFormat = YES;
         self.textView.attributedText = text;
         _lockAutoFormat = NO;
-        
-        _dirty = NO;
-        
-        if(self.detailItem.numShreds > 0)
-            _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
-        else
-            _shredCountLabel.text = @"";
     }
+    else
+    {
+        self.textView.editable = NO;
+        _addButton.enabled = NO;
+        _replaceButton.enabled = NO;
+        _removeButton.enabled = NO;
+        
+        self.titleButton.title = @"";
+        self.titleButton.enabled = NO;
+        [self.titleButton setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor blackColor], }
+                                        forState:UIControlStateNormal];
+        
+        NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@""
+                                                                                 attributes:[self defaultTextAttributes]];
+
+        _lockAutoFormat = YES;
+        self.textView.attributedText = text;
+        _lockAutoFormat = NO;
+    }
+    
+    self.textView.errorMessage = nil;
+    self.textView.errorLine = -1;
+    
+    _dirty = NO;
+    
+//    if(self.detailItem.numShreds > 0)
+//        _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
+//    else
+//        _shredCountLabel.text = @"";
+    _shredCountLabel.text = @"";
+}
+
+- (void)detailItemWasDeleted:(NSNotification *)n
+{
+    self.detailItem = nil;
+}
+
+- (NSInteger)tabSize
+{
+    return 4;
 }
 
 
@@ -294,11 +358,11 @@
         self.textView.errorMessage = nil;
         [self.textView animateAdd];
         
-        self.detailItem.numShreds = self.detailItem.numShreds+1;
-        if(self.detailItem.numShreds > 0)
-            _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
-        else
-            _shredCountLabel.text = @"";
+//        self.detailItem.numShreds = self.detailItem.numShreds+1;
+//        if(self.detailItem.numShreds > 0)
+//            _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
+//        else
+//            _shredCountLabel.text = @"";
     }
     else if( otf_result == OTF_VM_TIMEOUT )
     {
@@ -408,11 +472,11 @@
     {
         [self.textView animateRemove];
         
-        self.detailItem.numShreds = self.detailItem.numShreds-1;
-        if(self.detailItem.numShreds > 0)
-            _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
-        else
-            _shredCountLabel.text = @"";
+//        self.detailItem.numShreds = self.detailItem.numShreds-1;
+//        if(self.detailItem.numShreds > 0)
+//            _shredCountLabel.text = [NSString stringWithFormat:@"%lu", self.detailItem.numShreds];
+//        else
+//            _shredCountLabel.text = @"";
     }
     else if(result == OTF_VM_TIMEOUT)
     {
@@ -423,6 +487,39 @@
     }
 }
 
+- (IBAction)removeLastShred
+{
+    std::string output;
+    t_OTF_RESULT result = [mAChucKController chuckController].ma->removelast(self.detailItem.docid, output);
+    
+    if(result == OTF_SUCCESS)
+    {
+    }
+    else if(result == OTF_VM_TIMEOUT)
+    {
+    }
+    else
+    {
+        [self.textView animateError];
+    }
+}
+
+- (IBAction)removeAllShreds
+{
+    std::string output;
+    t_OTF_RESULT result = [mAChucKController chuckController].ma->removeall(self.detailItem.docid, output);
+    
+    if(result == OTF_SUCCESS)
+    {
+    }
+    else if(result == OTF_VM_TIMEOUT)
+    {
+    }
+    else
+    {
+        [self.textView animateError];
+    }
+}
 
 - (IBAction)editTitle:(id)sender
 {
@@ -572,7 +669,7 @@
     }
 }
 
-- (int)indentationForTextPosition:(int)position
+- (int)indentationForTextPosition:(NSUInteger)position
                      bracketLevel:(int)bracketLevel
                        parenLevel:(int)parenLevel
 {
@@ -637,8 +734,8 @@
             return 0;
     }
     
-    int addSpace = (braceCount>0 ? braceCount : 0) *4;
-    int removeSpace = (brace1Count<0 ? brace1Count : 0) *4;
+    int addSpace = (braceCount>0 ? braceCount : 0) * self.tabSize;
+    int removeSpace = (brace1Count<0 ? brace1Count : 0) * self.tabSize;
     
     if(newline2Index == -1) return addSpace;
     
@@ -659,22 +756,36 @@
               range:(NSRange)editedRange
      changeInLength:(NSInteger)delta
 {
-//    if(_lockAutoFormat || !(editedMask & NSTextStorageEditedCharacters))
-//        return;
     if(_lockAutoFormat)
         return;
+    
+    NSLog(@"textStorageWillProcessEditing %li:%li ∂:%li",
+          editedRange.location, editedRange.length, delta );
+    
+    if(editedRange.length == 0)
+        [self textStorageRemovedText:textStorage range:editedRange];
+    else if(editedRange.length == delta)
+        [self textStorageAddedText:textStorage range:editedRange];
+    else
+        [self textStorageReplacedText:textStorage range:editedRange];
+}
+
+- (void)textStorageAddedText:(NSTextStorage *)textStorage
+                       range:(NSRange)editedRange
+{
+    // any characters are inserted before the editing is processed
     
     // scan for newline or close brace
     // add/remove indentation as needed
     int charDelta = 0;
     for(int i = 0; i < editedRange.length && editedRange.location + i < [textStorage length]; i++)
     {
-        int index = editedRange.location + i;
+        NSUInteger index = editedRange.location + i;
         unichar c = [[textStorage string] characterAtIndex:index];
         if(c == '\n' || c == '\r')
         {
             int nSpaces = [self indentationForTextPosition:index+1 bracketLevel:0 parenLevel:0];
-//            NSLog(@"%d spaces", nSpaces);
+            //            NSLog(@"%d spaces", nSpaces);
             if(nSpaces != 0)
             {
                 charDelta += nSpaces;
@@ -682,7 +793,7 @@
                                                      withString:@" "
                                                 startingAtIndex:0];
                 // TODO: replace spaces after \n instead of blind insert
-                __block int endSpacePos = [textStorage length];
+                __block NSUInteger endSpacePos = [textStorage length];
                 [[textStorage string] enumerateCharacters:^BOOL(int pos, unichar c) {
                     if(c == ' ' || c == '\t') return YES;
                     endSpacePos = pos;
@@ -690,22 +801,41 @@
                 } fromPosition:index+1 reverse:NO];
                 [textStorage replaceCharactersInRange:NSMakeRange(index+1, endSpacePos-(index+1)) withString:spaces];
                 i += nSpaces;
+                index += nSpaces;
                 editedRange.length += nSpaces;
             }
+            
+            // check next character, if its past the edited range
+            if(index+1 < [textStorage length] && i+1 >= editedRange.length)
+            {
+                unichar cc = [[textStorage string] characterAtIndex:index+1];
+                if(cc == '}')
+                {
+                    // add another newline
+                    [textStorage replaceCharactersInRange:NSMakeRange(index+1, 0) withString:@"\n"];
+                    
+                    // add spaces
+                    int nSpaces2 = ::max<NSInteger>(0, nSpaces-self.tabSize);
+                    NSString *spaces = [@"" stringByPaddingToLength:nSpaces2
+                                                         withString:@" "
+                                                    startingAtIndex:0];
+                    [textStorage replaceCharactersInRange:NSMakeRange(index+2, 0) withString:spaces];
+                }
+            }
         }
-        if(c == '}')
+        else if(c == '}')
         {
             // remove spaces
             int nSpaces = [self indentationForTextPosition:index+1 bracketLevel:0 parenLevel:0];
             //nSpaces = ::max(0, nSpaces-4);
-//            int newlineIndexPlus1 = [[textStorage string] indexOfPreviousNewline:index]+1;
-//            
+            //            int newlineIndexPlus1 = [[textStorage string] indexOfPreviousNewline:index]+1;
+            //
             NSRange wsRange = [[textStorage string] rangeOfLeadingWhitespace:index];
             charDelta += nSpaces-wsRange.length;
             NSString *spaces = [@"" stringByPaddingToLength:nSpaces
                                                  withString:@" "
                                             startingAtIndex:0];
-//            [textStorage replaceCharactersInRange:NSMakeRange(newlineIndexPlus1, index-newlineIndexPlus1) withString:spaces];
+            //            [textStorage replaceCharactersInRange:NSMakeRange(newlineIndexPlus1, index-newlineIndexPlus1) withString:spaces];
             [textStorage replaceCharactersInRange:wsRange withString:spaces];
             editedRange.location += nSpaces-wsRange.length;
         }
@@ -714,7 +844,7 @@
     NSRange selectedRange = self.textView.selectedRange;
     if(charDelta != 0)
     {
-//        NSLog(@"charDelta: %d", charDelta);
+        //        NSLog(@"charDelta: %d", charDelta);
         if(selectedRange.length == 0)
             self.textView.selectedRange = NSMakeRange(selectedRange.location+charDelta, 0);
         else
@@ -722,6 +852,17 @@
     }
 }
 
+- (void)textStorageReplacedText:(NSTextStorage *)textStorage
+                          range:(NSRange)editedRange
+{
+    
+}
+
+- (void)textStorageRemovedText:(NSTextStorage *)textStorage
+                         range:(NSRange)editedRange
+{
+    
+}
 
 - (void)textStorage:(NSTextStorage *)textStorage
   didProcessEditing:(NSTextStorageEditActions)editedMask
@@ -730,6 +871,8 @@
 {
     if(_lockAutoFormat)
         return;
+    
+    // syntax highlighting and autocomplete is done after the editing is processed
     
     NSUInteger start_index, line_end_index, contents_end_index;
     [[textStorage string] getLineStart:&start_index
@@ -876,10 +1019,110 @@
 
 #pragma mark - UITextViewDelegate
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)replacementText
 {
-    if([text isEqualToString:@". "] && range.location != [textView selectedRange].location)
+    // override/disable automatic spacing of .
+    if([replacementText isEqualToString:@". "] && range.location != [textView selectedRange].location)
         return NO;
+    
+    NSString *text = [textView text];
+//    NSString *textToChange = [[textView text] substringWithRange:range];
+    
+    // deletion of a character
+    if([replacementText length] == 0 && range.length == 1)
+    {
+        unichar deletedChar = [text characterAtIndex:range.location];
+        
+        // if there are any more characters after the deleted one
+        if(range.location+1 < [text length])
+        {
+            unichar nextChar = [text characterAtIndex:range.location+1];
+            // if the deleted character is { and the next character is a } delete that too
+            if(deletedChar == '{' && nextChar == '}')
+                [[textView textStorage] deleteCharactersInRange:NSMakeRange(range.location+1, 1)];
+            // if the deleted character is [ and the next character is a ] delete that too
+            else if(deletedChar == '[' && nextChar == ']')
+                [[textView textStorage] deleteCharactersInRange:NSMakeRange(range.location+1, 1)];
+            // if the deleted character is ( and the next character is a ) delete that too
+            else if(deletedChar == '(' && nextChar == ')')
+                [[textView textStorage] deleteCharactersInRange:NSMakeRange(range.location+1, 1)];
+        }
+
+        // delete to next tab stop in leading whitespace
+        if(deletedChar == ' ')
+        {
+            // count backwards amount of whitespace
+            // if a tab is found before a tabs worth of space, delete to that tab
+            __block int nSpaces = 0;
+            __block BOOL isLeading = NO;
+            [text enumerateCharacters:^BOOL(int pos, unichar c) {
+                if(c == ' ') { nSpaces++; return YES; }
+                else if(c == '\n' || c == '\r') { isLeading = YES; return NO; }
+                else { return NO; }
+            } fromPosition:range.location reverse:YES];
+            
+            if(isLeading)
+            {
+                // round to next lowest multiple of tab size
+                int tabSize = self.tabSize;
+                int remainder = nSpaces % tabSize;
+                int nTargetSpaces = remainder ? nSpaces-remainder : nSpaces-tabSize;
+                int spacesToDelete = nSpaces - nTargetSpaces;
+                if(spacesToDelete > 0)
+                {
+                    NSLog(@"deleting leading whitespace");
+                    // move cursor
+                    NSRange selectionRange = self.textView.selectedRange;
+                    selectionRange.location -= spacesToDelete;
+                    self.textView.selectedRange = selectionRange;
+                    // delete
+                    [[textView textStorage] deleteCharactersInRange:NSMakeRange(range.location-spacesToDelete+1, spacesToDelete)];
+//                    [[textView textStorage] addAttribute:NSBackgroundColorAttributeName
+//                                                   value:[UIColor redColor]
+//                                                   range:NSMakeRange(range.location-spacesToDelete+1, spacesToDelete)];
+                    return NO;
+                }
+            }
+        }
+
+        if(range.location+2 < [text length])
+        {
+            // if the deleted character is \n and the next characters are \n [whitespace]* }
+            // then delete the 2nd \n, whitespace, and }
+            if([text characterAtIndex:range.location] == '\n')
+            {
+                __block NSRange delRange = NSMakeRange(range.location+1, 0);
+                __block int numNewline = 0;
+                [text enumerateCharacters:^BOOL(int pos, unichar c) {
+                    switch(c)
+                    {
+                        case '\n':
+                        case '\r':
+                            numNewline++;
+                            if(numNewline >= 2)
+                                // if theres more than 1 newline, dont delete
+                                return NO;
+                            else
+                                return YES;
+                        case ' ':
+                        case '\t':
+                            return YES;
+                        case '}':
+                            delRange.length = ::max<NSInteger>(0, pos-1-range.location);
+                            return NO;
+                        default:
+                            return NO;
+                    }
+                } fromPosition:range.location+1 reverse:NO];
+                
+                if(delRange.length)
+                {
+                    NSLog(@"deleting trailing newline/space before close brace");
+                    [[textView textStorage] deleteCharactersInRange:delRange];
+                }
+            }
+        }
+    }
     
     return YES;
 }

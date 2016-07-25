@@ -348,10 +348,10 @@ T lerp(const T a, const T b, const float p)
     NSRange glyphRange = [layoutManager glyphRangeForBoundingRect:rect inTextContainer:textContainer];
     
     // Calculate the start and end indexes for the glyphs
-    unsigned startGlyphIndex = glyphRange.location;
-    unsigned endGlyphIndex = glyphRange.location + glyphRange.length;
+    NSUInteger startGlyphIndex = glyphRange.location;
+    NSUInteger endGlyphIndex = glyphRange.location + glyphRange.length;
     
-    int index = 0;
+    NSInteger index = 0;
     int lineNumber = 1;
     
     // Skip all lines that are visible at the top of the text view (if any)
@@ -403,7 +403,7 @@ T lerp(const T a, const T b, const float p)
 {
     int n = 0;
     NSCharacterSet *nl = [NSCharacterSet newlineCharacterSet];
-    int length = [self length];
+    NSUInteger length = [self length];
     for(int i = 0; i < length; i++)
     {
         if([nl characterIsMember:[self characterAtIndex:i]])

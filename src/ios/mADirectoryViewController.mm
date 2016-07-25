@@ -156,7 +156,7 @@ static NSString *CellIdentifier = @"Cell";
 - (UITableViewCell *)tableView:(UITableView *)tableView 
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int index = indexPath.row;
+    NSInteger index = indexPath.row;
     mAExpandedDirectoryListing *listing = [self.expandedDirectoryList objectAtIndex:index];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -174,7 +174,7 @@ static NSString *CellIdentifier = @"Cell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int index = indexPath.row;
+    NSInteger index = indexPath.row;
     mAExpandedDirectoryListing *listing = [self.expandedDirectoryList objectAtIndex:index];
     if(self.didChooseDirectory)
         self.didChooseDirectory(listing.directoryItem);

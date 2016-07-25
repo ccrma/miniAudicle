@@ -27,7 +27,6 @@
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 
-- (void)setup;
 - (void)adjustNavigationBar:(UIViewController *)targetViewController animated:(BOOL)animated;
 - (IBAction)selectedMode:(id)sender;
 

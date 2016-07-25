@@ -321,7 +321,7 @@ CK_DLL_MFUN(motion_recv)
 
     MotionMsg msg;
     
-    int gotit = queue->get(msg);
+    size_t gotit = queue->get(msg);
     if(gotit)
     {
         OBJ_MEMBER_INT(msgobj, motionmsg_mvar_type) = msg.type;

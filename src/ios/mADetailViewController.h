@@ -72,6 +72,7 @@ enum mAInteractionMode
 @property (strong, nonatomic) IBOutlet mAPlayerViewController * player;
 @property (nonatomic) mAInteractionMode interactionMode;
 
+- (void)showMasterPopover;
 - (void)dismissMasterPopover;
 - (void)setClientViewController:(UIViewController *)viewController;
 

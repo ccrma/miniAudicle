@@ -16,6 +16,7 @@
 #import "mAAnalytics.h"
 
 NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChangedNotification";
+NSString * const mADetailItemDeletedNotification = @"mADetailItemDeletedNotification";
 
 
 @interface NSFileManager (isDirectory)

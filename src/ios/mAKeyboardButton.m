@@ -120,6 +120,13 @@
     [self.popOpenTimer invalidate];
     self.popOpenTimer = nil;
 
+    if(self.keyInsertText != nil)
+        _pressedKey = self.keyInsertText;
+    else if([self titleForState:UIControlStateNormal])
+        _pressedKey = [self titleForState:UIControlStateNormal];
+    else if([self attributedTitleForState:UIControlStateNormal])
+        _pressedKey = [[self attributedTitleForState:UIControlStateNormal] string];
+    
     [super touchesBegan:touches withEvent:event];
     
     [self setNeedsDisplay];
@@ -163,8 +170,6 @@
         [self.alternativesView removeFromSuperview];
         self.alternativesView = nil;
     }
-    
-    if(self.keyInsertText != nil) _pressedKey = self.keyInsertText;
     
     [super touchesEnded:touches withEvent:event];
     

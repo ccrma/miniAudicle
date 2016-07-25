@@ -35,7 +35,26 @@
 
 #import <vector>
 
-
+CK_DLL_QUERY_STATIC(ABSaturator);
+CK_DLL_QUERY_STATIC(Bitcrusher);
+CK_DLL_QUERY_STATIC(Elliptic);
+CK_DLL_QUERY_STATIC(ExpDelay);
+CK_DLL_QUERY_STATIC(FIR);
+CK_DLL_QUERY_STATIC(FoldbackSaturator);
+CK_DLL_QUERY_STATIC(GVerb);
+CK_DLL_QUERY_STATIC(KasFilter);
+CK_DLL_QUERY_STATIC(MagicSine);
+CK_DLL_QUERY_STATIC(Mesh2D);
+CK_DLL_QUERY_STATIC(Multicomb);
+CK_DLL_QUERY_STATIC(Overdrive);
+CK_DLL_QUERY_STATIC(PanN);
+CK_DLL_QUERY_STATIC(PitchTrack);
+CK_DLL_QUERY_STATIC(PowerADSR);
+CK_DLL_QUERY_STATIC(Sigmund);
+CK_DLL_QUERY_STATIC(Spectacle);
+CK_DLL_QUERY_STATIC(WinFuncEnv);
+CK_DLL_QUERY_STATIC(WPDiodeLadder);
+CK_DLL_QUERY_STATIC(WPKorg35);
 
 static mAChucKController * g_chuckController = nil;
 
@@ -126,7 +145,7 @@ static mAChucKController * g_chuckController = nil;
         ma = new miniAudicle;
         
         self.enableInput = [[NSUserDefaults standardUserDefaults] boolForKey:mAAudioInputEnabledPreference];
-        self.bufferSize = [[NSUserDefaults standardUserDefaults] integerForKey:mAAudioBufferSizePreference];
+        self.bufferSize = (int) [[NSUserDefaults standardUserDefaults] integerForKey:mAAudioBufferSizePreference];
         self.adaptiveBuffering = [[NSUserDefaults standardUserDefaults] boolForKey:mAAudioAdaptiveBufferingPreference];
         self.sampleRate = 44100;
         self.backgroundAudio = [[NSUserDefaults standardUserDefaults] boolForKey:mAAudioBackgroundAudioPreference];
@@ -152,6 +171,26 @@ static mAChucKController * g_chuckController = nil;
     ma->set_buffer_size((int) (self.audioController.currentBufferDuration*self.sampleRate));
     
     ma->add_query_func(motion_query);
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(ABSaturator), "ABSaturator");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(Bitcrusher), "Bitcrusher");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(Elliptic), "Elliptic");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(ExpDelay), "ExpDelay");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(FIR), "FIR");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(FoldbackSaturator), "FoldbackSaturator");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(GVerb), "GVerb");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(KasFilter), "KasFilter");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(MagicSine), "MagicSine");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(Mesh2D), "Mesh2D");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(Multicomb), "Multicomb");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(Overdrive), "Overdrive");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(PanN), "PanN");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(PitchTrack), "PitchTrack");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(PowerADSR), "PowerADSR");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(Sigmund), "Sigmund");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(Spectacle), "Spectacle");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(WinFuncEnv), "WinFuncEnv");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(WPDiodeLadder), "WPDiodeLadder");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(WPKorg35), "WPKorg35");
     
     ma->set_num_inputs(2);
     ma->set_num_outputs(2);
@@ -374,7 +413,7 @@ static mAChucKController * g_chuckController = nil;
                 OSStatus status = producer(producerToken, audio, &frames);
                 if(status != noErr)
                 {
-                    NSLog(@"miniAudicle: warning: received error %li generating audio input", status);
+                    NSLog(@"miniAudicle: warning: received error %i generating audio input", (int)status);
                     memset(_inputBuffer.data(), 0, sizeof(float)*frames*ma->get_num_outputs());
                 }
                 else

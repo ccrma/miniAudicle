@@ -25,7 +25,7 @@
 
 - (id)initWithAlternatives:(NSArray *)alternatives
 {
-    int num = [alternatives count];
+    NSUInteger num = [alternatives count];
     float containerWidth = BUTTON_SIZE*num + MARGIN*(num+1);
     float containerHeight = BUTTON_SIZE + MARGIN*2;
     

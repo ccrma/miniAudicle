@@ -12,7 +12,10 @@
 
 @class mANANewScript;
 
+
 extern NSString * const mADetailItemTitleChangedNotification;
+extern NSString * const mADetailItemDeletedNotification;
+
 
 typedef enum DetailItemType
 {

@@ -166,6 +166,7 @@ public:
     t_CKBOOL set_named_chugins( list< string > & chugins );
     t_CKBOOL get_named_chugins( list< string > & chugins );
     t_CKBOOL add_query_func(t_CKBOOL (*func)(Chuck_Env *));
+    t_CKBOOL add_query_func(f_ck_query func, const char *name);
     
 protected:
 
@@ -209,7 +210,7 @@ protected:
 #endif // __CHIP_MODE__
     
     map< string, t_CKINT > * class_names;
-
+    
     struct _vm_options
     {
         t_CKUINT dac;
@@ -227,6 +228,7 @@ protected:
         list< string > library_paths;
         list< string > named_chugins;
         list< t_CKBOOL (*)(Chuck_Env *) > query_funcs;
+        list< pair<string, f_ck_query> > query_funcs2;
     } vm_options, current_options;
 };
 
