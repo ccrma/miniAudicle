@@ -125,11 +125,12 @@
     }
     
     mASocialCategory category = (mASocialCategory) [_categories[index] intValue];
-    NSMutableAttributedString *attrTitle;
-    attrTitle = [[NSMutableAttributedString alloc] initWithString:[mASocialCategoryGetTitle(category) uppercaseString]
-                                                       attributes:@{ NSKernAttributeName: @2 }];
-    
-    cell.textLabel.attributedText = attrTitle;
+//    NSMutableAttributedString *attrTitle;
+//    attrTitle = [[NSMutableAttributedString alloc] initWithString:[mASocialCategoryGetTitle(category) uppercaseString]
+//                                                       attributes:@{ NSKernAttributeName: @2 }];
+//    
+//    cell.textLabel.attributedText = attrTitle;
+    cell.textLabel.text = mASocialCategoryGetTitle(category);
     
     return cell;
 }

@@ -252,7 +252,7 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 #pragma mark - IBActions
 
 
-#pragma mark - UITableViewDelegate
+#pragma mark - UITableViewDataSource / UITableViewDelegate
 
 // Customize the number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
