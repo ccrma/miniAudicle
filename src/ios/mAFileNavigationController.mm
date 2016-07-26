@@ -102,7 +102,9 @@
             break;
         case 3:
             [[mAAnalytics instance] socialScripts];
-            [self.childNavigationController setViewControllers:@[self.sharedViewController] animated:NO];
+            [self.childNavigationController setViewControllers:@[self.sharedViewController,
+                                                                 self.sharedViewController.defaultCategoryViewController]
+                                                      animated:NO];
             break;
         default: ; // uhh
     }

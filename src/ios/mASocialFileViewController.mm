@@ -29,6 +29,8 @@
 #import "mASocialTableViewCell.h"
 #import "mASocialDetailItem.h"
 
+#import "UIAlert.h"
+
 #import "ChuckpadSocial.h"
 #import "Patch.h"
 
@@ -230,18 +232,24 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 
 - (void)_getPatchesForCategory:(GetPatchesCallback)callback
 {
+    ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
+    
     switch (_category)
     {
         case SOCIAL_CATEGORY_ALL:
-            [[ChuckPadSocial sharedInstance] getAllPatches:callback];
+            [chuckPad getAllPatches:callback];
             break;
         case SOCIAL_CATEGORY_DOCUMENTATION:
-            [[ChuckPadSocial sharedInstance] getDocumentationPatches:callback];
+            [chuckPad getDocumentationPatches:callback];
             break;
         case SOCIAL_CATEGORY_FEATURED:
-            [[ChuckPadSocial sharedInstance] getFeaturedPatches:callback];
+            [chuckPad getFeaturedPatches:callback];
             break;
         case SOCIAL_CATEGORY_MYPATCHES:
+            if([chuckPad isLoggedIn])
+                [chuckPad getMyPatches:callback];
+            else
+                UIAlertMessage(@"You must be logged in to see your patches", ^{});
             break;
         default:
             NSAssert(1, @"mASocialFileViewController: invalid category");

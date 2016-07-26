@@ -98,7 +98,7 @@
 
 - (mASocialFileViewController *)defaultCategoryViewController
 {
-    return self.featuredSocialFileViewController;
+    return self.allSocialFileViewController;
 }
 
 #pragma mark - UITableViewDataSource
