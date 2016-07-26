@@ -9,7 +9,7 @@
 #import "mAFileNavigationController.h"
 #import "mADocumentManager.h"
 #import "mAFileViewController.h"
-#import "mASocialFileViewController.h"
+#import "mASocialCategoryViewController.h"
 #import "mADocumentManager.h"
 #import "mAAnalytics.h"
 
@@ -24,7 +24,7 @@
 @property (strong, nonatomic) mAFileViewController *myScriptsViewController;
 @property (strong, nonatomic) mAFileViewController *recentViewController;
 @property (strong, nonatomic) mAFileViewController *examplesViewController;
-@property (strong, nonatomic) mASocialFileViewController *sharedViewController;
+@property (strong, nonatomic) mASocialCategoryViewController *sharedViewController;
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 
@@ -61,7 +61,8 @@
     self.recentViewController.folder = [[mADocumentManager manager] recentFilesFolderItem];
     self.recentViewController.editable = NO;
     
-    self.sharedViewController = [[mASocialFileViewController alloc] initWithNibName:@"mASocialFileViewController" bundle:nil];
+//    self.sharedViewController = [[mASocialFileViewController alloc] initWithNibName:@"mASocialFileViewController" bundle:nil];
+    self.sharedViewController = [mASocialCategoryViewController new];
     
     self.myScriptsViewController.detailViewController = self.detailViewController;
     self.recentViewController.detailViewController = self.detailViewController;

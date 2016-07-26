@@ -34,6 +34,24 @@
 
 static NSString *SocialCellIdentifier = @"SocialCell";
 
+NSString *mASocialCategoryGetTitle(mASocialCategory category)
+{
+    switch(category)
+    {
+        case SOCIAL_CATEGORY_ALL:
+            return @"All";
+        case SOCIAL_CATEGORY_FEATURED:
+            return @"Featured";
+            break;
+        case SOCIAL_CATEGORY_MYPATCHES:
+            return @"My Patches";
+        case SOCIAL_CATEGORY_DOCUMENTATION:
+            return @"Documentation";
+        default:
+            NSCAssert(1, @"mASocialFileViewController: invalid category");
+    }
+}
+
 @interface mASocialFileViewController ()
 {
     IBOutlet UIView *_loadingView;
@@ -46,6 +64,8 @@ static NSString *SocialCellIdentifier = @"SocialCell";
 
 @property (copy, nonatomic) NSString *loadingStatus;
 @property (nonatomic) BOOL showsLoading;
+
+- (void)_getPatchesForCategory:(GetPatchesCallback)callback;
 
 @end
 
@@ -78,6 +98,21 @@ static NSString *SocialCellIdentifier = @"SocialCell";
                              _loadingView.alpha = 0.0;
                          }];
     }
+}
+
+- (void)setCategory:(mASocialCategory)category
+{
+    _category = category;
+    
+    self.title = [mASocialCategoryGetTitle(category) uppercaseString];
+}
+
+- (id)init
+{
+    // force load from associated nib
+    if(self = [self initWithNibName:@"mASocialFileViewController" bundle:nil]) { }
+    
+    return self;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -121,7 +156,7 @@ static NSString *SocialCellIdentifier = @"SocialCell";
 {
     if(self.patches == nil)
     {
-        ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
+//        ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
         
         GetPatchesCallback gotPatches = ^(NSArray *patchesArray, NSError *error) {
             NSAssert([NSThread isMainThread], @"Network callback not on main thread");
@@ -140,9 +175,7 @@ static NSString *SocialCellIdentifier = @"SocialCell";
                 self.loadingStatus = @"Failed to load patches";
             }
         };
-    
-        if([chuckPad isLoggedIn]) [chuckPad logOut];
-        
+
 //        if(![chuckPad isLoggedIn])
 //        {
 //            NSString *donk1 = @"mini_ipad_test";
@@ -154,8 +187,8 @@ static NSString *SocialCellIdentifier = @"SocialCell";
 //                   
 //                   if(succeeded)
 //                   {
-//                       [chuckPad getAllPatches:gotPatches];
-//                       
+//        [self _getPatchesForCategory:gotPatches];
+//
 //                       self.loadingStatus = @"Loading Chuckpad Social";
 //                       self.showsLoading = YES;
 //                   }
@@ -171,12 +204,14 @@ static NSString *SocialCellIdentifier = @"SocialCell";
 //        }
 //        else
         {
-            [chuckPad getAllPatches:gotPatches];
+            [self _getPatchesForCategory:gotPatches];
             
             self.loadingStatus = @"Loading Chuckpad Social";
             self.showsLoading = YES;
         }
     }
+    
+    [self.navigationController setToolbarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -187,7 +222,30 @@ static NSString *SocialCellIdentifier = @"SocialCell";
 {
     UINavigationItem *navigationItem = super.navigationItem;
     
+    navigationItem.title = mASocialCategoryGetTitle(self.category);
+    
     return navigationItem;
+}
+
+- (void)_getPatchesForCategory:(GetPatchesCallback)callback
+{
+    switch (_category)
+    {
+        case SOCIAL_CATEGORY_ALL:
+            [[ChuckPadSocial sharedInstance] getAllPatches:callback];
+            break;
+        case SOCIAL_CATEGORY_DOCUMENTATION:
+            [[ChuckPadSocial sharedInstance] getDocumentationPatches:callback];
+            break;
+        case SOCIAL_CATEGORY_FEATURED:
+            [[ChuckPadSocial sharedInstance] getFeaturedPatches:callback];
+            break;
+        case SOCIAL_CATEGORY_MYPATCHES:
+            break;
+        default:
+            NSAssert(1, @"mASocialFileViewController: invalid category");
+            break;
+    }
 }
 
 #pragma mark - IBActions

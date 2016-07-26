@@ -26,8 +26,27 @@
 
 @class mADetailViewController;
 
+typedef enum mASocialCategory
+{
+    SOCIAL_CATEGORY_ALL,
+    SOCIAL_CATEGORY_FEATURED,
+    SOCIAL_CATEGORY_DOCUMENTATION,
+    SOCIAL_CATEGORY_MYPATCHES
+} mASocialCategory;
+
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
+
+    NSString *mASocialCategoryGetTitle(mASocialCategory category);
+
+#ifdef __cplusplus
+}
+#endif // __cplusplus
+
 @interface mASocialFileViewController : UIViewController
 
 @property (strong, nonatomic) mADetailViewController *detailViewController;
+@property (nonatomic) mASocialCategory category;
 
 @end

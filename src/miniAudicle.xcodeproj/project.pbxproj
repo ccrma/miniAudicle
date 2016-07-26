@@ -391,6 +391,7 @@
 		09CCA6651D47198E0032EAB0 /* mASocialTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CCA6631D47198E0032EAB0 /* mASocialTableViewCell.m */; };
 		09CCA6661D47198E0032EAB0 /* mASocialTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09CCA6641D47198E0032EAB0 /* mASocialTableViewCell.xib */; };
 		09CCA6691D4724360032EAB0 /* ChuckPadKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CCA6681D4724360032EAB0 /* ChuckPadKeychain.m */; };
+		09CCA66D1D472A4E0032EAB0 /* mASocialCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CCA66C1D472A4E0032EAB0 /* mASocialCategoryViewController.m */; };
 		09D00B8414A3C4010019CD09 /* TitleEditView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */; };
 		09D00B8714A3C44B0019CD09 /* mATitleEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */; };
 		09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8914A44DFA0019CD09 /* mAVMMonitorController.mm */; };
@@ -1263,6 +1264,8 @@
 		09CCA6641D47198E0032EAB0 /* mASocialTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mASocialTableViewCell.xib; sourceTree = "<group>"; };
 		09CCA6671D4724360032EAB0 /* ChuckPadKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChuckPadKeychain.h; sourceTree = "<group>"; };
 		09CCA6681D4724360032EAB0 /* ChuckPadKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChuckPadKeychain.m; sourceTree = "<group>"; };
+		09CCA66B1D472A4D0032EAB0 /* mASocialCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mASocialCategoryViewController.h; sourceTree = "<group>"; };
+		09CCA66C1D472A4E0032EAB0 /* mASocialCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mASocialCategoryViewController.m; sourceTree = "<group>"; };
 		09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleEditView_iPad.xib; sourceTree = "<group>"; };
 		09D00B8514A3C44A0019CD09 /* mATitleEditorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mATitleEditorController.h; sourceTree = "<group>"; };
 		09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mATitleEditorController.m; sourceTree = "<group>"; };
@@ -2153,6 +2156,8 @@
 		09CCA66A1D4725650032EAB0 /* social */ = {
 			isa = PBXGroup;
 			children = (
+				09CCA66B1D472A4D0032EAB0 /* mASocialCategoryViewController.h */,
+				09CCA66C1D472A4E0032EAB0 /* mASocialCategoryViewController.m */,
 				09F330391D46D4AC002792BA /* mASocialFileViewController.xib */,
 				09F330341D46D37B002792BA /* mASocialFileViewController.h */,
 				09F330351D46D37B002792BA /* mASocialFileViewController.mm */,
@@ -3143,6 +3148,7 @@
 				093E265814A12234008694BC /* midiio_rtmidi.cpp in Sources */,
 				093E265914A12234008694BC /* ugen_filter.cpp in Sources */,
 				093E265A14A12234008694BC /* ugen_osc.cpp in Sources */,
+				09CCA66D1D472A4E0032EAB0 /* mASocialCategoryViewController.m in Sources */,
 				09400F361C903FD400C1E52E /* NSObject+BlockObservation.m in Sources */,
 				096310BA1C86B96300A36F8F /* NSString+Hash.m in Sources */,
 				09F09E4018E2DAEA0050D963 /* mAPlayerViewController.mm in Sources */,
