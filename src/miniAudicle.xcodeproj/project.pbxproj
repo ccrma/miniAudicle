@@ -1764,6 +1764,7 @@
 				09DAA30919BA211A00B8A416 /* editor */,
 				09DAA30A19BA213E00B8A416 /* player */,
 				09DAA30B19BA214300B8A416 /* connect */,
+				09CCA66A1D4725650032EAB0 /* social */,
 				09DAA30C19BA214C00B8A416 /* util */,
 				4D3D4C8B1A5E37DB00B6A06B /* libs */,
 				0929B8AA1D12ADD300B8DE4D /* chugins */,
@@ -2149,6 +2150,19 @@
 			path = Libraries;
 			sourceTree = "<group>";
 		};
+		09CCA66A1D4725650032EAB0 /* social */ = {
+			isa = PBXGroup;
+			children = (
+				09F330391D46D4AC002792BA /* mASocialFileViewController.xib */,
+				09F330341D46D37B002792BA /* mASocialFileViewController.h */,
+				09F330351D46D37B002792BA /* mASocialFileViewController.mm */,
+				09CCA6641D47198E0032EAB0 /* mASocialTableViewCell.xib */,
+				09CCA6621D47198E0032EAB0 /* mASocialTableViewCell.h */,
+				09CCA6631D47198E0032EAB0 /* mASocialTableViewCell.m */,
+			);
+			name = social;
+			sourceTree = "<group>";
+		};
 		09DAA30919BA211A00B8A416 /* editor */ = {
 			isa = PBXGroup;
 			children = (
@@ -2279,12 +2293,6 @@
 				098562521CE92FCD00FCBF21 /* mAFolderTableViewCell.xib */,
 				0985624D1CE7FE1F00FCBF21 /* mAFolderTableViewCell.h */,
 				0985624E1CE7FE1F00FCBF21 /* mAFolderTableViewCell.m */,
-				09F330391D46D4AC002792BA /* mASocialFileViewController.xib */,
-				09F330341D46D37B002792BA /* mASocialFileViewController.h */,
-				09F330351D46D37B002792BA /* mASocialFileViewController.mm */,
-				09CCA6641D47198E0032EAB0 /* mASocialTableViewCell.xib */,
-				09CCA6621D47198E0032EAB0 /* mASocialTableViewCell.h */,
-				09CCA6631D47198E0032EAB0 /* mASocialTableViewCell.m */,
 				093E263114A108C8008694BC /* mADetailViewController~iphone.xib */,
 				093E263414A108C9008694BC /* mADetailViewController~ipad.xib */,
 				09F09E5618E41F2C0050D963 /* mADetailItem.h */,
