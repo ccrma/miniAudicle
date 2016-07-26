@@ -38,6 +38,9 @@
 #import "UIAlert.h"
 #import "mATableViewCell.h"
 
+#import "ChuckpadSocial.h"
+#import "Patch.h"
+
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -48,6 +51,8 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 @property (strong, nonatomic) IBOutlet UITableView * tableView;
+
+@property (strong, nonatomic) NSArray<Patch *> *patches;
 
 @property (copy, nonatomic) NSString *loadingStatus;
 @property (nonatomic) BOOL showsLoading;
@@ -103,6 +108,9 @@ static NSString *CellIdentifier = @"Cell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.loadingStatus = @"";
+    self.showsLoading = NO;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -117,8 +125,62 @@ static NSString *CellIdentifier = @"Cell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.loadingStatus = @"Loading Chuckpad Social";
-    self.showsLoading = YES;
+    if(self.patches == nil)
+    {
+        ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
+        
+        GetPatchesCallback gotPatches = ^(NSArray *patchesArray, NSError *error) {
+            NSAssert([NSThread isMainThread], @"Network callback not on main thread");
+            
+            if(error == nil)
+            {
+                NSLog(@"Got patches");
+                self.patches = patchesArray;
+                
+                self.showsLoading = NO;
+                [self.tableView reloadData];
+            }
+            else
+            {
+                mAAnalyticsLogError(error);
+                self.loadingStatus = @"Failed to load patches";
+            }
+        };
+    
+        if(![chuckPad isLoggedIn])
+        {
+            NSString *donk1 = @"mini_ipad_test";
+            NSString *donk2 = @"putadonkonit";
+            
+            [chuckPad logIn:donk1 withPassword:donk2
+               withCallback:^(BOOL succeeded, NSError *error) {
+                   NSAssert([NSThread isMainThread], @"Network callback not on main thread");
+                   
+                   if(succeeded)
+                   {
+                       [chuckPad getAllPatches:gotPatches];
+                       
+                       self.loadingStatus = @"Loading Chuckpad Social";
+                       self.showsLoading = YES;
+                   }
+                   else
+                   {
+                       mAAnalyticsLogError(error);
+                       self.loadingStatus = @"Failed to log in to Chuckpad Social";
+                   }
+               }];
+            
+            self.loadingStatus = @"Logging in to Chuckpad Social";
+            self.showsLoading = YES;
+        }
+        else
+        {
+            [chuckPad getAllPatches:gotPatches];
+            
+            self.loadingStatus = @"Loading Chuckpad Social";
+            self.showsLoading = YES;
+        }
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -146,13 +208,17 @@ static NSString *CellIdentifier = @"Cell";
 - (NSInteger)tableView:(UITableView *)tableView 
  numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    if(self.patches)
+        return self.patches.count;
+    else
+        return 0;
 }
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView 
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSInteger index = indexPath.row;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
     if (cell == nil)
@@ -161,6 +227,8 @@ static NSString *CellIdentifier = @"Cell";
         if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    
+    cell.textLabel.text = self.patches[index].name;
     
     return cell;
 }
