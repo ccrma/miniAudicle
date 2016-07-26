@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="mADetailViewController">
@@ -76,7 +76,7 @@
                 <outlet property="delegate" destination="-1" id="0Xd-WH-HnY"/>
             </connections>
         </viewController>
-        <viewController nibName="mAEditorViewController" id="JTK-eG-J0y" customClass="mAEditorViewController"/>
+        <viewController nibName="mAEditorViewController" id="JTK-eG-J0y" customClass="mASocialEditorViewController"/>
         <viewController nibName="mAPlayerViewController" id="DUG-gC-Iza" customClass="mAPlayerViewController"/>
         <viewController autoresizesArchivedViewToFullSize="NO" nibName="mAPreferencesViewController" id="hdA-2g-acq" customClass="mAPreferencesViewController">
             <value key="contentSizeForViewInPopover" type="size" width="364" height="448"/>

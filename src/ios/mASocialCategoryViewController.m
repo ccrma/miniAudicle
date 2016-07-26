@@ -29,6 +29,7 @@
     {
         _allSocialFileViewController = [mASocialFileViewController new];
         _allSocialFileViewController.category = SOCIAL_CATEGORY_ALL;
+        _allSocialFileViewController.detailViewController = self.detailViewController;
     }
     
     return _allSocialFileViewController;
@@ -40,6 +41,7 @@
     {
         _featuredSocialFileViewController = [mASocialFileViewController new];
         _featuredSocialFileViewController.category = SOCIAL_CATEGORY_FEATURED;
+        _featuredSocialFileViewController.detailViewController = self.detailViewController;
     }
     
     return _featuredSocialFileViewController;
@@ -51,6 +53,7 @@
     {
         _documentationSocialFileViewController = [mASocialFileViewController new];
         _documentationSocialFileViewController.category = SOCIAL_CATEGORY_DOCUMENTATION;
+        _documentationSocialFileViewController.detailViewController = self.detailViewController;
     }
     
     return _documentationSocialFileViewController;
@@ -62,6 +65,7 @@
     {
         _mySocialFileViewController = [mASocialFileViewController new];
         _mySocialFileViewController.category = SOCIAL_CATEGORY_MYPATCHES;
+        _mySocialFileViewController.detailViewController = self.detailViewController;
     }
     
     return _mySocialFileViewController;

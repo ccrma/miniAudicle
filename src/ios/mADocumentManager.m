@@ -531,6 +531,9 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     
     // ensure only one copy in the array
     NSString *documentPath = [self documentRelativePath:item.path];
+    if(documentPath == nil)
+        return;
+    
 //    NSLog(@"placeholderPath: %@", documentPath);
     if([_recentFiles containsObject:item])
         [_recentFiles removeObject:item];

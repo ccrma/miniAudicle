@@ -392,6 +392,10 @@
 		09CCA6661D47198E0032EAB0 /* mASocialTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09CCA6641D47198E0032EAB0 /* mASocialTableViewCell.xib */; };
 		09CCA6691D4724360032EAB0 /* ChuckPadKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CCA6681D4724360032EAB0 /* ChuckPadKeychain.m */; };
 		09CCA66D1D472A4E0032EAB0 /* mASocialCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CCA66C1D472A4E0032EAB0 /* mASocialCategoryViewController.m */; };
+		09CCA6701D474B730032EAB0 /* mASocialDetailItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CCA66F1D474B730032EAB0 /* mASocialDetailItem.m */; };
+		09CCA6731D4756730032EAB0 /* mASocialEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09CCA6721D4756730032EAB0 /* mASocialEditorViewController.mm */; };
+		09CCA6751D4760340032EAB0 /* mALoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09CCA6741D4760340032EAB0 /* mALoadingView.xib */; };
+		09CCA6781D47606C0032EAB0 /* mALoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CCA6771D47606C0032EAB0 /* mALoadingViewController.m */; };
 		09D00B8414A3C4010019CD09 /* TitleEditView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */; };
 		09D00B8714A3C44B0019CD09 /* mATitleEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */; };
 		09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8914A44DFA0019CD09 /* mAVMMonitorController.mm */; };
@@ -1266,6 +1270,13 @@
 		09CCA6681D4724360032EAB0 /* ChuckPadKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChuckPadKeychain.m; sourceTree = "<group>"; };
 		09CCA66B1D472A4D0032EAB0 /* mASocialCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mASocialCategoryViewController.h; sourceTree = "<group>"; };
 		09CCA66C1D472A4E0032EAB0 /* mASocialCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mASocialCategoryViewController.m; sourceTree = "<group>"; };
+		09CCA66E1D474B730032EAB0 /* mASocialDetailItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mASocialDetailItem.h; sourceTree = "<group>"; };
+		09CCA66F1D474B730032EAB0 /* mASocialDetailItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mASocialDetailItem.m; sourceTree = "<group>"; };
+		09CCA6711D4756730032EAB0 /* mASocialEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mASocialEditorViewController.h; sourceTree = "<group>"; };
+		09CCA6721D4756730032EAB0 /* mASocialEditorViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mASocialEditorViewController.mm; sourceTree = "<group>"; };
+		09CCA6741D4760340032EAB0 /* mALoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mALoadingView.xib; sourceTree = "<group>"; };
+		09CCA6761D47606C0032EAB0 /* mALoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mALoadingViewController.h; sourceTree = "<group>"; };
+		09CCA6771D47606C0032EAB0 /* mALoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mALoadingViewController.m; sourceTree = "<group>"; };
 		09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleEditView_iPad.xib; sourceTree = "<group>"; };
 		09D00B8514A3C44A0019CD09 /* mATitleEditorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mATitleEditorController.h; sourceTree = "<group>"; };
 		09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mATitleEditorController.m; sourceTree = "<group>"; };
@@ -2164,6 +2175,13 @@
 				09CCA6641D47198E0032EAB0 /* mASocialTableViewCell.xib */,
 				09CCA6621D47198E0032EAB0 /* mASocialTableViewCell.h */,
 				09CCA6631D47198E0032EAB0 /* mASocialTableViewCell.m */,
+				09CCA66E1D474B730032EAB0 /* mASocialDetailItem.h */,
+				09CCA66F1D474B730032EAB0 /* mASocialDetailItem.m */,
+				09CCA6741D4760340032EAB0 /* mALoadingView.xib */,
+				09CCA6761D47606C0032EAB0 /* mALoadingViewController.h */,
+				09CCA6771D47606C0032EAB0 /* mALoadingViewController.m */,
+				09CCA6711D4756730032EAB0 /* mASocialEditorViewController.h */,
+				09CCA6721D4756730032EAB0 /* mASocialEditorViewController.mm */,
 			);
 			name = social;
 			sourceTree = "<group>";
@@ -2920,6 +2938,7 @@
 				09E449D41CD2D1E5004BCBA0 /* gear.png in Resources */,
 				09EBA9B718D8FD4700DCAE0C /* examples in Resources */,
 				093E263314A108C9008694BC /* mADetailViewController~iphone.xib in Resources */,
+				09CCA6751D4760340032EAB0 /* mALoadingView.xib in Resources */,
 				09CCA6661D47198E0032EAB0 /* mASocialTableViewCell.xib in Resources */,
 				09735F441C870B2D003965CA /* ck-doc320.png in Resources */,
 				093E263614A108C9008694BC /* mADetailViewController~ipad.xib in Resources */,
@@ -3112,6 +3131,7 @@
 				093E264914A12201008694BC /* chuck_otf.cpp in Sources */,
 				093E264A14A12201008694BC /* chuck_parse.cpp in Sources */,
 				0921D56018190216008F39D9 /* message.c in Sources */,
+				09CCA6781D47606C0032EAB0 /* mALoadingViewController.m in Sources */,
 				0900B70B1CC0D33B00210EF3 /* rtmidi.cpp in Sources */,
 				093E264B14A12201008694BC /* chuck_scan.cpp in Sources */,
 				09B19B48199D679B00B9ADA3 /* mAPlayerContainerView.m in Sources */,
@@ -3149,6 +3169,7 @@
 				093E265914A12234008694BC /* ugen_filter.cpp in Sources */,
 				093E265A14A12234008694BC /* ugen_osc.cpp in Sources */,
 				09CCA66D1D472A4E0032EAB0 /* mASocialCategoryViewController.m in Sources */,
+				09CCA6701D474B730032EAB0 /* mASocialDetailItem.m in Sources */,
 				09400F361C903FD400C1E52E /* NSObject+BlockObservation.m in Sources */,
 				096310BA1C86B96300A36F8F /* NSString+Hash.m in Sources */,
 				09F09E4018E2DAEA0050D963 /* mAPlayerViewController.mm in Sources */,
@@ -3167,6 +3188,7 @@
 				09E9FE181D0CDC10002A2D63 /* mATableViewCell.m in Sources */,
 				09F330591D46DCDB002792BA /* AFURLResponseSerialization.m in Sources */,
 				09B596C119B0517D0091D45F /* NSString+STLString.mm in Sources */,
+				09CCA6731D4756730032EAB0 /* mASocialEditorViewController.mm in Sources */,
 				093E266114A12234008694BC /* util_buffers.cpp in Sources */,
 				097397361CD2B00000D8B74D /* mAPreferencesViewController.m in Sources */,
 				09F09E4518E36DBC0050D963 /* mAScriptPlayer.mm in Sources */,

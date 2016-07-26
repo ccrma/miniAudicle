@@ -243,6 +243,7 @@
 - (void)configureView
 {
     // Update the user interface for the detail item.
+    [self configureTitle:self.detailItem.title editable:self.detailItem.isUser];
     
     if(self.detailItem)
     {
@@ -250,22 +251,6 @@
         _addButton.enabled = YES;
         _replaceButton.enabled = YES;
         _removeButton.enabled = YES;
-
-        self.titleButton.title = self.detailItem.title;
-        if(self.detailItem.isUser)
-        {
-            self.titleButton.enabled = YES;
-            // set default attributes (blue text color)
-            [self.titleButton setTitleTextAttributes:@{ }
-                                            forState:UIControlStateNormal];
-        }
-        else
-        {
-            self.titleButton.enabled = NO;
-            // set black text color
-            [self.titleButton setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor blackColor], }
-                                            forState:UIControlStateNormal];
-        }
         
         NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:self.detailItem.text
                                                                                  attributes:[self defaultTextAttributes]];
@@ -281,11 +266,6 @@
         _addButton.enabled = NO;
         _replaceButton.enabled = NO;
         _removeButton.enabled = NO;
-        
-        self.titleButton.title = @"";
-        self.titleButton.enabled = NO;
-        [self.titleButton setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor blackColor], }
-                                        forState:UIControlStateNormal];
         
         NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@""
                                                                                  attributes:[self defaultTextAttributes]];
@@ -305,6 +285,35 @@
 //    else
 //        _shredCountLabel.text = @"";
     _shredCountLabel.text = @"";
+}
+
+- (void)configureTitle:(NSString *)title editable:(BOOL)editable;
+{
+    if(title && [title length])
+    {
+        self.titleButton.title = title;
+        if(editable)
+        {
+            self.titleButton.enabled = YES;
+            // set default attributes (blue text color)
+            [self.titleButton setTitleTextAttributes:@{ }
+                                            forState:UIControlStateNormal];
+        }
+        else
+        {
+            self.titleButton.enabled = NO;
+            // set black text color
+            [self.titleButton setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor blackColor], }
+                                            forState:UIControlStateNormal];
+        }
+    }
+    else
+    {
+        self.titleButton.title = @"";
+        self.titleButton.enabled = NO;
+        [self.titleButton setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor blackColor], }
+                                        forState:UIControlStateNormal];
+    }
 }
 
 - (void)detailItemWasDeleted:(NSNotification *)n

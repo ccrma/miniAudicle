@@ -39,6 +39,8 @@ typedef enum DetailItemType
 @property (nonatomic) t_CKUINT numShreds;
 @property (nonatomic) NSString *uuid;
 
+@property (nonatomic) BOOL isSocial;
+
 @property (nonatomic) BOOL remote;
 @property (copy, nonatomic) NSString *remoteUUID;
 @property (copy, nonatomic) NSString *remoteUsername;

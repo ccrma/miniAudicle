@@ -44,4 +44,6 @@
 - (IBAction)replaceShred;
 - (IBAction)removeShred;
 
+- (void)configureTitle:(NSString *)title editable:(BOOL)editable;
+
 @end

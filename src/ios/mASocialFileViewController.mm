@@ -27,6 +27,7 @@
 #import "mADetailViewController.h"
 #import "mAAnalytics.h"
 #import "mASocialTableViewCell.h"
+#import "mASocialDetailItem.h"
 
 #import "ChuckpadSocial.h"
 #import "Patch.h"
@@ -284,6 +285,9 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSInteger index = indexPath.row;
+    mASocialDetailItem *item = [mASocialDetailItem socialDetailItemWithPatch:self.patches[index]];
+    [self.detailViewController showDetailItem:item];
 }
 
 
