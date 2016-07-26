@@ -179,39 +179,10 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
             }
         };
 
-//        if(![chuckPad isLoggedIn])
-//        {
-//            NSString *donk1 = @"mini_ipad_test";
-//            NSString *donk2 = @"putadonkonit";
-//            
-//            [chuckPad logIn:donk1 withPassword:donk2
-//               withCallback:^(BOOL succeeded, NSError *error) {
-//                   NSAssert([NSThread isMainThread], @"Network callback not on main thread");
-//                   
-//                   if(succeeded)
-//                   {
-//        [self _getPatchesForCategory:gotPatches];
-//
-//                       self.loadingStatus = @"Loading Chuckpad Social";
-//                       self.showsLoading = YES;
-//                   }
-//                   else
-//                   {
-//                       mAAnalyticsLogError(error);
-//                       self.loadingStatus = @"Failed to log in to Chuckpad Social";
-//                   }
-//               }];
-//            
-//            self.loadingStatus = @"Logging in to Chuckpad Social";
-//            self.showsLoading = YES;
-//        }
-//        else
-        {
-            [self _getPatchesForCategory:gotPatches];
-            
-            self.loadingStatus = @"Loading Chuckpad Social";
-            self.showsLoading = YES;
-        }
+        [self _getPatchesForCategory:gotPatches];
+        
+        self.loadingStatus = @"Loading Chuckpad Social";
+        self.showsLoading = YES;
     }
     
     [self.navigationController setToolbarHidden:YES animated:YES];
@@ -302,12 +273,6 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewCellEditingStyleNone;
-}
-
-- (void)tableView:(UITableView *)tableView 
-commitEditingStyle:(UITableViewCellEditingStyle)editingStyle 
-forRowAtIndexPath:(NSIndexPath *)indexPath
-{
 }
 
 @end
