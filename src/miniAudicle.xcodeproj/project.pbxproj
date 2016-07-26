@@ -388,6 +388,9 @@
 		09C758571C83BDCA00B1324C /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C758561C83BDCA00B1324C /* libGoogleAnalytics.a */; };
 		09C7585A1C83C0E100B1324C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C758581C83C0E100B1324C /* CoreData.framework */; };
 		09C7585E1C83CBE300B1324C /* mAAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 09C7585D1C83CBE300B1324C /* mAAnalytics.m */; };
+		09CCA6651D47198E0032EAB0 /* mASocialTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CCA6631D47198E0032EAB0 /* mASocialTableViewCell.m */; };
+		09CCA6661D47198E0032EAB0 /* mASocialTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09CCA6641D47198E0032EAB0 /* mASocialTableViewCell.xib */; };
+		09CCA6691D4724360032EAB0 /* ChuckPadKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CCA6681D4724360032EAB0 /* ChuckPadKeychain.m */; };
 		09D00B8414A3C4010019CD09 /* TitleEditView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */; };
 		09D00B8714A3C44B0019CD09 /* mATitleEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */; };
 		09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09D00B8914A44DFA0019CD09 /* mAVMMonitorController.mm */; };
@@ -1255,6 +1258,11 @@
 		09C758591C83C0E100B1324C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		09C7585C1C83CBE300B1324C /* mAAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAAnalytics.h; sourceTree = "<group>"; };
 		09C7585D1C83CBE300B1324C /* mAAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAAnalytics.m; sourceTree = "<group>"; };
+		09CCA6621D47198E0032EAB0 /* mASocialTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mASocialTableViewCell.h; sourceTree = "<group>"; };
+		09CCA6631D47198E0032EAB0 /* mASocialTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mASocialTableViewCell.m; sourceTree = "<group>"; };
+		09CCA6641D47198E0032EAB0 /* mASocialTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mASocialTableViewCell.xib; sourceTree = "<group>"; };
+		09CCA6671D4724360032EAB0 /* ChuckPadKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChuckPadKeychain.h; sourceTree = "<group>"; };
+		09CCA6681D4724360032EAB0 /* ChuckPadKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChuckPadKeychain.m; sourceTree = "<group>"; };
 		09D00B8314A3C4010019CD09 /* TitleEditView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleEditView_iPad.xib; sourceTree = "<group>"; };
 		09D00B8514A3C44A0019CD09 /* mATitleEditorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mATitleEditorController.h; sourceTree = "<group>"; };
 		09D00B8614A3C44B0019CD09 /* mATitleEditorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mATitleEditorController.m; sourceTree = "<group>"; };
@@ -2260,9 +2268,6 @@
 				093E262E14A108C8008694BC /* mAFileViewController~ipad.xib */,
 				093E262514A108C8008694BC /* mAFileViewController.h */,
 				093E262614A108C8008694BC /* mAFileViewController.mm */,
-				09F330391D46D4AC002792BA /* mASocialFileViewController.xib */,
-				09F330341D46D37B002792BA /* mASocialFileViewController.h */,
-				09F330351D46D37B002792BA /* mASocialFileViewController.mm */,
 				09E9FE101D079069002A2D63 /* mADirectoryViewController.xib */,
 				09E9FE0E1D079069002A2D63 /* mADirectoryViewController.h */,
 				09E9FE0F1D079069002A2D63 /* mADirectoryViewController.mm */,
@@ -2274,6 +2279,12 @@
 				098562521CE92FCD00FCBF21 /* mAFolderTableViewCell.xib */,
 				0985624D1CE7FE1F00FCBF21 /* mAFolderTableViewCell.h */,
 				0985624E1CE7FE1F00FCBF21 /* mAFolderTableViewCell.m */,
+				09F330391D46D4AC002792BA /* mASocialFileViewController.xib */,
+				09F330341D46D37B002792BA /* mASocialFileViewController.h */,
+				09F330351D46D37B002792BA /* mASocialFileViewController.mm */,
+				09CCA6641D47198E0032EAB0 /* mASocialTableViewCell.xib */,
+				09CCA6621D47198E0032EAB0 /* mASocialTableViewCell.h */,
+				09CCA6631D47198E0032EAB0 /* mASocialTableViewCell.m */,
 				093E263114A108C8008694BC /* mADetailViewController~iphone.xib */,
 				093E263414A108C9008694BC /* mADetailViewController~ipad.xib */,
 				09F09E5618E41F2C0050D963 /* mADetailItem.h */,
@@ -2321,6 +2332,8 @@
 				09F3303C1D46DCDB002792BA /* AFNetworking */,
 				09F3304A1D46DCDB002792BA /* ChuckPadSocial.h */,
 				09F3304B1D46DCDB002792BA /* ChuckPadSocial.m */,
+				09CCA6671D4724360032EAB0 /* ChuckPadKeychain.h */,
+				09CCA6681D4724360032EAB0 /* ChuckPadKeychain.m */,
 				09F3304C1D46DCDB002792BA /* FXKeychain */,
 				09F3304F1D46DCDB002792BA /* LICENSE */,
 				09F330501D46DCDB002792BA /* Patch.h */,
@@ -2894,6 +2907,7 @@
 				09E449D41CD2D1E5004BCBA0 /* gear.png in Resources */,
 				09EBA9B718D8FD4700DCAE0C /* examples in Resources */,
 				093E263314A108C9008694BC /* mADetailViewController~iphone.xib in Resources */,
+				09CCA6661D47198E0032EAB0 /* mASocialTableViewCell.xib in Resources */,
 				09735F441C870B2D003965CA /* ck-doc320.png in Resources */,
 				093E263614A108C9008694BC /* mADetailViewController~ipad.xib in Resources */,
 				09735F6F1C8A9407003965CA /* mAAudioFileTableViewCell.xib in Resources */,
@@ -3110,6 +3124,7 @@
 				0921D55C18190216008F39D9 /* blob.c in Sources */,
 				09094DCE19940E7B009F4C4C /* NSMutableArray+MapFilterReduce.m in Sources */,
 				09094DC019916F68009F4C4C /* NSObject+KVCSerialization.m in Sources */,
+				09CCA6651D47198E0032EAB0 /* mASocialTableViewCell.m in Sources */,
 				093E265514A12234008694BC /* chuck.lex in Sources */,
 				093E265614A12234008694BC /* digiio_rtaudio.cpp in Sources */,
 				0964FC2C1CD44B2D00943789 /* mAAudioFileTableViewCell.m in Sources */,
@@ -3169,6 +3184,7 @@
 				09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.mm in Sources */,
 				09608ADF14B40DE4009450FE /* mAConsoleMonitorController.mm in Sources */,
 				0921D55A18190216008F39D9 /* address.c in Sources */,
+				09CCA6691D4724360032EAB0 /* ChuckPadKeychain.m in Sources */,
 				090F4B43171C61A700530FC7 /* chuck_io.cpp in Sources */,
 				090F4B46171C61A700530FC7 /* util_serial.cpp in Sources */,
 				09B1E32317A7338800050DF3 /* ulib_regex.cpp in Sources */,

@@ -25,24 +25,14 @@
 #import "mASocialFileViewController.h"
 
 #import "mADetailViewController.h"
-#import "mAEditorViewController.h"
-#import "mAPlayerViewController.h"
-#import "mAChucKController.h"
-#import "miniAudicle.h"
-#import "mADetailItem.h"
-#import "mADocumentManager.h"
 #import "mAAnalytics.h"
-#import "mAAudioFileTableViewCell.h"
-#import "mAFolderTableViewCell.h"
-#import "mADirectoryViewController.h"
-#import "UIAlert.h"
-#import "mATableViewCell.h"
+#import "mASocialTableViewCell.h"
 
 #import "ChuckpadSocial.h"
 #import "Patch.h"
 
 
-static NSString *CellIdentifier = @"Cell";
+static NSString *SocialCellIdentifier = @"SocialCell";
 
 @interface mASocialFileViewController ()
 {
@@ -109,6 +99,10 @@ static NSString *CellIdentifier = @"Cell";
 {
     [super viewDidLoad];
     
+    [self.tableView registerNib:[UINib nibWithNibName:@"mASocialTableViewCell"
+                                               bundle:NULL]
+         forCellReuseIdentifier:SocialCellIdentifier];
+    
     self.loadingStatus = @"";
     self.showsLoading = NO;
 }
@@ -147,33 +141,35 @@ static NSString *CellIdentifier = @"Cell";
             }
         };
     
-        if(![chuckPad isLoggedIn])
-        {
-            NSString *donk1 = @"mini_ipad_test";
-            NSString *donk2 = @"putadonkonit";
-            
-            [chuckPad logIn:donk1 withPassword:donk2
-               withCallback:^(BOOL succeeded, NSError *error) {
-                   NSAssert([NSThread isMainThread], @"Network callback not on main thread");
-                   
-                   if(succeeded)
-                   {
-                       [chuckPad getAllPatches:gotPatches];
-                       
-                       self.loadingStatus = @"Loading Chuckpad Social";
-                       self.showsLoading = YES;
-                   }
-                   else
-                   {
-                       mAAnalyticsLogError(error);
-                       self.loadingStatus = @"Failed to log in to Chuckpad Social";
-                   }
-               }];
-            
-            self.loadingStatus = @"Logging in to Chuckpad Social";
-            self.showsLoading = YES;
-        }
-        else
+        if([chuckPad isLoggedIn]) [chuckPad logOut];
+        
+//        if(![chuckPad isLoggedIn])
+//        {
+//            NSString *donk1 = @"mini_ipad_test";
+//            NSString *donk2 = @"putadonkonit";
+//            
+//            [chuckPad logIn:donk1 withPassword:donk2
+//               withCallback:^(BOOL succeeded, NSError *error) {
+//                   NSAssert([NSThread isMainThread], @"Network callback not on main thread");
+//                   
+//                   if(succeeded)
+//                   {
+//                       [chuckPad getAllPatches:gotPatches];
+//                       
+//                       self.loadingStatus = @"Loading Chuckpad Social";
+//                       self.showsLoading = YES;
+//                   }
+//                   else
+//                   {
+//                       mAAnalyticsLogError(error);
+//                       self.loadingStatus = @"Failed to log in to Chuckpad Social";
+//                   }
+//               }];
+//            
+//            self.loadingStatus = @"Logging in to Chuckpad Social";
+//            self.showsLoading = YES;
+//        }
+//        else
         {
             [chuckPad getAllPatches:gotPatches];
             
@@ -219,16 +215,11 @@ static NSString *CellIdentifier = @"Cell";
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger index = indexPath.row;
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    mASocialTableViewCell *cell = (mASocialTableViewCell *) [tableView dequeueReusableCellWithIdentifier:SocialCellIdentifier];
         
-    if (cell == nil)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    
-    cell.textLabel.text = self.patches[index].name;
+    cell.name = self.patches[index].name;
+    // cell.desc = self.patches[index].description;
+    cell.category = [NSString stringWithFormat:@"by %@", self.patches[index].creatorUsername];
     
     return cell;
 }
@@ -240,8 +231,6 @@ static NSString *CellIdentifier = @"Cell";
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger index = indexPath.row;
-    
     return UITableViewCellEditingStyleNone;
 }
 
