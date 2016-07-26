@@ -221,6 +221,16 @@ static NSString * const mAAnalyticsOptOut = @"mAAnalyticsOptOut";
                                                                 value:@1] build]];
 }
 
+- (void)socialScripts
+{
+    _lastActionWasEdit = NO;
+    
+    [self.tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"General"
+                                                               action:@"SocialScripts"
+                                                                label:@""
+                                                                value:@1] build]];
+}
+
 - (void)createNewScript
 {
     _lastActionWasEdit = NO;

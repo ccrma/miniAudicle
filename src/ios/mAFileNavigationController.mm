@@ -100,7 +100,7 @@
             [self.childNavigationController setViewControllers:@[self.examplesViewController] animated:NO];
             break;
         case 3:
-            // TODO: analytics
+            [[mAAnalytics instance] socialScripts];
             [self.childNavigationController setViewControllers:@[self.sharedViewController] animated:NO];
             break;
         default: ; // uhh

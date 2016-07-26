@@ -41,6 +41,7 @@ do { \
 - (void)myScripts;
 - (void)recentScripts;
 - (void)exampleScripts;
+- (void)socialScripts;
 - (void)createNewScript;
 - (void)createNewFolder;
 - (void)editScriptList;
