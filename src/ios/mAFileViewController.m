@@ -28,7 +28,6 @@
 #import "mAEditorViewController.h"
 #import "mAPlayerViewController.h"
 #import "mAChucKController.h"
-#import "miniAudicle.h"
 #import "mADetailItem.h"
 #import "mADocumentManager.h"
 #import "mAAnalytics.h"

@@ -39,12 +39,12 @@
 @class mAPlayerViewController;
 
 
-enum mAInteractionMode
+typedef enum mAInteractionMode
 {
     MA_IM_NONE,
     MA_IM_EDIT,
     MA_IM_PLAY,
-};
+} mAInteractionMode;
 
 
 @protocol mADetailClient <NSObject>
