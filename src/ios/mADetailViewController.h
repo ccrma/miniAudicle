@@ -47,13 +47,6 @@ typedef enum mAInteractionMode
 } mAInteractionMode;
 
 
-@protocol mADetailClient <NSObject>
-
-- (UIBarButtonItem *)titleButton;
-
-@end
-
-
 @interface mADetailViewController : UIViewController 
 < UISplitViewControllerDelegate, 
   UIPopoverControllerDelegate,
