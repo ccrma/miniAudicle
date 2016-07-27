@@ -64,11 +64,31 @@
                      }];
 }
 
+- (void)show:(void (^)())completion
+{
+    [UIView animateWithDuration:0.25
+                     animations:^{
+                         self.view.alpha = 1.0;
+                     } completion:^(BOOL finished) {
+                         completion();
+                     }];
+}
+
 - (void)hide
 {
     [UIView animateWithDuration:0.25
                      animations:^{
                          self.view.alpha = 0.0;
+                     }];
+}
+
+- (void)hide:(void (^)())completion
+{
+    [UIView animateWithDuration:0.25
+                     animations:^{
+                         self.view.alpha = 0.0;
+                     } completion:^(BOOL finished) {
+                         completion();
                      }];
 }
 

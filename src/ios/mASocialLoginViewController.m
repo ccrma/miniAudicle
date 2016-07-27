@@ -103,7 +103,9 @@
     }
     else
     {
-        [_loadingView hide];
+        [_loadingView hide:^{
+            _loadingView = nil;
+        }];
     }
 }
 

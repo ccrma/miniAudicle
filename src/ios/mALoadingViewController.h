@@ -14,7 +14,9 @@
 @property (nonatomic) BOOL loading;
 
 - (void)show;
+- (void)show:(void (^)())completion;
 - (void)hide;
+- (void)hide:(void (^)())completion;
 - (void)fit;
 
 @end
