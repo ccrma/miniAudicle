@@ -11,6 +11,8 @@
 		0900B70D1CC0D8A400210EF3 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0900B70C1CC0D8A400210EF3 /* CoreMIDI.framework */; };
 		090261051D4892BC001B281D /* UITabBarMoreTemplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 090261031D4892BC001B281D /* UITabBarMoreTemplate@2x.png */; };
 		090261061D4892BC001B281D /* UITabBarMoreTemplate@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 090261041D4892BC001B281D /* UITabBarMoreTemplate@3x.png */; };
+		090261DF1D48AC83001B281D /* mASocialShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 090261DE1D48AC83001B281D /* mASocialShareViewController.m */; };
+		090261E11D48AC93001B281D /* mASocialShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 090261E01D48AC93001B281D /* mASocialShareViewController.xib */; };
 		0907BB06173D04770065B860 /* PSMTabBarControl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0916F980173AF0D20055956C /* PSMTabBarControl.framework */; };
 		09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09087C6414A4F5F600AD2633 /* mAVMMonitorCellController.mm */; };
 		09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09087C6714A4F61700AD2633 /* mAVMMonitorCell.xib */; };
@@ -832,6 +834,9 @@
 		090261001D488DAC001B281D /* mAInteractionModeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAInteractionModeController.h; sourceTree = "<group>"; };
 		090261031D4892BC001B281D /* UITabBarMoreTemplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UITabBarMoreTemplate@2x.png"; sourceTree = "<group>"; };
 		090261041D4892BC001B281D /* UITabBarMoreTemplate@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UITabBarMoreTemplate@3x.png"; sourceTree = "<group>"; };
+		090261DD1D48AC83001B281D /* mASocialShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mASocialShareViewController.h; sourceTree = "<group>"; };
+		090261DE1D48AC83001B281D /* mASocialShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mASocialShareViewController.m; sourceTree = "<group>"; };
+		090261E01D48AC93001B281D /* mASocialShareViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mASocialShareViewController.xib; sourceTree = "<group>"; };
 		09087C6314A4F5F600AD2633 /* mAVMMonitorCellController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAVMMonitorCellController.h; sourceTree = "<group>"; };
 		09087C6414A4F5F600AD2633 /* mAVMMonitorCellController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAVMMonitorCellController.mm; sourceTree = "<group>"; };
 		09087C6714A4F61700AD2633 /* mAVMMonitorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAVMMonitorCell.xib; sourceTree = "<group>"; };
@@ -2197,6 +2202,9 @@
 				092A171D1D481D7B00D74A09 /* mASocialLoginViewController.xib */,
 				092A171B1D481D7B00D74A09 /* mASocialLoginViewController.h */,
 				092A171C1D481D7B00D74A09 /* mASocialLoginViewController.m */,
+				090261E01D48AC93001B281D /* mASocialShareViewController.xib */,
+				090261DD1D48AC83001B281D /* mASocialShareViewController.h */,
+				090261DE1D48AC83001B281D /* mASocialShareViewController.m */,
 			);
 			name = social;
 			sourceTree = "<group>";
@@ -2995,6 +3003,7 @@
 				0934BE44190D038B0084D10E /* sequence.png in Resources */,
 				09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */,
 				096310BC1C86F35900A36F8F /* mALaunchView.xib in Resources */,
+				090261E11D48AC93001B281D /* mASocialShareViewController.xib in Resources */,
 				09E288941CEA88AE006E6AE4 /* chuck_logo.png in Resources */,
 				09E9FE121D079069002A2D63 /* mADirectoryViewController.xib in Resources */,
 				09307E2418DFF892004AB346 /* error.png in Resources */,
@@ -3216,6 +3225,7 @@
 				093E266314A12234008694BC /* util_hid.cpp in Sources */,
 				093E266414A12234008694BC /* util_math.c in Sources */,
 				093E266514A12234008694BC /* util_network.c in Sources */,
+				090261DF1D48AC83001B281D /* mASocialShareViewController.m in Sources */,
 				093E266614A12234008694BC /* util_opsc.cpp in Sources */,
 				093E266714A12234008694BC /* util_raw.c in Sources */,
 				09F3305F1D46DCDB002792BA /* README.md in Sources */,

@@ -14,11 +14,13 @@
 #import "mADetailItem.h"
 #import "mAAppDelegate.h"
 #import "mADocumentManager.h"
-#import "NSString+NSString_Lines.h"
-#import "NSString+STLString.h"
 #import "mAAutocomplete.h"
 #import "mATextCompletionView.h"
+#import "mASocialShareViewController.h"
 #import "mAAnalytics.h"
+
+#import "NSString+NSString_Lines.h"
+#import "NSString+STLString.h"
 #import "UIAlert.h"
 #import "UIColor+iOS7BlueColor.h"
 
@@ -596,12 +598,19 @@
 
 - (NSArray<NSString *> *)menuItems
 {
-    return @[ @"Rename", @"Duplicate" ];
+    return @[ @"Rename", @"Duplicate", @"Share" ];
 }
 
 - (void)handleMenuItem:(NSInteger)item
 {
     NSLog(@"menuItem: %@", self.menuItems[item]);
+    
+    if(item == 2) // share
+    {
+        mASocialShareViewController *shareView = [mASocialShareViewController new];
+        shareView.script = self.detailItem;
+        [self presentViewController:shareView animated:YES completion:^{}];
+    }
 }
 
 #pragma mark - NSTextStorageDelegate
