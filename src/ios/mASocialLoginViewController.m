@@ -95,6 +95,7 @@
         if(_loadingView == nil)
         {
             _loadingView = [mALoadingViewController new];
+            _loadingView.loadingViewStyle = mALoadingViewStyleOpaque;
             [self.view addSubview:_loadingView.view];
             [_loadingView fit];
         }

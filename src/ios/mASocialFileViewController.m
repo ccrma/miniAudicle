@@ -29,6 +29,7 @@
 #import "mASocialTableViewCell.h"
 #import "mASocialDetailItem.h"
 #import "mASocialCategoryViewController.h"
+#import "mALoadingViewController.h"
 
 #import "UIAlert.h"
 
@@ -58,16 +59,12 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 
 @interface mASocialFileViewController ()
 {
-    IBOutlet UIView *_loadingView;
-    IBOutlet UILabel *_loadingStatusLabel;
+    mALoadingViewController *_loadingView;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView * tableView;
 
 @property (strong, nonatomic) NSArray<Patch *> *patches;
-
-@property (copy, nonatomic) NSString *loadingStatus;
-@property (nonatomic) BOOL showsLoading;
 
 - (void)_getPatchesForCategory:(GetPatchesCallback)callback;
 
@@ -75,34 +72,6 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 
 
 @implementation mASocialFileViewController
-
-- (void)setLoadingStatus:(NSString *)loadingStatus
-{
-    _loadingStatus = loadingStatus;
-    
-    if(_loadingStatus)
-        _loadingStatusLabel.text = _loadingStatus;
-}
-
-- (void)setShowsLoading:(BOOL)showsLoading
-{
-    _showsLoading = showsLoading;
-    
-    if(showsLoading)
-    {
-        [UIView animateWithDuration:0.25
-                         animations:^{
-                             _loadingView.alpha = 1.0;
-                         }];
-    }
-    else
-    {
-        [UIView animateWithDuration:0.25
-                         animations:^{
-                             _loadingView.alpha = 0.0;
-                         }];
-    }
-}
 
 - (void)setCategory:(mASocialCategory)category
 {
@@ -141,9 +110,6 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
     [self.tableView registerNib:[UINib nibWithNibName:@"mASocialTableViewCell"
                                                bundle:NULL]
          forCellReuseIdentifier:SocialCellIdentifier];
-    
-    self.loadingStatus = @"";
-    self.showsLoading = NO;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -160,9 +126,9 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 {
     if(self.patches == nil)
     {
-//        ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
+        [self _showLoading:YES status: @"Loading scripts"];
         
-        GetPatchesCallback gotPatches = ^(NSArray *patchesArray, NSError *error) {
+        [self _getPatchesForCategory:^(NSArray *patchesArray, NSError *error) {
             NSAssert([NSThread isMainThread], @"Network callback not on main thread");
             
             if(error == nil)
@@ -170,20 +136,15 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
                 NSLog(@"Got patches");
                 self.patches = patchesArray;
                 
-                self.showsLoading = NO;
+                [self _showLoading:NO];
                 [self.tableView reloadData];
             }
             else
             {
                 mAAnalyticsLogError(error);
-                self.loadingStatus = @"Failed to load patches";
+                [self _showLoading:YES status:@"Failed to load patches"];
             }
-        };
-
-        [self _getPatchesForCategory:gotPatches];
-        
-        self.loadingStatus = @"Loading Chuckpad Social";
-        self.showsLoading = YES;
+        }];
     }
     
     [self.navigationController setToolbarHidden:YES animated:YES];
@@ -229,6 +190,35 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
             break;
     }
 }
+
+- (void)_showLoading:(BOOL)show
+{
+    if(show)
+    {
+        if(_loadingView == nil)
+        {
+            _loadingView = [mALoadingViewController new];
+            _loadingView.loadingViewStyle = mALoadingViewStyleOpaque;
+            [self.view addSubview:_loadingView.view];
+            [_loadingView fit];
+        }
+        
+        [_loadingView show];
+    }
+    else
+    {
+        [_loadingView hide:^{
+            _loadingView = nil;
+        }];
+    }
+}
+
+- (void)_showLoading:(BOOL)show status:(NSString *)status
+{
+    [self _showLoading:show];
+    _loadingView.status = status;
+}
+
 
 #pragma mark - IBActions
 

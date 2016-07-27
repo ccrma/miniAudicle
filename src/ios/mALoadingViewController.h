@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum mALoadingViewStyle
+{
+    mALoadingViewStyleTransparent,
+    mALoadingViewStyleOpaque,
+} mALoadingViewStyle;
+
 @interface mALoadingViewController : UIViewController
 
+@property (nonatomic) mALoadingViewStyle loadingViewStyle;
 @property (strong, nonatomic) NSString *status;
 @property (nonatomic) BOOL loading;
 

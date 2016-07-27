@@ -46,7 +46,6 @@
     return CGSizeMake(375, 400);
 }
 
-
 - (void)_showLoading:(BOOL)show
 {
     if(show)
@@ -54,6 +53,7 @@
         if(_loadingView == nil)
         {
             _loadingView = [mALoadingViewController new];
+            _loadingView.loadingViewStyle = mALoadingViewStyleOpaque;
             [self.view addSubview:_loadingView.view];
             [_loadingView fit];
         }

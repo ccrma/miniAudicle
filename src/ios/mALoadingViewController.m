@@ -7,6 +7,8 @@
 //
 
 #import "mALoadingViewController.h"
+#import "UIColor+iOS7BlueColor.h"
+
 
 @interface mALoadingViewController ()
 {
@@ -17,6 +19,24 @@
 @end
 
 @implementation mALoadingViewController
+
+- (void)setLoadingViewStyle:(mALoadingViewStyle)loadingViewStyle
+{
+    _loadingViewStyle = loadingViewStyle;
+    
+    if(_loadingViewStyle == mALoadingViewStyleTransparent)
+    {
+        self.view.backgroundColor = [UIColor colorWithWhite:0.25 alpha:0.5];
+        _activityIndicator.color = [UIColor whiteColor];
+        _statusLabel.textColor = [UIColor whiteColor];
+    }
+    else if(_loadingViewStyle == mALoadingViewStyleOpaque)
+    {
+        self.view.backgroundColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+        _activityIndicator.color = [UIColor iOS7BlueColor];
+        _statusLabel.textColor = [UIColor blackColor];
+    }
+}
 
 - (void)setLoading:(BOOL)loading
 {
