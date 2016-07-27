@@ -256,7 +256,7 @@
                     }
                     else
                     {
-                        UIAlertMessage1a(@"Failed to create account.", error.localizedFailureReason, ^{});
+                        UIAlertMessage1a(@"Failed to create account.", error.localizedDescription, ^{});
                     }
                 }];
 }
