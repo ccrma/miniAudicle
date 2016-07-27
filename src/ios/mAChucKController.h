@@ -30,11 +30,7 @@ class miniAudicle;
 typedef void miniAudicle;
 #endif
 
-
 @interface mAChucKController : NSObject
-{
-    miniAudicle * ma;
-}
 
 @property (nonatomic) miniAudicle * ma;
 @property (nonatomic) BOOL enableInput;

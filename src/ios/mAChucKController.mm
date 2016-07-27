@@ -60,6 +60,8 @@ static mAChucKController * g_chuckController = nil;
 
 @interface mAChucKController ()
 {
+    miniAudicle * ma;
+
     AEBlockChannel *_outputChannel;
     AEBlockFilter *_inputOutputChannel;
     AEPlaythroughChannel *_playthroughChannel;
