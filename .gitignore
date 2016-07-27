@@ -31,3 +31,6 @@ installer/windows/miniAudicle.exe
 build-miniAudicle-*
 
 src/ios/default.xcconfig
+
+# AppCode 
+src/.idea/
