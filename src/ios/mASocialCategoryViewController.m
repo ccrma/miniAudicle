@@ -8,6 +8,7 @@
 
 #import "mASocialCategoryViewController.h"
 #import "mASocialFileViewController.h"
+#import "mASocialLoginViewController.h"
 
 @interface mASocialCategoryViewController ()
 {
@@ -18,6 +19,8 @@
 @property (strong, nonatomic) mASocialFileViewController *featuredSocialFileViewController;
 @property (strong, nonatomic) mASocialFileViewController *documentationSocialFileViewController;
 @property (strong, nonatomic) mASocialFileViewController *mySocialFileViewController;
+
+@property (strong, nonatomic) mASocialLoginViewController *loginView;
 
 @end
 
@@ -30,6 +33,7 @@
         _allSocialFileViewController = [mASocialFileViewController new];
         _allSocialFileViewController.category = SOCIAL_CATEGORY_ALL;
         _allSocialFileViewController.detailViewController = self.detailViewController;
+        _allSocialFileViewController.categoryViewController = self;
     }
     
     return _allSocialFileViewController;
@@ -42,6 +46,7 @@
         _featuredSocialFileViewController = [mASocialFileViewController new];
         _featuredSocialFileViewController.category = SOCIAL_CATEGORY_FEATURED;
         _featuredSocialFileViewController.detailViewController = self.detailViewController;
+        _featuredSocialFileViewController.categoryViewController = self;
     }
     
     return _featuredSocialFileViewController;
@@ -54,6 +59,7 @@
         _documentationSocialFileViewController = [mASocialFileViewController new];
         _documentationSocialFileViewController.category = SOCIAL_CATEGORY_DOCUMENTATION;
         _documentationSocialFileViewController.detailViewController = self.detailViewController;
+        _documentationSocialFileViewController.categoryViewController = self;
     }
     
     return _documentationSocialFileViewController;
@@ -66,14 +72,31 @@
         _mySocialFileViewController = [mASocialFileViewController new];
         _mySocialFileViewController.category = SOCIAL_CATEGORY_MYPATCHES;
         _mySocialFileViewController.detailViewController = self.detailViewController;
+        _mySocialFileViewController.categoryViewController = self;
     }
     
     return _mySocialFileViewController;
 }
 
+- (mASocialLoginViewController *)loginView
+{
+    if(_loginView == nil)
+    {
+        _loginView = [mASocialLoginViewController new];
+    }
+    
+    return _loginView;
+}
+
 - (id)init
 {
-    if(self = [super initWithStyle:UITableViewStylePlain]) { }
+    if(self = [super initWithStyle:UITableViewStylePlain])
+    {
+        _categories = @[ @(SOCIAL_CATEGORY_ALL),
+                         @(SOCIAL_CATEGORY_FEATURED),
+                         @(SOCIAL_CATEGORY_DOCUMENTATION),
+                         @(SOCIAL_CATEGORY_MYPATCHES), ];
+    }
     
     return self;
 }
@@ -82,11 +105,6 @@
     [super viewDidLoad];
     
     self.title = @"Chuckpad Social Scripts";
-
-    _categories = @[ @(SOCIAL_CATEGORY_ALL),
-                     @(SOCIAL_CATEGORY_FEATURED),
-                     @(SOCIAL_CATEGORY_DOCUMENTATION),
-                     @(SOCIAL_CATEGORY_MYPATCHES), ];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -96,9 +114,27 @@
     [self.navigationController setToolbarHidden:YES animated:YES];
 }
 
+- (UINavigationItem *)navigationItem
+{
+    UINavigationItem *navigationItem = super.navigationItem;
+    
+    UIBarButtonItem *loginItem = [[UIBarButtonItem alloc] initWithTitle:@"Login"
+                                                                  style:UIBarButtonItemStylePlain
+                                                                 target:self
+                                                                 action:@selector(loginOrRegister)];
+    navigationItem.rightBarButtonItem = loginItem;
+    
+    return navigationItem;
+}
+
 - (mASocialFileViewController *)defaultCategoryViewController
 {
     return self.allSocialFileViewController;
+}
+
+- (void)loginOrRegister
+{
+    [self presentViewController:self.loginView animated:YES completion:^{}];
 }
 
 #pragma mark - UITableViewDataSource

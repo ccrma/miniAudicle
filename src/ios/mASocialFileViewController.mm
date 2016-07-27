@@ -28,6 +28,7 @@
 #import "mAAnalytics.h"
 #import "mASocialTableViewCell.h"
 #import "mASocialDetailItem.h"
+#import "mASocialCategoryViewController.h"
 
 #import "UIAlert.h"
 
@@ -196,6 +197,7 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 {
     UINavigationItem *navigationItem = super.navigationItem;
     
+    navigationItem.rightBarButtonItem = self.categoryViewController.navigationItem.rightBarButtonItem;
     navigationItem.title = mASocialCategoryGetTitle(self.category);
     
     return navigationItem;
@@ -267,12 +269,6 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
     NSInteger index = indexPath.row;
     mASocialDetailItem *item = [mASocialDetailItem socialDetailItemWithPatch:self.patches[index]];
     [self.detailViewController showDetailItem:item];
-}
-
-
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return UITableViewCellEditingStyleNone;
 }
 
 @end

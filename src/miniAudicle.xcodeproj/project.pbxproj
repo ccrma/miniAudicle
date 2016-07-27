@@ -87,6 +87,8 @@
 		0929B9FA1D133BB900B8DE4D /* WinFuncEnv.schug in Frameworks */ = {isa = PBXBuildFile; fileRef = 0929B9BD1D133B7F00B8DE4D /* WinFuncEnv.schug */; };
 		0929B9FB1D133BB900B8DE4D /* WPDiodeLadder.schug in Frameworks */ = {isa = PBXBuildFile; fileRef = 0929B9C31D133B8500B8DE4D /* WPDiodeLadder.schug */; };
 		0929B9FC1D133BB900B8DE4D /* WPKorg35.schug in Frameworks */ = {isa = PBXBuildFile; fileRef = 0929B9C91D133B8E00B8DE4D /* WPKorg35.schug */; };
+		092A171E1D481D7B00D74A09 /* mASocialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 092A171C1D481D7B00D74A09 /* mASocialLoginViewController.m */; };
+		092A171F1D481D7B00D74A09 /* mASocialLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092A171D1D481D7B00D74A09 /* mASocialLoginViewController.xib */; };
 		092B8E9D1BC206C8000033B3 /* miniAudicle_version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092B8E9B1BC206C8000033B3 /* miniAudicle_version.cpp */; };
 		09307E1A18DE76D0004AB346 /* mAKeyboardAccessoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09307E1818DE76D0004AB346 /* mAKeyboardAccessoryViewController.m */; };
 		09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09307E1918DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib */; };
@@ -896,6 +898,9 @@
 		0929B9B81D133B7F00B8DE4D /* WinFuncEnv.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WinFuncEnv.xcodeproj; path = chugins/WinFuncEnv/WinFuncEnv.xcodeproj; sourceTree = SOURCE_ROOT; };
 		0929B9BE1D133B8500B8DE4D /* WPDiodeLadder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WPDiodeLadder.xcodeproj; path = chugins/WPDiodeLadder/WPDiodeLadder.xcodeproj; sourceTree = SOURCE_ROOT; };
 		0929B9C41D133B8E00B8DE4D /* WPKorg35.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WPKorg35.xcodeproj; path = chugins/WPKorg35/WPKorg35.xcodeproj; sourceTree = SOURCE_ROOT; };
+		092A171B1D481D7B00D74A09 /* mASocialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mASocialLoginViewController.h; sourceTree = "<group>"; };
+		092A171C1D481D7B00D74A09 /* mASocialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mASocialLoginViewController.m; sourceTree = "<group>"; };
+		092A171D1D481D7B00D74A09 /* mASocialLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mASocialLoginViewController.xib; sourceTree = "<group>"; };
 		092B8E9B1BC206C8000033B3 /* miniAudicle_version.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = miniAudicle_version.cpp; sourceTree = "<group>"; };
 		092B8E9C1BC206C8000033B3 /* miniAudicle_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = miniAudicle_version.h; sourceTree = "<group>"; };
 		09307E1618DE68B0004AB346 /* mANavigationController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "mANavigationController~ipad.xib"; sourceTree = "<group>"; };
@@ -2182,6 +2187,9 @@
 				09CCA6771D47606C0032EAB0 /* mALoadingViewController.m */,
 				09CCA6711D4756730032EAB0 /* mASocialEditorViewController.h */,
 				09CCA6721D4756730032EAB0 /* mASocialEditorViewController.mm */,
+				092A171D1D481D7B00D74A09 /* mASocialLoginViewController.xib */,
+				092A171B1D481D7B00D74A09 /* mASocialLoginViewController.h */,
+				092A171C1D481D7B00D74A09 /* mASocialLoginViewController.m */,
 			);
 			name = social;
 			sourceTree = "<group>";
@@ -2936,6 +2944,7 @@
 				093E262D14A108C8008694BC /* mAFileViewController~iphone.xib in Resources */,
 				093E263014A108C8008694BC /* mAFileViewController~ipad.xib in Resources */,
 				09E449D41CD2D1E5004BCBA0 /* gear.png in Resources */,
+				092A171F1D481D7B00D74A09 /* mASocialLoginViewController.xib in Resources */,
 				09EBA9B718D8FD4700DCAE0C /* examples in Resources */,
 				093E263314A108C9008694BC /* mADetailViewController~iphone.xib in Resources */,
 				09CCA6751D4760340032EAB0 /* mALoadingView.xib in Resources */,
@@ -3091,6 +3100,7 @@
 				093E262714A108C8008694BC /* mAFileViewController.mm in Sources */,
 				093E262A14A108C8008694BC /* mADetailViewController.mm in Sources */,
 				093E263B14A12201008694BC /* uana_extract.cpp in Sources */,
+				092A171E1D481D7B00D74A09 /* mASocialLoginViewController.m in Sources */,
 				093E263C14A12201008694BC /* uana_xform.cpp in Sources */,
 				09F09E4918E3712D0050D963 /* mARoundedRectButton.m in Sources */,
 				093E263D14A12201008694BC /* chuck_absyn.cpp in Sources */,

@@ -25,6 +25,7 @@
 #import <UIKit/UIKit.h>
 
 @class mADetailViewController;
+@class mASocialCategoryViewController;
 
 typedef enum mASocialCategory
 {
@@ -47,6 +48,7 @@ extern "C" {
 @interface mASocialFileViewController : UIViewController
 
 @property (strong, nonatomic) mADetailViewController *detailViewController;
+@property (strong, nonatomic) mASocialCategoryViewController *categoryViewController;
 @property (nonatomic) mASocialCategory category;
 
 @end
