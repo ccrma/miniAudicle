@@ -138,8 +138,8 @@
     [self showLoading:YES];
     
     ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
-    [chuckPad logIn:loginUsername withPassword:loginPassword
-       withCallback:^(BOOL succeeded, NSError *error) {
+    [chuckPad logIn:loginUsername password:loginPassword
+       callback:^(BOOL succeeded, NSError *error) {
            
            if(succeeded)
            {
