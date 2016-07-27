@@ -8,6 +8,7 @@
 
 #import "mASocialLoginViewController.h"
 #import "mALoadingViewController.h"
+#import "mAAnalytics.h"
 
 #import "UIAlert.h"
 
@@ -221,6 +222,7 @@
            }
            else
            {
+               mAAnalyticsLogError(error);
                UIAlertMessage1a(@"Failed to log in.", error.localizedDescription, ^{});
            }
        }];
@@ -259,6 +261,7 @@
                     }
                     else
                     {
+                        mAAnalyticsLogError(error);
                         UIAlertMessage1a(@"Failed to create account.", error.localizedDescription, ^{});
                     }
                 }];

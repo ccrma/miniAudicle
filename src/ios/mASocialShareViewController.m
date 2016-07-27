@@ -9,6 +9,7 @@
 #import "mASocialShareViewController.h"
 #import "mADetailItem.h"
 #import "mALoadingViewController.h"
+#import "mAAnalytics.h"
 
 #import "UIAlert.h"
 
@@ -104,7 +105,10 @@
                      {
                          NSString *msg = @"";
                          if(error)
+                         {
+                             mAAnalyticsLogError(error);
                              msg = error.localizedDescription;
+                         }
                          UIAlertMessage1a(@"Failed to upload patch", error.localizedDescription, ^{});
                      }
                      
