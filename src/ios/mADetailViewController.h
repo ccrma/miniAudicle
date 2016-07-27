@@ -60,15 +60,8 @@ typedef enum mAInteractionMode
   mAConsoleMonitorDelegate,
   mAVMMonitorDelegate,
   UIActionSheetDelegate>
-{
-    IBOutlet UIView *_clientView;
-    IBOutlet UIToolbar * _toolbar;
-    
-    IBOutlet mAVMMonitorController * _vmMonitor;
-    IBOutlet mAConsoleMonitorController * _consoleMonitor;
-}
 
-@property (strong, nonatomic) UIViewController *clientViewController;
+@property (strong, nonatomic) UIViewController<mAInteractionModeController> *clientViewController;
 //@property (assign, nonatomic) mAFileViewController * fileViewController;
 @property (strong, nonatomic) IBOutlet mAEditorViewController * editor;
 @property (strong, nonatomic) IBOutlet mAPlayerViewController * player;
@@ -78,7 +71,6 @@ typedef enum mAInteractionMode
 
 - (void)showMasterPopover;
 - (void)dismissMasterPopover;
-- (void)setClientViewController:(UIViewController *)viewController;
 
 - (void)showDetailItem:(mADetailItem *)item;
 - (void)editItem:(mADetailItem *)item;

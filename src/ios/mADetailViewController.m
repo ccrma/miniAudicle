@@ -77,6 +77,12 @@
 
 @interface mADetailViewController ()
 {
+    IBOutlet UIView *_clientView;
+    IBOutlet UIToolbar * _toolbar;
+    
+    IBOutlet mAVMMonitorController * _vmMonitor;
+    IBOutlet mAConsoleMonitorController * _consoleMonitor;
+
     IBOutlet UIBarButtonItem *_consoleMonitorButton;
     IBOutlet UIBarButtonItem *_vmMonitorButton;
     IBOutlet UIBarButtonItem *_docMenuButton;
@@ -191,9 +197,9 @@
     return self;
 }
 
-- (void)setClientViewController:(UIViewController *)viewController
+- (void)setClientViewController:(UIViewController<mAInteractionModeController> *)viewController
 {
-    if(self.clientViewController != viewController)
+    if(_clientViewController != viewController)
     {
         _clientViewController = viewController;
         
@@ -217,6 +223,11 @@
                     atIndex:i];
         [(id<mADetailClient>)viewController titleButton].tag = -1;
         [items removeObjectAtIndex:i+1];
+        
+        [items removeObject:_docMenuButton];
+        if(_clientViewController.menuItems.count)
+            [items insertObject:_docMenuButton atIndex:i+1];
+        
         
         [self.toolbar setItems:items animated:YES];
     }
