@@ -7,9 +7,16 @@
 //
 
 #import "mASocialDetailItem.h"
+#import "mAAnalytics.h"
 
 #import "ChuckPadSocial.h"
 #import "Patch.h"
+
+
+@interface mASocialDetailItem ()
+
+@end
+
 
 @implementation mASocialDetailItem
 
@@ -46,6 +53,7 @@
         }
         else
         {
+            mAAnalyticsLogError(error);
             callback(NO, error);
         }
     }];
