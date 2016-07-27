@@ -102,7 +102,7 @@
                      }
                      else
                      {
-                         NSString *msg;
+                         NSString *msg = @"";
                          if(error)
                              msg = error.localizedDescription;
                          UIAlertMessage1a(@"Failed to upload patch", error.localizedDescription, ^{});
