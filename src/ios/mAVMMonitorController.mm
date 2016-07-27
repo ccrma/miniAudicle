@@ -25,8 +25,10 @@
 #import "mAVMMonitorController.h"
 
 #import "mAChucKController.h"
-#import "miniAudicle.h"
 #import "mAVMMonitorCellController.h"
+
+#import "miniAudicle.h"
+#import "chuck_def.h"
 
 
 NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorControllerStatusUpdateNotification";
@@ -34,6 +36,16 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
 
 @interface mAVMMonitorController ()
 {
+    IBOutlet UITableView * _tableView;
+    
+    Chuck_VM_Status * most_recent_status;
+    Chuck_VM_Status * status_buffers;
+    int which_status_buffer;
+    
+    BOOL isUpdating;
+    
+    t_CKUINT docid;
+    
     NSInteger _nShreds;
 }
 

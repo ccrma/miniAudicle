@@ -24,10 +24,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "chuck_def.h"
-
-class Chuck_VM_Status;
-
 extern NSString * const mAVMMonitorControllerStatusUpdateNotification;
 
 @class mAVMMonitorController;
@@ -41,17 +37,6 @@ extern NSString * const mAVMMonitorControllerStatusUpdateNotification;
 @interface mAVMMonitorController : UIViewController 
 < UITableViewDataSource,
   UITableViewDelegate >
-{
-    IBOutlet UITableView * _tableView;
-    
-    Chuck_VM_Status * most_recent_status;
-    Chuck_VM_Status * status_buffers;
-    int which_status_buffer;
-    
-    BOOL isUpdating;
-    
-    t_CKUINT docid;
-}
 
 @property (assign, nonatomic) IBOutlet id<mAVMMonitorDelegate> delegate;
 
