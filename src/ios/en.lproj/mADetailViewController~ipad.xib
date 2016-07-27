@@ -55,6 +55,11 @@
                                 <action selector="editTitle:" destination="-1" id="121"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem image="UITabBarMoreTemplate.png" id="Iqp-eb-s29">
+                            <connections>
+                                <action selector="showDocumentMenu:" destination="-1" id="rZ0-uj-rbj"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="109"/>
                     </items>
                 </toolbar>
@@ -86,6 +91,7 @@
         </viewController>
     </objects>
     <resources>
+        <image name="UITabBarMoreTemplate.png" width="24" height="5"/>
         <image name="gear.png" width="28" height="28"/>
     </resources>
 </document>

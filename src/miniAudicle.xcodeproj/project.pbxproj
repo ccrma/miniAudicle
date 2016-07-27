@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0900B70B1CC0D33B00210EF3 /* rtmidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B400A9A54DA007604EA /* rtmidi.cpp */; };
 		0900B70D1CC0D8A400210EF3 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0900B70C1CC0D8A400210EF3 /* CoreMIDI.framework */; };
+		090261051D4892BC001B281D /* UITabBarMoreTemplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 090261031D4892BC001B281D /* UITabBarMoreTemplate@2x.png */; };
+		090261061D4892BC001B281D /* UITabBarMoreTemplate@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 090261041D4892BC001B281D /* UITabBarMoreTemplate@3x.png */; };
 		0907BB06173D04770065B860 /* PSMTabBarControl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0916F980173AF0D20055956C /* PSMTabBarControl.framework */; };
 		09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09087C6414A4F5F600AD2633 /* mAVMMonitorCellController.mm */; };
 		09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09087C6714A4F61700AD2633 /* mAVMMonitorCell.xib */; };
@@ -827,6 +829,9 @@
 
 /* Begin PBXFileReference section */
 		0900B70C1CC0D8A400210EF3 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreMIDI.framework; sourceTree = DEVELOPER_DIR; };
+		090261001D488DAC001B281D /* mAInteractionModeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAInteractionModeController.h; sourceTree = "<group>"; };
+		090261031D4892BC001B281D /* UITabBarMoreTemplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UITabBarMoreTemplate@2x.png"; sourceTree = "<group>"; };
+		090261041D4892BC001B281D /* UITabBarMoreTemplate@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UITabBarMoreTemplate@3x.png"; sourceTree = "<group>"; };
 		09087C6314A4F5F600AD2633 /* mAVMMonitorCellController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAVMMonitorCellController.h; sourceTree = "<group>"; };
 		09087C6414A4F5F600AD2633 /* mAVMMonitorCellController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAVMMonitorCellController.mm; sourceTree = "<group>"; };
 		09087C6714A4F61700AD2633 /* mAVMMonitorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAVMMonitorCell.xib; sourceTree = "<group>"; };
@@ -1537,6 +1542,8 @@
 				09F09E5118E419960050D963 /* remove-noalpha.png */,
 				09F09E5218E419960050D963 /* replace-noalpha.png */,
 				09087C6A14A4F67100AD2633 /* UIRemoveControlMinus.png */,
+				090261031D4892BC001B281D /* UITabBarMoreTemplate@2x.png */,
+				090261041D4892BC001B281D /* UITabBarMoreTemplate@3x.png */,
 				09307E2018DFEE57004AB346 /* Images.xcassets */,
 				0929B85B1D1114C300B8DE4D /* examples */,
 			);
@@ -2328,6 +2335,7 @@
 				093E263414A108C9008694BC /* mADetailViewController~ipad.xib */,
 				09F09E5618E41F2C0050D963 /* mADetailItem.h */,
 				09F09E5718E41F2C0050D963 /* mADetailItem.mm */,
+				090261001D488DAC001B281D /* mAInteractionModeController.h */,
 				093E262814A108C8008694BC /* mADetailViewController.h */,
 				093E262914A108C8008694BC /* mADetailViewController.mm */,
 				093E267D14A1B3B2008694BC /* mAChucKController.h */,
@@ -2983,6 +2991,7 @@
 				09D00B8C14A44DFB0019CD09 /* mAVMMonitorController.xib in Resources */,
 				09F09E5518E419960050D963 /* replace-noalpha.png in Resources */,
 				09664B9019905ABC00AE0B6B /* mAConnectViewController.xib in Resources */,
+				090261061D4892BC001B281D /* UITabBarMoreTemplate@3x.png in Resources */,
 				0934BE44190D038B0084D10E /* sequence.png in Resources */,
 				09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */,
 				096310BC1C86F35900A36F8F /* mALaunchView.xib in Resources */,
@@ -2992,6 +3001,7 @@
 				09E288831CE9C86D006E6AE4 /* AddFolder@2x.png in Resources */,
 				09087C6B14A4F67100AD2633 /* UIRemoveControlMinus.png in Resources */,
 				09094DC519919E41009F4C4C /* mAActivityViewController.xib in Resources */,
+				090261051D4892BC001B281D /* UITabBarMoreTemplate@2x.png in Resources */,
 				098562531CE92FCD00FCBF21 /* mAFolderTableViewCell.xib in Resources */,
 				09608AE014B40DE4009450FE /* mAConsoleMonitor.xib in Resources */,
 				09E288981CEA93BA006E6AE4 /* mAAboutView.xib in Resources */,

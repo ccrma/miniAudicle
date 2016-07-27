@@ -29,6 +29,7 @@
 #import "mAConsoleMonitorController.h"
 #import "mAVMMonitorController.h"
 #import "mASyntaxHighlighter.h"
+#import "mAInteractionModeController.h"
 
 
 @class mADetailItem;
@@ -57,7 +58,8 @@ enum mAInteractionMode
 < UISplitViewControllerDelegate, 
   UIPopoverControllerDelegate,
   mAConsoleMonitorDelegate,
-  mAVMMonitorDelegate >
+  mAVMMonitorDelegate,
+  UIActionSheetDelegate>
 {
     IBOutlet UIView *_clientView;
     IBOutlet UIToolbar * _toolbar;
@@ -71,6 +73,8 @@ enum mAInteractionMode
 @property (strong, nonatomic) IBOutlet mAEditorViewController * editor;
 @property (strong, nonatomic) IBOutlet mAPlayerViewController * player;
 @property (nonatomic) mAInteractionMode interactionMode;
+
+- (id<mAInteractionModeController>)currentInteractionModeController;
 
 - (void)showMasterPopover;
 - (void)dismissMasterPopover;

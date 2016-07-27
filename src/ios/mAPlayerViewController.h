@@ -10,6 +10,7 @@
 
 #import "mADetailViewController.h"
 #import "mAConnectViewController.h"
+#import "mAInteractionModeController.h"
 
 @class mAPlayerContainerView;
 @class mAEditorViewController;
@@ -19,7 +20,11 @@
 @class mAScriptPlayerTab;
 @class mANetworkRoomMember;
 
-@interface mAPlayerViewController : UIViewController < mADetailClient, UIPopoverControllerDelegate, mAConnectViewControllerDelegate >
+@interface mAPlayerViewController : UIViewController
+< mADetailClient,
+  UIPopoverControllerDelegate,
+  mAConnectViewControllerDelegate,
+  mAInteractionModeController >
 {
     IBOutlet UIView *_fieldView;
 }
