@@ -286,6 +286,19 @@
     }];
 }
 
+
+#pragma mark - mAInteractionModeController
+
+- (NSArray<NSString *> *)menuItems
+{
+    return @[];
+}
+
+- (void)handleMenuItem:(NSInteger)item
+{
+    NSLog(@"menuItem: %@", self.menuItems[item]);
+}
+
 #pragma mark - mAConnectViewControllerDelegate
 
 - (void)connectViewControllerDidCancel:(mAConnectViewController *)cvc

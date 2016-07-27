@@ -583,6 +583,18 @@
 }
 
 
+#pragma mark - mAInteractionModeController
+
+- (NSArray<NSString *> *)menuItems
+{
+    return @[ @"Rename", @"Duplicate" ];
+}
+
+- (void)handleMenuItem:(NSInteger)item
+{
+    NSLog(@"menuItem: %@", self.menuItems[item]);
+}
+
 #pragma mark - NSTextStorageDelegate
 
 - (void)showCompletions:(NSArray *)completions forTextRange:(NSRange)range
