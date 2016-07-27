@@ -134,6 +134,7 @@
 
 - (void)loginOrRegister
 {
+    [self.loginView clearFields];
     [self presentViewController:self.loginView animated:YES completion:^{}];
 }
 

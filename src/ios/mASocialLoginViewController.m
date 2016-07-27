@@ -28,7 +28,11 @@
     IBOutlet UITextField *_createEmailField;
     IBOutlet UITextField *_createPasswordField;
     
+    IBOutlet UILabel *_loggedInUsernameField;
+    
     mALoadingViewController *_loadingView;
+    
+    BOOL _loggedInMode;
 }
 
 - (IBAction)switchMode:(id)sender;
@@ -37,8 +41,10 @@
 - (IBAction)logout:(id)sender;
 - (IBAction)cancel:(id)sender;
 
+- (void)_configureTabs;
 - (void)_dismiss;
-- (void)showLoading:(BOOL)show;
+- (void)_showLoading:(BOOL)show;
+- (void)_showLoading:(BOOL)show status:(NSString *)status;
 
 @end
 
@@ -49,6 +55,7 @@
     if(self = [super initWithNibName:@"mASocialLoginViewController" bundle:nil])
     {
         self.modalPresentationStyle = UIModalPresentationFormSheet;
+        _loggedInMode = NO;
     }
     
     return self;
@@ -57,6 +64,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    _loggedInUsernameField.text = @"";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,18 +75,20 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    // show login view
-    _loginView.hidden = NO;
-    _createAccountView.hidden = YES;
-    _logoutView.hidden = YES;
+    [self _configureTabs];
+    
+    if(!_createAccountView.hidden)
+        [_createUsernameField becomeFirstResponder];
+    else if(!_loginView.hidden)
+        [_loginUsernameField becomeFirstResponder];
 }
 
 - (CGSize)preferredContentSize
 {
-    return CGSizeMake(400, 450);
+    return CGSizeMake(375, 400);
 }
 
-- (void)showLoading:(BOOL)show
+- (void)_showLoading:(BOOL)show
 {
     if(show)
     {
@@ -93,6 +104,44 @@
     else
     {
         [_loadingView hide];
+    }
+}
+
+- (void)_showLoading:(BOOL)show status:(NSString *)status
+{
+    [self _showLoading:show];
+    _loadingView.status = status;
+}
+
+- (void)_configureTabs
+{
+    ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
+    if([chuckPad isLoggedIn])
+    {
+        _loggedInMode = YES;
+        [_modeControl removeAllSegments];
+        [_modeControl insertSegmentWithTitle:@"Logged In" atIndex:0 animated:YES];
+        
+        _loggedInUsernameField.text = [chuckPad getLoggedInUserName];
+        
+        _modeControl.selectedSegmentIndex = 0;
+        
+        _loginView.hidden = YES;
+        _createAccountView.hidden = YES;
+        _logoutView.hidden = NO;
+    }
+    else
+    {
+        _loggedInMode = NO;
+        [_modeControl removeAllSegments];
+        [_modeControl insertSegmentWithTitle:@"Create Account" atIndex:0 animated:YES];
+        [_modeControl insertSegmentWithTitle:@"Login" atIndex:1 animated:YES];
+        
+        _modeControl.selectedSegmentIndex = 0;
+        
+        _loginView.hidden = YES;
+        _createAccountView.hidden = NO;
+        _logoutView.hidden = YES;
     }
 }
 
@@ -115,34 +164,54 @@
 - (IBAction)switchMode:(id)sender
 {
     NSInteger selectedMode = [(UISegmentedControl *)sender selectedSegmentIndex];
-    switch(selectedMode)
+    
+    if(_loggedInMode)
     {
-        case 0:
-            _loginView.hidden = NO;
-            _createAccountView.hidden = YES;
-            _logoutView.hidden = YES;
-            break;
-        case 1:
-            _loginView.hidden = YES;
-            _createAccountView.hidden = NO;
-            _logoutView.hidden = YES;
-            break;
+        switch(selectedMode)
+        {
+            case 0:
+                _loginView.hidden = YES;
+                _createAccountView.hidden = YES;
+                _logoutView.hidden = NO;
+                break;
+        }
+    }
+    else
+    {
+        switch(selectedMode)
+        {
+            case 0:
+                _loginView.hidden = YES;
+                _createAccountView.hidden = NO;
+                _logoutView.hidden = YES;
+                [_createUsernameField becomeFirstResponder];
+                break;
+                
+            case 1:
+                _loginView.hidden = NO;
+                _createAccountView.hidden = YES;
+                _logoutView.hidden = YES;
+                [_loginUsernameField becomeFirstResponder];
+                break;
+        }
     }
 }
 
 - (IBAction)login:(id)sender
 {
-    NSString *loginUsername = _loginUsernameField.text;
-    NSString *loginPassword = _loginPasswordField.text;
+    NSString *username = _loginUsernameField.text;
+    NSString *password = _loginPasswordField.text;
     
-    [self showLoading:YES];
+    [self _showLoading:YES status:@"Logging in"];
     
     ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
-    [chuckPad logIn:loginUsername password:loginPassword
+    [chuckPad logIn:username password:password
        callback:^(BOOL succeeded, NSError *error) {
-           
+           [self _showLoading:NO];
+
            if(succeeded)
            {
+               [self _configureTabs];
                UIAlertMessage(@"Successfully logged in.", ^{
                    [self _dismiss];
                });
@@ -151,19 +220,45 @@
            {
                UIAlertMessage1a(@"Failed to log in.", error.localizedDescription, ^{});
            }
-           
-           [self showLoading:NO];
        }];
 }
 
 - (IBAction)logout:(id)sender
 {
-    
+    UIAlertMessage2(@"Are you sure you want to logout?",
+                    @"Cancel", ^{ },
+                    @"Logout", ^{
+                        ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
+                        [chuckPad logOut];
+                        [self _configureTabs];
+                    });
 }
 
 - (IBAction)createAccount:(id)sender
 {
+    NSString *username = _createUsernameField.text;
+    NSString *email = _createEmailField.text;
+    NSString *password = _createPasswordField.text;
     
+    [self _showLoading:YES status:@"Creating account"];
+    
+    ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
+    [chuckPad createUser:username email:email password:password
+                callback:^(BOOL succeeded, NSError *error) {
+                    [self _showLoading:NO];
+                    
+                    if(succeeded)
+                    {
+                        [self _configureTabs];
+                        UIAlertMessage(@"Successfully created new account.", ^{
+                            [self _dismiss];
+                        });
+                    }
+                    else
+                    {
+                        UIAlertMessage1a(@"Failed to create account.", error.localizedFailureReason, ^{});
+                    }
+                }];
 }
 
 - (IBAction)cancel:(id)sender
