@@ -598,14 +598,17 @@
 
 - (NSArray<NSString *> *)menuItems
 {
-    return @[ @"Rename", @"Duplicate", @"Share" ];
+    if(self.detailItem.isUser)
+        return @[ @"Rename", @"Duplicate", @"Share" ];
+    else
+        return @[ @"Duplicate" ];
 }
 
 - (void)handleMenuItem:(NSInteger)item
 {
     NSLog(@"menuItem: %@", self.menuItems[item]);
     
-    if(item == 2) // share
+    if(self.detailItem.isUser && item == 2) // share
     {
         mASocialShareViewController *shareView = [mASocialShareViewController new];
         shareView.script = self.detailItem;
