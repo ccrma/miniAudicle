@@ -290,6 +290,7 @@
 		099C04F518FB715C00AC27C3 /* mANetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 099C04F418FB715C00AC27C3 /* mANetworkManager.m */; };
 		099C04F818FBAF1400AC27C3 /* mANetworkAction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 099C04F718FBAF1400AC27C3 /* mANetworkAction.mm */; };
 		09A14A1219B9AD5E00D28255 /* UIColor+iOS7BlueColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A14A1119B9AD5E00D28255 /* UIColor+iOS7BlueColor.m */; };
+		09A2D6DC1D497AC100DD75F6 /* PatchCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A2D6DB1D497AC100DD75F6 /* PatchCache.m */; };
 		09A40B680A9A54DA007604EA /* chuck_absyn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B060A9A54DA007604EA /* chuck_absyn.cpp */; };
 		09A40B690A9A54DA007604EA /* chuck_bbq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B080A9A54DA007604EA /* chuck_bbq.cpp */; };
 		09A40B6A0A9A54DA007604EA /* chuck_compile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B0A0A9A54DA007604EA /* chuck_compile.cpp */; };
@@ -1068,6 +1069,8 @@
 		09A14A1119B9AD5E00D28255 /* UIColor+iOS7BlueColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+iOS7BlueColor.m"; sourceTree = "<group>"; };
 		09A1E6160CBA1AEC001FAD6F /* makefile.source-dist */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = "makefile.source-dist"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
 		09A1E6170CBA1AEC001FAD6F /* makefile.win32 */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = makefile.win32; sourceTree = SOURCE_ROOT; };
+		09A2D6DA1D497AC100DD75F6 /* PatchCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatchCache.h; sourceTree = "<group>"; };
+		09A2D6DB1D497AC100DD75F6 /* PatchCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatchCache.m; sourceTree = "<group>"; };
 		09A40B060A9A54DA007604EA /* chuck_absyn.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_absyn.cpp; sourceTree = "<group>"; };
 		09A40B070A9A54DA007604EA /* chuck_absyn.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = chuck_absyn.h; sourceTree = "<group>"; };
 		09A40B080A9A54DA007604EA /* chuck_bbq.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_bbq.cpp; sourceTree = "<group>"; };
@@ -2393,6 +2396,8 @@
 				09F3304F1D46DCDB002792BA /* LICENSE */,
 				09F330501D46DCDB002792BA /* Patch.h */,
 				09F330511D46DCDB002792BA /* Patch.m */,
+				09A2D6DA1D497AC100DD75F6 /* PatchCache.h */,
+				09A2D6DB1D497AC100DD75F6 /* PatchCache.m */,
 				09F330521D46DCDB002792BA /* README.md */,
 				09F330531D46DCDB002792BA /* User.h */,
 				09F330541D46DCDB002792BA /* User.m */,
@@ -3173,6 +3178,7 @@
 				093E264F14A12201008694BC /* chuck_table.cpp in Sources */,
 				09F330361D46D37B002792BA /* mASocialFileViewController.m in Sources */,
 				09E288921CEA7CE6006E6AE4 /* mAAboutViewController.m in Sources */,
+				09A2D6DC1D497AC100DD75F6 /* PatchCache.m in Sources */,
 				093E265014A12201008694BC /* chuck_type.cpp in Sources */,
 				093E265114A12201008694BC /* chuck_ugen.cpp in Sources */,
 				093E265214A12201008694BC /* chuck_utils.cpp in Sources */,
