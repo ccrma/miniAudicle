@@ -69,13 +69,12 @@
     self.examplesViewController.detailViewController = self.detailViewController;
     self.sharedViewController.detailViewController = self.detailViewController;
 
-    [self.navigationController pushViewController:self.myScriptsViewController animated:NO];
-    self.navigationController.navigationBar.translucent = NO;
-
     // reset to add subview to contentView
     _childNavigationController.view.frame = self.contentView.bounds;
     [self.contentView addSubview:_childNavigationController.view];
     [self.childNavigationController setViewControllers:@[self.myScriptsViewController] animated:NO];
+
+    self.childNavigationController.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -129,6 +128,7 @@
                     animated:(BOOL)animated
 {
     [self adjustNavigationBar:viewController animated:animated];
+    [navigationController setToolbarHidden:(viewController.toolbarItems.count == 0) animated:NO];
 }
 
 
