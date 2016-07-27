@@ -21,8 +21,7 @@
 @class mANetworkRoomMember;
 
 @interface mAPlayerViewController : UIViewController
-< mADetailClient,
-  UIPopoverControllerDelegate,
+< UIPopoverControllerDelegate,
   mAConnectViewControllerDelegate,
   mAInteractionModeController >
 {

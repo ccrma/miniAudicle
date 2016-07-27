@@ -219,9 +219,9 @@
                 break;
         }
         
-        [items insertObject:[(id<mADetailClient>)viewController titleButton]
+        [items insertObject:[viewController titleButton]
                     atIndex:i];
-        [(id<mADetailClient>)viewController titleButton].tag = -1;
+        [viewController titleButton].tag = -1;
         [items removeObjectAtIndex:i+1];
         
         [items removeObject:_docMenuButton];

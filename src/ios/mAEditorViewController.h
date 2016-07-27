@@ -25,8 +25,7 @@
   UIPopoverControllerDelegate,
   mATitleEditorControllerDelegate,
   NSTextStorageDelegate,
-  UITextViewDelegate,
-  mADetailClient >
+  UITextViewDelegate >
 {
     IBOutlet mATextView * _textView;
     IBOutlet UIView *_otfToolbar;

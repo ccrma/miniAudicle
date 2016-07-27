@@ -28,4 +28,10 @@
  */
 - (void)handleMenuItem:(NSInteger)item;
 
+/**
+ * Return title button.
+ * @return A UIBarButtonItem for the title of this interaction mode.
+ */
+- (UIBarButtonItem *)titleButton;
+
 @end
