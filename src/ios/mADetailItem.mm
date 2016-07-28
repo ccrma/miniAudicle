@@ -11,9 +11,11 @@
 #import "miniAudicle.h"
 #import "mANetworkAction.h"
 #import "mANetworkManager.h"
+#import "mADocumentManager.h"
+#import "mAAnalytics.h"
+
 #import "KVOMutableArray.h"
 #import "NSString+Hash.h"
-#import "mAAnalytics.h"
 
 NSString * const mADetailItemTitleChangedNotification = @"mADetailItemTitleChangedNotification";
 NSString * const mADetailItemDeletedNotification = @"mADetailItemDeletedNotification";
@@ -80,6 +82,14 @@ NSString * const mADetailItemDeletedNotification = @"mADetailItemDeletedNotifica
     self.uuid = [self generateUUID];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:mADetailItemTitleChangedNotification object:self];
+}
+
+- (void)setSocialPatchId:(NSNumber *)socialPatchId
+{
+    _socialPatchId = socialPatchId;
+    
+    mADocumentManager *manager = [mADocumentManager manager];
+    [manager setMetadata:@"ChuckPadSocial_PatchId" key:socialPatchId forItem:self];
 }
 
 + (mADetailItem *)detailItemFromPath:(NSString *)path isUser:(BOOL)isUser

@@ -94,11 +94,14 @@
     
     [self _showLoading:YES status:@"Uploading patch"];
     
-    [chuckPad uploadPatch:name filename:filename fileData:fileData
+    [chuckPad uploadPatch:name
+              description:@"" parent:-1
+                 filename:filename fileData:fileData
                  callback:^(BOOL succeeded, Patch *patch, NSError *error) {
                      if(succeeded)
                      {
                          UIAlertMessage(@"Upload succeeded", ^{});
+                         self.script.socialPatchId = @(patch.patchId);
                          [self _dismiss];
                      }
                      else
