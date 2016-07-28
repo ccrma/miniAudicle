@@ -57,6 +57,7 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
 @property (strong, nonatomic) id<NSObject, NSCopying, NSCoding> ubiquityIdentityToken;
 @property (copy, nonatomic) NSURL *iCloudDocumentPath;
 @property (readonly, nonatomic) NSURL *localDocumentPath;
+@property (readonly, nonatomic) NSURL *metadataPath;
 
 + (NSArray *)documentExtensions;
 + (NSArray *)audioFileExtensions;
@@ -95,6 +96,39 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     }
     
     return s_manager;
+}
+
+- (NSURL *)metadataPath
+{
+    NSURL *libraryURL = [[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] objectAtIndex:0];
+    NSURL *metadataURL = [libraryURL URLByAppendingPathComponent:@"meta"];
+    
+    NSError *error = nil;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isDir = NO;
+    if([fileManager fileExistsAtPath:[metadataURL path] isDirectory:&isDir])
+    {
+        if(!isDir)
+        {
+            NSLog(@"error: metadataPath exists but is not a directory");
+            return nil;
+        }
+    }
+    else
+    {
+        BOOL ok = [fileManager createDirectoryAtURL:metadataURL
+                        withIntermediateDirectories:YES
+                                         attributes:nil error:&error];
+        
+        if(!ok || error != nil)
+        {
+            NSLog(@"error: unable to create metadataPath");
+            mAAnalyticsLogError(error);
+            return nil;
+        }
+    }
+    
+    return metadataURL;
 }
 
 - (NSURL *)localDocumentPath
@@ -630,6 +664,96 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
         return [path stringByReplacingCharactersInRange:range withString:[self.localDocumentPath path]];
     
     return path;
+}
+
+- (NSString *)metadataPathForItem:(mADetailItem *)item
+{
+    NSString *relPath = [self documentRelativePath:item.path];
+    NSRange range = [relPath rangeOfString:@"@local"];
+    if(range.location == 0)
+    {
+        // needs to be at the beginning
+        NSString *metaPath = [relPath stringByReplacingCharactersInRange:range withString:[self.metadataPath path]];
+        metaPath = [metaPath stringByAppendingPathExtension:@"json"];
+        return metaPath;
+    }
+    
+    assert(0);
+    
+    return nil;
+}
+
+- (void)setMetadata:(NSString *)key key:(id)value forItem:(mADetailItem *)item
+{
+    // synchronized on the detail item to prevent simultaneous writes to the metadata file
+    @synchronized (item) {
+        NSError *error = nil;
+        NSMutableDictionary *metadata = nil;
+        
+        // load metadata from disk
+        NSString *metadataPath = [self metadataPathForItem:item];
+        error = nil;
+        NSData *metadataData = [NSData dataWithContentsOfFile:metadataPath
+                                                      options:0
+                                                        error:&error];
+        if(metadataData == nil || error != nil)
+            metadata = [NSMutableDictionary new];
+        else
+        {
+            error = nil;
+            NSDictionary *jsonObj = [NSJSONSerialization JSONObjectWithData:metadataData options:0 error:&error];
+            if(jsonObj == nil || error != nil)
+                metadata = [NSMutableDictionary new];
+            else
+                metadata = [NSMutableDictionary dictionaryWithDictionary:jsonObj];
+        }
+        
+        // set key in metadata
+        metadata[key] = value;
+        
+        // save metadata to disk
+        error = nil;
+        metadataData = [NSJSONSerialization dataWithJSONObject:metadata options:0 error:&error];
+        if(metadataData == nil || error != nil)
+        {
+            NSLog(@"failed to serialize detailItem metadata to JSON");
+            mAAnalyticsLogError(error);
+            return;
+        }
+        
+        error = nil;
+        BOOL ok = [metadataData writeToFile:metadataPath options:NSDataWritingAtomic error:&error];
+        if(!ok || error != nil)
+        {
+            NSLog(@"failed to write metadata to disk");
+            mAAnalyticsLogError(error);
+            return;
+        }
+    }
+}
+
+- (id)metadata:(NSString *)key forItem:(mADetailItem *)item
+{
+    NSError *error = nil;
+    NSMutableDictionary *metadata = nil;
+    
+    // load metadata from disk
+    NSString *metadataPath = [self metadataPathForItem:item];
+    NSData *metadataData = [NSData dataWithContentsOfFile:metadataPath
+                                                  options:0
+                                                    error:&error];
+    if(metadataData == nil || error != nil)
+        return nil;
+    else
+    {
+        NSDictionary *jsonObj = [NSJSONSerialization JSONObjectWithData:metadataData options:0 error:&error];
+        if(jsonObj == nil || error != nil)
+            return nil;
+        else
+            metadata = [NSMutableDictionary dictionaryWithDictionary:jsonObj];
+    }
+    
+    return metadata[key];
 }
 
 @end
