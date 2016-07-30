@@ -89,7 +89,7 @@ NSString * const mADetailItemDeletedNotification = @"mADetailItemDeletedNotifica
     _socialPatchId = socialPatchId;
     
     mADocumentManager *manager = [mADocumentManager manager];
-    [manager setMetadata:@"ChuckPadSocial_PatchId" key:socialPatchId forItem:self];
+    [manager setMetadata:@"ChuckPadSocial_PatchId" value:socialPatchId forItem:self];
 }
 
 + (mADetailItem *)detailItemFromPath:(NSString *)path isUser:(BOOL)isUser
