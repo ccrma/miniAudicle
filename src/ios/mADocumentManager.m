@@ -686,7 +686,7 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     return nil;
 }
 
-- (void)setMetadata:(NSString *)key key:(id)value forItem:(mADetailItem *)item
+- (void)setMetadata:(NSString *)key value:(id)value forItem:(mADetailItem *)item
 {
     // synchronized on the detail item to prevent simultaneous writes to the metadata file
     @synchronized (item) {
