@@ -8,6 +8,7 @@
 
 #import "mASocialShareViewController.h"
 #import "mADetailItem.h"
+#import "mADetailItem+Social.h"
 #import "mALoadingViewController.h"
 #import "mAAnalytics.h"
 
@@ -102,6 +103,7 @@
                      {
                          UIAlertMessage(@"Upload succeeded", ^{});
                          self.script.socialPatchId = @(patch.patchId);
+                         self.script.patch = patch;
                          [self _dismiss];
                      }
                      else

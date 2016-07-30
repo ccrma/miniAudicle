@@ -110,6 +110,7 @@
 		093A213114BFF5DC00497856 /* BLAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A213014BFF5DC00497856 /* BLAuthentication.m */; };
 		093A74BA1A5E492D00F54725 /* mAFileNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093A74B91A5E492D00F54725 /* mAFileNavigationController.xib */; };
 		093A74BD1A5E495200F54725 /* mAFileNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A74BC1A5E495200F54725 /* mAFileNavigationController.m */; };
+		093B56311D4C0F6D00DA2A51 /* mADetailItem+Social.m in Sources */ = {isa = PBXBuildFile; fileRef = 093B56301D4C0F6D00DA2A51 /* mADetailItem+Social.m */; };
 		093E261414A108C8008694BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261314A108C8008694BC /* UIKit.framework */; };
 		093E261614A108C8008694BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261514A108C8008694BC /* Foundation.framework */; };
 		093E261814A108C8008694BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261714A108C8008694BC /* CoreGraphics.framework */; };
@@ -936,6 +937,8 @@
 		093A74B91A5E492D00F54725 /* mAFileNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAFileNavigationController.xib; sourceTree = "<group>"; };
 		093A74BB1A5E495200F54725 /* mAFileNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAFileNavigationController.h; sourceTree = "<group>"; };
 		093A74BC1A5E495200F54725 /* mAFileNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAFileNavigationController.m; sourceTree = "<group>"; };
+		093B562F1D4C0F6D00DA2A51 /* mADetailItem+Social.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "mADetailItem+Social.h"; sourceTree = "<group>"; };
+		093B56301D4C0F6D00DA2A51 /* mADetailItem+Social.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "mADetailItem+Social.m"; sourceTree = "<group>"; };
 		093E261114A108C8008694BC /* miniAudicle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miniAudicle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		093E261314A108C8008694BC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		093E261514A108C8008694BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -2197,6 +2200,8 @@
 				09CCA6631D47198E0032EAB0 /* mASocialTableViewCell.m */,
 				09CCA66E1D474B730032EAB0 /* mASocialDetailItem.h */,
 				09CCA66F1D474B730032EAB0 /* mASocialDetailItem.m */,
+				093B562F1D4C0F6D00DA2A51 /* mADetailItem+Social.h */,
+				093B56301D4C0F6D00DA2A51 /* mADetailItem+Social.m */,
 				09CCA6741D4760340032EAB0 /* mALoadingView.xib */,
 				09CCA6761D47606C0032EAB0 /* mALoadingViewController.h */,
 				09CCA6771D47606C0032EAB0 /* mALoadingViewController.m */,
@@ -3203,6 +3208,7 @@
 				093E265814A12234008694BC /* midiio_rtmidi.cpp in Sources */,
 				093E265914A12234008694BC /* ugen_filter.cpp in Sources */,
 				093E265A14A12234008694BC /* ugen_osc.cpp in Sources */,
+				093B56311D4C0F6D00DA2A51 /* mADetailItem+Social.m in Sources */,
 				09CCA66D1D472A4E0032EAB0 /* mASocialCategoryViewController.m in Sources */,
 				09CCA6701D474B730032EAB0 /* mASocialDetailItem.m in Sources */,
 				09400F361C903FD400C1E52E /* NSObject+BlockObservation.m in Sources */,
