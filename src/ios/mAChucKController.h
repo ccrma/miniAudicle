@@ -30,6 +30,8 @@ class miniAudicle;
 typedef void miniAudicle;
 #endif
 
+@class mADetailItem;
+
 @interface mAChucKController : NSObject
 
 @property (nonatomic) miniAudicle * ma;
@@ -44,5 +46,7 @@ typedef void miniAudicle;
 
 - (void)start;
 - (void)restart;
+
+- (BOOL)chuckCodeCompiles:(mADetailItem *)item error:(NSString **)error;
 
 @end

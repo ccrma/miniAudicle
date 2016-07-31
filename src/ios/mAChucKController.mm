@@ -27,11 +27,16 @@
 #import "TheAmazingAudioEngine/TheAmazingAudioEngine.h"
 #import "Modules/AEPlaythroughChannel.h"
 
+#import "mADetailItem.h"
+#import "mAPreferences.h"
+#import "mAAnalytics.h"
+
 #import "miniAudicle.h"
 #import "ulib_motion.h"
-#import "mAAnalytics.h"
+
 #import "util_buffers.h"
-#import "mAPreferences.h"
+#import "chuck_compile.h"
+#import "chuck_globals.h"
 
 #import <vector>
 
@@ -280,6 +285,22 @@ static mAChucKController * g_chuckController = nil;
     ma->stop_vm();
     
     [self _startVM];
+}
+
+- (BOOL)chuckCodeCompiles:(mADetailItem *)item error:(NSString **)error;
+{
+    Chuck_Compiler *compiler = g_compiler;
+    
+    // compile
+    if(!compiler->go([item.title UTF8String], NULL, [item.text UTF8String], [item.path UTF8String]))
+    {
+        if(error)
+            *error = [NSString stringWithUTF8String:EM_lasterror()];
+        
+        return NO;
+    }
+    
+    return YES;
 }
 
 #pragma mark Application state handling
