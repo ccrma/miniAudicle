@@ -248,8 +248,8 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
     mASocialTableViewCell *cell = (mASocialTableViewCell *) [tableView dequeueReusableCellWithIdentifier:SocialCellIdentifier];
         
     cell.name = self.patches[index].name;
-    // cell.desc = self.patches[index].description;
-    cell.category = [NSString stringWithFormat:@"by %@", self.patches[index].creatorUsername];
+    cell.desc = self.patches[index].patchDescription ? self.patches[index].patchDescription : @"";
+    cell.category = [NSString stringWithFormat:@"%@", self.patches[index].creatorUsername ? self.patches[index].creatorUsername : @""];
     
     return cell;
 }
