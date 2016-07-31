@@ -102,32 +102,7 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
 {
     NSURL *libraryURL = [[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] objectAtIndex:0];
     NSURL *metadataURL = [libraryURL URLByAppendingPathComponent:@"meta"];
-    
-    NSError *error = nil;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL isDir = NO;
-    if([fileManager fileExistsAtPath:[metadataURL path] isDirectory:&isDir])
-    {
-        if(!isDir)
-        {
-            NSLog(@"error: metadataPath exists but is not a directory");
-            return nil;
-        }
-    }
-    else
-    {
-        BOOL ok = [fileManager createDirectoryAtURL:metadataURL
-                        withIntermediateDirectories:YES
-                                         attributes:nil error:&error];
         
-        if(!ok || error != nil)
-        {
-            NSLog(@"error: unable to create metadataPath");
-            mAAnalyticsLogError(error);
-            return nil;
-        }
-    }
-    
     return metadataURL;
 }
 
@@ -691,6 +666,7 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     // synchronized on the detail item to prevent simultaneous writes to the metadata file
     @synchronized (item) {
         NSError *error = nil;
+        BOOL ok = NO;
         NSMutableDictionary *metadata = nil;
         
         // load metadata from disk
@@ -724,8 +700,20 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
             return;
         }
         
+        // create directory (if needed)
+        ok = [[NSFileManager defaultManager] createDirectoryAtPath:[metadataPath stringByDeletingLastPathComponent]
+                                       withIntermediateDirectories:YES
+                                                        attributes:nil
+                                                             error:&error];
+        if(!ok || error != nil)
+        {
+            NSLog(@"failed to write create directory for metadata");
+            mAAnalyticsLogError(error);
+            return;
+        }
+        
         error = nil;
-        BOOL ok = [metadataData writeToFile:metadataPath options:NSDataWritingAtomic error:&error];
+        ok = [metadataData writeToFile:metadataPath options:NSDataWritingAtomic error:&error];
         if(!ok || error != nil)
         {
             NSLog(@"failed to write metadata to disk");
