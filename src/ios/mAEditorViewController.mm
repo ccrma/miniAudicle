@@ -610,6 +610,8 @@
     
     if(self.detailItem.isUser && item == 2) // share
     {
+        [self saveScript];
+        
         mASocialShareViewController *shareView = [mASocialShareViewController new];
         shareView.script = self.detailItem;
         [self presentViewController:shareView animated:YES completion:^{}];

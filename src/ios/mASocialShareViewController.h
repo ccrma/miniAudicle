@@ -10,7 +10,7 @@
 
 @class mADetailItem;
 
-@interface mASocialShareViewController : UIViewController
+@interface mASocialShareViewController : UIViewController<UITextFieldDelegate>
 
 @property (strong, nonatomic) mADetailItem *script;
 

@@ -84,14 +84,6 @@ NSString * const mADetailItemDeletedNotification = @"mADetailItemDeletedNotifica
     [[NSNotificationCenter defaultCenter] postNotificationName:mADetailItemTitleChangedNotification object:self];
 }
 
-- (void)setSocialPatchId:(NSNumber *)socialPatchId
-{
-    _socialPatchId = socialPatchId;
-    
-    mADocumentManager *manager = [mADocumentManager manager];
-    [manager setMetadata:@"ChuckPadSocial_PatchId" value:socialPatchId forItem:self];
-}
-
 + (mADetailItem *)detailItemFromPath:(NSString *)path isUser:(BOOL)isUser
 {
     mADetailItem * detailItem = [mADetailItem new];

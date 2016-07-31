@@ -111,6 +111,10 @@
 		093A74BA1A5E492D00F54725 /* mAFileNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093A74B91A5E492D00F54725 /* mAFileNavigationController.xib */; };
 		093A74BD1A5E495200F54725 /* mAFileNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A74BC1A5E495200F54725 /* mAFileNavigationController.m */; };
 		093B56311D4C0F6D00DA2A51 /* mADetailItem+Social.m in Sources */ = {isa = PBXBuildFile; fileRef = 093B56301D4C0F6D00DA2A51 /* mADetailItem+Social.m */; };
+		093B56B21D4D6DD400DA2A51 /* Cancel Filled-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 093B56B01D4D6DD400DA2A51 /* Cancel Filled-100.png */; };
+		093B56B31D4D6DD400DA2A51 /* Checked Filled-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 093B56B11D4D6DD400DA2A51 /* Checked Filled-100.png */; };
+		093B56B71D4D84CA00DA2A51 /* Edit-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 093B56B61D4D84CA00DA2A51 /* Edit-100.png */; };
+		093B56B91D4D90C000DA2A51 /* Edit Filled-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 093B56B81D4D90C000DA2A51 /* Edit Filled-100.png */; };
 		093E261414A108C8008694BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261314A108C8008694BC /* UIKit.framework */; };
 		093E261614A108C8008694BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261514A108C8008694BC /* Foundation.framework */; };
 		093E261814A108C8008694BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261714A108C8008694BC /* CoreGraphics.framework */; };
@@ -939,6 +943,10 @@
 		093A74BC1A5E495200F54725 /* mAFileNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAFileNavigationController.m; sourceTree = "<group>"; };
 		093B562F1D4C0F6D00DA2A51 /* mADetailItem+Social.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "mADetailItem+Social.h"; sourceTree = "<group>"; };
 		093B56301D4C0F6D00DA2A51 /* mADetailItem+Social.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "mADetailItem+Social.m"; sourceTree = "<group>"; };
+		093B56B01D4D6DD400DA2A51 /* Cancel Filled-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cancel Filled-100.png"; sourceTree = "<group>"; };
+		093B56B11D4D6DD400DA2A51 /* Checked Filled-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checked Filled-100.png"; sourceTree = "<group>"; };
+		093B56B61D4D84CA00DA2A51 /* Edit-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Edit-100.png"; sourceTree = "<group>"; };
+		093B56B81D4D90C000DA2A51 /* Edit Filled-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Edit Filled-100.png"; sourceTree = "<group>"; };
 		093E261114A108C8008694BC /* miniAudicle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miniAudicle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		093E261314A108C8008694BC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		093E261514A108C8008694BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -1534,6 +1542,10 @@
 		09087C6914A4F63700AD2633 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				093B56B81D4D90C000DA2A51 /* Edit Filled-100.png */,
+				093B56B61D4D84CA00DA2A51 /* Edit-100.png */,
+				093B56B01D4D6DD400DA2A51 /* Cancel Filled-100.png */,
+				093B56B11D4D6DD400DA2A51 /* Checked Filled-100.png */,
 				09E288951CEA8A08006E6AE4 /* chuck_logo_freq.png */,
 				09E288931CEA88AE006E6AE4 /* chuck_logo.png */,
 				09E288871CE9C9E6006E6AE4 /* AddFile@2x.png */,
@@ -2975,6 +2987,7 @@
 				093E263314A108C9008694BC /* mADetailViewController~iphone.xib in Resources */,
 				09CCA6751D4760340032EAB0 /* mALoadingView.xib in Resources */,
 				09CCA6661D47198E0032EAB0 /* mASocialTableViewCell.xib in Resources */,
+				093B56B71D4D84CA00DA2A51 /* Edit-100.png in Resources */,
 				09735F441C870B2D003965CA /* ck-doc320.png in Resources */,
 				093E263614A108C9008694BC /* mADetailViewController~ipad.xib in Resources */,
 				09735F6F1C8A9407003965CA /* mAAudioFileTableViewCell.xib in Resources */,
@@ -2995,10 +3008,13 @@
 				09F3303A1D46D4AC002792BA /* mASocialFileViewController.xib in Resources */,
 				09F09E4118E2DAEA0050D963 /* mAPlayerViewController.xib in Resources */,
 				096D81061B40C1F800F9B9CA /* mAMasterViewController.xib in Resources */,
+				093B56B31D4D6DD400DA2A51 /* Checked Filled-100.png in Resources */,
 				096310BF1C86F71600A36F8F /* Launch2.png in Resources */,
 				093E267B14A14E91008694BC /* add.png in Resources */,
 				09735F431C870B2D003965CA /* ck-doc64.png in Resources */,
 				093681231D3AE75B009B30AD /* removeall.png in Resources */,
+				093B56B91D4D90C000DA2A51 /* Edit Filled-100.png in Resources */,
+				093B56B21D4D6DD400DA2A51 /* Cancel Filled-100.png in Resources */,
 				09F09E4618E36DBC0050D963 /* mAScriptPlayer.xib in Resources */,
 				09F09E3C18E2C5E60050D963 /* mAEditorViewController.xib in Resources */,
 				093E267C14A14E91008694BC /* miniAudicle.icns in Resources */,
