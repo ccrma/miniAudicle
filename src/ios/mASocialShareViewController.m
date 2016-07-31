@@ -18,27 +18,43 @@
 #import "Patch.h"
 #import "ChuckPadSocial.h"
 
+typedef enum ShareMode
+{
+    mAShareModeUpload,
+    mAShareModeUpdate
+} ShareMode;
+
 @interface mASocialShareViewController ()
 {
-    mALoadingViewController *_loadingView;
-    
+    IBOutlet UILabel *_headingLabel;
+    IBOutlet UILabel *_callToActionLabel;
     IBOutlet UITextField *_nameTextField;
     IBOutlet UIButton *_nameEditButton;
     IBOutlet UITextView *_descriptionTextView;
+    IBOutlet UIButton *_descriptionEditButton;
     IBOutlet UIImageView *_compileStatusIcon;
     IBOutlet UILabel *_compileMessage;
     
     IBOutlet UIButton *_uploadButton;
     
+    mALoadingViewController *_loadingView;
+    
+    ShareMode _shareMode;
+    
     BOOL _nameEditorIsShowing;
+    BOOL _descriptionEditorIsShowing;
 
     BOOL _scriptCompiles;
     NSString *_compileError;
 }
 
 - (IBAction)editName:(id)sender;
+- (IBAction)editDescription:(id)sender;
 - (IBAction)upload:(id)sender;
 - (IBAction)cancel:(id)sender;
+
+- (void)_setUploadMode;
+- (void)_setUpdateMode;
 
 - (void)_dismiss;
 - (void)_showLoading:(BOOL)show;
@@ -46,6 +62,8 @@
 - (void)_showCompiles:(BOOL)compiles error:(NSString *)compileError;
 - (void)_toggleNameEditor;
 - (void)_showNameEditor:(BOOL)show;
+- (void)_toggleDescriptionEditor;
+- (void)_showDescriptionEditor:(BOOL)show;
 
 @end
 
@@ -56,7 +74,6 @@
     _script = script;
     
     _nameTextField.text = script.title;
-    
     _descriptionTextView.text = @"";
     
     // check script
@@ -64,6 +81,17 @@
     _scriptCompiles = [[mAChucKController chuckController] chuckCodeCompiles:script error:&compileError];
     _compileError = compileError;
     [self _showCompiles:_scriptCompiles error:_compileError];
+    
+    if(script.patch)
+    {
+        [self _setUpdateMode];
+        _nameTextField.text = script.patch.name;
+        _descriptionTextView.text = script.patch.patchDescription;
+    }
+    else
+    {
+        [self _setUploadMode];
+    }
 }
 
 - (id)init
@@ -71,9 +99,13 @@
     if(self = [super initWithNibName:@"mASocialShareViewController" bundle:nil])
     {
         self.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self _setUploadMode];
         _scriptCompiles = NO;
         [self _showCompiles:NO error:@""];
         [self _showNameEditor:NO];
+        
+        _nameEditorIsShowing = NO;
+        _descriptionEditorIsShowing = NO;
     }
     
     return self;
@@ -112,6 +144,26 @@
     }
 }
 
+- (void)_setUploadMode
+{
+    _shareMode = mAShareModeUpload;
+    _headingLabel.text = @"Share Script";
+    _callToActionLabel.text = @"Upload your script on Chuckpad Social to share it with the world.";
+    _descriptionTextView.backgroundColor = [UIColor whiteColor];
+    _descriptionEditButton.hidden = YES;
+    [_uploadButton setTitle:@"Upload" forState:UIControlStateNormal];
+}
+
+- (void)_setUpdateMode
+{
+    _shareMode = mAShareModeUpdate;
+    _headingLabel.text = @"Update Shared Script";
+    _callToActionLabel.text = @"Your script is now on Chuckpad Social. You can update the shared verison with any changes you've made.";
+    _descriptionTextView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+    _descriptionEditButton.hidden = NO;
+    [_uploadButton setTitle:@"Update" forState:UIControlStateNormal];
+}
+
 - (void)_showLoading:(BOOL)show status:(NSString *)status
 {
     [self _showLoading:show];
@@ -130,12 +182,14 @@
         [_compileStatusIcon setImage:[[UIImage imageNamed:@"Checked Filled-100"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
         [_compileStatusIcon setTintColor:[UIColor colorWithRed:48.0f/255.0f green:142.0f/255.0f blue:24.0f/255.0f alpha:1.0]];
         [_compileMessage setText:@""];
+//        [_uploadButton setTitleColor:nil forState:UIControlStateNormal];
     }
     else
     {
         [_compileStatusIcon setImage:[[UIImage imageNamed:@"Cancel Filled-100"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
         [_compileStatusIcon setTintColor:[UIColor colorWithRed:224.0f/255.0f green:24.0f/255.0f blue:24.0f/255.0f alpha:1.0]];
         [_compileMessage setText:compileError];
+//        [_uploadButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     }
 }
 
@@ -149,7 +203,7 @@
     if(show)
     {
         _nameEditorIsShowing = YES;
-
+        
         _nameTextField.enabled = YES;
         _nameTextField.backgroundColor = [UIColor whiteColor];
         [_nameTextField becomeFirstResponder];
@@ -161,8 +215,33 @@
         
         _nameTextField.enabled = NO;
         _nameTextField.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-        _nameTextField.borderStyle = UITextBorderStyleNone;
         [_nameEditButton setImage:[UIImage imageNamed:@"Edit-100.png"] forState:UIControlStateNormal];
+    }
+}
+
+- (void)_toggleDescriptionEditor
+{
+    [self _showDescriptionEditor:!_descriptionEditorIsShowing];
+}
+
+- (void)_showDescriptionEditor:(BOOL)show
+{
+    if(show)
+    {
+        _descriptionEditorIsShowing = YES;
+        
+        _descriptionTextView.editable = YES;
+        _descriptionTextView.backgroundColor = [UIColor whiteColor];
+        [_descriptionTextView becomeFirstResponder];
+        [_descriptionEditButton setImage:[UIImage imageNamed:@"Edit Filled-100.png"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        _descriptionEditorIsShowing = NO;
+        
+        _descriptionTextView.editable = NO;
+        _descriptionTextView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+        [_descriptionEditButton setImage:[UIImage imageNamed:@"Edit-100.png"] forState:UIControlStateNormal];
     }
 }
 
@@ -173,6 +252,11 @@
     [self _toggleNameEditor];
 }
 
+- (IBAction)editDescription:(id)sender
+{
+    [self _toggleDescriptionEditor];
+}
+
 - (IBAction)upload:(id)sender
 {
     NSAssert(self.script.type == DETAILITEM_CHUCK_SCRIPT, @"upload on item that is not a script");
@@ -180,9 +264,9 @@
     if(!_scriptCompiles)
     {
         if(_compileError)
-            UIAlertMessage1a(@"Please fix the compilation error before sharing.", _compileError, ^{});
+            UIAlertMessage1a(@"Please fix any compilation errors before sharing.", _compileError, ^{});
         else
-            UIAlertMessage(@"Please fix the compilation error before sharing.", ^{});
+            UIAlertMessage(@"Please fix any compilation errors before sharing.", ^{});
         
         return;
     }
@@ -205,32 +289,64 @@
         return;
     }
     
-    [self _showLoading:YES status:@"Uploading patch"];
-       
     ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
-    [chuckPad uploadPatch:name
-              description:description parent:-1
-                 filename:filename fileData:fileData
-                 callback:^(BOOL succeeded, Patch *patch, NSError *error) {
-                     if(succeeded)
-                     {
-                         UIAlertMessage(@"Upload succeeded", ^{});
-                         self.script.patch = patch;
-                         [self _dismiss];
-                     }
-                     else
-                     {
-                         NSString *msg = @"";
-                         if(error)
+    
+    if(_shareMode == mAShareModeUpload)
+    {
+        [self _showLoading:YES status:@"Uploading patch"];
+        
+        [chuckPad uploadPatch:name
+                  description:description parent:-1
+                     filename:filename fileData:fileData
+                     callback:^(BOOL succeeded, Patch *patch, NSError *error) {
+                         if(succeeded)
                          {
-                             mAAnalyticsLogError(error);
-                             msg = error.localizedDescription;
+                             UIAlertMessage(@"Upload succeeded", ^{});
+                             self.script.patch = patch;
+                             [self _setUpdateMode];
+                             [self _dismiss];
                          }
-                         UIAlertMessage1a(@"Failed to upload patch", error.localizedDescription, ^{});
-                     }
-                     
-                     [self _showLoading:NO];
-                 }];
+                         else
+                         {
+                             NSString *msg = @"";
+                             if(error)
+                             {
+                                 mAAnalyticsLogError(error);
+                                 msg = error.localizedDescription;
+                             }
+                             UIAlertMessage1a(@"Failed to upload patch", error.localizedDescription, ^{});
+                         }
+                         
+                         [self _showLoading:NO];
+                     }];
+    }
+    else if(_shareMode == mAShareModeUpdate)
+    {
+        [self _showLoading:YES status:@"Updating patch"];
+        
+        [chuckPad updatePatch:self.script.patch
+                       hidden:@NO name:name description:description
+                     filename:filename fileData:fileData
+                     callback:^(BOOL succeeded, Patch *patch, NSError *error) {
+                         if(succeeded)
+                         {
+                             UIAlertMessage(@"Update succeeded", ^{});
+                             [self _dismiss];
+                         }
+                         else
+                         {
+                             NSString *msg = @"";
+                             if(error)
+                             {
+                                 mAAnalyticsLogError(error);
+                                 msg = error.localizedDescription;
+                             }
+                             UIAlertMessage1a(@"Failed to update patch", error.localizedDescription, ^{});
+                         }
+                         
+                         [self _showLoading:NO];
+                     }];
+    }
 }
 
 - (IBAction)cancel:(id)sender
@@ -250,6 +366,13 @@
     [textField resignFirstResponder];
     
     return YES;
+}
+
+#pragma mark - UITextViewDelegate
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    [self _showDescriptionEditor:NO];
 }
 
 @end

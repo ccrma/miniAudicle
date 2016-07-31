@@ -32,9 +32,13 @@
     Patch *_patch = objc_getAssociatedObject(self, @selector(patch));
     
     if(_patch == nil)
+    {
         // read from metadata
         // via http://nshipster.com/associated-objects/
-        _patch = [[mADocumentManager manager] metadata:@"SocialPatch" forItem:self];
+        NSDictionary *dict = [[mADocumentManager manager] metadata:@"SocialPatch" forItem:self];
+        if(dict)
+            _patch = [[Patch alloc] initWithDictionary:dict];
+    }
     
     return _patch;
 }
