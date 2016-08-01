@@ -464,6 +464,10 @@
 		09F376EE0BBC97D6005931F6 /* remove.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E90BBC97D6005931F6 /* remove.png */; };
 		09F376EF0BBC97D6005931F6 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376EA0BBC97D6005931F6 /* add.png */; };
 		09F37B070BC075AC005931F6 /* mABrowserController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09F37B050BC075AC005931F6 /* mABrowserController.mm */; };
+		09F6F3A51D4F0C9C00CC920C /* UITabBarContactsTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F6F3A21D4F0C9C00CC920C /* UITabBarContactsTemplate.png */; };
+		09F6F3A61D4F0C9C00CC920C /* UITabBarContactsTemplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F6F3A31D4F0C9C00CC920C /* UITabBarContactsTemplate@2x.png */; };
+		09F6F3A71D4F0C9C00CC920C /* UITabBarContactsTemplate@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F6F3A41D4F0C9C00CC920C /* UITabBarContactsTemplate@3x.png */; };
+		09F6F3AC1D4F0F7C00CC920C /* UIBarButtonItem+Spacers.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F6F3AB1D4F0F7C00CC920C /* UIBarButtonItem+Spacers.m */; };
 		4D3D4C921A5E37DB00B6A06B /* dsym_upload.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4D3D4C901A5E37DB00B6A06B /* dsym_upload.sh */; };
 		4D3D4C931A5E37DB00B6A06B /* libCrittercism_v5_0_7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D3D4C911A5E37DB00B6A06B /* libCrittercism_v5_0_7.a */; };
 		4D3D4C981A5E3A4400B6A06B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D3D4C971A5E3A4400B6A06B /* SystemConfiguration.framework */; };
@@ -1391,6 +1395,11 @@
 		09F376EA0BBC97D6005931F6 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = add.png; path = macosx/icon/add.png; sourceTree = SOURCE_ROOT; };
 		09F37B050BC075AC005931F6 /* mABrowserController.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; name = mABrowserController.mm; path = macosx/mABrowserController.mm; sourceTree = SOURCE_ROOT; };
 		09F37B060BC075AC005931F6 /* mABrowserController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = mABrowserController.h; path = macosx/mABrowserController.h; sourceTree = SOURCE_ROOT; };
+		09F6F3A21D4F0C9C00CC920C /* UITabBarContactsTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UITabBarContactsTemplate.png; sourceTree = "<group>"; };
+		09F6F3A31D4F0C9C00CC920C /* UITabBarContactsTemplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UITabBarContactsTemplate@2x.png"; sourceTree = "<group>"; };
+		09F6F3A41D4F0C9C00CC920C /* UITabBarContactsTemplate@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UITabBarContactsTemplate@3x.png"; sourceTree = "<group>"; };
+		09F6F3AA1D4F0F7C00CC920C /* UIBarButtonItem+Spacers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Spacers.h"; sourceTree = "<group>"; };
+		09F6F3AB1D4F0F7C00CC920C /* UIBarButtonItem+Spacers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Spacers.m"; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = macosx/main.m; sourceTree = SOURCE_ROOT; };
@@ -1542,6 +1551,9 @@
 		09087C6914A4F63700AD2633 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				09F6F3A21D4F0C9C00CC920C /* UITabBarContactsTemplate.png */,
+				09F6F3A31D4F0C9C00CC920C /* UITabBarContactsTemplate@2x.png */,
+				09F6F3A41D4F0C9C00CC920C /* UITabBarContactsTemplate@3x.png */,
 				093B56B81D4D90C000DA2A51 /* Edit Filled-100.png */,
 				093B56B61D4D84CA00DA2A51 /* Edit-100.png */,
 				093B56B01D4D6DD400DA2A51 /* Cancel Filled-100.png */,
@@ -2324,6 +2336,8 @@
 				09A14A1119B9AD5E00D28255 /* UIColor+iOS7BlueColor.m */,
 				096310B81C86B96300A36F8F /* NSString+Hash.h */,
 				096310B91C86B96300A36F8F /* NSString+Hash.m */,
+				09F6F3AA1D4F0F7C00CC920C /* UIBarButtonItem+Spacers.h */,
+				09F6F3AB1D4F0F7C00CC920C /* UIBarButtonItem+Spacers.m */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -3023,11 +3037,13 @@
 				09F09E5318E419960050D963 /* add-noalpha.png in Resources */,
 				09AC4E1C18EC211600B2561A /* forward-100.png in Resources */,
 				09D00B8C14A44DFB0019CD09 /* mAVMMonitorController.xib in Resources */,
+				09F6F3A51D4F0C9C00CC920C /* UITabBarContactsTemplate.png in Resources */,
 				09F09E5518E419960050D963 /* replace-noalpha.png in Resources */,
 				09664B9019905ABC00AE0B6B /* mAConnectViewController.xib in Resources */,
 				090261061D4892BC001B281D /* UITabBarMoreTemplate@3x.png in Resources */,
 				0934BE44190D038B0084D10E /* sequence.png in Resources */,
 				09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */,
+				09F6F3A71D4F0C9C00CC920C /* UITabBarContactsTemplate@3x.png in Resources */,
 				096310BC1C86F35900A36F8F /* mALaunchView.xib in Resources */,
 				090261E11D48AC93001B281D /* mASocialShareViewController.xib in Resources */,
 				09E288941CEA88AE006E6AE4 /* chuck_logo.png in Resources */,
@@ -3041,6 +3057,7 @@
 				09608AE014B40DE4009450FE /* mAConsoleMonitor.xib in Resources */,
 				09E288981CEA93BA006E6AE4 /* mAAboutView.xib in Resources */,
 				093A74BA1A5E492D00F54725 /* mAFileNavigationController.xib in Resources */,
+				09F6F3A61D4F0C9C00CC920C /* UITabBarContactsTemplate@2x.png in Resources */,
 				09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */,
 				093681241D3AE75E009B30AD /* removelast.png in Resources */,
 			);
@@ -3261,6 +3278,7 @@
 				093E266814A12234008694BC /* util_sndfile.c in Sources */,
 				09AB222F196FC4670037AF73 /* mADocumentManager.m in Sources */,
 				093E266914A12234008694BC /* util_string.cpp in Sources */,
+				09F6F3AC1D4F0F7C00CC920C /* UIBarButtonItem+Spacers.m in Sources */,
 				093E266A14A12234008694BC /* util_thread.cpp in Sources */,
 				093E266B14A12234008694BC /* util_xforms.c in Sources */,
 				09F09E3718E0F5AE0050D963 /* mAKeyboardButton.m in Sources */,

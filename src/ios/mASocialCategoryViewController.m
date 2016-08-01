@@ -10,9 +10,16 @@
 #import "mASocialFileViewController.h"
 #import "mASocialLoginViewController.h"
 
+#import "ChuckPadSocial.h"
+
+#import "UIBarButtonItem+Spacers.h"
+
 @interface mASocialCategoryViewController ()
 {
     NSArray<NSString *> *_categories;
+    
+    UIBarButtonItem *_loginItem;
+    UIButton *_loginButton;
 }
 
 @property (strong, nonatomic) mASocialFileViewController *allSocialFileViewController;
@@ -21,6 +28,11 @@
 @property (strong, nonatomic) mASocialFileViewController *mySocialFileViewController;
 
 @property (strong, nonatomic) mASocialLoginViewController *loginView;
+
+- (void)loginOrRegister;
+- (void)_updateLoginButton;
+- (void)userLoggedIn:(NSNotification *)n;
+- (void)userLoggedOut:(NSNotification *)n;
 
 @end
 
@@ -96,6 +108,17 @@
                          @(SOCIAL_CATEGORY_FEATURED),
                          @(SOCIAL_CATEGORY_DOCUMENTATION),
                          @(SOCIAL_CATEGORY_MYPATCHES), ];
+        
+        _loginButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_loginButton addTarget:self action:@selector(loginOrRegister) forControlEvents:UIControlEventTouchUpInside];
+        [_loginButton setImage:[UIImage imageNamed:@"UITabBarContactsTemplate"] forState:UIControlStateNormal];
+        [_loginButton.titleLabel setFont:[UIFont systemFontOfSize:17.0]];
+        _loginButton.imageEdgeInsets = UIEdgeInsetsMake(0, -12, 0, 0);
+        [self _updateLoginButton];
+        [_loginButton sizeToFit];
+        
+        _loginItem = [[UIBarButtonItem alloc] initWithCustomView:_loginButton];
+        [self setToolbarItems:@[[UIBarButtonItem flexibleSpace], _loginItem] animated:NO];
     }
     
     return self;
@@ -111,18 +134,25 @@
 {
     [super viewWillAppear:animated];
     
-    [self.navigationController setToolbarHidden:YES animated:YES];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoggedIn:)
+                                                 name:CHUCKPAD_SOCIAL_LOG_IN object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoggedOut:)
+                                                 name:CHUCKPAD_SOCIAL_LOG_OUT object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:CHUCKPAD_SOCIAL_LOG_IN object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:CHUCKPAD_SOCIAL_LOG_OUT object:nil];
 }
 
 - (UINavigationItem *)navigationItem
 {
     UINavigationItem *navigationItem = super.navigationItem;
     
-    UIBarButtonItem *loginItem = [[UIBarButtonItem alloc] initWithTitle:@"Login"
-                                                                  style:UIBarButtonItemStylePlain
-                                                                 target:self
-                                                                 action:@selector(loginOrRegister)];
-    navigationItem.rightBarButtonItem = loginItem;
+//    navigationItem.rightBarButtonItem = loginItem;
     
     return navigationItem;
 }
@@ -136,6 +166,28 @@
 {
     [self.loginView clearFields];
     [self presentViewController:self.loginView animated:YES completion:^{}];
+}
+
+- (void)_updateLoginButton
+{
+    ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
+    NSString *title;
+    if([chuckPad isLoggedIn])
+        title = [chuckPad getLoggedInUserName];
+    else
+        title = @"Login";
+    [_loginButton setTitle:title forState:UIControlStateNormal];
+    [_loginButton sizeToFit];
+}
+
+- (void)userLoggedIn:(NSNotification *)n
+{
+    [self _updateLoginButton];
+}
+
+- (void)userLoggedOut:(NSNotification *)n
+{
+    [self _updateLoginButton];
 }
 
 #pragma mark - UITableViewDataSource

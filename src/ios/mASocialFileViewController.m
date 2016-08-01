@@ -80,6 +80,12 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
     self.title = [mASocialCategoryGetTitle(category) uppercaseString];
 }
 
+- (void)setCategoryViewController:(mASocialCategoryViewController *)categoryViewController
+{
+    _categoryViewController = categoryViewController;
+    [self setToolbarItems:self.categoryViewController.toolbarItems animated:NO];
+}
+
 - (id)init
 {
     // force load from associated nib
@@ -97,6 +103,8 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
         {
             self.preferredContentSize = CGSizeMake(320.0, 600.0);
         }
+        
+        [self setToolbarItems:self.categoryViewController.toolbarItems animated:NO];
     }
     return self;
 }
@@ -147,7 +155,7 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
         }];
     }
     
-    [self.navigationController setToolbarHidden:YES animated:YES];
+//    [self.navigationController setToolbarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -158,7 +166,7 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 {
     UINavigationItem *navigationItem = super.navigationItem;
     
-    navigationItem.rightBarButtonItem = self.categoryViewController.navigationItem.rightBarButtonItem;
+//    navigationItem.rightBarButtonItem = self.categoryViewController.navigationItem.rightBarButtonItem;
     navigationItem.title = mASocialCategoryGetTitle(self.category);
     
     return navigationItem;
