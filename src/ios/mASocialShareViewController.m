@@ -362,7 +362,7 @@ typedef enum ShareMode
 - (IBAction)delete:(id)sender
 {
     NSString *title = [NSString stringWithFormat:@"Are you sure you want to delete '%@' from Chuckpad Social?", self.script.patch.name];
-    NSString *msg = @"You will not be able to revert this action. Local copies will not be deleted.";
+    NSString *msg = @"You will not be able to revert this action. Local copies on this device or other devices will not be deleted.";
     
     UIAlertMessage2a(title, msg,
                      @"Cancel", ^{},
