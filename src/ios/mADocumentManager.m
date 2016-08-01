@@ -489,6 +489,8 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     
     item.path = newPath;
     
+    // TODO: move metadata
+    
     return YES;
 }
 
@@ -516,6 +518,8 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
         // save
         [[NSUserDefaults standardUserDefaults] setObject:[_recentFilesPaths array] forKey:mAPreferencesRecentFilesKey];
     }
+    
+    // TODO: delete metadata
 }
 
 - (mADetailItem *)firstUserScript
@@ -670,6 +674,7 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
         NSMutableDictionary *metadata = nil;
         
         // load metadata from disk
+        // TODO: use local cache
         NSString *metadataPath = [self metadataPathForItem:item];
         error = nil;
         NSData *metadataData = [NSData dataWithContentsOfFile:metadataPath
@@ -687,10 +692,14 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
                 metadata = [NSMutableDictionary dictionaryWithDictionary:jsonObj];
         }
         
-        // set key in metadata
-        metadata[key] = value;
+        // set value for key in metadata
+        if(value != nil)
+            metadata[key] = value;
+        else
+            [metadata removeObjectForKey:key];
         
         // save metadata to disk
+        // TODO: don't save + delete file if metadata is empty
         error = nil;
         metadataData = [NSJSONSerialization dataWithJSONObject:metadata options:0 error:&error];
         if(metadataData == nil || error != nil)
