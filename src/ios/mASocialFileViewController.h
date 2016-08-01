@@ -45,7 +45,7 @@ extern "C" {
 }
 #endif // __cplusplus
 
-@interface mASocialFileViewController : UIViewController
+@interface mASocialFileViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) mADetailViewController *detailViewController;
 @property (strong, nonatomic) mASocialCategoryViewController *categoryViewController;

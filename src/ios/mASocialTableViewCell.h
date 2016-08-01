@@ -13,5 +13,7 @@
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *desc;
 @property (strong, nonatomic) NSString *category;
+@property (nonatomic) NSInteger *numViews;
+@property (strong, nonatomic) NSString *date;
 
 @end

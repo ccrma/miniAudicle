@@ -712,6 +712,8 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
             return;
         }
         
+        NSLog(@"writing document metadata to %@", metadataPath);
+        
         error = nil;
         ok = [metadataData writeToFile:metadataPath options:NSDataWritingAtomic error:&error];
         if(!ok || error != nil)

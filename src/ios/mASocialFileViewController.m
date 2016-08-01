@@ -248,16 +248,25 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
         return 0;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    return 76;
+}
+
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView 
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger index = indexPath.row;
     mASocialTableViewCell *cell = (mASocialTableViewCell *) [tableView dequeueReusableCellWithIdentifier:SocialCellIdentifier];
-        
-    cell.name = self.patches[index].name;
-    cell.desc = self.patches[index].patchDescription ? self.patches[index].patchDescription : @"";
-    cell.category = [NSString stringWithFormat:@"%@", self.patches[index].creatorUsername ? self.patches[index].creatorUsername : @""];
+    
+    Patch *patch = self.patches[index];
+    
+    cell.name = patch.name;
+    cell.desc = patch.patchDescription;
+    cell.category = patch.creatorUsername;
+    cell.numViews = patch.downloadCount;
+    cell.date = [patch getTimeLastUpdatedWithPrefix:NO];
     
     return cell;
 }
