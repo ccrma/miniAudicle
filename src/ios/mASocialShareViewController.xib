@@ -10,6 +10,7 @@
                 <outlet property="_callToActionLabel" destination="oqi-zJ-5hK" id="fhi-gt-XDO"/>
                 <outlet property="_compileMessage" destination="HDs-e9-P6C" id="UyF-eM-oKt"/>
                 <outlet property="_compileStatusIcon" destination="KlH-86-4PC" id="Ubp-i4-zY5"/>
+                <outlet property="_deleteButton" destination="CHy-Xw-Hf5" id="DDJ-zs-i90"/>
                 <outlet property="_descriptionEditButton" destination="O8Q-Rf-RYz" id="DZu-D4-IPl"/>
                 <outlet property="_descriptionTextView" destination="scg-9s-sPy" id="Wu5-jD-Zy5"/>
                 <outlet property="_headingLabel" destination="oY2-eQ-u0Z" id="6IK-fV-sAO"/>
@@ -167,9 +168,25 @@
                                 <action selector="editDescription:" destination="-1" eventType="touchUpInside" id="91X-wJ-IwH"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHy-Xw-Hf5">
+                            <rect key="frame" x="202" y="444" width="96" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="GMP-8y-9WE"/>
+                                <constraint firstAttribute="width" constant="96" id="zgf-WO-FNT"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="Delete">
+                                <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="delete:" destination="-1" eventType="touchUpInside" id="3Nq-ri-ge7"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="CHy-Xw-Hf5" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1vw-1Z-dOs"/>
+                        <constraint firstItem="yj3-2h-fc1" firstAttribute="centerY" secondItem="CHy-Xw-Hf5" secondAttribute="centerY" id="4gN-dm-Axy"/>
                         <constraint firstItem="tfN-GJ-KYt" firstAttribute="top" secondItem="scg-9s-sPy" secondAttribute="bottom" constant="24" id="5b3-6Y-say"/>
                         <constraint firstItem="HDs-e9-P6C" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="6U8-1r-IIg"/>
                         <constraint firstItem="yj3-2h-fc1" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="125" id="ADE-pw-Q5l"/>

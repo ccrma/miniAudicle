@@ -35,6 +35,7 @@ typedef enum ShareMode
     IBOutlet UIImageView *_compileStatusIcon;
     IBOutlet UILabel *_compileMessage;
     
+    IBOutlet UIButton *_deleteButton;
     IBOutlet UIButton *_uploadButton;
     
     mALoadingViewController *_loadingView;
@@ -52,6 +53,7 @@ typedef enum ShareMode
 - (IBAction)editDescription:(id)sender;
 - (IBAction)upload:(id)sender;
 - (IBAction)cancel:(id)sender;
+- (IBAction)delete:(id)sender;
 
 - (void)_setUploadMode;
 - (void)_setUpdateMode;
@@ -151,6 +153,7 @@ typedef enum ShareMode
     _callToActionLabel.text = @"Upload your script on Chuckpad Social to share it with the world.";
     _descriptionTextView.backgroundColor = [UIColor whiteColor];
     _descriptionEditButton.hidden = YES;
+    _deleteButton.hidden = YES;
     [_uploadButton setTitle:@"Upload" forState:UIControlStateNormal];
 }
 
@@ -161,6 +164,7 @@ typedef enum ShareMode
     _callToActionLabel.text = @"Your script is now on Chuckpad Social. You can update the shared verison with any changes you've made.";
     _descriptionTextView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
     _descriptionEditButton.hidden = NO;
+    _deleteButton.hidden = NO;
     [_uploadButton setTitle:@"Update" forState:UIControlStateNormal];
 }
 
@@ -314,7 +318,7 @@ typedef enum ShareMode
                                  mAAnalyticsLogError(error);
                                  msg = error.localizedDescription;
                              }
-                             UIAlertMessage1a(@"Failed to upload patch", error.localizedDescription, ^{});
+                             UIAlertMessage1a(@"Failed to upload patch", msg, ^{});
                          }
                          
                          [self _showLoading:NO];
@@ -341,7 +345,7 @@ typedef enum ShareMode
                                  mAAnalyticsLogError(error);
                                  msg = error.localizedDescription;
                              }
-                             UIAlertMessage1a(@"Failed to update patch", error.localizedDescription, ^{});
+                             UIAlertMessage1a(@"Failed to update patch", msg, ^{});
                          }
                          
                          [self _showLoading:NO];
@@ -352,6 +356,43 @@ typedef enum ShareMode
 - (IBAction)cancel:(id)sender
 {
     [self _dismiss];
+}
+
+- (IBAction)delete:(id)sender
+{
+    NSString *title = [NSString stringWithFormat:@"Are you sure you want to delete '%@' from Chuckpad Social?", self.script.patch.name];
+    NSString *msg = @"You will not be able to revert this action. Local copies will not be deleted.";
+    
+    UIAlertMessage2a(title, msg,
+                     @"Cancel", ^{},
+                     @"Delete", ^{
+                         [self _showLoading:YES];
+                         
+                         ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
+                         
+                         [chuckPad deletePatch:self.script.patch
+                                      callback:^(BOOL succeeded, NSError *error) {
+                                          if(succeeded)
+                                          {
+                                              NSString *msg = [NSString stringWithFormat:@"'%@' was deleted from Chuckpad Social.", self.script.patch.name];
+                                              UIAlertMessage(msg, nil);
+                                              self.script.patch = nil;
+                                              [self _setUploadMode];
+                                          }
+                                          else
+                                          {
+                                              NSString *msg = @"";
+                                              if(error)
+                                              {
+                                                  mAAnalyticsLogError(error);
+                                                  msg = error.localizedDescription;
+                                              }
+                                              UIAlertMessage1a(@"Failed to delete patch.", msg, nil);
+                                          }
+                                          
+                                          [self _showLoading:NO];
+                                      }];
+                    });
 }
 
 #pragma mark - UITextFieldDelegate
