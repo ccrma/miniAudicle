@@ -225,7 +225,8 @@ typedef enum ShareMode
 
 - (void)_toggleDescriptionEditor
 {
-    [self _showDescriptionEditor:!_descriptionEditorIsShowing];
+    if(_shareMode == mAShareModeUpdate)
+        [self _showDescriptionEditor:!_descriptionEditorIsShowing];
 }
 
 - (void)_showDescriptionEditor:(BOOL)show
@@ -413,7 +414,8 @@ typedef enum ShareMode
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    [self _showDescriptionEditor:NO];
+    if(_shareMode == mAShareModeUpdate)
+        [self _showDescriptionEditor:NO];
 }
 
 @end
