@@ -44,9 +44,9 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
     switch(category)
     {
         case SOCIAL_CATEGORY_ALL:
-            return @"All";
+            return @"Recent";
         case SOCIAL_CATEGORY_FEATURED:
-            return @"Featured";
+            return @"Popular";
             break;
         case SOCIAL_CATEGORY_MYPATCHES:
             return @"My Patches";
