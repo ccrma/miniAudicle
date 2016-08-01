@@ -176,7 +176,7 @@ typedef enum ShareMode
 
 - (void)_dismiss
 {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)_showCompiles:(BOOL)compiles error:(NSString *)compileError
@@ -269,9 +269,9 @@ typedef enum ShareMode
     if(!_scriptCompiles)
     {
         if(_compileError)
-            UIAlertMessage1a(@"Please fix any compilation errors before sharing.", _compileError, ^{});
+            UIAlertMessage1a(@"Please fix any compilation errors before sharing.", _compileError, nil);
         else
-            UIAlertMessage(@"Please fix any compilation errors before sharing.", ^{});
+            UIAlertMessage(@"Please fix any compilation errors before sharing.", nil);
         
         return;
     }
@@ -283,14 +283,14 @@ typedef enum ShareMode
     
     if([name length] == 0)
     {
-        UIAlertMessage(@"Please enter a name for your script before sharing.", ^{});
+        UIAlertMessage(@"Please enter a name for your script before sharing.", nil);
         return;
     }
     
     if(fileData == nil || [fileData length] == 0)
     {
         // uhh...
-        UIAlertMessage(@"Unable to load script data for uploading.", ^{});
+        UIAlertMessage(@"Unable to load script data for uploading.", nil);
         return;
     }
     
@@ -306,7 +306,7 @@ typedef enum ShareMode
                      callback:^(BOOL succeeded, Patch *patch, NSError *error) {
                          if(succeeded)
                          {
-                             UIAlertMessage(@"Upload succeeded", ^{});
+                             UIAlertMessage(@"Upload succeeded", nil);
                              self.script.patch = patch;
                              [self _setUpdateMode];
                              [self _dismiss];
@@ -319,7 +319,7 @@ typedef enum ShareMode
                                  mAAnalyticsLogError(error);
                                  msg = error.localizedDescription;
                              }
-                             UIAlertMessage1a(@"Failed to upload patch", msg, ^{});
+                             UIAlertMessage1a(@"Failed to upload patch", msg, nil);
                          }
                          
                          [self _showLoading:NO];
@@ -335,7 +335,7 @@ typedef enum ShareMode
                      callback:^(BOOL succeeded, Patch *patch, NSError *error) {
                          if(succeeded)
                          {
-                             UIAlertMessage(@"Update succeeded", ^{});
+                             UIAlertMessage(@"Update succeeded", nil);
                              [self _dismiss];
                          }
                          else
@@ -346,7 +346,7 @@ typedef enum ShareMode
                                  mAAnalyticsLogError(error);
                                  msg = error.localizedDescription;
                              }
-                             UIAlertMessage1a(@"Failed to update patch", msg, ^{});
+                             UIAlertMessage1a(@"Failed to update patch", msg, nil);
                          }
                          
                          [self _showLoading:NO];
@@ -365,7 +365,7 @@ typedef enum ShareMode
     NSString *msg = @"You will not be able to revert this action. Local copies on this device or other devices will not be deleted.";
     
     UIAlertMessage2a(title, msg,
-                     @"Cancel", ^{},
+                     @"Cancel", nil,
                      @"Delete", ^{
                          [self _showLoading:YES];
                          
