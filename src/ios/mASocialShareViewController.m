@@ -84,7 +84,9 @@ typedef enum ShareMode
     _compileError = compileError;
     [self _showCompiles:_scriptCompiles error:_compileError];
     
-    if(script.patch)
+    ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
+    
+    if(script.patch && [chuckPad getLoggedInUserId] == script.patch.creatorId)
     {
         [self _setUpdateMode];
         _nameTextField.text = script.patch.name;
