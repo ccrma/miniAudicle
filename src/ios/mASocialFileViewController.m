@@ -179,7 +179,7 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
     switch (_category)
     {
         case SOCIAL_CATEGORY_ALL:
-            [chuckPad getAllPatches:callback];
+            [chuckPad getRecentPatches:callback];
             break;
         case SOCIAL_CATEGORY_DOCUMENTATION:
             [chuckPad getDocumentationPatches:callback];
