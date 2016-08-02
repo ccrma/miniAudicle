@@ -10,6 +10,8 @@
 
 @interface mASocialLoginViewController : UIViewController
 
+@property (strong, nonatomic) void (^onCompletion)();
+
 - (void)clearFields;
 
 @end

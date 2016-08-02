@@ -151,7 +151,10 @@
 
 - (void)_dismiss
 {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+        if(self.onCompletion)
+            self.onCompletion();
+    }];
 }
 
 - (void)clearFields

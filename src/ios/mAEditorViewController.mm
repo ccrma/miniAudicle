@@ -17,6 +17,8 @@
 #import "mAAutocomplete.h"
 #import "mATextCompletionView.h"
 #import "mASocialShareViewController.h"
+#import "mASocialLoginViewController.h"
+#import "ChuckPadSocial.h"
 #import "mAAnalytics.h"
 
 #import "NSString+NSString_Lines.h"
@@ -599,7 +601,7 @@
 - (NSArray<NSString *> *)menuItems
 {
     if(self.detailItem.isUser)
-        return @[ @"Rename", @"Duplicate", @"Share" ];
+        return @[ @"Rename", @"Duplicate", @"Share..." ];
     else
         return @[ @"Duplicate" ];
 }
@@ -610,11 +612,37 @@
     
     if(self.detailItem.isUser && item == 2) // share
     {
-        [self saveScript];
+        ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
         
-        mASocialShareViewController *shareView = [mASocialShareViewController new];
-        shareView.script = self.detailItem;
-        [self presentViewController:shareView animated:YES completion:^{}];
+        if([chuckPad isLoggedIn])
+        {
+            [self saveScript];
+            
+            mASocialShareViewController *shareView = [mASocialShareViewController new];
+            shareView.script = self.detailItem;
+            [self presentViewController:shareView animated:YES completion:nil];
+        }
+        else
+        {
+            UIAlertMessage2a(@"", @"You must login or create an account to share your script on Chuckpad Social.",
+                             @"Cancel", nil,
+                             @"Create Account/Login", ^{
+                                 mASocialLoginViewController *loginView = [mASocialLoginViewController new];
+                                 [loginView clearFields];
+                                 [self presentViewController:loginView animated:YES completion:nil];
+                                 
+                                 loginView.onCompletion = ^{
+                                     if([chuckPad isLoggedIn])
+                                     {
+                                         [self saveScript];
+                                         
+                                         mASocialShareViewController *shareView = [mASocialShareViewController new];
+                                         shareView.script = self.detailItem;
+                                         [self presentViewController:shareView animated:YES completion:nil];
+                                     }
+                                 };
+                             });
+        }
     }
 }
 
