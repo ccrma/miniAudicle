@@ -119,6 +119,11 @@
         
         _loginItem = [[UIBarButtonItem alloc] initWithCustomView:_loginButton];
         [self setToolbarItems:@[[UIBarButtonItem flexibleSpace], _loginItem] animated:NO];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoggedIn:)
+                                                     name:CHUCKPAD_SOCIAL_LOG_IN object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoggedOut:)
+                                                     name:CHUCKPAD_SOCIAL_LOG_OUT object:nil];
     }
     
     return self;
@@ -128,33 +133,6 @@
     [super viewDidLoad];
     
     self.title = @"Chuckpad Social Scripts";
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoggedIn:)
-                                                 name:CHUCKPAD_SOCIAL_LOG_IN object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoggedOut:)
-                                                 name:CHUCKPAD_SOCIAL_LOG_OUT object:nil];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:CHUCKPAD_SOCIAL_LOG_IN object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:CHUCKPAD_SOCIAL_LOG_OUT object:nil];
-}
-
-- (UINavigationItem *)navigationItem
-{
-    UINavigationItem *navigationItem = super.navigationItem;
-    
-//    navigationItem.rightBarButtonItem = loginItem;
-    
-    return navigationItem;
 }
 
 - (mASocialFileViewController *)defaultCategoryViewController
@@ -175,7 +153,7 @@
     if([chuckPad isLoggedIn])
         title = [chuckPad getLoggedInUserName];
     else
-        title = @"Login";
+        title = @"Create Account/Login";
     [_loginButton setTitle:title forState:UIControlStateNormal];
     [_loginButton sizeToFit];
 }

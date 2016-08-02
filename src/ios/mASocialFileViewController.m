@@ -67,6 +67,9 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 @property (strong, nonatomic) NSArray<Patch *> *patches;
 
 - (void)_getPatchesForCategory:(GetPatchesCallback)callback;
+- (void)userLoggedIn:(NSNotification *)n;
+- (void)userLoggedOut:(NSNotification *)n;
+- (void)_loadPatches;
 
 @end
 
@@ -105,6 +108,11 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
         }
         
         [self setToolbarItems:self.categoryViewController.toolbarItems animated:NO];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoggedIn:)
+                                                     name:CHUCKPAD_SOCIAL_LOG_IN object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoggedOut:)
+                                                     name:CHUCKPAD_SOCIAL_LOG_OUT object:nil];
     }
     return self;
 }
@@ -133,40 +141,39 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 - (void)viewWillAppear:(BOOL)animated
 {
     if(self.patches == nil)
-    {
-        [self _showLoading:YES status: @"Loading scripts"];
-        
-        [self _getPatchesForCategory:^(NSArray *patchesArray, NSError *error) {
-            NSAssert([NSThread isMainThread], @"Network callback not on main thread");
-            
-            if(error == nil)
-            {
-                NSLog(@"Got patches");
-                self.patches = patchesArray;
-                
-                [self _showLoading:NO];
-                [self.tableView reloadData];
-            }
-            else
-            {
-                mAAnalyticsLogError(error);
-                [self _showLoading:YES status:@"Failed to load patches"];
-            }
-        }];
-    }
-    
-//    [self.navigationController setToolbarHidden:YES animated:YES];
+        [self _loadPatches];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)_loadPatches
 {
+    self.patches = nil;
+    [self _showLoading:YES status: @"Loading scripts"];
+    
+    [self _getPatchesForCategory:^(NSArray *patchesArray, NSError *error) {
+        NSAssert([NSThread isMainThread], @"Network callback not on main thread");
+        
+        if(error == nil)
+        {
+            NSLog(@"Got patches");
+            self.patches = patchesArray;
+            
+            [self _showLoading:NO];
+            [self.tableView reloadData];
+        }
+        else
+        {
+            mAAnalyticsLogError(error);
+            [self _showLoading:YES status:[NSString stringWithFormat:@"Failed to load patches.\n%@",
+                                           error.localizedDescription]];
+            _loadingView.loading = NO;
+        }
+    }];
 }
 
 - (UINavigationItem *)navigationItem
 {
     UINavigationItem *navigationItem = super.navigationItem;
     
-//    navigationItem.rightBarButtonItem = self.categoryViewController.navigationItem.rightBarButtonItem;
     navigationItem.title = mASocialCategoryGetTitle(self.category);
     
     return navigationItem;
@@ -189,9 +196,14 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
             break;
         case SOCIAL_CATEGORY_MYPATCHES:
             if([chuckPad isLoggedIn])
+            {
                 [chuckPad getMyPatches:callback];
+            }
             else
-                UIAlertMessage(@"You must be logged in to see your patches", ^{});
+            {
+                [self _showLoading:YES status:@"You must log in or create an account to see your patches."];
+                _loadingView.loading = NO;
+            }
             break;
         default:
             NSAssert(1, @"mASocialFileViewController: invalid category");
@@ -227,6 +239,27 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
     _loadingView.status = status;
 }
 
+- (void)userLoggedIn:(NSNotification *)n
+{
+    // clear patches
+    if(self.category == SOCIAL_CATEGORY_MYPATCHES)
+    {
+        self.patches = nil;
+        if(self.navigationController.topViewController == self)
+            [self _loadPatches];
+    }
+}
+
+- (void)userLoggedOut:(NSNotification *)n
+{
+    // clear patches
+    if(self.category == SOCIAL_CATEGORY_MYPATCHES)
+    {
+        self.patches = nil;
+        if(self.navigationController.topViewController == self)
+            [self _loadPatches];
+    }
+}
 
 #pragma mark - IBActions
 

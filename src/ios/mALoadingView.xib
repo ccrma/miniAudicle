@@ -18,15 +18,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="QY5-iV-vIP">
-                    <rect key="frame" x="182" y="131.5" width="37" height="37"/>
+                    <rect key="frame" x="182" y="131" width="37" height="37"/>
                 </activityIndicatorView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vxL-rd-FJR">
-                    <rect key="frame" x="8" y="82" width="384" height="41"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vxL-rd-FJR">
+                    <rect key="frame" x="8" y="51" width="384" height="72"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="41" id="FPo-cP-RVo"/>
+                        <constraint firstAttribute="height" constant="72" id="FPo-cP-RVo"/>
                     </constraints>
                     <string key="text">Status
-n stuff</string>
+n stuff
+n more stuff</string>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
