@@ -2355,7 +2355,7 @@
 				HEADER_SEARCH_PATHS = chuck/src;
 				INFOPLIST_FILE = macosx/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = (
 					"-lm",
 					"-lstdc++",
@@ -2386,7 +2386,7 @@
 				HEADER_SEARCH_PATHS = chuck/src;
 				INFOPLIST_FILE = macosx/Info.plist;
 				INSTALL_PATH = /Applications;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = (
 					"-lm",
 					"-lstdc++",
