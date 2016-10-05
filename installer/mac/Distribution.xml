@@ -9,6 +9,8 @@
     <pkg-ref id="edu.stanford.chuck.Elliptic"/>
     <pkg-ref id="edu.stanford.chuck.ExpDelay"/>
     <pkg-ref id="edu.stanford.chuck.FIR"/>
+    <pkg-ref id="edu.stanford.chuck.Faust"/>
+    <pkg-ref id="edu.stanford.chuck.faust-lib"/>
     <pkg-ref id="edu.stanford.chuck.FoldbackSaturator"/>
     <pkg-ref id="edu.stanford.chuck.GVerb"/>
     <pkg-ref id="edu.stanford.chuck.KasFilter"/>
@@ -55,6 +57,7 @@
             <line choice="WPDiodeLadder"/>
             <line choice="WPKorg35"/>
         </line>
+        <line choice="Fauck"/>
     </choices-outline>
     
     <choice id="edu.stanford.chuck.miniAudicle" title="miniAudicle" description="miniAudicle is an integrated development environment specifically tailored to the ChucK programming language. Installing miniAudicle is strongly recommended.">
@@ -98,6 +101,13 @@
         <pkg-ref id="edu.stanford.chuck.FIR"/>
     </choice>
     <pkg-ref id="edu.stanford.chuck.FIR" version="0" onConclusion="none">FIR.chug.pkg</pkg-ref>
+
+    <choice id="Fauck" title="Fauck" description="FaucK is a Chugin allowing to combine the powerful, succinct Functional AUdio STream (Faust) language with the strongly-timed ChucK audio programming language. By Romain Michon and Ge Wang. " enabled="1">
+        <pkg-ref id="edu.stanford.chuck.Faust"/>
+        <pkg-ref id="edu.stanford.chuck.faust-lib"/>
+    </choice>
+    <pkg-ref id="edu.stanford.chuck.Faust" version="0" onConclusion="none">Faust.chug.pkg</pkg-ref>
+    <pkg-ref id="edu.stanford.chuck.faust-lib" version="0" onConclusion="none">faust-lib.pkg</pkg-ref>
     
     <choice id="FoldbackSaturator" title="FoldbackSaturator" description="Foldback Saturator for nasty distortion. By Ness Morris." enabled="0">
         <pkg-ref id="edu.stanford.chuck.FoldbackSaturator"/>

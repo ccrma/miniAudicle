@@ -2,12 +2,13 @@
 MINI_SRC_ROOT=../..
 CHUCK_SRC_ROOT=$(MINI_SRC_ROOT)/src/chuck
 CHUGINS_SRC_ROOT=$(MINI_SRC_ROOT)/src/chugins
+FAUST_LIB=/usr/local/lib/faust/
 
 VERSION_MK=$(MINI_SRC_ROOT)/src/version.mk
 
 include $(VERSION_MK)
 
-CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher Elliptic ExpDelay FIR \
+CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher Elliptic ExpDelay FIR Faust \
     FoldbackSaturator GVerb KasFilter MagicSine Mesh2D Multicomb \
     PanN PitchTrack PowerADSR Sigmund Spectacle WinFuncEnv WPDiodeLadder \
     WPKorg35
@@ -16,12 +17,16 @@ CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/$(CH
 
 EXAMPLES=$(CHUCK_SRC_ROOT)/src/examples
 
+FAUST_LIBS=$(wildcard $(FAUST_LIB)/*.lib)
+FAUST_LIB_DIR=/usr/local/lib/faust/
+
 # PKGS=$(addsuffix .pkg,$(CHUGINS) miniAudicle.app chuck)
 APP_PKGS=$(addsuffix .pkg,miniAudicle.app)
 BIN_PKGS=$(addsuffix .pkg,chuck)
 CHUGIN_PKGS=$(addsuffix .pkg,$(CHUGINS))
 EXAMPLES_PKG=examples.pkg
-PKGS=$(APP_PKGS) $(BIN_PKGS) $(CHUGIN_PKGS) $(EXAMPLES_PKG)
+FAUST_LIB_PKG=faust-lib.pkg
+PKGS=$(APP_PKGS) $(BIN_PKGS) $(CHUGIN_PKGS) $(EXAMPLES_PKG) $(FAUST_LIB_PKG)
 
 INSTALLER=chuck-$(PKG_VERSION).pkg
 
@@ -68,6 +73,13 @@ $(CHUGIN_PKGS): %.pkg: %
 	cp -af $< $<.tmp/$(CHUG_DIR)
 	pkgbuild --root $<.tmp --identifier $(IDENTIFIER_BASE).$(basename $<) $@
 	rm -rf $<.tmp
+
+$(FAUST_LIB_PKG): $(FAUST_LIBS)
+	rm -rf $@.tmp/$(FAUST_LIB_DIR)
+	mkdir -p $@.tmp/$(FAUST_LIB_DIR)
+	cp -af $^ $@.tmp/$(FAUST_LIB_DIR)
+	pkgbuild --root $@.tmp --identifier $(IDENTIFIER_BASE).$(basename $@) $@
+	rm -rf $@.tmp
 
 $(EXAMPLES_PKG): $(EXAMPLES)
 	rm -rf $@.tmp/$(EXAMPLES_DST)
