@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0900B70B1CC0D33B00210EF3 /* rtmidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B400A9A54DA007604EA /* rtmidi.cpp */; };
 		0900B70D1CC0D8A400210EF3 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0900B70C1CC0D8A400210EF3 /* CoreMIDI.framework */; };
+		090261051D4892BC001B281D /* UITabBarMoreTemplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 090261031D4892BC001B281D /* UITabBarMoreTemplate@2x.png */; };
+		090261061D4892BC001B281D /* UITabBarMoreTemplate@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 090261041D4892BC001B281D /* UITabBarMoreTemplate@3x.png */; };
 		0907BB06173D04770065B860 /* PSMTabBarControl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0916F980173AF0D20055956C /* PSMTabBarControl.framework */; };
 		09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09087C6414A4F5F600AD2633 /* mAVMMonitorCellController.mm */; };
 		09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09087C6714A4F61700AD2633 /* mAVMMonitorCell.xib */; };
@@ -152,19 +154,21 @@
 		09367F771D38674A009B30AD /* winfuncenv-help.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F531D3866D2009B30AD /* winfuncenv-help.ck */; };
 		09367F781D38674A009B30AD /* WPDiodeLadder-test.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F551D386709009B30AD /* WPDiodeLadder-test.ck */; };
 		09367F791D38674A009B30AD /* WPKorg35-test.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F541D386700009B30AD /* WPKorg35-test.ck */; };
+		093681231D3AE75B009B30AD /* removeall.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E70BBC97D6005931F6 /* removeall.png */; };
+		093681241D3AE75E009B30AD /* removelast.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E60BBC97D6005931F6 /* removelast.png */; };
 		093A212C14BF587500497856 /* mAChuginManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A212B14BF587500497856 /* mAChuginManager.mm */; };
 		093A212E14BFEF7F00497856 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093A212D14BFEF7F00497856 /* Security.framework */; };
 		093A213114BFF5DC00497856 /* BLAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A213014BFF5DC00497856 /* BLAuthentication.m */; };
 		093A74BA1A5E492D00F54725 /* mAFileNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093A74B91A5E492D00F54725 /* mAFileNavigationController.xib */; };
-		093A74BD1A5E495200F54725 /* mAFileNavigationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A74BC1A5E495200F54725 /* mAFileNavigationController.mm */; };
+		093A74BD1A5E495200F54725 /* mAFileNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A74BC1A5E495200F54725 /* mAFileNavigationController.m */; };
 		093E261414A108C8008694BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261314A108C8008694BC /* UIKit.framework */; };
 		093E261614A108C8008694BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261514A108C8008694BC /* Foundation.framework */; };
 		093E261814A108C8008694BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093E261714A108C8008694BC /* CoreGraphics.framework */; };
 		093E261E14A108C8008694BC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 093E261C14A108C8008694BC /* InfoPlist.strings */; };
 		093E262014A108C8008694BC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 093E261F14A108C8008694BC /* main.m */; };
 		093E262414A108C8008694BC /* mAAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E262314A108C8008694BC /* mAAppDelegate.mm */; };
-		093E262714A108C8008694BC /* mAFileViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E262614A108C8008694BC /* mAFileViewController.mm */; };
-		093E262A14A108C8008694BC /* mADetailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093E262914A108C8008694BC /* mADetailViewController.mm */; };
+		093E262714A108C8008694BC /* mAFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 093E262614A108C8008694BC /* mAFileViewController.m */; };
+		093E262A14A108C8008694BC /* mADetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 093E262914A108C8008694BC /* mADetailViewController.m */; };
 		093E262D14A108C8008694BC /* mAFileViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E262B14A108C8008694BC /* mAFileViewController~iphone.xib */; };
 		093E263014A108C8008694BC /* mAFileViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E262E14A108C8008694BC /* mAFileViewController~ipad.xib */; };
 		093E263314A108C9008694BC /* mADetailViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E263114A108C8008694BC /* mADetailViewController~iphone.xib */; };
@@ -257,7 +261,7 @@
 		09678637173F169E003AB462 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678634173F169E003AB462 /* UKFileWatcher.m */; };
 		09678638173F169E003AB462 /* UKFSEventsWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09678636173F169E003AB462 /* UKFSEventsWatcher.m */; };
 		096BFF811CD363C6006653F5 /* mAPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 096BFF7F1CD36334006653F5 /* mAPreferences.m */; };
-		096D81051B40C1F800F9B9CA /* mAMasterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 096D81031B40C1F800F9B9CA /* mAMasterViewController.mm */; };
+		096D81051B40C1F800F9B9CA /* mAMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 096D81031B40C1F800F9B9CA /* mAMasterViewController.m */; };
 		096D81061B40C1F800F9B9CA /* mAMasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 096D81041B40C1F800F9B9CA /* mAMasterViewController.xib */; };
 		096FAB870B56D56B00125FE2 /* mAConsoleMonitorView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 096FAB850B56D56B00125FE2 /* mAConsoleMonitorView.mm */; };
 		09735F431C870B2D003965CA /* ck-doc64.png in Resources */ = {isa = PBXBuildFile; fileRef = 09735F411C870B2D003965CA /* ck-doc64.png */; };
@@ -449,13 +453,13 @@
 		09E288831CE9C86D006E6AE4 /* AddFolder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09E288811CE9C86D006E6AE4 /* AddFolder@2x.png */; };
 		09E288841CE9C86D006E6AE4 /* AddColumn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09E288821CE9C86D006E6AE4 /* AddColumn@2x.png */; };
 		09E288881CE9C9E6006E6AE4 /* AddFile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09E288871CE9C9E6006E6AE4 /* AddFile@2x.png */; };
-		09E288921CEA7CE6006E6AE4 /* mAAboutViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09E288911CEA7CE6006E6AE4 /* mAAboutViewController.mm */; };
+		09E288921CEA7CE6006E6AE4 /* mAAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E288911CEA7CE6006E6AE4 /* mAAboutViewController.m */; };
 		09E288941CEA88AE006E6AE4 /* chuck_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 09E288931CEA88AE006E6AE4 /* chuck_logo.png */; };
 		09E288961CEA8A08006E6AE4 /* chuck_logo_freq.png in Resources */ = {isa = PBXBuildFile; fileRef = 09E288951CEA8A08006E6AE4 /* chuck_logo_freq.png */; };
 		09E288981CEA93BA006E6AE4 /* mAAboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09E288971CEA93BA006E6AE4 /* mAAboutView.xib */; };
 		09E449D41CD2D1E5004BCBA0 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 09E449D31CD2D1E5004BCBA0 /* gear.png */; };
 		09E449D81CD2D2FF004BCBA0 /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09E449D71CD2D2FF004BCBA0 /* gear@2x.png */; };
-		09E9FE111D079069002A2D63 /* mADirectoryViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09E9FE0F1D079069002A2D63 /* mADirectoryViewController.mm */; };
+		09E9FE111D079069002A2D63 /* mADirectoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E9FE0F1D079069002A2D63 /* mADirectoryViewController.m */; };
 		09E9FE121D079069002A2D63 /* mADirectoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09E9FE101D079069002A2D63 /* mADirectoryViewController.xib */; };
 		09E9FE181D0CDC10002A2D63 /* mATableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E9FE171D0CDC10002A2D63 /* mATableViewCell.m */; };
 		09EBA9B718D8FD4700DCAE0C /* examples in Resources */ = {isa = PBXBuildFile; fileRef = 09B66B5C1769A5CD00A07ADF /* examples */; };
@@ -470,7 +474,7 @@
 		09F09E4618E36DBC0050D963 /* mAScriptPlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09F09E4418E36DBC0050D963 /* mAScriptPlayer.xib */; };
 		09F09E4918E3712D0050D963 /* mARoundedRectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F09E4818E3712D0050D963 /* mARoundedRectButton.m */; };
 		09F09E4C18E374C10050D963 /* mACGContext.c in Sources */ = {isa = PBXBuildFile; fileRef = 09F09E4A18E374C10050D963 /* mACGContext.c */; };
-		09F09E4F18E3753B0050D963 /* mAScriptPlayerTab.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09F09E4E18E3753B0050D963 /* mAScriptPlayerTab.mm */; };
+		09F09E4F18E3753B0050D963 /* mAScriptPlayerTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F09E4E18E3753B0050D963 /* mAScriptPlayerTab.m */; };
 		09F09E5318E419960050D963 /* add-noalpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F09E5018E419960050D963 /* add-noalpha.png */; };
 		09F09E5418E419960050D963 /* remove-noalpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F09E5118E419960050D963 /* remove-noalpha.png */; };
 		09F09E5518E419960050D963 /* replace-noalpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F09E5218E419960050D963 /* replace-noalpha.png */; };
@@ -948,6 +952,9 @@
 
 /* Begin PBXFileReference section */
 		0900B70C1CC0D8A400210EF3 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreMIDI.framework; sourceTree = DEVELOPER_DIR; };
+		090261001D488DAC001B281D /* mAInteractionModeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAInteractionModeController.h; sourceTree = "<group>"; };
+		090261031D4892BC001B281D /* UITabBarMoreTemplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UITabBarMoreTemplate@2x.png"; sourceTree = "<group>"; };
+		090261041D4892BC001B281D /* UITabBarMoreTemplate@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UITabBarMoreTemplate@3x.png"; sourceTree = "<group>"; };
 		09087C6314A4F5F600AD2633 /* mAVMMonitorCellController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAVMMonitorCellController.h; sourceTree = "<group>"; };
 		09087C6414A4F5F600AD2633 /* mAVMMonitorCellController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAVMMonitorCellController.mm; sourceTree = "<group>"; };
 		09087C6714A4F61700AD2633 /* mAVMMonitorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAVMMonitorCell.xib; sourceTree = "<group>"; };
@@ -1097,7 +1104,7 @@
 		093A213014BFF5DC00497856 /* BLAuthentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLAuthentication.m; path = macosx/BLAuthentication.m; sourceTree = "<group>"; };
 		093A74B91A5E492D00F54725 /* mAFileNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAFileNavigationController.xib; sourceTree = "<group>"; };
 		093A74BB1A5E495200F54725 /* mAFileNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAFileNavigationController.h; sourceTree = "<group>"; };
-		093A74BC1A5E495200F54725 /* mAFileNavigationController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAFileNavigationController.mm; sourceTree = "<group>"; };
+		093A74BC1A5E495200F54725 /* mAFileNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAFileNavigationController.m; sourceTree = "<group>"; };
 		093E261114A108C8008694BC /* miniAudicle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miniAudicle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		093E261314A108C8008694BC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		093E261514A108C8008694BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -1109,9 +1116,9 @@
 		093E262214A108C8008694BC /* mAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mAAppDelegate.h; sourceTree = "<group>"; };
 		093E262314A108C8008694BC /* mAAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = mAAppDelegate.mm; sourceTree = "<group>"; };
 		093E262514A108C8008694BC /* mAFileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mAFileViewController.h; sourceTree = "<group>"; };
-		093E262614A108C8008694BC /* mAFileViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = mAFileViewController.mm; sourceTree = "<group>"; };
+		093E262614A108C8008694BC /* mAFileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mAFileViewController.m; sourceTree = "<group>"; };
 		093E262814A108C8008694BC /* mADetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mADetailViewController.h; sourceTree = "<group>"; };
-		093E262914A108C8008694BC /* mADetailViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = mADetailViewController.mm; sourceTree = "<group>"; };
+		093E262914A108C8008694BC /* mADetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mADetailViewController.m; sourceTree = "<group>"; };
 		093E262C14A108C8008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/mAFileViewController~iphone.xib"; sourceTree = "<group>"; };
 		093E262F14A108C8008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/mAFileViewController~ipad.xib"; sourceTree = "<group>"; };
 		093E263214A108C9008694BC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/mADetailViewController~iphone.xib"; sourceTree = "<group>"; };
@@ -1183,7 +1190,7 @@
 		096BFF7C1CD36320006653F5 /* mAPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mAPreferences.h; sourceTree = "<group>"; };
 		096BFF7F1CD36334006653F5 /* mAPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAPreferences.m; sourceTree = "<group>"; };
 		096D81021B40C1F800F9B9CA /* mAMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAMasterViewController.h; sourceTree = "<group>"; };
-		096D81031B40C1F800F9B9CA /* mAMasterViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAMasterViewController.mm; sourceTree = "<group>"; };
+		096D81031B40C1F800F9B9CA /* mAMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAMasterViewController.m; sourceTree = "<group>"; };
 		096D81041B40C1F800F9B9CA /* mAMasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAMasterViewController.xib; sourceTree = "<group>"; };
 		096FAB840B56D56B00125FE2 /* mAConsoleMonitorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAConsoleMonitorView.h; path = macosx/mAConsoleMonitorView.h; sourceTree = SOURCE_ROOT; };
 		096FAB850B56D56B00125FE2 /* mAConsoleMonitorView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAConsoleMonitorView.mm; path = macosx/mAConsoleMonitorView.mm; sourceTree = SOURCE_ROOT; };
@@ -1451,7 +1458,7 @@
 		09E288821CE9C86D006E6AE4 /* AddColumn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddColumn@2x.png"; sourceTree = "<group>"; };
 		09E288871CE9C9E6006E6AE4 /* AddFile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddFile@2x.png"; sourceTree = "<group>"; };
 		09E288901CEA7CE6006E6AE4 /* mAAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAAboutViewController.h; sourceTree = "<group>"; };
-		09E288911CEA7CE6006E6AE4 /* mAAboutViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAAboutViewController.mm; sourceTree = "<group>"; };
+		09E288911CEA7CE6006E6AE4 /* mAAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAAboutViewController.m; sourceTree = "<group>"; };
 		09E288931CEA88AE006E6AE4 /* chuck_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chuck_logo.png; sourceTree = "<group>"; };
 		09E288951CEA8A08006E6AE4 /* chuck_logo_freq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chuck_logo_freq.png; sourceTree = "<group>"; };
 		09E288971CEA93BA006E6AE4 /* mAAboutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAAboutView.xib; sourceTree = "<group>"; };
@@ -1462,7 +1469,7 @@
 		09E5546D0DA61CB700F1A6C8 /* miniAudicle_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = miniAudicle_debug.h; sourceTree = "<group>"; };
 		09E9CF8D1D0EAF8C009B03A1 /* default.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = default.xcconfig; sourceTree = "<group>"; };
 		09E9FE0E1D079069002A2D63 /* mADirectoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mADirectoryViewController.h; sourceTree = "<group>"; };
-		09E9FE0F1D079069002A2D63 /* mADirectoryViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mADirectoryViewController.mm; sourceTree = "<group>"; };
+		09E9FE0F1D079069002A2D63 /* mADirectoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mADirectoryViewController.m; sourceTree = "<group>"; };
 		09E9FE101D079069002A2D63 /* mADirectoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mADirectoryViewController.xib; sourceTree = "<group>"; };
 		09E9FE161D0CDC10002A2D63 /* mATableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mATableViewCell.h; sourceTree = "<group>"; };
 		09E9FE171D0CDC10002A2D63 /* mATableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mATableViewCell.m; sourceTree = "<group>"; };
@@ -1485,7 +1492,7 @@
 		09F09E4A18E374C10050D963 /* mACGContext.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mACGContext.c; sourceTree = "<group>"; };
 		09F09E4B18E374C10050D963 /* mACGContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mACGContext.h; sourceTree = "<group>"; };
 		09F09E4D18E3753B0050D963 /* mAScriptPlayerTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAScriptPlayerTab.h; sourceTree = "<group>"; };
-		09F09E4E18E3753B0050D963 /* mAScriptPlayerTab.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAScriptPlayerTab.mm; sourceTree = "<group>"; };
+		09F09E4E18E3753B0050D963 /* mAScriptPlayerTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAScriptPlayerTab.m; sourceTree = "<group>"; };
 		09F09E5018E419960050D963 /* add-noalpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-noalpha.png"; sourceTree = "<group>"; };
 		09F09E5118E419960050D963 /* remove-noalpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "remove-noalpha.png"; sourceTree = "<group>"; };
 		09F09E5218E419960050D963 /* replace-noalpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "replace-noalpha.png"; sourceTree = "<group>"; };
@@ -1671,6 +1678,8 @@
 				09F09E5118E419960050D963 /* remove-noalpha.png */,
 				09F09E5218E419960050D963 /* replace-noalpha.png */,
 				09087C6A14A4F67100AD2633 /* UIRemoveControlMinus.png */,
+				090261031D4892BC001B281D /* UITabBarMoreTemplate@2x.png */,
+				090261041D4892BC001B281D /* UITabBarMoreTemplate@3x.png */,
 				09307E2018DFEE57004AB346 /* Images.xcassets */,
 				0929B85B1D1114C300B8DE4D /* examples */,
 			);
@@ -2423,7 +2432,7 @@
 				09AC4E1318E90B1600B2561A /* mAScriptPlayerView.h */,
 				09AC4E1418E90B1600B2561A /* mAScriptPlayerView.m */,
 				09F09E4D18E3753B0050D963 /* mAScriptPlayerTab.h */,
-				09F09E4E18E3753B0050D963 /* mAScriptPlayerTab.mm */,
+				09F09E4E18E3753B0050D963 /* mAScriptPlayerTab.m */,
 				099ABE50190CCA2C00C5D52D /* mAOTFButton.h */,
 				099ABE51190CCA2C00C5D52D /* mAOTFButton.m */,
 				09AC4E1618EA2C8500B2561A /* mAShredButton.h */,
@@ -2487,20 +2496,20 @@
 				093E262314A108C8008694BC /* mAAppDelegate.mm */,
 				096D81041B40C1F800F9B9CA /* mAMasterViewController.xib */,
 				096D81021B40C1F800F9B9CA /* mAMasterViewController.h */,
-				096D81031B40C1F800F9B9CA /* mAMasterViewController.mm */,
+				096D81031B40C1F800F9B9CA /* mAMasterViewController.m */,
 				093A74B91A5E492D00F54725 /* mAFileNavigationController.xib */,
 				093A74BB1A5E495200F54725 /* mAFileNavigationController.h */,
-				093A74BC1A5E495200F54725 /* mAFileNavigationController.mm */,
+				093A74BC1A5E495200F54725 /* mAFileNavigationController.m */,
 				09307E1618DE68B0004AB346 /* mANavigationController~ipad.xib */,
 				09AB222D196FC4670037AF73 /* mADocumentManager.h */,
 				09AB222E196FC4670037AF73 /* mADocumentManager.m */,
 				093E262B14A108C8008694BC /* mAFileViewController~iphone.xib */,
 				093E262E14A108C8008694BC /* mAFileViewController~ipad.xib */,
 				093E262514A108C8008694BC /* mAFileViewController.h */,
-				093E262614A108C8008694BC /* mAFileViewController.mm */,
+				093E262614A108C8008694BC /* mAFileViewController.m */,
 				09E9FE101D079069002A2D63 /* mADirectoryViewController.xib */,
 				09E9FE0E1D079069002A2D63 /* mADirectoryViewController.h */,
-				09E9FE0F1D079069002A2D63 /* mADirectoryViewController.mm */,
+				09E9FE0F1D079069002A2D63 /* mADirectoryViewController.m */,
 				09E9FE161D0CDC10002A2D63 /* mATableViewCell.h */,
 				09E9FE171D0CDC10002A2D63 /* mATableViewCell.m */,
 				09735F6E1C8A9407003965CA /* mAAudioFileTableViewCell.xib */,
@@ -2513,8 +2522,9 @@
 				093E263414A108C9008694BC /* mADetailViewController~ipad.xib */,
 				09F09E5618E41F2C0050D963 /* mADetailItem.h */,
 				09F09E5718E41F2C0050D963 /* mADetailItem.mm */,
+				090261001D488DAC001B281D /* mAInteractionModeController.h */,
 				093E262814A108C8008694BC /* mADetailViewController.h */,
-				093E262914A108C8008694BC /* mADetailViewController.mm */,
+				093E262914A108C8008694BC /* mADetailViewController.m */,
 				093E267D14A1B3B2008694BC /* mAChucKController.h */,
 				093E267E14A1B3B2008694BC /* mAChucKController.mm */,
 				09D00B8814A44DFA0019CD09 /* mAVMMonitorController.h */,
@@ -2534,7 +2544,7 @@
 				097397351CD2B00000D8B74D /* mAPreferencesViewController.m */,
 				0973973D1CD2B0CE00D8B74D /* mAPreferencesViewController.xib */,
 				09E288901CEA7CE6006E6AE4 /* mAAboutViewController.h */,
-				09E288911CEA7CE6006E6AE4 /* mAAboutViewController.mm */,
+				09E288911CEA7CE6006E6AE4 /* mAAboutViewController.m */,
 				09E288971CEA93BA006E6AE4 /* mAAboutView.xib */,
 				096BFF7C1CD36320006653F5 /* mAPreferences.h */,
 				096BFF7F1CD36334006653F5 /* mAPreferences.m */,
@@ -3119,6 +3129,7 @@
 				096310BF1C86F71600A36F8F /* Launch2.png in Resources */,
 				093E267B14A14E91008694BC /* add.png in Resources */,
 				09735F431C870B2D003965CA /* ck-doc64.png in Resources */,
+				093681231D3AE75B009B30AD /* removeall.png in Resources */,
 				09F09E4618E36DBC0050D963 /* mAScriptPlayer.xib in Resources */,
 				09F09E3C18E2C5E60050D963 /* mAEditorViewController.xib in Resources */,
 				093E267C14A14E91008694BC /* miniAudicle.icns in Resources */,
@@ -3129,6 +3140,7 @@
 				09D00B8C14A44DFB0019CD09 /* mAVMMonitorController.xib in Resources */,
 				09F09E5518E419960050D963 /* replace-noalpha.png in Resources */,
 				09664B9019905ABC00AE0B6B /* mAConnectViewController.xib in Resources */,
+				090261061D4892BC001B281D /* UITabBarMoreTemplate@3x.png in Resources */,
 				0934BE44190D038B0084D10E /* sequence.png in Resources */,
 				09087C6814A4F61700AD2633 /* mAVMMonitorCell.xib in Resources */,
 				096310BC1C86F35900A36F8F /* mALaunchView.xib in Resources */,
@@ -3138,11 +3150,13 @@
 				09E288831CE9C86D006E6AE4 /* AddFolder@2x.png in Resources */,
 				09087C6B14A4F67100AD2633 /* UIRemoveControlMinus.png in Resources */,
 				09094DC519919E41009F4C4C /* mAActivityViewController.xib in Resources */,
+				090261051D4892BC001B281D /* UITabBarMoreTemplate@2x.png in Resources */,
 				098562531CE92FCD00FCBF21 /* mAFolderTableViewCell.xib in Resources */,
 				09608AE014B40DE4009450FE /* mAConsoleMonitor.xib in Resources */,
 				09E288981CEA93BA006E6AE4 /* mAAboutView.xib in Resources */,
 				093A74BA1A5E492D00F54725 /* mAFileNavigationController.xib in Resources */,
 				09307E1B18DE76D0004AB346 /* mAKeyboardAccessoryViewController.xib in Resources */,
+				093681241D3AE75E009B30AD /* removelast.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3239,18 +3253,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				093E262014A108C8008694BC /* main.m in Sources */,
-				09E9FE111D079069002A2D63 /* mADirectoryViewController.mm in Sources */,
+				09E9FE111D079069002A2D63 /* mADirectoryViewController.m in Sources */,
 				0921D56618190216008F39D9 /* send.c in Sources */,
 				093E262414A108C8008694BC /* mAAppDelegate.mm in Sources */,
-				093E262714A108C8008694BC /* mAFileViewController.mm in Sources */,
-				093E262A14A108C8008694BC /* mADetailViewController.mm in Sources */,
+				093E262714A108C8008694BC /* mAFileViewController.m in Sources */,
+				093E262A14A108C8008694BC /* mADetailViewController.m in Sources */,
 				093E263B14A12201008694BC /* uana_extract.cpp in Sources */,
 				093E263C14A12201008694BC /* uana_xform.cpp in Sources */,
 				09F09E4918E3712D0050D963 /* mARoundedRectButton.m in Sources */,
 				093E263D14A12201008694BC /* chuck_absyn.cpp in Sources */,
 				0921D55E18190216008F39D9 /* bundle.c in Sources */,
 				09400F341C903FD400C1E52E /* KVOMutableArray.m in Sources */,
-				096D81051B40C1F800F9B9CA /* mAMasterViewController.mm in Sources */,
+				096D81051B40C1F800F9B9CA /* mAMasterViewController.m in Sources */,
 				09AC4E1818EA2C8500B2561A /* mAShredButton.m in Sources */,
 				09094DC419919E41009F4C4C /* mAActivityViewController.m in Sources */,
 				09307E2718E0BEC2004AB346 /* NSString+NSString_Lines.m in Sources */,
@@ -3285,10 +3299,10 @@
 				093E264C14A12201008694BC /* chuck_shell.cpp in Sources */,
 				093E264D14A12201008694BC /* chuck_stats.cpp in Sources */,
 				093E264E14A12201008694BC /* chuck_symbol.cpp in Sources */,
-				09F09E4F18E3753B0050D963 /* mAScriptPlayerTab.mm in Sources */,
-				093A74BD1A5E495200F54725 /* mAFileNavigationController.mm in Sources */,
+				09F09E4F18E3753B0050D963 /* mAScriptPlayerTab.m in Sources */,
+				093A74BD1A5E495200F54725 /* mAFileNavigationController.m in Sources */,
 				093E264F14A12201008694BC /* chuck_table.cpp in Sources */,
-				09E288921CEA7CE6006E6AE4 /* mAAboutViewController.mm in Sources */,
+				09E288921CEA7CE6006E6AE4 /* mAAboutViewController.m in Sources */,
 				093E265014A12201008694BC /* chuck_type.cpp in Sources */,
 				093E265114A12201008694BC /* chuck_ugen.cpp in Sources */,
 				093E265214A12201008694BC /* chuck_utils.cpp in Sources */,

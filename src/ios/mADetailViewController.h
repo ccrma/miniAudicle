@@ -29,6 +29,7 @@
 #import "mAConsoleMonitorController.h"
 #import "mAVMMonitorController.h"
 #import "mASyntaxHighlighter.h"
+#import "mAInteractionModeController.h"
 
 
 @class mADetailItem;
@@ -38,42 +39,31 @@
 @class mAPlayerViewController;
 
 
-enum mAInteractionMode
+typedef enum mAInteractionMode
 {
     MA_IM_NONE,
     MA_IM_EDIT,
     MA_IM_PLAY,
-};
-
-
-@protocol mADetailClient <NSObject>
-
-- (UIBarButtonItem *)titleButton;
-
-@end
+} mAInteractionMode;
 
 
 @interface mADetailViewController : UIViewController 
 < UISplitViewControllerDelegate, 
   UIPopoverControllerDelegate,
   mAConsoleMonitorDelegate,
-  mAVMMonitorDelegate >
-{
-    IBOutlet UIView *_clientView;
-    IBOutlet UIToolbar * _toolbar;
-    
-    IBOutlet mAVMMonitorController * _vmMonitor;
-    IBOutlet mAConsoleMonitorController * _consoleMonitor;
-}
+  mAVMMonitorDelegate,
+  UIActionSheetDelegate>
 
-@property (strong, nonatomic) UIViewController *clientViewController;
+@property (strong, nonatomic) UIViewController<mAInteractionModeController> *clientViewController;
 //@property (assign, nonatomic) mAFileViewController * fileViewController;
 @property (strong, nonatomic) IBOutlet mAEditorViewController * editor;
 @property (strong, nonatomic) IBOutlet mAPlayerViewController * player;
 @property (nonatomic) mAInteractionMode interactionMode;
 
+- (id<mAInteractionModeController>)currentInteractionModeController;
+
+- (void)showMasterPopover;
 - (void)dismissMasterPopover;
-- (void)setClientViewController:(UIViewController *)viewController;
 
 - (void)showDetailItem:(mADetailItem *)item;
 - (void)editItem:(mADetailItem *)item;

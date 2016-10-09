@@ -37,4 +37,7 @@ extern NSString * const mADocumentManagerRecentFilesChanged;
 - (mADetailItem *)newFolderUnderParent:(mADetailItem *)parent;
 - (mADetailItem *)newItemFromURL:(NSURL *)url;
 
+- (void)setMetadata:(NSString *)key value:(id)value forItem:(mADetailItem *)item;
+- (id)metadata:(NSString *)key forItem:(mADetailItem *)item;
+
 @end

@@ -77,8 +77,17 @@
 
 @interface mADetailViewController ()
 {
+    IBOutlet UIView *_clientView;
+    IBOutlet UIToolbar * _toolbar;
+    
+    IBOutlet mAVMMonitorController * _vmMonitor;
+    IBOutlet mAConsoleMonitorController * _consoleMonitor;
+
     IBOutlet UIBarButtonItem *_consoleMonitorButton;
     IBOutlet UIBarButtonItem *_vmMonitorButton;
+    IBOutlet UIBarButtonItem *_docMenuButton;
+    
+    UIAlertController *_docMenu;
 }
 
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -97,6 +106,8 @@
 - (void)changeMode:(id)sender;
 - (void)_closeOpenPopovers;
 
+- (IBAction)showDocumentMenu:(id)sender;
+
 @end
 
 @implementation mADetailViewController
@@ -106,7 +117,22 @@
 @synthesize vmMonitor = _vmMonitor;
 @synthesize consoleMonitor = _consoleMonitor;
 
+- (id<mAInteractionModeController>)currentInteractionModeController
+{
+    if(self.interactionMode == MA_IM_EDIT)
+        return self.editor;
+    else if(self.interactionMode == MA_IM_PLAY)
+        return self.player;
+    else
+        return nil;
+}
+
 #pragma mark - Managing the detail item
+
+- (void)showMasterPopover
+{
+    self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryOverlay;
+}
 
 - (void)dismissMasterPopover
 {
@@ -171,9 +197,9 @@
     return self;
 }
 
-- (void)setClientViewController:(UIViewController *)viewController
+- (void)setClientViewController:(UIViewController<mAInteractionModeController> *)viewController
 {
-    if(self.clientViewController != viewController)
+    if(_clientViewController != viewController)
     {
         _clientViewController = viewController;
         
@@ -193,10 +219,15 @@
                 break;
         }
         
-        [items insertObject:[(id<mADetailClient>)viewController titleButton]
+        [items insertObject:[viewController titleButton]
                     atIndex:i];
-        [(id<mADetailClient>)viewController titleButton].tag = -1;
+        [viewController titleButton].tag = -1;
         [items removeObjectAtIndex:i+1];
+        
+        [items removeObject:_docMenuButton];
+        if(_clientViewController.menuItems.count)
+            [items insertObject:_docMenuButton atIndex:i+1];
+        
         
         [self.toolbar setItems:items animated:YES];
     }
@@ -349,6 +380,8 @@
         [self playMode:sender];
 }
 
+#pragma mark - IBActions
+
 - (IBAction)playMode:(id)sender
 {
     [[mAAnalytics instance] playButton];
@@ -362,12 +395,10 @@
         
         self.interactionMode = MA_IM_PLAY;
         [self setClientViewController:self.player];
-        [self dismissMasterPopover];
         
-        //        //If in portrait mode, display the master view
-        //        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
-        //            [self.parentViewController.navigationItem.leftBarButtonItem.target performSelector:self.navigationItem.leftBarButtonItem.action withObject:self.navigationItem];
-        //        }
+        // show script selector if no players are there
+        if(self.player.allPlayers.count == 0)
+            [self showMasterPopover];
     }
 }
 
@@ -384,6 +415,32 @@
         [self setClientViewController:self.editor];
         [self dismissMasterPopover];
     }
+}
+
+- (IBAction)showDocumentMenu:(id)sender
+{
+    NSArray<NSString *> *docMenuItems = [self.currentInteractionModeController menuItems];
+    if(docMenuItems.count)
+    {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                 delegate:self
+                                                        cancelButtonTitle:nil
+                                                   destructiveButtonTitle:nil
+                                                        otherButtonTitles:nil];
+        
+        for(NSString *menuItem in docMenuItems)
+            [actionSheet addButtonWithTitle:menuItem];
+        
+        [actionSheet showFromBarButtonItem:sender animated:YES];
+    }
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex >= 0)
+        [self.currentInteractionModeController handleMenuItem:buttonIndex];
 }
 
 #pragma mark - mAConsoleMonitorDelegate

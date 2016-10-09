@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="12F45" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="mAScriptPlayer">
@@ -12,9 +13,9 @@
                 <outlet property="_loopNButton" destination="EHP-Hc-5ab" id="e8B-Wh-DIz"/>
                 <outlet property="_playerTabView" destination="yig-hN-R0p" id="o2Q-UP-9DD"/>
                 <outlet property="_removeButton" destination="SQh-4x-Fn7" id="Wcb-CU-EhO"/>
+                <outlet property="_removePlayerButton" destination="F9o-Zy-yrl" id="FXn-af-Q12"/>
                 <outlet property="_replaceButton" destination="xdm-Ek-wa2" id="ITw-20-yuO"/>
                 <outlet property="_sequenceButton" destination="iwo-RC-2JP" id="SmT-mC-3vz"/>
-                <outlet property="_showDeleteButtonGestureRecognizer" destination="OHf-PT-qHZ" id="T9u-me-6Fk"/>
                 <outlet property="_titleLabel" destination="WxK-NC-9EQ" id="qco-00-jue"/>
                 <outlet property="_usernameLabel" destination="fbv-ZQ-dDC" id="MUu-Os-GLb"/>
                 <outlet property="titleLabel" destination="WxK-NC-9EQ" id="Z80-14-9sh"/>
@@ -29,17 +30,28 @@
                 <view contentMode="scaleToFill" id="yig-hN-R0p" customClass="mAScriptPlayerTab">
                     <rect key="frame" x="0.0" y="0.0" width="300" height="75"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="F9o-Zy-yrl">
+                            <rect key="frame" x="236" y="0.0" width="64" height="75"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="Delete">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="deletePlayer:" destination="-1" eventType="touchUpInside" id="Vet-gj-5Qo"/>
+                            </connections>
+                        </button>
+                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <color key="tintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     <gestureRecognizers/>
-                    <connections>
-                        <outletCollection property="gestureRecognizers" destination="OHf-PT-qHZ" appends="YES" id="N9M-mC-r9D"/>
-                    </connections>
                 </view>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="script" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WxK-NC-9EQ">
                     <rect key="frame" x="20" y="11" width="183" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
                     <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -129,6 +141,7 @@
                 </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yA1-5D-TJ9" customClass="mAOTFButton">
@@ -188,11 +201,6 @@
                 <action selector="sequenceShred:" destination="-1" eventType="touchUpInside" id="MMN-SZ-uTY"/>
             </connections>
         </button>
-        <pongPressGestureRecognizer allowableMovement="5" minimumPressDuration="0.62" id="OHf-PT-qHZ">
-            <connections>
-                <action selector="showDeleteButton:" destination="-1" id="77r-oT-kTP"/>
-            </connections>
-        </pongPressGestureRecognizer>
     </objects>
     <resources>
         <image name="UIRemoveControlMinus.png" width="44" height="48"/>

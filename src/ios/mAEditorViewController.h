@@ -13,18 +13,19 @@
 #import "mAConsoleMonitorController.h"
 #import "mASyntaxHighlighter.h"
 #import "mADetailViewController.h"
+#import "mAInteractionModeController.h"
 
 @class mAFileViewController;
 @class mAVMMonitorController;
 @class mATextView;
 
 @interface mAEditorViewController : UIViewController
-< mAKeyboardAccessoryDelegate,
+< mAInteractionModeController,
+  mAKeyboardAccessoryDelegate,
   UIPopoverControllerDelegate,
   mATitleEditorControllerDelegate,
   NSTextStorageDelegate,
-  UITextViewDelegate,
-  mADetailClient >
+  UITextViewDelegate >
 {
     IBOutlet mATextView * _textView;
     IBOutlet UIView *_otfToolbar;

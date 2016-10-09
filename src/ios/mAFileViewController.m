@@ -28,7 +28,6 @@
 #import "mAEditorViewController.h"
 #import "mAPlayerViewController.h"
 #import "mAChucKController.h"
-#import "miniAudicle.h"
 #import "mADetailItem.h"
 #import "mADocumentManager.h"
 #import "mAAnalytics.h"
@@ -105,13 +104,11 @@ static NSString *FolderCellIdentifier = @"FolderCell";
     
     if(self.editable)
     {
-        [self.navigationController setToolbarHidden:NO animated:YES];
         [self setToolbarItems:self.defaultToolbarItems
                      animated:YES];
     }
     else
     {
-        [self.navigationController setToolbarHidden:YES animated:YES];
         [self setToolbarItems:@[]
                      animated:YES];
     }
@@ -172,13 +169,11 @@ static NSString *FolderCellIdentifier = @"FolderCell";
     // reload detail item
     if(self.editable)
     {
-        [self.navigationController setToolbarHidden:NO animated:YES];
         [self setToolbarItems:self.defaultToolbarItems
                      animated:YES];
     }
     else
     {
-        [self.navigationController setToolbarHidden:YES animated:YES];
         [self setToolbarItems:@[]
                      animated:YES];
     }
@@ -202,17 +197,10 @@ static NSString *FolderCellIdentifier = @"FolderCell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if(self.editable)
-        [self.navigationController setToolbarHidden:NO animated:YES];
-    else
-        [self.navigationController setToolbarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    if(self.editable)
-        [self.navigationController setToolbarHidden:YES animated:YES];
-
     if(self.activeAudioFilePath)
     {
         mAAudioFileTableViewCell *cell = (mAAudioFileTableViewCell *) [self.tableView cellForRowAtIndexPath:self.activeAudioFilePath];
@@ -366,7 +354,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
         self.editButton.title = @"Edit";
         self.editButton.style = UIBarButtonItemStylePlain;
         
-        [self setToolbarItems:_defaultToolbarItems animated:NO];
+        [self setToolbarItems:self.defaultToolbarItems animated:NO];
     }
     else
     {

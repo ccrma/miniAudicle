@@ -15,9 +15,13 @@
 @class mAScriptPlayerTab;
 @class mAOTFButton;
 @class mARoundedRectButton;
+#ifdef __cplusplus
 class Chuck_VM_Status;
+#else
+typedef void Chuck_VM_Status;
+#endif // __cplusplus
 
-@interface mAScriptPlayer : UIViewController<mATapOutsideListener>
+@interface mAScriptPlayer : UIViewController<mATapOutsideListener, UIGestureRecognizerDelegate>
 {
 }
 
