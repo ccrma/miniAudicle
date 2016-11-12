@@ -1002,7 +1002,7 @@ t_CKBOOL miniAudicle::start_vm()
             // pop
             EM_poplog();
             // done
-            exit( 1 );
+            return FALSE;
         }
         
         // log
