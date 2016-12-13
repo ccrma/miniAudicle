@@ -236,9 +236,22 @@
     UIAlertMessage2(@"Are you sure you want to logout?",
                     @"Cancel", ^{ },
                     @"Logout", ^{
-                        ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
-                        [chuckPad logOut];
-                        [self _configureTabs];
+                        [self _showLoading:YES status:@"Logging out"];
+                        [[ChuckPadSocial sharedInstance] logOut:^(BOOL succeeded, NSError *error) {
+                            [self _showLoading:NO];
+                            
+                            // If we can't invalidate the auth token on the service, just wipe it locally. It's not that
+                            // big a deal to have a stale auth token on the service.
+                            if (!succeeded) {
+                                [[ChuckPadSocial sharedInstance] localLogOut];
+                            }
+                            
+                            UIAlertMessage(@"Successfully logged out", ^{
+                                [self _dismiss];
+                            });
+                            
+                            [self _configureTabs];
+                        }];
                     });
 }
 

@@ -303,8 +303,10 @@ typedef enum ShareMode
         [self _showLoading:YES status:@"Uploading patch"];
         
         [chuckPad uploadPatch:name
-                  description:description parent:-1
-                     filename:filename fileData:fileData
+                  description:description
+                       parent:nil
+                    patchData:fileData
+                extraMetaData:nil
                      callback:^(BOOL succeeded, Patch *patch, NSError *error) {
                          if(succeeded)
                          {
@@ -332,8 +334,11 @@ typedef enum ShareMode
         [self _showLoading:YES status:@"Updating patch"];
         
         [chuckPad updatePatch:self.script.patch
-                       hidden:@NO name:name description:description
-                     filename:filename fileData:fileData
+                       hidden:@NO
+                         name:name
+                  description:description
+                    patchData:fileData
+                extraMetaData:nil
                      callback:^(BOOL succeeded, Patch *patch, NSError *error) {
                          if(succeeded)
                          {

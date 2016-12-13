@@ -35,7 +35,7 @@
 #import "mAAnalytics.h"
 #import "mAPreferences.h"
 
-
+#import "ChuckPadSocial.h"
 
 NSString * const kmAUserDefaultsSelectedScript = @"mAUserDefaultsSelectedScript";
 
@@ -113,6 +113,8 @@ static mAAppDelegate *g_appDelegate = nil;
     {
         [self finishLaunchWithOptions:launchOptions];
     }
+    
+    [ChuckPadSocial bootstrapForPatchType:MiniAudicle];
     
     return YES;
 }
