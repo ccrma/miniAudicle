@@ -38,6 +38,8 @@
 		091433001738C16A00666F0D /* mAMultiDocWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 091432FF1738C16A00666F0D /* mAMultiDocWindowController.mm */; };
 		091433031738C17C00666F0D /* mADocumentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 091433021738C17C00666F0D /* mADocumentViewController.mm */; };
 		0916F981173AF0D20055956C /* PSMTabBarControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0916F980173AF0D20055956C /* PSMTabBarControl.framework */; };
+		09194F941E1758E8008024E0 /* mAUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 09194F901E1754C6008024E0 /* mAUtil.m */; };
+		09194F971E175D8E008024E0 /* mAUIDef.m in Sources */ = {isa = PBXBuildFile; fileRef = 09194F951E175D8E008024E0 /* mAUIDef.m */; };
 		09216C0A134ED4A900145064 /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09216C09134ED4A900145064 /* MultitouchSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0921D55918190216008F39D9 /* address.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54418190216008F39D9 /* address.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
 		0921D55A18190216008F39D9 /* address.c in Sources */ = {isa = PBXBuildFile; fileRef = 0921D54418190216008F39D9 /* address.c */; settings = {COMPILER_FLAGS = "-DHAVE_CONFIG_H"; }; };
@@ -875,6 +877,10 @@
 		091433011738C17C00666F0D /* mADocumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mADocumentViewController.h; path = macosx/mADocumentViewController.h; sourceTree = "<group>"; };
 		091433021738C17C00666F0D /* mADocumentViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mADocumentViewController.mm; path = macosx/mADocumentViewController.mm; sourceTree = "<group>"; };
 		0916F980173AF0D20055956C /* PSMTabBarControl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PSMTabBarControl.framework; path = macosx/Frameworks/PSMTabBarControl.framework; sourceTree = "<group>"; };
+		09194F8F1E1754C6008024E0 /* mAUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAUtil.h; sourceTree = "<group>"; };
+		09194F901E1754C6008024E0 /* mAUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAUtil.m; sourceTree = "<group>"; };
+		09194F951E175D8E008024E0 /* mAUIDef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAUIDef.m; sourceTree = "<group>"; };
+		09194F961E175D8E008024E0 /* mAUIDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAUIDef.h; sourceTree = "<group>"; };
 		09216C09134ED4A900145064 /* MultitouchSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultitouchSupport.framework; path = System/Library/PrivateFrameworks/MultitouchSupport.framework; sourceTree = SDKROOT; };
 		0921D54418190216008F39D9 /* address.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = address.c; sourceTree = "<group>"; };
 		0921D54518190216008F39D9 /* blob.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = blob.c; sourceTree = "<group>"; };
@@ -2339,6 +2345,10 @@
 				096310B91C86B96300A36F8F /* NSString+Hash.m */,
 				09F6F3AA1D4F0F7C00CC920C /* UIBarButtonItem+Spacers.h */,
 				09F6F3AB1D4F0F7C00CC920C /* UIBarButtonItem+Spacers.m */,
+				09194F8F1E1754C6008024E0 /* mAUtil.h */,
+				09194F901E1754C6008024E0 /* mAUtil.m */,
+				09194F961E175D8E008024E0 /* mAUIDef.h */,
+				09194F951E175D8E008024E0 /* mAUIDef.m */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -3253,6 +3263,7 @@
 				09F6F3B21D4F21C500CC920C /* NSDate+Helper.m in Sources */,
 				093B56311D4C0F6D00DA2A51 /* mADetailItem+Social.m in Sources */,
 				09CCA66D1D472A4E0032EAB0 /* mASocialCategoryViewController.m in Sources */,
+				09194F971E175D8E008024E0 /* mAUIDef.m in Sources */,
 				09CCA6701D474B730032EAB0 /* mASocialDetailItem.m in Sources */,
 				09400F361C903FD400C1E52E /* NSObject+BlockObservation.m in Sources */,
 				096310BA1C86B96300A36F8F /* NSString+Hash.m in Sources */,
@@ -3280,6 +3291,7 @@
 				093E266414A12234008694BC /* util_math.c in Sources */,
 				093E266514A12234008694BC /* util_network.c in Sources */,
 				090261DF1D48AC83001B281D /* mASocialShareViewController.m in Sources */,
+				09194F941E1758E8008024E0 /* mAUtil.m in Sources */,
 				093E266614A12234008694BC /* util_opsc.cpp in Sources */,
 				093E266714A12234008694BC /* util_raw.c in Sources */,
 				09307E1F18DFB5E7004AB346 /* mASyntaxHighlighter.mm in Sources */,

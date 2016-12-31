@@ -32,6 +32,8 @@
 #import "mALoadingViewController.h"
 
 #import "UIAlert.h"
+#import "mAUtil.h"
+#import "mAUIDef.h"
 
 #import "ChuckpadSocial.h"
 #import "Patch.h"
@@ -70,6 +72,7 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 - (void)userLoggedIn:(NSNotification *)n;
 - (void)userLoggedOut:(NSNotification *)n;
 - (void)_loadPatches;
+- (void)_refresh;
 
 @end
 
@@ -126,6 +129,11 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
     [self.tableView registerNib:[UINib nibWithNibName:@"mASocialTableViewCell"
                                                bundle:NULL]
          forCellReuseIdentifier:SocialCellIdentifier];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self
+                            action:@selector(_refresh)
+                  forControlEvents:UIControlEventValueChanged];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -147,26 +155,42 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 - (void)_loadPatches
 {
     self.patches = nil;
-    [self _showLoading:YES status: @"Loading scripts"];
+    if(![self.refreshControl isRefreshing])
+        [self _showLoading:YES status: @"Loading scripts"];
+    
+    CFTimeInterval now = CACurrentMediaTime();
     
     [self _getPatchesForCategory:^(NSArray *patchesArray, NSError *error) {
         NSAssert([NSThread isMainThread], @"Network callback not on main thread");
         
-        if(error == nil)
-        {
-            NSLog(@"Got patches");
-            self.patches = patchesArray;
+        void (^block)() = ^{
+            NSLog(@"now");
+            if(error == nil)
+            {
+                NSLog(@"Got patches");
+                self.patches = patchesArray;
+                
+                [self _showLoading:NO];
+                [self.tableView reloadData];
+            }
+            else
+            {
+                mAAnalyticsLogError(error);
+                [self _showLoading:YES status:[NSString stringWithFormat:@"Failed to load patches.\n%@",
+                                               error.localizedDescription]];
+                _loadingView.loading = NO;
+            }
             
-            [self _showLoading:NO];
-            [self.tableView reloadData];
-        }
+            [self.refreshControl endRefreshing];
+        };
+        
+        CFTimeInterval later = CACurrentMediaTime();
+        NSLog(@"time to reload: %f", later-now);
+        // must take at least MIN_LOADING_TIME second to reload
+        if(later-now < MIN_LOADING_TIME)
+            delayAnd(MIN_LOADING_TIME-(later-now), block);
         else
-        {
-            mAAnalyticsLogError(error);
-            [self _showLoading:YES status:[NSString stringWithFormat:@"Failed to load patches.\n%@",
-                                           error.localizedDescription]];
-            _loadingView.loading = NO;
-        }
+            block();
     }];
 }
 
@@ -259,6 +283,11 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
         if(self.navigationController.topViewController == self)
             [self _loadPatches];
     }
+}
+
+- (void)_refresh
+{
+    [self _loadPatches];
 }
 
 #pragma mark - IBActions
