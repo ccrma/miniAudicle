@@ -63,8 +63,9 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
     mALoadingViewController *_loadingView;
 }
 
-@property (strong, nonatomic) IBOutlet UITableView * tableView;
-
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property UIRefreshControl *refreshControl;
+@property (strong, nonatomic) IBOutlet UITableViewController *tableViewController;
 @property (strong, nonatomic) NSArray<Patch *> *patches;
 
 - (void)_getPatchesForCategory:(GetPatchesCallback)callback;
@@ -72,6 +73,10 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 - (void)userLoggedOut:(NSNotification *)n;
 - (void)_loadPatches;
 - (void)_refresh;
+- (void)_showLoading:(BOOL)show;
+- (void)_showLoading:(BOOL)show status:(NSString *)status;
+- (void)_showMessage:(NSString *)msg;
+- (void)_hideMessage;
 
 @end
 
@@ -89,6 +94,16 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 {
     _categoryViewController = categoryViewController;
     [self setToolbarItems:self.categoryViewController.toolbarItems animated:NO];
+}
+
+- (void)setRefreshControl:(UIRefreshControl *)refreshControl
+{
+    self.tableViewController.refreshControl = refreshControl;
+}
+
+- (UIRefreshControl *)refreshControl
+{
+    return self.tableViewController.refreshControl;
 }
 
 - (id)init
@@ -124,6 +139,8 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"mASocialTableViewCell"
                                                bundle:NULL]
@@ -167,15 +184,21 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
             {
                 self.patches = patchesArray;
                 
-                [self _showLoading:NO];
-                [self.tableView reloadData];
+                if(self.patches.count)
+                {
+                    [self _showLoading:NO];
+                    [self.tableView reloadData];
+                }
+                else
+                {
+                    [self _showMessage:@"No patches found for this category."];
+                }
             }
             else
             {
                 mAAnalyticsLogError(error);
-                [self _showLoading:YES status:[NSString stringWithFormat:@"Failed to load patches.\n%@",
-                                               error.localizedDescription]];
-                _loadingView.loading = NO;
+                [self _showMessage:[NSString stringWithFormat:@"Failed to load patches.\n%@",
+                                    error.localizedDescription]];
             }
             
             [self.refreshControl endRefreshing];
@@ -238,10 +261,12 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
         if(_loadingView == nil)
         {
             _loadingView = [mALoadingViewController new];
-            _loadingView.loadingViewStyle = mALoadingViewStyleOpaque;
             [self.view addSubview:_loadingView.view];
+            [self.view bringSubviewToFront:_loadingView.view];
             [_loadingView fit];
         }
+        
+        _loadingView.loadingViewStyle = mALoadingViewStyleOpaque;
         
         [_loadingView show];
     }
@@ -249,6 +274,7 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
     {
         [_loadingView hide:^{
             _loadingView = nil;
+            [_loadingView.view removeFromSuperview];
         }];
     }
 }
@@ -257,6 +283,18 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 {
     [self _showLoading:show];
     _loadingView.status = status;
+}
+
+- (void)_showMessage:(NSString *)msg
+{
+    [self _showLoading:YES status:msg];
+    _loadingView.loading = NO;
+    _loadingView.loadingViewStyle = mALoadingViewStyleOpaque;
+}
+
+- (void)_hideMessage
+{
+    [self _showLoading:NO];
 }
 
 - (void)userLoggedIn:(NSNotification *)n
