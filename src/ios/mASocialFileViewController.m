@@ -164,10 +164,8 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
         NSAssert([NSThread isMainThread], @"Network callback not on main thread");
         
         void (^block)() = ^{
-            NSLog(@"now");
             if(error == nil)
             {
-                NSLog(@"Got patches");
                 self.patches = patchesArray;
                 
                 [self _showLoading:NO];
@@ -185,8 +183,7 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
         };
         
         CFTimeInterval later = CACurrentMediaTime();
-        NSLog(@"time to reload: %f", later-now);
-        // must take at least MIN_LOADING_TIME second to reload
+        // must take at least MIN_LOADING_TIME second(s) to reload
         if(later-now < MIN_LOADING_TIME)
             delayAnd(MIN_LOADING_TIME-(later-now), block);
         else
