@@ -17,6 +17,7 @@
 + (mASocialDetailItem *)socialDetailItemWithPatch:(Patch *)patch;
 
 - (BOOL)isLoaded;
+- (BOOL)isMyPatch;
 - (void)load:(void (^)(BOOL success, NSError *error))callback;
 
 @end

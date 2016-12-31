@@ -9,15 +9,21 @@
 #import "mASocialEditorViewController.h"
 #import "mASocialDetailItem.h"
 #import "mALoadingViewController.h"
+#import "mASocialLoginViewController.h"
+#import "mASocialShareViewController.h"
 #import "mAAnalytics.h"
 
+#import "ChuckPadSocial.h"
 #import "Patch.h"
+
+#import "UIAlert.h"
 
 @interface mASocialEditorViewController ()
 
 @property (strong, nonatomic) mALoadingViewController *loadingView;
 
 - (void)showLoading:(BOOL)show;
+- (void)_report;
 
 @end
 
@@ -107,5 +113,108 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (NSArray<NSString *> *)menuItems
+{
+    if(![self.detailItem isSocial])
+        return [super menuItems];
+    
+    mASocialDetailItem *socialItem = (mASocialDetailItem *) self.detailItem;
+    
+    if([socialItem isMyPatch])
+        return @[ @"Rename", @"Duplicate", @"Update..." ];
+    else
+        return @[ @"Duplicate", @"Report as Abusive..." ];
+}
+
+- (void)handleMenuItem:(NSInteger)item
+{
+    if(![self.detailItem isSocial])
+    {
+        [super handleMenuItem:item];
+        return;
+    }
+        
+    NSLog(@"menuItem: %@", self.menuItems[item]);
+    
+    mASocialDetailItem *socialItem = (mASocialDetailItem *) self.detailItem;
+    
+    if([socialItem isMyPatch])
+    {
+        switch(item)
+        {
+            case 0: // rename
+                break;
+            case 1: // duplicate
+                break;
+            case 2: // update
+                break;
+        }
+    }
+    else
+    {
+        switch(item)
+        {
+            case 0: // duplicate
+                break;
+            case 1: // report
+                [self _report];
+                break;
+        }
+    }
+}
+
+- (void)_report
+{
+    mASocialDetailItem *socialItem = (mASocialDetailItem *) self.detailItem;
+    ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
+
+    void (^doReport)() = ^{
+        UIAlertMessage2a([NSString stringWithFormat:@"Report '%@' as abusive?", socialItem.title], @"",
+                         @"Cancel", nil,
+                         @"Report as Abusive", ^{
+                             [self showLoading:YES];
+                             self.loadingView.status = [NSString stringWithFormat:@"Reporting '%@' as abusive...", socialItem.title];
+
+                             [chuckPad reportAbuse:socialItem.patch isAbuse:YES
+                                          callback:^(BOOL succeeded, NSError *error) {
+                                              [self showLoading:NO];
+                                              
+                                              if(succeeded)
+                                              {
+                                                  UIAlertMessage(@"Thank you for your feedback.", ^{});
+                                              }
+                                              else
+                                              {
+                                                  mAAnalyticsLogError(error);
+                                                  UIAlertMessage1a(@"Failed to report abuse.", error.localizedDescription, ^{});
+                                              }
+                                          }];
+                         });
+    };
+    
+    if([chuckPad isLoggedIn])
+    {
+        doReport();
+    }
+    else
+    {
+        UIAlertMessage2a(@"You must login or create an account to report a script as abusive.", @"",
+                         @"Cancel", nil,
+                         @"Create Account/Login", ^{
+                             mASocialLoginViewController *loginView = [mASocialLoginViewController new];
+                             [loginView clearFields];
+                             [self presentViewController:loginView animated:YES completion:nil];
+                             
+                             loginView.onCompletion = ^{
+                                 if([chuckPad isLoggedIn])
+                                 {
+                                     doReport();
+                                 }
+                             };
+                         });
+    }
+}
+
 
 @end

@@ -43,6 +43,11 @@
     return NO;
 }
 
+- (BOOL)isMyPatch
+{
+    return self.patch.creatorId == [[ChuckPadSocial sharedInstance] getLoggedInUserId];
+}
+
 - (void)load:(void (^)(BOOL success, NSError *error))callback
 {
     [[ChuckPadSocial sharedInstance] downloadPatchResource:self.patch callback:^(NSData *data, NSError *error) {
