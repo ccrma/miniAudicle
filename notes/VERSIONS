@@ -1,4 +1,9 @@
 ---
+1.3.6.0
+    - (added) chuck-1.3.6.0
+    - (added) syntax highlighting of vec3/vec4 types
+
+---
 1.3.5.2
     - (added) chuck-1.3.5.2
     - (fixed)(Mac) Console Monitor display bug in Mac OS X 10.11 "El Capitan"

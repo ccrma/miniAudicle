@@ -60,6 +60,7 @@ CK_DLL_QUERY_STATIC(Spectacle);
 CK_DLL_QUERY_STATIC(WinFuncEnv);
 CK_DLL_QUERY_STATIC(WPDiodeLadder);
 CK_DLL_QUERY_STATIC(WPKorg35);
+CK_DLL_QUERY_STATIC(chugl);
 
 static mAChucKController * g_chuckController = nil;
 
@@ -198,6 +199,7 @@ static mAChucKController * g_chuckController = nil;
     ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(WinFuncEnv), "WinFuncEnv");
     ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(WPDiodeLadder), "WPDiodeLadder");
     ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(WPKorg35), "WPKorg35");
+    ma->add_query_func(CK_DLL_QUERY_STATIC_NAME(chugl), "chugl");
     
     ma->set_num_inputs(2);
     ma->set_num_outputs(2);

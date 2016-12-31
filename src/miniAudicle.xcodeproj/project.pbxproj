@@ -102,9 +102,64 @@
 		09307E2418DFF892004AB346 /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 095B59710BC6D0F900E8759D /* error.png */; };
 		09307E2718E0BEC2004AB346 /* NSString+NSString_Lines.m in Sources */ = {isa = PBXBuildFile; fileRef = 09307E2618E0BEC2004AB346 /* NSString+NSString_Lines.m */; };
 		09307E2A18E0CDA1004AB346 /* mATextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09307E2918E0CDA1004AB346 /* mATextView.mm */; };
-		0930AA911D10B803007BB19E /* motion in Copy Files */ = {isa = PBXBuildFile; fileRef = 0930AA8F1D10B7F3007BB19E /* motion */; };
+		0930AA911D10B803007BB19E /* motion in Copy Motion Examples */ = {isa = PBXBuildFile; fileRef = 0930AA8F1D10B7F3007BB19E /* motion */; };
 		0934BE44190D038B0084D10E /* sequence.png in Resources */ = {isa = PBXBuildFile; fileRef = 0934BE43190D038B0084D10E /* sequence.png */; };
 		093659D017DDD0AA007E342C /* oggenc in Resources */ = {isa = PBXBuildFile; fileRef = 093659CF17DDD0AA007E342C /* oggenc */; };
+		09367ED21D3842C4009B30AD /* chugl.schug in Frameworks */ = {isa = PBXBuildFile; fileRef = 09367EB31D384293009B30AD /* chugl.schug */; };
+		09367ED51D3843FC009B30AD /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09367ED31D3843FC009B30AD /* GLKit.framework */; };
+		09367ED61D3843FC009B30AD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09367ED41D3843FC009B30AD /* OpenGLES.framework */; };
+		09367F201D385717009B30AD /* ellipse.ck in Copy ChuGL Examples */ = {isa = PBXBuildFile; fileRef = 09367F0F1D3856FB009B30AD /* ellipse.ck */; };
+		09367F211D385717009B30AD /* flare.png in Copy ChuGL Examples */ = {isa = PBXBuildFile; fileRef = 09367F101D3856FB009B30AD /* flare.png */; };
+		09367F221D385717009B30AD /* flares.ck in Copy ChuGL Examples */ = {isa = PBXBuildFile; fileRef = 09367F111D3856FB009B30AD /* flares.ck */; };
+		09367F231D385717009B30AD /* gl.ck in Copy ChuGL Examples */ = {isa = PBXBuildFile; fileRef = 09367F121D3856FB009B30AD /* gl.ck */; };
+		09367F241D385717009B30AD /* hand.jpg in Copy ChuGL Examples */ = {isa = PBXBuildFile; fileRef = 09367F131D3856FB009B30AD /* hand.jpg */; };
+		09367F251D385717009B30AD /* img.ck in Copy ChuGL Examples */ = {isa = PBXBuildFile; fileRef = 09367F141D3856FB009B30AD /* img.ck */; };
+		09367F261D385717009B30AD /* ix in Copy ChuGL Examples */ = {isa = PBXBuildFile; fileRef = 09367F151D3856FB009B30AD /* ix */; };
+		09367F271D385717009B30AD /* shapes.ck in Copy ChuGL Examples */ = {isa = PBXBuildFile; fileRef = 09367F161D3856FB009B30AD /* shapes.ck */; };
+		09367F281D385717009B30AD /* spec-circle.ck in Copy ChuGL Examples */ = {isa = PBXBuildFile; fileRef = 09367F171D3856FB009B30AD /* spec-circle.ck */; };
+		09367F291D385717009B30AD /* spec-gl.ck in Copy ChuGL Examples */ = {isa = PBXBuildFile; fileRef = 09367F181D3856FB009B30AD /* spec-gl.ck */; };
+		09367F2A1D385717009B30AD /* spectrogram.ck in Copy ChuGL Examples */ = {isa = PBXBuildFile; fileRef = 09367F191D3856FB009B30AD /* spectrogram.ck */; };
+		09367F2B1D385717009B30AD /* stream.ck in Copy ChuGL Examples */ = {isa = PBXBuildFile; fileRef = 09367F1A1D3856FB009B30AD /* stream.ck */; };
+		09367F2C1D385717009B30AD /* test01.ck in Copy ChuGL Examples */ = {isa = PBXBuildFile; fileRef = 09367F1B1D3856FB009B30AD /* test01.ck */; };
+		09367F2D1D385717009B30AD /* test02.ck in Copy ChuGL Examples */ = {isa = PBXBuildFile; fileRef = 09367F1C1D3856FB009B30AD /* test02.ck */; };
+		09367F2E1D385717009B30AD /* test03.ck in Copy ChuGL Examples */ = {isa = PBXBuildFile; fileRef = 09367F1D1D3856FB009B30AD /* test03.ck */; };
+		09367F2F1D385717009B30AD /* tex.ck in Copy ChuGL Examples */ = {isa = PBXBuildFile; fileRef = 09367F1E1D3856FB009B30AD /* tex.ck */; };
+		09367F301D385717009B30AD /* tree.ck in Copy ChuGL Examples */ = {isa = PBXBuildFile; fileRef = 09367F1F1D3856FB009B30AD /* tree.ck */; };
+		09367F571D38674A009B30AD /* Bitcrusher-test.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F331D386610009B30AD /* Bitcrusher-test.ck */; };
+		09367F581D38674A009B30AD /* ABSaturator-test.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F321D386600009B30AD /* ABSaturator-test.ck */; };
+		09367F591D38674A009B30AD /* elliptic-help.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F341D38661A009B30AD /* elliptic-help.ck */; };
+		09367F5A1D38674A009B30AD /* expdelay-help.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F351D386629009B30AD /* expdelay-help.ck */; };
+		09367F5B1D38674A009B30AD /* CCRMAHallShort.wav in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F371D386643009B30AD /* CCRMAHallShort.wav */; };
+		09367F5C1D38674A009B30AD /* FIRConvolve.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F381D386643009B30AD /* FIRConvolve.ck */; };
+		09367F5D1D38674A009B30AD /* FIRConvolveHomer.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F391D386643009B30AD /* FIRConvolveHomer.ck */; };
+		09367F5E1D38674A009B30AD /* FIRFOFTest.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F3A1D386643009B30AD /* FIRFOFTest.ck */; };
+		09367F5F1D38674A009B30AD /* FIRGaussImpulseTests.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F3B1D386643009B30AD /* FIRGaussImpulseTests.ck */; };
+		09367F601D38674A009B30AD /* FIRGaussTests.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F3C1D386643009B30AD /* FIRGaussTests.ck */; };
+		09367F611D38674A009B30AD /* FIRSincBPSweepTest.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F3D1D386643009B30AD /* FIRSincBPSweepTest.ck */; };
+		09367F621D38674A009B30AD /* FIRSincExplicit.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F3E1D386643009B30AD /* FIRSincExplicit.ck */; };
+		09367F631D38674A009B30AD /* FIRSincImpulseTests.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F3F1D386643009B30AD /* FIRSincImpulseTests.ck */; };
+		09367F641D38674A009B30AD /* FIRSincTests.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F401D386643009B30AD /* FIRSincTests.ck */; };
+		09367F651D38674A009B30AD /* GreyholeDownUpDecimateDemo.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F411D386643009B30AD /* GreyholeDownUpDecimateDemo.ck */; };
+		09367F661D38674A009B30AD /* foldback-test-index.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F421D38664F009B30AD /* foldback-test-index.ck */; };
+		09367F671D38674A009B30AD /* foldback-test-threshold.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F431D38664F009B30AD /* foldback-test-threshold.ck */; };
+		09367F681D38674A009B30AD /* gverb-help.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F441D38665B009B30AD /* gverb-help.ck */; };
+		09367F691D38674A009B30AD /* KasFilter-test.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F451D386694009B30AD /* KasFilter-test.ck */; };
+		09367F6A1D38674A009B30AD /* MagicSine-test.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F461D3866D2009B30AD /* MagicSine-test.ck */; };
+		09367F6B1D38674A009B30AD /* mesh-help.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F471D3866D2009B30AD /* mesh-help.ck */; };
+		09367F6C1D38674A009B30AD /* multicomb-help.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F481D3866D2009B30AD /* multicomb-help.ck */; };
+		09367F6D1D38674A009B30AD /* overdrive-help.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F491D3866D2009B30AD /* overdrive-help.ck */; };
+		09367F6E1D38674A009B30AD /* Pan4-test.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F4A1D3866D2009B30AD /* Pan4-test.ck */; };
+		09367F6F1D38674A009B30AD /* Pan8-test.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F4B1D3866D2009B30AD /* Pan8-test.ck */; };
+		09367F701D38674A009B30AD /* autotune-test.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F4C1D3866D2009B30AD /* autotune-test.ck */; };
+		09367F711D38674A009B30AD /* data in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F4D1D3866D2009B30AD /* data */; };
+		09367F721D38674A009B30AD /* pitchtrack-help.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F4E1D3866D2009B30AD /* pitchtrack-help.ck */; };
+		09367F731D38674A009B30AD /* poweradsr-help.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F4F1D3866D2009B30AD /* poweradsr-help.ck */; };
+		09367F741D38674A009B30AD /* sigmund-help.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F501D3866D2009B30AD /* sigmund-help.ck */; };
+		09367F751D38674A009B30AD /* sigmund-tracks-test.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F511D3866D2009B30AD /* sigmund-tracks-test.ck */; };
+		09367F761D38674A009B30AD /* spectacle-help.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F521D3866D2009B30AD /* spectacle-help.ck */; };
+		09367F771D38674A009B30AD /* winfuncenv-help.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F531D3866D2009B30AD /* winfuncenv-help.ck */; };
+		09367F781D38674A009B30AD /* WPDiodeLadder-test.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F551D386709009B30AD /* WPDiodeLadder-test.ck */; };
+		09367F791D38674A009B30AD /* WPKorg35-test.ck in Copy Chugin Examples */ = {isa = PBXBuildFile; fileRef = 09367F541D386700009B30AD /* WPKorg35-test.ck */; };
 		093681231D3AE75B009B30AD /* removeall.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E70BBC97D6005931F6 /* removeall.png */; };
 		093681241D3AE75E009B30AD /* removelast.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F376E60BBC97D6005931F6 /* removelast.png */; };
 		093A212C14BF587500497856 /* mAChuginManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093A212B14BF587500497856 /* mAChuginManager.mm */; };
@@ -780,6 +835,27 @@
 			remoteGlobalIDString = 0929B8861D12A85B00B8DE4D;
 			remoteInfo = WPKorg35;
 		};
+		09367EB01D384293009B30AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 09367EAB1D384293009B30AD /* chugl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 091B7B4A1B385D7400412635;
+			remoteInfo = chugl;
+		};
+		09367EB21D384293009B30AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 09367EAB1D384293009B30AD /* chugl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 09367E9F1D3818F4009B30AD;
+			remoteInfo = "chugl-es";
+		};
+		09367ECC1D3842BB009B30AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 09367EAB1D384293009B30AD /* chugl.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 09367E851D3818F4009B30AD;
+			remoteInfo = "chugl-es";
+		};
 		097397391CD2B00100D8B74D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 09B449ED1CD0B5AA00387883 /* TheAmazingAudioEngine.xcodeproj */;
@@ -828,15 +904,87 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0930AA8E1D10B7D4007BB19E /* Copy Files */ = {
+		0930AA8E1D10B7D4007BB19E /* Copy Motion Examples */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = examples;
 			dstSubfolderSpec = 7;
 			files = (
-				0930AA911D10B803007BB19E /* motion in Copy Files */,
+				0930AA911D10B803007BB19E /* motion in Copy Motion Examples */,
 			);
-			name = "Copy Files";
+			name = "Copy Motion Examples";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		09367F0E1D3856C6009B30AD /* Copy ChuGL Examples */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = examples/chugl;
+			dstSubfolderSpec = 7;
+			files = (
+				09367F201D385717009B30AD /* ellipse.ck in Copy ChuGL Examples */,
+				09367F211D385717009B30AD /* flare.png in Copy ChuGL Examples */,
+				09367F221D385717009B30AD /* flares.ck in Copy ChuGL Examples */,
+				09367F231D385717009B30AD /* gl.ck in Copy ChuGL Examples */,
+				09367F241D385717009B30AD /* hand.jpg in Copy ChuGL Examples */,
+				09367F251D385717009B30AD /* img.ck in Copy ChuGL Examples */,
+				09367F261D385717009B30AD /* ix in Copy ChuGL Examples */,
+				09367F271D385717009B30AD /* shapes.ck in Copy ChuGL Examples */,
+				09367F281D385717009B30AD /* spec-circle.ck in Copy ChuGL Examples */,
+				09367F291D385717009B30AD /* spec-gl.ck in Copy ChuGL Examples */,
+				09367F2A1D385717009B30AD /* spectrogram.ck in Copy ChuGL Examples */,
+				09367F2B1D385717009B30AD /* stream.ck in Copy ChuGL Examples */,
+				09367F2C1D385717009B30AD /* test01.ck in Copy ChuGL Examples */,
+				09367F2D1D385717009B30AD /* test02.ck in Copy ChuGL Examples */,
+				09367F2E1D385717009B30AD /* test03.ck in Copy ChuGL Examples */,
+				09367F2F1D385717009B30AD /* tex.ck in Copy ChuGL Examples */,
+				09367F301D385717009B30AD /* tree.ck in Copy ChuGL Examples */,
+			);
+			name = "Copy ChuGL Examples";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		09367F561D386712009B30AD /* Copy Chugin Examples */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = examples/chugins;
+			dstSubfolderSpec = 7;
+			files = (
+				09367F571D38674A009B30AD /* Bitcrusher-test.ck in Copy Chugin Examples */,
+				09367F581D38674A009B30AD /* ABSaturator-test.ck in Copy Chugin Examples */,
+				09367F591D38674A009B30AD /* elliptic-help.ck in Copy Chugin Examples */,
+				09367F5A1D38674A009B30AD /* expdelay-help.ck in Copy Chugin Examples */,
+				09367F5B1D38674A009B30AD /* CCRMAHallShort.wav in Copy Chugin Examples */,
+				09367F5C1D38674A009B30AD /* FIRConvolve.ck in Copy Chugin Examples */,
+				09367F5D1D38674A009B30AD /* FIRConvolveHomer.ck in Copy Chugin Examples */,
+				09367F5E1D38674A009B30AD /* FIRFOFTest.ck in Copy Chugin Examples */,
+				09367F5F1D38674A009B30AD /* FIRGaussImpulseTests.ck in Copy Chugin Examples */,
+				09367F601D38674A009B30AD /* FIRGaussTests.ck in Copy Chugin Examples */,
+				09367F611D38674A009B30AD /* FIRSincBPSweepTest.ck in Copy Chugin Examples */,
+				09367F621D38674A009B30AD /* FIRSincExplicit.ck in Copy Chugin Examples */,
+				09367F631D38674A009B30AD /* FIRSincImpulseTests.ck in Copy Chugin Examples */,
+				09367F641D38674A009B30AD /* FIRSincTests.ck in Copy Chugin Examples */,
+				09367F651D38674A009B30AD /* GreyholeDownUpDecimateDemo.ck in Copy Chugin Examples */,
+				09367F661D38674A009B30AD /* foldback-test-index.ck in Copy Chugin Examples */,
+				09367F671D38674A009B30AD /* foldback-test-threshold.ck in Copy Chugin Examples */,
+				09367F681D38674A009B30AD /* gverb-help.ck in Copy Chugin Examples */,
+				09367F691D38674A009B30AD /* KasFilter-test.ck in Copy Chugin Examples */,
+				09367F6A1D38674A009B30AD /* MagicSine-test.ck in Copy Chugin Examples */,
+				09367F6B1D38674A009B30AD /* mesh-help.ck in Copy Chugin Examples */,
+				09367F6C1D38674A009B30AD /* multicomb-help.ck in Copy Chugin Examples */,
+				09367F6D1D38674A009B30AD /* overdrive-help.ck in Copy Chugin Examples */,
+				09367F6E1D38674A009B30AD /* Pan4-test.ck in Copy Chugin Examples */,
+				09367F6F1D38674A009B30AD /* Pan8-test.ck in Copy Chugin Examples */,
+				09367F701D38674A009B30AD /* autotune-test.ck in Copy Chugin Examples */,
+				09367F711D38674A009B30AD /* data in Copy Chugin Examples */,
+				09367F721D38674A009B30AD /* pitchtrack-help.ck in Copy Chugin Examples */,
+				09367F731D38674A009B30AD /* poweradsr-help.ck in Copy Chugin Examples */,
+				09367F741D38674A009B30AD /* sigmund-help.ck in Copy Chugin Examples */,
+				09367F751D38674A009B30AD /* sigmund-tracks-test.ck in Copy Chugin Examples */,
+				09367F761D38674A009B30AD /* spectacle-help.ck in Copy Chugin Examples */,
+				09367F771D38674A009B30AD /* winfuncenv-help.ck in Copy Chugin Examples */,
+				09367F781D38674A009B30AD /* WPDiodeLadder-test.ck in Copy Chugin Examples */,
+				09367F791D38674A009B30AD /* WPKorg35-test.ck in Copy Chugin Examples */,
+			);
+			name = "Copy Chugin Examples";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -943,6 +1091,61 @@
 		0930AA8F1D10B7F3007BB19E /* motion */ = {isa = PBXFileReference; lastKnownFileType = folder; path = motion; sourceTree = "<group>"; };
 		0934BE43190D038B0084D10E /* sequence.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sequence.png; sourceTree = "<group>"; };
 		093659CF17DDD0AA007E342C /* oggenc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = oggenc; sourceTree = "<group>"; };
+		09367EAB1D384293009B30AD /* chugl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = chugl.xcodeproj; path = chugl/chugl.xcodeproj; sourceTree = SOURCE_ROOT; };
+		09367ED31D3843FC009B30AD /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/GLKit.framework; sourceTree = DEVELOPER_DIR; };
+		09367ED41D3843FC009B30AD /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
+		09367F0F1D3856FB009B30AD /* ellipse.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = ellipse.ck; path = chugl/test/ellipse.ck; sourceTree = SOURCE_ROOT; };
+		09367F101D3856FB009B30AD /* flare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flare.png; path = chugl/test/flare.png; sourceTree = SOURCE_ROOT; };
+		09367F111D3856FB009B30AD /* flares.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = flares.ck; path = chugl/test/flares.ck; sourceTree = SOURCE_ROOT; };
+		09367F121D3856FB009B30AD /* gl.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = gl.ck; path = chugl/test/gl.ck; sourceTree = SOURCE_ROOT; };
+		09367F131D3856FB009B30AD /* hand.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = hand.jpg; path = chugl/test/hand.jpg; sourceTree = SOURCE_ROOT; };
+		09367F141D3856FB009B30AD /* img.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = img.ck; path = chugl/test/img.ck; sourceTree = SOURCE_ROOT; };
+		09367F151D3856FB009B30AD /* ix */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ix; path = chugl/test/ix; sourceTree = SOURCE_ROOT; };
+		09367F161D3856FB009B30AD /* shapes.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = shapes.ck; path = chugl/test/shapes.ck; sourceTree = SOURCE_ROOT; };
+		09367F171D3856FB009B30AD /* spec-circle.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "spec-circle.ck"; path = "chugl/test/spec-circle.ck"; sourceTree = SOURCE_ROOT; };
+		09367F181D3856FB009B30AD /* spec-gl.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "spec-gl.ck"; path = "chugl/test/spec-gl.ck"; sourceTree = SOURCE_ROOT; };
+		09367F191D3856FB009B30AD /* spectrogram.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = spectrogram.ck; path = chugl/test/spectrogram.ck; sourceTree = SOURCE_ROOT; };
+		09367F1A1D3856FB009B30AD /* stream.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = stream.ck; path = chugl/test/stream.ck; sourceTree = SOURCE_ROOT; };
+		09367F1B1D3856FB009B30AD /* test01.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = test01.ck; path = chugl/test/test01.ck; sourceTree = SOURCE_ROOT; };
+		09367F1C1D3856FB009B30AD /* test02.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = test02.ck; path = chugl/test/test02.ck; sourceTree = SOURCE_ROOT; };
+		09367F1D1D3856FB009B30AD /* test03.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = test03.ck; path = chugl/test/test03.ck; sourceTree = SOURCE_ROOT; };
+		09367F1E1D3856FB009B30AD /* tex.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = tex.ck; path = chugl/test/tex.ck; sourceTree = SOURCE_ROOT; };
+		09367F1F1D3856FB009B30AD /* tree.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = tree.ck; path = chugl/test/tree.ck; sourceTree = SOURCE_ROOT; };
+		09367F321D386600009B30AD /* ABSaturator-test.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "ABSaturator-test.ck"; path = "chugins/ABSaturator/ABSaturator-test.ck"; sourceTree = SOURCE_ROOT; };
+		09367F331D386610009B30AD /* Bitcrusher-test.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "Bitcrusher-test.ck"; path = "chugins/Bitcrusher/Bitcrusher-test.ck"; sourceTree = SOURCE_ROOT; };
+		09367F341D38661A009B30AD /* elliptic-help.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "elliptic-help.ck"; path = "chugins/Elliptic/elliptic-help.ck"; sourceTree = SOURCE_ROOT; };
+		09367F351D386629009B30AD /* expdelay-help.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "expdelay-help.ck"; path = "chugins/ExpDelay/expdelay-help.ck"; sourceTree = SOURCE_ROOT; };
+		09367F371D386643009B30AD /* CCRMAHallShort.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = CCRMAHallShort.wav; path = chugins/FIR/examples/CCRMAHallShort.wav; sourceTree = SOURCE_ROOT; };
+		09367F381D386643009B30AD /* FIRConvolve.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = FIRConvolve.ck; path = chugins/FIR/examples/FIRConvolve.ck; sourceTree = SOURCE_ROOT; };
+		09367F391D386643009B30AD /* FIRConvolveHomer.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = FIRConvolveHomer.ck; path = chugins/FIR/examples/FIRConvolveHomer.ck; sourceTree = SOURCE_ROOT; };
+		09367F3A1D386643009B30AD /* FIRFOFTest.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = FIRFOFTest.ck; path = chugins/FIR/examples/FIRFOFTest.ck; sourceTree = SOURCE_ROOT; };
+		09367F3B1D386643009B30AD /* FIRGaussImpulseTests.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = FIRGaussImpulseTests.ck; path = chugins/FIR/examples/FIRGaussImpulseTests.ck; sourceTree = SOURCE_ROOT; };
+		09367F3C1D386643009B30AD /* FIRGaussTests.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = FIRGaussTests.ck; path = chugins/FIR/examples/FIRGaussTests.ck; sourceTree = SOURCE_ROOT; };
+		09367F3D1D386643009B30AD /* FIRSincBPSweepTest.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = FIRSincBPSweepTest.ck; path = chugins/FIR/examples/FIRSincBPSweepTest.ck; sourceTree = SOURCE_ROOT; };
+		09367F3E1D386643009B30AD /* FIRSincExplicit.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = FIRSincExplicit.ck; path = chugins/FIR/examples/FIRSincExplicit.ck; sourceTree = SOURCE_ROOT; };
+		09367F3F1D386643009B30AD /* FIRSincImpulseTests.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = FIRSincImpulseTests.ck; path = chugins/FIR/examples/FIRSincImpulseTests.ck; sourceTree = SOURCE_ROOT; };
+		09367F401D386643009B30AD /* FIRSincTests.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = FIRSincTests.ck; path = chugins/FIR/examples/FIRSincTests.ck; sourceTree = SOURCE_ROOT; };
+		09367F411D386643009B30AD /* GreyholeDownUpDecimateDemo.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = GreyholeDownUpDecimateDemo.ck; path = chugins/FIR/examples/GreyholeDownUpDecimateDemo.ck; sourceTree = SOURCE_ROOT; };
+		09367F421D38664F009B30AD /* foldback-test-index.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "foldback-test-index.ck"; path = "chugins/FoldbackSaturator/foldback-test-index.ck"; sourceTree = SOURCE_ROOT; };
+		09367F431D38664F009B30AD /* foldback-test-threshold.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "foldback-test-threshold.ck"; path = "chugins/FoldbackSaturator/foldback-test-threshold.ck"; sourceTree = SOURCE_ROOT; };
+		09367F441D38665B009B30AD /* gverb-help.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "gverb-help.ck"; path = "chugins/GVerb/gverb-help.ck"; sourceTree = SOURCE_ROOT; };
+		09367F451D386694009B30AD /* KasFilter-test.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "KasFilter-test.ck"; path = "chugins/KasFilter/KasFilter-test.ck"; sourceTree = SOURCE_ROOT; };
+		09367F461D3866D2009B30AD /* MagicSine-test.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "MagicSine-test.ck"; path = "chugins/MagicSine/MagicSine-test.ck"; sourceTree = SOURCE_ROOT; };
+		09367F471D3866D2009B30AD /* mesh-help.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "mesh-help.ck"; path = "chugins/Mesh2D/mesh-help.ck"; sourceTree = SOURCE_ROOT; };
+		09367F481D3866D2009B30AD /* multicomb-help.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "multicomb-help.ck"; path = "chugins/Multicomb/multicomb-help.ck"; sourceTree = SOURCE_ROOT; };
+		09367F491D3866D2009B30AD /* overdrive-help.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "overdrive-help.ck"; path = "chugins/Overdrive/overdrive-help.ck"; sourceTree = SOURCE_ROOT; };
+		09367F4A1D3866D2009B30AD /* Pan4-test.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "Pan4-test.ck"; path = "chugins/PanN/Pan4-test.ck"; sourceTree = SOURCE_ROOT; };
+		09367F4B1D3866D2009B30AD /* Pan8-test.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "Pan8-test.ck"; path = "chugins/PanN/Pan8-test.ck"; sourceTree = SOURCE_ROOT; };
+		09367F4C1D3866D2009B30AD /* autotune-test.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "autotune-test.ck"; path = "chugins/PitchTrack/autotune-test.ck"; sourceTree = SOURCE_ROOT; };
+		09367F4D1D3866D2009B30AD /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = chugins/PitchTrack/data; sourceTree = SOURCE_ROOT; };
+		09367F4E1D3866D2009B30AD /* pitchtrack-help.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "pitchtrack-help.ck"; path = "chugins/PitchTrack/pitchtrack-help.ck"; sourceTree = SOURCE_ROOT; };
+		09367F4F1D3866D2009B30AD /* poweradsr-help.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "poweradsr-help.ck"; path = "chugins/PowerADSR/poweradsr-help.ck"; sourceTree = SOURCE_ROOT; };
+		09367F501D3866D2009B30AD /* sigmund-help.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "sigmund-help.ck"; path = "chugins/Sigmund/sigmund-help.ck"; sourceTree = SOURCE_ROOT; };
+		09367F511D3866D2009B30AD /* sigmund-tracks-test.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "sigmund-tracks-test.ck"; path = "chugins/Sigmund/sigmund-tracks-test.ck"; sourceTree = SOURCE_ROOT; };
+		09367F521D3866D2009B30AD /* spectacle-help.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "spectacle-help.ck"; path = "chugins/Spectacle/spectacle-help.ck"; sourceTree = SOURCE_ROOT; };
+		09367F531D3866D2009B30AD /* winfuncenv-help.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "winfuncenv-help.ck"; path = "chugins/WinFuncEnv/winfuncenv-help.ck"; sourceTree = SOURCE_ROOT; };
+		09367F541D386700009B30AD /* WPKorg35-test.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "WPKorg35-test.ck"; path = "chugins/WPKorg35/WPKorg35-test.ck"; sourceTree = SOURCE_ROOT; };
+		09367F551D386709009B30AD /* WPDiodeLadder-test.ck */ = {isa = PBXFileReference; lastKnownFileType = text; name = "WPDiodeLadder-test.ck"; path = "chugins/WPDiodeLadder/WPDiodeLadder-test.ck"; sourceTree = SOURCE_ROOT; };
 		093A212A14BF587500497856 /* mAChuginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAChuginManager.h; path = macosx/mAChuginManager.h; sourceTree = "<group>"; };
 		093A212B14BF587500497856 /* mAChuginManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mAChuginManager.mm; path = macosx/mAChuginManager.mm; sourceTree = "<group>"; };
 		093A212D14BFEF7F00497856 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -1428,6 +1631,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				09F330621D46DCE6002792BA /* Security.framework in Frameworks */,
+				09367ED51D3843FC009B30AD /* GLKit.framework in Frameworks */,
+				09367ED61D3843FC009B30AD /* OpenGLES.framework in Frameworks */,
+				09367ED21D3842C4009B30AD /* chugl.schug in Frameworks */,
 				0929B9EC1D133BB900B8DE4D /* ExpDelay.schug in Frameworks */,
 				0929B9ED1D133BB900B8DE4D /* FIR.schug in Frameworks */,
 				0929B9EE1D133BB900B8DE4D /* FoldbackSaturator.schug in Frameworks */,
@@ -1623,6 +1829,8 @@
 		0929B85B1D1114C300B8DE4D /* examples */ = {
 			isa = PBXGroup;
 			children = (
+				09367F311D3865DD009B30AD /* chugins */,
+				09367EEA1D385695009B30AD /* chugl */,
 				0930AA8F1D10B7F3007BB19E /* motion */,
 			);
 			name = examples;
@@ -1632,6 +1840,7 @@
 		0929B8AA1D12ADD300B8DE4D /* chugins */ = {
 			isa = PBXGroup;
 			children = (
+				09367EAB1D384293009B30AD /* chugl.xcodeproj */,
 				0929B8AB1D12ADE800B8DE4D /* ABSaturator.xcodeproj */,
 				0929B8B11D12ADF000B8DE4D /* Bitcrusher.xcodeproj */,
 				0929B8B71D12ADFC00B8DE4D /* Elliptic.xcodeproj */,
@@ -1823,6 +2032,81 @@
 			);
 			name = util;
 			path = macosx/util;
+			sourceTree = "<group>";
+		};
+		09367EAC1D384293009B30AD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				09367EB11D384293009B30AD /* chugl.chug */,
+				09367EB31D384293009B30AD /* chugl.schug */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		09367EEA1D385695009B30AD /* chugl */ = {
+			isa = PBXGroup;
+			children = (
+				09367F0F1D3856FB009B30AD /* ellipse.ck */,
+				09367F101D3856FB009B30AD /* flare.png */,
+				09367F111D3856FB009B30AD /* flares.ck */,
+				09367F121D3856FB009B30AD /* gl.ck */,
+				09367F131D3856FB009B30AD /* hand.jpg */,
+				09367F141D3856FB009B30AD /* img.ck */,
+				09367F151D3856FB009B30AD /* ix */,
+				09367F161D3856FB009B30AD /* shapes.ck */,
+				09367F171D3856FB009B30AD /* spec-circle.ck */,
+				09367F181D3856FB009B30AD /* spec-gl.ck */,
+				09367F191D3856FB009B30AD /* spectrogram.ck */,
+				09367F1A1D3856FB009B30AD /* stream.ck */,
+				09367F1B1D3856FB009B30AD /* test01.ck */,
+				09367F1C1D3856FB009B30AD /* test02.ck */,
+				09367F1D1D3856FB009B30AD /* test03.ck */,
+				09367F1E1D3856FB009B30AD /* tex.ck */,
+				09367F1F1D3856FB009B30AD /* tree.ck */,
+			);
+			name = chugl;
+			sourceTree = "<group>";
+		};
+		09367F311D3865DD009B30AD /* chugins */ = {
+			isa = PBXGroup;
+			children = (
+				09367F331D386610009B30AD /* Bitcrusher-test.ck */,
+				09367F321D386600009B30AD /* ABSaturator-test.ck */,
+				09367F341D38661A009B30AD /* elliptic-help.ck */,
+				09367F351D386629009B30AD /* expdelay-help.ck */,
+				09367F371D386643009B30AD /* CCRMAHallShort.wav */,
+				09367F381D386643009B30AD /* FIRConvolve.ck */,
+				09367F391D386643009B30AD /* FIRConvolveHomer.ck */,
+				09367F3A1D386643009B30AD /* FIRFOFTest.ck */,
+				09367F3B1D386643009B30AD /* FIRGaussImpulseTests.ck */,
+				09367F3C1D386643009B30AD /* FIRGaussTests.ck */,
+				09367F3D1D386643009B30AD /* FIRSincBPSweepTest.ck */,
+				09367F3E1D386643009B30AD /* FIRSincExplicit.ck */,
+				09367F3F1D386643009B30AD /* FIRSincImpulseTests.ck */,
+				09367F401D386643009B30AD /* FIRSincTests.ck */,
+				09367F411D386643009B30AD /* GreyholeDownUpDecimateDemo.ck */,
+				09367F421D38664F009B30AD /* foldback-test-index.ck */,
+				09367F431D38664F009B30AD /* foldback-test-threshold.ck */,
+				09367F441D38665B009B30AD /* gverb-help.ck */,
+				09367F451D386694009B30AD /* KasFilter-test.ck */,
+				09367F461D3866D2009B30AD /* MagicSine-test.ck */,
+				09367F471D3866D2009B30AD /* mesh-help.ck */,
+				09367F481D3866D2009B30AD /* multicomb-help.ck */,
+				09367F491D3866D2009B30AD /* overdrive-help.ck */,
+				09367F4A1D3866D2009B30AD /* Pan4-test.ck */,
+				09367F4B1D3866D2009B30AD /* Pan8-test.ck */,
+				09367F4C1D3866D2009B30AD /* autotune-test.ck */,
+				09367F4D1D3866D2009B30AD /* data */,
+				09367F4E1D3866D2009B30AD /* pitchtrack-help.ck */,
+				09367F4F1D3866D2009B30AD /* poweradsr-help.ck */,
+				09367F501D3866D2009B30AD /* sigmund-help.ck */,
+				09367F511D3866D2009B30AD /* sigmund-tracks-test.ck */,
+				09367F521D3866D2009B30AD /* spectacle-help.ck */,
+				09367F531D3866D2009B30AD /* winfuncenv-help.ck */,
+				09367F551D386709009B30AD /* WPDiodeLadder-test.ck */,
+				09367F541D386700009B30AD /* WPKorg35-test.ck */,
+			);
+			name = chugins;
 			sourceTree = "<group>";
 		};
 		093E261914A108C8008694BC /* miniAudicle iOS */ = {
@@ -2579,6 +2863,8 @@
 			isa = PBXGroup;
 			children = (
 				09F330611D46DCE6002792BA /* Security.framework */,
+				09367ED31D3843FC009B30AD /* GLKit.framework */,
+				09367ED41D3843FC009B30AD /* OpenGLES.framework */,
 				09F2D4671CEC7C7B006E488B /* CoreLocation.framework */,
 				09B449FE1CD0B95800387883 /* Accelerate.framework */,
 				0900B70C1CC0D8A400210EF3 /* CoreMIDI.framework */,
@@ -2639,11 +2925,14 @@
 				093E260E14A108C8008694BC /* Frameworks */,
 				093E260F14A108C8008694BC /* Resources */,
 				4D3D4C9A1A5E3FDA00B6A06B /* ShellScript */,
-				0930AA8E1D10B7D4007BB19E /* Copy Files */,
+				0930AA8E1D10B7D4007BB19E /* Copy Motion Examples */,
+				09367F0E1D3856C6009B30AD /* Copy ChuGL Examples */,
+				09367F561D386712009B30AD /* Copy Chugin Examples */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				09367ECD1D3842BB009B30AD /* PBXTargetDependency */,
 				0929B9CB1D133BAC00B8DE4D /* PBXTargetDependency */,
 				0929B9CD1D133BAC00B8DE4D /* PBXTargetDependency */,
 				0929B9CF1D133BAC00B8DE4D /* PBXTargetDependency */,
@@ -2755,6 +3044,10 @@
 				{
 					ProductGroup = 0929B8B21D12ADF000B8DE4D /* Products */;
 					ProjectRef = 0929B8B11D12ADF000B8DE4D /* Bitcrusher.xcodeproj */;
+				},
+				{
+					ProductGroup = 09367EAC1D384293009B30AD /* Products */;
+					ProjectRef = 09367EAB1D384293009B30AD /* chugl.xcodeproj */;
 				},
 				{
 					ProductGroup = 0929B8B81D12ADFC00B8DE4D /* Products */;
@@ -2981,6 +3274,21 @@
 			fileType = archive.ar;
 			path = WPKorg35.schug;
 			remoteRef = 0929B9C81D133B8E00B8DE4D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		09367EB11D384293009B30AD /* chugl.chug */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = chugl.chug;
+			remoteRef = 09367EB01D384293009B30AD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		09367EB31D384293009B30AD /* chugl.schug */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			name = chugl.schug;
+			path = libchugl.schug;
+			remoteRef = 09367EB21D384293009B30AD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		0973973A1CD2B00100D8B74D /* libTheAmazingAudioEngine OS X.a */ = {
@@ -3603,6 +3911,11 @@
 			name = WPKorg35;
 			targetProxy = 0929B9EA1D133BAC00B8DE4D /* PBXContainerItemProxy */;
 		};
+		09367ECD1D3842BB009B30AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "chugl-es";
+			targetProxy = 09367ECC1D3842BB009B30AD /* PBXContainerItemProxy */;
+		};
 		09B449FA1CD0B5B800387883 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = TheAmazingAudioEngine;
@@ -3720,6 +4033,7 @@
 			baseConfigurationReference = 09E9CF8D1D0EAF8C009B03A1 /* default.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
@@ -3778,6 +4092,7 @@
 			baseConfigurationReference = 09E9CF8D1D0EAF8C009B03A1 /* default.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;

@@ -7,3 +7,6 @@
 [submodule "src/libs/chuckpad-social"]
 	path = src/libs/chuckpad-social
 	url = git@github.com:markcerqueira/chuckpad-social-ios.git
+[submodule "src/chugl"]
+	path = src/chugl
+	url = https://github.com/spencersalazar/chugl.git
