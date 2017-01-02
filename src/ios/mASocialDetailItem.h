@@ -19,6 +19,7 @@
 
 - (BOOL)isLoaded;
 - (BOOL)isMyPatch;
+- (void)loadPatchInfo:(void (^)(BOOL success, NSError *error))callback;
 - (void)load:(void (^)(BOOL success, NSError *error))callback;
 
 @end

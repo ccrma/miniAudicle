@@ -66,6 +66,20 @@
         return NO;
 }
 
+- (void)loadPatchInfo:(void (^)(BOOL success, NSError *error))callback
+{
+    [[ChuckPadSocial sharedInstance] getPatchInfo:self.socialGUID
+                                         callback:^(BOOL succeeded, Patch *patch, NSError *error) {
+        if(succeeded && patch != nil && error == nil)
+        {
+            self.patch = patch;
+            callback(YES, nil);
+        }
+        else
+            callback(NO, error);
+    }];
+}
+
 - (void)load:(void (^)(BOOL success, NSError *error))callback
 {
     [[ChuckPadSocial sharedInstance] downloadPatchResource:self.patch callback:^(NSData *data, NSError *error) {
@@ -76,7 +90,6 @@
         }
         else
         {
-            mAAnalyticsLogError(error);
             callback(NO, error);
         }
     }];
