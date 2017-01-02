@@ -666,9 +666,8 @@ static NSString * const mASocialGUIDFilename = @"social.plist";
 {
     if(item.isSocial)
     {
-        mASocialDetailItem *socialItem = (mASocialDetailItem *) item;
-        return [NSString stringWithFormat:@"@social:%@:%@",
-                socialItem.patch.guid, socialItem.title];
+        assert(item.socialGUID);
+        return [NSString stringWithFormat:@"@social:%@:%@", item.socialGUID, item.title];
     }
     
     return [self documentRelativePath:item.path];
