@@ -522,6 +522,7 @@
 		4D3D4C921A5E37DB00B6A06B /* dsym_upload.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4D3D4C901A5E37DB00B6A06B /* dsym_upload.sh */; };
 		4D3D4C931A5E37DB00B6A06B /* libCrittercism_v5_0_7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D3D4C911A5E37DB00B6A06B /* libCrittercism_v5_0_7.a */; };
 		4D3D4C981A5E3A4400B6A06B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D3D4C971A5E3A4400B6A06B /* SystemConfiguration.framework */; };
+		4D57F7361E19D8C800FB6188 /* PatchResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D57F7351E19D8C800FB6188 /* PatchResource.m */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		AD7244541DFF6E9C004E4843 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7244481DFF6E9C004E4843 /* AFHTTPSessionManager.m */; };
@@ -1609,6 +1610,8 @@
 		4D3D4C911A5E37DB00B6A06B /* libCrittercism_v5_0_7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCrittercism_v5_0_7.a; sourceTree = "<group>"; };
 		4D3D4C941A5E392800B6A06B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4D3D4C971A5E3A4400B6A06B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		4D57F7341E19D8C800FB6188 /* PatchResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatchResource.h; sourceTree = "<group>"; };
+		4D57F7351E19D8C800FB6188 /* PatchResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatchResource.m; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* miniAudicle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miniAudicle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD7244471DFF6E9C004E4843 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		AD7244481DFF6E9C004E4843 /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
@@ -2724,6 +2727,8 @@
 				09F330511D46DCDB002792BA /* Patch.m */,
 				09A2D6DA1D497AC100DD75F6 /* PatchCache.h */,
 				09A2D6DB1D497AC100DD75F6 /* PatchCache.m */,
+				4D57F7341E19D8C800FB6188 /* PatchResource.h */,
+				4D57F7351E19D8C800FB6188 /* PatchResource.m */,
 				09F330531D46DCDB002792BA /* User.h */,
 				09F330541D46DCDB002792BA /* User.m */,
 			);
@@ -3285,9 +3290,8 @@
 		};
 		09367EB31D384293009B30AD /* chugl.schug */ = {
 			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.dylib";
-			name = chugl.schug;
-			path = libchugl.schug;
+			fileType = archive.ar;
+			path = chugl.schug;
 			remoteRef = 09367EB21D384293009B30AD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -3605,6 +3609,7 @@
 				09307E1F18DFB5E7004AB346 /* mASyntaxHighlighter.mm in Sources */,
 				093E266814A12234008694BC /* util_sndfile.c in Sources */,
 				09AB222F196FC4670037AF73 /* mADocumentManager.m in Sources */,
+				4D57F7361E19D8C800FB6188 /* PatchResource.m in Sources */,
 				093E266914A12234008694BC /* util_string.cpp in Sources */,
 				09F6F3AC1D4F0F7C00CC920C /* UIBarButtonItem+Spacers.m in Sources */,
 				093E266A14A12234008694BC /* util_thread.cpp in Sources */,
