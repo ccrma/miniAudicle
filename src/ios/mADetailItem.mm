@@ -168,15 +168,21 @@ NSString * const mADetailItemDeletedNotification = @"mADetailItemDeletedNotifica
     
     mADetailItem *item = (mADetailItem *) object;
     
-    if(self.socialGUID)
+    // two local files are the same if same uuid
+    // two social files are the same if same GUID
+    // otherwise they are different
+    
+    if(self.isSocial && item.isSocial)
         return [self.socialGUID isEqualToString:item.socialGUID];
-    else
+    else if(!self.isSocial && !item.isSocial)
         return [self.uuid isEqualToString:item.uuid];
+    else
+        return NO;
 }
 
 - (NSUInteger)hash
 {
-    if(self.socialGUID)
+    if(self.isSocial)
         return [self.socialGUID hash];
     else
         return [self.uuid hash];
