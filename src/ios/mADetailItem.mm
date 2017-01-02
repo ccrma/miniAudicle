@@ -161,6 +161,27 @@ NSString * const mADetailItemDeletedNotification = @"mADetailItemDeletedNotifica
     }
 }
 
+- (BOOL)isEqual:(id)object
+{
+    if(![object isKindOfClass:[self class]])
+        return NO;
+    
+    mADetailItem *item = (mADetailItem *) object;
+    
+    if(self.socialGUID)
+        return [self.socialGUID isEqualToString:item.socialGUID];
+    else
+        return [self.uuid isEqualToString:item.uuid];
+}
+
+- (NSUInteger)hash
+{
+    if(self.socialGUID)
+        return [self.socialGUID hash];
+    else
+        return [self.uuid hash];
+}
+
 - (void)save
 {
     NSError *error = NULL;
