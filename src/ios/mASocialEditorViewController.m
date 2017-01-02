@@ -63,23 +63,47 @@
             
             [self showLoading:YES];
             self.loadingView.status = @"Loading script";
-
-            [socialItem load:^(BOOL success, NSError *error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if(success)
-                    {
-                        [super setDetailItem:socialItem];
-                        
-                        [self showLoading:NO];
-                    }
-                    else
-                    {
-                        mAAnalyticsLogError(error);
-                        self.loadingView.loading = NO;
-                        self.loadingView.status = @"Failed to load script";
-                    }
-                });
-            }];
+            
+            void (^loadResource)() = ^{
+                [socialItem load:^(BOOL success, NSError *error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if(success)
+                        {
+                            [super setDetailItem:socialItem];
+                            
+                            [self showLoading:NO];
+                        }
+                        else
+                        {
+                            mAAnalyticsLogError(error);
+                            self.loadingView.loading = NO;
+                            self.loadingView.status = @"Failed to load script";
+                        }
+                    });
+                }];
+            };
+            
+            if(socialItem.patch == nil)
+            {
+                [socialItem loadPatchInfo:^(BOOL success, NSError *error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if(success)
+                        {
+                            loadResource();
+                        }
+                        else
+                        {
+                            mAAnalyticsLogError(error);
+                            self.loadingView.loading = NO;
+                            self.loadingView.status = @"Failed to load script";
+                        }
+                    });
+                }];
+            }
+            else
+            {
+                loadResource();
+            }
         }
     }
     else
