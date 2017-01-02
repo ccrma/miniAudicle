@@ -312,6 +312,7 @@ typedef enum ShareMode
                          {
                              UIAlertMessage(@"Upload succeeded", nil);
                              self.script.patch = patch;
+                             self.script.socialGUID = patch.guid;
                              [self _setUpdateMode];
                              [self _dismiss];
                          }
