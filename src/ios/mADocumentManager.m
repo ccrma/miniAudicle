@@ -8,6 +8,8 @@
 
 #import "mADocumentManager.h"
 #import "mADetailItem.h"
+#import "mASocialDetailItem.h"
+#import "Patch.h"
 #import "mAAnalytics.h"
 
 
@@ -66,10 +68,12 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
 - (NSString *)examplesPath;
 - (NSMutableArray *)loadScripts;
 - (NSMutableArray *)loadExamples;
+- (void)_loadRecentSocialScripts;
 - (void)_uniqueTitleAndPathForTitle:(NSString *)title
                               title:(NSString **)newTitle
                                path:(NSString **)path;
 - (NSString *)documentRelativePath:(NSString *)path;
+- (NSString *)documentRelativePathForItem:(mADetailItem *)item;
 - (NSString *)documentAbsolutePath:(NSString *)path;
 
 @end
@@ -135,10 +139,11 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
         
         [self loadScripts];
         [self loadExamples];
+        [self _loadRecentSocialScripts];
         
         [_recentFiles sortUsingComparator:^NSComparisonResult(mADetailItem *obj1, mADetailItem *obj2) {
-            NSString *path1 = [self documentRelativePath:obj1.path];
-            NSString *path2 = [self documentRelativePath:obj2.path];
+            NSString *path1 = [self documentRelativePathForItem:obj1];
+            NSString *path2 = [self documentRelativePathForItem:obj2];
             
             NSUInteger index1 = [_recentFilesPaths indexOfObject:path1];
             NSUInteger index2 = [_recentFilesPaths indexOfObject:path2];
@@ -308,6 +313,25 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     }
     
     return _exampleScripts;
+}
+
+- (void)_loadRecentSocialScripts
+{
+    // load shell mASocialDetailItems into _recentFiles for recent social items
+    for(NSString *path in _recentFilesPaths)
+    {
+        if([path hasPrefix:@"@social"])
+        {
+            NSArray *components = [path componentsSeparatedByString:@":"];
+            // TODO: what if : is in filename
+            if(components.count != 3)
+                continue;
+            NSString *socialGUID = components[1];
+            NSString *title = components[2];
+            mASocialDetailItem *socialItem = [mASocialDetailItem socialDetailItemWithSocialGUID:socialGUID title:title];
+            [_recentFiles addObject:socialItem];
+        }
+    }
 }
 
 - (void)saveScripts
@@ -543,9 +567,8 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     // should probably use NSSet but it would involve a complicated refactor
     
     // ensure only one copy in the array
-    NSString *documentPath = [self documentRelativePath:item.path];
-    if(documentPath == nil)
-        return;
+    NSString *documentPath = [self documentRelativePathForItem:item];
+    assert(documentPath != nil);
     
 //    NSLog(@"placeholderPath: %@", documentPath);
     if([_recentFiles containsObject:item])
@@ -631,6 +654,18 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
         return [path stringByReplacingCharactersInRange:range withString:@"@local"];
     
     return path;
+}
+
+- (NSString *)documentRelativePathForItem:(mADetailItem *)item
+{
+    if(item.isSocial)
+    {
+        mASocialDetailItem *socialItem = (mASocialDetailItem *) item;
+        return [NSString stringWithFormat:@"@social:%@:%@",
+                socialItem.patch.guid, socialItem.title];
+    }
+    
+    return [self documentRelativePath:item.path];
 }
 
 - (NSString *)documentAbsolutePath:(NSString *)path

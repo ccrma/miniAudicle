@@ -15,6 +15,7 @@
 @property (strong) Patch *patch;
 
 + (mASocialDetailItem *)socialDetailItemWithPatch:(Patch *)patch;
++ (mASocialDetailItem *)socialDetailItemWithSocialGUID:(NSString *)guid title:(NSString *)title;
 
 - (BOOL)isLoaded;
 - (BOOL)isMyPatch;

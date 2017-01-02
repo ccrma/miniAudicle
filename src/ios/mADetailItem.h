@@ -38,6 +38,7 @@ typedef enum DetailItemType
 @property (strong, nonatomic) NSString *path;
 @property (nonatomic) t_CKUINT numShreds;
 @property (nonatomic) NSString *uuid;
+@property (nonatomic) NSString *socialGUID;
 
 @property (nonatomic) BOOL isSocial;
 

@@ -24,9 +24,24 @@
 {
     mASocialDetailItem *item = [mASocialDetailItem new];
     item.patch = patch;
+    item.socialGUID = patch.guid;
     item.isUser = NO;
     
     item.title = patch.name;
+    item.text = nil;
+    item.type = DETAILITEM_CHUCK_SCRIPT;
+    
+    return item;
+}
+
++ (mASocialDetailItem *)socialDetailItemWithSocialGUID:(NSString *)guid title:(NSString *)title
+{
+    mASocialDetailItem *item = [mASocialDetailItem new];
+    item.patch = nil;
+    item.socialGUID = guid;
+    item.isUser = NO;
+    
+    item.title = title;
     item.text = nil;
     item.type = DETAILITEM_CHUCK_SCRIPT;
     
@@ -45,7 +60,10 @@
 
 - (BOOL)isMyPatch
 {
-    return self.patch.creatorId == [[ChuckPadSocial sharedInstance] getLoggedInUserId];
+    if(self.patch)
+        return self.patch.creatorId == [[ChuckPadSocial sharedInstance] getLoggedInUserId];
+    else // uh
+        return NO;
 }
 
 - (void)load:(void (^)(BOOL success, NSError *error))callback
