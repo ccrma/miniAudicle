@@ -28,8 +28,10 @@
 #import "mAAnalytics.h"
 #import "mASocialTableViewCell.h"
 #import "mASocialDetailItem.h"
+#import "mADetailItem+Social.h"
 #import "mASocialCategoryViewController.h"
 #import "mALoadingViewController.h"
+#import "mADocumentManager.h"
 
 #import "UIAlert.h"
 #import "mAUtil.h"
@@ -386,8 +388,31 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger index = indexPath.row;
-    mASocialDetailItem *item = [mASocialDetailItem socialDetailItemWithPatch:self.patches[index]];
-    [self.detailViewController showDetailItem:item];
+    Patch *remotePatch = self.patches[index];
+    mADocumentManager *docManager = [mADocumentManager manager];
+    mADetailItem *localItem = [docManager localDetailItemForSocialGUID:remotePatch.guid];
+    
+    // if(localItem)
+    if(0) // ignore for now
+    {
+        // check revision numbers
+        // if local item is older, ask if ok to update to latest
+        // if remote item is older, open local item (ignore out-of-date remote version)
+        // if both equal, open local item
+        if(localItem.patch.revision < remotePatch.revision)
+        {
+            // show warning
+        }
+        else
+        {
+            // open local version
+        }
+    }
+    else
+    {
+        mASocialDetailItem *remoteItem = [mASocialDetailItem socialDetailItemWithPatch:remotePatch];
+        [self.detailViewController showDetailItem:remoteItem];
+    }
 }
 
 @end
