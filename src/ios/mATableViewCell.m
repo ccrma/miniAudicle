@@ -20,6 +20,15 @@
     
     _item = item;
     self.textLabel.text = item.title;
+    if(item.isSocial)
+    {
+        self.detailTextLabel.text = @"on ChuckPad Social";
+        self.detailTextLabel.textColor = [UIColor grayColor];
+    }
+    else
+    {
+        self.detailTextLabel.text = @"";
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(detailItemTitleChanged:)

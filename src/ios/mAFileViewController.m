@@ -516,7 +516,7 @@ static NSString *FolderCellIdentifier = @"FolderCell";
         
         if (cell == nil)
         {
-            cell = [[mATableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell = [[mATableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
             if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
