@@ -40,4 +40,7 @@ extern NSString * const mADocumentManagerRecentFilesChanged;
 - (void)setMetadata:(NSString *)key value:(id)value forItem:(mADetailItem *)item;
 - (id)metadata:(NSString *)key forItem:(mADetailItem *)item;
 
+- (mADetailItem *)localDetailItemForSocialGUID:(NSString *)socialGUID;
+- (void)setSocialGUID:(NSString *)socialGUID forLocalDetailItem:(mADetailItem *)item;
+
 @end

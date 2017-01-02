@@ -10,6 +10,7 @@
 #import "mADetailItem.h"
 #import "mASocialDetailItem.h"
 #import "Patch.h"
+#import "mAUtil.h"
 #import "mAAnalytics.h"
 
 
@@ -20,7 +21,7 @@ NSString * const mAPreferencesRecentFilesKey = @"mAPreferencesRecentFilesKey";
 
 static NSString * const mAUntitledScriptName = @"untitled";
 static NSString * const mAUntitledFolderName = @"untitled folder";
-
+static NSString * const mASocialGUIDFilename = @"social.plist";
 
 @interface NSString (mADocumentManager)
 
@@ -54,6 +55,8 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     int _untitledFolderNum;
     
     NSURL *_localDocumentPath;
+    
+    NSMutableDictionary *_socialGUIDs;
 }
 
 @property (strong, nonatomic) id<NSObject, NSCopying, NSCoding> ubiquityIdentityToken;
@@ -75,6 +78,9 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
 - (NSString *)documentRelativePath:(NSString *)path;
 - (NSString *)documentRelativePathForItem:(mADetailItem *)item;
 - (NSString *)documentAbsolutePath:(NSString *)path;
+
+- (NSMutableDictionary *)_loadSocialGUIDs;
+- (void)_saveSocialGUIDs:(NSMutableDictionary *)guids;
 
 @end
 
@@ -791,6 +797,44 @@ static NSString * const mAUntitledFolderName = @"untitled folder";
     }
     
     return metadata[key];
+}
+
+- (NSMutableDictionary *)_loadSocialGUIDs
+{
+    NSString *filepath = [libraryPath() stringByAppendingPathComponent:mASocialGUIDFilename];
+    if([[NSFileManager defaultManager] fileExistsAtPath:filepath])
+    {
+        NSMutableDictionary *d = [NSMutableDictionary dictionaryWithContentsOfFile:filepath];
+        if(d)
+            return d;
+    }
+    
+    return [NSMutableDictionary new];
+}
+
+- (void)_saveSocialGUIDs:(NSMutableDictionary *)guids
+{
+    NSString *filepath = [libraryPath() stringByAppendingPathComponent:mASocialGUIDFilename];
+    [guids writeToFile:filepath atomically:YES];
+}
+
+- (mADetailItem *)localDetailItemForSocialGUID:(NSString *)socialGUID
+{
+    if(_socialGUIDs == nil)
+        _socialGUIDs = [self _loadSocialGUIDs];
+    NSString *relPath = [_socialGUIDs objectForKey:socialGUID];
+    if(relPath == nil)
+        return nil;
+    
+    NSString *path = [self documentAbsolutePath:relPath];
+    
+    return [mADetailItem detailItemFromPath:path isUser:YES];
+}
+
+- (void)setSocialGUID:(NSString *)socialGUID forLocalDetailItem:(mADetailItem *)item
+{
+    [_socialGUIDs setObject:[self documentRelativePathForItem:item] forKey:socialGUID];
+    [self _saveSocialGUIDs:_socialGUIDs];
 }
 
 @end
