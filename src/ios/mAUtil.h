@@ -14,6 +14,9 @@ extern "C" {
 
 void delayAnd(CFTimeInterval delay, void (^block)());
 
+NSString *documentPath();
+NSString *libraryPath();
+    
 #ifdef __cplusplus
 }
 #endif

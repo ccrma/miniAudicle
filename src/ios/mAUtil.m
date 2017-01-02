@@ -15,3 +15,12 @@ void delayAnd(CFTimeInterval delay, void (^block)())
     dispatch_after(time, queue, block);
 }
 
+NSString *documentPath()
+{
+    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+}
+
+NSString *libraryPath()
+{
+    return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+}
