@@ -61,6 +61,7 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 @interface mASocialFileViewController ()
 {
     mALoadingViewController *_loadingView;
+    mALoadingViewController *_messageView;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -146,6 +147,8 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
                                                bundle:NULL]
          forCellReuseIdentifier:SocialCellIdentifier];
     
+    self.tableView.rowHeight = 76.0;
+    
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
                             action:@selector(_refresh)
@@ -191,12 +194,14 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
                 }
                 else
                 {
+                    [self _showLoading:NO];
                     [self _showMessage:@"No patches found for this category."];
                 }
             }
             else
             {
                 mAAnalyticsLogError(error);
+                [self _showLoading:NO];
                 [self _showMessage:[NSString stringWithFormat:@"Failed to load patches.\n%@",
                                     error.localizedDescription]];
             }
@@ -261,12 +266,11 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
         if(_loadingView == nil)
         {
             _loadingView = [mALoadingViewController new];
+            _loadingView.loadingViewStyle = mALoadingViewStyleTransparent;
             [self.view addSubview:_loadingView.view];
             [self.view bringSubviewToFront:_loadingView.view];
             [_loadingView fit];
         }
-        
-        _loadingView.loadingViewStyle = mALoadingViewStyleOpaque;
         
         [_loadingView show];
     }
@@ -287,14 +291,26 @@ NSString *mASocialCategoryGetTitle(mASocialCategory category)
 
 - (void)_showMessage:(NSString *)msg
 {
-    [self _showLoading:YES status:msg];
-    _loadingView.loading = NO;
-    _loadingView.loadingViewStyle = mALoadingViewStyleOpaque;
+    if(_messageView == nil)
+    {
+        _messageView = [mALoadingViewController new];
+        CGRect frame = self.view.bounds;
+        _messageView.view.frame = frame;
+        _messageView.loadingViewStyle = mALoadingViewStyleOpaque;
+        _messageView.loading = NO;
+    }
+    
+    _messageView.status = msg;
+    self.tableView.tableFooterView = _messageView.view;
+    [_messageView show];
 }
 
 - (void)_hideMessage
 {
-    [self _showLoading:NO];
+    [_messageView hide:^{
+        self.tableView.tableFooterView = nil;
+        _messageView = nil;
+    }];
 }
 
 - (void)userLoggedIn:(NSNotification *)n
