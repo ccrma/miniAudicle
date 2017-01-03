@@ -21,6 +21,7 @@
 #import "mASocialLoginViewController.h"
 #import "ChuckPadSocial.h"
 #import "mAAnalytics.h"
+#import "mAUtil.h"
 
 #import "NSString+NSString_Lines.h"
 #import "NSString+STLString.h"
@@ -611,9 +612,35 @@
 {
     NSLog(@"menuItem: %@", self.menuItems[item]);
     
-    if(self.detailItem.isUser && item == 2) // share
+    if(self.detailItem.isUser) // share
     {
-        [self _share];
+        switch(item)
+        {
+            case 0:
+            {
+                delayAnd(0.01, ^{
+                    // delay a little bit to prevent iOS from freaking out
+                    // about presenting two viewcontrollers at the same time
+                    [self _rename];
+                });
+            }
+                break;
+            case 1:
+                [self _duplicate];
+                break;
+            case 2:
+                [self _share];
+                break;
+        }
+    }
+    else
+    {
+        switch(item)
+        {
+            case 0:
+                [self _duplicate];
+                break;
+        }
     }
 }
 
@@ -621,7 +648,7 @@
 
 - (void)_rename
 {
-    
+    [self editTitle:nil];
 }
 
 - (void)_share
