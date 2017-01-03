@@ -1090,6 +1090,7 @@
 		09307E2818E0CDA1004AB346 /* mATextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mATextView.h; sourceTree = "<group>"; };
 		09307E2918E0CDA1004AB346 /* mATextView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mATextView.mm; sourceTree = "<group>"; };
 		0930AA8F1D10B7F3007BB19E /* motion */ = {isa = PBXFileReference; lastKnownFileType = folder; path = motion; sourceTree = "<group>"; };
+		0934B6721E1BAA20009259E2 /* mAEditorViewController+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mAEditorViewController+Private.h"; sourceTree = "<group>"; };
 		0934BE43190D038B0084D10E /* sequence.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sequence.png; sourceTree = "<group>"; };
 		093659CF17DDD0AA007E342C /* oggenc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = oggenc; sourceTree = "<group>"; };
 		09367EAB1D384293009B30AD /* chugl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = chugl.xcodeproj; path = chugl/chugl.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -2540,6 +2541,7 @@
 			children = (
 				09F09E3A18E2C5E60050D963 /* mAEditorViewController.xib */,
 				09F09E3818E2C5E60050D963 /* mAEditorViewController.h */,
+				0934B6721E1BAA20009259E2 /* mAEditorViewController+Private.h */,
 				09F09E3918E2C5E60050D963 /* mAEditorViewController.mm */,
 				09307E2818E0CDA1004AB346 /* mATextView.h */,
 				09307E2918E0CDA1004AB346 /* mATextView.mm */,

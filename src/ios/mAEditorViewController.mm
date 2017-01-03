@@ -7,6 +7,7 @@
 //
 
 #import "mAEditorViewController.h"
+#import "mAEditorViewController+Private.h"
 #import "mATextView.h"
 #import "miniAudicle.h"
 #import "mAChucKController.h"
@@ -612,38 +613,55 @@
     
     if(self.detailItem.isUser && item == 2) // share
     {
-        ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
-        
-        if([chuckPad isLoggedIn])
-        {
-            [self saveScript];
-            
-            mASocialShareViewController *shareView = [mASocialShareViewController new];
-            shareView.script = self.detailItem;
-            [self presentViewController:shareView animated:YES completion:nil];
-        }
-        else
-        {
-            UIAlertMessage2a(@"", @"You must login or create an account to share your script on Chuckpad Social.",
-                             @"Cancel", nil,
-                             @"Create Account/Login", ^{
-                                 mASocialLoginViewController *loginView = [mASocialLoginViewController new];
-                                 [loginView clearFields];
-                                 [self presentViewController:loginView animated:YES completion:nil];
-                                 
-                                 loginView.onCompletion = ^{
-                                     if([chuckPad isLoggedIn])
-                                     {
-                                         [self saveScript];
-                                         
-                                         mASocialShareViewController *shareView = [mASocialShareViewController new];
-                                         shareView.script = self.detailItem;
-                                         [self presentViewController:shareView animated:YES completion:nil];
-                                     }
-                                 };
-                             });
-        }
+        [self _share];
     }
+}
+
+#pragma mark - mAEditorViewController+Private
+
+- (void)_rename
+{
+    
+}
+
+- (void)_share
+{
+    ChuckPadSocial *chuckPad = [ChuckPadSocial sharedInstance];
+    
+    if([chuckPad isLoggedIn])
+    {
+        [self saveScript];
+        
+        mASocialShareViewController *shareView = [mASocialShareViewController new];
+        shareView.script = self.detailItem;
+        [self presentViewController:shareView animated:YES completion:nil];
+    }
+    else
+    {
+        UIAlertMessage2a(@"", @"You must login or create an account to share your script on Chuckpad Social.",
+                         @"Cancel", nil,
+                         @"Create Account/Login", ^{
+                             mASocialLoginViewController *loginView = [mASocialLoginViewController new];
+                             [loginView clearFields];
+                             [self presentViewController:loginView animated:YES completion:nil];
+                             
+                             loginView.onCompletion = ^{
+                                 if([chuckPad isLoggedIn])
+                                 {
+                                     [self saveScript];
+                                     
+                                     mASocialShareViewController *shareView = [mASocialShareViewController new];
+                                     shareView.script = self.detailItem;
+                                     [self presentViewController:shareView animated:YES completion:nil];
+                                 }
+                             };
+                         });
+    }
+}
+
+- (void)_duplicate
+{
+    
 }
 
 #pragma mark - NSTextStorageDelegate

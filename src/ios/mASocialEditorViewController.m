@@ -7,6 +7,7 @@
 //
 
 #import "mASocialEditorViewController.h"
+#import "mAEditorViewController+Private.h"
 #import "mASocialDetailItem.h"
 #import "mALoadingViewController.h"
 #import "mASocialLoginViewController.h"
@@ -144,7 +145,6 @@
         return [super menuItems];
     
     mASocialDetailItem *socialItem = (mASocialDetailItem *) self.detailItem;
-    
     if([socialItem isMyPatch])
         return @[ @"Rename", @"Duplicate", @"Update..." ];
     else
@@ -172,6 +172,7 @@
             case 1: // duplicate
                 break;
             case 2: // update
+                [self _share];
                 break;
         }
     }
@@ -180,6 +181,11 @@
         switch(item)
         {
             case 0: // duplicate
+            {
+                NSUInteger duplicateItem = [[super menuItems] indexOfObjectIdenticalTo:@"Duplicate"];
+                assert(duplicateItem != NSNotFound);
+                [super handleMenuItem:duplicateItem];
+            }
                 break;
             case 1: // report
                 [self _report];

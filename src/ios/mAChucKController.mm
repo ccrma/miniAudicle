@@ -294,7 +294,12 @@ static mAChucKController * g_chuckController = nil;
     Chuck_Compiler *compiler = g_compiler;
     
     // compile
-    if(!compiler->go([item.title UTF8String], NULL, [item.text UTF8String], [item.path UTF8String]))
+    const char *path;
+    if(item.path)
+        path = [item.path UTF8String];
+    else
+        path = "";
+    if(!compiler->go([item.title UTF8String], NULL, [item.text UTF8String], path))
     {
         if(error)
             *error = [NSString stringWithUTF8String:EM_lasterror()];
