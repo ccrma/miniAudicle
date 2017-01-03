@@ -30,6 +30,7 @@ typedef enum ShareMode
     IBOutlet UILabel *_callToActionLabel;
     IBOutlet UITextField *_nameTextField;
     IBOutlet UIButton *_nameEditButton;
+    IBOutlet UILabel *_revisionLabel;
     IBOutlet UITextView *_descriptionTextView;
     IBOutlet UIButton *_descriptionEditButton;
     IBOutlet UIImageView *_compileStatusIcon;
@@ -77,6 +78,7 @@ typedef enum ShareMode
     
     _nameTextField.text = script.title;
     _descriptionTextView.text = @"";
+    _revisionLabel.text = [NSString stringWithFormat:@"Revision %i", 1];
     
     // check script
     NSString *compileError = nil;
@@ -91,6 +93,7 @@ typedef enum ShareMode
         [self _setUpdateMode];
         _nameTextField.text = script.patch.name;
         _descriptionTextView.text = script.patch.patchDescription;
+        _revisionLabel.text = [NSString stringWithFormat:@"Revision %li", script.patch.revision+1];
     }
     else
     {
@@ -279,7 +282,6 @@ typedef enum ShareMode
     }
     
     NSString *name = _nameTextField.text;
-    NSString *filename = [self.script.path lastPathComponent];
     NSData *fileData = [self.script.text dataUsingEncoding:NSUTF8StringEncoding];
     NSString *description = [_descriptionTextView text];
     
@@ -343,6 +345,8 @@ typedef enum ShareMode
                      callback:^(BOOL succeeded, Patch *patch, NSError *error) {
                          if(succeeded)
                          {
+                             self.script.patch = patch;
+                             self.script.socialGUID = patch.guid;
                              UIAlertMessage(@"Update succeeded", nil);
                              [self _dismiss];
                          }
