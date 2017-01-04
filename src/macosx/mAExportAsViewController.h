@@ -43,6 +43,8 @@
     IBOutlet NSTextField * _durationTextField;
 }
 
+@property (nonatomic, assign) NSSavePanel *savePanel;
+
 @property (nonatomic) BOOL limitDuration;
 @property (nonatomic) CGFloat duration;
 
@@ -53,6 +55,7 @@
 
 @property (nonatomic) BOOL enableMP3;
 
+- (IBAction)formatButtonClick:(id)sender;
 - (void)saveSettings;
 
 @end

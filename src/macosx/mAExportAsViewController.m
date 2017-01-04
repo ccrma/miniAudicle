@@ -44,9 +44,14 @@ static BOOL g_lameAvailable = NO;
 
 @interface mAExportAsViewController ()
 
+@property (nonatomic) int numSelectedFileTypes;
+
 @end
 
 @implementation mAExportAsViewController
+
+@synthesize savePanel;
+@synthesize numSelectedFileTypes;
 
 @synthesize limitDuration, duration;
 @synthesize exportWAV, exportOgg, exportM4A, exportMP3;
@@ -54,7 +59,7 @@ static BOOL g_lameAvailable = NO;
 
 + (void)initialize
 {
-    g_lameAvailable = (which(@"lame") != nil);
+	g_lameAvailable = (which(@"lame") != nil);
     
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{
                                     mAExportAsLimitDuration: @NO,
@@ -64,6 +69,17 @@ static BOOL g_lameAvailable = NO;
                                         mAExportAsExportM4A: @NO,
                                         mAExportAsExportMP3: @NO,
      }];
+}
+
+- (int)numSelectedFileTypes
+{
+	int selectedFileTypeCount =
+		(self.exportWAV ? 1 : 0) +
+		(self.exportOgg ? 1 : 0) +
+		(self.exportM4A ? 1 : 0) +
+		(self.exportMP3 ? 1 : 0);
+	
+	return selectedFileTypeCount;
 }
 
 - (CGFloat)duration
@@ -93,12 +109,61 @@ static BOOL g_lameAvailable = NO;
     self.exportOgg = [defaults boolForKey:mAExportAsExportOgg];
     self.exportM4A = [defaults boolForKey:mAExportAsExportM4A];
     self.exportMP3 = [defaults boolForKey:mAExportAsExportMP3];
-    
+	
     self.enableMP3 = g_lameAvailable;
+}
+
+/*
+ NOTE: as of Jan 2017, mADocumentExporter.mm is deleting the extension
+ before re-adding the correct one based on the selected export types.
+ Therefore, this action is only to ensure correct display of the
+ extension in the entered file name while the save panel is active.
+ */
+- (IBAction)formatButtonClick:(id)sender
+{
+	switch (self.numSelectedFileTypes) {
+		case 0:
+			[savePanel setAllowedFileTypes:@[@"<error>"]];
+			break;
+			
+		case 1:
+			if (self.exportWAV) {
+				[savePanel setAllowedFileTypes:@[@"wav"]];
+			}
+			else if (self.exportOgg) {
+				[savePanel setAllowedFileTypes:@[@"ogg"]];
+			}
+			else if (self.exportM4A) {
+				[savePanel setAllowedFileTypes:@[@"m4a"]];
+			}
+			else if (self.exportMP3) {
+				[savePanel setAllowedFileTypes:@[@"mp3"]];
+			}
+			break;
+			
+		default:
+			[savePanel setAllowedFileTypes:@[@"*"]];
+			break;
+	}
 }
 
 - (void)saveSettings
 {
+	/*
+	 NOTE: as of Jan 2017, mADocumentExporter.mm is deleting
+	 the extension before re-adding a correct one based on the
+	 selected export types. Therefore, we can reset the extension
+	 to the default "wav" before moving on - AND, if no other file
+	 types are selected, we'll select "wav" for the defaults save
+	 as well.
+	 */
+	
+	[savePanel setAllowedFileTypes:@[@"wav"]];
+	
+	if (self.numSelectedFileTypes == 0) {
+			self.exportWAV = YES;
+	}
+	
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:self.limitDuration forKey:mAExportAsLimitDuration];
     [defaults setFloat:self.duration forKey:mAExportAsDuration];

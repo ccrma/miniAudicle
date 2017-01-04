@@ -301,6 +301,7 @@ U.S.A.
     
     mAExportAsViewController * viewController = [[mAExportAsViewController alloc] initWithNibName:@"mAExportAs" bundle:nil];
     [savePanel setAccessoryView:viewController.view];
+	viewController.savePanel = savePanel;
 
     [savePanel beginSheetForDirectory:directory
                                  file:filename
