@@ -44,6 +44,7 @@
 }
 
 @property (nonatomic, assign) NSSavePanel *savePanel;
+@property (nonatomic) int exportButtonTag;
 
 @property (nonatomic) BOOL limitDuration;
 @property (nonatomic) CGFloat duration;

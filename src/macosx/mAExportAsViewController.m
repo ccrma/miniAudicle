@@ -51,6 +51,7 @@ static BOOL g_lameAvailable = NO;
 @implementation mAExportAsViewController
 
 @synthesize savePanel;
+@synthesize exportButtonTag;
 @synthesize numSelectedFileTypes;
 
 @synthesize limitDuration, duration;
@@ -121,9 +122,24 @@ static BOOL g_lameAvailable = NO;
  */
 - (IBAction)formatButtonClick:(id)sender
 {
+	NSButton *exportButton = [savePanel.contentView viewWithTag: exportButtonTag];
+	BOOL exportButtonAvailable = (exportButton != nil);
+	
+	if (exportButtonAvailable && self.numSelectedFileTypes > 0) {
+		if (exportButtonAvailable) {
+			savePanel.message = @"";
+			exportButton.enabled = true;
+		}
+	}
+	
 	switch (self.numSelectedFileTypes) {
 		case 0:
-			[savePanel setAllowedFileTypes:@[@"<error>"]];
+			[savePanel setAllowedFileTypes:@[@""]];
+
+			if (exportButtonAvailable) {
+				savePanel.message = @"REQUIRED: one or more export types must be selected";
+				exportButton.enabled = false;
+			}
 			break;
 			
 		case 1:

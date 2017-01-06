@@ -273,11 +273,17 @@ U.S.A.
 
 - (IBAction)exportAsWAV:(id)sender
 {
+	// constants for changing the save panel's OK button title
+	// and setting a tag to access the button via -viewWithTag
+	NSString * panelOKButtonTitle = @"Export";
+	int exportButtonTagValue = 666;
+	
+	
     NSSavePanel * savePanel = [NSSavePanel savePanel];
     [savePanel setAllowedFileTypes:@[@"wav"]];
     [savePanel setTitle:@"Export as WAV"];
     [savePanel setNameFieldLabel:@"Export to:"];
-    [savePanel setPrompt:@"Export"];
+    [savePanel setPrompt:panelOKButtonTitle];
     
     NSString * filename;
     NSString * directory;
@@ -298,11 +304,37 @@ U.S.A.
     [savePanel setDirectory:directory];
     
     [savePanel setExtensionHidden:NO];
-    
-    mAExportAsViewController * viewController = [[mAExportAsViewController alloc] initWithNibName:@"mAExportAs" bundle:nil];
+	
+	// set tag on panel's "Export" button (panel -> subview -> sub-subview level)
+	NSArray *panelLevel1Views = savePanel.contentView.subviews;
+	BOOL canStopNow = false;
+	
+	for (NSView *level1View in panelLevel1Views) {
+		
+		NSArray *level2Views = level1View.subviews;
+		
+		for (NSView *level2View in level2Views) {
+			
+			if ([level2View isKindOfClass:NSButton.class]) {
+				
+				NSString *btnTitle = ((NSButton *)level2View).title;
+				
+				if ([btnTitle  isEqual: panelOKButtonTitle]) {
+					[(NSButton *)level2View setTag:exportButtonTagValue];
+					canStopNow = true;
+					break;
+				}
+			}
+		}
+		
+		if (canStopNow) { break; }
+	}
+	
+	mAExportAsViewController * viewController = [[mAExportAsViewController alloc] initWithNibName:@"mAExportAs" bundle:nil];
     [savePanel setAccessoryView:viewController.view];
 	viewController.savePanel = savePanel;
-
+	viewController.exportButtonTag = exportButtonTagValue;
+	
     [savePanel beginSheetForDirectory:directory
                                  file:filename
                        modalForWindow:[self.windowController window]
