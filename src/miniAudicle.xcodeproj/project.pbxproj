@@ -370,6 +370,7 @@
 		4D3D4C981A5E3A4400B6A06B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D3D4C971A5E3A4400B6A06B /* SystemConfiguration.framework */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		D5A682F81E26B81D009A460F /* NSPanel+ButtonTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A682F51E26A130009A460F /* NSPanel+ButtonTag.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -683,7 +684,7 @@
 		09A40BB00A9A55EC007604EA /* miniAudicleController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = miniAudicleController.h; path = macosx/miniAudicleController.h; sourceTree = SOURCE_ROOT; };
 		09A40BB10A9A55EC007604EA /* miniAudicleController.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; name = miniAudicleController.mm; path = macosx/miniAudicleController.mm; sourceTree = SOURCE_ROOT; };
 		09A40BB20A9A55EC007604EA /* miniAudicleDocument.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = miniAudicleDocument.h; path = macosx/miniAudicleDocument.h; sourceTree = SOURCE_ROOT; };
-		09A40BB30A9A55EC007604EA /* miniAudicleDocument.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; name = miniAudicleDocument.mm; path = macosx/miniAudicleDocument.mm; sourceTree = SOURCE_ROOT; };
+		09A40BB30A9A55EC007604EA /* miniAudicleDocument.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; name = miniAudicleDocument.mm; path = macosx/miniAudicleDocument.mm; sourceTree = SOURCE_ROOT; usesTabs = 0; };
 		09A40BB40A9A55EC007604EA /* miniAudiclePreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = miniAudiclePreferencesController.h; path = macosx/miniAudiclePreferencesController.h; sourceTree = SOURCE_ROOT; };
 		09A40BB50A9A55EC007604EA /* miniAudiclePreferencesController.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; name = miniAudiclePreferencesController.mm; path = macosx/miniAudiclePreferencesController.mm; sourceTree = SOURCE_ROOT; };
 		09A40BB60A9A55EC007604EA /* miniAudicleShellController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = miniAudicleShellController.h; path = macosx/miniAudicleShellController.h; sourceTree = SOURCE_ROOT; };
@@ -763,8 +764,8 @@
 		09B596C219B066900091D45F /* mATextCompletionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mATextCompletionView.h; sourceTree = "<group>"; };
 		09B596C319B066900091D45F /* mATextCompletionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mATextCompletionView.m; sourceTree = "<group>"; };
 		09B66B4A17683C7300A07ADF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mAExportAs.xib; sourceTree = "<group>"; };
-		09B66B4C1768460C00A07ADF /* mAExportAsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAExportAsViewController.h; path = macosx/mAExportAsViewController.h; sourceTree = "<group>"; };
-		09B66B4D1768460C00A07ADF /* mAExportAsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = mAExportAsViewController.m; path = macosx/mAExportAsViewController.m; sourceTree = "<group>"; };
+		09B66B4C1768460C00A07ADF /* mAExportAsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAExportAsViewController.h; path = macosx/mAExportAsViewController.h; sourceTree = "<group>"; usesTabs = 0; };
+		09B66B4D1768460C00A07ADF /* mAExportAsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = mAExportAsViewController.m; path = macosx/mAExportAsViewController.m; sourceTree = "<group>"; usesTabs = 0; };
 		09B66B4F1768A1E400A07ADF /* export.ck */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = export.ck; sourceTree = "<group>"; };
 		09B66B521768AC6000A07ADF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mAExportProgress.xib; sourceTree = "<group>"; };
 		09B66B541768AD5C00A07ADF /* mAExportProgressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mAExportProgressViewController.h; path = macosx/mAExportProgressViewController.h; sourceTree = "<group>"; };
@@ -828,6 +829,8 @@
 		4D3D4C941A5E392800B6A06B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4D3D4C971A5E3A4400B6A06B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		8D1107320486CEB800E47090 /* miniAudicle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miniAudicle.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5A682F51E26A130009A460F /* NSPanel+ButtonTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSPanel+ButtonTag.m"; path = "macosx/NSPanel+ButtonTag.m"; sourceTree = "<group>"; usesTabs = 0; };
+		D5A682F71E26A192009A460F /* NSPanel+ButtonTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSPanel+ButtonTag.h"; path = "macosx/NSPanel+ButtonTag.h"; sourceTree = "<group>"; usesTabs = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -923,6 +926,8 @@
 				0964A394172F8FD800043ABA /* mARecordSessionController.mm */,
 				0962903117323065007CADBA /* NSString+STLString.h */,
 				0962903217323065007CADBA /* NSString+STLString.mm */,
+				D5A682F71E26A192009A460F /* NSPanel+ButtonTag.h */,
+				D5A682F51E26A130009A460F /* NSPanel+ButtonTag.m */,
 				09B66B4C1768460C00A07ADF /* mAExportAsViewController.h */,
 				09B66B4D1768460C00A07ADF /* mAExportAsViewController.m */,
 				09B66B541768AD5C00A07ADF /* mAExportProgressViewController.h */,
@@ -2043,6 +2048,7 @@
 				09A40BC70A9A55EC007604EA /* NumberedTextView.mm in Sources */,
 				09A40BD00A9A5662007604EA /* miniAudicle_import.cpp in Sources */,
 				09A40BD10A9A5662007604EA /* miniAudicle_shell.cpp in Sources */,
+				D5A682F81E26B81D009A460F /* NSPanel+ButtonTag.m in Sources */,
 				09A40BD20A9A5662007604EA /* miniAudicle_ui_elements.cpp in Sources */,
 				09A40BD30A9A5662007604EA /* miniAudicle.cpp in Sources */,
 				09A40D130A9A6185007604EA /* chuck.lex in Sources */,
