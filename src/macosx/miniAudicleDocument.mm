@@ -43,6 +43,7 @@
 #import "mAMultiDocWindowController.h"
 #import "UKFSEventsWatcher.h"
 #import "mAExportAsViewController.h"
+#import "NSPanel+ButtonTag.h"
 
 #import <objc/message.h>
 
@@ -59,7 +60,7 @@
 
 @property (nonatomic, strong) mADocumentExporter * exporter;
 
-- (void)setTag:(int)tagValue forButtonWithTitle:(NSString *)title onPanel:(NSPanel *)panel;
+//- (void)setTag:(int)tagValue forButtonWithTitle:(NSString *)title onPanel:(NSPanel *)panel;
 
 @end
 
@@ -287,7 +288,7 @@
 	[savePanel setNameFieldLabel:@"Export to:"];
 	[savePanel setPrompt:panelOKButtonTitle];
     
-    [self setTag:exportButtonTagValue forButtonWithTitle:panelOKButtonTitle onPanel:(NSPanel *)savePanel];
+    [savePanel setTag:exportButtonTagValue forButtonWithTitle:panelOKButtonTitle];
 	
 	NSString * filename;
 	NSString * directory;
@@ -396,34 +397,6 @@
 		if(![self revertToContentsOfURL:[self fileURL] ofType:[self fileType] error:&error])
 			[[NSAlert alertWithError:error] beginSheetModalForWindow:[_windowController window] modalDelegate:nil didEndSelector:nil contextInfo:nil];
 	}
-}
-
-- (void)setTag:(int)tagValue forButtonWithTitle:(NSString *)title onPanel:(NSPanel *)panel
-{
-    // set tag on panel's "Export" button (panel -> subview -> sub-subview level)
-    NSArray *panelLevel1Views = panel.contentView.subviews;
-    BOOL canStopNow = false;
-    
-    for (NSView *level1View in panelLevel1Views) {
-        
-        NSArray *level2Views = level1View.subviews;
-        
-        for (NSView *level2View in level2Views) {
-            
-            if ([level2View isKindOfClass:NSButton.class]) {
-                
-                NSString *btnTitle = ((NSButton *)level2View).title;
-                
-                if ([btnTitle  isEqual: title]) {
-                    [(NSButton *)level2View setTag:tagValue];
-                    canStopNow = true;
-                    break;
-                }
-            }
-        }
-        
-        if (canStopNow) { break; }
-    }
 }
 
 @end
