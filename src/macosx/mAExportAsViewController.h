@@ -34,13 +34,13 @@
 
 @interface mAExportAsViewController : NSViewController
 {
-    BOOL limitDuration;
-    CGFloat duration;
-    
-    BOOL exportWAV, exportOgg, exportM4A, exportMP3;
-    BOOL enableMP3;
-    
-    IBOutlet NSTextField * _durationTextField;
+	BOOL limitDuration;
+	CGFloat duration;
+	
+	BOOL exportWAV, exportOgg, exportM4A, exportMP3;
+	BOOL enableMP3;
+	
+	IBOutlet NSTextField * _durationTextField;
 }
 
 @property (nonatomic, assign) NSSavePanel *savePanel;

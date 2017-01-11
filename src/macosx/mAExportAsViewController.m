@@ -61,57 +61,57 @@ static BOOL g_lameAvailable = NO;
 + (void)initialize
 {
 	g_lameAvailable = (which(@"lame") != nil);
-    
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{
-                                    mAExportAsLimitDuration: @NO,
-                                         mAExportAsDuration: @30.0,
-                                        mAExportAsExportWAV: @YES,
-                                        mAExportAsExportOgg: @NO,
-                                        mAExportAsExportM4A: @NO,
-                                        mAExportAsExportMP3: @NO,
-     }];
+	
+	[[NSUserDefaults standardUserDefaults] registerDefaults:@{
+															  mAExportAsLimitDuration: @NO,
+															  mAExportAsDuration: @30.0,
+															  mAExportAsExportWAV: @YES,
+															  mAExportAsExportOgg: @NO,
+															  mAExportAsExportM4A: @NO,
+															  mAExportAsExportMP3: @NO,
+															  }];
 }
 
 - (int)numSelectedFileTypes
 {
 	int selectedFileTypeCount =
-		(self.exportWAV ? 1 : 0) +
-		(self.exportOgg ? 1 : 0) +
-		(self.exportM4A ? 1 : 0) +
-		(self.exportMP3 ? 1 : 0);
+	(self.exportWAV ? 1 : 0) +
+	(self.exportOgg ? 1 : 0) +
+	(self.exportM4A ? 1 : 0) +
+	(self.exportMP3 ? 1 : 0);
 	
 	return selectedFileTypeCount;
 }
 
 - (CGFloat)duration
 {
-    duration = [_durationTextField doubleValue];
-    return duration;
+	duration = [_durationTextField doubleValue];
+	return duration;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self)
-    {
-    }
-    
-    return self;
+	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	if (self)
+	{
+	}
+	
+	return self;
 }
 
 - (void)awakeFromNib
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    self.limitDuration = [defaults boolForKey:mAExportAsLimitDuration];
-    self.duration = [defaults floatForKey:mAExportAsDuration];
-    
-    self.exportWAV = [defaults boolForKey:mAExportAsExportWAV];
-    self.exportOgg = [defaults boolForKey:mAExportAsExportOgg];
-    self.exportM4A = [defaults boolForKey:mAExportAsExportM4A];
-    self.exportMP3 = [defaults boolForKey:mAExportAsExportMP3];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
-    self.enableMP3 = g_lameAvailable;
+	self.limitDuration = [defaults boolForKey:mAExportAsLimitDuration];
+	self.duration = [defaults floatForKey:mAExportAsDuration];
+	
+	self.exportWAV = [defaults boolForKey:mAExportAsExportWAV];
+	self.exportOgg = [defaults boolForKey:mAExportAsExportOgg];
+	self.exportM4A = [defaults boolForKey:mAExportAsExportM4A];
+	self.exportMP3 = [defaults boolForKey:mAExportAsExportMP3];
+	
+	self.enableMP3 = g_lameAvailable;
 }
 
 /*
@@ -135,7 +135,7 @@ static BOOL g_lameAvailable = NO;
 	switch (self.numSelectedFileTypes) {
 		case 0:
 			[savePanel setAllowedFileTypes:@[@""]];
-
+			
 			if (exportButtonAvailable) {
 				savePanel.message = @"REQUIRED: one or more export types must be selected";
 				exportButton.enabled = false;
@@ -177,16 +177,16 @@ static BOOL g_lameAvailable = NO;
 	[savePanel setAllowedFileTypes:@[@"wav"]];
 	
 	if (self.numSelectedFileTypes == 0) {
-			self.exportWAV = YES;
+		self.exportWAV = YES;
 	}
 	
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:self.limitDuration forKey:mAExportAsLimitDuration];
-    [defaults setFloat:self.duration forKey:mAExportAsDuration];
-    [defaults setBool:self.exportWAV forKey:mAExportAsExportWAV];
-    [defaults setBool:self.exportOgg forKey:mAExportAsExportOgg];
-    [defaults setBool:self.exportM4A forKey:mAExportAsExportM4A];
-    [defaults setBool:self.exportMP3 forKey:mAExportAsExportMP3];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setBool:self.limitDuration forKey:mAExportAsLimitDuration];
+	[defaults setFloat:self.duration forKey:mAExportAsDuration];
+	[defaults setBool:self.exportWAV forKey:mAExportAsExportWAV];
+	[defaults setBool:self.exportOgg forKey:mAExportAsExportOgg];
+	[defaults setBool:self.exportM4A forKey:mAExportAsExportM4A];
+	[defaults setBool:self.exportMP3 forKey:mAExportAsExportMP3];
 }
 
 @end
