@@ -133,10 +133,8 @@ static BOOL g_lameAvailable = NO;
 	BOOL exportButtonAvailable = (exportButton != nil);
 	
 	if (exportButtonAvailable && self.numSelectedFileTypes > 0) {
-		if (exportButtonAvailable) {
-			savePanel.message = @"";
-			exportButton.enabled = true;
-		}
+        savePanel.message = @"";
+        exportButton.enabled = YES;
 	}
 	
 	switch (self.numSelectedFileTypes) {
@@ -145,7 +143,7 @@ static BOOL g_lameAvailable = NO;
 			
 			if (exportButtonAvailable) {
 				savePanel.message = @"REQUIRED: one or more export types must be selected";
-				exportButton.enabled = false;
+				exportButton.enabled = NO;
 			}
 			break;
 			
