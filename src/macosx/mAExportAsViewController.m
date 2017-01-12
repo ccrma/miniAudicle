@@ -45,12 +45,17 @@ static BOOL g_lameAvailable = NO;
 
 @interface mAExportAsViewController ()
 
+@property (nonatomic, readwrite) NSString * noSelectedFormatsMessage;
+
+
 @end
 
 @implementation mAExportAsViewController
 
 @synthesize savePanel;
 @synthesize exportButtonTag;
+@synthesize noSelectedFormatsMessage;
+
 @synthesize numSelectedFileTypes;
 
 @synthesize limitDuration, duration;
@@ -100,6 +105,7 @@ static BOOL g_lameAvailable = NO;
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	if (self)
 	{
+        self.noSelectedFormatsMessage = @"REQUIRED: Select format(s) for export.";
 	}
 	
 	return self;
@@ -132,7 +138,7 @@ static BOOL g_lameAvailable = NO;
 		case 0:
 			[savePanel setAllowedFileTypes:@[@""]];
             [savePanel disableButtonWithTag:exportButtonTag];
-            savePanel.message = @"REQUIRED: select a format for the export.";
+            savePanel.message = noSelectedFormatsMessage;
 			break;
 			
 		case 1:

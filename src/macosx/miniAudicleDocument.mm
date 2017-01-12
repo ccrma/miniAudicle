@@ -325,7 +325,7 @@
     int numFormatsSelected = viewController.numSelectedFileTypes;
     if (numFormatsSelected == 0) {
         [savePanel disableButtonWithTag:exportButtonTagValue];
-        savePanel.message = @"Please select a format for the export.";
+        savePanel.message = viewController.noSelectedFormatsMessage;
     }
 }
 

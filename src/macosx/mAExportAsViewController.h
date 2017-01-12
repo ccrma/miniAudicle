@@ -43,8 +43,9 @@
 	IBOutlet NSTextField * _durationTextField;
 }
 
-@property (nonatomic, assign) NSSavePanel *savePanel;
+@property (nonatomic, assign) NSSavePanel * savePanel;
 @property (nonatomic) int exportButtonTag;
+@property (nonatomic, readonly) NSString * noSelectedFormatsMessage;
 
 @property (nonatomic, readonly) int numSelectedFileTypes;
 
