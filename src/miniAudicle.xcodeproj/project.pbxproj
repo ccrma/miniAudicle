@@ -3067,9 +3067,8 @@
 		};
 		09367EB31D384293009B30AD /* chugl.schug */ = {
 			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.dylib";
-			name = chugl.schug;
-			path = libchugl.schug;
+			fileType = archive.ar;
+			path = chugl.schug;
 			remoteRef = 09367EB21D384293009B30AD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
