@@ -60,6 +60,7 @@
 @property (nonatomic) BOOL enableMP3;
 
 - (IBAction)formatButtonClick:(id)sender;
+- (void)configureSavePanelForSelectedFormats;
 - (void)saveSettings;
 
 @end

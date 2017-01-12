@@ -134,15 +134,20 @@ static BOOL g_lameAvailable = NO;
  */
 - (IBAction)formatButtonClick:(id)sender
 {
-    switch (self.numSelectedFileTypes) {
+	[self configureSavePanelForSelectedFormats];
+}
+
+- (void)configureSavePanelForSelectedFormats
+{
+	switch (self.numSelectedFileTypes) {
 		case 0:
 			[savePanel setAllowedFileTypes:@[@""]];
-            [savePanel disableButtonWithTag:exportButtonTag];
-            savePanel.message = noSelectedFormatsMessage;
+			[savePanel disableButtonWithTag:exportButtonTag];
+			savePanel.message = noSelectedFormatsMessage;
 			break;
 			
 		case 1:
-            [savePanel enableButtonWithTag:exportButtonTag];
+			[savePanel enableButtonWithTag:exportButtonTag];
 			if (self.exportWAV) {
 				[savePanel setAllowedFileTypes:@[@"wav"]];
 			}
@@ -155,13 +160,13 @@ static BOOL g_lameAvailable = NO;
 			else if (self.exportMP3) {
 				[savePanel setAllowedFileTypes:@[@"mp3"]];
 			}
-            savePanel.message = @"";
+			savePanel.message = @"";
 			break;
 			
 		default:
-            [savePanel enableButtonWithTag:exportButtonTag];
+			[savePanel enableButtonWithTag:exportButtonTag];
 			[savePanel setAllowedFileTypes:@[@"*"]];
-            savePanel.message = @"";
+			savePanel.message = @"";
 			break;
 	}
 }
