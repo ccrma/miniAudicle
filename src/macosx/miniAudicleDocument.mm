@@ -311,22 +311,19 @@
 	[savePanel setExtensionHidden:NO];
     
 	mAExportAsViewController * viewController = [[mAExportAsViewController alloc] initWithNibName:@"mAExportAs" bundle:nil];
-	[savePanel setAccessoryView:viewController.view];
 	viewController.savePanel = savePanel;
 	viewController.exportButtonTag = exportButtonTagValue;
-    
+
+	[savePanel setAccessoryView:viewController.view];
+	
 	[savePanel beginSheetForDirectory:directory
 								 file:filename
 					   modalForWindow:[self.windowController window]
 						modalDelegate:self
 					   didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:)
 						  contextInfo:viewController];
-    
-    int numFormatsSelected = viewController.numSelectedFileTypes;
-    if (numFormatsSelected == 0) {
-        [savePanel disableButtonWithTag:exportButtonTagValue];
-        savePanel.message = viewController.noSelectedFormatsMessage;
-    }
+	
+	[viewController configureSavePanelForSelectedFormats];
 }
 
 - (void)savePanelDidEnd:(NSSavePanel *)sheet

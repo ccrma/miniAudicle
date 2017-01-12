@@ -76,10 +76,10 @@ static BOOL g_lameAvailable = NO;
 															  }];
     
     // unremark to set defaults for testing //
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:mAExportAsExportWAV];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:mAExportAsExportOgg];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:mAExportAsExportM4A];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:mAExportAsExportMP3];
+//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:mAExportAsExportWAV];
+//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:mAExportAsExportOgg];
+//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:mAExportAsExportM4A];
+//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:mAExportAsExportMP3];
     // end unremark to set defaults for testing //
 }
 
