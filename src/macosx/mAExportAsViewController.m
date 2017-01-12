@@ -32,6 +32,7 @@
 
 #import "mAExportAsViewController.h"
 #import "mADocumentExporter.h"
+#import "NSPanel+ButtonTag.h"
 
 NSString * const mAExportAsLimitDuration = @"mAExportAsLimitDuration";
 NSString * const mAExportAsDuration = @"mAExportAsDuration";
@@ -43,8 +44,6 @@ NSString * const mAExportAsExportMP3 = @"mAExportAsExportMP3";
 static BOOL g_lameAvailable = NO;
 
 @interface mAExportAsViewController ()
-
-@property (nonatomic) int numSelectedFileTypes;
 
 @end
 
@@ -72,10 +71,10 @@ static BOOL g_lameAvailable = NO;
 															  }];
     
     // unremark to set defaults for testing //
-//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:mAExportAsExportWAV];
-//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:mAExportAsExportOgg];
-//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:mAExportAsExportM4A];
-//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:mAExportAsExportMP3];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:mAExportAsExportWAV];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:mAExportAsExportOgg];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:mAExportAsExportM4A];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:mAExportAsExportMP3];
     // end unremark to set defaults for testing //
 }
 
@@ -129,25 +128,15 @@ static BOOL g_lameAvailable = NO;
  */
 - (IBAction)formatButtonClick:(id)sender
 {
-	NSButton *exportButton = [savePanel.contentView viewWithTag: exportButtonTag];
-	BOOL exportButtonAvailable = (exportButton != nil);
-	
-	if (exportButtonAvailable && self.numSelectedFileTypes > 0) {
-        savePanel.message = @"";
-        exportButton.enabled = YES;
-	}
-	
-	switch (self.numSelectedFileTypes) {
+    switch (self.numSelectedFileTypes) {
 		case 0:
 			[savePanel setAllowedFileTypes:@[@""]];
-			
-			if (exportButtonAvailable) {
-				savePanel.message = @"REQUIRED: one or more export types must be selected";
-				exportButton.enabled = NO;
-			}
+            [savePanel disableButtonWithTag:exportButtonTag];
+            savePanel.message = @"REQUIRED: select a format for the export.";
 			break;
 			
 		case 1:
+            [savePanel enableButtonWithTag:exportButtonTag];
 			if (self.exportWAV) {
 				[savePanel setAllowedFileTypes:@[@"wav"]];
 			}
@@ -160,10 +149,13 @@ static BOOL g_lameAvailable = NO;
 			else if (self.exportMP3) {
 				[savePanel setAllowedFileTypes:@[@"mp3"]];
 			}
+            savePanel.message = @"";
 			break;
 			
 		default:
+            [savePanel enableButtonWithTag:exportButtonTag];
 			[savePanel setAllowedFileTypes:@[@"*"]];
+            savePanel.message = @"";
 			break;
 	}
 }

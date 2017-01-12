@@ -314,13 +314,19 @@
 	[savePanel setAccessoryView:viewController.view];
 	viewController.savePanel = savePanel;
 	viewController.exportButtonTag = exportButtonTagValue;
-	
+    
 	[savePanel beginSheetForDirectory:directory
 								 file:filename
 					   modalForWindow:[self.windowController window]
 						modalDelegate:self
 					   didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:)
 						  contextInfo:viewController];
+    
+    int numFormatsSelected = viewController.numSelectedFileTypes;
+    if (numFormatsSelected == 0) {
+        [savePanel disableButtonWithTag:exportButtonTagValue];
+        savePanel.message = @"Please select a format for the export.";
+    }
 }
 
 - (void)savePanelDidEnd:(NSSavePanel *)sheet

@@ -4,7 +4,7 @@
 //
 //  Created by leanne on 1/11/17.
 //
-//
+
 
 #import "NSPanel+ButtonTag.h"
 
@@ -12,7 +12,6 @@
 
 - (int)tagForButtonWithTitle:(NSString *)title
 {
-    // set tag on panel's "Export" button (panel -> subview -> sub-subview level)
     NSArray *panelLevel1Views = self.contentView.subviews;
     
     for (NSView *level1View in panelLevel1Views) {
@@ -33,12 +32,11 @@
         }
     }
     
-    return -1;
+    return 0;
 }
 
 - (void)setTag:(int)tagValue forButtonWithTitle:(NSString *)title
 {
-    // set tag on panel's "Export" button (panel -> subview -> sub-subview level)
     NSArray *panelLevel1Views = self.contentView.subviews;
     BOOL canStopNow = false;
     
@@ -62,6 +60,24 @@
         
         if (canStopNow) { break; }
     }
+}
+
+- (void)enableButtonWithTag:(int)tagValue
+{
+    NSButton *taggedButton = [self.contentView viewWithTag: tagValue];
+    BOOL taggedButtonAvailable = (taggedButton != nil);
+    
+    if (taggedButtonAvailable) { taggedButton.enabled = YES; }
+
+}
+
+- (void)disableButtonWithTag:(int)tagValue
+{
+    NSButton *taggedButton = [self.contentView viewWithTag: tagValue];
+    BOOL taggedButtonAvailable = (taggedButton != nil);
+    
+    if (taggedButtonAvailable) { taggedButton.enabled = NO; }
+    
 }
 
 @end

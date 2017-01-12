@@ -12,5 +12,7 @@
 
 - (int)tagForButtonWithTitle:(NSString *)title;
 - (void)setTag:(int)tagValue forButtonWithTitle:(NSString *)title;
+- (void)enableButtonWithTag:(int)tagValue;
+- (void)disableButtonWithTag:(int)tagValue;
 
 @end
