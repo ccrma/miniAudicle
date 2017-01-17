@@ -34,14 +34,20 @@
 
 @interface mAExportAsViewController : NSViewController
 {
-    BOOL limitDuration;
-    CGFloat duration;
-    
-    BOOL exportWAV, exportOgg, exportM4A, exportMP3;
-    BOOL enableMP3;
-    
-    IBOutlet NSTextField * _durationTextField;
+	BOOL limitDuration;
+	CGFloat duration;
+	
+	BOOL exportWAV, exportOgg, exportM4A, exportMP3;
+	BOOL enableMP3;
+	
+	IBOutlet NSTextField * _durationTextField;
 }
+
+@property (nonatomic, assign) NSSavePanel * savePanel;
+@property (nonatomic) int exportButtonTag;
+@property (nonatomic, readonly) NSString * noSelectedFormatsMessage;
+
+@property (nonatomic, readonly) int numSelectedFileTypes;
 
 @property (nonatomic) BOOL limitDuration;
 @property (nonatomic) CGFloat duration;
@@ -53,6 +59,8 @@
 
 @property (nonatomic) BOOL enableMP3;
 
+- (IBAction)formatButtonClick:(id)sender;
+- (void)configureSavePanelForSelectedFormats;
 - (void)saveSettings;
 
 @end
