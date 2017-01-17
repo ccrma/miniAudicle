@@ -141,7 +141,7 @@ static BOOL g_lameAvailable = NO;
 {
 	switch (self.numSelectedFileTypes) {
 		case 0:
-			[savePanel setAllowedFileTypes:@[@""]];
+			[savePanel setAllowedFileTypes:nil];
 			[savePanel disableButtonWithTag:exportButtonTag];
 			savePanel.message = noSelectedFormatsMessage;
 			break;
