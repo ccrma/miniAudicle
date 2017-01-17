@@ -155,7 +155,8 @@ OBJCSRCS+= $(OSX_DIR)/main.m \
     $(OSX_DIR)/UliKit/UKFileWatcher.m \
     $(OSX_DIR)/UliKit/UKFSEventsWatcher.m \
     $(OSX_DIR)/mAExportAsViewController.m \
-    $(OSX_DIR)/mAExportProgressViewController.m
+    $(OSX_DIR)/mAExportProgressViewController.m \
+    $(OSX_DIR)/NSPanel+ButtonTag.m
 OBJCXXSRCS+= $(OSX_DIR)/miniAudicleController.mm \
 	$(OSX_DIR)/miniAudicleVMMonitor.mm \
 	$(OSX_DIR)/miniAudicleDocument.mm \
@@ -174,7 +175,7 @@ OBJCXXSRCS+= $(OSX_DIR)/miniAudicleController.mm \
     $(OSX_DIR)/mARecordSessionController.mm \
     $(OSX_DIR)/NSString+STLString.mm \
     $(OSX_DIR)/mAExampleBrowser.mm \
-    $(OSX_DIR)/mADocumentExporter.mm
+    $(OSX_DIR)/mADocumentExporter.mm 
 
 
 COBJS=$(CSRCS:.c=.o)
