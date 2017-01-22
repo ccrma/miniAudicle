@@ -60,6 +60,8 @@
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>A ChucK program requested your location. </string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>A ChucK program would like to use audio input. </string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
