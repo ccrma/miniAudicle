@@ -198,7 +198,7 @@ t_CKBOOL Element::destroy()
     return TRUE;    
 }
 
-t_CKBOOL Element::set_name( std::string & name )
+t_CKBOOL Element::set_name( const std::string & name )
 {
     pi_set_name( name );
     
@@ -1039,7 +1039,7 @@ t_CKBOOL Button::unset_image()
     return TRUE;
 }
     
-t_CKBOOL Button::set_image( std::string & path )
+t_CKBOOL Button::set_image( const std::string & path )
 {
     NSAutoreleasePool * arpool = [NSAutoreleasePool new];
     

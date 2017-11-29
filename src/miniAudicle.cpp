@@ -44,11 +44,11 @@ U.S.A.
 #endif
 
 #include "miniAudicle.h"
-#include "digiio_rtaudio.h"
+#include "chuck_audio.h"
 #include "chuck_otf.h"
 #include "chuck_errmsg.h"
-#include "chuck_globals.h"
-#include "chuck_bbq.h"
+#include "chuck_audio.h"
+#include "chuck.h"
 #include "util_string.h"
 #include "version.h"
 #ifndef __PLATFORM_WIN32__
@@ -80,6 +80,15 @@ t_CKINT priority_low = 0;
 t_CKINT priority = 0x7fffffff;
 t_CKINT priority_low = 0x7fffffff;
 #endif
+
+#if !defined(SAMPLING_RATE_DEFAULT)
+    #if defined(__PLATFORM_LINUX__)
+        #define SAMPLING_RATE_DEFAULT 48000
+    #else
+        #define SAMPLING_RATE_DEFAULT 44100
+    #endif //
+#endif // !defined(SAMPLING_RATE_DEFAULT)
+
 
 extern const char MA_VERSION[] = ENV_MA_VERSION " (gidora)";
 #ifndef __PLATFORM_WIN32__
@@ -120,113 +129,125 @@ http://chuck.cs.princeton.edu/\n";
 // name: vm_cb
 // desc: thread routine to run vm 
 //-----------------------------------------------------------------------------
-void * vm_cb( void * v )
-{   
-    // boost priority
-    if( Chuck_VM::our_priority != 0x7fffffff )
-    {
-        // try
-        if( !Chuck_VM::set_priority( Chuck_VM::our_priority, g_vm ) )
-        {
-            // error
-            fprintf( stderr, "[chuck]: %s\n", g_vm->last_error() );
-            return FALSE;
-        }
-    }
-    
-    // run the vm
-    // log
-    EM_log( CK_LOG_SYSTEM, "running main loop..." );
-    // push indent
-    EM_pushlog();
-    
-    // set run state
-    g_vm->start();
-    
-    EM_log( CK_LOG_SEVERE, "initializing audio buffers..." );
-    if( !g_bbq->digi_out()->initialize( ) )
-    {
-        EM_log( CK_LOG_SYSTEM,
-               "cannot open audio output (use --silent/-s)" );
-        exit(1);
-    }
-    
-    // initialize input
-    g_bbq->digi_in()->initialize( );
-    
-    // log
-    EM_log( CK_LOG_SEVERE, "virtual machine running..." );
-    // pop indent
-    EM_poplog();
-    
-    // NOTE: non-blocking callback only, ge: 1.3.5.3
-    
-    // compute shreds before first sample
-    if( !g_vm->compute() )
-    {
-        // done, 1.3.5.3
-        g_vm->stop();
-        // log
-        EM_log( CK_LOG_SYSTEM, "virtual machine stopped..." );
-    }
-    
-    // start audio
-    EM_log( CK_LOG_SEVERE, "starting real-time audio..." );
-    g_bbq->digi_out()->start();
-    g_bbq->digi_in()->start();
-    
-    // silent mode buffers
-//    SAMPLE * input = new SAMPLE[buffer_size*adc_chans];
-//    SAMPLE * output = new SAMPLE[buffer_size*dac_chans];
-//    // zero out
-//    memset( input, 0, sizeof(SAMPLE)*buffer_size*adc_chans );
-//    memset( output, 0, sizeof(SAMPLE)*buffer_size*dac_chans );
-    
-    // wait
-    while( g_vm && g_vm->running() )
-    {
-        // real-time audio
-        if( g_enable_realtime_audio )
-        {
-//            if( g_main_thread_hook && g_main_thread_quit )
-//                g_main_thread_hook( g_main_thread_bindle );
-//            else
-            usleep( 1000 );
-        }
-        else // silent mode
-        {
-            // keep running as fast as possible
-            // this->run( input, output, buffer_size );
-        }
-    }
-    
-    //
-    all_stop();
-    // detach
-    all_detach();
-    
-    // shutdown audio
-    if( g_enable_realtime_audio )
-    {
-        // log
-        EM_log( CK_LOG_SYSTEM, "shutting down real-time audio..." );
-        
-        g_bbq->digi_out()->cleanup();
-        g_bbq->digi_in()->cleanup();
-        g_bbq->shutdown();
-        // m_audio = FALSE;
-    }
-    
-    // log
-    EM_log( CK_LOG_SEVERE, "VM callback process ending..." );
-    
-    // free vm
-    //g_vm = NULL; SAFE_DELETE( g_vm );
-    //SAFE_DELETE( g_vm );
-    // free the compiler
-    //SAFE_DELETE( compiler );
-    
-    return NULL;
+// void * vm_cb( void * v )
+// {
+//     // boost priority
+//     if( Chuck_VM::our_priority != 0x7fffffff )
+//     {
+//         // try
+//         if( !Chuck_VM::set_priority( Chuck_VM::our_priority, g_vm ) )
+//         {
+//             // error
+//             fprintf( stderr, "[chuck]: %s\n", g_vm->last_error() );
+//             return FALSE;
+//         }
+//     }
+//
+//     // run the vm
+//     // log
+//     EM_log( CK_LOG_SYSTEM, "running main loop..." );
+//     // push indent
+//     EM_pushlog();
+//
+//     // set run state
+//     g_vm->start();
+//
+//     EM_log( CK_LOG_SEVERE, "initializing audio buffers..." );
+//     if( !g_bbq->digi_out()->initialize( ) )
+//     {
+//         EM_log( CK_LOG_SYSTEM,
+//                "cannot open audio output (use --silent/-s)" );
+//         exit(1);
+//     }
+//
+//     // initialize input
+//     g_bbq->digi_in()->initialize( );
+//
+//     // log
+//     EM_log( CK_LOG_SEVERE, "virtual machine running..." );
+//     // pop indent
+//     EM_poplog();
+//
+//     // NOTE: non-blocking callback only, ge: 1.3.5.3
+//
+//     // compute shreds before first sample
+//     if( !g_vm->compute() )
+//     {
+//         // done, 1.3.5.3
+//         g_vm->stop();
+//         // log
+//         EM_log( CK_LOG_SYSTEM, "virtual machine stopped..." );
+//     }
+//
+//     // start audio
+//     EM_log( CK_LOG_SEVERE, "starting real-time audio..." );
+//     g_bbq->digi_out()->start();
+//     g_bbq->digi_in()->start();
+//
+//     // silent mode buffers
+// //    SAMPLE * input = new SAMPLE[buffer_size*adc_chans];
+// //    SAMPLE * output = new SAMPLE[buffer_size*dac_chans];
+// //    // zero out
+// //    memset( input, 0, sizeof(SAMPLE)*buffer_size*adc_chans );
+// //    memset( output, 0, sizeof(SAMPLE)*buffer_size*dac_chans );
+//
+//     // wait
+//     while( g_vm && g_vm->running() )
+//     {
+//         // real-time audio
+//         if( g_enable_realtime_audio )
+//         {
+// //            if( g_main_thread_hook && g_main_thread_quit )
+// //                g_main_thread_hook( g_main_thread_bindle );
+// //            else
+//             usleep( 1000 );
+//         }
+//         else // silent mode
+//         {
+//             // keep running as fast as possible
+//             // this->run( input, output, buffer_size );
+//         }
+//     }
+//
+//     //
+//     all_stop();
+//     // detach
+//     all_detach();
+//
+//     // shutdown audio
+//     if( g_enable_realtime_audio )
+//     {
+//         // log
+//         EM_log( CK_LOG_SYSTEM, "shutting down real-time audio..." );
+//
+//         g_bbq->digi_out()->cleanup();
+//         g_bbq->digi_in()->cleanup();
+//         g_bbq->shutdown();
+//         // m_audio = FALSE;
+//     }
+//
+//     // log
+//     EM_log( CK_LOG_SEVERE, "VM callback process ending..." );
+//
+//     // free vm
+//     //g_vm = NULL; SAFE_DELETE( g_vm );
+//     //SAFE_DELETE( g_vm );
+//     // free the compiler
+//     //SAFE_DELETE( compiler );
+//
+//     return NULL;
+// }
+
+//-----------------------------------------------------------------------------
+// name: audio_cb()
+// desc: audio callback
+//-----------------------------------------------------------------------------
+void audio_cb( t_CKSAMPLE * in, t_CKSAMPLE * out, t_CKUINT numFrames,
+        t_CKUINT numInChans, t_CKUINT numOutChans, void * data )
+{
+    ChucK * chuck = (ChucK *) data;
+    // call up to ChucK
+    chuck->run( in, out, numFrames );
 }
 
 //-----------------------------------------------------------------------------
@@ -953,7 +974,7 @@ t_CKBOOL miniAudicle::start_vm()
         if( !set_priority && !block ) priority = priority_low;
         if( !set_priority && !enable_audio ) priority = 0x7fffffff;
         // set priority
-        Chuck_VM::our_priority = priority;
+        // Chuck_VM::our_priority = priority;
         // set watchdog
 #ifdef __MACOSX_CORE__
         g_do_watchdog = TRUE;
@@ -961,72 +982,6 @@ t_CKBOOL miniAudicle::start_vm()
 #else
         g_do_watchdog = FALSE;
 #endif
-        
-        // allocate the vm - needs the type system
-        vm = g_vm = new Chuck_VM;
-        
-        if( !vm->initialize( srate, output_channels,
-                             input_channels, adaptive_size, vm_halt ) )
-        {
-            fprintf( stderr, "[chuck]: %s\n", vm->last_error() );
-            // pop
-            EM_poplog();
-            return FALSE;
-        }
-
-        //--------------------------- AUDIO I/O SETUP ---------------------------------
-        
-        // ge: 1.3.5.3
-        bbq = g_bbq = new BBQ;
-        // set some parameters
-        bbq->set_srate( srate );
-        bbq->set_bufsize( buffer_size );
-        bbq->set_numbufs( num_buffers );
-        bbq->set_inouts( adc, dac );
-        bbq->set_chans( input_channels, output_channels );
-        
-        // log
-        EM_log( CK_LOG_SYSTEM, "initializing audio I/O..." );
-        // push
-        EM_pushlog();
-        // log
-        EM_log( CK_LOG_SYSTEM, "probing '%s' audio subsystem...", g_enable_realtime_audio ? "real-time" : "fake-time" );
-        
-        // probe / init (this shouldn't start audio yet...
-        // moved here 1.3.1.2; to main ge: 1.3.5.3)
-        if( !bbq->initialize( output_channels, input_channels, srate, 16, buffer_size, num_buffers,
-                              dac, adc, block, vm, g_enable_realtime_audio, NULL, NULL, force_srate ) )
-        {
-            EM_log( CK_LOG_SYSTEM,
-                   "cannot initialize audio device (use --silent/-s for non-realtime)" );
-            // pop
-            EM_poplog();
-            // done
-            return FALSE;
-        }
-        
-        // log
-        EM_log( CK_LOG_SYSTEM, "real-time audio: %s", g_enable_realtime_audio ? "YES" : "NO" );
-        EM_log( CK_LOG_SYSTEM, "mode: %s", block ? "BLOCKING" : "CALLBACK" );
-        EM_log( CK_LOG_SYSTEM, "sample rate: %ld", srate );
-        EM_log( CK_LOG_SYSTEM, "buffer size: %ld", buffer_size );
-        if( g_enable_realtime_audio )
-        {
-            EM_log( CK_LOG_SYSTEM, "num buffers: %ld", num_buffers );
-            EM_log( CK_LOG_SYSTEM, "adc: %ld dac: %d", adc, dac );
-            EM_log( CK_LOG_SYSTEM, "adaptive block processing: %ld", adaptive_size > 1 ? adaptive_size : 0 );
-        }
-        EM_log( CK_LOG_SYSTEM, "channels in: %ld out: %ld", input_channels, output_channels );
-        
-        // pop
-        EM_poplog();
-        
-        // log
-        EM_log( CK_LOG_INFO, "allocating compiler..." );
-
-        // allocate the compiler
-        g_compiler = compiler = new Chuck_Compiler;
-        
         
         std::list<std::string> library_paths = vm_options.library_paths;
         std::list<std::string> named_chugins = vm_options.named_chugins;
@@ -1038,111 +993,96 @@ t_CKBOOL miniAudicle::start_vm()
             j != named_chugins.end(); j++)
             *j = expand_filepath(*j);
         
-        // initialize the compiler
-        compiler->initialize( vm, library_paths, named_chugins );
-        // enable dump
-        compiler->emitter->dump = FALSE;
-        // set auto depend
-        compiler->set_auto_depend( FALSE );
+        m_chuck = new ChucK();
+        
+        m_chuck->setParam(CHUCK_PARAM_SAMPLE_RATE, srate);
+        m_chuck->setParam(CHUCK_PARAM_INPUT_CHANNELS, input_channels);
+        m_chuck->setParam(CHUCK_PARAM_OUTPUT_CHANNELS, output_channels);
+        m_chuck->setParam(CHUCK_PARAM_VM_ADAPTIVE, adaptive_size);
+        m_chuck->setParam(CHUCK_PARAM_VM_HALT, vm_halt);
+        m_chuck->setParam(CHUCK_PARAM_USER_CHUGINS, named_chugins);
+        m_chuck->setParam(CHUCK_PARAM_CHUGIN_DIRECTORY, library_paths);
 
-        // vm synthesis subsystem - needs the type system
-        if( !vm->initialize_synthesis() )
+        if( !m_chuck->init() )
         {
-            fprintf( stderr, "[chuck]: %s\n", vm->last_error() );
+            fprintf( stderr, "[chuck]: failed to init\n" );
             // pop
             EM_poplog();
             return FALSE;
         }
+
+        // allocate the vm - needs the type system
+        vm = m_chuck->vm();
+        
+//        if( !vm->initialize( srate, output_channels,
+//                             input_channels, adaptive_size, vm_halt ) )
+//        {
+//            fprintf( stderr, "[chuck]: %s\n", vm->last_error() );
+//            // pop
+//            EM_poplog();
+//            return FALSE;
+//        }
+
+        //--------------------------- AUDIO I/O SETUP ---------------------------------
+        
+        // ge: 1.3.5.3
+        m_audio = new ChuckAudio;
+        
+        // push
+        EM_pushlog();
+        // log
+        EM_log( CK_LOG_SYSTEM, "probing '%s' audio subsystem...", enable_audio ? "real-time" : "fake-time" );
+        
+        // probe / init (this shouldn't start audio yet...
+        // moved here 1.3.1.2; to main ge: 1.3.5.3)
+        if( !m_audio->initialize( output_channels, input_channels, srate, buffer_size, num_buffers, audio_cb, m_chuck, force_srate ) )
+        {
+            EM_log( CK_LOG_SYSTEM,
+                   "cannot initialize audio device (use --silent/-s for non-realtime)" );
+            // pop
+            EM_poplog();
+            // done
+            return FALSE;
+        }
+        
+        // log
+        EM_log( CK_LOG_SYSTEM, "real-time audio: %s", enable_audio ? "YES" : "NO" );
+        EM_log( CK_LOG_SYSTEM, "mode: %s", block ? "BLOCKING" : "CALLBACK" );
+        EM_log( CK_LOG_SYSTEM, "sample rate: %ld", srate );
+        EM_log( CK_LOG_SYSTEM, "buffer size: %ld", buffer_size );
+        if( enable_audio )
+        {
+            EM_log( CK_LOG_SYSTEM, "num buffers: %ld", num_buffers );
+            EM_log( CK_LOG_SYSTEM, "adc: %ld dac: %d", adc, dac );
+            EM_log( CK_LOG_SYSTEM, "adaptive block processing: %ld", adaptive_size > 1 ? adaptive_size : 0 );
+        }
+        EM_log( CK_LOG_SYSTEM, "channels in: %ld out: %ld", input_channels, output_channels );
+        
+        // pop
+        EM_poplog();
+        
+        // allocate the compiler
+        compiler = m_chuck->compiler();
         
 #ifdef __MA_IMPORT_MAUI__
         // import api
-        init_maui( compiler->env );
+        init_maui( compiler->env() );
 #endif
         for(list<t_CKBOOL (*)(Chuck_Env *)>::iterator i = vm_options.query_funcs.begin(); i != vm_options.query_funcs.end(); i++)
-            (*i)( compiler->env );
-
-        // reset the parser
-        reset_parse();
+            (*i)( compiler->env() );
         
-        Chuck_VM_Code * code = NULL;
-        Chuck_VM_Shred * shred = NULL;
-        
-        // whether or not chug should be enabled (added 1.3.0.0)
-        EM_log( CK_LOG_SEVERE, "pre-loading ChucK libs..." );
-        EM_pushlog();
-        
-        // iterate over list of ck files that the compiler found
-        for( std::list<std::string>::iterator fck = compiler->m_cklibs_to_preload.begin();
-            fck != compiler->m_cklibs_to_preload.end(); fck++)
+        if(!m_audio->start())
         {
-            // the filename
-            std::string filename = *fck;
-            
-            // log
-            EM_log( CK_LOG_SEVERE, "preloading '%s'...", filename.c_str() );
-            // push indent
-            EM_pushlog();
-            
-            // SPENCERTODO: what to do for full path
-            std::string full_path = filename;
-            
-            // parse, type-check, and emit
-            if( compiler->go( filename, NULL, NULL, full_path ) )
-            {
-                // TODO: how to compilation handle?
-                //return 1;
-                
-                // get the code
-                code = compiler->output();
-                // name it - TODO?
-                // code->name += string(argv[i]);
-                
-                // spork it
-                shred = vm->spork( code, NULL );
-            }
-            
-            // pop indent
+            EM_log( CK_LOG_SYSTEM, "error starting audio (use --silent/-s for non-realtime)" );
+            // pop
             EM_poplog();
+            // done
+            return FALSE;
         }
-        
-        // clear the list of chuck files to preload
-        compiler->m_cklibs_to_preload.clear();
         
         // pop log
         EM_poplog();
-        
-        // load user namespace
-        compiler->env->load_user_namespace();
-        
-        // start the vm handler threads
-#ifndef __PLATFORM_WIN32__
-        pthread_create( &vm_tid, NULL, vm_cb, NULL );
-#else
-        vm_tid = CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)vm_cb, NULL, 0, 0 );
-#endif
-    }
-
-    // check it
-    if( !g_forked && vm_options.enable_network )
-    {
-        // start tcp server
-        g_sock = ck_tcp_create( 1 );
-        if( !g_sock || !ck_bind( g_sock, g_port ) || !ck_listen( g_sock, 10 ) )
-        {
-            fprintf( stderr, "[chuck]: cannot bind to tcp port %li...\n", g_port );
-            ck_close( g_sock );
-            g_sock = NULL;
-        }
-        else
-        {
-#ifndef __PLATFORM_WIN32__
-            pthread_create( &otf_tid, NULL, otf_cb, NULL );
-#else
-            otf_tid = CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)otf_cb, NULL, 0, 0 );
-#endif
-        }
-        
-        g_forked = TRUE;
+        EM_log( CK_LOG_SYSTEM, "running audio" );
     }
     
     vm_on = TRUE;
@@ -1174,39 +1114,14 @@ t_CKBOOL miniAudicle::stop_vm()
     }
     
     // if it's there
-    if( vm )
+    if( m_chuck )
     {
         EM_log( CK_LOG_SYSTEM, "stopping chuck virtual machine..." );
-        // get vm
-        Chuck_VM * the_vm = g_vm;
-        // flag the global one
-        vm = g_vm = NULL;
-        // if not NULL
-        if( the_vm && vm_on )
-        {
-            // flag
-            vm_on = FALSE;
-
-            // stop
-            the_vm->stop();
-//            // set state
-//            Digitalio::m_end = TRUE;
-//            // stop things
-//            if( g_enable_realtime_audio ) g_bbq->shutdown();
-            
-            // wait a bit
-            usleep( 100000 );
-
-            // detach
-            // all_detach();
-
-#if !defined(__PLATFORM_WIN32__) && !defined(__WINDOWS_PTHREAD__)
-            SAFE_DELETE( the_vm );
-#endif
-        }
-
-        SAFE_DELETE( compiler );
-        g_compiler = compiler = NULL;
+        
+        m_audio->stop();
+        SAFE_DELETE(m_audio);
+        
+        SAFE_DELETE(m_chuck);
     }
 
     return TRUE;
@@ -1656,13 +1571,14 @@ t_CKBOOL miniAudicle::get_blocking()
 
 t_CKBOOL miniAudicle::set_enable_std_system( t_CKBOOL enable )
 {
-    g_enable_system_cmd = enable;
+//    g_enable_system_cmd = enable;
     return TRUE;
 }
 
 t_CKBOOL miniAudicle::get_enable_std_system()
 {
-    return g_enable_system_cmd;
+//    return g_enable_system_cmd;
+    return FALSE;
 }
 
 t_CKBOOL miniAudicle::set_library_paths( list< string > & paths )
@@ -1707,7 +1623,7 @@ t_CKBOOL miniAudicle::get_new_class_names( vector< string > & v )
     
     // get global type names from compiler
     vector< Chuck_Type * > types;
-    compiler->env->global()->get_types( types );
+    compiler->env()->global()->get_types( types );
         
     int i, len = types.size();
     for( i = 0; i < len; i++ )

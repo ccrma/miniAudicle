@@ -37,7 +37,7 @@ U.S.A.
 #include "util_thread.h"
 #include "chuck_type.h"
 #ifndef __CHIP_MODE__
-#include "RtAudio/RtAudio.h"
+#include "RtAudio.h"
 #endif // __CHIP_MODE__
 
 #include <map>
@@ -45,7 +45,10 @@ U.S.A.
 #include <vector>
 #include <queue>
 
-class BBQ;
+
+class ChucK;
+class ChuckAudio;
+
 
 using namespace std;
 
@@ -181,8 +184,9 @@ protected:
     CHUCK_THREAD vm_tid;
     CHUCK_THREAD otf_tid;
     
-    BBQ * bbq;
+    ChucK * m_chuck;
     Chuck_VM * vm;
+    ChuckAudio * m_audio;
     Chuck_Compiler * compiler;
     
     Chuck_VM_Status ** status_bufs;

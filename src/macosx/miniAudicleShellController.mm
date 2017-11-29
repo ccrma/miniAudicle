@@ -36,6 +36,35 @@ U.S.A.
 
 extern Chuck_VM * g_vm;
 
+//-----------------------------------------------------------------------------
+// name: shell_cb
+// desc: thread routine
+//-----------------------------------------------------------------------------
+void * shell_cb( void * p )
+{
+    Chuck_Shell * shell;
+    // log
+    EM_log( CK_LOG_INFO, "starting thread routine for shell..." );
+    
+    // assuming this is absolutely necessary, an assert may be better
+    assert( p != NULL );
+    
+    shell = ( Chuck_Shell * ) p;
+    
+    //atexit( wait_for_shell );
+    
+    // run the shell
+    shell->run();
+    
+    // delete and set to NULL
+    SAFE_DELETE( shell );
+    // perhaps let shell destructor clean up mode and ui?
+    
+    EM_log( CK_LOG_INFO, "exiting thread routine for shell..." );
+    
+    return NULL;
+}
+
 @interface miniAudicleShellController (Private)
 - (void)runShell;
 @end
@@ -46,34 +75,34 @@ extern Chuck_VM * g_vm;
 {
     if( [super init] )
     {
-        ui = new miniAudicle_Shell_UI();
-        ui->init();
-        
-        read_pipe = [[NSFileHandle alloc] initWithFileDescriptor:ui->get_ui_read_fd()];
-        write_pipe = [[NSFileHandle alloc] initWithFileDescriptor:ui->get_ui_write_fd()];
-        
-        [read_pipe waitForDataInBackgroundAndNotify];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(readData:)
-                                                     name:NSFileHandleDataAvailableNotification
-                                                   object:read_pipe];
-        
-        shell = new Chuck_Shell();
-        shell->init( g_vm, ui );
-        [self runShell];
-        
-        data = [[NSMutableString alloc] init];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(closeOpenFiles:)
-                                                     name:NSApplicationWillTerminateNotification
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(writeData:)
-                                                     name:@"mAShellTextViewDataAvailable"
-                                                   object:nil];
+//        ui = new miniAudicle_Shell_UI();
+//        ui->init();
+//
+//        read_pipe = [[NSFileHandle alloc] initWithFileDescriptor:ui->get_ui_read_fd()];
+//        write_pipe = [[NSFileHandle alloc] initWithFileDescriptor:ui->get_ui_write_fd()];
+//
+//        [read_pipe waitForDataInBackgroundAndNotify];
+//
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(readData:)
+//                                                     name:NSFileHandleDataAvailableNotification
+//                                                   object:read_pipe];
+//
+//        shell = new Chuck_Shell();
+//        shell->init( g_vm, ui );
+//        [self runShell];
+//
+//        data = [[NSMutableString alloc] init];
+//
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(closeOpenFiles:)
+//                                                     name:NSApplicationWillTerminateNotification
+//                                                   object:nil];
+//
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(writeData:)
+//                                                     name:@"mAShellTextViewDataAvailable"
+//                                                   object:nil];
     }
     
     return self;
