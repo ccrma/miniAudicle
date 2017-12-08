@@ -34,7 +34,8 @@ endif
 BUNDLE_FRAMEWORKS=PSMTabBarControl
 BUNDLE_FRAMEWORKS_DIR=$(OSX_DIR)/Frameworks
 
-INCLUDES=-I$(CHUCK_SRC_DIR) -I$(OSX_DIR) -I$(OSX_DIR)/UliKit -I. -F$(BUNDLE_FRAMEWORKS_DIR)
+INCLUDES=-I$(CHUCK_SRC_DIR)/core -I$(CHUCK_SRC_DIR)/host -I$(CHUCK_SRC_DIR)/host/RtAudio \
+    -I$(OSX_DIR) -I$(OSX_DIR)/UliKit -I. -F$(BUNDLE_FRAMEWORKS_DIR)
 CFLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH $(INCLUDES) \
     -mmacosx-version-min=10.5 $(ISYSROOT) -DENV_MA_VERSION="\"$(VERSION)\""
 
@@ -46,7 +47,7 @@ LDFLAGS=$(LIBS) -mmacosx-version-min=10.5 $(ISYSROOT)
 
 ARCHOPTS=$(addprefix -arch ,$(ARCHS))
 
-SF_SRC=util_sndfile.c
+SF_SRC=core/util_sndfile.c
 
 ifneq ($(CHUCK_DEBUG),)
 CFLAGS+= -g
@@ -95,57 +96,57 @@ CHUCK_FULL_SRC_DIR=../../chuck/trunk/src
 CHUCK_MANUAL_DIR=$(CHUCK_FULL_SRC_DIR)/../doc/manual
 CHUCK_MANUAL=$(CHUCK_MANUAL_DIR)/ChucK_manual.pdf
 
-CHUCK_CSRCS= $(CHUCK_SRC_DIR)/util_math.c $(CHUCK_SRC_DIR)/util_network.c \
-    $(CHUCK_SRC_DIR)/util_raw.c $(CHUCK_SRC_DIR)/util_xforms.c \
-    $(CHUCK_SRC_DIR)/$(SF_SRC) $(CHUCK_SRC_DIR)/chuck.tab.c \
-    $(CHUCK_SRC_DIR)/chuck.yy.c
+CHUCK_CSRCS= $(CHUCK_SRC_DIR)/core/util_math.c $(CHUCK_SRC_DIR)/core/util_network.c \
+    $(CHUCK_SRC_DIR)/core/util_raw.c $(CHUCK_SRC_DIR)/core/util_xforms.c \
+    $(CHUCK_SRC_DIR)/$(SF_SRC) $(CHUCK_SRC_DIR)/core/chuck.tab.c \
+    $(CHUCK_SRC_DIR)/core/chuck.yy.c
 
-CHUCK_CXXSRCS= $(CHUCK_SRC_DIR)/chuck_absyn.cpp $(CHUCK_SRC_DIR)/chuck_parse.cpp \
-	$(CHUCK_SRC_DIR)/chuck_errmsg.cpp $(CHUCK_SRC_DIR)/chuck_frame.cpp \
-	$(CHUCK_SRC_DIR)/chuck_symbol.cpp $(CHUCK_SRC_DIR)/chuck_table.cpp \
-	$(CHUCK_SRC_DIR)/chuck_utils.cpp $(CHUCK_SRC_DIR)/chuck_vm.cpp \
-	$(CHUCK_SRC_DIR)/chuck_instr.cpp $(CHUCK_SRC_DIR)/chuck_scan.cpp \
-	$(CHUCK_SRC_DIR)/chuck_type.cpp $(CHUCK_SRC_DIR)/chuck_emit.cpp \
-	$(CHUCK_SRC_DIR)/chuck_compile.cpp $(CHUCK_SRC_DIR)/chuck_dl.cpp \
-	$(CHUCK_SRC_DIR)/chuck_oo.cpp $(CHUCK_SRC_DIR)/chuck_lang.cpp \
-	$(CHUCK_SRC_DIR)/chuck_ugen.cpp $(CHUCK_SRC_DIR)/chuck_globals.cpp \
-	$(CHUCK_SRC_DIR)/chuck_otf.cpp $(CHUCK_SRC_DIR)/chuck_stats.cpp \
-	$(CHUCK_SRC_DIR)/chuck_bbq.cpp $(CHUCK_SRC_DIR)/chuck_shell.cpp \
-    $(CHUCK_SRC_DIR)/chuck_io.cpp $(CHUCK_SRC_DIR)/chuck_system.cpp \
-	$(CHUCK_SRC_DIR)/chuck_console.cpp $(CHUCK_SRC_DIR)/digiio_rtaudio.cpp \
-	$(CHUCK_SRC_DIR)/hidio_sdl.cpp \
-	$(CHUCK_SRC_DIR)/midiio_rtmidi.cpp $(CHUCK_SRC_DIR)/RtAudio/RtAudio.cpp \
-	$(CHUCK_SRC_DIR)/rtmidi.cpp $(CHUCK_SRC_DIR)/ugen_osc.cpp \
-	$(CHUCK_SRC_DIR)/ugen_filter.cpp $(CHUCK_SRC_DIR)/ugen_stk.cpp \
-	$(CHUCK_SRC_DIR)/ugen_xxx.cpp \
-	$(CHUCK_SRC_DIR)/uana_extract.cpp $(CHUCK_SRC_DIR)/uana_xform.cpp \
-	$(CHUCK_SRC_DIR)/ulib_machine.cpp $(CHUCK_SRC_DIR)/ulib_math.cpp \
-	$(CHUCK_SRC_DIR)/ulib_std.cpp $(CHUCK_SRC_DIR)/ulib_opsc.cpp \
-    $(CHUCK_SRC_DIR)/ulib_regex.cpp \
-	$(CHUCK_SRC_DIR)/util_buffers.cpp $(CHUCK_SRC_DIR)/util_console.cpp \
-	$(CHUCK_SRC_DIR)/util_string.cpp \
-	$(CHUCK_SRC_DIR)/util_thread.cpp \
-	$(CHUCK_SRC_DIR)/util_opsc.cpp $(CHUCK_SRC_DIR)/util_hid.cpp \
-    $(CHUCK_SRC_DIR)/util_serial.cpp 
+CHUCK_CXXSRCS= $(CHUCK_SRC_DIR)/core/chuck.cpp \
+    $(CHUCK_SRC_DIR)/core/chuck_absyn.cpp $(CHUCK_SRC_DIR)/core/chuck_parse.cpp \
+	$(CHUCK_SRC_DIR)/core/chuck_errmsg.cpp $(CHUCK_SRC_DIR)/core/chuck_frame.cpp \
+	$(CHUCK_SRC_DIR)/core/chuck_symbol.cpp $(CHUCK_SRC_DIR)/core/chuck_table.cpp \
+	$(CHUCK_SRC_DIR)/core/chuck_utils.cpp $(CHUCK_SRC_DIR)/core/chuck_vm.cpp \
+	$(CHUCK_SRC_DIR)/core/chuck_instr.cpp $(CHUCK_SRC_DIR)/core/chuck_scan.cpp \
+	$(CHUCK_SRC_DIR)/core/chuck_type.cpp $(CHUCK_SRC_DIR)/core/chuck_emit.cpp \
+	$(CHUCK_SRC_DIR)/core/chuck_compile.cpp $(CHUCK_SRC_DIR)/core/chuck_dl.cpp \
+	$(CHUCK_SRC_DIR)/core/chuck_oo.cpp $(CHUCK_SRC_DIR)/core/chuck_lang.cpp \
+	$(CHUCK_SRC_DIR)/core/chuck_ugen.cpp $(CHUCK_SRC_DIR)/core/chuck_shell.cpp \
+	$(CHUCK_SRC_DIR)/core/chuck_otf.cpp $(CHUCK_SRC_DIR)/core/chuck_stats.cpp \
+    $(CHUCK_SRC_DIR)/core/chuck_io.cpp $(CHUCK_SRC_DIR)/host/chuck_console.cpp \
+    $(CHUCK_SRC_DIR)/host/chuck_audio.cpp $(CHUCK_SRC_DIR)/core/chuck_carrier.cpp \
+	$(CHUCK_SRC_DIR)/core/hidio_sdl.cpp \
+	$(CHUCK_SRC_DIR)/core/midiio_rtmidi.cpp $(CHUCK_SRC_DIR)/host/RtAudio/RtAudio.cpp \
+	$(CHUCK_SRC_DIR)/core/rtmidi.cpp $(CHUCK_SRC_DIR)/core/ugen_osc.cpp \
+	$(CHUCK_SRC_DIR)/core/ugen_filter.cpp $(CHUCK_SRC_DIR)/core/ugen_stk.cpp \
+	$(CHUCK_SRC_DIR)/core/ugen_xxx.cpp \
+	$(CHUCK_SRC_DIR)/core/uana_extract.cpp $(CHUCK_SRC_DIR)/core/uana_xform.cpp \
+	$(CHUCK_SRC_DIR)/core/ulib_machine.cpp $(CHUCK_SRC_DIR)/core/ulib_math.cpp \
+	$(CHUCK_SRC_DIR)/core/ulib_std.cpp $(CHUCK_SRC_DIR)/core/ulib_opsc.cpp \
+    $(CHUCK_SRC_DIR)/core/ulib_regex.cpp \
+	$(CHUCK_SRC_DIR)/core/util_buffers.cpp $(CHUCK_SRC_DIR)/core/util_console.cpp \
+	$(CHUCK_SRC_DIR)/core/util_string.cpp \
+	$(CHUCK_SRC_DIR)/core/util_thread.cpp \
+	$(CHUCK_SRC_DIR)/core/util_opsc.cpp $(CHUCK_SRC_DIR)/core/util_hid.cpp \
+    $(CHUCK_SRC_DIR)/core/util_serial.cpp
 
 LO_CSRCS+= lo/address.c lo/blob.c lo/bundle.c lo/message.c lo/method.c \
     lo/pattern_match.c lo/send.c lo/server.c lo/server_thread.c lo/timetag.c
-LO_CSRCS:=$(addprefix $(CHUCK_SRC_DIR)/,$(LO_CSRCS))
+LO_CSRCS:=$(addprefix $(CHUCK_SRC_DIR)/core/,$(LO_CSRCS))
 
 LO_COBJS=$(LO_CSRCS:.c=.o)
 
 LO_CFLAGS=-DHAVE_CONFIG_H -I.
 
-CHUCK_BIN_CXXSRCS=$(CHUCK_SRC_DIR)/chuck_main.cpp
+CHUCK_BIN_CXXSRCS=$(CHUCK_SRC_DIR)/host/chuck_main.cpp
 
-CHUCK_COBJS=$(CHUCK_CSRCS:.c=.o) 
+CHUCK_COBJS=$(CHUCK_CSRCS:.c=.o)
 CHUCK_CXXOBJS=$(CHUCK_CXXSRCS:.cpp=.o)
 CHUCK_OBJS+=$(CHUCK_COBJS) $(CHUCK_CXXOBJS) $(LO_COBJS)
 
 CHUCK_BIN_CXXOBJS=$(CHUCK_BIN_CXXSRCS:.cpp=.o)
 CHUCK_BIN_OBJS=$(CHUCK_OBJS) $(CHUCK_BIN_CXXOBJS)
 
-CSRCS+= 
+CSRCS+=
 CXXSRCS+= miniAudicle.cpp \
     miniAudicle_shell.cpp \
 	miniAudicle_import.cpp \
@@ -184,7 +185,7 @@ OBJCXXOBJS=$(OBJCXXSRCS:.mm=.o)
 OBJS=$(COBJS) $(CXXOBJS) $(OBJCOBJS) $(OBJCXXOBJS)
 
 # example files
-CK_EXAMPLES_DIR=chuck/src/examples
+CK_EXAMPLES_DIR=chuck/examples
 CK_EXAMPLES=$(shell find $(CK_EXAMPLES_DIR) -type f -not -name \\\.* -exec echo -n {} '' \;)
 CK_EXAMPLES_IN_BUNDLE=$(patsubst $(CK_EXAMPLES_DIR)/%,$(BIN_DIR)/miniAudicle.app/Contents/Resources/examples/%,$(CK_EXAMPLES))
 
@@ -291,11 +292,11 @@ $(LO_COBJS): %.o: %.c
 	$(CC) $(CFLAGS) $(LO_CFLAGS) $(ARCHOPTS) -c $< -o $@
 	@$(CC) -MM -MQ "$@" $(CFLAGSDEPEND) $(LO_CFLAGS) $< > $*.d
 
-$(CHUCK_SRC_DIR)/chuck.tab.c $(CHUCK_SRC_DIR)/chuck.tab.h: $(CHUCK_SRC_DIR)/chuck.y
-	$(YACC) -dv -b $(CHUCK_SRC_DIR)/chuck $(CHUCK_SRC_DIR)/chuck.y
+$(CHUCK_SRC_DIR)/core/chuck.tab.c $(CHUCK_SRC_DIR)/core/chuck.tab.h: $(CHUCK_SRC_DIR)/core/chuck.y
+	$(YACC) -dv -b $(CHUCK_SRC_DIR)/core/chuck $(CHUCK_SRC_DIR)/core/chuck.y
 
-$(CHUCK_SRC_DIR)/chuck.yy.c: $(CHUCK_SRC_DIR)/chuck.lex
-	$(LEX) -o$(CHUCK_SRC_DIR)/chuck.yy.c $(CHUCK_SRC_DIR)/chuck.lex
+$(CHUCK_SRC_DIR)/core/chuck.yy.c: $(CHUCK_SRC_DIR)/core/chuck.lex
+	$(LEX) -o$(CHUCK_SRC_DIR)/core/chuck.yy.c $(CHUCK_SRC_DIR)/core/chuck.lex
 
 # now build miniAudicle files
 ifeq ($(shell git rev-parse 2>&1),)
@@ -330,7 +331,7 @@ $(OBJCXXOBJS): %.o: %.mm
 
 
 .PHONY: clean
-clean: 
+clean:
 	rm -rf $(OBJS) $(OBJS:.o=.d) $(CHUCK_OBJS) $(CHUCK_OBJS:.o=.d) \
         $(addprefix $(CHUCK_SRC_DIR)/,chuck.tab.h chuck.tab.c chuck.yy.c) \
         $(CHUCK_BIN_OBJS) $(CHUCK_BIN_OBJS:.o=.d) \
@@ -339,7 +340,7 @@ clean:
 	make -C $(CHUCK_SRC_DIR) clean
 
 .PHONY: clean-all
-clean-all: 
+clean-all:
 	rm -rf *.o $(OSX_DIR)/*.o $(BIN_DIR)/miniAudicle.app $(DIST_DIR).dmg
 	make -C $(CHUCK_SRC_DIR) clean
 
