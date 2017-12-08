@@ -202,6 +202,9 @@
 		0956A0EC17C71C4D00B564F5 /* mADocumentExporter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0956A0EB17C71C4D00B564F5 /* mADocumentExporter.mm */; };
 		095A779A14C0336E003E53EC /* chugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = 095A779914C0336E003E53EC /* chugin.icns */; };
 		095B59720BC6D0F900E8759D /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 095B59710BC6D0F900E8759D /* error.png */; };
+		095E80031FDB4D720021F880 /* chuck_carrier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 095E80021FDB4D720021F880 /* chuck_carrier.cpp */; };
+		095E80041FDB4D820021F880 /* chuck_carrier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 095E80021FDB4D720021F880 /* chuck_carrier.cpp */; };
+		095E80051FDB4D830021F880 /* chuck_carrier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 095E80021FDB4D720021F880 /* chuck_carrier.cpp */; };
 		09608ADF14B40DE4009450FE /* mAConsoleMonitorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09608ADD14B40DE4009450FE /* mAConsoleMonitorController.mm */; };
 		09608AE014B40DE4009450FE /* mAConsoleMonitor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09608ADE14B40DE4009450FE /* mAConsoleMonitor.xib */; };
 		0962902F1731CCD1007CADBA /* record.ck in Resources */ = {isa = PBXBuildFile; fileRef = 0962902D1731CCD1007CADBA /* record.ck */; };
@@ -573,6 +576,7 @@
 		0956A0EB17C71C4D00B564F5 /* mADocumentExporter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = mADocumentExporter.mm; path = macosx/mADocumentExporter.mm; sourceTree = "<group>"; };
 		095A779914C0336E003E53EC /* chugin.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = chugin.icns; path = macosx/icon/chugin.icns; sourceTree = "<group>"; };
 		095B59710BC6D0F900E8759D /* error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = error.png; path = macosx/icon/error.png; sourceTree = SOURCE_ROOT; };
+		095E80021FDB4D720021F880 /* chuck_carrier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_carrier.cpp; sourceTree = "<group>"; };
 		09608ADC14B40DE4009450FE /* mAConsoleMonitorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAConsoleMonitorController.h; sourceTree = "<group>"; };
 		09608ADD14B40DE4009450FE /* mAConsoleMonitorController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mAConsoleMonitorController.mm; sourceTree = "<group>"; };
 		09608ADE14B40DE4009450FE /* mAConsoleMonitor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mAConsoleMonitor.xib; sourceTree = "<group>"; };
@@ -898,6 +902,7 @@
 				092C95B31FCE7E24005114AE /* lo */,
 				092C95301FCE7948005114AE /* chuck_absyn.cpp */,
 				092C954F1FCE794C005114AE /* chuck_absyn.h */,
+				095E80021FDB4D720021F880 /* chuck_carrier.cpp */,
 				092C95501FCE794C005114AE /* chuck_carrier.h */,
 				092C95391FCE7949005114AE /* chuck_compile.cpp */,
 				092C95471FCE794B005114AE /* chuck_compile.h */,
@@ -1769,6 +1774,7 @@
 				099ABE4F19086DD800C5D52D /* mAKeyboardButtonAlternatives.m in Sources */,
 				093E265414A12234008694BC /* chuck.y in Sources */,
 				092C95CC1FCE7E24005114AE /* blob.c in Sources */,
+				095E80051FDB4D830021F880 /* chuck_carrier.cpp in Sources */,
 				09307E1A18DE76D0004AB346 /* mAKeyboardAccessoryViewController.m in Sources */,
 				09094DCE19940E7B009F4C4C /* NSMutableArray+MapFilterReduce.m in Sources */,
 				09094DC019916F68009F4C4C /* NSObject+KVCSerialization.m in Sources */,
@@ -1817,6 +1823,7 @@
 				092C959C1FCE794D005114AE /* uana_extract.cpp in Sources */,
 				092C958C1FCE794D005114AE /* util_hid.cpp in Sources */,
 				092C95701FCE794D005114AE /* chuck_oo.cpp in Sources */,
+				095E80031FDB4D720021F880 /* chuck_carrier.cpp in Sources */,
 				092C95741FCE794D005114AE /* midiio_rtmidi.cpp in Sources */,
 				092C95811FCE794D005114AE /* hidio_sdl.cpp in Sources */,
 				092C95861FCE794D005114AE /* ugen_xxx.cpp in Sources */,
@@ -1950,6 +1957,7 @@
 				09056C2F1FCE8FF9004A2BD4 /* util_buffers.cpp in Sources */,
 				092C95D51FCE7E24005114AE /* send.c in Sources */,
 				09056C301FCE8FF9004A2BD4 /* util_console.cpp in Sources */,
+				095E80041FDB4D820021F880 /* chuck_carrier.cpp in Sources */,
 				09056C0C1FCE8FF9004A2BD4 /* chuck_absyn.cpp in Sources */,
 				0962903317323065007CADBA /* NSString+STLString.mm in Sources */,
 				09056C0B1FCE8FBC004A2BD4 /* hidio_sdl.cpp in Sources */,
