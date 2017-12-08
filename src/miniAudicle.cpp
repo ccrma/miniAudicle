@@ -943,7 +943,7 @@ t_CKBOOL miniAudicle::start_vm()
     // push log
     EM_pushlog();
     
-    if( vm == NULL )
+    if( m_chuck == NULL )
     {
         // log
         EM_log( CK_LOG_INFO, "allocating VM..." );
@@ -1005,7 +1005,7 @@ t_CKBOOL miniAudicle::start_vm()
 
         if( !m_chuck->init() )
         {
-            fprintf( stderr, "[chuck]: failed to init\n" );
+            fprintf( stderr, "[chuck]: failed to init chuck engine\n" );
             // pop
             EM_poplog();
             return FALSE;
@@ -1014,19 +1014,7 @@ t_CKBOOL miniAudicle::start_vm()
         // allocate the vm - needs the type system
         vm = m_chuck->vm();
         
-//        if( !vm->initialize( srate, output_channels,
-//                             input_channels, adaptive_size, vm_halt ) )
-//        {
-//            fprintf( stderr, "[chuck]: %s\n", vm->last_error() );
-//            // pop
-//            EM_poplog();
-//            return FALSE;
-//        }
-
         //--------------------------- AUDIO I/O SETUP ---------------------------------
-        
-        // ge: 1.3.5.3
-        m_audio = new ChuckAudio;
         
         // push
         EM_pushlog();
@@ -1035,7 +1023,7 @@ t_CKBOOL miniAudicle::start_vm()
         
         // probe / init (this shouldn't start audio yet...
         // moved here 1.3.1.2; to main ge: 1.3.5.3)
-        if( !m_audio->initialize( output_channels, input_channels, srate, buffer_size, num_buffers, audio_cb, m_chuck, force_srate ) )
+        if( !ChuckAudio::initialize( output_channels, input_channels, srate, buffer_size, num_buffers, audio_cb, m_chuck, force_srate ) )
         {
             EM_log( CK_LOG_SYSTEM,
                    "cannot initialize audio device (use --silent/-s for non-realtime)" );
@@ -1050,6 +1038,7 @@ t_CKBOOL miniAudicle::start_vm()
         EM_log( CK_LOG_SYSTEM, "mode: %s", block ? "BLOCKING" : "CALLBACK" );
         EM_log( CK_LOG_SYSTEM, "sample rate: %ld", srate );
         EM_log( CK_LOG_SYSTEM, "buffer size: %ld", buffer_size );
+        
         if( enable_audio )
         {
             EM_log( CK_LOG_SYSTEM, "num buffers: %ld", num_buffers );
@@ -1071,7 +1060,7 @@ t_CKBOOL miniAudicle::start_vm()
         for(list<t_CKBOOL (*)(Chuck_Env *)>::iterator i = vm_options.query_funcs.begin(); i != vm_options.query_funcs.end(); i++)
             (*i)( compiler->env() );
         
-        if(!m_audio->start())
+        if(!ChuckAudio::start())
         {
             EM_log( CK_LOG_SYSTEM, "error starting audio (use --silent/-s for non-realtime)" );
             // pop
@@ -1118,10 +1107,13 @@ t_CKBOOL miniAudicle::stop_vm()
     {
         EM_log( CK_LOG_SYSTEM, "stopping chuck virtual machine..." );
         
-        m_audio->stop();
-        SAFE_DELETE(m_audio);
+        ChuckAudio::stop();
+        ChuckAudio::shutdown();
         
         SAFE_DELETE(m_chuck);
+        
+        compiler = NULL;
+        vm = NULL;
     }
 
     return TRUE;

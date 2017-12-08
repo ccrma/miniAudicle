@@ -47,7 +47,6 @@ U.S.A.
 
 
 class ChucK;
-class ChuckAudio;
 
 
 using namespace std;
@@ -186,7 +185,6 @@ protected:
     
     ChucK * m_chuck;
     Chuck_VM * vm;
-    ChuckAudio * m_audio;
     Chuck_Compiler * compiler;
     
     Chuck_VM_Status ** status_bufs;
