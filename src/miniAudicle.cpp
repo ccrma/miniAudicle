@@ -1021,6 +1021,9 @@ t_CKBOOL miniAudicle::start_vm()
         // log
         EM_log( CK_LOG_SYSTEM, "probing '%s' audio subsystem...", enable_audio ? "real-time" : "fake-time" );
         
+        ChuckAudio::m_dac_n = dac;
+        ChuckAudio::m_adc_n = adc;
+        
         // probe / init (this shouldn't start audio yet...
         // moved here 1.3.1.2; to main ge: 1.3.5.3)
         if( !ChuckAudio::initialize( output_channels, input_channels, srate, buffer_size, num_buffers, audio_cb, m_chuck, force_srate ) )
