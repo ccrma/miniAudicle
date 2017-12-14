@@ -237,6 +237,8 @@
 		099C04F518FB715C00AC27C3 /* mANetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 099C04F418FB715C00AC27C3 /* mANetworkManager.m */; };
 		099C04F818FBAF1400AC27C3 /* mANetworkAction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 099C04F718FBAF1400AC27C3 /* mANetworkAction.mm */; };
 		09A14A1219B9AD5E00D28255 /* UIColor+iOS7BlueColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A14A1119B9AD5E00D28255 /* UIColor+iOS7BlueColor.m */; };
+		09A24ED21FE239CE00FC9BB5 /* chuck_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95A61FCE7992005114AE /* chuck_main.cpp */; };
+		09A24ED31FE23A1B00FC9BB5 /* chuck_console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95A41FCE7992005114AE /* chuck_console.cpp */; };
 		09A40B800A9A54DA007604EA /* chuck.y in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B360A9A54DA007604EA /* chuck.y */; };
 		09A40BBE0A9A55EC007604EA /* mASyntaxHighlighter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09A40BAC0A9A55EC007604EA /* mASyntaxHighlighter.mm */; };
 		09A40BBF0A9A55EC007604EA /* miniAudicle_ui_elements.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09A40BAD0A9A55EC007604EA /* miniAudicle_ui_elements.mm */; };
@@ -1891,6 +1893,7 @@
 				09A40B800A9A54DA007604EA /* chuck.y in Sources */,
 				092C95D91FCE7E24005114AE /* server_thread.c in Sources */,
 				09056C2A1FCE8FF9004A2BD4 /* ulib_machine.cpp in Sources */,
+				09A24ED21FE239CE00FC9BB5 /* chuck_main.cpp in Sources */,
 				09056C231FCE8FF9004A2BD4 /* rtmidi.cpp in Sources */,
 				092B8E9D1BC206C8000033B3 /* miniAudicle_version.cpp in Sources */,
 				09056C1C1FCE8FF9004A2BD4 /* chuck_table.cpp in Sources */,
@@ -1949,6 +1952,7 @@
 				09056C1D1FCE8FF9004A2BD4 /* chuck_type.cpp in Sources */,
 				09056C381FCE8FF9004A2BD4 /* util_string.cpp in Sources */,
 				09056C141FCE8FF9004A2BD4 /* chuck_lang.cpp in Sources */,
+				09A24ED31FE23A1B00FC9BB5 /* chuck_console.cpp in Sources */,
 				09056C111FCE8FF9004A2BD4 /* chuck_frame.cpp in Sources */,
 				09056C211FCE8FF9004A2BD4 /* chuck.cpp in Sources */,
 				09056C251FCE8FF9004A2BD4 /* uana_xform.cpp in Sources */,
@@ -2255,6 +2259,7 @@
 					__MACOSX_CORE__,
 					__CK_DEBUG__,
 					"ENV_MA_VERSION=\"\\\"$(ENV_MA_VERSION)\\\"\"",
+					__CHUCK_NO_MAIN__,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_UNUSED_PARAMETER = NO;
@@ -2287,6 +2292,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					__MACOSX_CORE__,
 					"ENV_MA_VERSION=\"\\\"$(ENV_MA_VERSION)\\\"\"",
+					__CHUCK_NO_MAIN__,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = chuck/src;

@@ -37,10 +37,10 @@ U.S.A.
 extern Chuck_VM * g_vm;
 
 //-----------------------------------------------------------------------------
-// name: shell_cb
+// name: ma_shell_cb
 // desc: thread routine
 //-----------------------------------------------------------------------------
-void * shell_cb( void * p )
+void * ma_shell_cb( void * p )
 {
     Chuck_Shell * shell;
     // log
@@ -155,7 +155,7 @@ void * shell_cb( void * p )
 - (void)runShell
 {
     shell_tid = 0;
-    if( pthread_create( &shell_tid, NULL, shell_cb, ( void * )shell ) )
+    if( pthread_create( &shell_tid, NULL, ma_shell_cb, ( void * )shell ) )
     {
         fprintf( stderr, "error: unable to spawn ChucK shell thread\n" );
     }
