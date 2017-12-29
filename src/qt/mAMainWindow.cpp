@@ -32,6 +32,8 @@ U.S.A.
 #include "mADeviceBrowser.h"
 #include "mASocketManager.h"
 
+#include "chuck.h"
+
 #include <QMessageBox>
 #include <QDesktopWidget>
 #include "ZSettings.h"
@@ -44,7 +46,6 @@ U.S.A.
 extern const char MA_VERSION[];
 extern const char MA_ABOUT[];
 extern const char MA_HELP[];
-extern const char CK_VERSION[];
 
 
 const int MAX_RECENT_FILES = 10;
@@ -291,7 +292,7 @@ bool mAMainWindow::shouldCloseOrQuit()
 void mAMainWindow::about()
 {
     char buf[256];
-    snprintf(buf, 256, MA_ABOUT, MA_VERSION, CK_VERSION, sizeof(void*)*8);
+    snprintf(buf, 256, MA_ABOUT, MA_VERSION, ChucK::version(), sizeof(void*)*8);
     QString body = QString("<h3>miniAudicle</h3>\n") + buf;
     body.replace(QRegExp("\n"), "<br />");
     QMessageBox::about(this, "About miniAudicle", body);

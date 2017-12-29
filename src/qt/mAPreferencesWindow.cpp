@@ -34,7 +34,7 @@ U.S.A.
 
 #include "chuck_def.h"
 #include "chuck_dl.h"
-#include "digiio_rtaudio.h"
+#include "chuck_audio.h"
 
 
 const QString mAPreferencesParentFrameWidth = "/GUI/ParentFrame/width";
@@ -95,7 +95,7 @@ void mAPreferencesWindow::configureDefaults()
     ZSettings::setDefault(mAPreferencesEnableNetwork, false);
     ZSettings::setDefault(mAPreferencesAudioOutput, 0);
     ZSettings::setDefault(mAPreferencesAudioInput, 0);
-    ZSettings::setDefault(mAPreferencesSampleRate, SAMPLING_RATE_DEFAULT);
+    ZSettings::setDefault(mAPreferencesSampleRate, SAMPLE_RATE_DEFAULT);
     ZSettings::setDefault(mAPreferencesOutputChannels, 2);
     ZSettings::setDefault(mAPreferencesInputChannels, 2);
     ZSettings::setDefault(mAPreferencesBufferSize, BUFFER_SIZE_DEFAULT);
