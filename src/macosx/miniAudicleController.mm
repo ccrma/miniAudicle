@@ -42,11 +42,11 @@ U.S.A.
 #import "mARecordSessionController.h"
 #import "mAMultiDocWindowController.h"
 #import "mAExampleBrowser.h"
+#import "chuck.h"
 #import <objc/message.h>
 
 
 extern const char MA_VERSION[];
-extern const char CK_VERSION[];
 extern const char MA_ABOUT[];
 
 NSString * const mAVirtualMachineDidTurnOnNotification = @"VirtualMachineDidTurnOnNotification";
@@ -168,7 +168,7 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 - (void)awakeFromNib
 {
     // format/set the about box text
-    NSString * t_string = [[[NSString alloc] initWithFormat:[NSString stringWithUTF8String:MA_ABOUT], MA_VERSION, CK_VERSION, sizeof(void*)*8] autorelease];
+    NSString * t_string = [[[NSString alloc] initWithFormat:[NSString stringWithUTF8String:MA_ABOUT], MA_VERSION, ChucK::version(), sizeof(void*)*8] autorelease];
     [about_text setStringValue:t_string];
     
     [[NSNotificationCenter defaultCenter] addObserver:self

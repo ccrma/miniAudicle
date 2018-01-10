@@ -120,7 +120,7 @@ t_CKBOOL Element::pi_destroy()
     return TRUE;
 }
 
-t_CKBOOL Element::pi_set_name( string & name )
+t_CKBOOL Element::pi_set_name( const string & name )
 {
     this->name = name;
     return true;

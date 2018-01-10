@@ -45,7 +45,9 @@ U.S.A.
 #include <vector>
 #include <queue>
 
-class BBQ;
+
+class ChucK;
+
 
 using namespace std;
 
@@ -181,7 +183,7 @@ protected:
     CHUCK_THREAD vm_tid;
     CHUCK_THREAD otf_tid;
     
-    BBQ * bbq;
+    ChucK * m_chuck;
     Chuck_VM * vm;
     Chuck_Compiler * compiler;
     

@@ -1,11 +1,11 @@
 #import "mABrowserController.h"
 #import "miniAudicleController.h"
 
-#import "chuck_globals.h"
+//#import "chuck_globals.h"
 #import "chuck_type.h"
 #import "chuck_compile.h"
 #import "rtmidi.h"
-#import "RtAudio/RtAudio.h"
+#import "RtAudio.h"
 #import "hidio_sdl.h"
 
 struct Chuck_Type;
@@ -81,7 +81,7 @@ static const char * exclude_types[] =
         return;
     
     vector< Chuck_Type * > types;
-    g_compiler->env->global()->get_types( types );
+//    g_compiler->env->global()->get_types( types );
     
     NSMutableArray * ugens = [[NSMutableArray new] autorelease],
         * classes = [[NSMutableArray new] autorelease];

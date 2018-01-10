@@ -270,7 +270,7 @@ CK_DLL_MFUN( mauielement_name_set )
     Chuck_String * s = GET_NEXT_STRING(ARGS);
     if( maui && s )
     {
-        maui->set_name( s->str );
+        maui->set_name( s->str() );
         RETURN->v_string = s;
     }
     else
@@ -763,7 +763,7 @@ CK_DLL_MFUN( mauibutton_set_image )
 {
     UI::Button * button = (UI::Button *)OBJ_MEMBER_INT(SELF, mauielement_offset_data);
     Chuck_String * s = GET_NEXT_STRING(ARGS);
-    RETURN->v_int = button->set_image(s->str);
+    RETURN->v_int = button->set_image(s->str());
 }
 
 CK_DLL_MFUN( mauibutton_unset_image )
