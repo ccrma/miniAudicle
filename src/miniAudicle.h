@@ -37,7 +37,7 @@ U.S.A.
 #include "util_thread.h"
 #include "chuck_type.h"
 #ifndef __CHIP_MODE__
-#include "RtAudio.h"
+#include "RtAudio/RtAudio.h"
 #endif // __CHIP_MODE__
 
 #include <map>
