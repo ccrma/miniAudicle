@@ -237,7 +237,6 @@
 		099C04F518FB715C00AC27C3 /* mANetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 099C04F418FB715C00AC27C3 /* mANetworkManager.m */; };
 		099C04F818FBAF1400AC27C3 /* mANetworkAction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 099C04F718FBAF1400AC27C3 /* mANetworkAction.mm */; };
 		09A14A1219B9AD5E00D28255 /* UIColor+iOS7BlueColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A14A1119B9AD5E00D28255 /* UIColor+iOS7BlueColor.m */; };
-		09A24ED21FE239CE00FC9BB5 /* chuck_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95A61FCE7992005114AE /* chuck_main.cpp */; };
 		09A24ED31FE23A1B00FC9BB5 /* chuck_console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95A41FCE7992005114AE /* chuck_console.cpp */; };
 		09A40B800A9A54DA007604EA /* chuck.y in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B360A9A54DA007604EA /* chuck.y */; };
 		09A40BBE0A9A55EC007604EA /* mASyntaxHighlighter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09A40BAC0A9A55EC007604EA /* mASyntaxHighlighter.mm */; };
@@ -1898,7 +1897,6 @@
 				09A40B800A9A54DA007604EA /* chuck.y in Sources */,
 				092C95D91FCE7E24005114AE /* server_thread.c in Sources */,
 				09056C2A1FCE8FF9004A2BD4 /* ulib_machine.cpp in Sources */,
-				09A24ED21FE239CE00FC9BB5 /* chuck_main.cpp in Sources */,
 				09056C231FCE8FF9004A2BD4 /* rtmidi.cpp in Sources */,
 				092B8E9D1BC206C8000033B3 /* miniAudicle_version.cpp in Sources */,
 				09056C1C1FCE8FF9004A2BD4 /* chuck_table.cpp in Sources */,
@@ -2269,7 +2267,10 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_UNUSED_PARAMETER = NO;
-				HEADER_SEARCH_PATHS = chuck/src;
+				HEADER_SEARCH_PATHS = (
+					chuck/src/core,
+					chuck/src/host,
+				);
 				INFOPLIST_FILE = macosx/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
@@ -2301,7 +2302,10 @@
 					__CHUCK_NO_MAIN__,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = chuck/src;
+				HEADER_SEARCH_PATHS = (
+					chuck/src/core,
+					chuck/src/host,
+				);
 				INFOPLIST_FILE = macosx/Info.plist;
 				INSTALL_PATH = /Applications;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
