@@ -8,6 +8,7 @@
     <pkg-ref id="edu.stanford.chuck.Bitcrusher"/>
     <pkg-ref id="edu.stanford.chuck.Elliptic"/>
     <pkg-ref id="edu.stanford.chuck.ExpDelay"/>
+    <pkg-ref id="edu.stanford.chuck.ExpEnv"/>
     <pkg-ref id="edu.stanford.chuck.FIR"/>
     <pkg-ref id="edu.stanford.chuck.FoldbackSaturator"/>
     <pkg-ref id="edu.stanford.chuck.GVerb"/>
@@ -39,6 +40,7 @@
             <line choice="Bitcrusher"/>
             <line choice="Elliptic"/>
             <line choice="ExpDelay"/>
+            <line choice="ExpEnv"/>
             <line choice="FIR"/>
             <line choice="FoldbackSaturator"/>
             <line choice="GVerb"/>
@@ -93,6 +95,11 @@
         <pkg-ref id="edu.stanford.chuck.ExpDelay"/>
     </choice>
     <pkg-ref id="edu.stanford.chuck.ExpDelay" version="0" onConclusion="none">ExpDelay.chug.pkg</pkg-ref>
+    
+    <choice id="ExpEnv" title="ExpEnv" description="" enabled="0">
+        <pkg-ref id="edu.stanford.chuck.ExpEnv"/>
+    </choice>
+    <pkg-ref id="edu.stanford.chuck.ExpEnv" version="0" onConclusion="none">ExpEnv.chug.pkg</pkg-ref>
     
     <choice id="FIR" title="FIR" description="Arbitrary order FIR filter. By Perry Cook. " enabled="0">
         <pkg-ref id="edu.stanford.chuck.FIR"/>

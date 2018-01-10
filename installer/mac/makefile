@@ -7,14 +7,14 @@ VERSION_MK=$(MINI_SRC_ROOT)/src/version.mk
 
 include $(VERSION_MK)
 
-CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher Elliptic ExpDelay FIR \
+CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher Elliptic ExpEnv ExpDelay FIR \
     FoldbackSaturator GVerb KasFilter MagicSine Mesh2D Multicomb \
     PanN PitchTrack PowerADSR Sigmund Spectacle WinFuncEnv WPDiodeLadder \
     WPKorg35
 CHUGINS=$(addsuffix .chug,$(CHUGIN_NAMES))
 CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/$(CHUG).chug)
 
-EXAMPLES=$(CHUCK_SRC_ROOT)/src/examples
+EXAMPLES=$(CHUCK_SRC_ROOT)/examples
 
 # PKGS=$(addsuffix .pkg,$(CHUGINS) miniAudicle.app chuck)
 APP_PKGS=$(addsuffix .pkg,miniAudicle.app)
