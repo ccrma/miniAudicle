@@ -68,8 +68,6 @@ U.S.A.
 // default destination host name
 // extern char g_host[256];
 
-extern void all_detach();
-
 t_CKBOOL g_forked = FALSE;
 
 #if defined(__MACOSX_CORE__)
@@ -1003,7 +1001,7 @@ t_CKBOOL miniAudicle::stop_vm()
         ChuckAudio::stop();
         ChuckAudio::shutdown();
         
-        all_detach();
+        ChucK::globalCleanup();
         
         SAFE_DELETE(m_chuck);
         
