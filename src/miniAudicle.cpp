@@ -145,6 +145,8 @@ void audio_cb( t_CKSAMPLE * in, t_CKSAMPLE * out, t_CKUINT numFrames,
 miniAudicle::miniAudicle()
 {
     vm = NULL;
+    m_chuck = NULL;
+    compiler = NULL;
     vm_on = FALSE;
     
     class_names = new map< string, t_CKINT >;
