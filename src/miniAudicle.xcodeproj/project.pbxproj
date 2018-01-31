@@ -2208,7 +2208,7 @@
 					chuck/src,
 				);
 				INSTALL_PATH = "$(HOME)/bin";
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = (
 					"-lm",
 					"-lstdc++",
@@ -2236,7 +2236,7 @@
 					chuck/src,
 				);
 				INSTALL_PATH = "$(HOME)/bin";
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = (
 					"-lm",
 					"-lstdc++",
@@ -2273,7 +2273,7 @@
 				);
 				INFOPLIST_FILE = macosx/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = (
 					"-lm",
 					"-lstdc++",
@@ -2308,7 +2308,7 @@
 				);
 				INFOPLIST_FILE = macosx/Info.plist;
 				INSTALL_PATH = /Applications;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = (
 					"-lm",
 					"-lstdc++",

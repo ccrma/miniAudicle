@@ -31,6 +31,7 @@ U.S.A.
 //-----------------------------------------------------------------------------
 
 #include "miniAudicle_shell.h"
+#include <unistd.h>
 
 t_CKBOOL miniAudicle_Shell_UI::init()
 {
