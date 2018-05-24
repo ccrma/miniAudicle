@@ -283,8 +283,8 @@ FORMS += \
     qt/mADeviceBrowser.ui
 
 !win32 {
-FLEXSOURCES = chuck/src/chuck.lex
-BISONSOURCES = chuck/src/chuck.y
+FLEXSOURCES = chuck/src/core/chuck.lex
+BISONSOURCES = chuck/src/core/chuck.y
 }
 
 flex.commands = flex -o $$OBJECTS_DIR/${QMAKE_FILE_BASE}.yy.c ${QMAKE_FILE_IN}
