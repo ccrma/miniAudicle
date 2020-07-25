@@ -31,7 +31,8 @@ CHUG_DIR=/usr/local/lib/chuck
 EXAMPLES_DST=/Library/ChucK
 
 IDENTIFIER_BASE=edu.stanford.chuck
-CERT=Developer ID Installer: Spencer Salazar (9GU9FHJ3JC)
+CERT_APP=Developer ID Application: Spencer Salazar (9GU9FHJ3JC)
+CERT_INSTALLER=Developer ID Installer: Spencer Salazar (9GU9FHJ3JC)
 
 .PHONY: all
 all: $(INSTALLER)
@@ -46,7 +47,7 @@ $(INSTALLER): $(PKGS) miniAudicle.app chuck $(CHUGINS) $(VERSION_MK) Distributio
 	@echo "    chuck path:" $(realpath $(CHUCK_SRC_ROOT))
 	@echo "    miniAudicle path:" $(realpath $(MINI_SRC_ROOT))
 	@echo "    chugin path:" $(realpath $(CHUGINS_SRC_ROOT))
-	productbuild --distribution Distribution.xml --version $(PKG_VERSION) --package-path . --sign "$(CERT)" --resources resources $@
+	productbuild --distribution Distribution.xml --version $(PKG_VERSION) --package-path . --sign "$(CERT_INSTALLER)" --resources resources $@
 
 $(APP_PKGS): %.pkg: %
 	rm -rf $<.tmp/$(APP_DIR)
@@ -79,6 +80,9 @@ $(EXAMPLES_PKG): $(EXAMPLES)
 miniAudicle.app: $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app/Contents/MacOS/miniAudicle
 	rm -rf miniAudicle.app
 	cp -af $< .
+	codesign --force --deep --options runtime --sign "$(CERT_APP)" $@/Contents/Resources/chuck
+	codesign --force --deep --options runtime --sign "$(CERT_APP)" $@/Contents/Resources/oggenc
+	codesign --force --deep --options runtime --sign "$(CERT_APP)" $@/Contents/MacOS/miniAudicle
 	touch $@
 
 $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app/Contents/MacOS/miniAudicle $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app:
@@ -86,6 +90,7 @@ $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app/Contents/MacOS/miniAudicle $(MINI_SR
 
 chuck: $(CHUCK_SRC_ROOT)/src/chuck
 	cp -af $< .
+	codesign --force --options runtime --sign "$(CERT_APP)" $@
 	touch $@
 
 $(CHUCK_SRC_ROOT)/src/chuck:
@@ -93,6 +98,7 @@ $(CHUCK_SRC_ROOT)/src/chuck:
 
 $(CHUGINS): $(CHUGINS_ORIGINAL)
 	cp -af $(CHUGINS_SRC_ROOT)/$(basename $@)/$@  .
+	codesign --force --options runtime --sign "$(CERT_APP)" $@
 	touch $@
 $(CHUGINS_ORIGINAL): 
 	make -C $(dir $@) osx
