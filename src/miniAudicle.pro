@@ -6,6 +6,10 @@
 
 QT       += core gui network
 
+greaterThan(QT_MAJOR_VERSION, 4) {
+    QT += widgets
+}
+
 CONFIG += warn_off
 
 win32 {
@@ -23,7 +27,11 @@ OBJECTS_DIR = build
 
 PRECOMPILED_HEADER = qt/miniAudicle_pc.h
 
-LIBS += -lqscintilla2
+greaterThan(QT_MAJOR_VERSION, 4) {
+    LIBS += -lqscintilla2_qt5
+} else {
+    LIBS += -lqscintilla2
+}
 
 DEFINES += HAVE_CONFIG_H
 

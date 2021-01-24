@@ -64,7 +64,11 @@ mAVMMonitor::mAVMMonitor(QWidget *parent, mAMainWindow *mainWindow, miniAudicle 
     ui->tableWidget->setColumnWidth(2, 48);
     ui->tableWidget->setColumnWidth(3, 24);
     
+#if QT_VERSION >= 0x050000
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+#else
     ui->tableWidget->horizontalHeader()->setResizeMode(1, QHeaderView::Stretch);
+#endif
 }
 
 mAVMMonitor::~mAVMMonitor()
