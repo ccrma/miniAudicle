@@ -64,6 +64,7 @@ U.S.A.
     @"implements",
     @"protected",
     @"private",
+    @"global",
     
     @"function",
     @"fun",

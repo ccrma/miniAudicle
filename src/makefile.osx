@@ -112,8 +112,8 @@ CHUCK_CXXSRCS= $(CHUCK_SRC_DIR)/core/chuck.cpp \
 	$(CHUCK_SRC_DIR)/core/chuck_oo.cpp $(CHUCK_SRC_DIR)/core/chuck_lang.cpp \
 	$(CHUCK_SRC_DIR)/core/chuck_ugen.cpp $(CHUCK_SRC_DIR)/core/chuck_shell.cpp \
 	$(CHUCK_SRC_DIR)/core/chuck_otf.cpp $(CHUCK_SRC_DIR)/core/chuck_stats.cpp \
-    $(CHUCK_SRC_DIR)/core/chuck_io.cpp $(CHUCK_SRC_DIR)/host/chuck_console.cpp \
-    $(CHUCK_SRC_DIR)/host/chuck_audio.cpp $(CHUCK_SRC_DIR)/core/chuck_carrier.cpp \
+	$(CHUCK_SRC_DIR)/core/chuck_io.cpp $(CHUCK_SRC_DIR)/host/chuck_console.cpp \
+	$(CHUCK_SRC_DIR)/core/chuck_globals.cpp $(CHUCK_SRC_DIR)/core/chuck_carrier.cpp \
 	$(CHUCK_SRC_DIR)/core/hidio_sdl.cpp \
 	$(CHUCK_SRC_DIR)/core/midiio_rtmidi.cpp $(CHUCK_SRC_DIR)/host/RtAudio/RtAudio.cpp \
 	$(CHUCK_SRC_DIR)/core/rtmidi.cpp $(CHUCK_SRC_DIR)/core/ugen_osc.cpp \
@@ -122,12 +122,12 @@ CHUCK_CXXSRCS= $(CHUCK_SRC_DIR)/core/chuck.cpp \
 	$(CHUCK_SRC_DIR)/core/uana_extract.cpp $(CHUCK_SRC_DIR)/core/uana_xform.cpp \
 	$(CHUCK_SRC_DIR)/core/ulib_machine.cpp $(CHUCK_SRC_DIR)/core/ulib_math.cpp \
 	$(CHUCK_SRC_DIR)/core/ulib_std.cpp $(CHUCK_SRC_DIR)/core/ulib_opsc.cpp \
-    $(CHUCK_SRC_DIR)/core/ulib_regex.cpp \
+	$(CHUCK_SRC_DIR)/core/ulib_regex.cpp \
 	$(CHUCK_SRC_DIR)/core/util_buffers.cpp $(CHUCK_SRC_DIR)/core/util_console.cpp \
-	$(CHUCK_SRC_DIR)/core/util_string.cpp \
-	$(CHUCK_SRC_DIR)/core/util_thread.cpp \
+	$(CHUCK_SRC_DIR)/core/util_string.cpp $(CHUCK_SRC_DIR)/core/util_thread.cpp \
 	$(CHUCK_SRC_DIR)/core/util_opsc.cpp $(CHUCK_SRC_DIR)/core/util_hid.cpp \
-    $(CHUCK_SRC_DIR)/core/util_serial.cpp
+	$(CHUCK_SRC_DIR)/core/util_serial.cpp \
+	$(CHUCK_SRC_DIR)/host/chuck_audio.cpp 
 
 LO_CSRCS+= lo/address.c lo/blob.c lo/bundle.c lo/message.c lo/method.c \
     lo/pattern_match.c lo/send.c lo/server.c lo/server_thread.c lo/timetag.c
@@ -149,7 +149,7 @@ CHUCK_BIN_OBJS=$(CHUCK_OBJS) $(CHUCK_BIN_CXXOBJS)
 CSRCS+=
 CXXSRCS+= miniAudicle.cpp \
     miniAudicle_shell.cpp \
-	miniAudicle_import.cpp \
+    miniAudicle_import.cpp \
     miniAudicle_ui_elements.cpp
 OBJCSRCS+= $(OSX_DIR)/main.m \
     $(OSX_DIR)/BLAuthentication.m \
@@ -161,23 +161,22 @@ OBJCSRCS+= $(OSX_DIR)/main.m \
 OBJCXXSRCS+= $(OSX_DIR)/miniAudicleController.mm \
 	$(OSX_DIR)/miniAudicleVMMonitor.mm \
 	$(OSX_DIR)/miniAudicleDocument.mm \
-    $(OSX_DIR)/miniAudicleConsoleMonitor.mm \
+	$(OSX_DIR)/miniAudicleConsoleMonitor.mm \
 	$(OSX_DIR)/miniAudicleShellController.mm  \
 	$(OSX_DIR)/mAConsoleMonitorView.mm \
-    $(OSX_DIR)/NumberedTextView.mm \
+	$(OSX_DIR)/NumberedTextView.mm \
 	$(OSX_DIR)/miniAudicleShellTextView.mm \
-    $(OSX_DIR)/miniAudicle_ui_elements.mm \
+	$(OSX_DIR)/miniAudicle_ui_elements.mm \
 	$(OSX_DIR)/miniAudiclePreferencesController.mm \
 	$(OSX_DIR)/mABrowserController.mm \
-    $(OSX_DIR)/mASyntaxHighlighter.mm \
+	$(OSX_DIR)/mASyntaxHighlighter.mm \
 	$(OSX_DIR)/mAChuginManager.mm \
-    $(OSX_DIR)/mADocumentViewController.mm \
-    $(OSX_DIR)/mAMultiDocWindowController.mm \
-    $(OSX_DIR)/mARecordSessionController.mm \
-    $(OSX_DIR)/NSString+STLString.mm \
-    $(OSX_DIR)/mAExampleBrowser.mm \
-    $(OSX_DIR)/mADocumentExporter.mm 
-
+	$(OSX_DIR)/mADocumentViewController.mm \
+	$(OSX_DIR)/mAMultiDocWindowController.mm \
+	$(OSX_DIR)/mARecordSessionController.mm \
+	$(OSX_DIR)/NSString+STLString.mm \
+	$(OSX_DIR)/mAExampleBrowser.mm \
+	$(OSX_DIR)/mADocumentExporter.mm
 
 COBJS=$(CSRCS:.c=.o)
 CXXOBJS=$(CXXSRCS:.cpp=.o)
