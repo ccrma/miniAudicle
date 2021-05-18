@@ -5,8 +5,8 @@ PREFIX=/usr
 
 CHUCK_SRC_DIR=chuck/src
 
-ifneq ($(shell which qmake-qt4),)
-QMAKE?=qmake-qt4
+ifneq ($(shell which qmake-qt5),)
+QMAKE?=qmake-qt5
 else
 QMAKE?=qmake
 endif

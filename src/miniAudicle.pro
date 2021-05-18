@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network
+QT       += core widgets gui network
 
 CONFIG += warn_off
 
@@ -23,7 +23,7 @@ OBJECTS_DIR = build
 
 PRECOMPILED_HEADER = qt/miniAudicle_pc.h
 
-LIBS += -lqscintilla2
+CONFIG += qscintilla2
 
 DEFINES += HAVE_CONFIG_H
 

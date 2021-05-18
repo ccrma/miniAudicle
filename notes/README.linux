@@ -31,8 +31,8 @@ bison
 flex
 libasound2-dev
 libsndfile1-dev
-libqt4-dev
-libqscintilla2-dev
+qtbase5-dev
+libqscintilla2-qt5-dev
 libpulse-dev (linux-pulse only)
 libjack-jackd2-dev (linux-jack only)
 
@@ -40,7 +40,7 @@ On systems with apt-get available, running the following command with the full
 list of packages will ensure that all necessary packages are installed.
 
 $ sudo apt-get install make gcc g++ bison flex libasound2-dev libsndfile1-dev \
-    libqt4-dev libqscintilla2-dev [libpulse-dev] [libjack-jackd2-dev]
+    qtbase5-dev libqscintilla2-qt5-dev [libpulse-dev] [libjack-jackd2-dev]
 
 
 Tips
