@@ -1,4 +1,12 @@
 ---
+1.4.0.2
+    - (fixed) addressed a possible crash when starting VM fails, sometimes
+      due to initializing a recently disconnected audio device; an error
+      message will now appear that reminds user to verify miniAudicle
+      preferences.
+    - (updated) syntax highlighting Chubgraph => Chugraph
+
+---
 1.3.6.0
     - (added) chuck-1.3.6.0
     - (added) syntax highlighting of vec3/vec4 types
