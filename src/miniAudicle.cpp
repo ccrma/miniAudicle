@@ -898,7 +898,8 @@ t_CKBOOL miniAudicle::start_vm()
             fprintf( stderr, "[chuck]: failed to init chuck engine\n" );
             // pop
             EM_poplog();
-            return FALSE;
+            // handle error
+            goto error;
         }
 
         // allocate the vm - needs the type system
@@ -922,8 +923,8 @@ t_CKBOOL miniAudicle::start_vm()
                    "cannot initialize audio device (use --silent/-s for non-realtime)" );
             // pop
             EM_poplog();
-            // done
-            return FALSE;
+            // handle error
+            goto error;
         }
         
         // log
@@ -958,8 +959,8 @@ t_CKBOOL miniAudicle::start_vm()
             EM_log( CK_LOG_SYSTEM, "error starting audio (use --silent/-s for non-realtime)" );
             // pop
             EM_poplog();
-            // done
-            return FALSE;
+            // handle error
+            goto error;
         }
         
         // pop log
@@ -972,6 +973,13 @@ t_CKBOOL miniAudicle::start_vm()
     EM_poplog();
     
     return vm_on;
+    
+// in case something goes really wrong above | 1.4.0.2
+error:
+    // clean up
+    stop_vm();
+    // done
+    return FALSE;
 }
 
 //-----------------------------------------------------------------------------
@@ -980,19 +988,14 @@ t_CKBOOL miniAudicle::start_vm()
 //-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::stop_vm()
 {
+    // delete status bufs
     if( status_bufs )
     {
         for( size_t i = 0; i < num_status_bufs; i++ )
         {
-            if( status_bufs[i] )
-            {
-                delete status_bufs[i];
-                status_bufs[i] = NULL;
-            }
+            SAFE_DELETE( status_bufs[i] );
         }
-
-        delete[] status_bufs;
-        status_bufs = NULL;
+        SAFE_DELETE_ARRAY( status_bufs );
     }
     
     // if it's there

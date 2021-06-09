@@ -1193,7 +1193,7 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
 {
     [self setLockdown:NO];
 
-    // inform VM monitor that we are NOT starting
+    // inform VM monitor that we are NOT starting 
     [vm_monitor vm_not_starting];
     
     // set states
