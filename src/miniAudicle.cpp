@@ -896,8 +896,6 @@ t_CKBOOL miniAudicle::start_vm()
         if( !m_chuck->init() )
         {
             fprintf( stderr, "[chuck]: failed to init chuck engine\n" );
-            // pop
-            EM_poplog();
             // handle error
             goto error;
         }
@@ -968,10 +966,11 @@ t_CKBOOL miniAudicle::start_vm()
         EM_log( CK_LOG_SYSTEM, "running audio" );
     }
     
+    // set flag
     vm_on = TRUE;
     // pop
     EM_poplog();
-    
+    // done
     return vm_on;
     
 // in case something goes really wrong above | 1.4.0.2
@@ -1003,18 +1002,23 @@ t_CKBOOL miniAudicle::stop_vm()
     // if it's there
     if( m_chuck )
     {
+        // log
         EM_log( CK_LOG_SYSTEM, "stopping chuck virtual machine..." );
-        
+        // stop audio, in case it's started
         ChuckAudio::stop();
+        // shutdown audio, in case it's initialized
         ChuckAudio::shutdown();
-        
+        // clean up chuck global components
         ChucK::globalCleanup();
-        
+        // delete and zero out
         SAFE_DELETE(m_chuck);
-        
+        // zero out references
         compiler = NULL;
         vm = NULL;
     }
+
+    // set flag to false
+    vm_on = FALSE;
 
     return TRUE;
 }
