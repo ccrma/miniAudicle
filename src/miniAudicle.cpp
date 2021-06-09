@@ -978,6 +978,8 @@ t_CKBOOL miniAudicle::start_vm()
 error:
     // clean up
     stop_vm();
+    // pop
+    EM_poplog();
     // done
     return FALSE;
 }
