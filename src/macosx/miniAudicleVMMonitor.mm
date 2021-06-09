@@ -166,6 +166,14 @@ static NSString * const remove_column_id = @"4";
     [removelast_button setEnabled:NO];
 }
 
+- (void)vm_not_starting // 1.4.0.2 this is to reset "Start Virtual Machine" button in case of failure to start
+{
+    [vm_toggle_button setTitle:@"Start Virtual Machine"];
+    [vm_toggle_button setEnabled:YES];
+    [removeall_button setEnabled:NO];
+    [removelast_button setEnabled:NO];
+}
+
 - (void)vm_on
 // TODO: account for vm_on failure
 {
