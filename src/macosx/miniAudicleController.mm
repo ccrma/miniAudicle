@@ -970,7 +970,6 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
         [[NSNotificationCenter defaultCenter] postNotificationName:mAVirtualMachineDidTurnOffNotification
                                                             object:self];
     }
-    
     else
     {
         t_CKBOOL enable_std_system = FALSE;
@@ -999,9 +998,8 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
         {
             [self _backgroundVMOn];
         }
-
         
-        //[self updateSyntaxHighlighting];
+        // [self updateSyntaxHighlighting];
     }
 }
 
@@ -1146,23 +1144,30 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
         [self toggleVM:nil];
 }
 
-
 - (void)_backgroundVMOn
 {
-    ma->start_vm();
-    
-    if([self respondsToSelector:@selector(performSelectorInBackground:withObject:)])
+    // this could do some error checking
+    if( !ma->start_vm() )
     {
         // in other words, this is happening in the background
-        [self performSelectorOnMainThread:@selector(_vmOnFinished)
+        [self performSelectorOnMainThread:@selector(_vmOnFailed)
                                withObject:nil
                             waitUntilDone:NO];
     }
     else
     {
-        [self _vmOnFinished];
+        if([self respondsToSelector:@selector(performSelectorInBackground:withObject:)])
+        {
+            // in other words, this is happening in the background
+            [self performSelectorOnMainThread:@selector(_vmOnFinished)
+                                   withObject:nil
+                                waitUntilDone:NO];
+        }
+        else
+        {
+            [self _vmOnFinished];
+        }
     }
-
 }
 
 - (void)_vmOnFinished
@@ -1181,6 +1186,35 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
     vm_on = YES;
     
     [self adjustChucKMenuItems];
+}
+
+// handles case when start_vm fails; resets state to VM off | 1.4.0.2 (ge)
+- (void)_vmOnFailed
+{
+    [self setLockdown:NO];
+
+    // ensure VM monitor display "off" state
+    // [vm_monitor vm_off]; // <-- this is unsafe, tries to delete stuff enthusiastically; consider fixing later
+
+    // set states
+    vm_starting = NO;
+    vm_on = NO;
+    
+    // open the console monitor, in case there is useful output as to why start_vm failed
+    if( [[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesAutoOpenConsoleMonitor] == YES)
+        [console_monitor activateMonitor];
+
+    [self adjustChucKMenuItems];
+    
+    // create an alert
+    NSAlert * alert = [NSAlert alertWithMessageText:@"Unable to start ChucK virtual machine."
+                                      defaultButton:@"OK"
+                                    alternateButton:nil
+                                        otherButton:nil
+                          informativeTextWithFormat:@"Please check your miniAudicle preferences and confirm the audio settings are valid, including audio output/input device, channels, and sample rate."];
+    
+    // display alert as a modal popup
+    [alert runModal];
 }
 
 
