@@ -31,8 +31,8 @@ CHUG_DIR=/usr/local/lib/chuck
 EXAMPLES_DST=/Library/ChucK
 
 IDENTIFIER_BASE=edu.stanford.chuck
-CERT_APP=Developer ID Application: Spencer Salazar (9GU9FHJ3JC)
-CERT_INSTALLER=Developer ID Installer: Spencer Salazar (9GU9FHJ3JC)
+CERT_APP=Developer ID Application
+CERT_INSTALLER=Developer ID Installer
 
 .PHONY: all
 all: $(INSTALLER)
@@ -80,9 +80,9 @@ $(EXAMPLES_PKG): $(EXAMPLES)
 miniAudicle.app: $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app/Contents/MacOS/miniAudicle
 	rm -rf miniAudicle.app
 	cp -af $< .
-	codesign --force --deep --options runtime --sign "$(CERT_APP)" $@/Contents/Resources/chuck
-	codesign --force --deep --options runtime --sign "$(CERT_APP)" $@/Contents/Resources/oggenc
-	codesign --force --deep --options runtime --sign "$(CERT_APP)" $@/Contents/MacOS/miniAudicle
+	codesign --force --deep --options=runtime --sign "$(CERT_APP)" $@/Contents/Resources/chuck
+	codesign --force --deep --options=runtime --sign "$(CERT_APP)" $@/Contents/Resources/oggenc
+	codesign --force --deep --options=runtime --sign "$(CERT_APP)" $@/Contents/MacOS/miniAudicle
 	touch $@
 
 $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app/Contents/MacOS/miniAudicle $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app:
