@@ -270,6 +270,8 @@
 		09AC4E1818EA2C8500B2561A /* mAShredButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 09AC4E1718EA2C8500B2561A /* mAShredButton.m */; };
 		09AC4E1A18EBC0C400B2561A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09AC4E1918EBC0C400B2561A /* QuartzCore.framework */; };
 		09AC4E1C18EC211600B2561A /* forward-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 09AC4E1B18EC211600B2561A /* forward-100.png */; };
+		09ADA9EC26706F2B00394C26 /* chuck_globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09ADA9EB26706F2A00394C26 /* chuck_globals.cpp */; };
+		09ADA9ED26706F3F00394C26 /* chuck_globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09ADA9EB26706F2A00394C26 /* chuck_globals.cpp */; };
 		09AEF9C719C475AC0081AE4B /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09AEF9C619C475AC0081AE4B /* CoreImage.framework */; };
 		09AF2D1F0BA63F5900B18EC6 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 09AF2D1E0BA63F5900B18EC6 /* lock.png */; };
 		09B19B48199D679B00B9ADA3 /* mAPlayerContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B19B47199D679B00B9ADA3 /* mAPlayerContainerView.m */; };
@@ -328,6 +330,8 @@
 			compilerSpec = com.apple.compilers.lex;
 			filePatterns = "*.lex";
 			fileType = pattern.proxy;
+			inputFiles = (
+			);
 			isEditable = 1;
 			outputFiles = (
 			);
@@ -338,6 +342,8 @@
 			compilerSpec = com.apple.compilers.lex;
 			filePatterns = "*.lex";
 			fileType = pattern.proxy;
+			inputFiles = (
+			);
 			isEditable = 1;
 			outputFiles = (
 			);
@@ -702,6 +708,8 @@
 		09AC4E1718EA2C8500B2561A /* mAShredButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mAShredButton.m; sourceTree = "<group>"; };
 		09AC4E1918EBC0C400B2561A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		09AC4E1B18EC211600B2561A /* forward-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forward-100.png"; sourceTree = "<group>"; };
+		09ADA9EA26706F2A00394C26 /* chuck_globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chuck_globals.h; sourceTree = "<group>"; };
+		09ADA9EB26706F2A00394C26 /* chuck_globals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_globals.cpp; sourceTree = "<group>"; };
 		09AEF9C619C475AC0081AE4B /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreImage.framework; sourceTree = DEVELOPER_DIR; };
 		09AF2D1E0BA63F5900B18EC6 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lock.png; path = macosx/icon/lock.png; sourceTree = SOURCE_ROOT; };
 		09B19B46199D679B00B9ADA3 /* mAPlayerContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mAPlayerContainerView.h; sourceTree = "<group>"; };
@@ -905,6 +913,8 @@
 		092C950D1FCE77C4005114AE /* core */ = {
 			isa = PBXGroup;
 			children = (
+				09ADA9EB26706F2A00394C26 /* chuck_globals.cpp */,
+				09ADA9EA26706F2A00394C26 /* chuck_globals.h */,
 				092C95B31FCE7E24005114AE /* lo */,
 				092C95301FCE7948005114AE /* chuck_absyn.cpp */,
 				092C954F1FCE794C005114AE /* chuck_absyn.h */,
@@ -1597,6 +1607,14 @@
 							};
 						};
 					};
+					09805FE60AA10D0C00915136 = {
+						DevelopmentTeam = 9GU9FHJ3JC;
+						ProvisioningStyle = Automatic;
+					};
+					8D1107260486CEB800E47090 = {
+						DevelopmentTeam = 9GU9FHJ3JC;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "miniAudicle" */;
@@ -1819,6 +1837,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				092C95DF1FCE809E005114AE /* bundle.c in Sources */,
+				09ADA9EC26706F2B00394C26 /* chuck_globals.cpp in Sources */,
 				092C95E11FCE809E005114AE /* method.c in Sources */,
 				092C95E21FCE809E005114AE /* pattern_match.c in Sources */,
 				092C959A1FCE794D005114AE /* ugen_osc.cpp in Sources */,
@@ -1933,6 +1952,7 @@
 				092C95AB1FCE7992005114AE /* chuck_audio.cpp in Sources */,
 				09A40D130A9A6185007604EA /* chuck.lex in Sources */,
 				09056C391FCE8FF9004A2BD4 /* util_thread.cpp in Sources */,
+				09ADA9ED26706F3F00394C26 /* chuck_globals.cpp in Sources */,
 				09056C2C1FCE8FF9004A2BD4 /* ulib_opsc.cpp in Sources */,
 				09056C161FCE8FF9004A2BD4 /* chuck_otf.cpp in Sources */,
 				09056C1A1FCE8FF9004A2BD4 /* chuck_stats.cpp in Sources */,
@@ -2192,7 +2212,10 @@
 		098060190AA10D6C00915136 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 9GU9FHJ3JC;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
@@ -2214,13 +2237,17 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = chuck;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
 		0980601A0AA10D6C00915136 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = 9GU9FHJ3JC;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
@@ -2242,13 +2269,17 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = chuck;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 9GU9FHJ3JC;
 				ENV_MA_VERSION = "1.3.5.2-beta-2";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2279,6 +2310,7 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = miniAudicle;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2286,6 +2318,9 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9GU9FHJ3JC;
 				ENV_MA_VERSION = "1.3.5.2-beta-2";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2314,6 +2349,7 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = miniAudicle;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
