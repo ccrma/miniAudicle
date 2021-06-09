@@ -159,7 +159,7 @@ U.S.A.
     @"Gen17",
     @"CurveTable",
     @"WarpTable",
-    @"Chubgraph",
+    @"Chugraph",
     @"Chugen",
     @"UGen_Stereo",
     @"UGen_Multi",
