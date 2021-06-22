@@ -43,6 +43,8 @@ U.S.A.
 #import "mAMultiDocWindowController.h"
 #import "mAExampleBrowser.h"
 #import "chuck.h"
+
+#import <AVFoundation/AVFoundation.h>
 #import <objc/message.h>
 
 
@@ -54,8 +56,6 @@ NSString * const mAVirtualMachineDidTurnOffNotification = @"VirtualMachineDidTur
 
 NSString * const mAChuginExtension = @"chug";
 
-const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcartwright.MultiWindowDocumentControllerCloseAllContext";
-
 @interface miniAudicleController ()
 
 @property (nonatomic, retain) mAExampleBrowser * exampleBrowser;
@@ -63,6 +63,7 @@ const char* const MultiWindowDocumentControllerCloseAllContext = "com.samuelcart
 - (void)adjustChucKMenuItems;
 - (void)applicationWillTerminate:(NSNotification *)n;
 
+- (void)_turnVMOn;
 - (void)_backgroundVMOn;
 - (void)_vmOnFinished;
 
@@ -972,34 +973,64 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
     }
     else
     {
-        t_CKBOOL enable_std_system = FALSE;
-        id enable_std_system_obj = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesEnableStdSystem];
-        if( enable_std_system_obj )
-            enable_std_system = [enable_std_system_obj boolValue];
-        ma->set_enable_std_system(enable_std_system);
-        
-        t_CKBOOL enable_block = FALSE;
-        id enable_block_obj = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesEnableBlocking];
-        if( enable_block_obj )
-            enable_block = [enable_block_obj boolValue];
-        ma->set_blocking(enable_block);
-        
         vm_starting = YES;
         
         [self adjustChucKMenuItems];
         [vm_monitor vm_starting];
         
-        if([self respondsToSelector:@selector(performSelectorInBackground:withObject:)])
-        {
-            [self performSelectorInBackground:@selector(_backgroundVMOn)
-                                   withObject:nil];
-        }
-        else
-        {
-            [self _backgroundVMOn];
+        const bool needs_input_permission = ma->get_num_inputs() > 0;
+        bool shouldTurnVmOn = true;
+        if (needs_input_permission) {
+            if (@available(macOS 10.14, *)) {
+                AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+                
+                if (authStatus == AVAuthorizationStatusNotDetermined) {
+                    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted){
+                        if (!granted) {
+                            EM_error3( "warning: audio input is disabled due to lack of permissions; check your Privacy settings in System Preferences" );
+                            ma->set_num_inputs(0);
+                        }
+                        
+                        [self _turnVMOn];
+                    }];
+                    
+                    shouldTurnVmOn = false;
+                    
+                } else if (authStatus != AVAuthorizationStatusAuthorized) {
+                    EM_error3( "warning: audio input is disabled due to lack of permissions; check your Privacy settings in System Preferences" );
+                    ma->set_num_inputs(0);
+                }
+            }
         }
         
-        // [self updateSyntaxHighlighting];
+        if (shouldTurnVmOn) {
+            [self _turnVMOn];
+        }
+    }
+}
+
+- (void)_turnVMOn
+{
+    t_CKBOOL enable_std_system = FALSE;
+    id enable_std_system_obj = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesEnableStdSystem];
+    if( enable_std_system_obj )
+        enable_std_system = [enable_std_system_obj boolValue];
+    ma->set_enable_std_system(enable_std_system);
+    
+    t_CKBOOL enable_block = FALSE;
+    id enable_block_obj = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesEnableBlocking];
+    if( enable_block_obj )
+        enable_block = [enable_block_obj boolValue];
+    ma->set_blocking(enable_block);
+    
+    if([self respondsToSelector:@selector(performSelectorInBackground:withObject:)])
+    {
+        [self performSelectorInBackground:@selector(_backgroundVMOn)
+                               withObject:nil];
+    }
+    else
+    {
+        [self _backgroundVMOn];
     }
 }
 

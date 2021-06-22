@@ -236,6 +236,7 @@
 		099ABE54190CF45400C5D52D /* loop.png in Resources */ = {isa = PBXBuildFile; fileRef = 099ABE53190CF45400C5D52D /* loop.png */; };
 		099C04F518FB715C00AC27C3 /* mANetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 099C04F418FB715C00AC27C3 /* mANetworkManager.m */; };
 		099C04F818FBAF1400AC27C3 /* mANetworkAction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 099C04F718FBAF1400AC27C3 /* mANetworkAction.mm */; };
+		099F2CFB26823CDA00123B7C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099F2CFA26823CDA00123B7C /* AVFoundation.framework */; };
 		09A14A1219B9AD5E00D28255 /* UIColor+iOS7BlueColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A14A1119B9AD5E00D28255 /* UIColor+iOS7BlueColor.m */; };
 		09A24ED31FE23A1B00FC9BB5 /* chuck_console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95A41FCE7992005114AE /* chuck_console.cpp */; };
 		09A40B800A9A54DA007604EA /* chuck.y in Sources */ = {isa = PBXBuildFile; fileRef = 09A40B360A9A54DA007604EA /* chuck.y */; };
@@ -630,6 +631,7 @@
 		099C04F418FB715C00AC27C3 /* mANetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mANetworkManager.m; sourceTree = "<group>"; };
 		099C04F618FBAF1400AC27C3 /* mANetworkAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mANetworkAction.h; sourceTree = "<group>"; };
 		099C04F718FBAF1400AC27C3 /* mANetworkAction.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mANetworkAction.mm; sourceTree = "<group>"; };
+		099F2CFA26823CDA00123B7C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		09A14A1019B9AD5E00D28255 /* UIColor+iOS7BlueColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+iOS7BlueColor.h"; sourceTree = "<group>"; };
 		09A14A1119B9AD5E00D28255 /* UIColor+iOS7BlueColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+iOS7BlueColor.m"; sourceTree = "<group>"; };
 		09A1E6160CBA1AEC001FAD6F /* makefile.source-dist */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 30; path = "makefile.source-dist"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
@@ -832,6 +834,7 @@
 				09A40BD90A9A57C6007604EA /* CoreAudio.framework in Frameworks */,
 				09A40BDA0A9A57C6007604EA /* CoreMIDI.framework in Frameworks */,
 				09A40BDB0A9A57C6007604EA /* IOKit.framework in Frameworks */,
+				099F2CFB26823CDA00123B7C /* AVFoundation.framework in Frameworks */,
 				09A40D860A9AC579007604EA /* Foundation.framework in Frameworks */,
 				09297A160B4DED60005C3B7A /* IOBluetooth.framework in Frameworks */,
 				0916F981173AF0D20055956C /* PSMTabBarControl.framework in Frameworks */,
@@ -1491,6 +1494,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				099F2CFA26823CDA00123B7C /* AVFoundation.framework */,
 				4D3D4C971A5E3A4400B6A06B /* SystemConfiguration.framework */,
 				4D3D4C941A5E392800B6A06B /* SystemConfiguration.framework */,
 				094B5F6819C9E1E8004B9B5E /* CoreMotion.framework */,

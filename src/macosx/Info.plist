@@ -49,6 +49,8 @@
 	<string>$(ENV_MA_VERSION)</string>
 	<key>NSMainNibFile</key>
 	<string>miniAudicle</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>miniAudicle uses your microphone to allow sound processing of external audio input. </string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>UTExportedTypeDeclarations</key>
