@@ -82,6 +82,7 @@ miniAudicle.app: $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app $(MINI_SRC_ROOT)/sr
 	cp -af $< .
 	codesign --force --deep --options=runtime --sign "$(CERT_APP)" $@/Contents/Resources/chuck
 	codesign --force --deep --options=runtime --sign "$(CERT_APP)" $@/Contents/Resources/oggenc
+	codesign --force --deep --options=runtime --sign "$(CERT_APP)" $@/Contents/Frameworks/PSMTabBarControl.framework
 	codesign --force --deep --options=runtime --sign "$(CERT_APP)" $@/Contents/MacOS/miniAudicle
 	touch $@
 
