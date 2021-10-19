@@ -95,6 +95,7 @@ chuck: $(CHUCK_SRC_ROOT)/src/chuck
 	touch $@
 
 $(CHUCK_SRC_ROOT)/src/chuck:
+	make -C $(CHUCK_SRC_ROOT)/src/ clean
 	ARCHS="i386 x86_64" make -C $(CHUCK_SRC_ROOT)/src/ osx
 
 $(CHUGINS): $(CHUGINS_ORIGINAL)
