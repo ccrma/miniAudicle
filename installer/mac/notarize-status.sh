@@ -1,4 +1,4 @@
 #!/bin/sh
 
-xcrun altool --notarization-info "$1" --username "spencer.salazar@gmail.com" --password "akod-emro-gotq-yjqa"
+xcrun altool --notarization-info "$1" --username "$NOTARIZATION_USERNAME" --password "$NOTARIZATION_PASSWORD"
 
