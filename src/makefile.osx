@@ -45,7 +45,7 @@ LIBS=-F$(BUNDLE_FRAMEWORKS_DIR) \
     $(addprefix -framework ,$(FRAMEWORKS)) \
     $(LINK_EXTRAS) -lc++ -lm
 LDFLAGS=$(LIBS) -mmacosx-version-min=10.9 $(ISYSROOT)
-LDFLAGS_MA=-rpath "@executable_path/Contents/Frameworks"
+LDFLAGS_MA=-rpath "@executable_path/../Contents/Frameworks"
 
 ARCHOPTS=$(addprefix -arch ,$(ARCHS))
 
