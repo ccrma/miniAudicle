@@ -91,7 +91,7 @@ $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app/Contents/MacOS/miniAudicle $(MINI_SR
 
 chuck: $(CHUCK_SRC_ROOT)/src/chuck
 	cp -af $< .
-	codesign --force --options runtime --sign "$(CERT_APP)" $@
+	codesign --entitlements miniAudicle.entitlements --force --options=runtime --sign "$(CERT_APP)" $@
 	touch $@
 
 $(CHUCK_SRC_ROOT)/src/chuck:
