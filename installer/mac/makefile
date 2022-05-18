@@ -87,7 +87,7 @@ miniAudicle.app: $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app $(MINI_SRC_ROOT)/sr
 	touch $@
 
 $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app/Contents/MacOS/miniAudicle $(MINI_SRC_ROOT)/src/macosx/miniAudicle.app:
-	ARCHS="i386 x86_64" make -C $(MINI_SRC_ROOT)/src osx
+	make -C $(MINI_SRC_ROOT)/src mac-ub
 
 chuck: $(CHUCK_SRC_ROOT)/src/chuck
 	cp -af $< .
@@ -96,14 +96,14 @@ chuck: $(CHUCK_SRC_ROOT)/src/chuck
 
 $(CHUCK_SRC_ROOT)/src/chuck:
 	make -C $(CHUCK_SRC_ROOT)/src/ clean
-	ARCHS="x86_64" make -C $(CHUCK_SRC_ROOT)/src/ osx
+	make -C $(CHUCK_SRC_ROOT)/src/ mac-ub
 
 $(CHUGINS): $(CHUGINS_ORIGINAL)
 	cp -af $(CHUGINS_SRC_ROOT)/$(basename $@)/$@  .
-	codesign --force --options runtime --sign "$(CERT_APP)" $@
+	codesign --entitlements miniAudicle.entitlements --force --options=runtime --sign "$(CERT_APP)" $@
 	touch $@
 $(CHUGINS_ORIGINAL): 
-	make -C $(dir $@) osx
+	ARCHS="arm64 x86_64" make -C $(dir $@) osx
 
 clean: 
 	rm -rf miniAudicle.app chuck $(CHUGINS) *.pkg *.tmp
