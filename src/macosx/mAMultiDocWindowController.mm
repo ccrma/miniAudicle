@@ -362,7 +362,7 @@
 
 - (void)tabView:(NSTabView *)aTabView willCloseTabViewItem:(NSTabViewItem *)tabViewItem
 {
-    NSLog(@"tabView willCloseTabViewItem");
+    // NSLog(@"tabView willCloseTabViewItem");
 }
 
 - (void)tabView:(NSTabView *)aTabView didCloseTabViewItem:(NSTabViewItem *)tabViewItem
@@ -372,7 +372,7 @@
 
 - (void)tabView:(NSTabView *)aTabView didDetachTabViewItem:(NSTabViewItem *)tabViewItem
 {
-    NSLog(@"Did Detach Tab View Item");    
+    // NSLog(@"Did Detach Tab View Item");    
 }
 
 - (void)tabView:(NSTabView *)aTabView acceptedDraggingInfo:(id <NSDraggingInfo>)draggingInfo onTabViewItem:(NSTabViewItem *)tabViewItem
