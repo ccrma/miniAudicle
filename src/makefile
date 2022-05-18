@@ -15,17 +15,25 @@ CHUGINS_SRC_ROOT=chugins
 CHUGINS=ABSaturator Bitcrusher FIR KasFilter PanN
 CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGINS),$(CHUGINS_SRC_ROOT)/$(CHUG)/$(CHUG).chug)
 
+ifneq (,$(strip $(filter mac-ub,$(MAKECMDGOALS))))
+ARCHS=x86_64
+CFLAGS+=-D__MACOSX_UB__
+# export for sub-make command
+export ARCHS
+export CFLAGS
+endif
+
 ifneq ($(CK_TARGET),)
 target: $(CK_TARGET)
 endif
 
-.PHONY: current osx linux-jack linux-alsa linux-pulse win32 windows
+.PHONY: current osx mac mac-ub linux-jack linux-alsa linux-pulse win32 windows
 
 current: 
 	@echo "[miniAudicle build]: please use one of the following configurations:"
 	@echo "   make linux-alsa, make linux-pulse, make linux-jack, make osx, or make win32"
 
-osx: 
+osx mac mac-ub:
 	-+make -f makefile.osx $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
 linux-jack: makefile.qt-jack 

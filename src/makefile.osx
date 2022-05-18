@@ -3,6 +3,7 @@
 
 include version.mk
 
+
 ifneq ($(shell sw_vers -productVersion | egrep '^10\.(0|1|2|3|4|5)(\.[0-9]+)?$$'),)
 ISYSROOT=-isysroot /Developer/SDKs/MacOSX10.4u.sdk
 LINK_EXTRAS=
@@ -36,7 +37,7 @@ BUNDLE_FRAMEWORKS_DIR=$(OSX_DIR)/Frameworks
 
 INCLUDES=-I$(CHUCK_SRC_DIR)/core -I$(CHUCK_SRC_DIR)/host -I$(CHUCK_SRC_DIR)/host/RtAudio \
     -I$(OSX_DIR) -I$(OSX_DIR)/UliKit -I. -F$(BUNDLE_FRAMEWORKS_DIR)
-CFLAGS=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH $(INCLUDES) \
+CFLAGS+=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH $(INCLUDES) \
     -mmacosx-version-min=10.9 $(ISYSROOT) -DENV_MA_VERSION="\"$(VERSION)\""
 
 FRAMEWORKS=Cocoa CoreAudio CoreMIDI CoreFoundation Carbon IOKit Security PSMTabBarControl AVFoundation
