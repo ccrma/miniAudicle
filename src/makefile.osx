@@ -45,6 +45,7 @@ LIBS=-F$(BUNDLE_FRAMEWORKS_DIR) \
     $(addprefix -framework ,$(FRAMEWORKS)) \
     $(LINK_EXTRAS) -lc++ -lm
 LDFLAGS=$(LIBS) -mmacosx-version-min=10.9 $(ISYSROOT)
+LDFLAGS_MA=-rpath "@executable_path/Contents/Frameworks"
 
 ARCHOPTS=$(addprefix -arch ,$(ARCHS))
 
@@ -230,7 +231,7 @@ miniAudicle: $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(IMAGES) \
     $(INFO_PLIST_IN_BUNDLE) $(OGGENC_IN_BUNDLE)
 
 $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle: $(OBJS) $(CHUCK_OBJS) $(BIN_DIR)/miniAudicle.app/Contents/MacOS/
-	$(CXX) -o $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(OBJS) $(CHUCK_OBJS) $(LDFLAGS) $(ARCHOPTS)
+	$(CXX) -o $(BIN_DIR)/miniAudicle.app/Contents/MacOS/miniAudicle $(OBJS) $(CHUCK_OBJS) $(LDFLAGS) $(LDFLAGS_MA) $(ARCHOPTS)
 
 $(BIN_DIR)/miniAudicle.app/Contents/MacOS/:
 	mkdir -p $(BIN_DIR)/miniAudicle.app/Contents/MacOS/
