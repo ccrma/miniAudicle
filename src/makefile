@@ -16,7 +16,7 @@ CHUGINS=ABSaturator Bitcrusher FIR KasFilter PanN
 CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGINS),$(CHUGINS_SRC_ROOT)/$(CHUG)/$(CHUG).chug)
 
 ifneq (,$(strip $(filter mac-ub,$(MAKECMDGOALS))))
-ARCHS=x86_64
+ARCHS=x86_64 arm64
 CFLAGS+=-D__MACOSX_UB__
 # export for sub-make command
 export ARCHS
