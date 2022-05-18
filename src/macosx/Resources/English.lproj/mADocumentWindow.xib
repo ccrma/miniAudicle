@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,12 +18,12 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
-        <window title="miniAudicle" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="1">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="miniAudicle" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" toolbarStyle="expanded" id="1">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="600" height="562"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="600" height="562"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -50,26 +50,36 @@
             <toolbar key="toolbar" implicitIdentifier="A0BC3308-A519-4DA4-87D7-2EC0043C953D" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="239">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="A4EAE147-C7BC-4FAB-A338-A875CBFBECD4" label="Add Shred" paletteLabel="Add Shred" tag="1" image="add" id="245">
+                        <size key="minSize" width="22" height="22"/>
+                        <size key="maxSize" width="22" height="32"/>
                         <connections>
                             <action selector="add:" target="-2" id="250"/>
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="BEB2BB5E-FC2B-4DEF-BD84-F7C28F8AFDA2" label="Replace Shred" paletteLabel="Replace Shred" tag="1" image="replace" id="247">
+                        <size key="minSize" width="22" height="22"/>
+                        <size key="maxSize" width="22" height="22"/>
                         <connections>
                             <action selector="replace:" target="-2" id="251"/>
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="850E7513-BFE0-418C-B047-6B71A05BEED4" label="Remove Shred" paletteLabel="Remove Shred" tag="1" image="remove" id="246">
+                        <size key="minSize" width="22" height="22"/>
+                        <size key="maxSize" width="22" height="22"/>
                         <connections>
                             <action selector="remove:" target="-2" id="252"/>
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="07D0D795-986A-4B87-8766-765545DDCAB1" label="Remove Last Shred" paletteLabel="Remove Last Shred" tag="1" image="removelast" id="248">
+                        <size key="minSize" width="22" height="22"/>
+                        <size key="maxSize" width="22" height="22"/>
                         <connections>
                             <action selector="removelast:" target="-2" id="253"/>
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="6ED9C997-3DC3-4B7F-8090-8F6DE2FEF682" label="Clear Virtual Machine" paletteLabel="Clear Virtual Machine" tag="1" image="removeall" id="249">
+                        <size key="minSize" width="22" height="22"/>
+                        <size key="maxSize" width="22" height="22"/>
                         <connections>
                             <action selector="clearVM:" target="-2" id="259"/>
                         </connections>
