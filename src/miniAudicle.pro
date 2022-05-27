@@ -165,7 +165,9 @@ SOURCES += \
     qt/ZSettings.cpp \
     qt/mASocketManager.cpp \ 
     qt/mADeviceBrowser.cpp \
-    chuck/src/core/chuck.cpp
+    chuck/src/core/chuck.cpp \
+    chuck/src/core/chuck_globals.cpp \
+    chuck/src/core/util_platforms.cpp
 !linux-g++ {
     SOURCES += chuck/src/core/util_sndfile.c
 }
