@@ -89,7 +89,7 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent) :
     
     int fd_read, fd_write;
 
-    if( !CreatePipe( &hRead, &hWrite, NULL, 8192 ) )
+    if( !CreatePipe( &hRead, &hWrite, NULL, 8192*4 ) )
     {
         EM_log( CK_LOG_SEVERE, "(console monitor): pipe error %d, disabling console monitor", GetLastError() );
         return;

@@ -40,11 +40,9 @@ miniAudicle.exe: $(MINI_SRC_ROOT)/build-miniAudicle-Static-Release/release/miniA
 	cp -af $< .
 	touch $@
 
-# chuck.exe: $(CHUCK_SRC_ROOT)/src/Release/chuck.exe
-# 	cp -af $< .
-# 	touch $@
-# $(CHUCK_SRC_ROOT)/src/Release/chuck.exe:
-# 	make -C $(CHUCK_SRC_ROOT)/src/ win32
+chuck.exe: $(CHUCK_SRC_ROOT)/src/visual-studio/Release/chuck.exe
+	cp -af $< .
+	touch $@
 
 chugins.wxs: $(CHUGINS)
 	heat dir chugins -gg -dr INSTALLDIR -cg chugins -out chugins.wxs
