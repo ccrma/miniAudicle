@@ -40,12 +40,11 @@ INCLUDES=-I$(CHUCK_SRC_DIR)/core -I$(CHUCK_SRC_DIR)/host -I$(CHUCK_SRC_DIR)/host
 CFLAGS+=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH $(INCLUDES) \
     -mmacosx-version-min=10.9 $(ISYSROOT) -DENV_MA_VERSION="\"$(VERSION)\""
 
-FRAMEWORKS=Cocoa CoreAudio CoreMIDI CoreFoundation Carbon IOKit Security PSMTabBarControl AVFoundation
-LIBS=-F$(BUNDLE_FRAMEWORKS_DIR) \
-    $(addprefix -framework ,$(FRAMEWORKS)) \
+FRAMEWORKS=Cocoa CoreAudio CoreMIDI CoreFoundation Carbon IOKit Security AVFoundation
+LIBS=$(addprefix -framework ,$(FRAMEWORKS)) \
     $(LINK_EXTRAS) -lc++ -lm
 LDFLAGS=$(LIBS) -mmacosx-version-min=10.9 $(ISYSROOT)
-LDFLAGS_MA=-rpath "@executable_path/../Frameworks"
+LDFLAGS_MA=-F$(BUNDLE_FRAMEWORKS_DIR) -framework PSMTabBarControl -rpath "@executable_path/../Frameworks"
 
 ARCHOPTS=$(addprefix -arch ,$(ARCHS))
 
