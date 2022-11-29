@@ -82,7 +82,9 @@ INSTALLS += target examples
 
 win32 {
 DEFINES -= UNICODE
-CFLAGS = -D__PLATFORM_WIN32__ -D__CHUCK_NO_MAIN__ -D__WINDOWS_DS__ -I../src -I../src/chuck/src/core -I../src/chuck/src/host -DWIN32 -D_WINDOWS -D__CK_MATH_DEFINE_ROUND_TRUNC__
+# 2022 QTSIN
+DEFINES -= _UNICODE
+CFLAGS = -D__PLATFORM_WIN32__ -D__WINDOWS_MODERN__ -D__CHUCK_NO_MAIN__ -D__WINDOWS_DS__ -D_WINSOCKAPI_ -I../src -I../src/chuck/src/core -I../src/chuck/src/host -DWIN32 -D_WINDOWS -D__CK_MATH_DEFINE_ROUND_TRUNC__
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LFLAGS += wsock32.lib dinput.lib kernel32.lib user32.lib gdi32.lib dsound.lib dxguid.lib winmm.lib ole32.lib
