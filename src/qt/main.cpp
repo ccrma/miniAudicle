@@ -22,7 +22,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 U.S.A.
 -----------------------------------------------------------------------------*/
 
-#include <QApplication>
+#include <QtWidgets/QApplication>
 
 #include "mAMainWindow.h"
 #include "mASocketManager.h"

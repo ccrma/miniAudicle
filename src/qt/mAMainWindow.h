@@ -25,9 +25,9 @@ U.S.A.
 #ifndef MAMAINWINDOW_H
 #define MAMAINWINDOW_H
 
-#include <QMainWindow>
+#include <QtWidgets/QMainWindow>
 #include <QFile>
-#include <QFileDialog>
+#include <QtWidgets/QFileDialog>
 
 #include <list>
 

@@ -25,8 +25,8 @@ U.S.A.
 #ifndef MAPREFERENCESWINDOW_H
 #define MAPREFERENCESWINDOW_H
 
-#include <QDialog>
-#include <QColorDialog>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QColorDialog>
 #include <vector>
 
 using namespace std;

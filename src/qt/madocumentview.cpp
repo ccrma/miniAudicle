@@ -276,7 +276,7 @@ void mADocumentView::exportAsWav()
         if(cancelled)
         {
 #ifdef __PLATFORM_WIN32__
-            AttachConsole((DWORD)process.pid()); // attach to process console
+            AttachConsole((DWORD)process.processId()); // attach to process console
             SetConsoleCtrlHandler(NULL, TRUE); // disable Control+C handling for our app
             GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0); // generate Control+C event
 #else
@@ -374,7 +374,7 @@ void mADocumentView::save()
             tr("Save File"), "", "ChucK Scripts (*.ck)");
 
         // SPENCERTODO: note file in Recent Files menu        
-        if(fileName != NULL && fileName.length() > 0)
+        if(!fileName.isNull() && fileName.length() > 0)
         {
             file = new QFile(fileName);
 
@@ -417,7 +417,7 @@ void mADocumentView::saveAs()
     QFile * oldFile = NULL;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), "", "ChucK Scripts (*.ck)");
     
-    if(fileName != NULL && fileName.length() > 0)
+    if(!fileName.isNull() && fileName.length() > 0)
     {
         oldFile = file;
         m_readOnly = false;
