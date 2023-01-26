@@ -207,6 +207,7 @@ const char *mAsciLexerChucK::keywords(int set) const
                 "FeatureCollector "
                 "Centroid "
                 "Flux "
+                "MFCC "
                 "RMS "
                 "RollOff "
                 "AutoCorr "
