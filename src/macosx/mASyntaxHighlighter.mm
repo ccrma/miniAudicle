@@ -257,6 +257,7 @@ U.S.A.
     @"FeatureCollector",
     @"Centroid",
     @"Flux",
+    @"MFCC",
     @"RMS",
     @"RollOff",
     @"AutoCorr",
