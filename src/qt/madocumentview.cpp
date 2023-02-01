@@ -42,6 +42,8 @@ U.S.A.
 
 #include <signal.h>
 
+using namespace std;
+
 
 mADocumentView::mADocumentView(QWidget *parent, std::string _title, QFile * file, miniAudicle * ma) :
     QWidget(parent),

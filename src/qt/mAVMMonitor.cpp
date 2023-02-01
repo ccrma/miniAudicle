@@ -28,6 +28,8 @@ U.S.A.
 
 #include <math.h>
 
+using namespace std;
+
 const float VMMONITOR_STALL_TIMEOUT = 2; // secondss
 const float VMMONITOR_REFRESH_RATE = 20; // Hz
 

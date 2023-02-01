@@ -36,6 +36,7 @@ U.S.A.
 #include "chuck_dl.h"
 #include "chuck_audio.h"
 
+using namespace std;
 
 const QString mAPreferencesParentFrameWidth = "/GUI/ParentFrame/width";
 const QString mAPreferencesParentFrameHeight = "/GUI/ParentFrame/height";
