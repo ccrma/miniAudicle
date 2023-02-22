@@ -7,7 +7,7 @@
     <Package Id='*' Keywords='Installer'
       Description="ChucK Audio Programming Language"
       Comments='ChucK is a programming language for real-time computer music and digital signal processing.' Manufacturer='Stanford University CCRMA'
-      InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+      InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' Platform='x64'/>
     
     <Upgrade Id="5E802F26-D8BC-4db8-97B2-11629D23724E">  
     <UpgradeVersion Minimum="1.0.0" Maximum="99.0.0"
@@ -22,10 +22,10 @@
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
-      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+      <Directory Id='ProgramFiles64Folder' Name='PFiles'>
           <Directory Id='INSTALLDIR' Name='ChucK'>
 
-            <Component Id='MainExecutable' Guid='F69CF6EC-8E1F-4fc1-BD1D-66E286A974F0'>
+            <Component Id='MainExecutable' Win64='yes' Guid='67862ea9-232f-4c7d-8108-40ef9c98975d'>
               <File Id='miniAudicleEXE' Name='miniAudicle.exe' DiskId='1' Source='miniAudicle.exe' KeyPath='yes'>
                 <Shortcut Id="startmenuMiniAudicle" Directory="ProgramMenuDir" Name="miniAudicle" WorkingDirectory='INSTALLDIR' Icon="miniAudicle.exe" IconIndex="0" Advertise="yes" />
               </File>
@@ -39,31 +39,22 @@
               <RegistryValue Id='ChucKIcon3' Root='HKCR' Key='miniAudicle.ChucKScript\DefaultIcon' Action='write' Type='string' Value='[INSTALLDIR]miniAudicle.exe,1' /> -->
             </Component>
             
-            <Directory Id="bin" Name="bin">
-              <Component Id='chuckEXE' Guid='5CFBE8C7-8F1F-4b34-AEB5-691125C5C871'>
-                <File Id='chuckEXE' Name='chuck.exe' DiskId='1' Source='chuck.exe' KeyPath='yes' />
-                <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]/bin" Permanent="no" Part="last" Action="set" System="yes" />
-              </Component>
-              <Component Id='msvcr100DLL' Guid='{DD4F537B-E8E7-47c8-99BF-D4254B065AA3}'>
-                <File Id='msvcr100DLL' Name='msvcr100.dll' DiskId='1' Source='msvcr100.dll' KeyPath='yes' />
-              </Component>
-              <Component Id='msvcp100DLL' Guid='{431A3761-9918-413c-B068-31B8EDFDE0C4}'>
-                <File Id='msvcp100DLL' Name='msvcp100.dll' DiskId='1' Source='msvcp100.dll' KeyPath='yes' />
-              </Component>
-            </Directory>
+            <Component Id='chuckEXE' Win64='yes' Guid='98154a66-8fc2-4ad7-9562-0a5c908fd715'>
+              <File Id='chuckEXE' Name='chuck.exe' DiskId='1' Source='chuck.exe' KeyPath='yes' />
+              <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
+            </Component>
             
             <Directory Id="util" Name="util">
-              <Component Id='oggencEXE' Guid='3B8BFD3D-2EBE-445a-89AE-376C4E4F8059'>
+              <Component Id='oggencEXE' Win64='yes' Guid='3B8BFD3D-2EBE-445a-89AE-376C4E4F8059'>
                 <File Id='oggencEXE' Name='oggenc.exe' DiskId='1' Source='oggenc.exe' KeyPath='yes' />
               </Component>
             </Directory>
-            
           </Directory>
       </Directory>
 
       <Directory Id="ProgramMenuFolder" Name="Programs">
         <Directory Id="ProgramMenuDir" Name="ChucK">
-          <Component Id="ProgramMenuDir" Guid="62F08ECE-5CD5-42dd-8F45-FEC70D6E531C">
+          <Component Id="ProgramMenuDir" Win64='yes' Guid="62F08ECE-5CD5-42dd-8F45-FEC70D6E531C">
             <RemoveFolder Id='ProgramMenuDir' On='uninstall' />
             <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
           </Component>
@@ -72,17 +63,30 @@
 
     </Directory>
 
+    <ComponentGroup Id="dll">
+      <Component Id="msvcp140.dll" Directory="INSTALLDIR" Win64='yes' Guid="{596EDA0A-F834-44C2-A1E7-BC6F0486577D}">
+          <File Id="msvcp140.dll" KeyPath="yes" Source="lib/msvcp140.dll" />
+      </Component>
+      <Component Id="vcruntime140.dll" Directory="INSTALLDIR" Win64='yes' Guid="{DDD5B486-4FB0-4E1C-8820-43F3100900A7}">
+          <File Id="vcruntime140.dll" KeyPath="yes" Source="lib/vcruntime140.dll" />
+      </Component>
+      <Component Id="vcruntime140_1.dll" Directory="INSTALLDIR" Win64='yes' Guid="{E9CC9608-CF95-4317-BDA1-4A2F2406E276}">
+          <File Id="vcruntime140_1.dll" KeyPath="yes" Source="lib/vcruntime140_1.dll" />
+      </Component>
+    </ComponentGroup>
+
     <Feature Id='Complete' Title='ChucK' Description='The complete ChucK package.'
       Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
       <Feature Id='MainProgram' Title='miniAudicle' Description='miniAudicle is an integrated development environment for the ChucK audio programming language. Highly recommended.' Level='1'>
         <ComponentRef Id='MainExecutable' />
         <ComponentRef Id='ProgramMenuDir' />
         <ComponentRef Id='oggencEXE' />
+        <ComponentGroupRef Id='dll' />
+        <ComponentGroupRef Id='qt6dll' />
       </Feature>
       <Feature Id='chuckEXE' Title='chuck.exe' Description='chuck.exe command line executable.' Level='1'>
         <ComponentRef Id='chuckEXE' />
-        <ComponentRef Id='msvcr100DLL' />
-        <ComponentRef Id='msvcp100DLL' />
+        <ComponentGroupRef Id='dll' />
       </Feature>
       <Feature Id='chugins' Title='ChuGins' Description='ChuGins extend the native capabilities of ChucK with additional unit generators.' Level='1'>
         <ComponentGroupRef Id='chugins' />
