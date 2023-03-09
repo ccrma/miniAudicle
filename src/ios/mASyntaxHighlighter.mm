@@ -285,6 +285,7 @@ static IDEKit_LexParser *g_sharedHighlighter = NULL;
     @"FeatureCollector",
     @"Centroid",
     @"Flux",
+    @"MFCC",
     @"RMS",
     @"RollOff",
     @"AutoCorr",

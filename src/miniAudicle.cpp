@@ -98,12 +98,12 @@ extern const char MA_ABOUT[] = "version %s\n\
 git: " GIT_REVISION "\n\
 Copyright (c) Spencer Salazar\n\n\
 ChucK: version %s %lu-bit\n\
-Copyright (c) Ge Wang and Perry Cook\nhttp://chuck.cs.princeton.edu/";
+Copyright (c) Ge Wang and Perry Cook\nhttp://chuck.stanford.edu/";
 #else
 extern const char MA_ABOUT[] = "version %s\n\
 Copyright (c) Spencer Salazar\n\n\
 ChucK: version %s %lu-bit\n\
-Copyright (c) Ge Wang and Perry Cook\nhttp://chuck.cs.princeton.edu/";
+Copyright (c) Ge Wang and Perry Cook\nhttp://chuck.stanford.edu/";
 #endif // __PLATFORM_WIN32__
 
 extern const char MA_HELP[] = 
