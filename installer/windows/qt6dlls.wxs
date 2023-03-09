@@ -17,6 +17,9 @@
             <Component Win64='yes' Id="cmp70DBA10EA12A15B0F719F27ADF2B96B8" Directory="INSTALLDIR" Guid="{FFCC5805-5131-421E-BAC6-B238C9AF6103}">
                 <File Id="fil1EC1DDFD680093DC1C668D8A29BC6E92" KeyPath="yes" Source="dll\Qt6Widgets.dll" />
             </Component>
+            <Component Win64='yes' Id="cmpA1C9F55D12DB4D5DB30DD2401634C619" Directory="INSTALLDIR" Guid="{3C38045A-BB14-4277-8F8D-4F8538A0890B}">
+                <File Id="filB17D9CB5953A47329B295CB4ED34934C" KeyPath="yes" Source="dll\Qt6PrintSupport.dll" />
+            </Component>
             <Component Win64='yes' Id="cmpCAA4DA194FDA726989CD6AF4E486570E" Directory="dir84282DA16DC740058F438277FB22CFE1" Guid="{9BCB29B6-C12B-4989-B1CB-1F684F8AF458}">
                 <File Id="filB1BD0C65BA2A6555B956FA2943E2C5C4" KeyPath="yes" Source="dll\iconengines\qsvgicon.dll" />
             </Component>
@@ -51,7 +54,7 @@
                 <File Id="filD3E262C92E55C1207C737F2419FF17A2" KeyPath="yes" Source="dll\tls\qschannelbackend.dll" />
             </Component>
             <Component Id="qscintilla2_qt6.dll" Directory="INSTALLDIR" Win64='yes' Guid="{1394EF6A-B732-4539-9AB0-26CE7D8CACFE}">
-                <File Id="qscintilla2_qt6.dll" KeyPath="yes" Source="lib/qscintilla2_qt6.dll" />
+                <File Id="qscintilla2_qt6.dll" KeyPath="yes" Source="dll/qscintilla2_qt6.dll" />
             </Component>
         </ComponentGroup>
     </Fragment>

@@ -46,7 +46,7 @@ miniAudicle.exe: $(QT_BUILD_DIR)/release/miniAudicle.exe
 	cp -af $< .
 	touch $@
 
-chuck.exe: $(CHUCK_SRC_ROOT)/src/visual-studio/x64/Debug/chuck.exe
+chuck.exe: $(CHUCK_SRC_ROOT)/src/visual-studio/x64/Release/chuck.exe
 	cp -af $< .
 	touch $@
 
@@ -54,11 +54,6 @@ chugins.wxs: $(CHUGINS)
 	heat dir chugins -gg -dr INSTALLDIR -cg chugins -out $@
 	sed -i 's/SourceDir/chugins/g' $@
 	sed -i "s/<Component /<Component Win64='yes' /g" $@
-
-# qt6dlls.wxs:
-# 	heat dir dll -gg -dr INSTALLDIR -cg dll -out $@
-# 	sed -i 's/SourceDir/dll/g' $@
-# 	sed -i "s/<Component /<Component Win64='yes' /g" $@
 
 $(CHUGINS): $(CHUGINS_ORIGINAL)
 	mkdir -p chugins/
