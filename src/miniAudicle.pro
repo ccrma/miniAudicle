@@ -107,6 +107,7 @@ SOURCES += \
     chuck/src/core/ulib_math.cpp \
     chuck/src/core/ulib_machine.cpp \
     chuck/src/core/ulib_regex.cpp \
+    chuck/src/core/ulib_ai.cpp \
     chuck/src/core/ugen_xxx.cpp \
     chuck/src/core/ugen_stk.cpp \
     chuck/src/core/ugen_osc.cpp \
@@ -206,6 +207,7 @@ HEADERS  += qt/mAMainWindow.h \
     chuck/src/core/ulib_opsc.h \
     chuck/src/core/ulib_math.h \
     chuck/src/core/ulib_machine.h \
+    chuck/src/core/ulib_ai.h \
     chuck/src/core/ugen_xxx.h \
     chuck/src/core/ugen_stk.h \
     chuck/src/core/ugen_osc.h \
