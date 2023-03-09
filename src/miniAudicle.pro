@@ -6,7 +6,7 @@
 
 QT += core gui network widgets
 
-CONFIG += warn_off static
+CONFIG += warn_off
 
 TARGET = miniAudicle
 TEMPLATE = app
