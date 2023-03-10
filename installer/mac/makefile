@@ -10,7 +10,7 @@ include $(VERSION_MK)
 CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher Elliptic ExpEnv ExpDelay FIR \
     FoldbackSaturator GVerb KasFilter MagicSine Mesh2D Multicomb \
     PanN PitchTrack PowerADSR Sigmund Spectacle WinFuncEnv WPDiodeLadder \
-    WPKorg35
+    WPKorg35 rave
 CHUGINS=$(addsuffix .chug,$(CHUGIN_NAMES))
 CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/$(CHUG).chug)
 
@@ -67,6 +67,7 @@ $(CHUGIN_PKGS): %.pkg: %
 	rm -rf $<.tmp/$(CHUG_DIR)
 	mkdir -p $<.tmp/$(CHUG_DIR)
 	cp -af $< $<.tmp/$(CHUG_DIR)
+	cp lib* $< $<.tmp/$(CHUG_DIR)
 	pkgbuild --root $<.tmp --identifier $(IDENTIFIER_BASE).$(basename $<) $@
 	rm -rf $<.tmp
 
@@ -103,7 +104,8 @@ $(CHUGINS): $(CHUGINS_ORIGINAL)
 	codesign --entitlements miniAudicle.entitlements --force --options=runtime --sign "$(CERT_APP)" $@
 	touch $@
 $(CHUGINS_ORIGINAL): 
-	ARCHS="arm64 x86_64" make -C $(dir $@) osx
+	echo "doing nothing"
+#	ARCHS="arm64 x86_64" make -C $(dir $@) osx
 
 clean: 
 	rm -rf miniAudicle.app chuck $(CHUGINS) *.pkg *.tmp

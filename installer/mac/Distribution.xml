@@ -24,6 +24,7 @@
     <pkg-ref id="edu.stanford.chuck.WinFuncEnv"/>
     <pkg-ref id="edu.stanford.chuck.WPDiodeLadder"/>
     <pkg-ref id="edu.stanford.chuck.WPKorg35"/>
+    <pkg-ref id="edu.stanford.chuck.rave"/>
     <pkg-ref id="edu.stanford.chuck.examples"/>
     
     <title>ChucK</title>
@@ -56,6 +57,7 @@
             <line choice="WinFuncEnv"/>
             <line choice="WPDiodeLadder"/>
             <line choice="WPKorg35"/>
+            <line choice="rave"/>
         </line>
     </choices-outline>
     
@@ -175,6 +177,11 @@
         <pkg-ref id="edu.stanford.chuck.WPKorg35"/>
     </choice>
     <pkg-ref id="edu.stanford.chuck.WPKorg35" version="0" onConclusion="none">WPKorg35.chug.pkg</pkg-ref>
+    
+    <choice id="rave" title="rave" description="all the rave" enabled="0">
+        <pkg-ref id="edu.stanford.chuck.rave"/>
+    </choice>
+    <pkg-ref id="edu.stanford.chuck.rave" version="0" onConclusion="none">rave.chug.pkg</pkg-ref>
     
     <choice id="edu.stanford.chuck.examples" title="Examples" description="Example code for the ChucK programming language and related files. Includes sample code from &quot;Programming for Musicians and Digital Artists&quot; (Manning Press). Strongly recommended." description-mime-type="text/html">
         <pkg-ref id="edu.stanford.chuck.examples"/>
