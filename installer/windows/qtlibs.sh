@@ -1,6 +1,7 @@
 #!/bin/sh
 
-# script to generate qt libs needed for installation
+# script that outputs DLLs linked to by miniAudicle, which must be packaged
+# alongside miniAudicle
 
 # be sure to run qtenv2.bat from the QT_DIR/bin folder
 # as well as vcvarsbat.dll [x64] to set up the environment
