@@ -36,6 +36,8 @@
 #import "NSString+STLString.h"
 #import "miniAudicle_import.h"
 
+using namespace std;
+
 NSString * const mARecordSessionFilenameKey = @"mARecordSessionFilenameKey";
 NSString * const mARecordSessionSaveToKey = @"mARecordSessionSaveToKey";
 

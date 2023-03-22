@@ -39,6 +39,7 @@ U.S.A.
 #import "chuck_dl.h"
 #import "util_string.h"
 
+using namespace std;
 
 static int sh_tokens[] = 
 { 
