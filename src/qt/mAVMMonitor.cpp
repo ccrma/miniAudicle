@@ -28,6 +28,8 @@ U.S.A.
 
 #include <math.h>
 
+using namespace std;
+
 const float VMMONITOR_STALL_TIMEOUT = 2; // secondss
 const float VMMONITOR_REFRESH_RATE = 20; // Hz
 
@@ -64,7 +66,7 @@ mAVMMonitor::mAVMMonitor(QWidget *parent, mAMainWindow *mainWindow, miniAudicle 
     ui->tableWidget->setColumnWidth(2, 48);
     ui->tableWidget->setColumnWidth(3, 24);
     
-    ui->tableWidget->horizontalHeader()->setResizeMode(1, QHeaderView::Stretch);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
 }
 
 mAVMMonitor::~mAVMMonitor()
@@ -81,10 +83,6 @@ void mAVMMonitor::vmChangedToState(bool vmOn)
         ui->toggleVMButton->setText("Stop Virtual Machine");
 
         timerId = startTimer((int)(1000.0/VMMONITOR_REFRESH_RATE));
-        
-#ifdef WIN32
-        ui->toggleVMButton->setEnabled(false);
-#endif
     }
     else
     {

@@ -34,11 +34,11 @@ U.S.A.
 
 #include "chuck.h"
 
-#include <QMessageBox>
-#include <QDesktopWidget>
+#include <QtWidgets/QMessageBox>
+#include <QtGui/QGuiApplication>
 #include "ZSettings.h"
-#include <QCloseEvent>
-#include <QPushButton>
+#include <QtGui/QCloseEvent>
+#include <QtWidgets/QPushButton>
 
 #include <list>
 
@@ -129,8 +129,8 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
     expandingSpace->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     ui->mainToolBar->insertWidget(ui->actionRemove_Last_Shred, expandingSpace);
 
-    QDesktopWidget * desktopWidget = QApplication::desktop();
-    QRect available = desktopWidget->availableGeometry(this);
+    QScreen * primaryScreen = QGuiApplication::primaryScreen();
+    QRect available = primaryScreen->availableGeometry();
 
     // center horizontally, top 100px down from top
     this->move(available.left() + available.width()*0.5 - this->frameGeometry().width()/2,
@@ -294,7 +294,7 @@ void mAMainWindow::about()
     char buf[256];
     snprintf(buf, 256, MA_ABOUT, MA_VERSION, ChucK::version(), sizeof(void*)*8);
     QString body = QString("<h3>miniAudicle</h3>\n") + buf;
-    body.replace(QRegExp("\n"), "<br />");
+    body.replace(QRegularExpression("\n"), "<br />");
     QMessageBox::about(this, "About miniAudicle", body);
 }
 

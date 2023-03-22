@@ -25,7 +25,7 @@ U.S.A.
 #ifndef MAVMMONITOR_H
 #define MAVMMONITOR_H
 
-#include <QMainWindow>
+#include <QtWidgets/QMainWindow>
 #include "miniAudicle.h"
 
 namespace Ui {

@@ -4,26 +4,18 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network
+QT += core gui network widgets
 
 CONFIG += warn_off
-
-win32 {
-    CONFIG += static
-}
 
 TARGET = miniAudicle
 TEMPLATE = app
 
 MAKEFILE = makefile.qt
-MOC_DIR = build
-RCC_DIR = build
-UI_DIR = build
-OBJECTS_DIR = build
 
 PRECOMPILED_HEADER = qt/miniAudicle_pc.h
 
-LIBS += -lqscintilla2
+LIBS += -lqscintilla2_qt6
 
 DEFINES += HAVE_CONFIG_H
 
@@ -82,10 +74,12 @@ INSTALLS += target examples
 
 win32 {
 DEFINES -= UNICODE
-CFLAGS = -D__PLATFORM_WIN32__ -D__CHUCK_NO_MAIN__ -D__WINDOWS_DS__ -I../src -I../src/chuck/src/core -I../src/chuck/src/host -DWIN32 -D_WINDOWS -D__CK_MATH_DEFINE_ROUND_TRUNC__
+# 2022 QTSIN
+DEFINES -= _UNICODE
+CFLAGS = -D__PLATFORM_WIN32__ -D__WINDOWS_MODERN__ -D__CHUCK_NO_MAIN__ -D__WINDOWS_DS__ -D_WINSOCKAPI_ -I../src -I../src/chuck/src/core -I../src/chuck/src/host -DWIN32 -D_WINDOWS -D__CK_MATH_DEFINE_ROUND_TRUNC__
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
-QMAKE_LFLAGS += wsock32.lib dinput.lib kernel32.lib user32.lib gdi32.lib dsound.lib dxguid.lib winmm.lib ole32.lib
+QMAKE_LFLAGS += /libpath:../src/qt/lib ws2_32.lib dinput8.lib advapi32.lib kernel32.lib user32.lib gdi32.lib dsound.lib dxguid.lib winmm.lib ole32.lib qscintilla2_qt6.lib
 
 RC_FILE = qt/icon/miniAudicle.rc
 }

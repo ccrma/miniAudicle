@@ -49,12 +49,10 @@ U.S.A.
 class ChucK;
 
 
-using namespace std;
-
 struct miniAudicle_Code
 {
-    string code_text;
-    string name;
+    std::string code_text;
+    std::string name;
     t_CKUINT shred_id;
     t_CKUINT shred_group_id;
     t_CKBOOL running;
@@ -88,29 +86,29 @@ public:
     miniAudicle();
     ~miniAudicle();
     
-    t_OTF_RESULT run_code( string & code, string & name, 
-                           vector< string > & args, string & filepath, 
-                           t_CKUINT docid, t_CKUINT & shred_id, string & out );
-    t_OTF_RESULT replace_code( string & code, string & name, 
-                               vector< string > & args, string & filepath,
+    t_OTF_RESULT run_code( std::string & code, std::string & name,
+                           std::vector< std::string > & args, std::string & filepath,
+                           t_CKUINT docid, t_CKUINT & shred_id, std::string & out );
+    t_OTF_RESULT replace_code( std::string & code, std::string & name,
+                               std::vector< std::string > & args, std::string & filepath,
                                t_CKUINT docid, t_CKUINT & shred_id, 
-                               string & out );
+                               std::string & out );
     t_OTF_RESULT remove_code( t_CKUINT docid, t_CKUINT & shred_id, 
-                              string & out );
-    t_OTF_RESULT remove_shred( t_CKUINT docid, t_CKINT shred_id, string & out );
-    t_OTF_RESULT removeall( t_CKUINT docid, string & out );
-    t_OTF_RESULT removelast( t_CKUINT docid, string & out );
-    t_OTF_RESULT clearvm( t_CKUINT docid, string & out );
+                              std::string & out );
+    t_OTF_RESULT remove_shred( t_CKUINT docid, t_CKINT shred_id, std::string & out );
+    t_OTF_RESULT removeall( t_CKUINT docid, std::string & out );
+    t_OTF_RESULT removelast( t_CKUINT docid, std::string & out );
+    t_OTF_RESULT clearvm( t_CKUINT docid, std::string & out );
     t_OTF_RESULT status( Chuck_VM_Status * status);
-    t_OTF_RESULT handle_reply( t_CKUINT docid, string & out );
+    t_OTF_RESULT handle_reply( t_CKUINT docid, std::string & out );
     
     t_CKINT abort_current_shred();
     
-    struct _doc_otf_result { t_OTF_RESULT result; t_CKUINT shred_id; string output; int line; };
+    struct _doc_otf_result { t_OTF_RESULT result; t_CKUINT shred_id; std::string output; int line; };
     
     t_CKBOOL process_reply();
     t_CKBOOL get_last_result( t_CKUINT docid, t_OTF_RESULT * result,
-                             string * out, int * line_num  );
+                              std::string * out, int * line_num  );
     t_CKBOOL get_last_result( t_CKUINT docid, _doc_otf_result * result  );
     
     t_CKUINT allocate_document_id();
@@ -122,14 +120,14 @@ public:
     t_CKBOOL stop_vm();
     t_CKBOOL is_on();
     
-    t_CKBOOL get_new_class_names( vector< string > & v);
+    t_CKBOOL get_new_class_names( std::vector< std::string > & v);
 
-    t_CKBOOL highlight_line( string & line, 
+    t_CKBOOL highlight_line( std::string & line,
                              miniAudicle_SyntaxHighlighting * sh );
 
     t_CKBOOL probe();
 #ifndef __CHIP_MODE__
-    const vector< RtAudio::DeviceInfo > & get_interfaces();
+    const std::vector< RtAudio::DeviceInfo > & get_interfaces();
 #endif // __CHIP_MODE__
 
     int get_log_level();
@@ -154,22 +152,22 @@ public:
     t_CKBOOL get_blocking();
     t_CKBOOL set_enable_std_system( t_CKBOOL enable );
     t_CKBOOL get_enable_std_system();
-    t_CKBOOL set_library_paths( list< string > & paths );
-    t_CKBOOL get_library_paths( list< string > & paths );
-    t_CKBOOL set_named_chugins( list< string > & chugins );
-    t_CKBOOL get_named_chugins( list< string > & chugins );
+    t_CKBOOL set_library_paths( std::list< std::string > & paths );
+    t_CKBOOL get_library_paths( std::list< std::string > & paths );
+    t_CKBOOL set_named_chugins( std::list< std::string > & chugins );
+    t_CKBOOL get_named_chugins( std::list< std::string > & chugins );
     t_CKBOOL add_query_func(t_CKBOOL (*func)(Chuck_Env *));
     
 protected:
-    map< t_CKUINT, vector< t_CKUINT > * > documents; // maps documents to shreds
+    std::map< t_CKUINT, std::vector< t_CKUINT > * > documents; // maps documents to shreds
 
-    struct _doc_shred { t_CKUINT docid; vector< t_CKUINT >::size_type index; };
-    map< t_CKUINT, _doc_shred > shreds; 
+    struct _doc_shred { t_CKUINT docid; std::vector< t_CKUINT >::size_type index; };
+    std::map< t_CKUINT, _doc_shred > shreds;
     // maps shreds to documents and an index in the document's corresponding shred vector
     // i.e. documents[shreds[shred_id].docid]->at( shreds[shred_id].index ) == shred_id
     
-    map< t_CKUINT, _doc_otf_result > last_result; // last error string for a given docid
-    queue< t_CKUINT > otf_docids; // FIFO of docids that correspond to pending OTF message replys
+    std::map< t_CKUINT, _doc_otf_result > last_result; // last error string for a given docid
+    std::queue< t_CKUINT > otf_docids; // FIFO of docids that correspond to pending OTF message replys
     t_CKUINT vm_sleep_time; // length of time (microseconds) to sleep-wait for a vm reply
     t_CKUINT vm_sleep_max; // max number of times to sleep-wait for a vm reply
     
@@ -192,12 +190,12 @@ protected:
     size_t status_bufs_read, status_bufs_write;
     
 #ifndef __CHIP_MODE__
-    vector< RtAudio::DeviceInfo > interfaces;
-    vector< RtAudio::DeviceInfo >::size_type default_input;
-    vector< RtAudio::DeviceInfo >::size_type default_output;
+    std::vector< RtAudio::DeviceInfo > interfaces;
+    std::vector< RtAudio::DeviceInfo >::size_type default_input;
+    std::vector< RtAudio::DeviceInfo >::size_type default_output;
 #endif // __CHIP_MODE__
     
-    map< string, t_CKINT > * class_names;
+    std::map< std::string, t_CKINT > * class_names;
 
     struct _vm_options
     {
@@ -211,18 +209,18 @@ protected:
         t_CKBOOL enable_audio;
         t_CKBOOL enable_network;
         t_CKBOOL enable_block;
-        list< string > library_paths;
-        list< string > named_chugins;
-        list< t_CKBOOL (*)(Chuck_Env *) > query_funcs;
+        std::list< std::string > library_paths;
+        std::list< std::string > named_chugins;
+        std::list< t_CKBOOL (*)(Chuck_Env *) > query_funcs;
     } vm_options;
 };
 
 
-inline int compare_shred_vectors( const vector< Chuck_VM_Shred_Status * > & a,
-                                  const vector< Chuck_VM_Shred_Status * > & b )
+inline int compare_shred_vectors( const std::vector< Chuck_VM_Shred_Status * > & a,
+                                  const std::vector< Chuck_VM_Shred_Status * > & b )
 /* quickly determine if the two vectors are equal */
 {
-    vector< Chuck_VM_Shred_Status * >::size_type i, 
+    std::vector< Chuck_VM_Shred_Status * >::size_type i,
     lenA = a.size(), lenB = b.size();
     
     if( lenA != lenB )

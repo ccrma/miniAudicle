@@ -25,12 +25,12 @@ U.S.A.
 #ifndef MADOCUMENTVIEW_H
 #define MADOCUMENTVIEW_H
 
-#include <QWidget>
-#include <QTabWidget>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QTabWidget>
 #include <QFile>
 #include <Qsci/qscilexer.h>
-#include <QAbstractButton>
-#include <QProgressDialog>
+#include <QtWidgets/QAbstractButton>
+#include <QtWidgets/QProgressDialog>
 
 #include "miniAudicle.h"
 

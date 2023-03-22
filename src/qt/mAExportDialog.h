@@ -1,7 +1,7 @@
 #ifndef MAEXPORTDIALOG_H
 #define MAEXPORTDIALOG_H
 
-#include <QDialog>
+#include <QtWidgets/QDialog>
 
 
 extern QString which(const QString &bin);

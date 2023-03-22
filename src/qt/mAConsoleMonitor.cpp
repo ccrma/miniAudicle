@@ -25,7 +25,7 @@ U.S.A.
 #include "mAConsoleMonitor.h"
 #include "ui_mAConsoleMonitor.h"
 
-#include <QScrollBar>
+#include <QtWidgets/QScrollBar>
 
 #include "chuck_def.h"
 #include "chuck_errmsg.h"

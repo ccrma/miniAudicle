@@ -25,11 +25,9 @@ U.S.A.
 #ifndef MAPREFERENCESWINDOW_H
 #define MAPREFERENCESWINDOW_H
 
-#include <QDialog>
-#include <QColorDialog>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QColorDialog>
 #include <vector>
-
-using namespace std;
 
 namespace Ui {
 class mAPreferencesWindow;
@@ -74,9 +72,9 @@ private:
     
     miniAudicle * m_ma;
     
-    vector<QString> m_indexToLabel;
-    vector<QString> m_indexToPref;
-    vector<QColor> m_indexToColor;
+    std::vector<QString> m_indexToLabel;
+    std::vector<QString> m_indexToPref;
+    std::vector<QColor> m_indexToColor;
     
     QColorDialog * m_colorDialog;
     

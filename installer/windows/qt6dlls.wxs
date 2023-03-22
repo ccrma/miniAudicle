@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <ComponentGroup Id="qt6dll">
+            <Component Win64='yes' Id="cmpB6E55DC82C4679096556FA000D64BD84" Directory="INSTALLDIR" Guid="{CCF36CE3-1ED9-44B6-8B26-8C6222FAC15B}">
+                <File Id="fil3D0FCEE7D0FF8383B3AE3BCAF5A7A1FC" KeyPath="yes" Source="dll\Qt6Core.dll" />
+            </Component>
+            <Component Win64='yes' Id="cmp4DA5797586109002E1D0EF2D84AE8C45" Directory="INSTALLDIR" Guid="{2E701C3C-7479-4CBB-9784-549A8BF832D6}">
+                <File Id="fil2724F8758E94A8E5A22C9EAA472CE600" KeyPath="yes" Source="dll\Qt6Gui.dll" />
+            </Component>
+            <Component Win64='yes' Id="cmp194295864FD04572CA085FAB42709BDC" Directory="INSTALLDIR" Guid="{E0C9DB42-C49E-4755-91BB-ADE49EFAB438}">
+                <File Id="fil298DF9735BA04CC494684AA5A357DFEE" KeyPath="yes" Source="dll\Qt6Network.dll" />
+            </Component>
+            <Component Win64='yes' Id="cmpDDC3A50E029C5A33A17F2F7568F3FA12" Directory="INSTALLDIR" Guid="{36C1B534-BB0D-442F-883E-7A39F39C5A5B}">
+                <File Id="filF5D8093389C91771DAEBD7D08C5A5772" KeyPath="yes" Source="dll\Qt6Svg.dll" />
+            </Component>
+            <Component Win64='yes' Id="cmp70DBA10EA12A15B0F719F27ADF2B96B8" Directory="INSTALLDIR" Guid="{FFCC5805-5131-421E-BAC6-B238C9AF6103}">
+                <File Id="fil1EC1DDFD680093DC1C668D8A29BC6E92" KeyPath="yes" Source="dll\Qt6Widgets.dll" />
+            </Component>
+            <Component Win64='yes' Id="cmpA1C9F55D12DB4D5DB30DD2401634C619" Directory="INSTALLDIR" Guid="{3C38045A-BB14-4277-8F8D-4F8538A0890B}">
+                <File Id="filB17D9CB5953A47329B295CB4ED34934C" KeyPath="yes" Source="dll\Qt6PrintSupport.dll" />
+            </Component>
+            <Component Win64='yes' Id="cmpCAA4DA194FDA726989CD6AF4E486570E" Directory="dir84282DA16DC740058F438277FB22CFE1" Guid="{9BCB29B6-C12B-4989-B1CB-1F684F8AF458}">
+                <File Id="filB1BD0C65BA2A6555B956FA2943E2C5C4" KeyPath="yes" Source="dll\iconengines\qsvgicon.dll" />
+            </Component>
+            <Component Win64='yes' Id="cmp8A281A923DDB55B8F4FCE9BAC6DC96E9" Directory="dir849BD71D7E90931C804B310716EFAB26" Guid="{C5B93479-48C7-4BCA-BB13-AF910D21D9CD}">
+                <File Id="filB5C4544255DD66799617AD23219B2B87" KeyPath="yes" Source="dll\imageformats\qgif.dll" />
+            </Component>
+            <Component Win64='yes' Id="cmp5F418A9DDDB340BE2E704FB703F94C1E" Directory="dir849BD71D7E90931C804B310716EFAB26" Guid="{D766F09E-2436-4F5E-B19C-518CFBB16B98}">
+                <File Id="fil0C2BB86652D33DBAFD1E60C69175C78E" KeyPath="yes" Source="dll\imageformats\qico.dll" />
+            </Component>
+            <Component Win64='yes' Id="cmp0832A368410AE84EC3126C233465218A" Directory="dir849BD71D7E90931C804B310716EFAB26" Guid="{2C787F84-722D-40E7-B530-54685902DD7C}">
+                <File Id="fil05772AFFB1760DC5963C294DBB51D01A" KeyPath="yes" Source="dll\imageformats\qjpeg.dll" />
+            </Component>
+            <Component Win64='yes' Id="cmpB16CB319412B385838520AFF791FD049" Directory="dir849BD71D7E90931C804B310716EFAB26" Guid="{24F8AAAE-2EFF-40F9-949F-AFD8E9B80E89}">
+                <File Id="filCF2F1E3412A451CE715110E82495084D" KeyPath="yes" Source="dll\imageformats\qsvg.dll" />
+            </Component>
+            <Component Win64='yes' Id="cmp9C8F15565D2C0BC6992FFBB5EDB8A364" Directory="dir38EC311B6AF999B3D058948B7886231D" Guid="{F87AD602-2DE2-4C4B-8B8D-6F6CC00D21DD}">
+                <File Id="fil3089D4D0772D8061537503FF9B651452" KeyPath="yes" Source="dll\networkinformation\qnetworklistmanager.dll" />
+            </Component>
+            <Component Win64='yes' Id="cmpD15611EFB238FBD69BF9A989F5137990" Directory="dir35EFCE3EFFB280DD9B40B88276DEE813" Guid="{DEC15424-FEC0-4D8A-9F08-1807BBB115EB}">
+                <File Id="filDE7F399D768073945B8D2A4CDC6D9A88" KeyPath="yes" Source="dll\platforms\qwindows.dll" />
+            </Component>
+            <Component Win64='yes' Id="cmp09892BBC91C9B23C24F29E829813BB04" Directory="dirF4F34A1C80D612DD3BC86C52BBAE8727" Guid="{8FA9E693-FFB2-40B8-AA6B-E18C2AA2E3AE}">
+                <File Id="fil7452EB399A275575EADEEA70D933049C" KeyPath="yes" Source="dll\styles\qwindowsvistastyle.dll" />
+            </Component>
+            <Component Win64='yes' Id="cmp048EF854F87C61D1F094979B928F1F80" Directory="dir8A967CFA113C0CBF369389EFB82AABD6" Guid="{4A853C41-A396-4D1C-9435-6B50CAB72AF7}">
+                <File Id="filB6AFBB7FC8A5CDBBC28353923BA77AC2" KeyPath="yes" Source="dll\tls\qcertonlybackend.dll" />
+            </Component>
+            <Component Win64='yes' Id="cmpC84ABE127BED7CAD26F6879598F2F814" Directory="dir8A967CFA113C0CBF369389EFB82AABD6" Guid="{E20052C8-92AC-4A1A-A8C6-15F6B929D3AD}">
+                <File Id="fil6AE656FD969A14D1DE76B79A8B595DEA" KeyPath="yes" Source="dll\tls\qopensslbackend.dll" />
+            </Component>
+            <Component Win64='yes' Id="cmpA1144E791F46530F38657A0CC9AFAFFA" Directory="dir8A967CFA113C0CBF369389EFB82AABD6" Guid="{FE7EB57A-9056-43C2-9A71-E2B3013AFF63}">
+                <File Id="filD3E262C92E55C1207C737F2419FF17A2" KeyPath="yes" Source="dll\tls\qschannelbackend.dll" />
+            </Component>
+            <Component Id="qscintilla2_qt6.dll" Directory="INSTALLDIR" Win64='yes' Guid="{1394EF6A-B732-4539-9AB0-26CE7D8CACFE}">
+                <File Id="qscintilla2_qt6.dll" KeyPath="yes" Source="dll/qscintilla2_qt6.dll" />
+            </Component>
+        </ComponentGroup>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLDIR">
+            <Directory Id="dir35EFCE3EFFB280DD9B40B88276DEE813" Name="platforms" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLDIR">
+            <Directory Id="dir38EC311B6AF999B3D058948B7886231D" Name="networkinformation" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLDIR">
+            <Directory Id="dir84282DA16DC740058F438277FB22CFE1" Name="iconengines" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLDIR">
+            <Directory Id="dir849BD71D7E90931C804B310716EFAB26" Name="imageformats" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLDIR">
+            <Directory Id="dir8A967CFA113C0CBF369389EFB82AABD6" Name="tls" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLDIR">
+            <Directory Id="dirF4F34A1C80D612DD3BC86C52BBAE8727" Name="styles" />
+        </DirectoryRef>
+    </Fragment>
+</Wix>

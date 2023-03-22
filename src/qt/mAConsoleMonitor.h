@@ -25,7 +25,7 @@ U.S.A.
 #ifndef MACONSOLEMONITOR_H
 #define MACONSOLEMONITOR_H
 
-#include <QMainWindow>
+#include <QtWidgets/QMainWindow>
 #include <QSocketNotifier>
 #include <QThread>
 

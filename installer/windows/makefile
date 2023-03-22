@@ -13,44 +13,51 @@ CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher KasFilter MagicSine FIR FoldbackSatur
 	PanN PitchTrack GVerb Mesh2D Spectacle Elliptic Sigmund ExpDelay ExpEnv Overdrive \
 	Multicomb PowerADSR WinFuncEnv WPDiodeLadder WPKorg35
 CHUGINS=$(addprefix chugins/,$(addsuffix .chug,$(CHUGIN_NAMES)))
-CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/Release/$(CHUG).chug)
+CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/x64/Release/$(CHUG).chug)
+
+WIXOBJ=ChucK.wixobj examples.wixobj qt6dlls.wixobj chugins.wixobj
 
 INSTALLER=chuck-$(PKG_VERSION).msi
+
+# edit this pattern if your build dir is different
+QT_BUILD_DIR=$(wildcard $(MINI_SRC_ROOT)/build-miniAudicle-Desktop_Qt_*-Release)
 
 default: $(INSTALLER)
 
 upload: $(INSTALLER)
 	scp $(INSTALLER) spencer@ccrma-gate.stanford.edu:Library/Web/chuck
 
-$(INSTALLER): ChucK.wixobj examples.wixobj miniAudicle.exe chuck.exe $(CHUGINS) chugins.wixobj ck_dialog.bmp ck_banner.bmp gpl2.rtf
-	light -dPKG_VERSION="$(WIN32_VERSION)" -ext WixUIExtension -out "$@" ChucK.wixobj examples.wixobj chugins.wixobj
+$(INSTALLER): $(WIXOBJ) miniAudicle.exe chuck.exe $(CHUGINS) ck_dialog.bmp ck_banner.bmp gpl2.rtf
+	light -dPKG_VERSION="$(WIN32_VERSION)" -ext WixUIExtension -out "$@" $(WIXOBJ)
 
 %.wixobj: %.wxs
-	candle -dPKG_VERSION="$(WIN32_VERSION)" $<
+	candle -dPlatform=x64 -dPKG_VERSION="$(WIN32_VERSION)" $<
 
 examples.wxs: examples
-	heat dir examples -gg -dr INSTALLDIR -cg examples -out examples.wxs
-	sed -i 's/SourceDir/examples/g' examples.wxs
+	heat dir examples -gg -dr INSTALLDIR -cg examples -out $@
+	sed -i 's/SourceDir/examples/g' $@
+	sed -i "s/<Component /<Component Win64='yes' /g" $@
 
 examples: $(CHUCK_EXAMPLES)
 	cp -arf $< .
 	touch $@
 
-miniAudicle.exe: $(MINI_SRC_ROOT)/build-miniAudicle-Static-Release/release/miniAudicle.exe
+miniAudicle.exe: $(QT_BUILD_DIR)/release/miniAudicle.exe
 	cp -af $< .
 	touch $@
 
-chuck.exe: $(CHUCK_SRC_ROOT)/src/visual-studio/Release/chuck.exe
+chuck.exe: $(CHUCK_SRC_ROOT)/src/visual-studio/x64/Release/chuck.exe
 	cp -af $< .
 	touch $@
 
 chugins.wxs: $(CHUGINS)
-	heat dir chugins -gg -dr INSTALLDIR -cg chugins -out chugins.wxs
-	sed -i 's/SourceDir/chugins/g' chugins.wxs
+	heat dir chugins -gg -dr INSTALLDIR -cg chugins -out $@
+	sed -i 's/SourceDir/chugins/g' $@
+	sed -i "s/<Component /<Component Win64='yes' /g" $@
 
 $(CHUGINS): $(CHUGINS_ORIGINAL)
 	mkdir -p chugins/
-	cp -af $(CHUGINS_SRC_ROOT)/$(basename $(notdir $@))/Release/$(notdir $@) chugins/
+	cp -af $(CHUGINS_SRC_ROOT)/x64/Release/$(notdir $@) chugins/
 	touch $@
 
 $(CHUGINS_ORIGINAL): 

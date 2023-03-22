@@ -25,7 +25,7 @@ U.S.A.
 #ifndef MADEVICEBROWSER_H
 #define MADEVICEBROWSER_H
 
-#include <QDialog>
+#include <QtWidgets/QDialog>
 
 namespace Ui {
 class mADeviceBrowser;
