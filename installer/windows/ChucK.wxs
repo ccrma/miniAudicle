@@ -63,30 +63,16 @@
 
     </Directory>
 
-    <ComponentGroup Id="dll">
-      <Component Id="msvcp140.dll" Directory="INSTALLDIR" Win64='yes' Guid="{596EDA0A-F834-44C2-A1E7-BC6F0486577D}">
-          <File Id="msvcp140.dll" KeyPath="yes" Source="lib/msvcp140.dll" />
-      </Component>
-      <Component Id="vcruntime140.dll" Directory="INSTALLDIR" Win64='yes' Guid="{DDD5B486-4FB0-4E1C-8820-43F3100900A7}">
-          <File Id="vcruntime140.dll" KeyPath="yes" Source="lib/vcruntime140.dll" />
-      </Component>
-      <Component Id="vcruntime140_1.dll" Directory="INSTALLDIR" Win64='yes' Guid="{E9CC9608-CF95-4317-BDA1-4A2F2406E276}">
-          <File Id="vcruntime140_1.dll" KeyPath="yes" Source="lib/vcruntime140_1.dll" />
-      </Component>
-    </ComponentGroup>
-
     <Feature Id='Complete' Title='ChucK' Description='The complete ChucK package.'
       Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
       <Feature Id='MainProgram' Title='miniAudicle' Description='miniAudicle is an integrated development environment for the ChucK audio programming language. Highly recommended.' Level='1'>
         <ComponentRef Id='MainExecutable' />
         <ComponentRef Id='ProgramMenuDir' />
         <ComponentRef Id='oggencEXE' />
-        <ComponentGroupRef Id='dll' />
         <ComponentGroupRef Id='qt6dll' />
       </Feature>
       <Feature Id='chuckEXE' Title='chuck.exe' Description='chuck.exe command line executable.' Level='1'>
         <ComponentRef Id='chuckEXE' />
-        <ComponentGroupRef Id='dll' />
       </Feature>
       <Feature Id='chugins' Title='ChuGins' Description='ChuGins extend the native capabilities of ChucK with additional unit generators.' Level='1'>
         <ComponentGroupRef Id='chugins' />
