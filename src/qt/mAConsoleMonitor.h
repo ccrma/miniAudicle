@@ -37,6 +37,7 @@ namespace Ui {
 class mAConsoleMonitor;
 }
 
+class miniAudicle;
 class mAConsoleMonitorThread;
 
 class mAConsoleMonitor : public QMainWindow
@@ -44,9 +45,11 @@ class mAConsoleMonitor : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit mAConsoleMonitor(QWidget *parent = 0);
+    explicit mAConsoleMonitor(QWidget *parent, miniAudicle * ma);
     ~mAConsoleMonitor();
     
+    void ckErrOutCallback(const char *str);
+
 public slots:
     void appendFromFile(int fd);
     void dataAvailable();
@@ -59,7 +62,8 @@ private:
 #endif
     
     int read_fd;
-    
+    int write_fd;
+
     QSocketNotifier * m_notifier;
     
     friend class mAConsoleMonitorThread;

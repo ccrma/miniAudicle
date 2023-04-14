@@ -87,7 +87,7 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
         pathsToOpen.append(arg);
     }
 
-    m_consoleMonitor = new mAConsoleMonitor(NULL);
+    m_consoleMonitor = new mAConsoleMonitor(NULL, ma);
     m_vmMonitor = new mAVMMonitor(NULL, this, ma);
     m_deviceBrowser = NULL;
     m_preferencesWindow = NULL;

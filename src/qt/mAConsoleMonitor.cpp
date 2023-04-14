@@ -41,6 +41,9 @@ U.S.A.
 #include <stdio.h>
 #endif
 
+#include "miniAudicle.h"
+#include "chuck.h"
+
 #define DISABLE_CONSOLE_MONITOR 0
 
 #ifndef STDERR_FILENO
@@ -50,8 +53,18 @@ U.S.A.
 #define STDOUT_FILENO 1
 #endif
 
+static mAConsoleMonitor * g_console_monitor = NULL;
+
+void ck_err_out_callback(const char *str)
+{
+    if (g_console_monitor)
+    {
+        g_console_monitor->ckErrOutCallback(str);
+    }
+}
+
         
-mAConsoleMonitor::mAConsoleMonitor(QWidget *parent) :
+mAConsoleMonitor::mAConsoleMonitor(QWidget *parent, miniAudicle * ma) :
     QMainWindow(parent),
     ui(new Ui::mAConsoleMonitor),
     m_notifier(NULL)
@@ -86,8 +99,6 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent) :
     m_notifier->setEnabled(true);
     
 #else
-    
-    int fd_read, fd_write;
 
     if( !CreatePipe( &hRead, &hWrite, NULL, 8192*4 ) )
     {
@@ -95,22 +106,15 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent) :
         return;
     }
         
-    /* WARNING: Breaks under Win64! */
-    fd_read = _open_osfhandle( ( long ) hRead, _O_RDONLY | _O_TEXT );
-    fd_write = _open_osfhandle( ( long ) hWrite, _O_WRONLY | _O_TEXT );
+    read_fd = _open_osfhandle( ( intptr_t ) hRead, _O_RDONLY | _O_TEXT );
+    write_fd = _open_osfhandle( ( intptr_t ) hWrite, _O_WRONLY | _O_TEXT );
 
-    _dup2(fd_write, STDERR_FILENO);
-    _dup2(fd_write, STDOUT_FILENO);
-    read_fd = fd_read;
+    g_console_monitor = this;
 
-    FILE * cfd_write_err = _fdopen(fd_write, "w");
-    FILE * cfd_write_out = _fdopen(fd_write, "w");
-
-    *stderr = *cfd_write_err;
-    *stdout = *cfd_write_out;
+    ma->set_ck_console_callback(ck_err_out_callback);
 
     mAConsoleMonitorThread * thread = new mAConsoleMonitorThread(this);
-    QObject::connect(thread, SIGNAL(dataAvailable()), 
+    QObject::connect(thread, SIGNAL(dataAvailable()),
                      this, SLOT(dataAvailable()), Qt::BlockingQueuedConnection);
     thread->start();
     
@@ -122,6 +126,11 @@ mAConsoleMonitor::~mAConsoleMonitor()
 {
     if(m_notifier) delete m_notifier;
     delete ui;
+}
+
+void mAConsoleMonitor::ckErrOutCallback(const char *str)
+{
+    write(write_fd, str, strlen(str));
 }
 
 void mAConsoleMonitor::appendFromFile(int fd)

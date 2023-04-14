@@ -145,6 +145,7 @@ void audio_cb( t_CKSAMPLE * in, t_CKSAMPLE * out, t_CKUINT numFrames,
 // desc: ... 
 //-----------------------------------------------------------------------------
 miniAudicle::miniAudicle()
+: m_console_callback(NULL)
 {
     vm = NULL;
     m_chuck = NULL;
@@ -954,6 +955,13 @@ t_CKBOOL miniAudicle::start_vm()
         for(list<t_CKBOOL (*)(Chuck_Env *)>::iterator i = vm_options.query_funcs.begin(); i != vm_options.query_funcs.end(); i++)
             (*i)( compiler->env() );
         
+        // set chout/cherr callbacks
+        if (m_console_callback)
+        {
+            m_chuck->setChoutCallback(m_console_callback);
+            m_chuck->setCherrCallback(m_console_callback);
+        }
+
         if(!ChuckAudio::start())
         {
             EM_log( CK_LOG_SYSTEM, "error starting audio (use --silent/-s for non-realtime)" );
@@ -1532,4 +1540,12 @@ t_CKBOOL miniAudicle::get_new_class_names( vector< string > & v )
     }
     
     return TRUE;
+}
+
+void miniAudicle::set_ck_console_callback(void (*callback)(const char *))
+{
+    m_console_callback = callback;
+
+    ChucK::setStdoutCallback(m_console_callback);
+    ChucK::setStderrCallback(m_console_callback);
 }

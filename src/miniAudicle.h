@@ -158,6 +158,8 @@ public:
     t_CKBOOL get_named_chugins( std::list< std::string > & chugins );
     t_CKBOOL add_query_func(t_CKBOOL (*func)(Chuck_Env *));
     
+    void set_ck_console_callback(void (*callback)(const char *));
+
 protected:
     std::map< t_CKUINT, std::vector< t_CKUINT > * > documents; // maps documents to shreds
 
@@ -194,6 +196,8 @@ protected:
     std::vector< RtAudio::DeviceInfo >::size_type default_input;
     std::vector< RtAudio::DeviceInfo >::size_type default_output;
 #endif // __CHIP_MODE__
+
+    void (*m_console_callback)(const char *);
     
     std::map< std::string, t_CKINT > * class_names;
 
