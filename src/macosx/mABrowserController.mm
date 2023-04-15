@@ -146,12 +146,7 @@ static const char * exclude_types[] =
         RtAudio::DeviceInfo info;
         
         // allocate RtAudio
-        try { rta = new RtAudio( ); }
-        catch( RtError err )
-        {
-            // problem finding audio devices, most likely
-            return;
-        }
+        rta = new RtAudio( );
         
         // get count    
         int devices = rta->getDeviceCount();
@@ -159,11 +154,7 @@ static const char * exclude_types[] =
         // loop
         for( int i = 1; i <= devices; i++ )
         {
-            try { info = rta->getDeviceInfo( i ); }
-            catch( RtError & error )
-        { 
-                break;
-        }
+            info = rta->getDeviceInfo( i );
             
             NSMutableArray * device = [[NSMutableArray new] autorelease];
             
@@ -301,24 +292,14 @@ static const char * exclude_types[] =
         RtMidiIn * min = NULL;
         RtMidiOut * mout = NULL;
         
-        try { min = new RtMidiIn; }
-        catch( RtError & err )
-        {
-            EM_error2b( 0, "%s", err.getMessage().c_str() );
-            return;
-        }
+        min = new RtMidiIn;
+
         
         t_CKUINT num = min->getPortCount();
         std::string s;
         for( t_CKUINT i = 0; i < num; i++ )
         {
-            try { s = min->getPortName( i ); }
-            catch( RtError & err )
-        { 
-                err.printMessage();
-                delete min;
-                return;
-        }
+            s = min->getPortName( i );
             
             [input addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                 [NSString stringWithFormat:@"%li", i], @"name",
@@ -329,23 +310,12 @@ static const char * exclude_types[] =
         
         delete min;
         
-        try { mout = new RtMidiOut; }
-        catch( RtError & err )
-        {
-            EM_error2b( 0, "%s", err.getMessage().c_str() );
-            return;
-        }
+        mout = new RtMidiOut;
         
         num = mout->getPortCount();
         for( t_CKUINT i = 0; i < num; i++ )
         {
-            try { s = mout->getPortName( i ); }
-            catch( RtError & err )
-        { 
-                err.printMessage();
-                delete mout;
-                return;
-        }
+            s = mout->getPortName( i );
             
             [output addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                 [NSString stringWithFormat:@"%li", i], @"name",

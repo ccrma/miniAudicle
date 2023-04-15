@@ -917,7 +917,7 @@ t_CKBOOL miniAudicle::start_vm()
         
         // probe / init (this shouldn't start audio yet...
         // moved here 1.3.1.2; to main ge: 1.3.5.3)
-        if( !ChuckAudio::initialize( output_channels, input_channels, srate, buffer_size, num_buffers, audio_cb, m_chuck, force_srate ) )
+        if( !ChuckAudio::initialize( dac, adc, output_channels, input_channels, srate, buffer_size, num_buffers, audio_cb, m_chuck, force_srate, NULL ) )
         {
             EM_log( CK_LOG_SYSTEM,
                    "cannot initialize audio device (use --silent/-s for non-realtime)" );
@@ -1161,16 +1161,11 @@ t_CKBOOL miniAudicle::probe()
     RtAudio::DeviceInfo info;
     
     // allocate RtAudio
-    try 
-    {
         rta = new RtAudio( );
-    }
-    catch( RtError & error )
-    {
-        // problem finding audio devices, most likely
-        EM_log( CK_LOG_WARNING, "(RtAudio): %s", error.getMessage().c_str() );
-        return FALSE;
-    }
+
+    // problem finding audio devices, most likely
+    // EM_log( CK_LOG_WARNING, "(RtAudio): %s", error.getMessage().c_str() );
+    // return FALSE;
     
     // get count    
     int devices = rta->getDeviceCount();
@@ -1180,8 +1175,8 @@ t_CKBOOL miniAudicle::probe()
     // loop
     for( int i = 0; i < devices; i++ )
     {
-        try
-        { 
+//        try
+//        {
             interfaces.push_back( rta->getDeviceInfo( i ) );
             
             if( interfaces[i].isDefaultInput &&
@@ -1193,12 +1188,12 @@ t_CKBOOL miniAudicle::probe()
                 interfaces[i].outputChannels &&
                 default_output == devices )
                 default_output = i;
-        }
-        catch( RtError & error )
-        {
-            EM_log( CK_LOG_WARNING, "(RtAudio): %s", error.getMessage().c_str() );
-            break;
-        }
+//        }
+//        catch( RtError & error )
+//        {
+//            EM_log( CK_LOG_WARNING, "(RtAudio): %s", error.getMessage().c_str() );
+//            break;
+//        }
     }
     
     if( default_input == devices )
