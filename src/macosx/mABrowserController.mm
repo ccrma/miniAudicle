@@ -147,8 +147,6 @@ static const char * exclude_types[] =
         RtAudio::DeviceInfo info;
         
         // allocate RtAudio
-        rtaudio_error_clear();
-        
         rta = new RtAudio( RtAudio::Api::UNSPECIFIED, rtaudio_error );
         
         if (rtaudio_has_error()) {
@@ -157,8 +155,6 @@ static const char * exclude_types[] =
         }
 
         // get count
-        rtaudio_error_clear();
-        
         int devices = rta->getDeviceCount();
         
         if (rtaudio_has_error()) {
@@ -170,8 +166,6 @@ static const char * exclude_types[] =
         // loop
         for( int i = 1; i <= devices; i++ )
         {
-            rtaudio_error_clear();
-
             info = rta->getDeviceInfo( i );
             
             if (rtaudio_has_error()) {

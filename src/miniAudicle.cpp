@@ -1158,8 +1158,6 @@ t_CKBOOL miniAudicle::probe()
     RtAudio * rta = NULL;
     RtAudio::DeviceInfo info;
     
-    rtaudio_error_clear();
-    
     // allocate RtAudio
     rta = new RtAudio( RtAudio::Api::UNSPECIFIED, rtaudio_error );
     
@@ -1168,13 +1166,7 @@ t_CKBOOL miniAudicle::probe()
         return FALSE;
     }
 
-    // problem finding audio devices, most likely
-    // EM_log( CK_LOG_WARNING, "(RtAudio): %s", error.getMessage().c_str() );
-    // return FALSE;
-    
-    rtaudio_error_clear();
-
-    // get count    
+    // get count
     int devices = rta->getDeviceCount();
     
     if (rtaudio_has_error()) {
