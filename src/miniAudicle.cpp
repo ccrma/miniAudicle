@@ -57,6 +57,7 @@ U.S.A.
 
 #include "miniAudicle_ui_elements.h"
 #include "miniAudicle_import.h"
+#include "util_rterror.h"
 //using namespace miniAudicle;
 
 using namespace std;
@@ -1160,40 +1161,55 @@ t_CKBOOL miniAudicle::probe()
     RtAudio * rta = NULL;
     RtAudio::DeviceInfo info;
     
+    rtaudio_error_clear();
+    
     // allocate RtAudio
-        rta = new RtAudio( );
+    rta = new RtAudio( RtAudio::Api::UNSPECIFIED, rtaudio_error );
+    
+    if (rtaudio_has_error()) {
+        rtaudio_error_print(true);
+        return FALSE;
+    }
 
     // problem finding audio devices, most likely
     // EM_log( CK_LOG_WARNING, "(RtAudio): %s", error.getMessage().c_str() );
     // return FALSE;
     
+    rtaudio_error_clear();
+
     // get count    
     int devices = rta->getDeviceCount();
+    
+    if (rtaudio_has_error()) {
+        rtaudio_error_print(true);
+        delete rta;
+        return FALSE;
+    }
+    
     default_input = devices;
     default_output = devices;
     
     // loop
     for( int i = 0; i < devices; i++ )
     {
-//        try
-//        {
-            interfaces.push_back( rta->getDeviceInfo( i ) );
-            
-            if( interfaces[i].isDefaultInput &&
-                interfaces[i].inputChannels &&
-                default_input == devices )
-                default_input = i;
-            
-            if( interfaces[i].isDefaultOutput &&
-                interfaces[i].outputChannels &&
-                default_output == devices )
-                default_output = i;
-//        }
-//        catch( RtError & error )
-//        {
-//            EM_log( CK_LOG_WARNING, "(RtAudio): %s", error.getMessage().c_str() );
-//            break;
-//        }
+        RtAudio::DeviceInfo info = rta->getDeviceInfo( i );
+        
+        if (rtaudio_has_error()) {
+            rtaudio_error_print(true);
+            continue;
+        }
+        
+        interfaces.push_back( info );
+        
+        if( interfaces[i].isDefaultInput &&
+           interfaces[i].inputChannels &&
+           default_input == devices )
+            default_input = i;
+        
+        if( interfaces[i].isDefaultOutput &&
+           interfaces[i].outputChannels &&
+           default_output == devices )
+            default_output = i;
     }
     
     if( default_input == devices )

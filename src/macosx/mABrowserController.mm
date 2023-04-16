@@ -7,6 +7,7 @@
 #import "rtmidi.h"
 #import "RtAudio.h"
 #import "hidio_sdl.h"
+#import "util_rterror.h"
 
 struct Chuck_Type;
 
@@ -146,15 +147,37 @@ static const char * exclude_types[] =
         RtAudio::DeviceInfo info;
         
         // allocate RtAudio
-        rta = new RtAudio( );
+        rtaudio_error_clear();
         
-        // get count    
+        rta = new RtAudio( RtAudio::Api::UNSPECIFIED, rtaudio_error );
+        
+        if (rtaudio_has_error()) {
+            rtaudio_error_print(true);
+            return;
+        }
+
+        // get count
+        rtaudio_error_clear();
+        
         int devices = rta->getDeviceCount();
+        
+        if (rtaudio_has_error()) {
+            rtaudio_error_print(true);
+            delete rta;
+            return;
+        }
         
         // loop
         for( int i = 1; i <= devices; i++ )
         {
+            rtaudio_error_clear();
+
             info = rta->getDeviceInfo( i );
+            
+            if (rtaudio_has_error()) {
+                rtaudio_error_print(true);
+                continue;
+            }
             
             NSMutableArray * device = [[NSMutableArray new] autorelease];
             
@@ -292,8 +315,11 @@ static const char * exclude_types[] =
         RtMidiIn * min = NULL;
         RtMidiOut * mout = NULL;
         
-        min = new RtMidiIn;
-
+        try {
+            min = new RtMidiIn;
+        } catch (RtMidiError err) {
+            return;
+        }
         
         t_CKUINT num = min->getPortCount();
         std::string s;
@@ -310,7 +336,11 @@ static const char * exclude_types[] =
         
         delete min;
         
-        mout = new RtMidiOut;
+        try {
+            mout = new RtMidiOut;
+        } catch (RtMidiError err) {
+            return;
+        }
         
         num = mout->getPortCount();
         for( t_CKUINT i = 0; i < num; i++ )

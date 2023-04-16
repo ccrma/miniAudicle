@@ -723,11 +723,11 @@ CA
                         <rect key="frame" x="20" y="58" width="266" height="238"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" ambiguous="YES" id="Pzf-RP-xP2">
-                            <rect key="frame" x="1" y="0.0" width="264" height="237"/>
+                            <rect key="frame" x="1" y="0.0" width="253" height="237"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" autosaveColumns="NO" rowHeight="15" headerView="1365" id="285">
-                                    <rect key="frame" x="0.0" y="0.0" width="264" height="220"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="253" height="220"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
@@ -736,12 +736,12 @@ CA
                                     <tableColumns>
                                         <tableColumn identifier="shred" editable="NO" width="50" minWidth="50" maxWidth="75" id="287">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="shred">
-                                                <font key="font" metaFont="menu" size="11"/>
+                                                <font key="font" metaFont="message" size="11"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
                                             <textFieldCell key="dataCell" controlSize="small" alignment="left" id="528">
-                                                <font key="font" metaFont="menu" size="11"/>
+                                                <font key="font" metaFont="message" size="11"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -750,12 +750,12 @@ CA
                                         </tableColumn>
                                         <tableColumn identifier="name" editable="NO" width="134.5" minWidth="50" maxWidth="3000" id="286">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="name">
-                                                <font key="font" metaFont="menu" size="11"/>
+                                                <font key="font" metaFont="message" size="11"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
                                             <textFieldCell key="dataCell" controlSize="small" alignment="left" id="527">
-                                                <font key="font" metaFont="menu" size="11"/>
+                                                <font key="font" metaFont="message" size="11"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -764,12 +764,12 @@ CA
                                         </tableColumn>
                                         <tableColumn identifier="time" editable="NO" width="38" minWidth="38" maxWidth="76" id="550">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="time">
-                                                <font key="font" metaFont="menu" size="11"/>
+                                                <font key="font" metaFont="message" size="11"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                             </tableHeaderCell>
                                             <textFieldCell key="dataCell" controlSize="small" selectable="YES" alignment="right" id="551">
-                                                <font key="font" metaFont="menu" size="11"/>
+                                                <font key="font" metaFont="message" size="11"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -778,13 +778,13 @@ CA
                                         </tableColumn>
                                         <tableColumn identifier="remove" editable="NO" width="18.36474609375" minWidth="14.36474609375" maxWidth="18.36474609375" id="288">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="-">
-                                                <font key="font" metaFont="menu" size="11"/>
+                                                <font key="font" metaFont="message" size="11"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
                                             <buttonCell key="dataCell" type="square" title="-" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="charWrapping" borderStyle="border" inset="2" id="290">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu" size="11"/>
+                                                <font key="font" metaFont="message" size="11"/>
                                                 <connections>
                                                     <action selector="removeShred:" target="300" id="549"/>
                                                 </connections>
@@ -805,11 +805,11 @@ CA
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" controlSize="small" horizontal="NO" id="1363">
-                            <rect key="frame" x="251" y="17" width="14" height="220"/>
+                            <rect key="frame" x="254" y="17" width="11" height="220"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" id="1365">
-                            <rect key="frame" x="0.0" y="0.0" width="264" height="17"/>
+                            <rect key="frame" x="0.0" y="0.0" width="253" height="17"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
@@ -817,7 +817,7 @@ CA
                         <rect key="frame" x="17" y="338" width="188" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="small" selectable="YES" sendsActionOnEndEditing="YES" title="running time:" id="1294">
-                            <font key="font" metaFont="menu" size="11"/>
+                            <font key="font" metaFont="message" size="11"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -826,7 +826,7 @@ CA
                         <rect key="frame" x="17" y="316" width="46" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="small" selectable="YES" sendsActionOnEndEditing="YES" id="1295">
-                            <font key="font" metaFont="menu" size="11"/>
+                            <font key="font" metaFont="message" size="11"/>
                             <string key="title">shreds:
 </string>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -837,7 +837,7 @@ CA
                         <rect key="frame" x="98" y="338" width="107" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="1296">
-                            <font key="font" metaFont="menu" size="11"/>
+                            <font key="font" metaFont="message" size="11"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -846,7 +846,7 @@ CA
                         <rect key="frame" x="65" y="316" width="140" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="small" selectable="YES" sendsActionOnEndEditing="YES" id="1297">
-                            <font key="font" metaFont="menu" size="11"/>
+                            <font key="font" metaFont="message" size="11"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -923,15 +923,15 @@ CA
                         <rect key="frame" x="0.0" y="0.0" width="447" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" id="BdI-v0-Am4">
-                            <rect key="frame" x="0.0" y="0.0" width="447" height="320"/>
+                            <rect key="frame" x="0.0" y="0.0" width="432" height="320"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView ambiguous="YES" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="1008">
-                                    <rect key="frame" x="0.0" y="0.0" width="432" height="320"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="417" height="320"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <size key="minSize" width="432" height="320"/>
+                                    <size key="minSize" width="417" height="320"/>
                                     <size key="maxSize" width="879" height="10000000"/>
                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <connections>
@@ -946,7 +946,7 @@ CA
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="1366">
-                            <rect key="frame" x="431" y="0.0" width="16" height="320"/>
+                            <rect key="frame" x="432" y="0.0" width="15" height="320"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <connections>
@@ -985,21 +985,21 @@ CA
                         <rect key="frame" x="0.0" y="0.0" width="450" height="350"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" id="gbL-lz-swd">
-                            <rect key="frame" x="0.0" y="0.0" width="450" height="350"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <rect key="frame" x="0.0" y="0.0" width="435" height="350"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView ambiguous="YES" editable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="435" customClass="miniAudicleShellTextView">
-                                    <rect key="frame" x="0.0" y="0.0" width="435" height="350"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="420" height="350"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="450" height="350"/>
+                                    <size key="minSize" width="420" height="350"/>
                                     <size key="maxSize" width="885" height="10000000"/>
                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 </textView>
                             </subviews>
                         </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="1369">
+                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="1369">
                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
@@ -1010,6 +1010,7 @@ CA
                     </scrollView>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="168" y="-519"/>
         </window>
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="486" userLabel="About">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
@@ -1025,7 +1026,7 @@ CA
                         <rect key="frame" x="17" y="20" width="305" height="98"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="small" selectable="YES" sendsActionOnEndEditing="YES" alignment="center" id="1300">
-                            <font key="font" metaFont="menu" size="11"/>
+                            <font key="font" metaFont="message" size="11"/>
                             <string key="title">version
 git
 Copyright © 2005 Spencer Salazar
@@ -1055,6 +1056,7 @@ http://chuck.cs.princeton.edu/</string>
                     </textField>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="168" y="-919"/>
         </window>
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="531" userLabel="PreferencesWindow">
             <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES"/>
@@ -1074,7 +1076,7 @@ http://chuck.cs.princeton.edu/</string>
                             <tabViewItem label="Audio" identifier="1" id="600">
                                 <view key="view" ambiguous="YES" id="601">
                                     <rect key="frame" x="10" y="33" width="404" height="329"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="602">
                                             <rect key="frame" x="214" y="195" width="101" height="18"/>
@@ -1118,7 +1120,7 @@ http://chuck.cs.princeton.edu/</string>
                                             <rect key="frame" x="17" y="17" width="354" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="1320">
-                                                <font key="font" metaFont="menu" size="11"/>
+                                                <font key="font" metaFont="message" size="11"/>
                                                 <string key="title">Changes will not take effect until the virtual machine is restarted.
   
 Changes will not take effect until miniAudicle is restarted.
@@ -1455,7 +1457,7 @@ Changes will not take effect until miniAudicle is restarted.
                                                         <tableColumns>
                                                             <tableColumn identifier="type" width="35" minWidth="16" maxWidth="1000" id="1402">
                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Type">
-                                                                    <font key="font" metaFont="menu" size="11"/>
+                                                                    <font key="font" metaFont="message" size="11"/>
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </tableHeaderCell>
@@ -1466,7 +1468,7 @@ Changes will not take effect until miniAudicle is restarted.
                                                             </tableColumn>
                                                             <tableColumn identifier="location" width="327" minWidth="16" maxWidth="3.4028234663852886e+38" id="1412">
                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Location">
-                                                                    <font key="font" metaFont="menu" size="11"/>
+                                                                    <font key="font" metaFont="message" size="11"/>
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                 </tableHeaderCell>
@@ -1571,7 +1573,7 @@ Changes will not take effect until miniAudicle is restarted.
                                             <rect key="frame" x="17" y="209" width="370" height="42"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="1339">
-                                                <font key="font" metaFont="menu" size="11"/>
+                                                <font key="font" metaFont="message" size="11"/>
                                                 <string key="title">Relative filenames in ChucK programs (used in SndBuf, WvIn, and WvOut, for example) will be interpreted relative to this directory.  
 </string>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1818,6 +1820,7 @@ DQ
                 <outlet property="delegate" destination="626" id="637"/>
                 <outlet property="initialFirstResponder" destination="612" id="657"/>
             </connections>
+            <point key="canvasLocation" x="-363" y="-915"/>
         </window>
         <menu title="Menu" id="539" userLabel="Shred Table Header Menu">
             <items>
@@ -2027,6 +2030,7 @@ DQ
                     </splitView>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="-364" y="-1451"/>
         </window>
         <window title="Console Monitor" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="1003" userLabel="Console Monitor1" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
@@ -2042,8 +2046,8 @@ DQ
                         <rect key="frame" x="0.0" y="0.0" width="447" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" autoresizesSubviews="NO" ambiguous="YES" id="URm-cK-4sr">
-                            <rect key="frame" x="0.0" y="0.0" width="447" height="320"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <rect key="frame" x="0.0" y="0.0" width="432" height="320"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1006" customClass="mAConsoleMonitorView">
                                     <rect key="frame" x="0.0" y="0.0" width="1" height="1"/>
@@ -2060,12 +2064,13 @@ DQ
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="1378">
-                            <rect key="frame" x="431" y="0.0" width="16" height="320"/>
+                            <rect key="frame" x="432" y="0.0" width="15" height="320"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="-365" y="-1934"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="1095" userLabel="Shared Defaults"/>
         <window title="Device Browser" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="1114" userLabel="Browser">
@@ -2094,7 +2099,7 @@ DQ
                                     <tableColumns>
                                         <tableColumn identifier="name" editable="NO" width="147" minWidth="16" maxWidth="2000" id="1118">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                                <font key="font" metaFont="menu" size="11"/>
+                                                <font key="font" metaFont="message" size="11"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
@@ -2107,7 +2112,7 @@ DQ
                                         </tableColumn>
                                         <tableColumn identifier="description" editable="NO" width="429" minWidth="4" maxWidth="5000" id="1136">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                                <font key="font" metaFont="menu" size="11"/>
+                                                <font key="font" metaFont="message" size="11"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                             </tableHeaderCell>
