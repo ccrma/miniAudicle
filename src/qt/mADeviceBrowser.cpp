@@ -28,6 +28,7 @@ U.S.A.
 #include "rtmidi.h"
 #include "hidio_sdl.h"
 #include "chuck_errmsg.h"
+#include "util_rterror.h"
 
 mADeviceBrowser::mADeviceBrowser(QWidget *parent) :
     QDialog(parent),
@@ -57,25 +58,36 @@ void mADeviceBrowser::showAudio()
     RtAudio::DeviceInfo info;
     
     // allocate RtAudio
-    try { rta = new RtAudio( ); }
-    catch( RtError err )
+    rta = new RtAudio( RtAudio::Api::UNSPECIFIED, rtaudio_error );
+
+    if( rtaudio_has_error() )
     {
-        // problem finding audio devices, most likely
+        rtaudio_error_print(true);
+        delete rta;
         return;
     }
     
     // get count    
     int numDevices = rta->getDeviceCount();
     
+    if( rtaudio_has_error() )
+    {
+        rtaudio_error_print(true);
+        delete rta;
+        return;
+    }
+
     // loop
     for( int i = 1; i <= numDevices; i++ )
     {
-        try { info = rta->getDeviceInfo( i - 1 ); }
-        catch( RtError & error )
-        { 
-            break;
+        info = rta->getDeviceInfo( i - 1 );
+
+        if( rtaudio_has_error() )
+        {
+            rtaudio_error_print(true);
+            continue;
         }
-        
+
         QStringList list;
         
         list.clear(); list.append(QString("%1").arg(i)); list.append(QString(info.name.c_str()));
@@ -168,25 +180,19 @@ void mADeviceBrowser::showMIDI()
     RtMidiOut * mout = NULL;
     
     try { min = new RtMidiIn; }
-    catch( RtError & err )
+    catch( RtMidiError & err )
     {
         EM_error2b( 0, "%s", err.getMessage().c_str() );
         return;
     }
-    
+
     QTreeWidgetItem *inputItem = new QTreeWidgetItem(QStringList(QString("Input")));
     
     t_CKUINT num = min->getPortCount();
     std::string s;
     for( t_CKUINT i = 0; i < num; i++ )
     {
-        try { s = min->getPortName( i ); }
-        catch( RtError & err )
-        { 
-            err.printMessage();
-            delete min;
-            return;
-        }
+        s = min->getPortName( i );
         
         QStringList list; list.append(QString("%1").arg(i)); list.append(QString(s.c_str()));
         inputItem->addChild(new QTreeWidgetItem(list));
@@ -197,7 +203,7 @@ void mADeviceBrowser::showMIDI()
     QTreeWidgetItem *outputItem = new QTreeWidgetItem(QStringList(QString("Output")));
     
     try { mout = new RtMidiOut; }
-    catch( RtError & err )
+    catch( RtMidiError & err )
     {
         EM_error2b( 0, "%s", err.getMessage().c_str() );
         return;
@@ -206,13 +212,7 @@ void mADeviceBrowser::showMIDI()
     num = mout->getPortCount();
     for( t_CKUINT i = 0; i < num; i++ )
     {
-        try { s = mout->getPortName( i ); }
-        catch( RtError & err )
-        { 
-            err.printMessage();
-            delete mout;
-            return;
-        }
+        s = mout->getPortName( i );
         
         QStringList list; list.append(QString("%1").arg(i)); list.append(QString(s.c_str()));
         outputItem->addChild(new QTreeWidgetItem(list));

@@ -8,7 +8,7 @@
 #pragma once
 
 #include <string>
-#include "RtAudio.h"
+#include "RtAudio/RtAudio.h"
 
 void rtaudio_error(RtAudioErrorType type, const std::string &errorText);
 void rtaudio_error_clear();
