@@ -226,6 +226,7 @@
 		098060350AA14E8800915136 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		098060360AA14E8900915136 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A40BD70A9A57C6007604EA /* IOKit.framework */; };
 		09820BA110941F7F001F662E /* miniAudicle_log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09820BA010941F7F001F662E /* miniAudicle_log.cpp */; };
+		098AFE4C29EC851B00226CD1 /* util_rterror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 098AFE4929EC846200226CD1 /* util_rterror.cpp */; };
 		098E28AE173A06600044336B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A2173A06600044336B /* InfoPlist.strings */; };
 		098E28AF173A06600044336B /* mADocumentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A4173A06600044336B /* mADocumentView.xib */; };
 		098E28B0173A06600044336B /* mADocumentWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 098E28A6173A06600044336B /* mADocumentWindow.xib */; };
@@ -619,6 +620,8 @@
 		098060460AA1596900915136 /* view01.ck */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = view01.ck; path = ../test/view01.ck; sourceTree = SOURCE_ROOT; };
 		09820B9F10941F7F001F662E /* miniAudicle_log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = miniAudicle_log.h; sourceTree = "<group>"; };
 		09820BA010941F7F001F662E /* miniAudicle_log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = miniAudicle_log.cpp; sourceTree = "<group>"; };
+		098AFE4929EC846200226CD1 /* util_rterror.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = util_rterror.cpp; sourceTree = "<group>"; };
+		098AFE4A29EC846200226CD1 /* util_rterror.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = util_rterror.h; sourceTree = "<group>"; };
 		098E28A3173A06600044336B /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = macosx/Resources/English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		098E28A5173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mADocumentView.xib; sourceTree = "<group>"; };
 		098E28A7173A06600044336B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = macosx/Resources/English.lproj/mADocumentWindow.xib; sourceTree = "<group>"; };
@@ -1188,6 +1191,8 @@
 				09A40BCD0A9A5662007604EA /* miniAudicle_ui_elements.h */,
 				09A40BCE0A9A5662007604EA /* miniAudicle.cpp */,
 				09A40BCF0A9A5662007604EA /* miniAudicle.h */,
+				098AFE4929EC846200226CD1 /* util_rterror.cpp */,
+				098AFE4A29EC846200226CD1 /* util_rterror.h */,
 				09E5546D0DA61CB700F1A6C8 /* miniAudicle_debug.h */,
 				09820B9F10941F7F001F662E /* miniAudicle_log.h */,
 				09820BA010941F7F001F662E /* miniAudicle_log.cpp */,
@@ -1618,11 +1623,9 @@
 						};
 					};
 					09805FE60AA10D0C00915136 = {
-						DevelopmentTeam = B98UU2R2SP;
 						ProvisioningStyle = Automatic;
 					};
 					8D1107260486CEB800E47090 = {
-						DevelopmentTeam = B98UU2R2SP;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1974,6 +1977,7 @@
 				09056C131FCE8FF9004A2BD4 /* chuck_io.cpp in Sources */,
 				09056C181FCE8FF9004A2BD4 /* chuck_scan.cpp in Sources */,
 				09056C121FCE8FF9004A2BD4 /* chuck_instr.cpp in Sources */,
+				098AFE4C29EC851B00226CD1 /* util_rterror.cpp in Sources */,
 				096FAB870B56D56B00125FE2 /* mAConsoleMonitorView.mm in Sources */,
 				09F37B070BC075AC005931F6 /* mABrowserController.mm in Sources */,
 				09056C101FCE8FF9004A2BD4 /* chuck_errmsg.cpp in Sources */,
@@ -2229,10 +2233,10 @@
 		098060190AA10D6C00915136 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = B98UU2R2SP;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
@@ -2262,10 +2266,10 @@
 		0980601A0AA10D6C00915136 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = B98UU2R2SP;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
@@ -2295,10 +2299,10 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = B98UU2R2SP;
+				DEVELOPMENT_TEAM = "";
 				ENV_MA_VERSION = "1.3.5.2-beta-2";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2340,7 +2344,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B98UU2R2SP;
+				DEVELOPMENT_TEAM = "";
 				ENV_MA_VERSION = "1.3.5.2-beta-2";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

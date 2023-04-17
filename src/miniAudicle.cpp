@@ -57,6 +57,7 @@ U.S.A.
 
 #include "miniAudicle_ui_elements.h"
 #include "miniAudicle_import.h"
+#include "util_rterror.h"
 //using namespace miniAudicle;
 
 using namespace std;
@@ -913,12 +914,9 @@ t_CKBOOL miniAudicle::start_vm()
         // log
         EM_log( CK_LOG_SYSTEM, "probing '%s' audio subsystem...", enable_audio ? "real-time" : "fake-time" );
         
-        ChuckAudio::m_dac_n = dac;
-        ChuckAudio::m_adc_n = adc;
-        
         // probe / init (this shouldn't start audio yet...
         // moved here 1.3.1.2; to main ge: 1.3.5.3)
-        if( !ChuckAudio::initialize( output_channels, input_channels, srate, buffer_size, num_buffers, audio_cb, m_chuck, force_srate ) )
+        if( !ChuckAudio::initialize( dac, adc, output_channels, input_channels, srate, buffer_size, num_buffers, audio_cb, m_chuck, force_srate, NULL ) )
         {
             EM_log( CK_LOG_SYSTEM,
                    "cannot initialize audio device (use --silent/-s for non-realtime)" );
@@ -1169,44 +1167,46 @@ t_CKBOOL miniAudicle::probe()
     RtAudio::DeviceInfo info;
     
     // allocate RtAudio
-    try 
-    {
-        rta = new RtAudio( );
+    rta = new RtAudio( RtAudio::Api::UNSPECIFIED, rtaudio_error );
+    
+    if (rtaudio_has_error()) {
+        rtaudio_error_print(true);
+        return FALSE;
     }
-    catch( RtError & error )
-    {
-        // problem finding audio devices, most likely
-        EM_log( CK_LOG_WARNING, "(RtAudio): %s", error.getMessage().c_str() );
+
+    // get count
+    int devices = rta->getDeviceCount();
+    
+    if (rtaudio_has_error()) {
+        rtaudio_error_print(true);
+        delete rta;
         return FALSE;
     }
     
-    // get count    
-    int devices = rta->getDeviceCount();
     default_input = devices;
     default_output = devices;
     
     // loop
     for( int i = 0; i < devices; i++ )
     {
-        try
-        { 
-            interfaces.push_back( rta->getDeviceInfo( i ) );
-            
-            if( interfaces[i].isDefaultInput &&
-                interfaces[i].inputChannels &&
-                default_input == devices )
-                default_input = i;
-            
-            if( interfaces[i].isDefaultOutput &&
-                interfaces[i].outputChannels &&
-                default_output == devices )
-                default_output = i;
+        RtAudio::DeviceInfo info = rta->getDeviceInfo( i );
+        
+        if (rtaudio_has_error()) {
+            rtaudio_error_print(true);
+            continue;
         }
-        catch( RtError & error )
-        {
-            EM_log( CK_LOG_WARNING, "(RtAudio): %s", error.getMessage().c_str() );
-            break;
-        }
+        
+        interfaces.push_back( info );
+        
+        if( interfaces[i].isDefaultInput &&
+           interfaces[i].inputChannels &&
+           default_input == devices )
+            default_input = i;
+        
+        if( interfaces[i].isDefaultOutput &&
+           interfaces[i].outputChannels &&
+           default_output == devices )
+            default_output = i;
     }
     
     if( default_input == devices )

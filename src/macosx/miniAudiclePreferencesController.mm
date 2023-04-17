@@ -763,7 +763,11 @@ miniAudicle_Version currentVersion()
         {
             if( interfaces[i].outputChannels > 0 || interfaces[i].duplexChannels > 0 )
             {
-                [audio_output addItemWithTitle:[NSString stringWithUTF8String:interfaces[i].name.c_str()]];
+                /* NOTE: stringWithUTF8String fails for some device names
+                 returned from RtAudio. Use deprecated stringWithCString for
+                 now.
+                */
+                [audio_output addItemWithTitle:[NSString stringWithCString:interfaces[i].name.c_str()]];
                 [[audio_output lastItem] setTag:i];
                 if( i == dac )
                     [audio_output selectItem:[audio_output lastItem]];
@@ -771,7 +775,11 @@ miniAudicle_Version currentVersion()
             
             if( interfaces[i].inputChannels > 0 || interfaces[i].duplexChannels > 0 )
             {
-                [audio_input addItemWithTitle:[NSString stringWithUTF8String:interfaces[i].name.c_str()]];
+                /* NOTE: stringWithUTF8String fails for some device names
+                 returned from RtAudio. Use deprecated stringWithCString for
+                 now.
+                */
+                [audio_input addItemWithTitle:[NSString stringWithCString:interfaces[i].name.c_str()]];
                 [[audio_input lastItem] setTag:i];
                 if( i == adc )
                     [audio_input selectItem:[audio_input lastItem]];

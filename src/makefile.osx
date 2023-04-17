@@ -153,7 +153,8 @@ CSRCS+=
 CXXSRCS+= miniAudicle.cpp \
     miniAudicle_shell.cpp \
     miniAudicle_import.cpp \
-    miniAudicle_ui_elements.cpp
+    miniAudicle_ui_elements.cpp \
+    util_rterror.cpp
 OBJCSRCS+= $(OSX_DIR)/main.m \
     $(OSX_DIR)/BLAuthentication.m \
     $(OSX_DIR)/UliKit/UKFileWatcher.m \

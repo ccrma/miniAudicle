@@ -148,8 +148,8 @@ SOURCES += \
     chuck/src/core/lo/timetag.c \
     qt/madocumentview.cpp \
     miniAudicle.cpp \
-    # miniAudicle_shell.cpp \
     miniAudicle_log.cpp \
+    util_rterror.cpp \
     qt/mAConsoleMonitor.cpp \
     qt/mAVMMonitor.cpp \
     chuck/src/core/util_serial.cpp \
@@ -189,7 +189,6 @@ win32 {
 HEADERS  += qt/mAMainWindow.h \
     chuck/src/host/chuck_audio.h \
     chuck/src/host/chuck_console.h \
-    chuck/src/host/RtAudio/RtError.h \
     chuck/src/host/RtAudio/RtAudio.h \
     chuck/src/core/chuck_carrier.h \
     chuck/src/core/util_xforms.h \
@@ -249,6 +248,7 @@ HEADERS  += qt/mAMainWindow.h \
     miniAudicle_log.h \
     miniAudicle_import.h \
     miniAudicle_debug.h \
+    util_rterror.h \
     qt/mAConsoleMonitor.h \
     qt/mAVMMonitor.h \
     qt/mAsciLexerChucK.h \

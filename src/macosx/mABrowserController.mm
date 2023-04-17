@@ -7,6 +7,7 @@
 #import "rtmidi.h"
 #import "RtAudio.h"
 #import "hidio_sdl.h"
+#import "util_rterror.h"
 
 struct Chuck_Type;
 
@@ -146,24 +147,31 @@ static const char * exclude_types[] =
         RtAudio::DeviceInfo info;
         
         // allocate RtAudio
-        try { rta = new RtAudio( ); }
-        catch( RtError err )
-        {
-            // problem finding audio devices, most likely
+        rta = new RtAudio( RtAudio::Api::UNSPECIFIED, rtaudio_error );
+        
+        if (rtaudio_has_error()) {
+            rtaudio_error_print(true);
             return;
         }
-        
-        // get count    
+
+        // get count
         int devices = rta->getDeviceCount();
+        
+        if (rtaudio_has_error()) {
+            rtaudio_error_print(true);
+            delete rta;
+            return;
+        }
         
         // loop
         for( int i = 1; i <= devices; i++ )
         {
-            try { info = rta->getDeviceInfo( i ); }
-            catch( RtError & error )
-        { 
-                break;
-        }
+            info = rta->getDeviceInfo( i );
+            
+            if (rtaudio_has_error()) {
+                rtaudio_error_print(true);
+                continue;
+            }
             
             NSMutableArray * device = [[NSMutableArray new] autorelease];
             
@@ -301,10 +309,9 @@ static const char * exclude_types[] =
         RtMidiIn * min = NULL;
         RtMidiOut * mout = NULL;
         
-        try { min = new RtMidiIn; }
-        catch( RtError & err )
-        {
-            EM_error2b( 0, "%s", err.getMessage().c_str() );
+        try {
+            min = new RtMidiIn;
+        } catch (RtMidiError err) {
             return;
         }
         
@@ -312,13 +319,7 @@ static const char * exclude_types[] =
         std::string s;
         for( t_CKUINT i = 0; i < num; i++ )
         {
-            try { s = min->getPortName( i ); }
-            catch( RtError & err )
-        { 
-                err.printMessage();
-                delete min;
-                return;
-        }
+            s = min->getPortName( i );
             
             [input addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                 [NSString stringWithFormat:@"%li", i], @"name",
@@ -329,23 +330,16 @@ static const char * exclude_types[] =
         
         delete min;
         
-        try { mout = new RtMidiOut; }
-        catch( RtError & err )
-        {
-            EM_error2b( 0, "%s", err.getMessage().c_str() );
+        try {
+            mout = new RtMidiOut;
+        } catch (RtMidiError err) {
             return;
         }
         
         num = mout->getPortCount();
         for( t_CKUINT i = 0; i < num; i++ )
         {
-            try { s = mout->getPortName( i ); }
-            catch( RtError & err )
-        { 
-                err.printMessage();
-                delete mout;
-                return;
-        }
+            s = mout->getPortName( i );
             
             [output addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                 [NSString stringWithFormat:@"%li", i], @"name",
