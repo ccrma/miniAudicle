@@ -1,7 +1,7 @@
 # miniAudicle [![Build Status](https://travis-ci.org/ccrma/miniAudicle.svg?branch=master)](https://travis-ci.org/ccrma/miniAudicle)
-## integrated development + performance environment for chuck
+## integrated development + performance environment for the ChucK programming language
 
-See http://audicle.cs.princeton.edu/mini/ for more info!
+Visit https://chuck.stanford.edu/ to download the latest miniAudicle + command-line ChucK; see https://audicle.cs.princeton.edu/mini/ for more info on the origin of miniAudicle
 
 *OPTIONAL*: You'll need an extra file with a secret key if you want dSYMs (debug symbols files) to be auto-uploaded to Crittercism following each build. This is highly recommended for whoever is making the builds that will be distributed publicly as stack traces will be much more useful with debug symbols. 
 
