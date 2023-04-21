@@ -38,6 +38,7 @@ U.S.A.
 
 #import "chuck_dl.h"
 #import "util_string.h"
+#import "chuck_audio.h"
 
 using namespace std;
 
@@ -165,15 +166,15 @@ miniAudicle_Version currentVersion()
         [defaults setObject:[NSNumber numberWithInt:-1] forKey:mAPreferencesAudioOutput];
         
         // -1 means the maximum number of channels available
-        [defaults setObject:[NSNumber numberWithInt:2] forKey:mAPreferencesInputChannels];
-        [defaults setObject:[NSNumber numberWithInt:2] forKey:mAPreferencesOutputChannels];
+        [defaults setObject:[NSNumber numberWithInt:NUM_CHANNELS_DEFAULT] forKey:mAPreferencesInputChannels];
+        [defaults setObject:[NSNumber numberWithInt:NUM_CHANNELS_DEFAULT] forKey:mAPreferencesOutputChannels];
         
-        [defaults setObject:[NSNumber numberWithInt:44100] forKey:mAPreferencesSampleRate];
-        [defaults setObject:[NSNumber numberWithInt:256] forKey:mAPreferencesBufferSize];
+        [defaults setObject:[NSNumber numberWithInt:0] forKey:mAPreferencesSampleRate];
+        [defaults setObject:[NSNumber numberWithInt:BUFFER_SIZE_DEFAULT] forKey:mAPreferencesBufferSize];
         
         [defaults setObject:[NSNumber numberWithFloat:2.0] forKey:mAPreferencesVMStallTimeout];
         
-        [defaults setObject:[NSNumber numberWithInt:2] forKey:mAPreferencesLogLevel];
+        [defaults setObject:[NSNumber numberWithInt:5] forKey:mAPreferencesLogLevel];
         [defaults setObject:[NSNumber numberWithInt:100000] forKey:mAPreferencesScrollbackBufferSize];
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesAutoOpenConsoleMonitor];
         [defaults setObject:[@"~/" stringByExpandingTildeInPath] forKey:mAPreferencesSoundfilesDirectory];
@@ -359,6 +360,7 @@ miniAudicle_Version currentVersion()
     chugin_paths = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:mAPreferencesChuginPaths]];
     [chugin_table reloadData];
     
+    // this will set up input/output channels and sample rate based on available properties and last settings
     [self probeAudioInterfaces:nil];
 }
 
@@ -385,17 +387,21 @@ miniAudicle_Version currentVersion()
     [mac miniAudicle]->set_adc( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAudioInput] intValue] + 1 );
     
     // output channels
-    [[NSUserDefaults standardUserDefaults] setInteger:[output_channels indexOfSelectedItem] + 1
+    int num_output_channels = [[output_channels titleOfSelectedItem] intValue];
+    if (num_output_channels == 0) num_output_channels = NUM_CHANNELS_DEFAULT;
+    [[NSUserDefaults standardUserDefaults] setInteger:num_output_channels
                                                forKey:mAPreferencesOutputChannels];
     [mac miniAudicle]->set_num_outputs( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesOutputChannels] intValue] );
     
     // input channels
-    [[NSUserDefaults standardUserDefaults] setInteger:[input_channels indexOfSelectedItem] + 1
+    int num_input_channels = [[output_channels titleOfSelectedItem] intValue];
+    if (num_input_channels == 0) num_input_channels = NUM_CHANNELS_DEFAULT;
+    [[NSUserDefaults standardUserDefaults] setInteger:num_input_channels
                                                forKey:mAPreferencesInputChannels];
     [mac miniAudicle]->set_num_inputs( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesInputChannels] intValue] );
     
     // sample rate
-    [[NSUserDefaults standardUserDefaults] setInteger:[[sample_rate titleOfSelectedItem] intValue]
+    [[NSUserDefaults standardUserDefaults] setInteger:[[sample_rate selectedItem] tag]
                                                forKey:mAPreferencesSampleRate];
     [mac miniAudicle]->set_sample_rate( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesSampleRate] intValue] );
     
@@ -535,8 +541,9 @@ miniAudicle_Version currentVersion()
         [mi setTag:sh_tokens[i]];
         [[syntax_token_type menu] addItem:mi];
     }
-        
+
     t_sh_prefs = [[NSMutableDictionary alloc] init];
+    [t_sh_prefs setDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:IDEKit_TextColorsPrefKey]];
     sc_options_changed = NO;
     
     [preferences_window center];
@@ -545,6 +552,10 @@ miniAudicle_Version currentVersion()
     //[keybindings_table setAutoresizesOutlineColumn:NO];
     
     [self initDefaults];
+    
+    // @todo: just load miniAudicle from defaults
+    [self loadGUIFromDefaults];
+    [self loadMiniAudicleFromGUI];
 }
 
 - (void)dealloc
@@ -745,6 +756,21 @@ miniAudicle_Version currentVersion()
     int dac = [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAudioOutput] intValue];
     int adc = [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAudioInput] intValue];
     
+    // setup default input / output items
+    [audio_output addItemWithTitle:@"Default"];
+    [[audio_output lastItem] setTag:-1];
+    if (dac == -1)
+    {
+        [audio_output selectItem:[audio_output lastItem]];
+    }
+    
+    [audio_input addItemWithTitle:@"Default"];
+    [[audio_input lastItem] setTag:-1];
+    if (adc == -1)
+    {
+        [audio_input selectItem:[audio_input lastItem]];
+    }
+
     // load available audio I/O interfaces into the pop up menus
     for( i = 0; i < len; i++ )
     {
@@ -796,37 +822,50 @@ miniAudicle_Version currentVersion()
     const vector< RtAudio::DeviceInfo > & interfaces = [mac miniAudicle]->get_interfaces();
 
     vector< RtAudio::DeviceInfo >::size_type selected_output = [[audio_output selectedItem] tag];
-    
-    vector< int >::size_type j, sr_len = interfaces[selected_output].sampleRates.size();
-    
-    [output_channels removeAllItems];    
+    int preferences_sample_rate = [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesSampleRate] intValue];
+
+    [output_channels removeAllItems];
     [sample_rate removeAllItems];
-    
-    // load available sample rates into the pop up menu
-    int default_sample_rate = [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesSampleRate] intValue];
-    for( j = 0; j < sr_len; j++ )
+
+    [sample_rate addItemWithTitle:[NSString stringWithFormat:@"Default"]];
+    [[sample_rate lastItem] setTag:0];
+    if (preferences_sample_rate == 0)
+        [sample_rate selectItem:[sample_rate lastItem]];
+
+    if (selected_output == -1) // default output
     {
-        [sample_rate addItemWithTitle:[NSString stringWithFormat:@"%i", 
-            interfaces[selected_output].sampleRates[j] ]];
-        
-        // select the default sample rate
-        if( interfaces[selected_output].sampleRates[j] == default_sample_rate )
-            [sample_rate selectItem:[sample_rate lastItem]];
-    }
-    
-    // load available numbers of channels into respective pop up buttons
-    int k, num_channels;
-    
-    num_channels = interfaces[selected_output].outputChannels;
-    for( k = 0; k < num_channels; k++ )
-        [output_channels addItemWithTitle:[NSString stringWithFormat:@"%i", k + 1]];
-    
-    int default_output_channels = [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesOutputChannels] intValue];
-    if( default_output_channels == -1 || default_output_channels > num_channels )
-        /* default is to use as many channels as possible */
+        [output_channels addItemWithTitle:[NSString stringWithFormat:@"%i", NUM_CHANNELS_DEFAULT]];
         [output_channels selectItem:[output_channels lastItem]];
+        [sample_rate selectItem:[sample_rate lastItem]];
+    }
     else
-        [output_channels selectItemAtIndex:( default_output_channels - 1 )];
+    {
+        vector< int >::size_type sr_len = interfaces[selected_output].sampleRates.size();
+        
+        // load available sample rates into the pop up menu
+        for( vector< int >::size_type j = 0; j < sr_len; j++ )
+        {
+            int sampleRate = interfaces[selected_output].sampleRates[j];
+            [sample_rate addItemWithTitle:[NSString stringWithFormat:@"%i", sampleRate]];
+            [[sample_rate lastItem] setTag:sampleRate];
+
+            // select the default sample rate
+            if( interfaces[selected_output].sampleRates[j] == preferences_sample_rate )
+                [sample_rate selectItem:[sample_rate lastItem]];
+        }
+        
+        // load available numbers of channels into respective pop up buttons
+        int num_channels = interfaces[selected_output].outputChannels;
+        for( int k = 0; k < num_channels; k++ )
+            [output_channels addItemWithTitle:[NSString stringWithFormat:@"%i", k + 1]];
+        
+        int default_output_channels = [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesOutputChannels] intValue];
+        if( default_output_channels == -1 || default_output_channels > num_channels )
+        /* default is to use as many channels as possible */
+            [output_channels selectItem:[output_channels lastItem]];
+        else
+            [output_channels selectItemAtIndex:( default_output_channels - 1 )];
+    }
 }
 
 - (void)selectedAudioInputChanged:(id)sender
@@ -837,19 +876,25 @@ miniAudicle_Version currentVersion()
     
     [input_channels removeAllItems];
     
-    // load available numbers of channels into respective pop up buttons
-    int k, num_channels;
-    
-    num_channels = interfaces[selected_input].inputChannels;
-    for( k = 0; k < num_channels; k++ )
-        [input_channels addItemWithTitle:[NSString stringWithFormat:@"%i", k + 1]];
-    
-    int default_input_channels = [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesInputChannels] intValue];
-    if( default_input_channels == -1 || default_input_channels > num_channels )
-        /* default is to use as many channels as possible */
+    if (selected_input == -1) // default input
+    {
+        [input_channels addItemWithTitle:[NSString stringWithFormat:@"%i", NUM_CHANNELS_DEFAULT]];
         [input_channels selectItem:[input_channels lastItem]];
+    }
     else
-        [input_channels selectItemAtIndex:( default_input_channels - 1 )];
+    {
+        // load available numbers of channels into respective pop up buttons
+        int num_channels = interfaces[selected_input].inputChannels;
+        for( int k = 0; k < num_channels; k++ )
+            [input_channels addItemWithTitle:[NSString stringWithFormat:@"%i", k + 1]];
+        
+        int default_input_channels = [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesInputChannels] intValue];
+        if( default_input_channels == -1 || default_input_channels > num_channels )
+        /* default is to use as many channels as possible */
+            [input_channels selectItem:[input_channels lastItem]];
+        else
+            [input_channels selectItemAtIndex:( default_input_channels - 1 )];
+    }
 }
 
 - (id)windowWillReturnFieldEditor:(NSWindow *)w toObject:(id)object

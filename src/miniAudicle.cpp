@@ -167,12 +167,13 @@ miniAudicle::miniAudicle()
     vm_options.enable_network = FALSE;
     vm_options.dac = 0;
     vm_options.adc = 0;
-    vm_options.srate = SAMPLING_RATE_DEFAULT;
+    vm_options.srate = 0;
     vm_options.buffer_size = BUFFER_SIZE_DEFAULT;
     vm_options.num_buffers = NUM_BUFFERS_DEFAULT;
-    vm_options.num_inputs = 2;
-    vm_options.num_outputs = 2;
+    vm_options.num_inputs = NUM_CHANNELS_DEFAULT;
+    vm_options.num_outputs = NUM_CHANNELS_DEFAULT;
     vm_options.enable_block = FALSE;
+    vm_options.force_srate = FALSE;
     
     probe();
 }
@@ -843,12 +844,12 @@ t_CKBOOL miniAudicle::start_vm()
         EM_log( CK_LOG_INFO, "allocating VM..." );
         t_CKBOOL enable_audio = vm_options.enable_audio;
         t_CKBOOL vm_halt = FALSE;
-        t_CKBOOL force_srate = TRUE;
-        t_CKUINT srate = vm_options.srate;
+        t_CKUINT srate = vm_options.srate != 0 ? vm_options.srate : SAMPLE_RATE_DEFAULT;
         t_CKUINT buffer_size = vm_options.buffer_size;
         t_CKUINT num_buffers = NUM_BUFFERS_DEFAULT;
         t_CKUINT dac = vm_options.dac;
         t_CKUINT adc = vm_options.adc;
+        t_CKBOOL force_srate = vm_options.force_srate && vm_options.srate != 0;
         t_CKBOOL set_priority = FALSE;
         t_CKBOOL block = vm_options.enable_block;
         t_CKUINT output_channels = vm_options.num_outputs;
@@ -889,24 +890,6 @@ t_CKBOOL miniAudicle::start_vm()
         
         m_chuck = new ChucK();
         
-        m_chuck->setParam(CHUCK_PARAM_SAMPLE_RATE, srate);
-        m_chuck->setParam(CHUCK_PARAM_INPUT_CHANNELS, input_channels);
-        m_chuck->setParam(CHUCK_PARAM_OUTPUT_CHANNELS, output_channels);
-        m_chuck->setParam(CHUCK_PARAM_VM_ADAPTIVE, adaptive_size);
-        m_chuck->setParam(CHUCK_PARAM_VM_HALT, vm_halt);
-        m_chuck->setParam(CHUCK_PARAM_USER_CHUGINS, named_chugins);
-        m_chuck->setParam(CHUCK_PARAM_USER_CHUGIN_DIRECTORIES, library_paths);
-
-        if( !m_chuck->init() )
-        {
-            fprintf( stderr, "[chuck]: failed to init chuck engine\n" );
-            // handle error
-            goto error;
-        }
-
-        // allocate the vm - needs the type system
-        vm = m_chuck->vm();
-        
         //--------------------------- AUDIO I/O SETUP ---------------------------------
         
         // push
@@ -926,6 +909,15 @@ t_CKBOOL miniAudicle::start_vm()
             goto error;
         }
         
+        // these could have been updated during initialization
+        adc = ChuckAudio::m_adc_n+1;
+        dac = ChuckAudio::m_dac_n+1;
+        input_channels = ChuckAudio::m_num_channels_in;
+        output_channels = ChuckAudio::m_num_channels_out;
+        srate = ChuckAudio::m_sample_rate;
+        buffer_size = ChuckAudio::buffer_size();
+        num_buffers = ChuckAudio::num_buffers();
+        
         // log
         EM_log( CK_LOG_SYSTEM, "real-time audio: %s", enable_audio ? "YES" : "NO" );
         EM_log( CK_LOG_SYSTEM, "mode: %s", block ? "BLOCKING" : "CALLBACK" );
@@ -942,6 +934,24 @@ t_CKBOOL miniAudicle::start_vm()
         
         // pop
         EM_poplog();
+        
+        m_chuck->setParam(CHUCK_PARAM_SAMPLE_RATE, srate);
+        m_chuck->setParam(CHUCK_PARAM_INPUT_CHANNELS, input_channels);
+        m_chuck->setParam(CHUCK_PARAM_OUTPUT_CHANNELS, output_channels);
+        m_chuck->setParam(CHUCK_PARAM_VM_ADAPTIVE, adaptive_size);
+        m_chuck->setParam(CHUCK_PARAM_VM_HALT, vm_halt);
+        m_chuck->setParam(CHUCK_PARAM_USER_CHUGINS, named_chugins);
+        m_chuck->setParam(CHUCK_PARAM_USER_CHUGIN_DIRECTORIES, library_paths);
+
+        if( !m_chuck->init() )
+        {
+            fprintf( stderr, "[chuck]: failed to init chuck engine\n" );
+            // handle error
+            goto error;
+        }
+
+        // allocate the vm - needs the type system
+        vm = m_chuck->vm();
         
         // allocate the compiler
         compiler = m_chuck->compiler();
@@ -1401,9 +1411,18 @@ t_CKBOOL miniAudicle::set_sample_rate( t_CKUINT srate )
     if( interfaces.size() == 0 )
     {
         vm_options.srate = SAMPLING_RATE_DEFAULT;
+        vm_options.force_srate = FALSE;
         return TRUE;
     }
     
+    if( srate == 0 )
+    {
+        // defaults -- force_srate = false
+        vm_options.srate = SAMPLING_RATE_DEFAULT;
+        vm_options.force_srate = FALSE;
+        return TRUE;
+    }
+
     // sanity checks
     // ensure that dac and adc support the given sample rate
     vector< unsigned int > & dac_sample_rates = interfaces[( vm_options.dac ? vm_options.dac - 1 : default_output )].sampleRates;
@@ -1418,6 +1437,7 @@ t_CKBOOL miniAudicle::set_sample_rate( t_CKUINT srate )
         // the specified sample rate isnt support by the dac
     {
         vm_options.srate = SAMPLING_RATE_DEFAULT; // hope this one works!
+        vm_options.force_srate = FALSE;
         return TRUE;
     }
     
@@ -1433,11 +1453,14 @@ t_CKBOOL miniAudicle::set_sample_rate( t_CKUINT srate )
         // the specified sample rate isnt support by the adc
     {
         vm_options.srate = SAMPLING_RATE_DEFAULT; // hope this one works!
+        vm_options.force_srate = FALSE;
         return TRUE;
     }
 #endif // __CHIP_MODE__
     
     vm_options.srate = srate;
+    vm_options.force_srate = TRUE;
+    
     return TRUE;
 }
 

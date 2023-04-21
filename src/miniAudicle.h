@@ -213,6 +213,7 @@ protected:
         t_CKBOOL enable_audio;
         t_CKBOOL enable_network;
         t_CKBOOL enable_block;
+        t_CKBOOL force_srate;
         std::list< std::string > library_paths;
         std::list< std::string > named_chugins;
         std::list< t_CKBOOL (*)(Chuck_Env *) > query_funcs;
