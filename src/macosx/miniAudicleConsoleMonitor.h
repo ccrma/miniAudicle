@@ -31,7 +31,9 @@ U.S.A.
 //-----------------------------------------------------------------------------
 
 #import <Cocoa/Cocoa.h>
+
 @class mAConsoleMonitorView;
+@class miniAudicleController;
 
 //-----------------------------------------------------------------------------
 // name: miniAudicleConsoleMonitor
@@ -39,17 +41,22 @@ U.S.A.
 //-----------------------------------------------------------------------------
 @interface miniAudicleConsoleMonitor : NSObject
 {
-    IBOutlet NSWindow * panel; // the window that this appears in
-    IBOutlet NSTextView * text_view; // for the stderr/stdout text
-    IBOutlet NSWindow * new_panel; // for implementing/debugging new console monitor
-    IBOutlet mAConsoleMonitorView * view; // for implementing/debugging new console monitor
-    
+    // the window that this appears in
+    IBOutlet NSWindow * panel;
+    // for the stderr/stdout text
+    IBOutlet NSTextView * text_view;
+    // for implementing/debugging new console monitor
+    IBOutlet NSWindow * new_panel;
+    // for implementing/debugging new console monitor
+    IBOutlet mAConsoleMonitorView * view;
+    IBOutlet miniAudicleController * mac;
+
     bool _useCustomConsoleMonitor;
     
-    NSFileHandle * std_out; // encapsulation of piped stdout
-    NSFileHandle * std_err; //encapsulation of piped stderr
     
     unsigned scrollback_size; // number of bytes to keep in the buffer
+    
+    NSFileHandle * _readFileHandle;
 }
 
 - (id)init;

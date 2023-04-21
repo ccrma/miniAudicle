@@ -31,13 +31,33 @@ U.S.A.
 //-----------------------------------------------------------------------------
 
 #import "miniAudicleConsoleMonitor.h"
+#import "miniAudicleController.h"
 #import "miniAudiclePreferencesController.h"
 #import "mAConsoleMonitorView.h"
 #import <unistd.h>
 #import "chuck_errmsg.h"
+#import "miniAudicle.h"
 
 //#define __USE_NEW_CONSOLE_MONITOR__ 1
 #undef __CK_DEBUG__
+
+static FILE * g_ck_errmsg_write_fd = NULL;
+
+void ck_errmsg_callback(const char* msg)
+{
+    if (g_ck_errmsg_write_fd != NULL)
+    {
+        fprintf(g_ck_errmsg_write_fd, "%s", msg);
+    }
+}
+
+@interface miniAudicleConsoleMonitor ()
+
+- (void)_setupConsolePipes;
+
+@end
+
+
 @implementation miniAudicleConsoleMonitor
 
 //-----------------------------------------------------------------------------
@@ -58,70 +78,17 @@ U.S.A.
         if(useCustom != nil)
             _useCustomConsoleMonitor = [useCustom boolValue];
         
-#ifndef __CK_DEBUG__
-        int fd[2];
-        
-        if( pipe( fd ) )
-        {
-            //unable to create the pipe!
-            return self;
-        }
-        
-        dup2( fd[1], STDOUT_FILENO );
-        
-        std_out = [[NSFileHandle alloc] initWithFileDescriptor:fd[0]];
-        [std_out waitForDataInBackgroundAndNotifyForModes:[NSArray arrayWithObjects:
-            NSDefaultRunLoopMode, 
-            NSConnectionReplyMode,
-            NSModalPanelRunLoopMode,
-            NSEventTrackingRunLoopMode,
-            nil
-            ]];
-        
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(readData:)
-                                                     name:NSFileHandleDataAvailableNotification
-                                                   object:std_out];
-        
-        if(setlinebuf(stdout))
-        {
-            EM_log(CK_LOG_SYSTEM, "(miniAudicle): unable to set chout buffering to line-based");
-        }
-        
-        if( pipe( fd ) )
-        {
-            //unable to create the pipe!
-            return self;
-        }
-        
-        dup2( fd[1], STDERR_FILENO );
-        
-        std_err = [[NSFileHandle alloc] initWithFileDescriptor:fd[0]];
-        [std_err waitForDataInBackgroundAndNotifyForModes:[NSArray arrayWithObjects:
-            NSDefaultRunLoopMode, 
-            NSConnectionReplyMode,
-            NSModalPanelRunLoopMode,
-            NSEventTrackingRunLoopMode,
-            nil
-            ]];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(readData:)
-                                                     name:NSFileHandleDataAvailableNotification
-                                                   object:std_err];
-#endif
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(preferencesChanged:)
-                                                     name:mAPreferencesChangedNotification
-                                                   object:nil];
         scrollback_size = 10000;
         NSNumber * sbs = [[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesScrollbackBufferSize];
         if( sbs != nil )
             scrollback_size = [sbs intValue];
         if(scrollback_size == 0)
             scrollback_size = 10000;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(preferencesChanged:)
+                                                     name:mAPreferencesChangedNotification
+                                                   object:nil];
     }
     
     return self;
@@ -150,6 +117,38 @@ U.S.A.
                                                    object:text_view];
         [text_view setPostsFrameChangedNotifications:YES];
     }
+    
+    [self _setupConsolePipes];
+}
+
+- (void)_setupConsolePipes
+{
+    int fd[2];
+    
+    if( pipe( fd ) )
+    {
+        //unable to create the pipe!
+        return;
+    }
+    
+    g_ck_errmsg_write_fd = fdopen(fd[1], "w");
+    
+    setlinebuf(g_ck_errmsg_write_fd);
+    
+    _readFileHandle = [[NSFileHandle alloc] initWithFileDescriptor:fd[0]];
+    [_readFileHandle waitForDataInBackgroundAndNotifyForModes:[NSArray arrayWithObjects:
+                                                               NSDefaultRunLoopMode,
+                                                               NSConnectionReplyMode,
+                                                               NSModalPanelRunLoopMode,
+                                                               NSEventTrackingRunLoopMode,
+                                                               nil]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(readData:)
+                                                 name:NSFileHandleDataAvailableNotification
+                                               object:_readFileHandle];
+    
+    [mac miniAudicle]->set_ck_console_callback(ck_errmsg_callback);
 }
 
 //-----------------------------------------------------------------------------
