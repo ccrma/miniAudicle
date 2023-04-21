@@ -892,11 +892,11 @@ t_CKBOOL miniAudicle::start_vm()
         
         //--------------------------- AUDIO I/O SETUP ---------------------------------
         
+        // log
+        EM_log( CK_LOG_SYSTEM, "initializing %s audio subsystem...", enable_audio ? "real-time" : "fake-time" );
         // push
         EM_pushlog();
-        // log
-        EM_log( CK_LOG_SYSTEM, "probing '%s' audio subsystem...", enable_audio ? "real-time" : "fake-time" );
-        
+
         // probe / init (this shouldn't start audio yet...
         // moved here 1.3.1.2; to main ge: 1.3.5.3)
         if( !ChuckAudio::initialize( dac, adc, output_channels, input_channels, srate, buffer_size, num_buffers, audio_cb, m_chuck, force_srate, NULL ) )
@@ -917,20 +917,6 @@ t_CKBOOL miniAudicle::start_vm()
         srate = ChuckAudio::m_sample_rate;
         buffer_size = ChuckAudio::buffer_size();
         num_buffers = ChuckAudio::num_buffers();
-        
-        // log
-        EM_log( CK_LOG_SYSTEM, "real-time audio: %s", enable_audio ? "YES" : "NO" );
-        EM_log( CK_LOG_SYSTEM, "mode: %s", block ? "BLOCKING" : "CALLBACK" );
-        EM_log( CK_LOG_SYSTEM, "sample rate: %ld", srate );
-        EM_log( CK_LOG_SYSTEM, "buffer size: %ld", buffer_size );
-        
-        if( enable_audio )
-        {
-            EM_log( CK_LOG_SYSTEM, "num buffers: %ld", num_buffers );
-            EM_log( CK_LOG_SYSTEM, "adc: %ld dac: %d", adc, dac );
-            EM_log( CK_LOG_SYSTEM, "adaptive block processing: %ld", adaptive_size > 1 ? adaptive_size : 0 );
-        }
-        EM_log( CK_LOG_SYSTEM, "channels in: %ld out: %ld", input_channels, output_channels );
         
         // pop
         EM_poplog();
@@ -962,6 +948,28 @@ t_CKBOOL miniAudicle::start_vm()
 #endif
         for(list<t_CKBOOL (*)(Chuck_Env *)>::iterator i = vm_options.query_funcs.begin(); i != vm_options.query_funcs.end(); i++)
             (*i)( compiler->env() );
+
+        // log
+        EM_log( CK_LOG_SYSTEM, "audio subsystem enabled..." );
+        // push
+        EM_pushlog();
+
+        // log
+        EM_log( CK_LOG_SYSTEM, "real-time audio: %s", enable_audio ? "YES" : "NO" );
+        EM_log( CK_LOG_SYSTEM, "mode: %s", block ? "BLOCKING" : "CALLBACK" );
+        EM_log( CK_LOG_SYSTEM, "sample rate: %ld", srate );
+        EM_log( CK_LOG_SYSTEM, "buffer size: %ld", buffer_size );
+
+        if( enable_audio )
+        {
+            EM_log( CK_LOG_SYSTEM, "num buffers: %ld", num_buffers );
+            EM_log( CK_LOG_SYSTEM, "adc: %ld dac: %d", adc, dac );
+            EM_log( CK_LOG_SYSTEM, "adaptive block processing: %ld", adaptive_size > 1 ? adaptive_size : 0 );
+        }
+        EM_log( CK_LOG_SYSTEM, "channels in: %ld out: %ld", input_channels, output_channels );
+
+        // pop
+        EM_poplog();
         
         // set chout/cherr callbacks
         if (m_console_callback)
@@ -970,6 +978,10 @@ t_CKBOOL miniAudicle::start_vm()
             m_chuck->setCherrCallback(m_console_callback);
         }
 
+        // log
+        EM_log( CK_LOG_SYSTEM, "starting audio..." );
+
+        // start the audio subsystem
         if(!ChuckAudio::start())
         {
             EM_log( CK_LOG_SYSTEM, "error starting audio (use --silent/-s for non-realtime)" );
@@ -978,10 +990,12 @@ t_CKBOOL miniAudicle::start_vm()
             // handle error
             goto error;
         }
-        
+
         // pop log
         EM_poplog();
-        EM_log( CK_LOG_SYSTEM, "running audio" );
+        // log
+        EM_log( CK_LOG_SYSTEM, "virtual machine initialized..." );
+        EM_log( CK_LOG_SYSTEM, "chuck version: %s...", m_chuck->version() );
     }
     
     // set flag

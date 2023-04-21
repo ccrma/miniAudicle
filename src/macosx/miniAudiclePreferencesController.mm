@@ -174,7 +174,7 @@ miniAudicle_Version currentVersion()
         
         [defaults setObject:[NSNumber numberWithFloat:2.0] forKey:mAPreferencesVMStallTimeout];
         
-        [defaults setObject:[NSNumber numberWithInt:5] forKey:mAPreferencesLogLevel];
+        [defaults setObject:[NSNumber numberWithInt:2] forKey:mAPreferencesLogLevel];
         [defaults setObject:[NSNumber numberWithInt:100000] forKey:mAPreferencesScrollbackBufferSize];
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesAutoOpenConsoleMonitor];
         [defaults setObject:[@"~/" stringByExpandingTildeInPath] forKey:mAPreferencesSoundfilesDirectory];
