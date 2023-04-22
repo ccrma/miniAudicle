@@ -321,6 +321,9 @@
 		4D3D4C921A5E37DB00B6A06B /* dsym_upload.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4D3D4C901A5E37DB00B6A06B /* dsym_upload.sh */; };
 		4D3D4C931A5E37DB00B6A06B /* libCrittercism_v5_0_7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D3D4C911A5E37DB00B6A06B /* libCrittercism_v5_0_7.a */; };
 		4D3D4C981A5E3A4400B6A06B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D3D4C971A5E3A4400B6A06B /* SystemConfiguration.framework */; };
+		864617FD29F381000018DC65 /* ulib_doc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 864617FB29F381000018DC65 /* ulib_doc.cpp */; };
+		864617FE29F381000018DC65 /* ulib_doc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 864617FB29F381000018DC65 /* ulib_doc.cpp */; };
+		864617FF29F381000018DC65 /* ulib_doc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 864617FB29F381000018DC65 /* ulib_doc.cpp */; };
 		86C35B7129497A04005A538B /* ulib_ai.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86C35B7029497A04005A538B /* ulib_ai.cpp */; };
 		86C35B7229497A04005A538B /* ulib_ai.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86C35B7029497A04005A538B /* ulib_ai.cpp */; };
 		86C35B7329497A04005A538B /* ulib_ai.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86C35B7029497A04005A538B /* ulib_ai.cpp */; };
@@ -791,6 +794,8 @@
 		4D3D4C911A5E37DB00B6A06B /* libCrittercism_v5_0_7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCrittercism_v5_0_7.a; sourceTree = "<group>"; };
 		4D3D4C941A5E392800B6A06B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4D3D4C971A5E3A4400B6A06B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		864617FB29F381000018DC65 /* ulib_doc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ulib_doc.cpp; sourceTree = "<group>"; };
+		864617FC29F381000018DC65 /* ulib_doc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulib_doc.h; sourceTree = "<group>"; };
 		86C35B6F29497A04005A538B /* ulib_ai.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulib_ai.h; sourceTree = "<group>"; };
 		86C35B7029497A04005A538B /* ulib_ai.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ulib_ai.cpp; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* miniAudicle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miniAudicle.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -993,6 +998,8 @@
 				092C95371FCE7949005114AE /* ugen_xxx.h */,
 				86C35B7029497A04005A538B /* ulib_ai.cpp */,
 				86C35B6F29497A04005A538B /* ulib_ai.h */,
+				864617FB29F381000018DC65 /* ulib_doc.cpp */,
+				864617FC29F381000018DC65 /* ulib_doc.h */,
 				092C95611FCE794D005114AE /* ulib_machine.cpp */,
 				092C95271FCE7947005114AE /* ulib_machine.h */,
 				092C95291FCE7947005114AE /* ulib_math.cpp */,
@@ -1806,6 +1813,7 @@
 				09F09E4F18E3753B0050D963 /* mAScriptPlayerTab.mm in Sources */,
 				093A74BD1A5E495200F54725 /* mAFileNavigationController.mm in Sources */,
 				09664B8D19905A7300AE0B6B /* mAConnectViewController.m in Sources */,
+				864617FF29F381000018DC65 /* ulib_doc.cpp in Sources */,
 				092C95DA1FCE7E24005114AE /* server_thread.c in Sources */,
 				09094DCB199406C5009F4C4C /* mANetworkRoomView.m in Sources */,
 				86C35B7329497A04005A538B /* ulib_ai.cpp in Sources */,
@@ -1888,6 +1896,7 @@
 				092C959F1FCE794D005114AE /* chuck_instr.cpp in Sources */,
 				092C95951FCE794D005114AE /* chuck_scan.cpp in Sources */,
 				092C95E01FCE809E005114AE /* message.c in Sources */,
+				864617FD29F381000018DC65 /* ulib_doc.cpp in Sources */,
 				092C95DE1FCE809E005114AE /* blob.c in Sources */,
 				092C95871FCE794D005114AE /* chuck_lang.cpp in Sources */,
 				092C95841FCE794D005114AE /* util_serial.cpp in Sources */,
@@ -1986,6 +1995,7 @@
 				093A212C14BF587500497856 /* mAChuginManager.mm in Sources */,
 				09056C0E1FCE8FF9004A2BD4 /* chuck_dl.cpp in Sources */,
 				092C95D11FCE7E24005114AE /* method.c in Sources */,
+				864617FE29F381000018DC65 /* ulib_doc.cpp in Sources */,
 				092C95CD1FCE7E24005114AE /* bundle.c in Sources */,
 				093A213114BFF5DC00497856 /* BLAuthentication.m in Sources */,
 				0964A395172F8FD800043ABA /* mARecordSessionController.mm in Sources */,

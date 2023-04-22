@@ -779,19 +779,18 @@ void miniAudicle::free_document_id( t_CKUINT docid )
 // name: get_log_level()
 // desc: ...
 //-----------------------------------------------------------------------------
-int miniAudicle::get_log_level()
+t_CKINT miniAudicle::get_log_level()
 {
-    return g_loglevel;
+    return ChucK::getLogLevel();
 }
 
 //-----------------------------------------------------------------------------
 // name: set_log_level()
 // desc: ...
 //-----------------------------------------------------------------------------
-t_CKBOOL miniAudicle::set_log_level( int l )
+void miniAudicle::set_log_level( t_CKINT n )
 {
-    EM_setlog( l );
-    return FALSE;
+    ChucK::setLogLevel( n );
 }
 
 //-----------------------------------------------------------------------------
@@ -831,6 +830,10 @@ t_CKBOOL miniAudicle::start_vm()
     time(&t);
     strncpy( buffer, ctime(&t), 24 );
     buffer[24] = '\0';
+
+    // dac and adc devices names | chuck-1.5.0.0 (ge) added
+    string   dac_device_name = "";
+    string   adc_device_name = "";
 
     // log
     EM_log( CK_LOG_SYSTEM, "-------( %s )-------", buffer );
@@ -893,7 +896,7 @@ t_CKBOOL miniAudicle::start_vm()
         //--------------------------- AUDIO I/O SETUP ---------------------------------
         
         // log
-        EM_log( CK_LOG_SYSTEM, "initializing %s audio subsystem...", enable_audio ? "real-time" : "fake-time" );
+        EM_log( CK_LOG_SYSTEM, "initializing audio subsystem..." );
         // push
         EM_pushlog();
 
@@ -908,12 +911,14 @@ t_CKBOOL miniAudicle::start_vm()
             // handle error
             goto error;
         }
-        
+
         // these could have been updated during initialization
         adc = ChuckAudio::m_adc_n+1;
         dac = ChuckAudio::m_dac_n+1;
         input_channels = ChuckAudio::m_num_channels_in;
         output_channels = ChuckAudio::m_num_channels_out;
+        adc_device_name = ChuckAudio::m_adc_name;
+        dac_device_name = ChuckAudio::m_dac_name;
         srate = ChuckAudio::m_sample_rate;
         buffer_size = ChuckAudio::buffer_size();
         num_buffers = ChuckAudio::num_buffers();
@@ -928,6 +933,7 @@ t_CKBOOL miniAudicle::start_vm()
         m_chuck->setParam(CHUCK_PARAM_VM_HALT, vm_halt);
         m_chuck->setParam(CHUCK_PARAM_USER_CHUGINS, named_chugins);
         m_chuck->setParam(CHUCK_PARAM_USER_CHUGIN_DIRECTORIES, library_paths);
+        m_chuck->setParam( CHUCK_PARAM_HINT_IS_REALTIME_AUDIO, enable_audio );
 
         if( !m_chuck->init() )
         {
@@ -963,8 +969,10 @@ t_CKBOOL miniAudicle::start_vm()
         if( enable_audio )
         {
             EM_log( CK_LOG_SYSTEM, "num buffers: %ld", num_buffers );
-            EM_log( CK_LOG_SYSTEM, "adc: %ld dac: %d", adc, dac );
             EM_log( CK_LOG_SYSTEM, "adaptive block processing: %ld", adaptive_size > 1 ? adaptive_size : 0 );
+            // EM_log( CK_LOG_SYSTEM, "adc: %ld dac: %d", adc, dac );
+            EM_log( CK_LOG_SYSTEM, "adc:[%d] \"%s\"", adc, adc_device_name.c_str() );
+            EM_log( CK_LOG_SYSTEM, "dac:[%d] \"%s\"", dac, dac_device_name.c_str() );
         }
         EM_log( CK_LOG_SYSTEM, "channels in: %ld out: %ld", input_channels, output_channels );
 
@@ -978,8 +986,16 @@ t_CKBOOL miniAudicle::start_vm()
             m_chuck->setCherrCallback(m_console_callback);
         }
 
+
         // log
-        EM_log( CK_LOG_SYSTEM, "starting audio..." );
+        EM_log( CK_LOG_SYSTEM, "virtual machine initialized..." );
+        EM_log( CK_LOG_SYSTEM, "chuck version: %s...", m_chuck->version() );
+
+        // pop log
+        EM_poplog();
+
+        // log
+        EM_log( CK_LOG_SYSTEM, "starting real-time audio..." );
 
         // start the audio subsystem
         if(!ChuckAudio::start())
@@ -990,14 +1006,8 @@ t_CKBOOL miniAudicle::start_vm()
             // handle error
             goto error;
         }
-
-        // pop log
-        EM_poplog();
-        // log
-        EM_log( CK_LOG_SYSTEM, "virtual machine initialized..." );
-        EM_log( CK_LOG_SYSTEM, "chuck version: %s...", m_chuck->version() );
     }
-    
+
     // set flag
     vm_on = TRUE;
     // pop

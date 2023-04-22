@@ -130,8 +130,8 @@ public:
     const std::vector< RtAudio::DeviceInfo > & get_interfaces();
 #endif // __CHIP_MODE__
 
-    int get_log_level();
-    t_CKBOOL set_log_level( int l );
+    void set_log_level( t_CKINT n );
+    t_CKINT get_log_level();
     t_CKBOOL set_num_inputs( t_CKUINT num );
     t_CKUINT get_num_inputs();
     t_CKBOOL set_num_outputs( t_CKUINT num );
