@@ -130,14 +130,12 @@
 	//    self.windowController = [mac topWindowController];
 }
 
-//- (NSArray *)windowControllers
-//{
-//    if(_windowController != nil)
-//        return @[_windowController];
-//    else
-//        return @[];
-//}
-//
+- (void)showWindows
+{
+    mAMultiDocWindowController *wc = self.windowController;
+    [wc showTabForDocument:self];
+}
+
 - (NSString *)windowNibName
 {
 	assert(false);

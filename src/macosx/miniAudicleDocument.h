@@ -83,4 +83,6 @@ class miniAudicle;
 
 - (IBAction)exportAsWAV:(id)sender;
 
+- (void)showWindows;
+
 @end

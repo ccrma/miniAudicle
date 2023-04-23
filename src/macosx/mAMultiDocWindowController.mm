@@ -47,6 +47,23 @@
 #import "miniAudiclePreferencesController.h"
 #import <PSMTabBarControl/PSMTabStyle.h>
 
+
+@interface NSTabViewItem (mAMultiDocWindowController)
+
+- (mADocumentViewController *)documentViewController;
+
+@end
+
+@implementation NSTabViewItem (mAMultiDocWindowController)
+
+- (mADocumentViewController *)documentViewController
+{
+    return (mADocumentViewController *)[self identifier];
+}
+
+@end
+
+
 @interface mAMultiDocWindowController ()
 
 @property (nonatomic,retain,readonly) NSMutableSet* documents;
@@ -298,6 +315,19 @@
     NSViewController* ctrl = (NSViewController*)tabViewItem.identifier;
     
     return [(id) ctrl document];
+}
+
+- (void)showTabForDocument:(NSDocument *)doc
+{
+    for (NSTabViewItem* tabViewItem in [tabView tabViewItems]) {
+        mADocumentViewController* docViewCtrl = [tabViewItem documentViewController];
+        if ([docViewCtrl document] == doc) {
+            [tabView selectTabViewItem:tabViewItem];
+            [docViewCtrl activate];
+            [self showWindow:nil];
+            break;
+        }
+    }
 }
 
 

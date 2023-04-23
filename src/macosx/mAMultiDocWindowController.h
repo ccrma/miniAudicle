@@ -63,6 +63,8 @@
 
 - (void)updateTitles;
 
+- (void)showTabForDocument:(NSDocument *)doc;
+
 - (void)vm_on;
 - (void)vm_off;
 
