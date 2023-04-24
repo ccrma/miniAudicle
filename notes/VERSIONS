@@ -1,46 +1,66 @@
+miniAudicle VERSIONS log
+------------------------
+
+1.5.0.0
 ---
+    - (added) chuck-1.5.0.0 (chai)
+    - (added) preferences: added "Default" options to audio settings,
+      including output audio device, input audio device, in/out channels,
+      sample rate, buffer size; "Default" settings will use the underlying
+      host audio device matching system, shared with command-line chuck
+    - (fixed) this above changes should address common audio device issues
+      on VM startup, especially with bluetooth devices such as Apple
+      AirPods.
+    - (added) syntax highlighting for chuck-1.5.0.0 (chai) new objects,
+      UGens, and UAnae; names of objects defined in release/distribution
+      chugins are now also highlighted
+    - (added) Windows 64-bit support
+    - (fixed) Windows -- now the VM can be stopped and restarted
+    - (fixed) macOS -- windows focus upon opening an already-opened file
+
 1.4.0.2
+---
     - (fixed) addressed a possible crash when starting VM fails, sometimes
       due to initializing a recently disconnected audio device; an error
       message will now appear that reminds user to verify miniAudicle
       preferences.
     - (updated) syntax highlighting Chubgraph => Chugraph
 
----
 1.3.6.0
+---
     - (added) chuck-1.3.6.0
     - (added) syntax highlighting of vec3/vec4 types
 
----
 1.3.5.2
+---
     - (added) chuck-1.3.5.2
     - (fixed)(Mac) Console Monitor display bug in Mac OS X 10.11 "El Capitan"
     - (fixed)(Win/Linux) fix custom syntax coloring bug
     - (fixed)(Win/Linux) output from exported scripts is displayed
     
----
 1.3.5.1
+---
     - (added) sync version number to chuck version number
     - (added) chuck-1.3.5.1
     
----
 1.3.2
+---
     - (added) chuck-1.3.4.0
     - (added)(Win/Linux) device browser
     - (fixed)(all) exporting works with scripts that use Machine.add
     - (fixed)(Mac) deprecation warning fixes
     - (fixed)(Mac) AirPlay output devices are blacklisted
     
----
 1.3.1
+---
     - (added) chuck-1.3.1
     - (fixed)(Mac) files are saved as UTF-8
     - (fixed)(Mac) re-saved examples are properly marked as non-read-only
     - (fixed)(Mac) deprecated API warnings expunged
     
 
----
 1.3.0
+---
     - (added) chuck-1.3.2.0
     - (added)(Win/Linux) completely new GUI architecture based on Qt
     - (added) Clear VM function -- remove all shreds and reset public user types
@@ -56,35 +76,35 @@
     - (fixed)(Mac) better MAUI stability
     - (fixed)(Windows) Windows XP emulation mode no longer required on Vista/7
 
----
 0.2.2
+---
     - (added) chuck-1.3.1.0
     - (fixed) 64-bit support
 
----
 0.2.1
+---
     - (added)(all) chuck-1.3.0.0
     - (added)(all) GUI chugin manager
     - (added)(Mac) default VM stall timeout changed to 2 seconds
 	- (fixed)(Linux) build in Ubuntu 11.10 (thanks Ricardo Fabbri)
 	- (fixed)(Windows) miniAudicle now exits properly
 
----
 0.2.0
+---
     - (added)(all) chuck-1.2.1.3
     - (added)(Mac) GUI buffer size option
     - (fixed)(Mac) Snow Leopard compilation fix
 
----
 0.1.3.8
+---
     - (added)(all) chuck-1.2.1.1
     - (added)(all) hooks into VM stall detection
     - (added)(Mac) device browser
     - (added)(Mac) on-the-fly programming visualization
     - (fixed)(Mac) smart indentation bugfixes/tweaks
 
----
 0.1.3.7
+---
     - (added)(all) chuck-1.2.0.8
     - (added)(all) command line argument support
     - (added)(Windows,Linux) graphical preferences interface
@@ -105,16 +125,16 @@
       held down
     - (fixed)(Mac) improved console monitor performance
 
----
 0.1.3.6c
+---
     - (added)(all) integrated with chuck-1.2.0.7b
     - (fixed)(Mac) resolved continuing Intel real time audio
       issues.
     - (fixed)(Mac) fixed issue where documents with non-ASCII
       characters would not be saved.
 
----
 0.1.3.6
+---
     - (fixed)(Linux) massive stability improvements
     - (fixed)(Mac) resolved spurious 'undefined type' errors when using MAUI
       elements
@@ -127,8 +147,8 @@
       virtual machine monitor
     - (removed)(Linux,Windows) console monitor buffer limit ignored (too slow)
 
----
 0.1.3.5
+---
     - (fixed)(all) fixed nasty bug where real-time audio would fail if more 
       than one audio device was specified as default and one or more of the
       default devices had only input or only output channels
@@ -141,8 +161,8 @@
     - (added)(all) console monitor now has limited, user-adjustable scrollback 
       buffer size
 
----
 0.1.3.4
+---
     - (fixed)(Linux,Win32) miniAudicle now compiles correctly with Unicode and 
       ANSI versions of wxWidgets
     - (fixed)(Linux,Win32) updated key bindings
@@ -170,36 +190,36 @@
     - (added)(Mac) ability to select audio interface and sample rate via 
       Preferences dialog
 
----
 0.1.3.3
+---
     - initial Windows release
-	- initial Linux release
+    - initial Linux release
     - fixed excessive CPU consumption problem (os x)
     - background color option now works (os x)
 
----
 0.1.3.2
-	- fixed bug where MAUI elements would not always disappear when calling
-      MAUI_Element.destroy()
+---
+    - fixed bug where MAUI elements would not always disappear when
+      calling MAUI_Element.destroy()
     - removed external dependencies in documentation files
     - ChucK version 1.2.0.6 integrated
 
----
 0.1.3.1
+---
     - updated on-the-fly toolbar icons
     - fixed bug where miniAudicle freezes adding/replacing large files
     - fixed "NSScanner nil string" bug
 
----
 0.1.3.0
+---
     - added ChucK syntax coloring in editing windows
     - added syntax coloring preferences item
     - implemented MAUI_View, MAUI_Button, and MAUI_LED objects
     - expanded MAUI_Element and MAUI_Slider object interfaces
     - disabled network thread by default
 
----
 0.1.2.0
+---
     - added "time" column to the shred table in the Virtual Machine Monitor
     - added ability to select which columns appear in the shred table with 
     a context menu in the shred table columns
@@ -223,6 +243,6 @@
     - Virtual Machine Monitor, Console Monitor, and ChucK shell no longer 
     temporarily disappear when moving the focus to another application
 
----
 0.1.0.0
+---
     - initial release
