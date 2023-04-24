@@ -85,6 +85,7 @@ RC_FILE = qt/icon/miniAudicle.rc
 }
 
 SOURCES += \
+    chuck/src/core/ulib_doc.cpp \
     qt/mAMainWindow.cpp \
     qt/main.cpp \
     chuck/src/host/chuck_audio.cpp \
@@ -187,6 +188,7 @@ win32 {
 }
 
 HEADERS  += qt/mAMainWindow.h \
+    chuck/src/core/ulib_doc.h \
     chuck/src/host/chuck_audio.h \
     chuck/src/host/chuck_console.h \
     chuck/src/host/RtAudio/RtAudio.h \
