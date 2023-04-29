@@ -1,3 +1,4 @@
+------------------------
 miniAudicle VERSIONS log
 ------------------------
 
@@ -11,12 +12,16 @@ miniAudicle VERSIONS log
     - (fixed) this above changes should address common audio device issues
       on VM startup, especially with bluetooth devices such as Apple
       AirPods.
+    - (added) now miniAudicle Console will print the opened audio input
+      and output devices
     - (added) syntax highlighting for chuck-1.5.0.0 (chai) new objects,
       UGens, and UAnae; names of objects defined in release/distribution
       chugins are now also highlighted
     - (added) Windows 64-bit support
     - (fixed) Windows -- now the VM can be stopped and restarted
     - (fixed) macOS -- windows focus upon opening an already-opened file
+    - (updated) miniAudicle app icon updated to new "20th anniversary 
+      edition" ChucK logo
 
 1.4.0.2
 ---
