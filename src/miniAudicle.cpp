@@ -93,7 +93,7 @@ t_CKINT priority_low = 0x7fffffff;
 #endif // !defined(SAMPLING_RATE_DEFAULT)
 
 
-extern const char MA_VERSION[] = ENV_MA_VERSION " (gidora)";
+extern const char MA_VERSION[] = ENV_MA_VERSION " (latte)";
 #ifndef __PLATFORM_WIN32__
 extern const char MA_ABOUT[] = "version %s\n\
 git: " GIT_REVISION "\n\
