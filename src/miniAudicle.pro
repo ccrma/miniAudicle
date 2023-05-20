@@ -107,7 +107,6 @@ SOURCES += \
     chuck/src/core/ulib_opsc.cpp \
     chuck/src/core/ulib_math.cpp \
     chuck/src/core/ulib_machine.cpp \
-    chuck/src/core/ulib_regex.cpp \
     chuck/src/core/ulib_ai.cpp \
     chuck/src/core/ugen_xxx.cpp \
     chuck/src/core/ugen_stk.cpp \
@@ -170,21 +169,7 @@ SOURCES += \
 
 win32 {
     SOURCES += chuck/src/core/chuck_win32.c
-    SOURCES += chuck/src/core/regex/regcomp.c \
-    chuck/src/core/regex/regerror.c \
-    chuck/src/core/regex/regexec.c \
-    chuck/src/core/regex/tre-ast.c \
-    chuck/src/core/regex/tre-compile.c \
-    chuck/src/core/regex/tre-filter.c \
-    chuck/src/core/regex/tre-match-approx.c \
-    chuck/src/core/regex/tre-match-backtrack.c \
-    chuck/src/core/regex/tre-match-parallel.c \
-    chuck/src/core/regex/tre-mem.c \
-    chuck/src/core/regex/tre-parse.c \
-    chuck/src/core/regex/tre-stack.c \
-    chuck/src/core/regex/xmalloc.c
-
-    INCLUDEPATH += chuck/src/core/regex/
+    INCLUDEPATH +=
 }
 
 HEADERS  += qt/mAMainWindow.h \
