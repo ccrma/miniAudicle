@@ -11,7 +11,7 @@ WIN32_VERSION=$(shell echo $(PKG_VERSION) | egrep -o '^[0-9]+(\.[0-9]+(\.[0-9]+(
 
 CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher KasFilter MagicSine FIR FoldbackSaturator \
 	PanN PitchTrack GVerb Mesh2D Spectacle Elliptic Sigmund ExpDelay ExpEnv Overdrive \
-	Multicomb PowerADSR WinFuncEnv WPDiodeLadder WPKorg35
+	Multicomb PowerADSR RegEx WinFuncEnv WPDiodeLadder WPKorg35
 CHUGINS=$(addprefix chugins/,$(addsuffix .chug,$(CHUGIN_NAMES)))
 CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/x64/Release/$(CHUG).chug)
 

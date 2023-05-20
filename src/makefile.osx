@@ -126,7 +126,6 @@ CHUCK_CXXSRCS= $(CHUCK_SRC_DIR)/core/chuck.cpp \
 	$(CHUCK_SRC_DIR)/core/ulib_machine.cpp \
 	$(CHUCK_SRC_DIR)/core/ulib_math.cpp \
 	$(CHUCK_SRC_DIR)/core/ulib_std.cpp $(CHUCK_SRC_DIR)/core/ulib_opsc.cpp \
-	$(CHUCK_SRC_DIR)/core/ulib_regex.cpp \
 	$(CHUCK_SRC_DIR)/core/util_buffers.cpp $(CHUCK_SRC_DIR)/core/util_console.cpp \
 	$(CHUCK_SRC_DIR)/core/util_string.cpp $(CHUCK_SRC_DIR)/core/util_thread.cpp \
 	$(CHUCK_SRC_DIR)/core/util_opsc.cpp $(CHUCK_SRC_DIR)/core/util_hid.cpp \
