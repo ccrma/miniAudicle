@@ -43,7 +43,6 @@
 		09056C2A1FCE8FF9004A2BD4 /* ulib_machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95611FCE794D005114AE /* ulib_machine.cpp */; };
 		09056C2B1FCE8FF9004A2BD4 /* ulib_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95291FCE7947005114AE /* ulib_math.cpp */; };
 		09056C2C1FCE8FF9004A2BD4 /* ulib_opsc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C956D1FCE794D005114AE /* ulib_opsc.cpp */; };
-		09056C2D1FCE8FF9004A2BD4 /* ulib_regex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95481FCE794B005114AE /* ulib_regex.cpp */; };
 		09056C2E1FCE8FF9004A2BD4 /* ulib_std.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C953E1FCE794A005114AE /* ulib_std.cpp */; };
 		09056C2F1FCE8FF9004A2BD4 /* util_buffers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95101FCE7944005114AE /* util_buffers.cpp */; };
 		09056C301FCE8FF9004A2BD4 /* util_console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C956E1FCE794D005114AE /* util_console.cpp */; };
@@ -100,7 +99,6 @@
 		092C95861FCE794D005114AE /* ugen_xxx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95411FCE794A005114AE /* ugen_xxx.cpp */; };
 		092C95871FCE794D005114AE /* chuck_lang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95421FCE794A005114AE /* chuck_lang.cpp */; };
 		092C95881FCE794D005114AE /* chuck_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95441FCE794A005114AE /* chuck_table.cpp */; };
-		092C95891FCE794D005114AE /* ulib_regex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95481FCE794B005114AE /* ulib_regex.cpp */; };
 		092C958A1FCE794D005114AE /* chuck_parse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95491FCE794B005114AE /* chuck_parse.cpp */; };
 		092C958B1FCE794D005114AE /* chuck_dl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C954A1FCE794B005114AE /* chuck_dl.cpp */; };
 		092C958C1FCE794D005114AE /* util_hid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C954B1FCE794B005114AE /* util_hid.cpp */; };
@@ -456,7 +454,6 @@
 		092C953C1FCE7949005114AE /* util_serial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util_serial.cpp; sourceTree = "<group>"; };
 		092C953D1FCE7949005114AE /* chuck_table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chuck_table.h; sourceTree = "<group>"; };
 		092C953E1FCE794A005114AE /* ulib_std.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ulib_std.cpp; sourceTree = "<group>"; };
-		092C953F1FCE794A005114AE /* ulib_regex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulib_regex.h; sourceTree = "<group>"; };
 		092C95401FCE794A005114AE /* chuck_ugen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chuck_ugen.h; sourceTree = "<group>"; };
 		092C95411FCE794A005114AE /* ugen_xxx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ugen_xxx.cpp; sourceTree = "<group>"; };
 		092C95421FCE794A005114AE /* chuck_lang.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_lang.cpp; sourceTree = "<group>"; };
@@ -465,7 +462,6 @@
 		092C95451FCE794A005114AE /* ulib_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulib_math.h; sourceTree = "<group>"; };
 		092C95461FCE794B005114AE /* util_serial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util_serial.h; sourceTree = "<group>"; };
 		092C95471FCE794B005114AE /* chuck_compile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chuck_compile.h; sourceTree = "<group>"; };
-		092C95481FCE794B005114AE /* ulib_regex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ulib_regex.cpp; sourceTree = "<group>"; };
 		092C95491FCE794B005114AE /* chuck_parse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_parse.cpp; sourceTree = "<group>"; };
 		092C954A1FCE794B005114AE /* chuck_dl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_dl.cpp; sourceTree = "<group>"; };
 		092C954B1FCE794B005114AE /* util_hid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util_hid.cpp; sourceTree = "<group>"; };
@@ -1006,8 +1002,6 @@
 				092C95451FCE794A005114AE /* ulib_math.h */,
 				092C956D1FCE794D005114AE /* ulib_opsc.cpp */,
 				092C95201FCE7946005114AE /* ulib_opsc.h */,
-				092C95481FCE794B005114AE /* ulib_regex.cpp */,
-				092C953F1FCE794A005114AE /* ulib_regex.h */,
 				092C953E1FCE794A005114AE /* ulib_std.cpp */,
 				092C95561FCE794C005114AE /* ulib_std.h */,
 				092C95101FCE7944005114AE /* util_buffers.cpp */,
@@ -1886,7 +1880,6 @@
 				092C957E1FCE794D005114AE /* util_xforms.c in Sources */,
 				092C95751FCE794D005114AE /* chuck_frame.cpp in Sources */,
 				092C95971FCE794D005114AE /* chuck_type.cpp in Sources */,
-				092C95891FCE794D005114AE /* ulib_regex.cpp in Sources */,
 				092C959D1FCE794D005114AE /* ulib_opsc.cpp in Sources */,
 				86C35B7129497A04005A538B /* ulib_ai.cpp in Sources */,
 				092C95991FCE794D005114AE /* chuck_symbol.cpp in Sources */,
@@ -2018,7 +2011,6 @@
 				09056C0B1FCE8FBC004A2BD4 /* hidio_sdl.cpp in Sources */,
 				09056C351FCE8FF9004A2BD4 /* util_raw.c in Sources */,
 				091433001738C16A00666F0D /* mAMultiDocWindowController.mm in Sources */,
-				09056C2D1FCE8FF9004A2BD4 /* ulib_regex.cpp in Sources */,
 				091433031738C17C00666F0D /* mADocumentViewController.mm in Sources */,
 				09678637173F169E003AB462 /* UKFileWatcher.m in Sources */,
 				09056C371FCE8FF9004A2BD4 /* util_sndfile.c in Sources */,
@@ -2313,7 +2305,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
-				ENV_MA_VERSION = "1.3.5.2-beta-2";
+				ENV_MA_VERSION = "1.5.0.1-dev";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
@@ -2355,7 +2347,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
-				ENV_MA_VERSION = "1.3.5.2-beta-2";
+				ENV_MA_VERSION = "1.5.0.1-dev";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
