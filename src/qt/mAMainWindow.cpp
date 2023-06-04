@@ -39,6 +39,7 @@ U.S.A.
 #include "ZSettings.h"
 #include <QtGui/QCloseEvent>
 #include <QtWidgets/QPushButton>
+#include <QtCore/QRegularExpression>
 
 #include <list>
 
@@ -718,7 +719,9 @@ void mAMainWindow::setLogLevel()
     action->setChecked(true);
 
     ZSettings settings;
-    settings.set("/ChucK/LogLevel", ma->get_log_level());
+    settings.set("/ChucK/LogLevel", (long long)ma->get_log_level());
+    // 1.5.0.1 (ge) added (long long) to resolve error (macOS Qt6 build)
+    // conversion from 'long' to 'const QVariant' is ambiguous
 }
 
 

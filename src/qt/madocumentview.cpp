@@ -283,7 +283,7 @@ void mADocumentView::exportAsWav()
             GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0); // generate Control+C event
 #else
             if(process.state() != QProcess::NotRunning)
-                kill(process.pid(), SIGINT);
+                kill(process.processId(), SIGINT);
 #endif
             process.waitForFinished(10);
         }

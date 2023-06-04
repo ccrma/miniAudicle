@@ -3,33 +3,62 @@
 # Project created by QtCreator 2011-11-21T18:38:04
 #
 #-------------------------------------------------
-
-QT += core gui network widgets
-
-CONFIG += warn_off
+# some useful references | 1.5.0.1 added
+# https://doc.qt.io/qt-6/qmake-environment-reference.html
+# https://doc.qt.io/qt-6/qmake-variable-reference.html
+# https://forum.qt.io/topic/65778/qmake-and-qt-installation-root-directory/2
+#-------------------------------------------------
+# NOTE: build command will output 'message' to the compile output;
+# this is a way to debug .pro files; e.g., uncomment these two lines:
+# message(Qt installed headers location: $$[QT_INSTALL_HEADERS])
+# message(Qt installed libs location: $$[QT_INSTALL_LIBS])
+#-------------------------------------------------
 
 TARGET = miniAudicle
 TEMPLATE = app
-
+QT += core gui network widgets
+CONFIG += warn_off
 MAKEFILE = makefile.qt
-
 PRECOMPILED_HEADER = qt/miniAudicle_pc.h
-
-LIBS += -lqscintilla2_qt6
-
 DEFINES += HAVE_CONFIG_H
+# (unix systems) where to put intermediate objects files
+unix:OBJECTS_DIR = .
+# additional libraries to link
+LIBS += qscintilla2_qt6
 
+
+#-------------------------------------------------
+# macOS build configurations
+#-------------------------------------------------
 macx {
-CFLAGS = -D__MACOSX_CORE__ -m32 -I../src/chuck/src
+
+# specific architecture(s); use x86_64 and arm64 for universal binary
+QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
+
+# compiler flags; assumes Qsci/ in $$[QT_INSTALL_HEADERS]
+CFLAGS = -D__MACOSX_CORE__ -I../src/chuck/src -I../src \
+    -I../src/chuck/src/core  -I../src/chuck/src/host \
+    -I$$[QT_INSTALL_HEADERS]
+
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
+QMAKE_LFLAGS +=
+
+# on macOS link with qscintilla2_qt6.framework
+LIBS -= qscintilla2_qt6
+
+# libraries and frameworks to link against
+# assumes qscintilla2_qt6.framework in $$[QT_INSTALL_LIBS]
 QMAKE_LIBS += -framework Cocoa -framework CoreAudio -framework CoreMIDI \
     -framework CoreFoundation -framework Carbon -framework IOKit -lstdc++ -lm \
-    -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport
-QMAKE_LFLAGS += -m32
+    -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport \
+    -framework qscintilla2_qt6
 }
 
 
+#-------------------------------------------------
+# linux build configurations
+#-------------------------------------------------
 linux-* {
 
 # use ALSA as default backend if no backend is specified
@@ -72,6 +101,9 @@ INSTALLS += target examples
 }
 
 
+#-------------------------------------------------
+# windows build configurations
+#-------------------------------------------------
 win32 {
 DEFINES -= UNICODE
 # 2022 QTSIN
@@ -84,13 +116,16 @@ QMAKE_LFLAGS += /libpath:../src/qt/lib ws2_32.lib dinput8.lib advapi32.lib kerne
 RC_FILE = qt/icon/miniAudicle.rc
 }
 
+
+#-------------------------------------------------
+# source files to compile
+#-------------------------------------------------
 SOURCES += \
     chuck/src/core/ulib_doc.cpp \
     qt/mAMainWindow.cpp \
     qt/main.cpp \
     chuck/src/host/chuck_audio.cpp \
     chuck/src/host/chuck_console.cpp \
-    chuck/src/host/chuck_main.cpp \
     chuck/src/host/RtAudio/RtAudio.cpp \
     chuck/src/core/chuck_carrier.cpp \
     chuck/src/core/util_xforms.c \
@@ -163,15 +198,22 @@ SOURCES += \
     chuck/src/core/chuck.cpp \
     chuck/src/core/chuck_globals.cpp \
     chuck/src/core/util_platforms.cpp
+
+# everything except on linux...
 !linux-g++ {
     SOURCES += chuck/src/core/util_sndfile.c
 }
 
+# only on windows
 win32 {
     SOURCES += chuck/src/core/chuck_win32.c
     INCLUDEPATH +=
 }
 
+
+#-------------------------------------------------
+# header files
+#-------------------------------------------------
 HEADERS  += qt/mAMainWindow.h \
     chuck/src/core/ulib_doc.h \
     chuck/src/host/chuck_audio.h \
@@ -258,6 +300,10 @@ HEADERS  += qt/mAMainWindow.h \
     qt/mADeviceBrowser.h \
     chuck/src/core/chuck.h
 
+
+#-------------------------------------------------
+# ui
+#-------------------------------------------------
 FORMS += \
     qt/mAMainWindow.ui \
     qt/madocumentview.ui \
@@ -267,10 +313,12 @@ FORMS += \
     qt/mAExportDialog.ui \
     qt/mADeviceBrowser.ui
 
+# everywhere except windows
 !win32 {
 FLEXSOURCES = chuck/src/core/chuck.lex
 BISONSOURCES = chuck/src/core/chuck.y
 }
+
 
 flex.commands = flex -o $$OBJECTS_DIR/${QMAKE_FILE_BASE}.yy.c ${QMAKE_FILE_IN}
 flex.input = FLEXSOURCES
@@ -320,4 +368,3 @@ OTHER_FILES += \
     qt/icon/removelast.png \
     qt/icon/removeall.png \
     qt/icon/miniAudicle.rc
-
