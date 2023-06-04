@@ -45,7 +45,7 @@ QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LFLAGS +=
 
 # on macOS link with qscintilla2_qt6.framework
-LIBS -= qscintilla2_qt6
+LIBS -= -lqscintilla2_qt6
 
 # libraries and frameworks to link against
 # assumes qscintilla2_qt6.framework in $$[QT_INSTALL_LIBS]
