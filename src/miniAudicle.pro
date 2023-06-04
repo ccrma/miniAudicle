@@ -24,7 +24,7 @@ DEFINES += HAVE_CONFIG_H
 # (unix systems) where to put intermediate objects files
 unix:OBJECTS_DIR = .
 # additional libraries to link
-LIBS += qscintilla2_qt6
+LIBS += -lqscintilla2_qt6
 
 
 #-------------------------------------------------
