@@ -97,7 +97,7 @@ CHUCK_FULL_SRC_DIR=../../chuck/trunk/src
 CHUCK_MANUAL_DIR=$(CHUCK_FULL_SRC_DIR)/../doc/manual
 CHUCK_MANUAL=$(CHUCK_MANUAL_DIR)/ChucK_manual.pdf
 
-CHUCK_CSRCS= $(CHUCK_SRC_DIR)/core/util_math.c $(CHUCK_SRC_DIR)/core/util_network.c \
+CHUCK_CSRCS= $(CHUCK_SRC_DIR)/core/util_math.cpp $(CHUCK_SRC_DIR)/core/util_network.c \
     $(CHUCK_SRC_DIR)/core/util_raw.c $(CHUCK_SRC_DIR)/core/util_xforms.c \
     $(CHUCK_SRC_DIR)/$(SF_SRC) $(CHUCK_SRC_DIR)/core/chuck.tab.c \
     $(CHUCK_SRC_DIR)/core/chuck.yy.c
