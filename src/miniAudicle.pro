@@ -23,8 +23,6 @@ PRECOMPILED_HEADER = qt/miniAudicle_pc.h
 DEFINES += HAVE_CONFIG_H
 # (unix systems) where to put intermediate objects files
 unix:OBJECTS_DIR = .
-# additional libraries to link
-LIBS += -lqscintilla2_qt6
 
 
 #-------------------------------------------------
@@ -43,9 +41,6 @@ CFLAGS = -D__MACOSX_CORE__ -I../src/chuck/src -I../src \
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LFLAGS +=
-
-# on macOS link with qscintilla2_qt6.framework
-LIBS -= -lqscintilla2_qt6
 
 # libraries and frameworks to link against
 # assumes qscintilla2_qt6.framework in $$[QT_INSTALL_LIBS]
@@ -90,7 +85,7 @@ CFLAGS += -D__CK_SNDFILE_NATIVE__ -D__CHUCK_NO_MAIN__ -D__LINUX__ -D__PLATFORM_L
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LFLAGS +=
-LIBS += -lasound -lstdc++ -lm -lsndfile -ldl
+LIBS += -lasound -lstdc++ -lm -lsndfile -ldl -lqscintilla2_qt6
 
 target.path = /usr/local/bin
 
@@ -121,7 +116,6 @@ RC_FILE = qt/icon/miniAudicle.rc
 # source files to compile
 #-------------------------------------------------
 SOURCES += \
-    chuck/src/core/ulib_doc.cpp \
     qt/mAMainWindow.cpp \
     qt/main.cpp \
     chuck/src/host/chuck_audio.cpp \
@@ -134,7 +128,7 @@ SOURCES += \
     chuck/src/core/util_raw.c \
     chuck/src/core/util_opsc.cpp \
     chuck/src/core/util_network.c \
-    chuck/src/core/util_math.c \
+    chuck/src/core/util_math.cpp \
     chuck/src/core/util_hid.cpp \
     chuck/src/core/util_console.cpp \
     chuck/src/core/util_buffers.cpp \
@@ -142,6 +136,7 @@ SOURCES += \
     chuck/src/core/ulib_opsc.cpp \
     chuck/src/core/ulib_math.cpp \
     chuck/src/core/ulib_machine.cpp \
+    chuck/src/core/ulib_doc.cpp \
     chuck/src/core/ulib_ai.cpp \
     chuck/src/core/ugen_xxx.cpp \
     chuck/src/core/ugen_stk.cpp \
