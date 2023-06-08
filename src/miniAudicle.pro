@@ -106,7 +106,15 @@ DEFINES -= _UNICODE
 CFLAGS = -D__PLATFORM_WIN32__ -D__WINDOWS_MODERN__ -D__CHUCK_NO_MAIN__ -D__WINDOWS_DS__ -D_WINSOCKAPI_ -I../src -I../src/chuck/src/core -I../src/chuck/src/host -DWIN32 -D_WINDOWS -D__CK_MATH_DEFINE_ROUND_TRUNC__
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
-QMAKE_LFLAGS += /libpath:../src/qt/lib ws2_32.lib dinput8.lib advapi32.lib kernel32.lib user32.lib gdi32.lib dsound.lib dxguid.lib winmm.lib ole32.lib qscintilla2_qt6.lib
+QMAKE_LFLAGS += /libpath:../src/qt/lib ws2_32.lib dinput8.lib advapi32.lib kernel32.lib user32.lib gdi32.lib dsound.lib dxguid.lib winmm.lib ole32.lib
+
+Debug {
+    QMAKE_LFLAGS += qscintilla2_qt6d.lib
+}
+
+Release {
+    QMAKE_LFLAGS += qscintilla2_qt6.lib
+}
 
 RC_FILE = qt/icon/miniAudicle.rc
 }
