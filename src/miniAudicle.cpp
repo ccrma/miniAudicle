@@ -24,7 +24,7 @@ U.S.A.
 
 //-----------------------------------------------------------------------------
 // file: miniaudicle.cpp
-// desc: Platform independent miniAudicle interface
+// desc: platform-independent miniAudicle interface
 //
 // author: Spencer Salazar (spencer@ccrma.stanford.edu)
 // date: Autumn 2005
@@ -62,28 +62,31 @@ U.S.A.
 
 using namespace std;
 
+// check if need to implicitly enable MAUI
 #ifndef __MA_IMPORT_MAUI__
 #if defined( __MACOSX_CORE__ ) && !defined(__CHIP_MODE__) && !defined(QT_GUI_LIB)
-#define __MA_IMPORT_MAUI__
+    #define __MA_IMPORT_MAUI__
 #endif // defined( __MACOSX_CORE__ )
 #endif // __MA_IMPORT_MAUI__
 
 // default destination host name
 // extern char g_host[256];
+// not used
+// t_CKBOOL g_forked = FALSE;
 
-t_CKBOOL g_forked = FALSE;
-
+// scheduling priorities
 #if defined(__MACOSX_CORE__)
-t_CKINT priority = 80;
-t_CKINT priority_low = 60;
+    t_CKINT priority = 80;
+    t_CKINT priority_low = 60;
 #elif defined(__PLATFORM_WIN32__)
-t_CKINT priority = 0;
-t_CKINT priority_low = 0;
+    t_CKINT priority = 0;
+    t_CKINT priority_low = 0;
 #else
-t_CKINT priority = 0x7fffffff;
-t_CKINT priority_low = 0x7fffffff;
+    t_CKINT priority = 0x7fffffff;
+    t_CKINT priority_low = 0x7fffffff;
 #endif
 
+// default sample rates
 #if !defined(SAMPLING_RATE_DEFAULT)
     #if defined(__PLATFORM_LINUX__)
         #define SAMPLING_RATE_DEFAULT 48000
@@ -93,6 +96,7 @@ t_CKINT priority_low = 0x7fffffff;
 #endif // !defined(SAMPLING_RATE_DEFAULT)
 
 
+// miniAudicle version text
 extern const char MA_VERSION[] = ENV_MA_VERSION " (latte)";
 #ifndef __PLATFORM_WIN32__
 extern const char MA_ABOUT[] = "version %s\n\
@@ -107,6 +111,7 @@ ChucK: version %s %lu-bit\n\
 Copyright (c) Ge Wang and Perry Cook\nhttp://chuck.stanford.edu/";
 #endif // __PLATFORM_WIN32__
 
+// miniAudicle help
 extern const char MA_HELP[] = 
 "usage: miniAudicle [options] [files] \n\
 options: \n\
@@ -134,35 +139,39 @@ http://chuck.cs.princeton.edu/\n";
 // desc: audio callback
 //-----------------------------------------------------------------------------
 void audio_cb( t_CKSAMPLE * in, t_CKSAMPLE * out, t_CKUINT numFrames,
-        t_CKUINT numInChans, t_CKUINT numOutChans, void * data )
+               t_CKUINT numInChans, t_CKUINT numOutChans, void * data )
 {
+    // get ChucK instance
     ChucK * chuck = (ChucK *) data;
     // call up to ChucK
     chuck->run( in, out, numFrames );
 }
 
+
 //-----------------------------------------------------------------------------
 // name: miniAudicle()
-// desc: ... 
+// desc: constructor
 //-----------------------------------------------------------------------------
 miniAudicle::miniAudicle()
-: m_console_callback(NULL)
+    : m_console_callback(NULL)
 {
+    // zero oiut
     vm = NULL;
     m_chuck = NULL;
     compiler = NULL;
     vm_on = FALSE;
-    
-    class_names = new map< string, t_CKINT >;
-    
     next_document_id = 0;
-    
+
+    // create class names map
+    class_names = new map< string, t_CKINT >;
+
+    // VM sleep
     vm_sleep_time = 10000;
     vm_sleep_max = 1;
-    
+    // VM status
     vm_status_timeouts = 0;
     vm_status_timeouts_max = 20;
-    
+    // VM options (default)
     vm_options.enable_audio = TRUE;
     vm_options.enable_network = FALSE;
     vm_options.dac = 0;
@@ -175,23 +184,28 @@ miniAudicle::miniAudicle()
     vm_options.enable_block = FALSE;
     vm_options.force_srate = FALSE;
     
+    // probe audio
     probe();
 }
 
+
 //-----------------------------------------------------------------------------
 // name: ~miniAudicle()
-// desc: ...
+// desc: desturctor
 //-----------------------------------------------------------------------------
 miniAudicle::~miniAudicle()
 {
+    // stop the VM
     if( vm_on )
         stop_vm();
 
-    delete class_names;
+    // clear | 1.5.0.1 (ge) using SAFE_DELETE macro
+    SAFE_DELETE( class_names );
     
     // log
     EM_log( CK_LOG_INFO, "miniAudicle instance destroyed..." );
 }
+
 
 //-----------------------------------------------------------------------------
 // name: run_code()
@@ -201,9 +215,9 @@ t_OTF_RESULT miniAudicle::run_code( string & code, string & name,
                                     vector< string > & args, string & filepath, 
                                     t_CKUINT docid, t_CKUINT & shred_id, 
                                     string & out )
-{    
+{
+    // check for invalid document id
     if( documents.find( docid ) == documents.end() )
-        // invalid document id
     {
         out += "internal error at miniAudicle::run_code\n";
         return OTF_MINI_ERROR;
@@ -225,7 +239,6 @@ t_OTF_RESULT miniAudicle::run_code( string & code, string & name,
 
     // fill in the VM message
     msg->code = compiler->output();
-        
     msg->code->name = name;
     msg->type = MSG_ADD;
     msg->reply = ( ck_msg_func )1;
@@ -246,6 +259,7 @@ t_OTF_RESULT miniAudicle::run_code( string & code, string & name,
     
     return result;
 }
+
 
 //-----------------------------------------------------------------------------
 // name: replace_code()
@@ -306,6 +320,7 @@ t_OTF_RESULT miniAudicle::replace_code( string & code, string & name,
     return result;
 }
 
+
 //-----------------------------------------------------------------------------
 // name: remove_code()
 // desc: ...
@@ -340,6 +355,7 @@ t_OTF_RESULT miniAudicle::remove_code( t_CKUINT docid, t_CKUINT & shred_id,
     return result;
 }
 
+
 //-----------------------------------------------------------------------------
 // name: remove_shred()
 // desc: ...
@@ -359,6 +375,7 @@ t_OTF_RESULT miniAudicle::remove_shred( t_CKUINT docid, t_CKINT shred_id,
     return handle_reply( docid, out );
 }
 
+
 //-----------------------------------------------------------------------------
 // name: removeall()
 // desc: ...
@@ -375,6 +392,7 @@ t_OTF_RESULT miniAudicle::removeall( t_CKUINT docid, string & out )
     // check results
     return handle_reply( docid, out );
 }
+
 
 //-----------------------------------------------------------------------------
 // name: removelast()
@@ -393,6 +411,7 @@ t_OTF_RESULT miniAudicle::removelast( t_CKUINT docid, string & out )
     // 
     return handle_reply( docid, out );
 }
+
 
 //-----------------------------------------------------------------------------
 // name: clearvm()
@@ -1087,6 +1106,11 @@ t_CKUINT miniAudicle::shred_count()
     return (t_CKUINT)status.list.size();
 }
 
+
+//-----------------------------------------------------------------------------
+// name: tokenize_string()
+// desc: break up a string into tokens with specific delimiters
+//-----------------------------------------------------------------------------
 void tokenize_string( string & str, vector< string > & tokens)
 {
     t_CKINT space = 1;
@@ -1157,6 +1181,7 @@ void tokenize_string( string & str, vector< string > & tokens)
     }
 }
 
+
 //-----------------------------------------------------------------------------
 // name: highlight_line()
 // desc: ...
@@ -1191,10 +1216,16 @@ t_CKBOOL miniAudicle::highlight_line( string & line,
 
 
 
+
+//-----------------------------------------------------------------------------
+// name: probe()
+// desc: probe audio devices
+//-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::probe()
 {
 #ifndef __CHIP_MODE__
 
+    // clear device infos
     interfaces.clear();
     
     RtAudio * rta = NULL;
@@ -1202,56 +1233,59 @@ t_CKBOOL miniAudicle::probe()
     
     // allocate RtAudio
     rta = new RtAudio( RtAudio::Api::UNSPECIFIED, rtaudio_error );
-    
-    if (rtaudio_has_error()) {
-        rtaudio_error_print(true);
+    // check for errors
+    if( rtaudio_has_error() ) {
+        rtaudio_error_print( true );
         return FALSE;
     }
 
-    // get count
+    // get device count
     int devices = rta->getDeviceCount();
-    
+    // check for errors;
     if (rtaudio_has_error()) {
         rtaudio_error_print(true);
-        delete rta;
+        SAFE_DELETE(rta);
         return FALSE;
     }
-    
+
+    // default (invalid) values
     default_input = devices;
     default_output = devices;
     
-    // loop
+    // loop over devices
     for( int i = 0; i < devices; i++ )
     {
         RtAudio::DeviceInfo info = rta->getDeviceInfo( i );
-        
+        // check for errors
         if (rtaudio_has_error()) {
             rtaudio_error_print(true);
             continue;
         }
         
+        // add to interfaces
         interfaces.push_back( info );
         
-        if( interfaces[i].isDefaultInput &&
-           interfaces[i].inputChannels &&
-           default_input == devices )
+        // check for default input device
+        if( interfaces[i].isDefaultInput && interfaces[i].inputChannels
+            && default_input == devices )
             default_input = i;
         
-        if( interfaces[i].isDefaultOutput &&
-           interfaces[i].outputChannels &&
-           default_output == devices )
+        // check for default output device
+        if( interfaces[i].isDefaultOutput && interfaces[i].outputChannels
+            && default_output == devices )
             default_output = i;
     }
-    
+
+    // if no default input devices were found above
     if( default_input == devices )
-        // no default input found
         default_input = 0;
     
+    // if no default output devices were found above
     if( default_output == devices )
-        // no default output found
         default_output = 0;
-    
-    delete rta;
+
+    // done
+    SAFE_DELETE( rta );
     
 #endif // __CHIP_MODE__
     
@@ -1260,13 +1294,12 @@ t_CKBOOL miniAudicle::probe()
 
 
 #ifndef __CHIP_MODE__
-
 const vector< RtAudio::DeviceInfo > & miniAudicle::get_interfaces()
 {
     return interfaces;
 }
-
 #endif // __CHIP_MODE__
+
 
 //-----------------------------------------------------------------------------
 // name: set_num_inputs()
@@ -1305,6 +1338,7 @@ t_CKUINT miniAudicle::get_num_inputs()
     return vm_options.num_inputs;
 }
 
+
 //-----------------------------------------------------------------------------
 // name: set_num_outputs()
 // desc: set the number of virtual machine output channels
@@ -1332,6 +1366,7 @@ t_CKBOOL miniAudicle::set_num_outputs( t_CKUINT num )
     return TRUE;
 }
 
+
 //-----------------------------------------------------------------------------
 // name: get_num_outputs()
 // desc: return number of virtual machine output channels
@@ -1340,6 +1375,7 @@ t_CKUINT miniAudicle::get_num_outputs()
 {
     return vm_options.num_outputs;
 }
+
 
 //-----------------------------------------------------------------------------
 // name: set_enable_audio()
@@ -1355,6 +1391,7 @@ t_CKBOOL miniAudicle::set_enable_audio( t_CKBOOL en )
     return TRUE;
 }
 
+
 //-----------------------------------------------------------------------------
 // name: get_enable_audio()
 // desc: determine if audio is enabled
@@ -1363,6 +1400,7 @@ t_CKBOOL miniAudicle::get_enable_audio()
 {
     return vm_options.enable_audio;
 }
+
 
 //-----------------------------------------------------------------------------
 // name: set_enable_network_thread()
@@ -1378,6 +1416,7 @@ t_CKBOOL miniAudicle::set_enable_network_thread( t_CKBOOL en )
     return TRUE;
 }
 
+
 //-----------------------------------------------------------------------------
 // name: get_enable_audio()
 // desc: determine if the network command thread is enabled
@@ -1387,6 +1426,11 @@ t_CKBOOL miniAudicle::get_enable_network_thread()
     return vm_options.enable_network;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: set_dac()
+// desc: set dac to a particular device number
+//-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::set_dac( t_CKUINT dac )
 {
 #ifndef __CHIP_MODE__
@@ -1403,11 +1447,21 @@ t_CKBOOL miniAudicle::set_dac( t_CKUINT dac )
     return TRUE;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: get_dac()
+// desc: get device number currently associated with dac
+//-----------------------------------------------------------------------------
 t_CKUINT miniAudicle::get_dac()
 {
     return vm_options.dac;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: set_adc()
+// desc: set adc to a particular device number
+//-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::set_adc( t_CKUINT adc )
 {
 #ifndef __CHIP_MODE__
@@ -1424,11 +1478,21 @@ t_CKBOOL miniAudicle::set_adc( t_CKUINT adc )
     return TRUE;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: get_adc()
+// desc: get device number currently associated with adc
+//-----------------------------------------------------------------------------
 t_CKUINT miniAudicle::get_adc()
 {
     return vm_options.adc;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: set_sample_rate()
+// desc: set sample rate VM option
+//-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::set_sample_rate( t_CKUINT srate )
 {
 #ifndef __CHIP_MODE__
@@ -1488,6 +1552,11 @@ t_CKBOOL miniAudicle::set_sample_rate( t_CKUINT srate )
     return TRUE;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: get_sample_rate()
+// desc: get sample rate VM option
+//-----------------------------------------------------------------------------
 t_CKUINT miniAudicle::get_sample_rate()
 {
     return vm_options.srate;
@@ -1564,6 +1633,7 @@ t_CKBOOL miniAudicle::add_query_func(t_CKBOOL (*func)(Chuck_Env *))
     return TRUE;
 }
 
+
 //-----------------------------------------------------------------------------
 // name: get_new_class_names()
 // desc: Pull a list of global class names from the type checker, and determine 
@@ -1589,6 +1659,11 @@ t_CKBOOL miniAudicle::get_new_class_names( vector< string > & v )
     return TRUE;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: set_ck_console_callback()
+// desc: set up a console callback function to handle std/err output from ChucK
+//-----------------------------------------------------------------------------
 void miniAudicle::set_ck_console_callback(void (*callback)(const char *))
 {
     m_console_callback = callback;
