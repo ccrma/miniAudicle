@@ -36,6 +36,12 @@ current:
 osx mac mac-ub:
 	-+make -f makefile.osx $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
+linux: makefile.qt 
+	-+make -f $< $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+
+makefile.qt: miniAudicle.pro
+	+$(QMAKE) "RTAUDIO_BACKEND=ALSA JACK PULSE" -o $@ $<
+
 linux-jack: makefile.qt-jack 
 	-+make -f $< $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 

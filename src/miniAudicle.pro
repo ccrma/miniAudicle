@@ -34,21 +34,19 @@ linux-* {
 
 QSCI_PATH = qt/qscintilla2_qt6/src/QScintilla_src-2.14.0
 
-# use ALSA as default backend if no backend is specified
-!contains(RTAUDIO_BACKEND,JACK){
-    !contains(RTAUDIO_BACKEND,ALSA){
-        !contains(RTAUDIO_BACKEND,PULSE){
-            message("No audio backend specified; enabling PulseAudio mode")
-        }
-        else {
-            CFLAGS += -D__LINUX_PULSE__
-            LIBS += -lpulse-simple -lpulse 
-        }
-    }
-    else {
-        CFLAGS += -D__LINUX_ALSA__
-    }
-} else {
+contains(RTAUDIO_BACKEND,PULSE){
+    message(compiling for PulseAudio)
+    CFLAGS += -D__LINUX_PULSE__
+    LIBS += -lpulse-simple -lpulse 
+}
+
+contains(RTAUDIO_BACKEND,ALSA){
+    message(compiling for ALSA)
+    CFLAGS += -D__LINUX_ALSA__
+}
+
+contains(RTAUDIO_BACKEND,JACK){
+    message(compiling for JACK)
     CFLAGS += -D__LINUX_JACK__ -D__UNIX_JACK__
     LIBS += -ljack
 }
