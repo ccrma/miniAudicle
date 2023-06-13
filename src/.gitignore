@@ -1,0 +1,9 @@
+.qmake.stash
+chuck.output
+chuck.tab.c
+chuck.tab.h
+chuck.yy.c
+moc_predefs.h
+moc_*.cpp
+qrc_miniAudicle.cpp
+ui_*.h
