@@ -39,6 +39,7 @@ U.S.A.
 #include "ZSettings.h"
 #include <QtGui/QCloseEvent>
 #include <QtWidgets/QPushButton>
+#include <QtCore/QRegularExpression>
 
 #include <list>
 
@@ -718,7 +719,7 @@ void mAMainWindow::setLogLevel()
     action->setChecked(true);
 
     ZSettings settings;
-    settings.set("/ChucK/LogLevel", ma->get_log_level());
+    settings.set("/ChucK/LogLevel", (int) ma->get_log_level());
 }
 
 

@@ -32,6 +32,8 @@ QMAKE_LFLAGS += -m32
 
 linux-* {
 
+QSCI_PATH = qt/qscintilla2_qt6/src/QScintilla_src-2.14.0
+
 # use ALSA as default backend if no backend is specified
 !contains(RTAUDIO_BACKEND,JACK){
     !contains(RTAUDIO_BACKEND,ALSA){
@@ -51,6 +53,9 @@ linux-* {
     LIBS += -ljack
 }
 
+CFLAGS += -I$$QSCI_PATH/src/
+LDFLAGS += -L$$QSCI_PATH/src/
+
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -O3
 QMAKE_CFLAGS_RELEASE -= -O2
@@ -60,7 +65,7 @@ QMAKE_LFLAGS_RELEASE -= -O1
 CFLAGS += -D__CK_SNDFILE_NATIVE__ -D__CHUCK_NO_MAIN__ -D__LINUX__ -D__PLATFORM_LINUX__ -Ichuck/src/core -Ichuck/src/host -DHAVE_CONFIG_H
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
-QMAKE_LFLAGS +=
+QMAKE_LFLAGS += $$LDFLAGS
 LIBS += -lasound -lstdc++ -lm -lsndfile -ldl
 
 target.path = /usr/local/bin
@@ -287,27 +292,27 @@ FLEXSOURCES = chuck/src/core/chuck.lex
 BISONSOURCES = chuck/src/core/chuck.y
 }
 
-flex.commands = flex -o $$OBJECTS_DIR/${QMAKE_FILE_BASE}.yy.c ${QMAKE_FILE_IN}
+flex.commands = flex -o ${QMAKE_FILE_BASE}.yy.c ${QMAKE_FILE_IN}
 flex.input = FLEXSOURCES
-flex.output = $$OBJECTS_DIR/${QMAKE_FILE_BASE}.yy.c
+flex.output = ${QMAKE_FILE_BASE}.yy.c
 flex.variable_out = SOURCES
-flex.depends = $$OBJECTS_DIR/${QMAKE_FILE_BASE}.tab.h
+flex.depends = ${QMAKE_FILE_BASE}.tab.h
 flex.name = flex
 QMAKE_EXTRA_COMPILERS += flex
 
-bison.commands = bison -dv -b $$OBJECTS_DIR/${QMAKE_FILE_BASE} ${QMAKE_FILE_IN}
+bison.commands = bison -dv -b ${QMAKE_FILE_BASE} ${QMAKE_FILE_IN}
 bison.input = BISONSOURCES
-bison.output = $$OBJECTS_DIR/${QMAKE_FILE_BASE}.tab.c
+bison.output = ${QMAKE_FILE_BASE}.tab.c
 bison.variable_out = SOURCES
 bison.name = bison
 QMAKE_EXTRA_COMPILERS += bison
 
 bisonheader.commands = @true
 bisonheader.input = BISONSOURCES
-bisonheader.output = $$OBJECTS_DIR/${QMAKE_FILE_BASE}.tab.h
+bisonheader.output = ${QMAKE_FILE_BASE}.tab.h
 bisonheader.variable_out = HEADERS
 bisonheader.name = bison header
-bisonheader.depends = $$OBJECTS_DIR/${QMAKE_FILE_BASE}.tab.c
+bisonheader.depends = ${QMAKE_FILE_BASE}.tab.c
 QMAKE_EXTRA_COMPILERS += bisonheader
 
 !win32:system(git rev-parse 2> /dev/null) {
