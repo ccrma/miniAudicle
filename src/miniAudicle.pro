@@ -109,7 +109,7 @@ win32 {
 DEFINES -= UNICODE
 # 2022 QTSIN
 DEFINES -= _UNICODE
-CFLAGS = -D__PLATFORM_WIN32__ -D__WINDOWS_MODERN__ -D__CHUCK_NO_MAIN__ -D__WINDOWS_DS__ -D__WINDOWS_WASAPI__ -D_WINSOCKAPI_ -I../src -I../src/chuck/src/core -I../src/chuck/src/host -DWIN32 -D_WINDOWS -D__CK_MATH_DEFINE_ROUND_TRUNC__
+CFLAGS = -D__PLATFORM_WIN32__ -D__WINDOWS_MODERN__ -D__CHUCK_NO_MAIN__ -D__WINDOWS_DS__ -D__WINDOWS_WASAPI__ -D__WINDOWS_ASIO__ -D_WINSOCKAPI_ -I../src -I../src/chuck/src/core -I../src/chuck/src/host -I../src/chuck/src/host/RtAudio/include -DWIN32 -D_WINDOWS -D__CK_MATH_DEFINE_ROUND_TRUNC__
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LFLAGS += /libpath:../src/qt/lib ws2_32.lib dinput8.lib advapi32.lib kernel32.lib user32.lib gdi32.lib dsound.lib dxguid.lib winmm.lib ole32.lib
@@ -130,6 +130,10 @@ RC_FILE = qt/icon/miniAudicle.rc
 # source files to compile
 #-------------------------------------------------
 SOURCES += \
+    chuck/src/host/RtAudio/include/asio.cpp \
+    chuck/src/host/RtAudio/include/asiodrivers.cpp \
+    chuck/src/host/RtAudio/include/asiolist.cpp \
+    chuck/src/host/RtAudio/include/iasiothiscallresolver.cpp \
     qt/mAMainWindow.cpp \
     qt/main.cpp \
     chuck/src/host/chuck_audio.cpp \
@@ -225,6 +229,17 @@ win32 {
 #-------------------------------------------------
 HEADERS  += qt/mAMainWindow.h \
     chuck/src/core/ulib_doc.h \
+    chuck/src/host/RtAudio/include/asio.h \
+    chuck/src/host/RtAudio/include/asiodrivers.h \
+    chuck/src/host/RtAudio/include/asiodrvr.h \
+    chuck/src/host/RtAudio/include/asiolist.h \
+    chuck/src/host/RtAudio/include/asiosys.h \
+    chuck/src/host/RtAudio/include/dsound.h \
+    chuck/src/host/RtAudio/include/functiondiscoverykeys_devpkey.h \
+    chuck/src/host/RtAudio/include/ginclude.h \
+    chuck/src/host/RtAudio/include/iasiodrv.h \
+    chuck/src/host/RtAudio/include/iasiothiscallresolver.h \
+    chuck/src/host/RtAudio/include/soundcard.h \
     chuck/src/host/chuck_audio.h \
     chuck/src/host/chuck_console.h \
     chuck/src/host/RtAudio/RtAudio.h \
@@ -376,3 +391,6 @@ OTHER_FILES += \
     qt/icon/removelast.png \
     qt/icon/removeall.png \
     qt/icon/miniAudicle.rc
+
+DISTFILES += \
+    chuck/src/host/RtAudio/include/asioinfo.txt

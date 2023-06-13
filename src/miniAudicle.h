@@ -164,7 +164,7 @@ public:
     t_CKBOOL get_named_chugins( std::list< std::string > & chugins );
     t_CKBOOL add_query_func(t_CKBOOL (*func)(Chuck_Env *));
     // 1.5.0.1 (ge) added; takes an RtAudio::Api enum
-    t_CKBOOL set_driver(t_CKUINT driver);
+    t_CKBOOL set_driver(const char* driver);
 
     void set_ck_console_callback(void (*callback)(const char *));
 
@@ -211,7 +211,6 @@ protected:
 
     struct _vm_options
     {
-        t_CKUINT driver;
         t_CKUINT dac;
         t_CKUINT adc;
         t_CKUINT srate;
@@ -223,6 +222,7 @@ protected:
         t_CKBOOL enable_network;
         t_CKBOOL enable_block;
         t_CKBOOL force_srate;
+        std::string driver;
         std::list< std::string > library_paths;
         std::list< std::string > named_chugins;
         std::list< t_CKBOOL (*)(Chuck_Env *) > query_funcs;

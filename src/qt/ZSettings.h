@@ -53,7 +53,7 @@ public:
     QVariant get( const QString & key, const QVariant & fallback = QVariant() );
 
 public:
-    // set defeault
+    // set default
     static void setDefault( const QString & key, const QVariant & value );
 
 private:

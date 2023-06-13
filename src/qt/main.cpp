@@ -31,6 +31,7 @@ U.S.A.
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QStyleFactory>
 #include <iostream>
+#include <string>
 using namespace std;
 
 #include "mAMainWindow.h"
@@ -43,8 +44,10 @@ using namespace std;
 //-----------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
+    // style
+    string styleName = "Fusion";
     // set style, e.g., Windows, windowsvista, Fusion, macos
-    QApplication::setStyle( "windowsvista" );
+    QApplication::setStyle( styleName.c_str() );
 
     // get and print available styles
     // QStringList styles = QStyleFactory::keys();

@@ -95,10 +95,6 @@ const QString mAPreferencesEnableNetwork = "/VM/EnableNetworkOTFCommands";
 const QString mAPreferencesEnableAudio = "/VM/EnableAudio";
 
 
-// global symbols expected from RtAudio | 1.5.0.1 (ge) added
-extern "C" const unsigned int rtaudio_num_compiled_apis;
-extern "C" const unsigned int rtaudio_compiled_apis[];
-extern "C" const char * rtaudio_api_names[][2];
 
 
 //-----------------------------------------------------------------------------
@@ -224,14 +220,13 @@ void mAPreferencesWindow::loadSettingsToGUI()
     // index of selected driver in the combobox
     int selectedDriverIndex = -1;
     // populate the "Audio drivers" ComboBox
-    for( unsigned int i = 0; i < rtaudio_num_compiled_apis; i++ )
+    for( unsigned int i = 0; i < ChuckAudio::numDrivers(); i++ )
     {
-        // get full driver name
-        snprintf( buffer, sizeof(buffer), "%s", rtaudio_api_names[rtaudio_compiled_apis[i]][1] );
+        ChuckAudioDriverInfo info = ChuckAudio::getDriver(i);
         // add the item, with the Api enum as the associated data
-        ui->audioDriver->addItem( buffer, rtaudio_compiled_apis[i] );
+        ui->audioDriver->addItem( info.userFriendlyName.c_str(), (int)info.driver );
         // check if match with driver read in from settings
-        if( driver == rtaudio_compiled_apis[i] ) selectedDriverIndex = i;
+        if( driver == info.driver ) selectedDriverIndex = i;
     }
 
     // if the drivers from settings matched with an available driver
@@ -294,28 +289,27 @@ void mAPreferencesWindow::loadGUIToSettings()
     settings.set(mAPreferencesEnableAudio, ui->enableAudio->isChecked());
     settings.set(mAPreferencesEnableNetwork, ui->enableNetworkVM->isChecked());
     
-    settings.set(mAPreferencesAudioDriver, ui->audioDriver->itemData(ui->audioDriver->currentIndex()));
-    settings.set(mAPreferencesAudioOutput, ui->audioOutput->itemData(ui->audioOutput->currentIndex()));
-    settings.set(mAPreferencesAudioInput, ui->audioInput->itemData(ui->audioInput->currentIndex()));
+    // 1.5.0.1 (ge) added checks for empty ComboBoxes
+    if( ui->audioDriver->currentIndex() >= 0 ) settings.set(mAPreferencesAudioDriver, ui->audioDriver->itemData(ui->audioDriver->currentIndex()));
+    if( ui->audioOutput->currentIndex() >= 0 ) settings.set(mAPreferencesAudioOutput, ui->audioOutput->itemData(ui->audioOutput->currentIndex()));
+    if( ui->audioInput->currentIndex() >= 0 ) settings.set(mAPreferencesAudioInput, ui->audioInput->itemData(ui->audioInput->currentIndex()));
     
-    settings.set(mAPreferencesInputChannels, ui->inputChannels->itemData(ui->inputChannels->currentIndex()));
-    settings.set(mAPreferencesOutputChannels, ui->outputChannels->itemData(ui->outputChannels->currentIndex()));
-    
-    settings.set(mAPreferencesSampleRate, ui->sampleRate->itemData(ui->sampleRate->currentIndex()));
+    if( ui->inputChannels->currentIndex() >= 0 ) settings.set(mAPreferencesInputChannels, ui->inputChannels->itemData(ui->inputChannels->currentIndex()));
+    if( ui->outputChannels->currentIndex() >= 0 ) settings.set(mAPreferencesOutputChannels, ui->outputChannels->itemData(ui->outputChannels->currentIndex()));
+    if( ui->sampleRate->currentIndex() >= 0 ) settings.set(mAPreferencesSampleRate, ui->sampleRate->itemData(ui->sampleRate->currentIndex()));
+
     settings.set(mAPreferencesBufferSize, ui->bufferSize->currentText().toInt());
-    
     settings.set(mAPreferencesFontName, ui->font->currentFont().family());
     settings.set(mAPreferencesFontSize, ui->fontSize->value());
-    
+
     settings.set(mAPreferencesSyntaxColoringEnabled, ui->enableSyntaxColoring->isChecked());
     for(i = 0; i < m_indexToColor.size(); i++)
         settings.set(m_indexToPref[i], m_indexToColor[i].rgb());
     
     settings.set(mAPreferencesUseTabs, ui->editorUsesTabs->isChecked());
     settings.set(mAPreferencesTabSize, ui->tabWidth->value());
-    
+
     settings.set(mAPreferencesEnableChuGins, ui->enableChugins->isChecked());
-    
     QStringList paths;
     for(i = 0; i < ui->chuginsList->count(); i++)
     {
@@ -349,7 +343,7 @@ void mAPreferencesWindow::restoreDefaults()
     preferencesChanged();    
 }
 
-void mAPreferencesWindow::probeAudioDevices( int driver )
+void mAPreferencesWindow::probeAudioDevices( int driver, bool resetToDefault )
 {
     ZSettings settings;
 
@@ -368,29 +362,29 @@ void mAPreferencesWindow::probeAudioDevices( int driver )
     // load available audio I/O interfaces into the pop up menus
     for(i = 0; i < len; i++)
     {
-        if(interfaces[i].outputChannels > 0 || interfaces[i].duplexChannels > 0)
+        // output
+        if( interfaces[i].outputChannels > 0 || interfaces[i].duplexChannels > 0)
         {
-            ui->audioOutput->addItem(interfaces[i].name.c_str(), int(i+1));
-            if(i + 1 == dac)
+            ui->audioOutput->addItem( interfaces[i].name.c_str(), int(i+1) );
+            if( i+1 == dac )
                 ui->audioOutput->setCurrentIndex(ui->audioOutput->count()-1);
-            if(dac == 0 && interfaces[i].isDefaultOutput)
+            if( (resetToDefault || dac == 0) && interfaces[i].isDefaultOutput )
                 ui->audioOutput->setCurrentIndex(ui->audioOutput->count()-1);
         }
 
-        if(interfaces[i].inputChannels > 0 || interfaces[i].duplexChannels > 0)
+        // input
+        if( interfaces[i].inputChannels > 0 || interfaces[i].duplexChannels > 0 )
         {
-            ui->audioInput->addItem(interfaces[i].name.c_str(), int(i+1));
-            if(i + 1 == adc)
+            ui->audioInput->addItem( interfaces[i].name.c_str(), int(i+1) );
+            if( i+1 == adc )
                 ui->audioInput->setCurrentIndex(ui->audioInput->count()-1);
-            if(dac == 0 && interfaces[i].isDefaultInput)
-                ui->audioOutput->setCurrentIndex(ui->audioInput->count()-1);            
+            if( (resetToDefault || adc == 0) && interfaces[i].isDefaultInput )
+                ui->audioInput->setCurrentIndex(ui->audioInput->count()-1);
         }
     }
 
-//    if( dac == 0 )
-//        ui->audioOutput->setCurrentIndex( 0 );
-//    if( adc == 0 )
-//        ui->audioInput->setCurrentIndex( 0 );
+    // if( dac == 0 ) ui->audioOutput->setCurrentIndex( 0 );
+    // if( adc == 0 ) ui->audioInput->setCurrentIndex( 0 );
     
     this->selectedAudioInputChanged();
     this->selectedAudioOutputChanged();
@@ -400,14 +394,12 @@ void mAPreferencesWindow::probeAudioDevices( int driver )
 // 1.5.0.1 (ge) added
 void mAPreferencesWindow::selectedAudioDriverChanged()
 {
-    // get item data
+    // get driver enum from item data
     int driver = ui->audioDriver->itemData(ui->audioDriver->currentIndex()).toInt();
-    // trigger probe
-    this->probeAudioDevices(driver);
-    // reset to first items
-    ui->audioOutput->setCurrentIndex( 0 );
-    ui->audioOutput->setCurrentIndex( 0 );
+    // re-probe, forcing resetToDefault to select default audio output/input devices
+    this->probeAudioDevices( driver, true );
 }
+
 
 void mAPreferencesWindow::selectedAudioOutputChanged()
 {
@@ -456,6 +448,7 @@ void mAPreferencesWindow::selectedAudioOutputChanged()
     else
         ui->outputChannels->setCurrentIndex(default_output_channels-1);
 }
+
 
 void mAPreferencesWindow::selectedAudioInputChanged()
 {
