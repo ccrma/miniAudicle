@@ -130,7 +130,11 @@ public:
                              miniAudicle_SyntaxHighlighting * sh );
 
     // probe audio devices | 1.5.0.1 (ge) added driver argument
-    t_CKBOOL probe(const char* driver);
+    // driver names subject to underlying system availability
+    // possible names include: "alsa", "pulse", "oss", "jack",
+    // "coreaudio", "directsound", "asio", "wasapi"
+    // see audio system (e.g., ChucKAudio.cpp) for more information
+    t_CKBOOL probe( const char * driver );
 
 #ifndef __CHIP_MODE__
     const std::vector< RtAudio::DeviceInfo > & get_interfaces();
@@ -163,8 +167,8 @@ public:
     t_CKBOOL set_named_chugins( std::list< std::string > & chugins );
     t_CKBOOL get_named_chugins( std::list< std::string > & chugins );
     t_CKBOOL add_query_func(t_CKBOOL (*func)(Chuck_Env *));
-    // 1.5.0.1 (ge) added; takes an RtAudio::Api enum
-    t_CKBOOL set_driver(const char* driver);
+    // 1.5.0.1 (ge) added (see probe() above for more information)
+    t_CKBOOL set_driver( const char * driver );
 
     void set_ck_console_callback(void (*callback)(const char *));
 
