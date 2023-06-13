@@ -174,7 +174,7 @@ miniAudicle::miniAudicle()
     // VM options (default)
     vm_options.enable_audio = TRUE;
     vm_options.enable_network = FALSE;
-    vm_options.driver = 0;
+    vm_options.driver = "";
     vm_options.dac = 0;
     vm_options.adc = 0;
     vm_options.srate = 0;
@@ -914,8 +914,7 @@ t_CKBOOL miniAudicle::start_vm()
         t_CKUINT srate = vm_options.srate != 0 ? vm_options.srate : SAMPLE_RATE_DEFAULT;
         t_CKUINT buffer_size = vm_options.buffer_size;
         t_CKUINT num_buffers = NUM_BUFFERS_DEFAULT;
-        t_CKUINT driver = vm_options.driver;
-        const char * driverName = ChuckAudio::driverApiToName(vm_options.driver);
+        const char * driverName = vm_options.driver.c_str();
         t_CKUINT dac = vm_options.dac;
         t_CKUINT adc = vm_options.adc;
         t_CKBOOL force_srate = vm_options.force_srate && vm_options.srate != 0;
@@ -1487,7 +1486,7 @@ t_CKBOOL miniAudicle::get_enable_network_thread()
 // name: set_driver()
 // desc: set audio driver by RtAudio::Api enum | 1.5.0.1 (ge) added
 //-----------------------------------------------------------------------------
-t_CKBOOL miniAudicle::set_driver( t_CKUINT driver )
+t_CKBOOL miniAudicle::set_driver( const char * driver )
 {
     vm_options.driver = driver;
     return TRUE;

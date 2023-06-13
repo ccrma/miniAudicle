@@ -68,7 +68,7 @@ public slots: // slots
     void cancel();
     void restoreDefaults();
     
-    void probeAudioDevices( int driver );
+    void probeAudioDevices( int driver, bool resetToDefault = false );
     void selectedAudioDriverChanged();
     void selectedAudioOutputChanged();
     void selectedAudioInputChanged();
