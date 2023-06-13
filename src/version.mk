@@ -1,3 +1,3 @@
 
-PKG_VERSION?=1.5.0.0-rc1
-VERSION?=1.5.0.0-rc1
+PKG_VERSION?=1.5.0.1-dev
+VERSION?=1.5.0.1-dev

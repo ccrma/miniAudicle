@@ -1,4 +1,3 @@
-
 MINI_SRC_ROOT=../..
 CHUCK_SRC_ROOT=$(MINI_SRC_ROOT)/src/chuck
 CHUGINS_SRC_ROOT=$(MINI_SRC_ROOT)/src/chugins
@@ -9,8 +8,8 @@ include $(VERSION_MK)
 
 CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher Elliptic ExpEnv ExpDelay FIR \
     FoldbackSaturator GVerb KasFilter MagicSine Mesh2D Multicomb \
-    PanN PitchTrack PowerADSR Sigmund Spectacle WinFuncEnv WPDiodeLadder \
-    WPKorg35
+    PanN PitchTrack PowerADSR RegEx Sigmund Spectacle WinFuncEnv \
+    WPDiodeLadder WPKorg35
 CHUGINS=$(addsuffix .chug,$(CHUGIN_NAMES))
 CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGINS_SRC_ROOT)/$(CHUG)/$(CHUG).chug)
 

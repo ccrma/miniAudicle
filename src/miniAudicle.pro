@@ -1,35 +1,62 @@
 #-------------------------------------------------
-#
 # Project created by QtCreator 2011-11-21T18:38:04
-#
+#-------------------------------------------------
+# miniAudicle:
+# IDE for ChucK audio programming language
 #-------------------------------------------------
 
-QT += core gui network widgets
-
-CONFIG += warn_off
+#-------------------------------------------------
+# some useful references | 1.5.0.1 added
+# https://doc.qt.io/qt-6/qmake-environment-reference.html
+# https://doc.qt.io/qt-6/qmake-variable-reference.html
+# https://forum.qt.io/topic/65778/qmake-and-qt-installation-root-directory/2
+#-------------------------------------------------
+# NOTE: build command will output 'message' to the compile output;
+# this is a way to debug .pro files; e.g., uncomment these two lines:
+# message(Qt installed headers location: $$[QT_INSTALL_HEADERS])
+# message(Qt installed libs location: $$[QT_INSTALL_LIBS])
+#-------------------------------------------------
 
 TARGET = miniAudicle
 TEMPLATE = app
-
+QT += core gui network widgets
+CONFIG += warn_off
 MAKEFILE = makefile.qt
-
 PRECOMPILED_HEADER = qt/miniAudicle_pc.h
-
-LIBS += -lqscintilla2_qt6
-
 DEFINES += HAVE_CONFIG_H
+# (unix systems) where to put intermediate objects files
+unix:OBJECTS_DIR = .
 
+
+#-------------------------------------------------
+# macOS build configurations
+#-------------------------------------------------
 macx {
-CFLAGS = -D__MACOSX_CORE__ -m32 -I../src/chuck/src
+
+# specific architecture(s); use x86_64 and arm64 for universal binary
+QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
+
+# compiler flags; assumes Qsci/ in $$[QT_INSTALL_HEADERS]
+CFLAGS = -D__MACOSX_CORE__ -I../src/chuck/src -I../src \
+    -I../src/chuck/src/core  -I../src/chuck/src/host \
+    -I$$[QT_INSTALL_HEADERS]
+
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
+QMAKE_LFLAGS +=
+
+# libraries and frameworks to link against
+# assumes qscintilla2_qt6.framework in $$[QT_INSTALL_LIBS]
 QMAKE_LIBS += -framework Cocoa -framework CoreAudio -framework CoreMIDI \
     -framework CoreFoundation -framework Carbon -framework IOKit -lstdc++ -lm \
-    -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport
-QMAKE_LFLAGS += -m32
+    -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport \
+    -framework qscintilla2_qt6
 }
 
 
+#-------------------------------------------------
+# linux build configurations
+#-------------------------------------------------
 linux-* {
 
 QSCI_PATH = qt/qscintilla2_qt6/src/QScintilla_src-2.14.0
@@ -64,7 +91,7 @@ CFLAGS += -D__CK_SNDFILE_NATIVE__ -D__CHUCK_NO_MAIN__ -D__LINUX__ -D__PLATFORM_L
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LFLAGS += $$LDFLAGS
-LIBS += -lasound -lstdc++ -lm -lsndfile -ldl
+LIBS += -lasound -lstdc++ -lm -lsndfile -ldl -lqscintilla2_qt6
 
 target.path = /usr/local/bin
 
@@ -75,25 +102,38 @@ INSTALLS += target examples
 }
 
 
+#-------------------------------------------------
+# windows build configurations
+#-------------------------------------------------
 win32 {
 DEFINES -= UNICODE
 # 2022 QTSIN
 DEFINES -= _UNICODE
-CFLAGS = -D__PLATFORM_WIN32__ -D__WINDOWS_MODERN__ -D__CHUCK_NO_MAIN__ -D__WINDOWS_DS__ -D_WINSOCKAPI_ -I../src -I../src/chuck/src/core -I../src/chuck/src/host -DWIN32 -D_WINDOWS -D__CK_MATH_DEFINE_ROUND_TRUNC__
+CFLAGS = -D__PLATFORM_WIN32__ -D__WINDOWS_MODERN__ -D__CHUCK_NO_MAIN__ -D__WINDOWS_DS__ -D__WINDOWS_WASAPI__ -D_WINSOCKAPI_ -I../src -I../src/chuck/src/core -I../src/chuck/src/host -DWIN32 -D_WINDOWS -D__CK_MATH_DEFINE_ROUND_TRUNC__
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
-QMAKE_LFLAGS += /libpath:../src/qt/lib ws2_32.lib dinput8.lib advapi32.lib kernel32.lib user32.lib gdi32.lib dsound.lib dxguid.lib winmm.lib ole32.lib qscintilla2_qt6.lib
+QMAKE_LFLAGS += /libpath:../src/qt/lib ws2_32.lib dinput8.lib advapi32.lib kernel32.lib user32.lib gdi32.lib dsound.lib dxguid.lib winmm.lib ole32.lib
+
+Debug {
+    QMAKE_LFLAGS += qscintilla2_qt6d.lib
+}
+
+Release {
+    QMAKE_LFLAGS += qscintilla2_qt6.lib
+}
 
 RC_FILE = qt/icon/miniAudicle.rc
 }
 
+
+#-------------------------------------------------
+# source files to compile
+#-------------------------------------------------
 SOURCES += \
-    chuck/src/core/ulib_doc.cpp \
     qt/mAMainWindow.cpp \
     qt/main.cpp \
     chuck/src/host/chuck_audio.cpp \
     chuck/src/host/chuck_console.cpp \
-    chuck/src/host/chuck_main.cpp \
     chuck/src/host/RtAudio/RtAudio.cpp \
     chuck/src/core/chuck_carrier.cpp \
     chuck/src/core/util_xforms.c \
@@ -102,7 +142,7 @@ SOURCES += \
     chuck/src/core/util_raw.c \
     chuck/src/core/util_opsc.cpp \
     chuck/src/core/util_network.c \
-    chuck/src/core/util_math.c \
+    chuck/src/core/util_math.cpp \
     chuck/src/core/util_hid.cpp \
     chuck/src/core/util_console.cpp \
     chuck/src/core/util_buffers.cpp \
@@ -110,7 +150,7 @@ SOURCES += \
     chuck/src/core/ulib_opsc.cpp \
     chuck/src/core/ulib_math.cpp \
     chuck/src/core/ulib_machine.cpp \
-    chuck/src/core/ulib_regex.cpp \
+    chuck/src/core/ulib_doc.cpp \
     chuck/src/core/ulib_ai.cpp \
     chuck/src/core/ugen_xxx.cpp \
     chuck/src/core/ugen_stk.cpp \
@@ -167,29 +207,22 @@ SOURCES += \
     chuck/src/core/chuck.cpp \
     chuck/src/core/chuck_globals.cpp \
     chuck/src/core/util_platforms.cpp
+
+# everything except on linux...
 !linux-g++ {
     SOURCES += chuck/src/core/util_sndfile.c
 }
 
+# only on windows
 win32 {
     SOURCES += chuck/src/core/chuck_win32.c
-    SOURCES += chuck/src/core/regex/regcomp.c \
-    chuck/src/core/regex/regerror.c \
-    chuck/src/core/regex/regexec.c \
-    chuck/src/core/regex/tre-ast.c \
-    chuck/src/core/regex/tre-compile.c \
-    chuck/src/core/regex/tre-filter.c \
-    chuck/src/core/regex/tre-match-approx.c \
-    chuck/src/core/regex/tre-match-backtrack.c \
-    chuck/src/core/regex/tre-match-parallel.c \
-    chuck/src/core/regex/tre-mem.c \
-    chuck/src/core/regex/tre-parse.c \
-    chuck/src/core/regex/tre-stack.c \
-    chuck/src/core/regex/xmalloc.c
-
-    INCLUDEPATH += chuck/src/core/regex/
+    INCLUDEPATH +=
 }
 
+
+#-------------------------------------------------
+# header files
+#-------------------------------------------------
 HEADERS  += qt/mAMainWindow.h \
     chuck/src/core/ulib_doc.h \
     chuck/src/host/chuck_audio.h \
@@ -276,6 +309,10 @@ HEADERS  += qt/mAMainWindow.h \
     qt/mADeviceBrowser.h \
     chuck/src/core/chuck.h
 
+
+#-------------------------------------------------
+# ui
+#-------------------------------------------------
 FORMS += \
     qt/mAMainWindow.ui \
     qt/madocumentview.ui \
@@ -285,6 +322,7 @@ FORMS += \
     qt/mAExportDialog.ui \
     qt/mADeviceBrowser.ui
 
+# everywhere except windows
 !win32 {
 FLEXSOURCES = chuck/src/core/chuck.lex
 BISONSOURCES = chuck/src/core/chuck.y
@@ -338,4 +376,3 @@ OTHER_FILES += \
     qt/icon/removelast.png \
     qt/icon/removeall.png \
     qt/icon/miniAudicle.rc
-

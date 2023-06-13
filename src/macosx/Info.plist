@@ -32,7 +32,7 @@
 	<key>CFBundleExecutable</key>
 	<string>miniAudicle</string>
 	<key>CFBundleGetInfoString</key>
-	<string>miniAudicle $(ENV_MA_VERSION) (gidora)</string>
+	<string>miniAudicle $(ENV_MA_VERSION) (latte)</string>
 	<key>CFBundleIconFile</key>
 	<string>miniAudicle</string>
 	<key>CFBundleIdentifier</key>

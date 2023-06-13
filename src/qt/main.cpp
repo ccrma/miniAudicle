@@ -21,34 +21,56 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 U.S.A.
 -----------------------------------------------------------------------------*/
-
+//-----------------------------------------------------------------------------
+// name: main.cpp
+// desc: entry point file for Qt version of miniAudicle
+//
+// author: Spencer Salazar
+// date: 2005-present
+//-----------------------------------------------------------------------------
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QStyleFactory>
+#include <iostream>
+using namespace std;
 
 #include "mAMainWindow.h"
 #include "mASocketManager.h"
 
+
+//-----------------------------------------------------------------------------
+// name: main()
+// desc: the entry point
+//-----------------------------------------------------------------------------
 int main(int argc, char *argv[])
-{    
-    QApplication a(argc, argv);
-    a.setStyle("windowsvista");
-    
-//    for(int i = 0; i < a.arguments().length(); i++)
-//    {
-//        fprintf(stderr, "arg: %s\n", a.arguments()[i].toUtf8().constData());
-//        fflush(stderr);
-//    }
-    
-    if(a.arguments().length() >= 2 && QFileInfo(a.arguments()[1]).exists())
+{
+    // set style, e.g., Windows, windowsvista, Fusion, macos
+    QApplication::setStyle( "windowsvista" );
+
+    // get and print available styles
+    // QStringList styles = QStyleFactory::keys();
+    // for(QStringList::Iterator s = styles.begin(); s != styles.end(); s++ )
+    //     qDebug( "[miniAudicle]: QStyle available: %s", qUtf8Printable(*s) );
+
+    // Qt application initialization
+    QApplication app(argc, argv);
+
+    // argument to open file on remote
+    if( app.arguments().length() >= 2 && QFileInfo(app.arguments()[1]).exists() )
     {
-        fprintf(stderr, "[miniAudicle]: attempting to open file '%s' on remote\n", 
-                a.arguments()[1].toUtf8().constData());
-        fflush(stderr);
-        if(mASocketManager::openFileOnRemote(a.arguments()[1]))
+        // print
+        cerr << "[miniAudicle]: attempting to open file '"
+             << app.arguments()[1].toUtf8().constData()
+             << "' on remote..." << endl;
+        // open on remote
+        if( mASocketManager::openFileOnRemote(app.arguments()[1]) )
             return 0;
     }
-    
+
+    // declare main miniAudicle window
     mAMainWindow w;
+    // show
     w.show();
 
-    return a.exec();
+    // enter Qt run loop
+    return app.exec();
 }
