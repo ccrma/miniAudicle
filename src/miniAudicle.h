@@ -1,10 +1,10 @@
 /*----------------------------------------------------------------------------
-miniAudicle
-Cocoa GUI to chuck audio programming environment
+miniAudicle:
+  integrated developement environment for ChucK audio programming language
 
 Copyright (c) 2005-2013 Spencer Salazar.  All rights reserved.
-http://chuck.cs.princeton.edu/
-http://soundlab.cs.princeton.edu/
+  http://chuck.cs.princeton.edu/
+  http://soundlab.cs.princeton.edu/
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,19 +23,18 @@ U.S.A.
 -----------------------------------------------------------------------------*/
 
 //-----------------------------------------------------------------------------
-// file: miniaudicle.h
-// desc: ...
+// file: miniAudicle.h
+// desc: platform-independent miniAudicle interface
 //
 // author: Spencer Salazar (spencer@ccrma.stanford.edu)
 // date: Autumn 2005
 //-----------------------------------------------------------------------------
-
 #ifndef __MINIAUDICLE_H__
 #define __MINIAUDICLE_H__
 
 #include "chuck_compile.h"
-#include "util_thread.h"
 #include "chuck_type.h"
+#include "util_thread.h"
 #ifndef __CHIP_MODE__
 #include "RtAudio/RtAudio.h"
 #endif // __CHIP_MODE__
@@ -45,7 +44,7 @@ U.S.A.
 #include <vector>
 #include <queue>
 
-
+// forward reference
 class ChucK;
 
 
@@ -80,6 +79,11 @@ enum t_OTF_RESULT
     OTF_UNDEFINED
 };
 
+
+//-----------------------------------------------------------------------------
+// name: class miniAudicle
+// desc: primary interface to miniAudicle systems
+//-----------------------------------------------------------------------------
 class miniAudicle
 {
 public:
@@ -125,7 +129,9 @@ public:
     t_CKBOOL highlight_line( std::string & line,
                              miniAudicle_SyntaxHighlighting * sh );
 
-    t_CKBOOL probe();
+    // probe audio devices | 1.5.0.1 (ge) added driver argument
+    t_CKBOOL probe(const char* driver);
+
 #ifndef __CHIP_MODE__
     const std::vector< RtAudio::DeviceInfo > & get_interfaces();
 #endif // __CHIP_MODE__
@@ -157,7 +163,9 @@ public:
     t_CKBOOL set_named_chugins( std::list< std::string > & chugins );
     t_CKBOOL get_named_chugins( std::list< std::string > & chugins );
     t_CKBOOL add_query_func(t_CKBOOL (*func)(Chuck_Env *));
-    
+    // 1.5.0.1 (ge) added; takes an RtAudio::Api enum
+    t_CKBOOL set_driver(const char* driver);
+
     void set_ck_console_callback(void (*callback)(const char *));
 
 protected:
@@ -214,6 +222,7 @@ protected:
         t_CKBOOL enable_network;
         t_CKBOOL enable_block;
         t_CKBOOL force_srate;
+        std::string driver;
         std::list< std::string > library_paths;
         std::list< std::string > named_chugins;
         std::list< t_CKBOOL (*)(Chuck_Env *) > query_funcs;
@@ -221,9 +230,9 @@ protected:
 };
 
 
+// quickly determine if the two vectors are equal
 inline int compare_shred_vectors( const std::vector< Chuck_VM_Shred_Status * > & a,
                                   const std::vector< Chuck_VM_Shred_Status * > & b )
-/* quickly determine if the two vectors are equal */
 {
     std::vector< Chuck_VM_Shred_Status * >::size_type i,
     lenA = a.size(), lenB = b.size();
@@ -254,5 +263,3 @@ inline int compare_shred_vectors( const std::vector< Chuck_VM_Shred_Status * > &
 
 
 #endif // __MINIAUDICLE__H__
-
-

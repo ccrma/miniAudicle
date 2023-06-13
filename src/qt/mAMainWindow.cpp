@@ -1,10 +1,10 @@
 /*----------------------------------------------------------------------------
-miniAudicle
-GUI to ChucK audio programming environment
+miniAudicle:
+  integrated developement environment for ChucK audio programming language
 
 Copyright (c) 2005-2013 Spencer Salazar.  All rights reserved.
-http://chuck.cs.princeton.edu/
-http://soundlab.cs.princeton.edu/
+  http://chuck.cs.princeton.edu/
+  http://soundlab.cs.princeton.edu/
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@ U.S.A.
 #include "mASocketManager.h"
 
 #include "chuck.h"
+#include "chuck_audio.h"
 
 #include <QtWidgets/QMessageBox>
 #include <QtGui/QGuiApplication>
@@ -625,6 +626,7 @@ void mAMainWindow::toggleVM()
         ma->set_enable_network_thread(settings.get(mAPreferencesEnableNetwork).toBool());
         ma->set_adc(settings.get(mAPreferencesAudioInput).toInt());
         ma->set_dac(settings.get(mAPreferencesAudioOutput).toInt());
+        ma->set_driver(ChuckAudio::driverApiToName(settings.get(mAPreferencesAudioDriver).toInt()));
         ma->set_num_inputs(settings.get(mAPreferencesInputChannels).toInt());
         ma->set_num_outputs(settings.get(mAPreferencesOutputChannels).toInt());
         ma->set_sample_rate(settings.get(mAPreferencesSampleRate).toInt());

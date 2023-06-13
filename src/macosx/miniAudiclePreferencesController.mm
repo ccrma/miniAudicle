@@ -745,7 +745,7 @@ miniAudicle_Version currentVersion()
 
 - (void)probeAudioInterfaces:(id)sender
 {
-    [mac miniAudicle]->probe();
+    [mac miniAudicle]->probe( NULL );
     
     const vector< RtAudio::DeviceInfo > & interfaces = [mac miniAudicle]->get_interfaces();
     vector< RtAudio::DeviceInfo >::size_type i, len = interfaces.size();

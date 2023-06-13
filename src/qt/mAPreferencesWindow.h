@@ -1,10 +1,10 @@
 /*----------------------------------------------------------------------------
-miniAudicle
-GUI to ChucK audio programming environment
+miniAudicle:
+  integrated developement environment for ChucK audio programming language
 
 Copyright (c) 2005-2013 Spencer Salazar.  All rights reserved.
-http://chuck.cs.princeton.edu/
-http://soundlab.cs.princeton.edu/
+  http://chuck.cs.princeton.edu/
+  http://soundlab.cs.princeton.edu/
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,6 +22,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 U.S.A.
 -----------------------------------------------------------------------------*/
 
+//-----------------------------------------------------------------------------
+// file: mAPreferencesWindow.h
+// desc: header for miniAudicle preferences
+//
+// author: Spencer Salazar (spencer@ccrma.stanford.edu)
+// date: 2005-present
+//-----------------------------------------------------------------------------
 #ifndef MAPREFERENCESWINDOW_H
 #define MAPREFERENCESWINDOW_H
 
@@ -33,27 +40,38 @@ namespace Ui {
 class mAPreferencesWindow;
 }
 
+
+// forward reference
 class miniAudicle;
 
+
+//-----------------------------------------------------------------------------
+// name: class mAPreferencesWindow
+// desc: contoller for the preferences dialog window
+//-----------------------------------------------------------------------------
 class mAPreferencesWindow : public QDialog
 {
     Q_OBJECT
     
 public:
-    explicit mAPreferencesWindow(QWidget *parent, miniAudicle * ma);
+    // constructor
+    explicit mAPreferencesWindow( QWidget * parent, miniAudicle * ma );
+    // destructor
     ~mAPreferencesWindow();
-    
+
+public:
+    // configure default settings
     static void configureDefaults();
     
-public slots:
-    
+public slots: // slots
     void ok();
     void cancel();
     void restoreDefaults();
     
-    void ProbeAudioDevices();    
-    void SelectedAudioOutputChanged();
-    void SelectedAudioInputChanged();
+    void probeAudioDevices( int driver, bool resetToDefault = false );
+    void selectedAudioDriverChanged();
+    void selectedAudioOutputChanged();
+    void selectedAudioInputChanged();
     
     void syntaxColoringTypeChanged();
     void syntaxColoringChangeColor();
@@ -64,7 +82,7 @@ public slots:
     
     void changeCurrentDirectory();
     
-signals:
+signals: // signals
     void preferencesChanged();
     
 private:
@@ -127,6 +145,7 @@ extern const QString mAPreferencesOutputChannels;
 extern const QString mAPreferencesInputChannels;
 extern const QString mAPreferencesSampleRate;
 extern const QString mAPreferencesBufferSize;
+extern const QString mAPreferencesAudioDriver;
 extern const QString mAPreferencesVMStallTimeout;
 
 extern const QString mAPreferencesEnableNetwork;

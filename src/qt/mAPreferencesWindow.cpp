@@ -1,10 +1,10 @@
 /*----------------------------------------------------------------------------
-miniAudicle
-GUI to ChucK audio programming environment
+miniAudicle:
+  integrated developement environment for ChucK audio programming language
 
 Copyright (c) 2005-2013 Spencer Salazar.  All rights reserved.
-http://chuck.cs.princeton.edu/
-http://soundlab.cs.princeton.edu/
+  http://chuck.cs.princeton.edu/
+  http://soundlab.cs.princeton.edu/
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,22 +22,28 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 U.S.A.
 -----------------------------------------------------------------------------*/
 
+//-----------------------------------------------------------------------------
+// file: mAPreferencesWindow.cpp
+// desc: implementation for miniAudicle preferences
+//
+// author: Spencer Salazar (spencer@ccrma.stanford.edu)
+// date: 2005-present
+//-----------------------------------------------------------------------------
+#include <QFileDialog>
+#include <vector>
+#include "miniAudicle.h"
 #include "mAPreferencesWindow.h"
 #include "ui_mAPreferencesWindow.h"
-
-#include "miniAudicle.h"
-
 #include "ZSettings.h"
-#include <QFileDialog>
-
-#include <vector>
-
 #include "chuck_def.h"
 #include "chuck_dl.h"
 #include "chuck_audio.h"
-
 using namespace std;
 
+
+//-----------------------------------------------------------------------------
+// keys for various settings
+//-----------------------------------------------------------------------------
 const QString mAPreferencesParentFrameWidth = "/GUI/ParentFrame/width";
 const QString mAPreferencesParentFrameHeight = "/GUI/ParentFrame/height";
 const QString mAPreferencesParentFrameX = "/GUI/ParentFrame/x";
@@ -83,15 +89,72 @@ const QString mAPreferencesInputChannels = "/VM/InputChannels";
 const QString mAPreferencesSampleRate = "/VM/SampleRate";
 const QString mAPreferencesBufferSize = "/VM/SampleBufferSize";
 const QString mAPreferencesVMStallTimeout = "/VM/StallTimeout";
+const QString mAPreferencesAudioDriver = "/VM/AudioDriver"; // 1.5.0.1 (ge) added
 
 const QString mAPreferencesEnableNetwork = "/VM/EnableNetworkOTFCommands";
 const QString mAPreferencesEnableAudio = "/VM/EnableAudio";
 
 
+
+
+//-----------------------------------------------------------------------------
+// name: mAPreferencesWindow()
+// desc: constructor
+//-----------------------------------------------------------------------------
+mAPreferencesWindow::mAPreferencesWindow( QWidget * parent, miniAudicle * ma)
+    : QDialog(parent), ui(new Ui::mAPreferencesWindow), m_ma(ma)
+{
+    // set up the GUI aspect of the preferences windows
+    ui->setupUi( this );
+
+    // set dialog windows flags
+    setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint | Qt::WindowSystemMenuHint);
+
+    m_colorDialog = NULL;
+
+    // syntax colors
+    m_indexToLabel.push_back("Normal Text"); m_indexToPref.push_back(mAPreferencesSyntaxColoringNormalText);
+    m_indexToLabel.push_back("Keywords");    m_indexToPref.push_back(mAPreferencesSyntaxColoringKeywords);
+    m_indexToLabel.push_back("Classes");     m_indexToPref.push_back(mAPreferencesSyntaxColoringClasses);
+    m_indexToLabel.push_back("UGens");       m_indexToPref.push_back(mAPreferencesSyntaxColoringUGens);
+    m_indexToLabel.push_back("Comments");    m_indexToPref.push_back(mAPreferencesSyntaxColoringComments);
+    m_indexToLabel.push_back("Strings");     m_indexToPref.push_back(mAPreferencesSyntaxColoringStrings);
+    m_indexToLabel.push_back("Numbers");     m_indexToPref.push_back(mAPreferencesSyntaxColoringNumbers);
+    m_indexToLabel.push_back("Background");  m_indexToPref.push_back(mAPreferencesSyntaxColoringBackground);
+    m_indexToColor.resize(m_indexToLabel.size());
+    // add
+    for(int i = 0; i < m_indexToLabel.size(); i++)
+        ui->syntaxColoringType->addItem(m_indexToLabel[i]);
+
+    // load settings to GUI
+    loadSettingsToGUI();
+
+    // set to first tab
+    ui->tabWidget->setCurrentIndex(0);
+
+    // connect ComboBox to handler | could be done here; instead this is connected in mAPreferencesWindow.ui
+    // connect( ui->audioDriver, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedAudioDriverChanged()) );
+}
+
+
+//-----------------------------------------------------------------------------
+// name: ~mAPreferencesWindow()
+// desc: destructor
+//-----------------------------------------------------------------------------
+mAPreferencesWindow::~mAPreferencesWindow()
+{
+    SAFE_DELETE( ui );
+}
+
+
+//-----------------------------------------------------------------------------
+// name: configureDefaults()
+// desc: configure default settings
+//-----------------------------------------------------------------------------
 void mAPreferencesWindow::configureDefaults()
 {
     ZSettings settings;
-    
+
     ZSettings::setDefault(mAPreferencesEnableAudio, true);
     ZSettings::setDefault(mAPreferencesEnableNetwork, false);
     ZSettings::setDefault(mAPreferencesAudioOutput, 0);
@@ -100,10 +163,12 @@ void mAPreferencesWindow::configureDefaults()
     ZSettings::setDefault(mAPreferencesOutputChannels, 2);
     ZSettings::setDefault(mAPreferencesInputChannels, 2);
     ZSettings::setDefault(mAPreferencesBufferSize, BUFFER_SIZE_DEFAULT);
-    
+    // 1.5.0.1 (ge) added -- default RtAudio::Api enum
+    ZSettings::setDefault(mAPreferencesAudioDriver, (int)ChuckAudio::driverNameToApi(NULL));
+
     ZSettings::setDefault(mAPreferencesFontName, "Courier");
     ZSettings::setDefault(mAPreferencesFontSize, 10);
-    
+
     ZSettings::setDefault(mAPreferencesSyntaxColoringEnabled, true);
     ZSettings::setDefault(mAPreferencesSyntaxColoringNormalText, qRgb(0x00, 0x00, 0x00));
     ZSettings::setDefault(mAPreferencesSyntaxColoringBackground, qRgb(0xFF, 0xFF, 0xFF));
@@ -116,67 +181,76 @@ void mAPreferencesWindow::configureDefaults()
 
     ZSettings::setDefault(mAPreferencesUseTabs, false);
     ZSettings::setDefault(mAPreferencesTabSize, 4);
-//    ZSettings::setDefault(mAPreferences)
-    
+    // ZSettings::setDefault(mAPreferences)
+
     ZSettings::setDefault(mAPreferencesEnableChuGins, true);
-    
+
     QStringList paths;
+
 #ifdef __PLATFORM_WIN32__
     paths = QString(g_default_chugin_path).split(";");
     //paths.append(QCoreApplication::applicationDirPath() + "/ChuGins");
 #else
     paths = QString(g_default_chugin_path).split(":");
 #endif
+
     ZSettings::setDefault(mAPreferencesChuGinPaths, paths);
-    
     ZSettings::setDefault(mAPreferencesCurrentDirectory, QDir::homePath());
 }
 
-mAPreferencesWindow::mAPreferencesWindow(QWidget *parent, miniAudicle * ma) :
-    QDialog(parent),
-    ui(new Ui::mAPreferencesWindow),
-    m_ma(ma)
-{
-    ui->setupUi(this);
-    
-    setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint | Qt::WindowSystemMenuHint);
-    
-    m_colorDialog = NULL;
-    
-    m_indexToLabel.push_back("Normal Text"); m_indexToPref.push_back(mAPreferencesSyntaxColoringNormalText);
-    m_indexToLabel.push_back("Keywords");    m_indexToPref.push_back(mAPreferencesSyntaxColoringKeywords);
-    m_indexToLabel.push_back("Classes");     m_indexToPref.push_back(mAPreferencesSyntaxColoringClasses);
-    m_indexToLabel.push_back("UGens");       m_indexToPref.push_back(mAPreferencesSyntaxColoringUGens);
-    m_indexToLabel.push_back("Comments");    m_indexToPref.push_back(mAPreferencesSyntaxColoringComments);
-    m_indexToLabel.push_back("Strings");     m_indexToPref.push_back(mAPreferencesSyntaxColoringStrings);
-    m_indexToLabel.push_back("Numbers");     m_indexToPref.push_back(mAPreferencesSyntaxColoringNumbers);
-    m_indexToLabel.push_back("Background");  m_indexToPref.push_back(mAPreferencesSyntaxColoringBackground);
-    m_indexToColor.resize(m_indexToLabel.size());
-    
-    for(int i = 0; i < m_indexToLabel.size(); i++)
-        ui->syntaxColoringType->addItem(m_indexToLabel[i]);
-    
-    loadSettingsToGUI();
-    
-    ui->tabWidget->setCurrentIndex(0);    
-}
 
-mAPreferencesWindow::~mAPreferencesWindow()
-{
-    delete ui;
-}
-
+//-----------------------------------------------------------------------------
+// name: loadSettingsToGUI()
+// desc: load settings to GUI
+//-----------------------------------------------------------------------------
 void mAPreferencesWindow::loadSettingsToGUI()
 {
     ZSettings settings;
-    
+    // enable audio
     ui->enableAudio->setChecked(settings.get(mAPreferencesEnableAudio).toBool());
+    // accept network VM commands
     ui->enableNetworkVM->setChecked(settings.get(mAPreferencesEnableNetwork).toBool());
-    
+    // selecte buffer size
     ui->bufferSize->setCurrentIndex(ui->bufferSize->findText(QString("%1").arg(settings.get(mAPreferencesBufferSize).toInt())));
     
+    // audio driver selection | 1.5.0.1 (ge) added
+    char buffer[128];
+    // get driver from settings in the form of RtAudio::Api
+    int driver = settings.get(mAPreferencesAudioDriver).toInt();
+    // index of selected driver in the combobox
+    int selectedDriverIndex = -1;
+    // populate the "Audio drivers" ComboBox
+    for( unsigned int i = 0; i < ChuckAudio::numDrivers(); i++ )
+    {
+        ChuckAudioDriverInfo info = ChuckAudio::getDriver(i);
+        // add the item, with the Api enum as the associated data
+        ui->audioDriver->addItem( info.userFriendlyName.c_str(), (int)info.driver );
+        // check if match with driver read in from settings
+        if( driver == info.driver ) selectedDriverIndex = i;
+    }
+
+    // if the drivers from settings matched with an available driver
+    if( selectedDriverIndex >= 0 )
+    {
+        // set the selection in the ComboBox
+        ui->audioDriver->setCurrentIndex( selectedDriverIndex );
+    }
+    else // no match
+    {
+        // invalidate key from settings to reduce confusion
+        // this should cause the defaults to be imposed
+        settings.remove( mAPreferencesAudioDriver );
+        settings.remove( mAPreferencesAudioOutput );
+        settings.remove( mAPreferencesAudioInput );
+        settings.remove( mAPreferencesInputChannels );
+        settings.remove( mAPreferencesOutputChannels );
+        settings.remove( mAPreferencesSampleRate );
+        // set driver to default
+        driver = (int)ChuckAudio::defaultDriverApi();
+    }
+
     // sets GUI for audio input/output, num channels, and sample rate
-    ProbeAudioDevices();
+    probeAudioDevices( driver );
     
     ui->font->setCurrentFont(QFont(settings.get(mAPreferencesFontName).toString()));
     ui->fontSize->setValue(settings.get(mAPreferencesFontSize).toInt());
@@ -202,35 +276,40 @@ void mAPreferencesWindow::loadSettingsToGUI()
     ui->currentDirectory->setText(settings.get(mAPreferencesCurrentDirectory).toString());
 }
 
+
+//-----------------------------------------------------------------------------
+// name: loadGUIToSettings()
+// desc: save settings from GUI
+//-----------------------------------------------------------------------------
 void mAPreferencesWindow::loadGUIToSettings()
 {
     ZSettings settings;
-    int i;    
+    int i;
     
     settings.set(mAPreferencesEnableAudio, ui->enableAudio->isChecked());
     settings.set(mAPreferencesEnableNetwork, ui->enableNetworkVM->isChecked());
     
-    settings.set(mAPreferencesAudioOutput, ui->audioOutput->itemData(ui->audioOutput->currentIndex()));
-    settings.set(mAPreferencesAudioInput, ui->audioInput->itemData(ui->audioInput->currentIndex()));
+    // 1.5.0.1 (ge) added checks for empty ComboBoxes
+    if( ui->audioDriver->currentIndex() >= 0 ) settings.set(mAPreferencesAudioDriver, ui->audioDriver->itemData(ui->audioDriver->currentIndex()));
+    if( ui->audioOutput->currentIndex() >= 0 ) settings.set(mAPreferencesAudioOutput, ui->audioOutput->itemData(ui->audioOutput->currentIndex()));
+    if( ui->audioInput->currentIndex() >= 0 ) settings.set(mAPreferencesAudioInput, ui->audioInput->itemData(ui->audioInput->currentIndex()));
     
-    settings.set(mAPreferencesInputChannels, ui->inputChannels->itemData(ui->inputChannels->currentIndex()));
-    settings.set(mAPreferencesOutputChannels, ui->outputChannels->itemData(ui->outputChannels->currentIndex()));
-    
-    settings.set(mAPreferencesSampleRate, ui->sampleRate->itemData(ui->sampleRate->currentIndex()));
+    if( ui->inputChannels->currentIndex() >= 0 ) settings.set(mAPreferencesInputChannels, ui->inputChannels->itemData(ui->inputChannels->currentIndex()));
+    if( ui->outputChannels->currentIndex() >= 0 ) settings.set(mAPreferencesOutputChannels, ui->outputChannels->itemData(ui->outputChannels->currentIndex()));
+    if( ui->sampleRate->currentIndex() >= 0 ) settings.set(mAPreferencesSampleRate, ui->sampleRate->itemData(ui->sampleRate->currentIndex()));
+
     settings.set(mAPreferencesBufferSize, ui->bufferSize->currentText().toInt());
-    
     settings.set(mAPreferencesFontName, ui->font->currentFont().family());
     settings.set(mAPreferencesFontSize, ui->fontSize->value());
-    
+
     settings.set(mAPreferencesSyntaxColoringEnabled, ui->enableSyntaxColoring->isChecked());
     for(i = 0; i < m_indexToColor.size(); i++)
         settings.set(m_indexToPref[i], m_indexToColor[i].rgb());
     
     settings.set(mAPreferencesUseTabs, ui->editorUsesTabs->isChecked());
     settings.set(mAPreferencesTabSize, ui->tabWidth->value());
-    
+
     settings.set(mAPreferencesEnableChuGins, ui->enableChugins->isChecked());
-    
     QStringList paths;
     for(i = 0; i < ui->chuginsList->count(); i++)
     {
@@ -264,15 +343,16 @@ void mAPreferencesWindow::restoreDefaults()
     preferencesChanged();    
 }
 
-void mAPreferencesWindow::ProbeAudioDevices()
+void mAPreferencesWindow::probeAudioDevices( int driver, bool resetToDefault )
 {
     ZSettings settings;
 
-    m_ma->probe();
+    // probe
+    m_ma->probe( ChuckAudio::driverApiToName(driver) );
     
     const vector<RtAudio::DeviceInfo> & interfaces = m_ma->get_interfaces();
     vector<RtAudio::DeviceInfo>::size_type i, len = interfaces.size();
-    
+
     ui->audioOutput->clear();
     ui->audioInput->clear();
 
@@ -282,39 +362,50 @@ void mAPreferencesWindow::ProbeAudioDevices()
     // load available audio I/O interfaces into the pop up menus
     for(i = 0; i < len; i++)
     {
-        if(interfaces[i].outputChannels > 0 || interfaces[i].duplexChannels > 0)
+        // output
+        if( interfaces[i].outputChannels > 0 || interfaces[i].duplexChannels > 0)
         {
-            ui->audioOutput->addItem(interfaces[i].name.c_str(), int(i+1));
-            if(i + 1 == dac)
+            ui->audioOutput->addItem( interfaces[i].name.c_str(), int(i+1) );
+            if( i+1 == dac )
                 ui->audioOutput->setCurrentIndex(ui->audioOutput->count()-1);
-            if(dac == 0 && interfaces[i].isDefaultOutput)
+            if( (resetToDefault || dac == 0) && interfaces[i].isDefaultOutput )
                 ui->audioOutput->setCurrentIndex(ui->audioOutput->count()-1);
         }
 
-        if(interfaces[i].inputChannels > 0 || interfaces[i].duplexChannels > 0)
+        // input
+        if( interfaces[i].inputChannels > 0 || interfaces[i].duplexChannels > 0 )
         {
-            ui->audioInput->addItem(interfaces[i].name.c_str(), int(i+1));
-            if(i + 1 == adc)
+            ui->audioInput->addItem( interfaces[i].name.c_str(), int(i+1) );
+            if( i+1 == adc )
                 ui->audioInput->setCurrentIndex(ui->audioInput->count()-1);
-            if(dac == 0 && interfaces[i].isDefaultInput)
-                ui->audioOutput->setCurrentIndex(ui->audioInput->count()-1);            
+            if( (resetToDefault || adc == 0) && interfaces[i].isDefaultInput )
+                ui->audioInput->setCurrentIndex(ui->audioInput->count()-1);
         }
     }
+
+    // if( dac == 0 ) ui->audioOutput->setCurrentIndex( 0 );
+    // if( adc == 0 ) ui->audioInput->setCurrentIndex( 0 );
     
-//    if( dac == 0 )
-//        ui->audioOutput->setCurrentIndex( 0 );
-//    if( adc == 0 )
-//        ui->audioInput->setCurrentIndex( 0 );
-    
-    this->SelectedAudioInputChanged();
-    this->SelectedAudioOutputChanged();
+    this->selectedAudioInputChanged();
+    this->selectedAudioOutputChanged();
 }
 
-void mAPreferencesWindow::SelectedAudioOutputChanged()
+
+// 1.5.0.1 (ge) added
+void mAPreferencesWindow::selectedAudioDriverChanged()
+{
+    // get driver enum from item data
+    int driver = ui->audioDriver->itemData(ui->audioDriver->currentIndex()).toInt();
+    // re-probe, forcing resetToDefault to select default audio output/input devices
+    this->probeAudioDevices( driver, true );
+}
+
+
+void mAPreferencesWindow::selectedAudioOutputChanged()
 {
     ZSettings settings;
 
-    ui->outputChannels->clear();   
+    ui->outputChannels->clear();
     ui->sampleRate->clear();
     
     const vector<RtAudio::DeviceInfo> & interfaces = m_ma->get_interfaces();
@@ -358,7 +449,8 @@ void mAPreferencesWindow::SelectedAudioOutputChanged()
         ui->outputChannels->setCurrentIndex(default_output_channels-1);
 }
 
-void mAPreferencesWindow::SelectedAudioInputChanged()
+
+void mAPreferencesWindow::selectedAudioInputChanged()
 {
     ZSettings settings;
 
