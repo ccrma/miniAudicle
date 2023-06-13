@@ -124,6 +124,12 @@ Release {
 }
 
 RC_FILE = qt/icon/miniAudicle.rc
+
+SOURCES += \
+chuck/src/host/RtAudio/include/asio.cpp \
+chuck/src/host/RtAudio/include/asiodrivers.cpp \
+chuck/src/host/RtAudio/include/asiolist.cpp \
+chuck/src/host/RtAudio/include/iasiothiscallresolver.cpp
 }
 
 
@@ -131,10 +137,6 @@ RC_FILE = qt/icon/miniAudicle.rc
 # source files to compile
 #-------------------------------------------------
 SOURCES += \
-    chuck/src/host/RtAudio/include/asio.cpp \
-    chuck/src/host/RtAudio/include/asiodrivers.cpp \
-    chuck/src/host/RtAudio/include/asiolist.cpp \
-    chuck/src/host/RtAudio/include/iasiothiscallresolver.cpp \
     qt/mAMainWindow.cpp \
     qt/main.cpp \
     chuck/src/host/chuck_audio.cpp \
