@@ -59,7 +59,10 @@ QMAKE_LIBS += -framework Cocoa -framework CoreAudio -framework CoreMIDI \
 #-------------------------------------------------
 linux-* {
 
-QSCI_PATH = qt/qscintilla2_qt6/src/QScintilla_src-2.14.0
+# for non-system/self-compiled version of QScintilla, comment out / modify following lines as appropriate
+# QSCI_PATH = qt/qscintilla2_qt6/src/QScintilla_src-2.14.0
+# CFLAGS += -I$$QSCI_PATH/src/
+# LDFLAGS += -L$$QSCI_PATH/src/
 
 contains(RTAUDIO_BACKEND,PULSE){
     message(compiling for PulseAudio)
@@ -78,8 +81,6 @@ contains(RTAUDIO_BACKEND,JACK){
     LIBS += -ljack
 }
 
-CFLAGS += -I$$QSCI_PATH/src/
-LDFLAGS += -L$$QSCI_PATH/src/
 
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -O3
