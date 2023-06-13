@@ -44,7 +44,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     // set style, e.g., Windows, windowsvista, Fusion, macos
-    QApplication::setStyle("Fusion");
+    QApplication::setStyle( "windowsvista" );
 
     // get and print available styles
     // QStringList styles = QStyleFactory::keys();

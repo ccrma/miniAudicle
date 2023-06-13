@@ -1,10 +1,10 @@
 /*----------------------------------------------------------------------------
-miniAudicle
-Cocoa GUI to chuck audio programming environment
+miniAudicle:
+  integrated developement environment for ChucK audio programming language
 
 Copyright (c) 2005-2013 Spencer Salazar.  All rights reserved.
-http://chuck.cs.princeton.edu/
-http://soundlab.cs.princeton.edu/
+  http://chuck.cs.princeton.edu/
+  http://soundlab.cs.princeton.edu/
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ U.S.A.
 -----------------------------------------------------------------------------*/
 
 //-----------------------------------------------------------------------------
-// file: miniaudicle.cpp
+// file: miniAudicle.cpp
 // desc: platform-independent miniAudicle interface
 //
 // author: Spencer Salazar (spencer@ccrma.stanford.edu)
@@ -174,6 +174,7 @@ miniAudicle::miniAudicle()
     // VM options (default)
     vm_options.enable_audio = TRUE;
     vm_options.enable_network = FALSE;
+    vm_options.driver = 0;
     vm_options.dac = 0;
     vm_options.adc = 0;
     vm_options.srate = 0;
@@ -185,7 +186,7 @@ miniAudicle::miniAudicle()
     vm_options.force_srate = FALSE;
     
     // probe audio
-    probe();
+    probe( NULL );
 }
 
 
@@ -430,6 +431,11 @@ t_OTF_RESULT miniAudicle::clearvm( t_CKUINT docid, string & out )
     return handle_reply( docid, out );
 }
 
+
+//-----------------------------------------------------------------------------
+// name: handle_reply()
+// desc: ...
+//-----------------------------------------------------------------------------
 t_OTF_RESULT miniAudicle::handle_reply( t_CKUINT docid, string & out )
 {
     last_result[docid].result = OTF_UNDEFINED;
@@ -460,6 +466,11 @@ t_OTF_RESULT miniAudicle::handle_reply( t_CKUINT docid, string & out )
     return last_result[docid].result;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: Chuck_VM_Status_copy()
+// desc: ...
+//-----------------------------------------------------------------------------
 Chuck_VM_Status & Chuck_VM_Status_copy( Chuck_VM_Status & a, const Chuck_VM_Status & b )
 {
     a = b;
@@ -477,6 +488,7 @@ Chuck_VM_Status & Chuck_VM_Status_copy( Chuck_VM_Status & a, const Chuck_VM_Stat
     
     return a;
 }
+
 
 //-----------------------------------------------------------------------------
 // name: status()
@@ -529,6 +541,11 @@ t_OTF_RESULT miniAudicle::status( Chuck_VM_Status * status )
     return OTF_MINI_ERROR;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: process_reply()
+// desc: ...
+//-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::process_reply()
 {
     Chuck_Msg * msg;
@@ -729,7 +746,12 @@ t_CKBOOL miniAudicle::process_reply()
     return TRUE;
 }
 
-t_CKBOOL miniAudicle::get_last_result( t_CKUINT docid, t_OTF_RESULT * result, 
+
+//-----------------------------------------------------------------------------
+// name: get_last_result()
+// desc: ...
+//-----------------------------------------------------------------------------
+t_CKBOOL miniAudicle::get_last_result( t_CKUINT docid, t_OTF_RESULT * result,
                                        string * out, int * line_num )
 {
     if( last_result.count( docid ) == 0 )
@@ -745,6 +767,11 @@ t_CKBOOL miniAudicle::get_last_result( t_CKUINT docid, t_OTF_RESULT * result,
     return TRUE;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: get_last_result()
+// desc: ...
+//-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::get_last_result( t_CKUINT docid, _doc_otf_result * result  )
 {
     if( last_result.count( docid ) == 0 )
@@ -755,12 +782,22 @@ t_CKBOOL miniAudicle::get_last_result( t_CKUINT docid, _doc_otf_result * result 
     return TRUE;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: abort_current_shred()
+// desc: ...
+//-----------------------------------------------------------------------------
 t_CKINT miniAudicle::abort_current_shred()
 {
     vm->abort_current_shred();
     return 0;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: allocate_document_id()
+// desc: ...
+//-----------------------------------------------------------------------------
 t_CKUINT miniAudicle::allocate_document_id()
 {    
     next_document_id++;
@@ -775,6 +812,11 @@ t_CKUINT miniAudicle::allocate_document_id()
     return next_document_id;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: free_document_id()
+// desc: ...
+//-----------------------------------------------------------------------------
 void miniAudicle::free_document_id( t_CKUINT docid )
 {
     if( documents.find( docid ) != documents.end() )
@@ -794,6 +836,7 @@ void miniAudicle::free_document_id( t_CKUINT docid )
     }
 }
 
+
 //-----------------------------------------------------------------------------
 // name: get_log_level()
 // desc: ...
@@ -803,6 +846,7 @@ t_CKINT miniAudicle::get_log_level()
     return ChucK::getLogLevel();
 }
 
+
 //-----------------------------------------------------------------------------
 // name: set_log_level()
 // desc: ...
@@ -811,6 +855,7 @@ void miniAudicle::set_log_level( t_CKINT n )
 {
     ChucK::setLogLevel( n );
 }
+
 
 //-----------------------------------------------------------------------------
 // name: start_vm()
@@ -869,6 +914,8 @@ t_CKBOOL miniAudicle::start_vm()
         t_CKUINT srate = vm_options.srate != 0 ? vm_options.srate : SAMPLE_RATE_DEFAULT;
         t_CKUINT buffer_size = vm_options.buffer_size;
         t_CKUINT num_buffers = NUM_BUFFERS_DEFAULT;
+        t_CKUINT driver = vm_options.driver;
+        const char * driverName = ChuckAudio::driverApiToName(vm_options.driver);
         t_CKUINT dac = vm_options.dac;
         t_CKUINT adc = vm_options.adc;
         t_CKBOOL force_srate = vm_options.force_srate && vm_options.srate != 0;
@@ -919,9 +966,10 @@ t_CKBOOL miniAudicle::start_vm()
         // push
         EM_pushlog();
 
-        // probe / init (this shouldn't start audio yet...
-        // moved here 1.3.1.2; to main ge: 1.3.5.3)
-        if( !ChuckAudio::initialize( dac, adc, output_channels, input_channels, srate, buffer_size, num_buffers, audio_cb, m_chuck, force_srate, NULL ) )
+        // probe / init (this shouldn't start audio yet)
+        if( !ChuckAudio::initialize( dac, adc, output_channels, input_channels, srate,
+                                     buffer_size, num_buffers, audio_cb, m_chuck,
+                                     force_srate, driverName ) )
         {
             EM_log( CK_LOG_SYSTEM,
                    "cannot initialize audio device (use --silent/-s for non-realtime)" );
@@ -989,7 +1037,7 @@ t_CKBOOL miniAudicle::start_vm()
         {
             EM_log( CK_LOG_SYSTEM, "num buffers: %ld", num_buffers );
             EM_log( CK_LOG_SYSTEM, "adaptive block processing: %ld", adaptive_size > 1 ? adaptive_size : 0 );
-            // EM_log( CK_LOG_SYSTEM, "adc: %ld dac: %d", adc, dac );
+            EM_log(CK_LOG_SYSTEM, "audio driver: %s", driverName ? driverName : "(unspecified)");
             EM_log( CK_LOG_SYSTEM, "adc:[%d] \"%s\"", adc, adc_device_name.c_str() );
             EM_log( CK_LOG_SYSTEM, "dac:[%d] \"%s\"", dac, dac_device_name.c_str() );
         }
@@ -999,7 +1047,7 @@ t_CKBOOL miniAudicle::start_vm()
         EM_poplog();
         
         // set chout/cherr callbacks
-        if (m_console_callback)
+        if( m_console_callback )
         {
             m_chuck->setChoutCallback(m_console_callback);
             m_chuck->setCherrCallback(m_console_callback);
@@ -1044,6 +1092,7 @@ error:
     return FALSE;
 }
 
+
 //-----------------------------------------------------------------------------
 // name: stop_vm()
 // desc: ...
@@ -1084,6 +1133,7 @@ t_CKBOOL miniAudicle::stop_vm()
     return TRUE;
 }
 
+
 //-----------------------------------------------------------------------------
 // name: is_on()
 // desc: ...
@@ -1092,6 +1142,7 @@ t_CKBOOL miniAudicle::is_on()
 {
     return vm_on;
 }
+
 
 //-----------------------------------------------------------------------------
 // name: shred_count()
@@ -1215,13 +1266,11 @@ t_CKBOOL miniAudicle::highlight_line( string & line,
 }
 
 
-
-
 //-----------------------------------------------------------------------------
 // name: probe()
 // desc: probe audio devices
 //-----------------------------------------------------------------------------
-t_CKBOOL miniAudicle::probe()
+t_CKBOOL miniAudicle::probe( const char * driverName )
 {
 #ifndef __CHIP_MODE__
 
@@ -1231,8 +1280,11 @@ t_CKBOOL miniAudicle::probe()
     RtAudio * rta = NULL;
     RtAudio::DeviceInfo info;
     
+    // get enum from name
+    RtAudio::Api driver = ChuckAudio::driverNameToApi( driverName );
+
     // allocate RtAudio
-    rta = new RtAudio( RtAudio::Api::UNSPECIFIED, rtaudio_error );
+    rta = new RtAudio( driver, rtaudio_error );
     // check for errors
     if( rtaudio_has_error() ) {
         rtaudio_error_print( true );
@@ -1294,6 +1346,10 @@ t_CKBOOL miniAudicle::probe()
 
 
 #ifndef __CHIP_MODE__
+//-----------------------------------------------------------------------------
+// name: get_interfaces()
+// desc: return vector of audio device infos
+//-----------------------------------------------------------------------------
 const vector< RtAudio::DeviceInfo > & miniAudicle::get_interfaces()
 {
     return interfaces;
@@ -1424,6 +1480,17 @@ t_CKBOOL miniAudicle::set_enable_network_thread( t_CKBOOL en )
 t_CKBOOL miniAudicle::get_enable_network_thread()
 {
     return vm_options.enable_network;
+}
+
+
+//-----------------------------------------------------------------------------
+// name: set_driver()
+// desc: set audio driver by RtAudio::Api enum | 1.5.0.1 (ge) added
+//-----------------------------------------------------------------------------
+t_CKBOOL miniAudicle::set_driver( t_CKUINT driver )
+{
+    vm_options.driver = driver;
+    return TRUE;
 }
 
 
@@ -1562,6 +1629,12 @@ t_CKUINT miniAudicle::get_sample_rate()
     return vm_options.srate;
 }
 
+
+
+//-----------------------------------------------------------------------------
+// name: next_power_2()
+// desc: compute next power of 2
+//-----------------------------------------------------------------------------
 t_CKUINT next_power_2( t_CKUINT n )
 {
     t_CKUINT nn = n;
@@ -1569,64 +1642,119 @@ t_CKUINT next_power_2( t_CKUINT n )
     return nn * 2;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: set_buffer_size()
+// desc: set vm options buffer size (auto-sizing regarding power of 2)
+//-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::set_buffer_size( t_CKUINT size )
 {
     vm_options.buffer_size = next_power_2( size - 1 );
     return TRUE;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: get_buffer_size()
+// desc: get vm options buffer size
+//-----------------------------------------------------------------------------
 t_CKUINT miniAudicle::get_buffer_size()
 {
     return vm_options.buffer_size;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: set_blocking()
+// desc: set VM option on audio IO mode
+//-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::set_blocking( t_CKBOOL block )
 {
     vm_options.enable_block = block;
     return TRUE;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: get_blocking()
+// desc: get VM option on audio IO mode
+//-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::get_blocking()
 {
     return vm_options.enable_block;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: set_enable_std_system()
+// desc: ...
+//-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::set_enable_std_system( t_CKBOOL enable )
 {
 //    g_enable_system_cmd = enable;
     return TRUE;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: get_enable_std_system()
+// desc: ...
+//-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::get_enable_std_system()
 {
 //    return g_enable_system_cmd;
     return FALSE;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: set_library_paths()
+// desc: set library path VM option
+//-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::set_library_paths( list< string > & paths )
 {
     vm_options.library_paths = paths;
     return TRUE;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: get_library_paths()
+// desc: get library path VM option
+//-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::get_library_paths( list< string > & paths )
 {
     paths = vm_options.library_paths;
     return TRUE;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: set_named_chugins()
+// desc: set named chugin VM option
+//-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::set_named_chugins( list< string > & chugins )
 {
     vm_options.named_chugins = chugins;
     return TRUE;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: get_named_chugins()
+// desc: get named chugin VM option
+//-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::get_named_chugins( list< string > & chugins )
 {
     chugins = vm_options.named_chugins;
     return TRUE;
 }
 
+
+//-----------------------------------------------------------------------------
+// name: add_query_func()
+// desc: add query function VM option
+//-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::add_query_func(t_CKBOOL (*func)(Chuck_Env *))
 {
     vm_options.query_funcs.push_back(func);
