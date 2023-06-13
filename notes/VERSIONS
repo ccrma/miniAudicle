@@ -2,6 +2,19 @@
 miniAudicle VERSIONS log
 ------------------------
 
+1.5.0.1
+---
+    - (updated) on Windows and Linux: miniAudicle now has a "Audio 
+      driver drop-down selection in the Preferences dialog window; this 
+      selection allows for run-time selection of different drivers, 
+      e.g., "DirectSound", WASAPI", or "ASIO" on Windows, as well as 
+      "Jack", "Pulse", or ALSA" on Linux
+    - (updated) on Windows and Linux: Qt windowing style updated from
+      "windowsvista" to "Fusion"
+    - (fixed) linux compilation using Qt6
+      |- needs qscintilla-qt6-devel and qscintilla-qt6)
+      [Many thanks to Fernando Lopez-Lezcano and Nils Tonnätt]
+
 1.5.0.0
 ---
     - (added) chuck-1.5.0.0 (chai)
