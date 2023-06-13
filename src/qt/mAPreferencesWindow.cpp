@@ -222,7 +222,7 @@ void mAPreferencesWindow::loadSettingsToGUI()
     // populate the "Audio drivers" ComboBox
     for( unsigned int i = 0; i < ChuckAudio::numDrivers(); i++ )
     {
-        ChuckAudioDriverInfo info = ChuckAudio::getDriver(i);
+        ChuckAudioDriverInfo info = ChuckAudio::getDriverInfo(i);
         // add the item, with the Api enum as the associated data
         ui->audioDriver->addItem( info.userFriendlyName.c_str(), (int)info.driver );
         // check if match with driver read in from settings
