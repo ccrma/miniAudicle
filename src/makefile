@@ -6,7 +6,7 @@ PREFIX=/usr
 CHUCK_SRC_DIR=chuck/src
 
 ifneq ($(shell which qmake-qt4),)
-QMAKE?=qmake-qt4
+QMAKE?=qmake
 else
 QMAKE?=qmake
 endif
@@ -35,6 +35,12 @@ current:
 
 osx mac mac-ub:
 	-+make -f makefile.osx $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+
+linux: makefile.qt 
+	-+make -f $< $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+
+makefile.qt: miniAudicle.pro
+	+$(QMAKE) "RTAUDIO_BACKEND=ALSA JACK PULSE" -o $@ $<
 
 linux-jack: makefile.qt-jack 
 	-+make -f $< $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
