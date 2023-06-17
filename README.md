@@ -16,7 +16,7 @@ git clone --recurse-submodules https://github.com/ccrma/miniAudicle.git
 ```
 
 ### macOS (Cocoa)
-By default, miniAudicle on macOS uses **Cocoa** for its windowing and graphical user interface.
+By default, miniAudicle on macOS builds with **Cocoa** for windowing and graphical user interfaces.
 
 navigate to the `miniAudicle/src` directory, and run `make`:
 ```
@@ -45,7 +45,9 @@ make linux
 This should build a `miniAudicle` executable support Pulse, ALSA, and Jack.
 
 ### Windows
-miniAudicle on Windows requires [**Qt6**](https://www.qt.io/download-open-source) (we recommend Qt-6.5.0 or higher) and the [QScintilla](https://riverbankcomputing.com/software/qscintilla/download) library. In the `Qt Creator` IDE, open `miniAudicle/src/miniAudicle.pro` and build.
+miniAudicle on Windows requires [**Qt6**](https://www.qt.io/download-open-source) (we recommend Qt-6.5.0 or higher) and the QScintilla library. In the `Qt Creator` IDE, open `miniAudicle/src/miniAudicle.pro` and build.
+
+QScintilla can be built from [source](https://riverbankcomputing.com/software/qscintilla/download) using `Qt Creator` or `qmake`. Alternately, you can use our [pre-built `qscintilla_qt6` libraries](https://chuck.stanford.edu/release/files/extra/qscintilla2_qt6.zip).
 
 ## miniAudicle History
 **miniAudicle** was created by Spencer Salazar in 2005, two years after the initial release of the ChucK programming language, originated by Ge Wang and Perry R. Cook, and one year after the creation of the **the Audicle** (see [2004 paper](https://ccrma.stanford.edu/~ge/publish/files/2004-icmc-audicle.pdf)). The original Audicle was designed as a 3D graphics-based IDE for live-coding ChucK programs while visualizing these programs' deep structure. Perry Cook had suggested the name 'audicle' could be the all-_hearing_ equivalent of an all-_seeing_ "oracle". While the Audicle demonstrated potential, it's 3D-graphics intensive backend (in OpenGL) was extremely to develop into an usable tool. This gave rise to the _miniAudicle_, which was to be a lighter version of the Audicle, using establish windowing and GUI toolkits (like Cocoa and Qt, instead of implementing from scratch in OpenGL). Released in 2005, the miniAudicle immediately became a de facto tool for working with ChucK, and has remained so for many ChucK users to the present day.
