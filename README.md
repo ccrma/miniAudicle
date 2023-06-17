@@ -14,7 +14,6 @@ To build the latest miniAudicle from source, clone the `miniAudicle` repo from g
 ```
 git clone --recurse-submodules https://github.com/ccrma/miniAudicle.git
 ```
-
 ### macOS (Cocoa)
 By default, miniAudicle on macOS builds with **Cocoa** for windowing and graphical user interfaces.
 
@@ -27,7 +26,6 @@ OR to build a universal binary (intel + apple sillicon):
 ```
 make mac-ub
 ```
-
 ### macOS (Qt)
 Alternately, it is also possible to build the Qt version of the miniAudicle. This requires [**Qt6**](https://www.qt.io/download-open-source) (we recommend Qt-6.5.0 or higher) and the QScintilla library. These are several ways to build miniAudicle with Qt. One way is to use the `Qt Creator` IDE to open `miniAudicle/src/miniAudicle.pro`; another is to use `qmake` directly and build from the command line.
 
