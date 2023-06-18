@@ -708,7 +708,32 @@ NSString * const mAChuginExtension = @"chug";
 
 - (void)openMiniAudicleWebsite:(id)sender
 {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://audicle.cs.princeton.edu/mini/mac/doc/"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://audicle.cs.princeton.edu/mini/mac/doc/"]];
+}
+
+- (void)openWebsiteChucKAPIReference:(id)sender
+{
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://chuck.stanford.edu/doc/reference/"]];
+}
+
+- (void)openWebsiteChucKDocumentation:(id)sender
+{
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://chuck.stanford.edu/doc/"]];
+}
+
+- (void)openWebsiteChucKCommunity:(id)sender
+{
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://chuck.stanford.edu/community/"]];
+}
+
+- (void)openWebsiteChucK:(id)sender
+{
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://chuck.stanford.edu/"]];
+}
+
+- (void)openWebsiteMiniAudicle:(id)sender
+{
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/ccrma/miniAudicle"]];
 }
 
 - (void)saveACopyAs:(id)sender

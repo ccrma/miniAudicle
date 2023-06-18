@@ -141,7 +141,13 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
 - (IBAction)clearVM:(id)sender;
 
 - (IBAction)setLogLevel:(id)sender;
-- (IBAction)openMiniAudicleWebsite:(id)sender;
+- (IBAction)openMiniAudicleWebsite:(id)sender; // legacy
+- (IBAction)openWebsiteMiniAudicle:(id)sender;
+- (IBAction)openWebsiteChucK:(id)sender;
+- (IBAction)openWebsiteChucKAPIReference:(id)sender;
+- (IBAction)openWebsiteChucKDocumentation:(id)sender;
+- (IBAction)openWebsiteChucKCommunity:(id)sender;
+
 
 - (IBAction)hideToolbar:(id)sender;
 - (IBAction)hideAllToolbars:(id)sender;
