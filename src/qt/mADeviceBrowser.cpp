@@ -32,7 +32,7 @@ U.S.A.
 #include "chuck_audio.h"
 #include "chuck_errmsg.h"
 
-#include <QDebug>
+// #include <QDebug>
 
 
 mADeviceBrowser::mADeviceBrowser(QWidget *parent) :
@@ -82,7 +82,7 @@ void mADeviceBrowser::showAudio()
         driver = (int)ChuckAudio::defaultDriverApi();
     // index of selected driver in the combobox
     int selectedDriverIndex = -1;
-    // soft lock to prevent addItem from triggering index change
+    // state to prevent addItem from triggering populateAudio()
     m_initializingDrivers = true;
     // populate the "Audio drivers" ComboBox
     for( unsigned int i = 0; i < ChuckAudio::numDrivers(); i++ )
@@ -106,7 +106,7 @@ void mADeviceBrowser::showAudio()
         if( ChuckAudio::numDrivers() > 0 )
             ui->audioDriver->setCurrentIndex( 0 );
     }
-    // soft lock to prevent addItem from triggering index change
+    // state to prevent addItem from triggering populateAudio()
     m_initializingDrivers = false;
 
     // populate the audio info
