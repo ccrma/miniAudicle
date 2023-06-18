@@ -2,6 +2,23 @@
 miniAudicle VERSIONS log
 ------------------------
 
+1.5.0.2
+---
+    - (added) menu "Help" now has items that will open websites in
+      the default browser:
+      "ChucK Class Library Reference..."
+        https://chuck.stanford.edu/doc/reference/
+      "ChucK Documentation..."
+        https://chuck.stanford.edu/doc/
+      "ChucK Community..."
+        https://chuck.stanford.edu/community/
+    - (updated) menu "Help" now correctly direct user to miniAudicle
+      and ChucK websites:
+      "ChucK website..."
+        https://chuck.stanford.edu/
+      "miniAudicle website..."
+        https://github.com/ccrma/miniAudicle/
+
 1.5.0.1
 ---
     - (updated) on Windows and Linux: miniAudicle now has a "Audio 

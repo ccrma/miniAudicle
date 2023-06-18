@@ -21,6 +21,14 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 U.S.A.
 -----------------------------------------------------------------------------*/
+#include <QtWidgets/QMessageBox>
+#include <QtGui/QGuiApplication>
+#include <QtGui/QCloseEvent>
+#include <QtGui/QDesktopServices>
+#include <QtWidgets/QPushButton>
+#include <QtCore/QRegularExpression>
+#include <QtCore/QUrl>
+#include "ZSettings.h"
 
 #include "mAMainWindow.h"
 #include "ui_mAMainWindow.h"
@@ -34,13 +42,6 @@ U.S.A.
 
 #include "chuck.h"
 #include "chuck_audio.h"
-
-#include <QtWidgets/QMessageBox>
-#include <QtGui/QGuiApplication>
-#include "ZSettings.h"
-#include <QtGui/QCloseEvent>
-#include <QtWidgets/QPushButton>
-#include <QtCore/QRegularExpression>
 
 #include <list>
 
@@ -298,6 +299,31 @@ void mAMainWindow::about()
     QString body = QString("<h3>miniAudicle</h3>\n") + buf;
     body.replace(QRegularExpression("\n"), "<br />");
     QMessageBox::about(this, "About miniAudicle", body);
+}
+
+void mAMainWindow::websiteMiniAudicle()
+{
+    QDesktopServices::openUrl(QUrl("https://github.com/ccrma/miniAudicle"));
+}
+
+void mAMainWindow::websiteChucK()
+{
+    QDesktopServices::openUrl(QUrl("https://chuck.stanford.edu/"));
+}
+
+void mAMainWindow::websiteChucKAPIReference()
+{
+    QDesktopServices::openUrl(QUrl("https://chuck.stanford.edu/doc/reference/"));
+}
+
+void mAMainWindow::websiteChucKDocumentation()
+{
+    QDesktopServices::openUrl(QUrl("https://chuck.stanford.edu/doc/"));
+}
+
+void mAMainWindow::websiteChucKCommunity()
+{
+    QDesktopServices::openUrl(QUrl("https://chuck.stanford.edu/community/"));
 }
 
 void mAMainWindow::newFile()

@@ -26,7 +26,7 @@ U.S.A.
 #define MAMAINWINDOW_H
 
 #include <QtWidgets/QMainWindow>
-#include <QFile>
+#include <QtCore/QFile>
 #include <QtWidgets/QFileDialog>
 
 #include <list>
@@ -59,6 +59,11 @@ public slots:
 
     void exit();
     void about();
+    void websiteMiniAudicle();
+    void websiteChucK();
+    void websiteChucKAPIReference();
+    void websiteChucKDocumentation();
+    void websiteChucKCommunity();
 
     void openFile(const QString &path = QString());
     void openRecent();

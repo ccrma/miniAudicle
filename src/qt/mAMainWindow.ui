@@ -25,7 +25,7 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
-    <property name="margin">
+    <property name="margin" stdset="0">
      <number>0</number>
     </property>
     <item>
@@ -45,8 +45,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>581</width>
-     <height>18</height>
+     <width>600</width>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -135,8 +135,12 @@
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionMiniAudicle_website"/>
-    <addaction name="actionChucK_website"/>
+    <addaction name="actionWebsite_ChucKAPIReference"/>
+    <addaction name="actionWebsite_ChucKDocumentation"/>
+    <addaction name="actionWebsite_ChucKCommunity"/>
+    <addaction name="separator"/>
+    <addaction name="actionWebsite_ChucK"/>
+    <addaction name="actionWebsite_miniAudicle"/>
     <addaction name="separator"/>
     <addaction name="actionAbout_miniAudicle"/>
    </widget>
@@ -386,20 +390,20 @@
     <string>Ctrl+0</string>
    </property>
   </action>
-  <action name="actionMiniAudicle_website">
+  <action name="actionWebsite_miniAudicle">
    <property name="text">
     <string>miniAudicle website...</string>
    </property>
    <property name="toolTip">
-    <string>miniAudicle website...</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;open the miniAudicle website in your default browser...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </action>
-  <action name="actionChucK_website">
+  <action name="actionWebsite_ChucK">
    <property name="text">
     <string>ChucK website...</string>
    </property>
    <property name="toolTip">
-    <string>ChucK website...</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;open the main ChucK website in your default web browser...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </action>
   <action name="actionAbout_miniAudicle">
@@ -534,6 +538,30 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+2</string>
+   </property>
+  </action>
+  <action name="actionWebsite_ChucKAPIReference">
+   <property name="text">
+    <string>ChucK Class Library Reference...</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;open the ChucK API Reference in your default browser...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionWebsite_ChucKDocumentation">
+   <property name="text">
+    <string>ChucK Documentation...</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;open the ChucK Documentation page in your default browser...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionWebsite_ChucKCommunity">
+   <property name="text">
+    <string>ChucK Community...</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;open the ChucK Community in your default browser...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </action>
  </widget>
@@ -1070,6 +1098,86 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionWebsite_miniAudicle</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>websiteMiniAudicle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>309</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionWebsite_ChucK</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>websiteChucK()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>309</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionWebsite_ChucKAPIReference</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>websiteChucKAPIReference()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>309</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionWebsite_ChucKDocumentation</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>websiteChucKDocumentation()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>309</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionWebsite_ChucKCommunity</sender>
+   <signal>triggered()</signal>
+   <receiver>mAMainWindow</receiver>
+   <slot>websiteChucKCommunity()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>309</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>exit()</slot>
@@ -1095,5 +1203,10 @@
   <slot>abortCurrentShred()</slot>
   <slot>clearVM()</slot>
   <slot>showDeviceBrowser()</slot>
+  <slot>websiteMiniAudicle()</slot>
+  <slot>websiteChucK()</slot>
+  <slot>websiteChucKAPIReference()</slot>
+  <slot>websiteChucKDocumentation()</slot>
+  <slot>websiteChucKCommunity()</slot>
  </slots>
 </ui>
