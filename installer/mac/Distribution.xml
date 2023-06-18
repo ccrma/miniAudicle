@@ -27,7 +27,8 @@
     <pkg-ref id="edu.stanford.chuck.examples"/>
     
     <title>ChucK</title>
-    <background file="chuck_logo.png" alignment="topleft" scaling="none"/>
+    <background file="chuck_logo.png" alignment="bottomleft" mime-type="image/png" scaling="none"/>
+    <background-darkAqua file="chuck_logo.png" alignment="bottomleft" mime-type="image/png" scaling="none"/>
     <allowed-os-versions><os-version min="10.9"/></allowed-os-versions>
     <options customize="allow" require-scripts="false"/>
     <choices-outline>
