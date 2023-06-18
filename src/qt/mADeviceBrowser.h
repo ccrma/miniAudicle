@@ -21,22 +21,23 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 U.S.A.
 -----------------------------------------------------------------------------*/
-
 #ifndef MADEVICEBROWSER_H
 #define MADEVICEBROWSER_H
 
 #include <QtWidgets/QDialog>
 
+
 namespace Ui {
 class mADeviceBrowser;
 }
+
 
 class mADeviceBrowser : public QDialog
 {
     Q_OBJECT
     
 public:
-    explicit mADeviceBrowser(QWidget *parent = 0);
+    explicit mADeviceBrowser( QWidget * parent = 0 );
     ~mADeviceBrowser();
     
 public slots:
@@ -44,9 +45,19 @@ public slots:
     void showAudio();
     void showMIDI();
     void showHID();
-    
+    void selectedAudioDriverChanged();
+
 private:
-    Ui::mADeviceBrowser *ui;
+    // populate audio device info for a specific driver (e.g., DirectSound or Jack)
+    void populateAudio( int driverApi );
+    // state to prevent extra calls to populateAudio() when setting up audio driver combo box
+    bool m_initializingDrivers;
+    // cache the last selected audio driver
+    int m_lastSelectedAudioDriver;
+
+private:
+    // the associate UI
+    Ui::mADeviceBrowser * ui;
 };
 
 #endif // MADEVICEBROWSER_H

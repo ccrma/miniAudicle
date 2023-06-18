@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>400</height>
+    <height>450</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -27,7 +27,7 @@
    <property name="spacing">
     <number>10</number>
    </property>
-   <property name="margin">
+   <property name="margin" stdset="0">
     <number>10</number>
    </property>
    <item>
@@ -147,6 +147,52 @@
     </layout>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0">
+     <property name="spacing">
+      <number>10</number>
+     </property>
+     <item>
+      <widget class="QComboBox" name="audioDriver">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>120</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;choose audio driver to the see corresponding audio devices&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="audioDriverLabel">
+       <property name="text">
+        <string>Audio driver</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
     <widget class="QTreeWidget" name="treeWidget">
      <property name="columnCount">
       <number>2</number>
@@ -217,10 +263,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>audioDriver</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>mADeviceBrowser</receiver>
+   <slot>selectedAudioDriverChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>70</x>
+     <y>56</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>249</x>
+     <y>224</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>showAudio()</slot>
   <slot>showMIDI()</slot>
   <slot>showHID()</slot>
+  <slot>selectedAudioDriverChanged()</slot>
  </slots>
 </ui>
