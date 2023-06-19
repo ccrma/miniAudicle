@@ -45,18 +45,14 @@ sudo apt install build-essential bison flex libqt6-base-dev libqscintilla2-qt6-d
 ```
 For other Linux distributions, the setup should be similar although the package install tools and package names may be slightly different.
 
-To build, navigate to the `miniAudicle/src` directory:
+To build miniAudicle (with all supported drivers: ALSA, PulseAudio, and JACK), navigate to the `miniAudicle/src` directory and run 'make':
 ```
 cd miniAudicle/src
-```
-
-To build miniAudicle with all supported drivers: ALSA, PulseAudio, and JACK:
-```
 make linux
 ```
 
 To build miniAudicle that supports only ALSA, PulseAudio, or JACK (or any combination thereof),  run `make` with desired driver(s).
-For example, to build for ALSA/JACK:
+For example, to build for ALSA and JACK:
 ```
 make linux-alsa linux-jack
 ```
