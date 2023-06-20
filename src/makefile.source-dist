@@ -6,16 +6,14 @@ include version.mk
 
 DIST_DIR=miniAudicle-$(VERSION)
 
-NOTES_DIR=../notes
-NOTES=COPYING LGPL README.txt README.linux BUGS VERSIONS
+NOTES_DIR=../
+NOTES=ABOUT BUGS INSTALL LICENSE README.md VERSIONS
 NOTES:=$(addprefix $(NOTES_DIR)/,$(NOTES))
 
 EXAMPLES_DIR=../test
 EXAMPLES=slide01.ck slide02.ck slide03.ck led01.ck view01.ck mand-o-ui.ck \
          mode-o-ui.ck gauge01.ck gauge02.ck
 EXAMPLES:=$(addprefix $(EXAMPLES_DIR)/,$(EXAMPLES))
-
-MA_SVN_URL=http://miniaudicle.googlecode.com/svn/trunk/src/
 
 default: source-dist
 
@@ -33,7 +31,7 @@ source-dist: git-rev.h
 	mkdir -p $(DIST_DIR)/src
 	git archive HEAD | tar -x -C $(DIST_DIR)/src
 	cd chuck && git archive HEAD | tar -x -C ../$(DIST_DIR)/src/chuck
-#	svn export -q --non-interactive $(MA_SVN_URL) $(DIST_DIR)/src
+	cd chugins && git archive HEAD | tar -x -C ../$(DIST_DIR)/src/chugins
 	cp git-rev.h $(DIST_DIR)/src
 	cp -r $(NOTES) $(DIST_DIR)/
 # copy examples
