@@ -30,9 +30,21 @@ make mac-ub
 This should build a `miniAudicle.app` application in `src/macosx`.
 
 ### macOS (Qt)
-Alternately, miniAudicle can be built using Qt on macOS. This requires **Qt6** and the **QScintilla** library. **Qt6** development tools can be installed from [here](https://www.qt.io/download-open-source). **QScintilla** can be built from [source](https://riverbankcomputing.com/software/qscintilla/download) using `Qt Creator` or `qmake`. Or you can use our [pre-built qscintilla2_qt6 libraries](https://chuck.stanford.edu/release/files/extra/qscintilla2_qt6.zip) (following the included instructions to copy the necessary headers and libraries files).
+Alternately, miniAudicle can be built using Qt on macOS. This requires **Qt6** and the **QScintilla** library. **Qt6** development tools can be installed from [here](https://www.qt.io/download-open-source). **QScintilla** can be built from [source](https://riverbankcomputing.com/software/qscintilla/download) using `Qt Creator` or `qmake`. Or you can use our [pre-built qscintilla2_qt6 libraries](https://chuck.stanford.edu/release/files/extra/qscintilla2_qt6.zip) (following the included instructions to copy the necessary headers and libraries files). From here, these are several ways to build miniAudicle with Qt on macOS. For one, you can use `Qt Creator` to open `miniAudicle/src/miniAudicle.pro` and build.
 
-These are several ways to build miniAudicle with Qt on macOS. One can use the `Qt Creator` IDE to open `miniAudicle/src/miniAudicle.pro`; another is to use `qmake` directly and build from the command line.
+As an alternative to installing/buliding Qt and Qscintilla as described above, you can also install these libraries using Homebrew:
+```
+brew install qt
+brew install qscintilla2
+```
+To build from the command line (either of the two approaches above should work, as long as the headers and paths are in place):
+```
+cd miniAudicle/src
+make mac-qt
+```
+
+This should build a `miniAudicle.app` (Qt edition, universal binary) in `src`.
+
 
 ### Linux
 Dependencies: gcc, g++, make, bison, flex, Qt6, QScintilla, libsndfile, ALSA, PulseAudio (for linux-pulse builds), JACK (for linux-jack builds)
