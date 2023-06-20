@@ -1,0 +1,16 @@
+---
+miniAudicle (c) 2006-2013 Spencer Salazar
+    https://github.com/ccrma/miniAudicle/
+
+ChucK (c) Ge Wang and Perry Cook
+    https://chuck.stanford.edu/
+
+---
+For questions, support, documentation, example code, feature requests, 
+and bug reports, please visit any of the ChucK Community channels:
+    https://chuck.stanford.edu/community/
+
+---
+miniAudicle incorporates some or all of libsndfile (Copyright (c)
+Erik de Castro Lopo, http://www.mega-nerd.com/libsndfile), Qt, RtAudio, 
+OggEnc, and STK.

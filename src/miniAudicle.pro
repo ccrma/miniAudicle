@@ -17,15 +17,24 @@
 # message(Qt installed libs location: $$[QT_INSTALL_LIBS])
 #-------------------------------------------------
 
+# build target
 TARGET = miniAudicle
+# build as application
 TEMPLATE = app
+# Qt modules
 QT += core gui network widgets
+# c++ language dialect
+CONFIG += c++11
 CONFIG += warn_off
 MAKEFILE = makefile.qt
 PRECOMPILED_HEADER = qt/miniAudicle_pc.h
 DEFINES += HAVE_CONFIG_H
-# (unix systems) where to put intermediate objects files
-unix:OBJECTS_DIR = .
+
+# (unix systems) where to put intermediate/generated files
+unix:OBJECTS_DIR = qt-build
+unix:MOC_DIR = qt-build
+unix:UI_DIR = qt-build
+unix:RCC_DIR = qt-build
 
 
 #-------------------------------------------------
@@ -36,21 +45,51 @@ macx {
 # specific architecture(s); use x86_64 and arm64 for universal binary
 QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
 
+# set application bundle identifier prefix
+QMAKE_TARGET_BUNDLE_PREFIX = edu.stanford.chuck
+# set application bundle identifier name
+QMAKE_BUNDLE = miniAudicle
+
 # compiler flags; assumes Qsci/ in $$[QT_INSTALL_HEADERS]
 CFLAGS = -D__MACOSX_CORE__ -I../src/chuck/src -I../src \
     -I../src/chuck/src/core  -I../src/chuck/src/host \
-    -I$$[QT_INSTALL_HEADERS]
 
+# qmake compiler flags
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
-QMAKE_LFLAGS +=
 
-# libraries and frameworks to link against
-# assumes qscintilla2_qt6.framework in $$[QT_INSTALL_LIBS]
+# qmake library flags
+QMAKE_LFLAGS +=
+# qmake libraries and frameworks to link against
 QMAKE_LIBS += -framework Cocoa -framework CoreAudio -framework CoreMIDI \
     -framework CoreFoundation -framework Carbon -framework IOKit -lstdc++ -lm \
-    -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport \
-    -framework qscintilla2_qt6
+    -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport
+
+# controls whether to link against dynamic or static qscintilla
+# (comment out this next line for dynamic linking / shared libs)
+QSCINTILLA_LINKING = static
+
+# check linking preference
+equals( QSCINTILLA_LINKING, "static" ) { # use static linking
+    # provide header search path for Qsci/ headers
+    QMAKE_CXXFLAGS += -I$$[QT_INSTALL_HEADERS]
+    # expect qscintilla2_qt6(d).a in src/qt/lib/
+    QMAKE_LFLAGS += -L$${_PRO_FILE_PWD_}/qt/lib
+    # which version of the library: debug or release
+    CONFIG(debug, debug|release) { QMAKE_LIBS += -lqscintilla2_qt6d }
+    else { QMAKE_LIBS += -lqscintilla2_qt6 }
+} else {  # use framework (dynamic linking)
+    # include path for the headers in the framework
+    QMAKE_CXXFLAGS += -I$$[QT_INSTALL_LIBS]/qscintilla2_qt6.framework/Headers/
+    # expect qscintilla2_qt6.framework in $$[QT_INSTALL_LIBS]
+    QMAKE_LFLAGS += -F$$[QT_INSTALL_LIBS]
+    # link against the framework
+    QMAKE_LIBS += -framework qscintilla2_qt6
+}
+
+# icon
+ICON = qt/icon/chuck.icns
+
 }
 
 
@@ -387,6 +426,7 @@ RESOURCES += \
     qt/miniAudicle.qrc
 
 OTHER_FILES += \
+    qt/icon/chuck.icns \
     qt/icon/miniAudicle.png \
     qt/icon/remove.png \
     qt/icon/add.png \

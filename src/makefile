@@ -27,19 +27,26 @@ ifneq ($(CK_TARGET),)
 target: $(CK_TARGET)
 endif
 
-.PHONY: current osx mac mac-ub linux-jack linux-alsa linux-pulse win32 windows
+.PHONY: current osx mac mac-ub linux-all linux linux-jack linux-alsa linux-pulse win32 windows
 
 current: 
-	@echo "[miniAudicle build]: please use one of the following configurations:"
-	@echo "   make linux-alsa, make linux-pulse, make linux-jack, make osx, or make win32"
+	@echo "[miniAudicle build]: please use the following configurations:"
+	@echo "   linux-alsa, make linux-pulse, make linux-jack, make linux-all,"
+	@echo "   make mac, mac-ub, mac-qt, or make win32"
 
-osx mac mac-ub:
+mac mac-ub osx:
 	-+make -f makefile.osx $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
-linux: makefile.qt 
+mac-qt: makefile.qt-mac
 	-+make -f $< $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
-makefile.qt: miniAudicle.pro
+makefile.qt-mac: miniAudicle.pro
+	+$(QMAKE) "RTAUDIO_BACKEND=COREAUDIO" -o $@ $<
+
+linux-all linux: makefile.qt-linux
+	-+make -f $< $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+
+makefile.qt-linux: miniAudicle.pro
 	+$(QMAKE) "RTAUDIO_BACKEND=ALSA JACK PULSE" -o $@ $<
 
 linux-jack: makefile.qt-jack 
@@ -68,7 +75,7 @@ win32:
 
 install:
 ifneq ($(wildcard makefile.qt-*),)
-# Linux install
+# Linux/macOS-Qt install
 	make -f $(firstword $(wildcard makefile.qt-*)) install
 
 else ifneq ($(wildcard macosx/miniAudicle.app),)

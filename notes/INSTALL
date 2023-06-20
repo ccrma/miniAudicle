@@ -1,7 +1,27 @@
-miniAudicle version 1.3.x (Gidora)
-INSTALL
-================================================================================
+Installing miniAudicle/ChucK
+---
+To install the latest release, visit:
+    https://chuck.stanford.edu/release/
 
-To install, simply mount the miniAudicle.dmg disk image, and drag the 
-miniAudicle application from the disk image to your /Applications folder or any
-other desired location.  
+(macOS and Windows), the installer will install two separate programs:
+    miniAudicle (GUI-based IDE for ChucK)
+    chuck (command line ChucK)
+
+(Linux) build from source:
+    https://github.com/ccrma/miniAudicle
+
+
+Building miniAudicle
+---
+Visit the miniAudicle source repository (or see README.md) for
+instructions on building miniAudicle from source:
+    https://github.com/ccrma/miniAudicle
+
+
+Got questions?
+---
+Join us on any of the ChucK Community channels:
+    https://chuck.stanford.edu/community/
+
+Join the ChucK Community Discord:
+    https://discord.gg/ENr3nurrx8

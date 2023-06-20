@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file>icon/chuck.icns</file>
         <file>icon/miniAudicle.png</file>
         <file>icon/add.png</file>
         <file>icon/remove.png</file>

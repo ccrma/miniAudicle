@@ -1,20 +1,25 @@
-KNOWN BUGS (miniAudicle-1.3.x (gidora))
-----------------------------------------
-
-- console output causes general performance degradation over time on OS X.  If
-  you right-click the console monitor, an option to "Clear Buffer" will appear,
-  which will speed things up again.  
-
-- until chuck garbage collection is in place, MAUI windows don't self-destruct
-  when associated shred is removed from the VM
-
-- MAUI_elements not yet available from the command line chuck, which will 
-  hopefully change in the near future
-
-- MAUI elements not available in Win32/Linux
+KNOWN BUGS | miniAudicle-1.5.x (latte)
+--------------------------------------
+- on certain systems, console output may cause general performance
+  degradation over time on macOS. If you right-click the console monitor,
+  an option to "Clear Buffer" will appear, which will speed things up
+  again.
 
 - auto-indentation still has a few problems on all platforms
 
-If you have any bugs to report, please post a stack trace, the output of the
-console monitor, the output of chuck --probe, and a description of the bug to
-our email list: https://lists.cs.princeton.edu/mailman/listinfo/chuck-users   
+- MAUI (miniAudicle UI) elements not available in Win32/Linux
+
+- until chuck garbage collection is in place, MAUI windows don't
+  self-destruct when associated shred is removed from the VM
+
+
+Have a bug to report?
+---
+If you have any bugs to report, please note your operating system and
+version; post a stack trace, the output of the console monitor, the
+output of chuck --probe, and a description of the bug to one of the ChucK
+Community channels:
+
+    https://chuck.stanford.edu/community/
+
+Happy ChucKin!
