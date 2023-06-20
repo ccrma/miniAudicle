@@ -31,6 +31,7 @@ PRECOMPILED_HEADER = qt/miniAudicle_pc.h
 DEFINES += HAVE_CONFIG_H
 
 # (unix systems) where to put intermediate/generated files
+unix:BUILD_DIR = qt-build
 unix:OBJECTS_DIR = qt-build
 unix:MOC_DIR = qt-build
 unix:UI_DIR = qt-build
