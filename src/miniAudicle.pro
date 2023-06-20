@@ -427,7 +427,6 @@ RESOURCES += \
     qt/miniAudicle.qrc
 
 OTHER_FILES += \
-    qt/icon/chuck.icns \
     qt/icon/miniAudicle.png \
     qt/icon/remove.png \
     qt/icon/add.png \
