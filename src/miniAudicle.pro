@@ -89,7 +89,7 @@ equals( QSCINTILLA_LINKING, "static" ) { # use static linking
 }
 
 # icon
-ICON = qt/icon/chuck.icns
+ICON = qt/icon/miniAudicle.ico
 
 }
 
