@@ -584,7 +584,7 @@
          <item>
           <widget class="QLabel" name="label_12">
            <property name="text">
-            <string>Windowing Style:</string>
+            <string>Windowing style:</string>
            </property>
           </widget>
          </item>
