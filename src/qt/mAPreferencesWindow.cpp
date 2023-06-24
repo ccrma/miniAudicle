@@ -227,6 +227,8 @@ void mAPreferencesWindow::loadSettingsToGUI()
 
     // set state
     m_initializingComboBoxes = true;
+    // clear to prevent double adding
+    ui->audioDriver->clear();
     // populate the "Audio drivers" ComboBox
     for( unsigned int i = 0; i < ChuckAudio::numDrivers(); i++ )
     {
