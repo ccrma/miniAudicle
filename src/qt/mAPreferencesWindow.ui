@@ -57,7 +57,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="documentMode">
       <bool>true</bool>
@@ -564,6 +564,56 @@
         </layout>
        </item>
        <item>
+        <spacer name="verticalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>10</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_14">
+         <item>
+          <widget class="QLabel" name="label_12">
+           <property name="text">
+            <string>Windowing Style:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="styleComboBox">
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>0</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_11">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -883,54 +933,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>restoreDefaultsButton</sender>
-   <signal>clicked()</signal>
-   <receiver>mAPreferencesWindow</receiver>
-   <slot>restoreDefaults()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>94</x>
-     <y>348</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>260</x>
-     <y>204</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cancelButton</sender>
-   <signal>clicked()</signal>
-   <receiver>mAPreferencesWindow</receiver>
-   <slot>cancel()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>326</x>
-     <y>348</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>260</x>
-     <y>204</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>okButton</sender>
-   <signal>clicked()</signal>
-   <receiver>mAPreferencesWindow</receiver>
-   <slot>ok()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>436</x>
-     <y>348</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>260</x>
-     <y>204</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>audioDriver</sender>
    <signal>currentIndexChanged(int)</signal>
    <receiver>mAPreferencesWindow</receiver>
@@ -978,6 +980,70 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>styleComboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>mAPreferencesWindow</receiver>
+   <slot>selectedWindowStyleChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>168</x>
+     <y>227</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>222</x>
+     <y>183</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>restoreDefaultsButton</sender>
+   <signal>clicked()</signal>
+   <receiver>mAPreferencesWindow</receiver>
+   <slot>restoreDefaults()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>94</x>
+     <y>348</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>260</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>okButton</sender>
+   <signal>clicked()</signal>
+   <receiver>mAPreferencesWindow</receiver>
+   <slot>ok()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>436</x>
+     <y>348</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>260</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cancelButton</sender>
+   <signal>clicked()</signal>
+   <receiver>mAPreferencesWindow</receiver>
+   <slot>cancel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>326</x>
+     <y>348</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>260</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ok()</slot>
@@ -991,5 +1057,6 @@
   <slot>addChugin()</slot>
   <slot>removeChugin()</slot>
   <slot>changeCurrentDirectory()</slot>
+  <slot>selectedWindowStyleChanged()</slot>
  </slots>
 </ui>

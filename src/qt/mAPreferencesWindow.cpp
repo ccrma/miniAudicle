@@ -30,6 +30,8 @@ U.S.A.
 // date: 2005-present
 //-----------------------------------------------------------------------------
 #include <QFileDialog>
+#include <QtWidgets/QStyleFactory>
+
 #include <vector>
 #include "miniAudicle.h"
 #include "mAPreferencesWindow.h"
@@ -76,6 +78,7 @@ const QString mAPreferencesSyntaxColoringBackground = "/GUI/Editing/SyntaxColori
 const QString mAPreferencesUseTabs = "/GUI/Editing/UsesTabs";
 const QString mAPreferencesTabSize = "/GUI/Editing/TabSize";
 const QString mAPreferencesShowLineNumbers = "/GUI/Editing/ShowLineNumbers";
+const QString mAPreferencesWindowingStyle = "/GUI/Editing/WindowingStyle"; // 1.5.0.4 (ge) added
 
 const QString mAPreferencesCurrentDirectory = "/Miscellaneous/CurrentDirectory";
 
@@ -102,7 +105,7 @@ const QString mAPreferencesEnableAudio = "/VM/EnableAudio";
 // desc: constructor
 //-----------------------------------------------------------------------------
 mAPreferencesWindow::mAPreferencesWindow( QWidget * parent, miniAudicle * ma)
-    : QDialog(parent), ui(new Ui::mAPreferencesWindow), m_ma(ma)
+    : QDialog(parent), ui(new Ui::mAPreferencesWindow), m_ma(ma), m_initializingComboBoxes(false)
 {
     // set up the GUI aspect of the preferences windows
     ui->setupUi( this );
@@ -165,6 +168,7 @@ void mAPreferencesWindow::configureDefaults()
     ZSettings::setDefault(mAPreferencesBufferSize, BUFFER_SIZE_DEFAULT);
     // 1.5.0.1 (ge) added -- default RtAudio::Api enum
     ZSettings::setDefault(mAPreferencesAudioDriver, (int)ChuckAudio::driverNameToApi(NULL));
+    ZSettings::setDefault(mAPreferencesWindowingStyle, MA_WINDOWING_STYLE_DEFAULT );
 
     ZSettings::setDefault(mAPreferencesFontName, "Courier");
     ZSettings::setDefault(mAPreferencesFontSize, 10);
@@ -206,6 +210,7 @@ void mAPreferencesWindow::configureDefaults()
 void mAPreferencesWindow::loadSettingsToGUI()
 {
     ZSettings settings;
+
     // enable audio
     ui->enableAudio->setChecked(settings.get(mAPreferencesEnableAudio).toBool());
     // accept network VM commands
@@ -219,6 +224,9 @@ void mAPreferencesWindow::loadSettingsToGUI()
     int driver = settings.get(mAPreferencesAudioDriver).toInt();
     // index of selected driver in the combobox
     int selectedDriverIndex = -1;
+
+    // set state
+    m_initializingComboBoxes = true;
     // populate the "Audio drivers" ComboBox
     for( unsigned int i = 0; i < ChuckAudio::numDrivers(); i++ )
     {
@@ -228,6 +236,8 @@ void mAPreferencesWindow::loadSettingsToGUI()
         // check if match with driver read in from settings
         if( driver == info.driver ) selectedDriverIndex = i;
     }
+    // set state
+    m_initializingComboBoxes = false;
 
     // if the drivers from settings matched with an available driver
     if( selectedDriverIndex >= 0 )
@@ -274,6 +284,45 @@ void mAPreferencesWindow::loadSettingsToGUI()
     }
     
     ui->currentDirectory->setText(settings.get(mAPreferencesCurrentDirectory).toString());
+
+    // reset
+    ui->styleComboBox->clear();
+
+    // get style from settings
+    string windowingStyle = settings.get(mAPreferencesWindowingStyle).toString().toStdString();
+
+    // get and print available styles
+    QStringList styles = QStyleFactory::keys();
+    // set state
+    m_initializingComboBoxes = true;
+    // index for matching
+    int selectedStyleIndex = -1;
+    // counter
+    int which = 0;
+    // iterate over style names
+    for(QStringList::Iterator s = styles.begin(); s != styles.end(); s++ )
+    {
+        // add name of style
+        ui->styleComboBox->addItem( qUtf8Printable(*s), QString(qUtf8Printable(*s)) );
+        // compare
+        if( windowingStyle == string(qUtf8Printable(*s)) ) selectedStyleIndex = which;
+        // increment
+        which++;
+    }
+    // set state
+    m_initializingComboBoxes = false;
+
+    // check if match
+    if( selectedStyleIndex > 0 )
+    {
+        // set index
+        ui->styleComboBox->setCurrentIndex( selectedStyleIndex );
+    }
+    else
+    {
+        // set to default, just to have something
+        QApplication::setStyle( MA_WINDOWING_STYLE_DEFAULT );
+    }
 }
 
 
@@ -319,6 +368,9 @@ void mAPreferencesWindow::loadGUIToSettings()
     
     settings.set(mAPreferencesCurrentDirectory, ui->currentDirectory->text());
     QDir::setCurrent(settings.get(mAPreferencesCurrentDirectory).toString());
+
+    // 1.5.0.4 (ge) added
+    if( ui->styleComboBox->currentIndex() >= 0 ) settings.set( mAPreferencesWindowingStyle, ui->styleComboBox->itemData(ui->styleComboBox->currentIndex()));
 }
 
 void mAPreferencesWindow::ok()
@@ -394,6 +446,11 @@ void mAPreferencesWindow::probeAudioDevices( int driver, bool resetToDefault )
 // 1.5.0.1 (ge) added
 void mAPreferencesWindow::selectedAudioDriverChanged()
 {
+    // check state, as combobox initial addItem() implicitly triggers this callback (index going from -1 to 0)
+    if( m_initializingComboBoxes ) return;
+    // check if valid current index
+    if( ui->audioDriver->currentIndex() < 0 ) return;
+
     // get driver enum from item data
     int driver = ui->audioDriver->itemData(ui->audioDriver->currentIndex()).toInt();
     // re-probe, forcing resetToDefault to select default audio output/input devices
@@ -534,4 +591,17 @@ void mAPreferencesWindow::changeCurrentDirectory()
     }
 }
 
+// 1.5.0.4(ge) added
+void mAPreferencesWindow::selectedWindowStyleChanged()
+{
+    // check state, as combobox initial addItem() implicitly triggers this callback (index going from -1 to 0)
+    if( m_initializingComboBoxes ) return;
+    // check if valid current index
+    if( ui->styleComboBox->currentIndex() < 0 ) return;
+
+    // get style name from item data
+    string styleName = ui->styleComboBox->itemData(ui->styleComboBox->currentIndex()).toString().toStdString();
+    // set style byn name
+    QApplication::setStyle( styleName.c_str() );
+}
 

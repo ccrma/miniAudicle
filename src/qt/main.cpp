@@ -35,6 +35,7 @@ U.S.A.
 using namespace std;
 
 #include "mAMainWindow.h"
+#include "mAPreferencesWindow.h"
 #include "mASocketManager.h"
 
 
@@ -44,15 +45,9 @@ using namespace std;
 //-----------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
-    // style
-    string styleName = "Fusion";
     // set style, e.g., Windows, windowsvista, Fusion, macos
-    QApplication::setStyle( styleName.c_str() );
-
-    // get and print available styles
-    // QStringList styles = QStyleFactory::keys();
-    // for(QStringList::Iterator s = styles.begin(); s != styles.end(); s++ )
-    //     qDebug( "[miniAudicle]: QStyle available: %s", qUtf8Printable(*s) );
+    // (this can be changed by user in preferences)
+    QApplication::setStyle( MA_WINDOWING_STYLE_DEFAULT );
 
     // Qt application initialization
     QApplication app(argc, argv);

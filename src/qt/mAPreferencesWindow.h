@@ -81,21 +81,26 @@ public slots: // slots
     void removeChugin();
     
     void changeCurrentDirectory();
+    void selectedWindowStyleChanged();
     
 signals: // signals
     void preferencesChanged();
     
 private:
     Ui::mAPreferencesWindow *ui;
-    
+
     miniAudicle * m_ma;
-    
+
     std::vector<QString> m_indexToLabel;
     std::vector<QString> m_indexToPref;
     std::vector<QColor> m_indexToColor;
     
     QColorDialog * m_colorDialog;
-    
+
+    // state to prevent extra calls to callbacks when setting up combo boxes
+    bool m_initializingComboBoxes;
+
+private:
     void loadSettingsToGUI();
     void loadGUIToSettings();
 };
@@ -133,6 +138,7 @@ extern const QString mAPreferencesSyntaxColoringClasses;
 extern const QString mAPreferencesUseTabs;
 extern const QString mAPreferencesTabSize;
 extern const QString mAPreferencesShowLineNumbers;
+extern const QString mAPreferencesWindowingStyle;
 
 extern const QString mAPreferencesCurrentDirectory;
 
@@ -140,6 +146,7 @@ extern const QString mAPreferencesEnableChuGins;
 extern const QString mAPreferencesChuGinPaths;
 
 extern const QString mAPreferencesAudioOutput;
+extern const QString mAPreferencesAudioInput;
 extern const QString mAPreferencesAudioInput;
 extern const QString mAPreferencesOutputChannels;
 extern const QString mAPreferencesInputChannels;
@@ -151,5 +158,7 @@ extern const QString mAPreferencesVMStallTimeout;
 extern const QString mAPreferencesEnableNetwork;
 extern const QString mAPreferencesEnableAudio;
 
+// default windowing style name | 1.5.0.4 (ge) added
+#define MA_WINDOWING_STYLE_DEFAULT "Fusion"
 
 #endif // MAPREFERENCESWINDOW_H
