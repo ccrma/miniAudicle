@@ -313,10 +313,12 @@ void mAPreferencesWindow::loadSettingsToGUI()
     m_initializingComboBoxes = false;
 
     // check if match
-    if( selectedStyleIndex > 0 )
+    if( selectedStyleIndex >= 0 )
     {
         // set index
         ui->styleComboBox->setCurrentIndex( selectedStyleIndex );
+        // just to be sure (seemingly, setCurrentIndex() doesn't always trigger the callback, e.g., on macOS)
+        QApplication::setStyle( windowingStyle.c_str() );
     }
     else
     {
@@ -600,7 +602,7 @@ void mAPreferencesWindow::selectedWindowStyleChanged()
     if( ui->styleComboBox->currentIndex() < 0 ) return;
 
     // get style name from item data
-    string styleName = ui->styleComboBox->itemData(ui->styleComboBox->currentIndex()).toString().toStdString();
+    string styleName = ui->styleComboBox->currentData().toString().toStdString();
     // set style byn name
     QApplication::setStyle( styleName.c_str() );
 }
