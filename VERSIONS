@@ -2,8 +2,24 @@
 miniAudicle VERSIONS log
 ------------------------
 
+1.5.0.4
+---
+    - (updated) chuck-1.5.0.3 (chai)
+    - (added, Qt, Windows/Linux/mac-qt) in Preferences->Editing tab, 
+      there is now a drop-box selection for "Windowing Style" allowing 
+      users to select the windowing look-and-feel; the available styles 
+      are loaded at runtime from the underlying Qt system and may differ 
+      by operating system. For example, some systems have accessible 
+      high-contrast windowing styles. FYI: the default windowing style
+      for Windows, Linux, and mac-qt is "Fusion".
+
+1.5.0.3
+---
+    - (updated) chuck-1.5.0.3 (chai)
+
 1.5.0.2
 ---
+    - (updated) chuck-1.5.0.2 (chai)
     - (added) menu "Help" now has items that will open websites in
       the default browser:
       "ChucK Class Library Reference..."
@@ -24,6 +40,7 @@ miniAudicle VERSIONS log
 
 1.5.0.1
 ---
+    - (updated) chuck-1.5.0.1 (chai)
     - (updated) on Windows and Linux: miniAudicle now has a "Audio 
       driver drop-down selection in the Preferences dialog window; this 
       selection allows for run-time selection of different drivers, 
