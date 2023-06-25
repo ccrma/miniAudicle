@@ -108,7 +108,7 @@ public:
     
     t_CKINT abort_current_shred();
     
-    struct _doc_otf_result { t_OTF_RESULT result; t_CKUINT shred_id; std::string output; int line; };
+    struct _doc_otf_result { t_OTF_RESULT result; t_CKUINT shred_id; std::string output; t_CKINT line; };
     
     t_CKBOOL process_reply();
     t_CKBOOL get_last_result( t_CKUINT docid, t_OTF_RESULT * result,

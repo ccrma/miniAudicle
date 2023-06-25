@@ -174,7 +174,7 @@ miniAudicle::miniAudicle()
     // VM options (default)
     vm_options.enable_audio = TRUE;
     vm_options.enable_network = FALSE;
-    vm_options.driver = "";
+    vm_options.driver = ChuckAudio::defaultDriverName();
     vm_options.dac = 0;
     vm_options.adc = 0;
     vm_options.srate = 0;
@@ -186,7 +186,7 @@ miniAudicle::miniAudicle()
     vm_options.force_srate = FALSE;
     
     // probe audio
-    probe( NULL );
+    probe( vm_options.driver.c_str() );
 }
 
 
@@ -1237,7 +1237,7 @@ t_CKBOOL miniAudicle::highlight_line( string & line,
                                       miniAudicle_SyntaxHighlighting * sh )
 {
     vector< string > tokens;
-    int i, len = line.size();
+    t_CKINT i, len = line.size();
     
     sh->length = len;
     sh->r = 0x00;
@@ -1485,7 +1485,7 @@ t_CKBOOL miniAudicle::get_enable_network_thread()
 //-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::set_driver( const char * driver )
 {
-    vm_options.driver = driver;
+    vm_options.driver = driver ? driver : "";
     return TRUE;
 }
 
