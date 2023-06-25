@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -675,7 +675,7 @@ CA
                     </menu>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="139" y="154"/>
+            <point key="canvasLocation" x="142" y="174"/>
         </menu>
         <menu title="View" id="1173">
             <items>
@@ -939,26 +939,26 @@ CA
         <window title="Console Monitor" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="404" userLabel="Console Monitor">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="528" y="100" width="447" height="320"/>
+            <rect key="contentRect" x="995" y="113" width="512" height="360"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="405">
-                <rect key="frame" x="0.0" y="0.0" width="447" height="320"/>
+                <rect key="frame" x="0.0" y="0.0" width="512" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1007">
-                        <rect key="frame" x="0.0" y="0.0" width="447" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="512" height="360"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" drawsBackground="NO" id="BdI-v0-Am4">
-                            <rect key="frame" x="0.0" y="0.0" width="432" height="320"/>
+                            <rect key="frame" x="0.0" y="0.0" width="497" height="360"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="1008">
-                                    <rect key="frame" x="0.0" y="0.0" width="417" height="320"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="482" height="360"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <size key="minSize" width="432" height="320"/>
+                                    <size key="minSize" width="497" height="360"/>
                                     <size key="maxSize" width="879" height="10000000"/>
                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <connections>
@@ -973,7 +973,7 @@ CA
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="1366">
-                            <rect key="frame" x="432" y="0.0" width="15" height="320"/>
+                            <rect key="frame" x="497" y="0.0" width="15" height="360"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <connections>
@@ -1021,7 +1021,7 @@ CA
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="435" height="350"/>
+                                    <size key="minSize" width="420" height="350"/>
                                     <size key="maxSize" width="885" height="10000000"/>
                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 </textView>
@@ -1094,7 +1094,7 @@ http://chuck.cs.princeton.edu/</string>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="532">
                 <rect key="frame" x="0.0" y="0.0" width="450" height="426"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <tabView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="597">
                         <rect key="frame" x="13" y="44" width="424" height="375"/>
@@ -1487,7 +1487,7 @@ Changes will not take effect until miniAudicle is restarted.
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1386">
-                                            <rect key="frame" x="18" y="293" width="121" height="18"/>
+                                            <rect key="frame" x="18" y="293" width="122" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enable ChuGins" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="1387">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1499,7 +1499,7 @@ Changes will not take effect until miniAudicle is restarted.
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <clipView key="contentView" id="5U8-i5-o23">
                                                 <rect key="frame" x="1" y="1" width="368" height="239"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" autosaveColumns="NO" headerView="1401" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="1412" id="1400">
                                                         <rect key="frame" x="0.0" y="0.0" width="368" height="222"/>
@@ -1572,6 +1572,17 @@ Changes will not take effect until miniAudicle is restarted.
                                             <connections>
                                                 <action selector="deleteChuginPath:" target="626" id="1418"/>
                                             </connections>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AcR-tY-KGh">
+                                            <rect key="frame" x="271" y="10" width="125" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="Probe ChuGins" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="als-4z-pHN">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                                <connections>
+                                                    <action selector="probeChugins:" target="626" id="qWV-9V-Y1k"/>
+                                                </connections>
+                                            </buttonCell>
                                         </button>
                                     </subviews>
                                 </view>
@@ -1935,6 +1946,7 @@ DQ
                 <outlet property="output_channels" destination="786" id="815"/>
                 <outlet property="preferences_tab_view" destination="597" id="1289"/>
                 <outlet property="preferences_window" destination="531" id="646"/>
+                <outlet property="probe_chugins" destination="AcR-tY-KGh" id="HxA-ex-K3u"/>
                 <outlet property="sample_rate" destination="790" id="816"/>
                 <outlet property="soundfiles_directory" destination="688" id="691"/>
                 <outlet property="syntax_color" destination="699" id="702"/>
@@ -2143,7 +2155,7 @@ DQ
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="gJ8-GE-1nV">
                             <rect key="frame" x="1" y="1" width="582" height="427"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" headerView="1382" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="1118" id="1117">
                                     <rect key="frame" x="0.0" y="0.0" width="582" height="410"/>
@@ -2274,9 +2286,9 @@ DQ
         </numberFormatter>
     </objects>
     <resources>
-        <image name="NSAddTemplate" width="18" height="17"/>
+        <image name="NSAddTemplate" width="14" height="13"/>
         <image name="NSApplicationIcon" width="32" height="32"/>
-        <image name="NSRemoveTemplate" width="18" height="5"/>
+        <image name="NSRemoveTemplate" width="14" height="4"/>
         <image name="chugin" width="512" height="512"/>
     </resources>
 </document>

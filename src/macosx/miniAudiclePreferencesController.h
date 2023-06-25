@@ -124,6 +124,7 @@ extern NSString * mAPreferencesChangedNotification;
     NSText * keybindings_field_editor;
     NSArray * keybindings;
     
+    IBOutlet NSButton * probe_chugins;
     IBOutlet NSButton * enable_chugins;
     NSMutableArray * chugin_paths;
 }
@@ -148,6 +149,7 @@ extern NSString * mAPreferencesChangedNotification;
 
 - (IBAction)addChuginPath:(id)sender;
 - (IBAction)deleteChuginPath:(id)sender;
+- (IBAction)probeChugins:(id)sender;
 
 @end
 

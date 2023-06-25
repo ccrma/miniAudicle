@@ -125,6 +125,9 @@ extern NSString * const mAVirtualMachineDidTurnOffNotification;
 - (NSPoint)lastWindowTopLeftCorner;
 - (void)setLastWindowTopLeftCorner:(NSPoint)p;
 
+// windowing helpers
+- (void)activateConsoleMonitor:(id)sender;
+
 // UI callbacks
 - (IBAction)openDocumentInTab:(id)sender;
 - (IBAction)newWindow:(id)sender;

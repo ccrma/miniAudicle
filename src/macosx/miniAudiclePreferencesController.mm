@@ -36,9 +36,10 @@ U.S.A.
 #import "mASyntaxHighlighter.h"
 #import "miniAudicle_version.h"
 
+#import "chuck.h"
+#import "chuck_audio.h"
 #import "chuck_dl.h"
 #import "util_string.h"
-#import "chuck_audio.h"
 
 using namespace std;
 
@@ -971,6 +972,73 @@ miniAudicle_Version currentVersion()
                          row:[chugin_paths count]-1
                    withEvent:nil
                       select:YES];
+}
+
+
+//-----------------------------------------------------------------------------
+// name: probeChugins | called when [Probe ChuGins] button is pressed
+// desc: probe chugins in the current chugin paths in the chugins tab
+//       the output is printed to console monitor, which this method activates
+//-----------------------------------------------------------------------------
+- (IBAction)probeChugins:(id)sender
+{
+    // show the console monitor, so user can see the output
+    [mac activateConsoleMonitor:self];
+
+    // miniAudicle instance
+    miniAudicle * ma = [mac miniAudicle];
+    // remember log level
+    t_CKINT logLevel = ma->get_log_level();
+
+    // create a ChucK instance for probing
+    ChucK * localChuck = new ChucK();
+    // inherit system log level from miniAudicle
+    localChuck->setLogLevel( logLevel );
+    // ensure log level is at least SYSTEM to see the output
+    if( localChuck->getLogLevel() < CK_LOG_SYSTEM ) localChuck->setLogLevel( CK_LOG_SYSTEM );
+
+    // get state: enable chugins?
+    bool chugin_load = ([enable_chugins state] == NSOnState);
+    // chugins search paths
+    std::list<std::string> named_dls;
+    std::list<std::string> dl_search_path;
+    // iterate over what's in the list
+    for(int i = 0; i < [chugin_paths count]; i++)
+    {
+        // get entry
+        NSDictionary * path = [chugin_paths objectAtIndex:i];
+        // named chugin
+        if([[path objectForKey:@"type"] isEqualToString:@"chugin"])
+            named_dls.push_back([[path objectForKey:@"location"] UTF8String]);
+        // chugin search path
+        else if([[path objectForKey:@"type"] isEqualToString:@"folder"])
+            dl_search_path.push_back([[path objectForKey:@"location"] UTF8String]);
+    }
+
+    // set c parameters
+    localChuck->setParam( CHUCK_PARAM_CHUGIN_ENABLE, chugin_load );
+    localChuck->setParam( CHUCK_PARAM_USER_CHUGINS, named_dls );
+    localChuck->setParam( CHUCK_PARAM_USER_CHUGIN_DIRECTORIES, dl_search_path );
+
+    // print
+    EM_log( CK_LOG_SYSTEM, "-------( %s )-------", timestamp_formatted().c_str() );
+    EM_log( CK_LOG_SYSTEM, "chugins probe diagnostic starting..." );
+
+    // probe chugins (.chug and .ck modules)
+    // print/log what ChucK would load with current settings
+    localChuck->probeChugins();
+
+    // print
+    EM_log( CK_LOG_SYSTEM, "-------( %s )-------", timestamp_formatted().c_str() );
+    EM_log( CK_LOG_SYSTEM, "chugins probe diagnostic finished!" );
+
+    // suppress logging
+    localChuck->setLogLevel( CK_LOG_NONE );
+    // clean up local instance
+    SAFE_DELETE( localChuck );
+
+    // restore to previous log level (log levels are global)
+    ma->set_log_level( logLevel );
 }
 
 
