@@ -863,9 +863,6 @@ void miniAudicle::set_log_level( t_CKINT n )
 //-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::start_vm()
 {
-    char buffer[1024];
-    time_t t;
-    
     // allocate status buffers
     // allocate alternating buffers for VM status messages
     num_status_bufs = 4;
@@ -891,16 +888,13 @@ t_CKBOOL miniAudicle::start_vm()
     // clear the class name existence map
     class_names->clear();
     
-    time(&t);
-    strncpy( buffer, ctime(&t), 24 );
-    buffer[24] = '\0';
-
     // dac and adc devices names | chuck-1.5.0.0 (ge) added
-    string   dac_device_name = "";
-    string   adc_device_name = "";
+    string dac_device_name = "";
+    string adc_device_name = "";
 
+    // time stamp
+    EM_log( CK_LOG_SYSTEM, "-------( %s )-------", timestamp_formatted().c_str() );
     // log
-    EM_log( CK_LOG_SYSTEM, "-------( %s )-------", buffer );
     EM_log( CK_LOG_SYSTEM, "starting chuck virtual machine..." );
     // push log
     EM_pushlog();
@@ -1022,7 +1016,7 @@ t_CKBOOL miniAudicle::start_vm()
             (*i)( compiler->env() );
 
         // log
-        EM_log( CK_LOG_SYSTEM, "audio subsystem enabled..." );
+        EM_log( CK_LOG_SYSTEM, "initializing audio I/O..." );
         // push
         EM_pushlog();
 
