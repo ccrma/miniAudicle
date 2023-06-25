@@ -148,9 +148,24 @@ static NSString * const remove_column_id = @"4";
         [shred_table setNeedsDisplayInRect:[shred_table rectOfColumn:[shred_table columnWithIdentifier:time_column_id]]];
     }
     
-    time_t current_time = ( time_t ) ( most_recent_status->now_system / most_recent_status->srate );
-    [running_time_text setStringValue:[NSString stringWithFormat:@"%lu:%.2lu.%.5lu", 
-        current_time / 60, current_time % 60, ( t_CKUINT ) fmod( most_recent_status->now_system, most_recent_status->srate ) ]];
+    // chuck time display
+    time_t current_time = (time_t)(most_recent_status->now_system / most_recent_status->srate);
+    // sample counter, modulo sample rate
+    t_CKUINT samps = (t_CKUINT)fmod(most_recent_status->now_system, most_recent_status->srate);
+
+    // under one hour
+    if( current_time < 3600 )
+    {
+        // minutes.seconds.samples
+        [running_time_text setStringValue:[NSString stringWithFormat:@"%lu:%.2lu.%.5lu",
+                                           current_time/60, current_time%60, samps ]];
+    }
+    else // one hour and beyond
+    {
+        // hours.minutes.seconds.samples
+        [running_time_text setStringValue:[NSString stringWithFormat:@"%lu:%.2lu:%.2lu.%.5lu",
+                                           current_time/3600, (current_time % 3600)/60, current_time%60, samps ]];
+    }
 }
 
 - (void)toggleVM:(id)sender
