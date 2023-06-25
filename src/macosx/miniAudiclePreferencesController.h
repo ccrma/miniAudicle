@@ -40,6 +40,7 @@ extern NSString * mAPreferencesEnableAudio;
 extern NSString * mAPreferencesEnableCallback;
 extern NSString * mAPreferencesEnableBlocking;
 extern NSString * mAPreferencesEnableStdSystem;
+extern NSString * mAPreferencesAudioDriver;
 extern NSString * mAPreferencesAudioOutput;
 extern NSString * mAPreferencesAudioInput;
 extern NSString * mAPreferencesInputChannels; /* -1 indicates highest possible */
@@ -96,6 +97,7 @@ extern NSString * mAPreferencesChangedNotification;
     
     id enable_audio;
     id accept_network_commands;
+    id audio_driver;
     id audio_output;
     id audio_input;
     id output_channels;
@@ -128,6 +130,7 @@ extern NSString * mAPreferencesChangedNotification;
 
 - (void)awakeFromNib;
 - (void)initDefaults;
+- (void)rebuildAudioDriverGUI;
 - (void)cancel:(id)sender;
 - (void)confirm:(id)sender;
 - (void)restoreDefaults:(id)sender;
@@ -139,6 +142,7 @@ extern NSString * mAPreferencesChangedNotification;
 - (void)syntaxColorChanged:(id)sender;
 - (void)enableSyntaxHighlightingChanged:(id)sender;
 - (void)probeAudioInterfaces:(id)sender;
+- (void)selectedAudioDriverChanged:(id)sender;
 - (void)selectedAudioOutputChanged:(id)sender;
 - (void)selectedAudioInputChanged:(id)sender;
 

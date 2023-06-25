@@ -62,6 +62,7 @@ NSString * mAPreferencesAcceptsNetworkCommands = @"AcceptsNetworkCommands";
 NSString * mAPreferencesEnableCallback = @"EnableCallback";
 NSString * mAPreferencesEnableBlocking = @"EnableBlocking";
 NSString * mAPreferencesEnableStdSystem = @"EnableStdSystem";
+NSString * mAPreferencesAudioDriver = @"AudioDriver";
 NSString * mAPreferencesAudioOutput = @"AudioOutput";
 NSString * mAPreferencesAudioInput = @"AudioInput";
 NSString * mAPreferencesInputChannels = @"NumberOfInputChannels";
@@ -164,7 +165,8 @@ miniAudicle_Version currentVersion()
         [defaults setObject:[NSNumber numberWithInt:NSOnState] forKey:mAPreferencesEnableAudio];
         [defaults setObject:[NSNumber numberWithInt:-1] forKey:mAPreferencesAudioInput];
         [defaults setObject:[NSNumber numberWithInt:-1] forKey:mAPreferencesAudioOutput];
-        
+        [defaults setObject:[NSNumber numberWithInt:ChuckAudio::defaultDriverApi()] forKey:mAPreferencesAudioDriver];
+
         // -1 means the maximum number of channels available
         [defaults setObject:[NSNumber numberWithInt:NUM_CHANNELS_DEFAULT] forKey:mAPreferencesInputChannels];
         [defaults setObject:[NSNumber numberWithInt:NUM_CHANNELS_DEFAULT] forKey:mAPreferencesOutputChannels];
@@ -327,6 +329,9 @@ miniAudicle_Version currentVersion()
 {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     
+    // rebuild the audio driver GUI each time
+    [self rebuildAudioDriverGUI];
+
     NSUnarchiver * uar = [[[NSUnarchiver alloc] initForReadingWithData:[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesDefaultFont]] autorelease];
     [default_font_font release];
     default_font_font = [[NSFont alloc] initWithCoder:uar];
@@ -348,7 +353,7 @@ miniAudicle_Version currentVersion()
     [tab_width setIntValue:[[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesTabWidth] intValue]];
     [enable_smart_indentation setState:[[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesEnableSmartIndentation] boolValue]];
     [tab_key_smart_indents setState:[[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesTabKeySmartIndents] boolValue]];
-    
+
     [t_sh_prefs setDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:IDEKit_TextColorsPrefKey]];
     [self syntaxTokenTypeChanged:[syntax_token_type selectedItem]];
     [enable_syntax_highlighting setState:[[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesEnableSyntaxHighlighting] boolValue]];
@@ -375,7 +380,14 @@ miniAudicle_Version currentVersion()
                                                    forKey:mAPreferencesEnableAudio];
         [mac miniAudicle]->set_enable_audio( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesEnableAudio] intValue] == NSOnState );
     }
-    
+
+    // audio driver | 1.5.0.4 (ge) added
+    t_CKINT driverNum = [[audio_driver selectedItem] tag];
+    [[NSUserDefaults standardUserDefaults] setInteger:(int)driverNum
+                                               forKey:mAPreferencesAudioDriver];
+    // set the driver by name
+    [mac miniAudicle]->set_driver( ChuckAudio::driverApiToName(driverNum) );
+
     // dac
     [[NSUserDefaults standardUserDefaults] setInteger:[[audio_output selectedItem] tag]
                                                forKey:mAPreferencesAudioOutput];
@@ -575,6 +587,7 @@ miniAudicle_Version currentVersion()
     
     miniAudicle * ma = [mac miniAudicle];
     ma->set_log_level( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesLogLevel] intValue] );
+    ma->set_driver( ChuckAudio::driverApiToName([[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAudioDriver] intValue]) );
     ma->set_dac( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAudioOutput] intValue] + 1 );
     ma->set_adc( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAudioInput] intValue] + 1 );
     ma->set_num_inputs( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesInputChannels] intValue] );
@@ -656,6 +669,37 @@ miniAudicle_Version currentVersion()
     [self loadGUIFromDefaults];
     [self loadMiniAudicleFromGUI];
     sc_options_changed = YES;
+}
+
+- (void)rebuildAudioDriverGUI
+{
+    // clear audio driver drop down
+    [audio_driver removeAllItems];
+
+//    // for testing (selecting and probing this should yield no output/input audio devices)
+//    [audio_driver addItemWithTitle:@"(Dummy)"];
+//    // set the corresponding driver enum for dummy
+//    [[audio_driver lastItem] setTag:(int)9];
+
+    // get the store default
+    int driver = [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAudioDriver] intValue];
+    // populate the "Audio driver" ComboBox
+    for( unsigned int i = 0; i < ChuckAudio::numDrivers(); i++ )
+    {
+        // get the driver info
+        ChuckAudioDriverInfo info = ChuckAudio::getDriverInfo(i);
+        // add the item...
+        [audio_driver addItemWithTitle:[NSString stringWithUTF8String:info.userFriendlyName.c_str()]];
+        // with the Api enum as tag
+        [[audio_driver lastItem] setTag:(int)info.driver];
+
+        // check if match with driver read in from settings
+        if( driver == info.driver )
+        {
+            // select
+            [audio_driver selectItem:[audio_driver lastItem]];
+        }
+    }
 }
 
 - (void)run:(id)sender
@@ -745,7 +789,9 @@ miniAudicle_Version currentVersion()
 
 - (void)probeAudioInterfaces:(id)sender
 {
-    [mac miniAudicle]->probe( NULL );
+    // get driver
+    t_CKINT driverNum = [[audio_driver selectedItem] tag];
+    [mac miniAudicle]->probe( ChuckAudio::driverApiToName( driverNum ) );
     
     const vector< RtAudio::DeviceInfo > & interfaces = [mac miniAudicle]->get_interfaces();
     vector< RtAudio::DeviceInfo >::size_type i, len = interfaces.size();
@@ -755,7 +801,7 @@ miniAudicle_Version currentVersion()
 
     int dac = [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAudioOutput] intValue];
     int adc = [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAudioInput] intValue];
-    
+
     // setup default input / output items
     [audio_output addItemWithTitle:@"Default"];
     [[audio_output lastItem] setTag:-1];
@@ -866,6 +912,11 @@ miniAudicle_Version currentVersion()
         else
             [output_channels selectItemAtIndex:( default_output_channels - 1 )];
     }
+}
+
+- (void)selectedAudioDriverChanged:(id)sender
+{
+    [self probeAudioInterfaces:nil];
 }
 
 - (void)selectedAudioInputChanged:(id)sender

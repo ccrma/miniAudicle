@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="1080" identifier="macosx"/>
+        <deployment version="1090" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -755,7 +755,7 @@ CA
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="Pzf-RP-xP2">
                             <rect key="frame" x="1" y="1" width="253" height="236"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" autosaveColumns="NO" rowHeight="15" headerView="1365" id="285">
                                     <rect key="frame" x="0.0" y="0.0" width="253" height="219"/>
@@ -841,7 +841,7 @@ CA
                         </tableHeaderView>
                     </scrollView>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="291">
-                        <rect key="frame" x="17" y="338" width="188" height="14"/>
+                        <rect key="frame" x="18" y="338" width="188" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="small" selectable="YES" sendsActionOnEndEditing="YES" title="running time:" id="1294">
                             <font key="font" metaFont="message" size="11"/>
@@ -849,19 +849,8 @@ CA
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="293">
-                        <rect key="frame" x="17" y="316" width="46" height="14"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" controlSize="small" selectable="YES" sendsActionOnEndEditing="YES" id="1295">
-                            <font key="font" metaFont="message" size="11"/>
-                            <string key="title">shreds:
-</string>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="881">
-                        <rect key="frame" x="98" y="338" width="107" height="14"/>
+                        <rect key="frame" x="92" y="338" width="113" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="1296">
                             <font key="font" metaFont="message" size="11"/>
@@ -870,7 +859,7 @@ CA
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="884">
-                        <rect key="frame" x="65" y="316" width="140" height="14"/>
+                        <rect key="frame" x="62" y="316" width="140" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="small" selectable="YES" sendsActionOnEndEditing="YES" id="1297">
                             <font key="font" metaFont="message" size="11"/>
@@ -879,7 +868,7 @@ CA
                         </textFieldCell>
                     </textField>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1277">
-                        <rect key="frame" x="210" y="333" width="76" height="19"/>
+                        <rect key="frame" x="210" y="336" width="76" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="Remove Last" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" inset="2" id="1298">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -890,7 +879,7 @@ CA
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1278">
-                        <rect key="frame" x="210" y="304" width="76" height="19"/>
+                        <rect key="frame" x="210" y="306" width="76" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="Clear VM" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" inset="2" id="1299">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -900,6 +889,17 @@ CA
                             <action selector="clearVM:" target="331" id="mQG-hC-7ig"/>
                         </connections>
                     </button>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="293">
+                        <rect key="frame" x="18" y="316" width="46" height="14"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" controlSize="small" selectable="YES" sendsActionOnEndEditing="YES" id="1295">
+                            <font key="font" metaFont="message" size="11"/>
+                            <string key="title">shreds:
+</string>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <connections>
@@ -951,7 +951,7 @@ CA
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" drawsBackground="NO" id="BdI-v0-Am4">
                             <rect key="frame" x="0.0" y="0.0" width="432" height="320"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="1008">
                                     <rect key="frame" x="0.0" y="0.0" width="417" height="320"/>
@@ -1014,7 +1014,7 @@ CA
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" drawsBackground="NO" id="gbL-lz-swd">
                             <rect key="frame" x="0.0" y="0.0" width="435" height="350"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="435" customClass="miniAudicleShellTextView">
                                     <rect key="frame" x="0.0" y="0.0" width="420" height="350"/>
@@ -1106,17 +1106,6 @@ http://chuck.cs.princeton.edu/</string>
                                     <rect key="frame" x="10" y="33" width="404" height="329"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="602">
-                                            <rect key="frame" x="214" y="195" width="101" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="1316">
-                                                <font key="font" metaFont="system"/>
-                                                <string key="title">Input channels:
-</string>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="604">
                                             <rect key="frame" x="18" y="292" width="103" height="19"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
@@ -1125,17 +1114,6 @@ http://chuck.cs.princeton.edu/</string>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                         </button>
-                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="605">
-                                            <rect key="frame" x="17" y="195" width="113" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="1318">
-                                                <font key="font" metaFont="system"/>
-                                                <string key="title">Output channels:
-</string>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="608">
                                             <rect key="frame" x="169" y="292" width="217" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
@@ -1153,147 +1131,6 @@ http://chuck.cs.princeton.edu/</string>
   
 Changes will not take effect until miniAudicle is restarted.
 </string>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="756">
-                                            <rect key="frame" x="17" y="225" width="95" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Audio input:" id="1321">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="757">
-                                            <rect key="frame" x="114" y="220" width="273" height="26"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="Built-in Audio" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="760" id="1322">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" title="OtherViews" id="758">
-                                                    <items>
-                                                        <menuItem title="Built-in Audio" state="on" id="760"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="selectedAudioInputChanged:" target="626" id="818"/>
-                                            </connections>
-                                        </popUpButton>
-                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="762">
-                                            <rect key="frame" x="17" y="255" width="95" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Audio output:" id="1323">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="763">
-                                            <rect key="frame" x="114" y="250" width="273" height="26"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="Built-in Audio" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="765" id="1324">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" title="OtherViews" id="764">
-                                                    <items>
-                                                        <menuItem title="Built-in Audio" state="on" id="765"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="selectedAudioOutputChanged:" target="626" id="819"/>
-                                            </connections>
-                                        </popUpButton>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="781">
-                                            <rect key="frame" x="317" y="190" width="70" height="26"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="2" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="785" id="1325">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" title="OtherViews" id="782">
-                                                    <items>
-                                                        <menuItem title="1" id="784"/>
-                                                        <menuItem title="2" state="on" id="785"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                        </popUpButton>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="786">
-                                            <rect key="frame" x="132" y="190" width="70" height="26"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="2" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="789" id="1326">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" title="OtherViews" id="787">
-                                                    <items>
-                                                        <menuItem title="1" id="788"/>
-                                                        <menuItem title="2" state="on" id="789"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                        </popUpButton>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="790">
-                                            <rect key="frame" x="106" y="160" width="103" height="26"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="44100" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="793" id="1327">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" title="OtherViews" id="791">
-                                                    <items>
-                                                        <menuItem title="32000" id="794"/>
-                                                        <menuItem title="44100" state="on" id="793"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                        </popUpButton>
-                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="795">
-                                            <rect key="frame" x="17" y="165" width="87" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Sample rate:" id="1328">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="805">
-                                            <rect key="frame" x="111" y="105" width="183" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="push" title="Probe Audio Interfaces" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="1329">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="probeAudioInterfaces:" target="626" id="809"/>
-                                            </connections>
-                                        </button>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="890">
-                                            <rect key="frame" x="296" y="160" width="91" height="26"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="256" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="256" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="898" id="1330">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" title="OtherViews" id="891">
-                                                    <items>
-                                                        <menuItem title="16" tag="16" id="895"/>
-                                                        <menuItem title="32" tag="32" id="899"/>
-                                                        <menuItem title="64" tag="64" id="896"/>
-                                                        <menuItem title="128" tag="128" id="897"/>
-                                                        <menuItem title="256" state="on" tag="256" id="898"/>
-                                                        <menuItem title="512" tag="512" id="893"/>
-                                                        <menuItem title="1024" tag="1024" id="892"/>
-                                                        <menuItem title="2048" tag="2048" id="900"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                        </popUpButton>
-                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="894">
-                                            <rect key="frame" x="219" y="165" width="75" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Buffer size:" id="1331">
-                                                <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1334,13 +1171,201 @@ Changes will not take effect until miniAudicle is restarted.
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="602">
+                                            <rect key="frame" x="215" y="167" width="101" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="1316">
+                                                <font key="font" metaFont="system"/>
+                                                <string key="title">Input channels:
+</string>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="605">
+                                            <rect key="frame" x="18" y="167" width="113" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="1318">
+                                                <font key="font" metaFont="system"/>
+                                                <string key="title">Output channels:
+</string>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="756">
+                                            <rect key="frame" x="18" y="197" width="95" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Audio input:" id="1321">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="757">
+                                            <rect key="frame" x="115" y="192" width="273" height="26"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="Built-in Audio" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="760" id="1322">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="758">
+                                                    <items>
+                                                        <menuItem title="Built-in Audio" state="on" id="760"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="selectedAudioInputChanged:" target="626" id="818"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="762">
+                                            <rect key="frame" x="18" y="227" width="95" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Audio output:" id="1323">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bud-0D-WU1">
+                                            <rect key="frame" x="18" y="257" width="95" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Audio driver:" id="GLb-Ma-INy">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="763">
+                                            <rect key="frame" x="115" y="222" width="273" height="26"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="Built-in Audio" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="765" id="1324">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="764">
+                                                    <items>
+                                                        <menuItem title="Built-in Audio" state="on" id="765"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="selectedAudioOutputChanged:" target="626" id="819"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MNX-iU-yb2">
+                                            <rect key="frame" x="115" y="252" width="141" height="26"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="CoreAudio" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="ECb-ne-xBP" id="MhB-G9-2rW">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="4jG-dE-xZW">
+                                                    <items>
+                                                        <menuItem title="CoreAudio" state="on" id="ECb-ne-xBP"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="selectedAudioDriverChanged:" target="626" id="311-GG-CSM"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="781">
+                                            <rect key="frame" x="318" y="162" width="70" height="26"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="2" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="785" id="1325">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="782">
+                                                    <items>
+                                                        <menuItem title="1" id="784"/>
+                                                        <menuItem title="2" state="on" id="785"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="786">
+                                            <rect key="frame" x="133" y="162" width="70" height="26"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="2" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="789" id="1326">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="787">
+                                                    <items>
+                                                        <menuItem title="1" id="788"/>
+                                                        <menuItem title="2" state="on" id="789"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="790">
+                                            <rect key="frame" x="107" y="132" width="103" height="26"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="44100" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="793" id="1327">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="791">
+                                                    <items>
+                                                        <menuItem title="32000" id="794"/>
+                                                        <menuItem title="44100" state="on" id="793"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="795">
+                                            <rect key="frame" x="18" y="137" width="87" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Sample rate:" id="1328">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="890">
+                                            <rect key="frame" x="297" y="132" width="91" height="26"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="256" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="256" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="898" id="1330">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="891">
+                                                    <items>
+                                                        <menuItem title="16" tag="16" id="895"/>
+                                                        <menuItem title="32" tag="32" id="899"/>
+                                                        <menuItem title="64" tag="64" id="896"/>
+                                                        <menuItem title="128" tag="128" id="897"/>
+                                                        <menuItem title="256" state="on" tag="256" id="898"/>
+                                                        <menuItem title="512" tag="512" id="893"/>
+                                                        <menuItem title="1024" tag="1024" id="892"/>
+                                                        <menuItem title="2048" tag="2048" id="900"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="894">
+                                            <rect key="frame" x="220" y="137" width="75" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Buffer size:" id="1331">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="805">
+                                            <rect key="frame" x="111" y="84" width="183" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="Probe Audio Interfaces" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="1329">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="probeAudioInterfaces:" target="626" id="809"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Editing" identifier="2" id="598">
                                 <view key="view" id="599">
                                     <rect key="frame" x="10" y="33" width="404" height="329"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="615">
                                             <rect key="frame" x="17" y="293" width="84" height="15"/>
@@ -1459,7 +1484,7 @@ Changes will not take effect until miniAudicle is restarted.
                             <tabViewItem label="ChuGins" identifier="" id="1384">
                                 <view key="view" id="1385">
                                     <rect key="frame" x="10" y="33" width="404" height="329"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1386">
                                             <rect key="frame" x="18" y="293" width="121" height="18"/>
@@ -1472,11 +1497,11 @@ Changes will not take effect until miniAudicle is restarted.
                                         <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1397">
                                             <rect key="frame" x="17" y="46" width="370" height="241"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <clipView key="contentView" ambiguous="YES" id="5U8-i5-o23">
+                                            <clipView key="contentView" id="5U8-i5-o23">
                                                 <rect key="frame" x="1" y="1" width="368" height="239"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <outlineView verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" autosaveColumns="NO" headerView="1401" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="1412" id="1400">
+                                                    <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" autosaveColumns="NO" headerView="1401" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="1412" id="1400">
                                                         <rect key="frame" x="0.0" y="0.0" width="368" height="222"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <size key="intercellSpacing" width="3" height="2"/>
@@ -1554,7 +1579,7 @@ Changes will not take effect until miniAudicle is restarted.
                             <tabViewItem label="Miscellaneous" identifier="" id="613">
                                 <view key="view" id="614">
                                     <rect key="frame" x="10" y="33" width="404" height="329"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="618">
                                             <rect key="frame" x="244" y="60" width="142" height="18"/>
@@ -1871,6 +1896,7 @@ DQ
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="132" y="-74"/>
         </menu>
         <menu title="Menu" id="557" userLabel="Shred Table Menu">
             <items>
@@ -1885,11 +1911,13 @@ DQ
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="135" y="129"/>
         </menu>
         <customObject id="626" userLabel="miniAudiclePreferencesController" customClass="miniAudiclePreferencesController">
             <connections>
                 <outlet property="accept_network_commands" destination="608" id="629"/>
                 <outlet property="audio_changes_warning" destination="662" id="817"/>
+                <outlet property="audio_driver" destination="MNX-iU-yb2" id="J7K-dk-qnk"/>
                 <outlet property="audio_input" destination="757" id="813"/>
                 <outlet property="audio_output" destination="763" id="812"/>
                 <outlet property="auto_open_console_monitor" destination="780" id="811"/>
@@ -1924,6 +1952,7 @@ DQ
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="-715" y="-860"/>
         </menu>
         <window title="Add Multiple Shreds" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="901" userLabel="Add Shreds">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
@@ -2073,7 +2102,7 @@ DQ
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" autoresizesSubviews="NO" id="URm-cK-4sr">
                             <rect key="frame" x="0.0" y="0.0" width="432" height="320"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1006" customClass="mAConsoleMonitorView">
                                     <rect key="frame" x="0.0" y="0.0" width="1" height="1"/>
@@ -2114,7 +2143,7 @@ DQ
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="gJ8-GE-1nV">
                             <rect key="frame" x="1" y="1" width="582" height="427"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" headerView="1382" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="1118" id="1117">
                                     <rect key="frame" x="0.0" y="0.0" width="582" height="410"/>
@@ -2202,6 +2231,7 @@ DQ
             <connections>
                 <outlet property="delegate" destination="1129" id="1131"/>
             </connections>
+            <point key="canvasLocation" x="-515" y="251"/>
         </window>
         <customObject id="1129" userLabel="mABrowserController" customClass="mABrowserController">
             <connections>
@@ -2226,6 +2256,7 @@ DQ
                     </openGLView>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="-459" y="-343"/>
         </window>
         <numberFormatter formatterBehavior="10_0" positiveFormat="#,##0.0##" negativeFormat="-#,##0.0##" thousandSeparator="," id="1216" userLabel="FloatFormatter">
             <attributedString key="attributedStringForZero">
