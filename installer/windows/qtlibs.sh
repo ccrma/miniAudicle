@@ -14,7 +14,7 @@
 # vcvarsall.bat x64
 
 # edit PATHs as appropriate
-QT_DIR="/c/Qt/Qt6/6.4.1/msvc2019_64/bin"
+QT_DIR="/c/opt/Qt/6.5.0/msvc2019_64/bin"
 VCVARS_DIR="/c/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Auxiliary/Build"
 OUTPUT_DIR=dll
 
