@@ -33,13 +33,18 @@ U.S.A.
 #include <QtWidgets/QStyleFactory>
 
 #include <vector>
+#include <string>
+#include <list>
+
 #include "miniAudicle.h"
 #include "mAPreferencesWindow.h"
 #include "ui_mAPreferencesWindow.h"
 #include "ZSettings.h"
-#include "chuck_def.h"
+#include "chuck.h"
 #include "chuck_dl.h"
 #include "chuck_audio.h"
+#include "chuck_errmsg.h"
+#include "util_string.h"
 using namespace std;
 
 
@@ -578,6 +583,60 @@ void mAPreferencesWindow::addChugin()
 void mAPreferencesWindow::removeChugin()
 {
     qDeleteAll(ui->chuginsList->selectedItems());
+}
+
+void mAPreferencesWindow::probeChugins()
+{
+    // create a ChucK instance for probing
+    ChucK * chuck = new ChucK();
+
+    // remember log level
+    t_CKINT logLevel = m_ma->get_log_level();
+
+    // inherit system log level...
+    chuck->setLogLevel( logLevel );
+
+    // ensure log level is at least SYSTEM
+    if( chuck->getLogLevel() < CK_LOG_SYSTEM ) chuck->setLogLevel( CK_LOG_SYSTEM );
+
+    // enable chugins?
+    bool chugin_load = ui->enableChugins->isChecked();
+
+    // chugins search paths
+    std::list<std::string> dl_search_path;
+    // iterate over what's in the list
+    for( int i = 0; i < ui->chuginsList->count(); i++ )
+    {
+        // append
+        dl_search_path.push_back( ui->chuginsList->item(i)->text().toStdString() );
+    }
+
+    // set chugins parameters
+    chuck->setParam( CHUCK_PARAM_CHUGIN_ENABLE, chugin_load );
+    chuck->setParam( CHUCK_PARAM_USER_CHUGIN_DIRECTORIES, dl_search_path );
+    // the_chuck->setParam( CHUCK_PARAM_USER_CHUGINS, named_dls );
+
+    // signal
+    probeChuginInitiated();
+
+    // print
+    EM_log( CK_LOG_SYSTEM, "-------( %s )-------", timestamp_formatted().c_str() );
+    EM_log( CK_LOG_SYSTEM, "chugins probe diagnostic starting..." );
+
+    // probe chugins (.chug and .ck modules)
+    // print/log what ChucK would load with current settings
+    chuck->probeChugins();
+
+    // print
+    EM_log( CK_LOG_SYSTEM, "chugins probe diagnostic finished" );
+
+    // suppress logging
+    chuck->setLogLevel( CK_LOG_NONE );
+    // clean up local instance
+    SAFE_DELETE( chuck );
+
+    // restore to previous log level
+    m_ma->set_log_level( logLevel );
 }
 
 void mAPreferencesWindow::changeCurrentDirectory()

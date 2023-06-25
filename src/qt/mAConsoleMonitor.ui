@@ -31,11 +31,11 @@
     </size>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
-    <property name="margin">
+    <property name="margin" stdset="0">
      <number>0</number>
     </property>
     <item>
-     <widget class="QPlainTextEdit" name="plainTextEdit">
+     <widget class="mAPlainTextEdit" name="plainTextEdit">
       <property name="minimumSize">
        <size>
         <width>100</width>
@@ -59,6 +59,13 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>mAPlainTextEdit</class>
+   <extends>QPlainTextEdit</extends>
+   <header>mAConsoleMonitor.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="miniAudicle.qrc"/>
  </resources>

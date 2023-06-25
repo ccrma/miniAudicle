@@ -79,12 +79,14 @@ public slots: // slots
     
     void addChugin();
     void removeChugin();
+    void probeChugins();
     
     void changeCurrentDirectory();
     void selectedWindowStyleChanged();
     
 signals: // signals
     void preferencesChanged();
+    void probeChuginInitiated();
     
 private:
     Ui::mAPreferencesWindow *ui;

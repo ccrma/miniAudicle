@@ -158,6 +158,9 @@ mAMainWindow::mAMainWindow(QWidget *parent) :
                               this->pos().y() + this->frameGeometry().height()/2 - m_preferencesWindow->frameGeometry().height()/2);
     m_preferencesWindow->setAttribute(Qt::WA_QuitOnClose, false);
 
+    // connect chugins probe from preferences window to focus console monitor | 1.5.0.4 (ge) added
+    QObject::connect( m_preferencesWindow, SIGNAL(probeChuginInitiated()), this, SLOT(showConsoleMonitor()) );
+
     if(pathsToOpen.length() == 0)
         newFile();
     else
