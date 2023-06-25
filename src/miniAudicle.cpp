@@ -908,7 +908,7 @@ t_CKBOOL miniAudicle::start_vm()
         t_CKUINT srate = vm_options.srate != 0 ? vm_options.srate : SAMPLE_RATE_DEFAULT;
         t_CKUINT buffer_size = vm_options.buffer_size;
         t_CKUINT num_buffers = NUM_BUFFERS_DEFAULT;
-        const char * driverName = vm_options.driver.c_str();
+        string driverName = vm_options.driver;
         t_CKUINT dac = vm_options.dac;
         t_CKUINT adc = vm_options.adc;
         t_CKBOOL force_srate = vm_options.force_srate && vm_options.srate != 0;
@@ -962,7 +962,7 @@ t_CKBOOL miniAudicle::start_vm()
         // probe / init (this shouldn't start audio yet)
         if( !ChuckAudio::initialize( dac, adc, output_channels, input_channels, srate,
                                      buffer_size, num_buffers, audio_cb, m_chuck,
-                                     force_srate, driverName ) )
+                                     force_srate, driverName.c_str() ) )
         {
             EM_log( CK_LOG_SYSTEM,
                    "cannot initialize audio device (use --silent/-s for non-realtime)" );
@@ -979,10 +979,13 @@ t_CKBOOL miniAudicle::start_vm()
         output_channels = ChuckAudio::m_num_channels_out;
         adc_device_name = ChuckAudio::m_adc_name;
         dac_device_name = ChuckAudio::m_dac_name;
+        driverName = ChuckAudio::m_driver_name;
         srate = ChuckAudio::m_sample_rate;
         buffer_size = ChuckAudio::buffer_size();
         num_buffers = ChuckAudio::num_buffers();
-        
+        // set vm options
+        set_driver( driverName.c_str() );
+
         // pop
         EM_poplog();
         
@@ -1030,7 +1033,7 @@ t_CKBOOL miniAudicle::start_vm()
         {
             EM_log( CK_LOG_SYSTEM, "num buffers: %ld", num_buffers );
             EM_log( CK_LOG_SYSTEM, "adaptive block processing: %ld", adaptive_size > 1 ? adaptive_size : 0 );
-            EM_log(CK_LOG_SYSTEM, "audio driver: %s", driverName ? driverName : "(unspecified)");
+            EM_log(CK_LOG_SYSTEM, "audio driver: %s", driverName != "" ? driverName.c_str() : "(unspecified)");
             EM_log( CK_LOG_SYSTEM, "adc:[%d] \"%s\"", adc, adc_device_name.c_str() );
             EM_log( CK_LOG_SYSTEM, "dac:[%d] \"%s\"", dac, dac_device_name.c_str() );
         }
@@ -1769,7 +1772,7 @@ t_CKBOOL miniAudicle::get_new_class_names( vector< string > & v )
     vector< Chuck_Type * > types;
     compiler->env()->global()->get_types( types );
         
-    int i, len = types.size();
+    t_CKINT i, len = types.size();
     for( i = 0; i < len; i++ )
     {
         if( types[i] )
