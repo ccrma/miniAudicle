@@ -28,6 +28,7 @@ U.S.A.
 #include <QtWidgets/QMainWindow>
 #include <QSocketNotifier>
 #include <QThread>
+#include <QPlainTextEdit>
 
 #ifdef __PLATFORM_WIN32__
 #include <windows.h>
@@ -91,6 +92,23 @@ protected:
 };
 
 
+//-----------------------------------------------------------------------------
+// name: class mAPlainTextEdit
+// desc: custom plain text edit; used as promoted class for mAConsoleMonitor.ui
+//       1.5.0.4 (ge) added
+//-----------------------------------------------------------------------------
+class mAPlainTextEdit : public QPlainTextEdit
+{
+    Q_OBJECT
+
+public:
+    explicit mAPlainTextEdit( QWidget *parent );
+    virtual ~mAPlainTextEdit();
+
+protected:
+    // override context menu event to customize it
+    virtual void contextMenuEvent( QContextMenuEvent * event );
+};
 
 
 #endif // MACONSOLEMONITOR_H

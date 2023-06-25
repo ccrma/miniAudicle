@@ -26,6 +26,9 @@ U.S.A.
 #include "ui_mAConsoleMonitor.h"
 
 #include <QtWidgets/QScrollBar>
+#include <QMenu>
+#include <QTextEdit>
+#include <QPlainTextEdit>
 
 #include "chuck_def.h"
 #include "chuck_errmsg.h"
@@ -185,3 +188,34 @@ void mAConsoleMonitorThread::run()
 #endif
 }
 
+
+//-----------------------------------------------------------------------------
+// name: mAPlainTextEdit()
+// desc: constructor
+//-----------------------------------------------------------------------------
+mAPlainTextEdit::mAPlainTextEdit( QWidget * parent )
+    : QPlainTextEdit(parent)
+{ }
+
+//-----------------------------------------------------------------------------
+// name: ~mAPlainTextEdit()
+// desc: destructor
+//-----------------------------------------------------------------------------
+mAPlainTextEdit::~mAPlainTextEdit()
+{ }
+
+//-----------------------------------------------------------------------------
+// name: contextMenuEvent()
+// desc: override QPlainTextEdit context menu event to customize it
+//-----------------------------------------------------------------------------
+void mAPlainTextEdit::contextMenuEvent( QContextMenuEvent * event )
+{
+    // first get standard context menu
+    QMenu * menu = createStandardContextMenu();
+    // add action and connect to slot
+    menu->addAction( tr("Clear"), this, SLOT(clear()) );
+    // executes the menu
+    menu->exec( event->globalPos() );
+    // clean up
+    delete menu;
+}

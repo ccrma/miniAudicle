@@ -574,7 +574,7 @@
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>10</height>
+           <height>4</height>
           </size>
          </property>
         </spacer>
@@ -708,6 +708,19 @@
             </size>
            </property>
           </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="probeChuginsButton">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Probe Chugins</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -1044,6 +1057,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>probeChuginsButton</sender>
+   <signal>clicked()</signal>
+   <receiver>mAPreferencesWindow</receiver>
+   <slot>probeChugins()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>368</x>
+     <y>287</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>222</x>
+     <y>183</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ok()</slot>
@@ -1058,5 +1087,6 @@
   <slot>removeChugin()</slot>
   <slot>changeCurrentDirectory()</slot>
   <slot>selectedWindowStyleChanged()</slot>
+  <slot>probeChugins()</slot>
  </slots>
 </ui>
