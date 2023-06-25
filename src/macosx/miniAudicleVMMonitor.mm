@@ -156,13 +156,13 @@ static NSString * const remove_column_id = @"4";
     // under one hour
     if( current_time < 3600 )
     {
-        // minutes.seconds.samples
+        // minutes:seconds.samples
         [running_time_text setStringValue:[NSString stringWithFormat:@"%lu:%.2lu.%.5lu",
                                            current_time/60, current_time%60, samps ]];
     }
     else // one hour and beyond
     {
-        // hours.minutes.seconds.samples
+        // hours:minutes:seconds.samples
         [running_time_text setStringValue:[NSString stringWithFormat:@"%lu:%.2lu:%.2lu.%.5lu",
                                            current_time/3600, (current_time % 3600)/60, current_time%60, samps ]];
     }

@@ -158,18 +158,31 @@ void mAVMMonitor::timerEvent(QTimerEvent *event)
 
     ui->tableWidget->setRowCount(num_shreds);
 
-    now = ( time_t ) ( status.now_system / status.srate );
-//    if( now != last_now )
+    // chuck time display
+    now = (time_t)(status.now_system/status.srate);
+    t_CKUINT samps = fmod(status.now_system, status.srate);
+    // under one hour
+    if( now < 3600 )
     {
-        t_CKUINT samps = fmod( status.now_system, status.srate );
+        // minutes:seconds.samples
         ui->runningTimeLabel->setText(QString("%1:%2.%3")
                                       .arg((uint)(now/60))
                                       .arg((uint)(now%60), 2, 10, QLatin1Char('0'))
                                       .arg((uint)samps, 5, 10, QLatin1Char('0')));
-        last_now = now;
     }
+    else // one hour and beyond
+    {
+        // hours:minutes:seconds.samples
+        ui->runningTimeLabel->setText(QString("%1:%2:%3.%4")
+                                      .arg((uint)(now/3600))
+                                      .arg((uint)((now%3600)/60), 2, 10, QLatin1Char('0'))
+                                      .arg((uint)(now%60), 2, 10, QLatin1Char('0'))
+                                      .arg((uint)samps, 5, 10, QLatin1Char('0')));
+    }
+    // update
+    last_now = now;
 
-    if( num_shreds != last_num_shreds )
+    // if( num_shreds != last_num_shreds )
     {
         ui->shredCountLabel->setText(QString("%1").arg(num_shreds));
         last_num_shreds = num_shreds;
