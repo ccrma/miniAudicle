@@ -628,6 +628,7 @@ void mAPreferencesWindow::probeChugins()
     chuck->probeChugins();
 
     // print
+    EM_log( CK_LOG_SYSTEM, "-------( %s )-------", timestamp_formatted().c_str() );
     EM_log( CK_LOG_SYSTEM, "chugins probe diagnostic finished" );
 
     // suppress logging
