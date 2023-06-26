@@ -37,6 +37,9 @@ unix:MOC_DIR = qt-build
 unix:UI_DIR = qt-build
 unix:RCC_DIR = qt-build
 
+# add the qt source directory to include path; generated ui_* file may include headers
+QMAKE_CXXFLAGS = -I./qt
+QMAKE_CFLAGS = -I./qt
 
 #-------------------------------------------------
 # macOS build configurations
