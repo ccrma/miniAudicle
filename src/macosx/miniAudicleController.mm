@@ -185,7 +185,12 @@ NSString * const mAChuginExtension = @"chug";
     
     // init preferences
     // [mapc initDefaults];
-//    [self newDocument:self];
+    // [self newDocument:self];
+
+    // activate and raise
+    // [console_monitor activateMonitor];
+    // [vm_monitor activateMonitor:self];
+    // [[NSApplication sharedApplication] arrangeInFront:self];
 }
 
 //-----------------------------------------------------------------------------
@@ -419,6 +424,13 @@ NSString * const mAChuginExtension = @"chug";
 - (void)setLastWindowTopLeftCorner:(NSPoint)p
 {
     last_window_tlc = p;
+}
+
+// activate console monitor | 1.5.0.4 (ge) this seems sus?
+- (void)activateConsoleMonitor:(id)sender
+{
+    // make appear and give focus
+    [console_monitor activateMonitor];
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)n
@@ -1275,8 +1287,3 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
 
 
 @end
-
-
-
-
-

@@ -36,9 +36,10 @@ U.S.A.
 #import "mASyntaxHighlighter.h"
 #import "miniAudicle_version.h"
 
+#import "chuck.h"
+#import "chuck_audio.h"
 #import "chuck_dl.h"
 #import "util_string.h"
-#import "chuck_audio.h"
 
 using namespace std;
 
@@ -62,6 +63,7 @@ NSString * mAPreferencesAcceptsNetworkCommands = @"AcceptsNetworkCommands";
 NSString * mAPreferencesEnableCallback = @"EnableCallback";
 NSString * mAPreferencesEnableBlocking = @"EnableBlocking";
 NSString * mAPreferencesEnableStdSystem = @"EnableStdSystem";
+NSString * mAPreferencesAudioDriver = @"AudioDriver";
 NSString * mAPreferencesAudioOutput = @"AudioOutput";
 NSString * mAPreferencesAudioInput = @"AudioInput";
 NSString * mAPreferencesInputChannels = @"NumberOfInputChannels";
@@ -164,7 +166,8 @@ miniAudicle_Version currentVersion()
         [defaults setObject:[NSNumber numberWithInt:NSOnState] forKey:mAPreferencesEnableAudio];
         [defaults setObject:[NSNumber numberWithInt:-1] forKey:mAPreferencesAudioInput];
         [defaults setObject:[NSNumber numberWithInt:-1] forKey:mAPreferencesAudioOutput];
-        
+        [defaults setObject:[NSNumber numberWithInt:ChuckAudio::defaultDriverApi()] forKey:mAPreferencesAudioDriver];
+
         // -1 means the maximum number of channels available
         [defaults setObject:[NSNumber numberWithInt:NUM_CHANNELS_DEFAULT] forKey:mAPreferencesInputChannels];
         [defaults setObject:[NSNumber numberWithInt:NUM_CHANNELS_DEFAULT] forKey:mAPreferencesOutputChannels];
@@ -327,6 +330,9 @@ miniAudicle_Version currentVersion()
 {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     
+    // rebuild the audio driver GUI each time
+    [self rebuildAudioDriverGUI];
+
     NSUnarchiver * uar = [[[NSUnarchiver alloc] initForReadingWithData:[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesDefaultFont]] autorelease];
     [default_font_font release];
     default_font_font = [[NSFont alloc] initWithCoder:uar];
@@ -348,7 +354,7 @@ miniAudicle_Version currentVersion()
     [tab_width setIntValue:[[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesTabWidth] intValue]];
     [enable_smart_indentation setState:[[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesEnableSmartIndentation] boolValue]];
     [tab_key_smart_indents setState:[[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesTabKeySmartIndents] boolValue]];
-    
+
     [t_sh_prefs setDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:IDEKit_TextColorsPrefKey]];
     [self syntaxTokenTypeChanged:[syntax_token_type selectedItem]];
     [enable_syntax_highlighting setState:[[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesEnableSyntaxHighlighting] boolValue]];
@@ -375,7 +381,14 @@ miniAudicle_Version currentVersion()
                                                    forKey:mAPreferencesEnableAudio];
         [mac miniAudicle]->set_enable_audio( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesEnableAudio] intValue] == NSOnState );
     }
-    
+
+    // audio driver | 1.5.0.4 (ge) added
+    t_CKINT driverNum = [[audio_driver selectedItem] tag];
+    [[NSUserDefaults standardUserDefaults] setInteger:(int)driverNum
+                                               forKey:mAPreferencesAudioDriver];
+    // set the driver by name
+    [mac miniAudicle]->set_driver( ChuckAudio::driverApiToName(driverNum) );
+
     // dac
     [[NSUserDefaults standardUserDefaults] setInteger:[[audio_output selectedItem] tag]
                                                forKey:mAPreferencesAudioOutput];
@@ -575,6 +588,7 @@ miniAudicle_Version currentVersion()
     
     miniAudicle * ma = [mac miniAudicle];
     ma->set_log_level( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesLogLevel] intValue] );
+    ma->set_driver( ChuckAudio::driverApiToName([[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAudioDriver] intValue]) );
     ma->set_dac( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAudioOutput] intValue] + 1 );
     ma->set_adc( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAudioInput] intValue] + 1 );
     ma->set_num_inputs( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesInputChannels] intValue] );
@@ -656,6 +670,37 @@ miniAudicle_Version currentVersion()
     [self loadGUIFromDefaults];
     [self loadMiniAudicleFromGUI];
     sc_options_changed = YES;
+}
+
+- (void)rebuildAudioDriverGUI
+{
+    // clear audio driver drop down
+    [audio_driver removeAllItems];
+
+//    // for testing (selecting and probing this should yield no output/input audio devices)
+//    [audio_driver addItemWithTitle:@"(Dummy)"];
+//    // set the corresponding driver enum for dummy
+//    [[audio_driver lastItem] setTag:(int)9];
+
+    // get the store default
+    int driver = [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAudioDriver] intValue];
+    // populate the "Audio driver" ComboBox
+    for( unsigned int i = 0; i < ChuckAudio::numDrivers(); i++ )
+    {
+        // get the driver info
+        ChuckAudioDriverInfo info = ChuckAudio::getDriverInfo(i);
+        // add the item...
+        [audio_driver addItemWithTitle:[NSString stringWithUTF8String:info.userFriendlyName.c_str()]];
+        // with the Api enum as tag
+        [[audio_driver lastItem] setTag:(int)info.driver];
+
+        // check if match with driver read in from settings
+        if( driver == info.driver )
+        {
+            // select
+            [audio_driver selectItem:[audio_driver lastItem]];
+        }
+    }
 }
 
 - (void)run:(id)sender
@@ -745,7 +790,9 @@ miniAudicle_Version currentVersion()
 
 - (void)probeAudioInterfaces:(id)sender
 {
-    [mac miniAudicle]->probe( NULL );
+    // get driver
+    t_CKINT driverNum = [[audio_driver selectedItem] tag];
+    [mac miniAudicle]->probe( ChuckAudio::driverApiToName( driverNum ) );
     
     const vector< RtAudio::DeviceInfo > & interfaces = [mac miniAudicle]->get_interfaces();
     vector< RtAudio::DeviceInfo >::size_type i, len = interfaces.size();
@@ -755,7 +802,7 @@ miniAudicle_Version currentVersion()
 
     int dac = [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAudioOutput] intValue];
     int adc = [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesAudioInput] intValue];
-    
+
     // setup default input / output items
     [audio_output addItemWithTitle:@"Default"];
     [[audio_output lastItem] setTag:-1];
@@ -868,6 +915,11 @@ miniAudicle_Version currentVersion()
     }
 }
 
+- (void)selectedAudioDriverChanged:(id)sender
+{
+    [self probeAudioInterfaces:nil];
+}
+
 - (void)selectedAudioInputChanged:(id)sender
 {
     const vector< RtAudio::DeviceInfo > & interfaces = [mac miniAudicle]->get_interfaces();
@@ -920,6 +972,73 @@ miniAudicle_Version currentVersion()
                          row:[chugin_paths count]-1
                    withEvent:nil
                       select:YES];
+}
+
+
+//-----------------------------------------------------------------------------
+// name: probeChugins | called when [Probe ChuGins] button is pressed
+// desc: probe chugins in the current chugin paths in the chugins tab
+//       the output is printed to console monitor, which this method activates
+//-----------------------------------------------------------------------------
+- (IBAction)probeChugins:(id)sender
+{
+    // show the console monitor, so user can see the output
+    [mac activateConsoleMonitor:self];
+
+    // miniAudicle instance
+    miniAudicle * ma = [mac miniAudicle];
+    // remember log level
+    t_CKINT logLevel = ma->get_log_level();
+
+    // create a ChucK instance for probing
+    ChucK * localChuck = new ChucK();
+    // inherit system log level from miniAudicle
+    localChuck->setLogLevel( logLevel );
+    // ensure log level is at least SYSTEM to see the output
+    if( localChuck->getLogLevel() < CK_LOG_SYSTEM ) localChuck->setLogLevel( CK_LOG_SYSTEM );
+
+    // get state: enable chugins?
+    bool chugin_load = ([enable_chugins state] == NSOnState);
+    // chugins search paths
+    std::list<std::string> named_dls;
+    std::list<std::string> dl_search_path;
+    // iterate over what's in the list
+    for(int i = 0; i < [chugin_paths count]; i++)
+    {
+        // get entry
+        NSDictionary * path = [chugin_paths objectAtIndex:i];
+        // named chugin
+        if([[path objectForKey:@"type"] isEqualToString:@"chugin"])
+            named_dls.push_back([[path objectForKey:@"location"] UTF8String]);
+        // chugin search path
+        else if([[path objectForKey:@"type"] isEqualToString:@"folder"])
+            dl_search_path.push_back([[path objectForKey:@"location"] UTF8String]);
+    }
+
+    // set c parameters
+    localChuck->setParam( CHUCK_PARAM_CHUGIN_ENABLE, chugin_load );
+    localChuck->setParam( CHUCK_PARAM_USER_CHUGINS, named_dls );
+    localChuck->setParam( CHUCK_PARAM_USER_CHUGIN_DIRECTORIES, dl_search_path );
+
+    // print
+    EM_log( CK_LOG_SYSTEM, "-------( %s )-------", timestamp_formatted().c_str() );
+    EM_log( CK_LOG_SYSTEM, "chugins probe diagnostic starting..." );
+
+    // probe chugins (.chug and .ck modules)
+    // print/log what ChucK would load with current settings
+    localChuck->probeChugins();
+
+    // print
+    EM_log( CK_LOG_SYSTEM, "-------( %s )-------", timestamp_formatted().c_str() );
+    EM_log( CK_LOG_SYSTEM, "chugins probe diagnostic finished!" );
+
+    // suppress logging
+    localChuck->setLogLevel( CK_LOG_NONE );
+    // clean up local instance
+    SAFE_DELETE( localChuck );
+
+    // restore to previous log level (log levels are global)
+    ma->set_log_level( logLevel );
 }
 
 
