@@ -1015,6 +1015,12 @@ const static size_t num_default_tile_dimensions = sizeof( default_tile_dimension
         [self adjustChucKMenuItems];
         [vm_monitor vm_starting];
         
+        // show console monitor; some loading items could take time...
+        // especially on first launch (e.g., verifying chugin package)
+        // 1.5.0.5 (ge) moved here to before VM starts
+        if( [[NSUserDefaults standardUserDefaults] boolForKey:mAPreferencesAutoOpenConsoleMonitor] == YES)
+            [console_monitor activateMonitor];
+
         const bool needs_input_permission = ma->get_num_inputs() > 0;
         bool shouldTurnVmOn = true;
         if (needs_input_permission) {
