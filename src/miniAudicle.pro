@@ -265,7 +265,7 @@ SOURCES += \
 
 # only on windows
 win32 {
-    SOURCES += chuck/src/core/chuck_win32.c
+    SOURCES += chuck/src/core/chuck_yacc.c
     INCLUDEPATH +=
 }
 
@@ -315,7 +315,7 @@ HEADERS  += qt/mAMainWindow.h \
     chuck/src/core/rtmidi.h \
     chuck/src/core/midiio_rtmidi.h \
     chuck/src/core/hidio_sdl.h \
-    chuck/src/core/chuck_win32.h \
+    chuck/src/core/chuck_yacc.h \
     chuck/src/core/chuck_vm.h \
     chuck/src/core/chuck_utils.h \
     chuck/src/core/chuck_ugen.h \

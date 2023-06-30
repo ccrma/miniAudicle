@@ -225,7 +225,7 @@ t_OTF_RESULT miniAudicle::run_code( string & code, string & name,
     }
 
     // compile
-    if( !compiler->go( name, NULL, code.c_str(), filepath ) )
+    if( !compiler->go( name, filepath, code ) )
     {
         last_result[docid].result = OTF_COMPILE_ERROR;
         last_result[docid].output = string( EM_lasterror() ) + "\n";
@@ -286,7 +286,7 @@ t_OTF_RESULT miniAudicle::replace_code( string & code, string & name,
         return OTF_MINI_ERROR;
     }
 
-    if( !compiler->go( name, NULL, code.c_str(), filepath ) )
+    if( !compiler->go( name, filepath, code ) )
     {
         last_result[docid].result = OTF_COMPILE_ERROR;
         last_result[docid].output = string( EM_lasterror() ) + "\n";

@@ -322,6 +322,9 @@
 		864617FD29F381000018DC65 /* ulib_doc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 864617FB29F381000018DC65 /* ulib_doc.cpp */; };
 		864617FE29F381000018DC65 /* ulib_doc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 864617FB29F381000018DC65 /* ulib_doc.cpp */; };
 		864617FF29F381000018DC65 /* ulib_doc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 864617FB29F381000018DC65 /* ulib_doc.cpp */; };
+		8689D7942A4C56F5003BF32E /* util_platforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8689D7932A4C56F5003BF32E /* util_platforms.cpp */; };
+		8689D7952A4C56F5003BF32E /* util_platforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8689D7932A4C56F5003BF32E /* util_platforms.cpp */; };
+		8689D7962A4C56F5003BF32E /* util_platforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8689D7932A4C56F5003BF32E /* util_platforms.cpp */; };
 		86C35B7129497A04005A538B /* ulib_ai.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86C35B7029497A04005A538B /* ulib_ai.cpp */; };
 		86C35B7229497A04005A538B /* ulib_ai.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86C35B7029497A04005A538B /* ulib_ai.cpp */; };
 		86C35B7329497A04005A538B /* ulib_ai.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86C35B7029497A04005A538B /* ulib_ai.cpp */; };
@@ -792,6 +795,8 @@
 		4D3D4C971A5E3A4400B6A06B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		864617FB29F381000018DC65 /* ulib_doc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ulib_doc.cpp; sourceTree = "<group>"; };
 		864617FC29F381000018DC65 /* ulib_doc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulib_doc.h; sourceTree = "<group>"; };
+		8689D7922A4C56F5003BF32E /* util_platforms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util_platforms.h; sourceTree = "<group>"; };
+		8689D7932A4C56F5003BF32E /* util_platforms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util_platforms.cpp; sourceTree = "<group>"; };
 		86C35B6F29497A04005A538B /* ulib_ai.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulib_ai.h; sourceTree = "<group>"; };
 		86C35B7029497A04005A538B /* ulib_ai.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ulib_ai.cpp; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* miniAudicle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miniAudicle.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -925,6 +930,8 @@
 		092C950D1FCE77C4005114AE /* core */ = {
 			isa = PBXGroup;
 			children = (
+				8689D7932A4C56F5003BF32E /* util_platforms.cpp */,
+				8689D7922A4C56F5003BF32E /* util_platforms.h */,
 				092C95301FCE7948005114AE /* chuck_absyn.cpp */,
 				092C954F1FCE794C005114AE /* chuck_absyn.h */,
 				095E80021FDB4D720021F880 /* chuck_carrier.cpp */,
@@ -1843,6 +1850,7 @@
 				09D00B8714A3C44B0019CD09 /* mATitleEditorController.m in Sources */,
 				09D00B8B14A44DFB0019CD09 /* mAVMMonitorController.mm in Sources */,
 				09087C6514A4F5F600AD2633 /* mAVMMonitorCellController.mm in Sources */,
+				8689D7962A4C56F5003BF32E /* util_platforms.cpp in Sources */,
 				092C95D21FCE7E24005114AE /* method.c in Sources */,
 				09608ADF14B40DE4009450FE /* mAConsoleMonitorController.mm in Sources */,
 			);
@@ -1864,6 +1872,7 @@
 				092C959C1FCE794D005114AE /* uana_extract.cpp in Sources */,
 				092C958C1FCE794D005114AE /* util_hid.cpp in Sources */,
 				092C95701FCE794D005114AE /* chuck_oo.cpp in Sources */,
+				8689D7942A4C56F5003BF32E /* util_platforms.cpp in Sources */,
 				095E80031FDB4D720021F880 /* chuck_carrier.cpp in Sources */,
 				092C95741FCE794D005114AE /* midiio_rtmidi.cpp in Sources */,
 				092C95811FCE794D005114AE /* hidio_sdl.cpp in Sources */,
@@ -2002,6 +2011,7 @@
 				09056C251FCE8FF9004A2BD4 /* uana_xform.cpp in Sources */,
 				09056C261FCE8FF9004A2BD4 /* ugen_filter.cpp in Sources */,
 				092C95D31FCE7E24005114AE /* pattern_match.c in Sources */,
+				8689D7952A4C56F5003BF32E /* util_platforms.cpp in Sources */,
 				09056C2F1FCE8FF9004A2BD4 /* util_buffers.cpp in Sources */,
 				092C95D51FCE7E24005114AE /* send.c in Sources */,
 				09056C301FCE8FF9004A2BD4 /* util_console.cpp in Sources */,
