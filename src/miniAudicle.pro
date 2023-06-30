@@ -180,16 +180,15 @@ chuck/src/host/RtAudio/include/iasiothiscallresolver.cpp
 # source files to compile
 #-------------------------------------------------
 SOURCES += \
-    qt/mAMainWindow.cpp \
-    qt/main.cpp \
-    chuck/src/host/chuck_audio.cpp \
-    chuck/src/host/chuck_console.cpp \
-    chuck/src/host/RtAudio/RtAudio.cpp \
-    chuck/src/core/chuck_carrier.cpp \
+    miniAudicle.cpp \
+    miniAudicle_log.cpp \
+    util_rterror.cpp \
     chuck/src/core/util_xforms.c \
     chuck/src/core/util_thread.cpp \
     chuck/src/core/util_string.cpp \
+    chuck/src/core/util_serial.cpp \
     chuck/src/core/util_raw.c \
+    chuck/src/core/util_platforms.cpp \
     chuck/src/core/util_opsc.cpp \
     chuck/src/core/util_network.c \
     chuck/src/core/util_math.cpp \
@@ -211,6 +210,7 @@ SOURCES += \
     chuck/src/core/rtmidi.cpp \
     chuck/src/core/midiio_rtmidi.cpp \
     chuck/src/core/hidio_sdl.cpp \
+    chuck/src/core/chuck.cpp \
     chuck/src/core/chuck_vm.cpp \
     chuck/src/core/chuck_utils.cpp \
     chuck/src/core/chuck_ugen.cpp \
@@ -224,12 +224,15 @@ SOURCES += \
     chuck/src/core/chuck_otf.cpp \
     chuck/src/core/chuck_oo.cpp \
     chuck/src/core/chuck_lang.cpp \
+    chuck/src/core/chuck_globals.cpp \
     chuck/src/core/chuck_instr.cpp \
+    chuck/src/core/chuck_io.cpp \
     chuck/src/core/chuck_frame.cpp \
     chuck/src/core/chuck_errmsg.cpp \
     chuck/src/core/chuck_emit.cpp \
     chuck/src/core/chuck_dl.cpp \
     chuck/src/core/chuck_compile.cpp \
+    chuck/src/core/chuck_carrier.cpp \
     chuck/src/core/chuck_absyn.cpp \
     chuck/src/core/lo/address.c \
     chuck/src/core/lo/blob.c \
@@ -240,23 +243,21 @@ SOURCES += \
     chuck/src/core/lo/send.c \
     chuck/src/core/lo/server.c \
     chuck/src/core/lo/timetag.c \
+    chuck/src/host/chuck_audio.cpp \
+    chuck/src/host/chuck_console.cpp \
+    chuck/src/host/RtAudio/RtAudio.cpp \
+    qt/ZSettings.cpp \
+    qt/mAMainWindow.cpp \
     qt/madocumentview.cpp \
-    miniAudicle.cpp \
-    miniAudicle_log.cpp \
-    util_rterror.cpp \
     qt/mAConsoleMonitor.cpp \
     qt/mAVMMonitor.cpp \
-    chuck/src/core/util_serial.cpp \
-    chuck/src/core/chuck_io.cpp \
     qt/mAsciLexerChucK.cpp \
     qt/mAPreferencesWindow.cpp \
     qt/mAExportDialog.cpp \
-    qt/ZSettings.cpp \
     qt/mASocketManager.cpp \ 
     qt/mADeviceBrowser.cpp \
-    chuck/src/core/chuck.cpp \
-    chuck/src/core/chuck_globals.cpp \
-    chuck/src/core/util_platforms.cpp
+    qt/main.cpp
+
 
 # everything except on linux...
 !linux-g++ {
@@ -274,33 +275,64 @@ win32 {
 # header files
 #-------------------------------------------------
 HEADERS  += qt/mAMainWindow.h \
-    chuck/src/core/ulib_doc.h \
-    chuck/src/host/RtAudio/include/asio.h \
-    chuck/src/host/RtAudio/include/asiodrivers.h \
-    chuck/src/host/RtAudio/include/asiodrvr.h \
-    chuck/src/host/RtAudio/include/asiolist.h \
-    chuck/src/host/RtAudio/include/asiosys.h \
-    chuck/src/host/RtAudio/include/dsound.h \
-    chuck/src/host/RtAudio/include/functiondiscoverykeys_devpkey.h \
-    chuck/src/host/RtAudio/include/ginclude.h \
-    chuck/src/host/RtAudio/include/iasiodrv.h \
-    chuck/src/host/RtAudio/include/iasiothiscallresolver.h \
-    chuck/src/host/RtAudio/include/soundcard.h \
-    chuck/src/host/chuck_audio.h \
+    miniAudicle.h \
+    miniAudicle_ui_elements.h \
+    miniAudicle_shell.h \
+    miniAudicle_log.h \
+    miniAudicle_import.h \
+    miniAudicle_debug.h \
+    qt/mAConsoleMonitor.h \
+    qt/mAVMMonitor.h \
+    qt/mAsciLexerChucK.h \
+    qt/mAPreferencesWindow.h \
+    qt/mAExportDialog.h \
+    qt/mASocketManager.h \
+    qt/madocumentview.h \
+    qt/ZSettings.h \
+    qt/miniAudicle_pc.h \
+    qt/mADeviceBrowser.h \
+    util_rterror.h \
+    version.h \
+    chuck/src/core/chuck.h \
+    chuck/src/core/chuck_absyn.h \
+    chuck/src/core/chuck_def.h \
     chuck/src/host/chuck_console.h \
-    chuck/src/host/RtAudio/RtAudio.h \
     chuck/src/core/chuck_carrier.h \
+    chuck/src/core/chuck_compile.h \
+    chuck/src/core/chuck_dl.h \
+    chuck/src/core/chuck_emit.h \
+    chuck/src/core/chuck_errmsg.h \
+    chuck/src/core/chuck_frame.h \
+    chuck/src/core/chuck_instr.h \
+    chuck/src/core/chuck_io.h \
+    chuck/src/core/chuck_lang.h \
+    chuck/src/core/chuck_oo.h \
+    chuck/src/core/chuck_otf.h \
+    chuck/src/core/chuck_parse.h \
+    chuck/src/core/chuck_scan.h \
+    chuck/src/core/chuck_shell.h \
+    chuck/src/core/chuck_stats.h \
+    chuck/src/core/chuck_table.h \
+    chuck/src/core/chuck_symbol.h \
+    chuck/src/core/chuck_ugen.h \
+    chuck/src/core/chuck_type.h \
+    chuck/src/core/chuck_utils.h \
+    chuck/src/core/chuck_vm.h \
+    chuck/src/core/chuck_yacc.h \
     chuck/src/core/util_xforms.h \
     chuck/src/core/util_thread.h \
     chuck/src/core/util_string.h \
     chuck/src/core/util_sndfile.h \
+    chuck/src/core/util_serial.h \
     chuck/src/core/util_raw.h \
+    chuck/src/core/util_platforms.h \
     chuck/src/core/util_opsc.h \
     chuck/src/core/util_network.h \
     chuck/src/core/util_math.h \
     chuck/src/core/util_hid.h \
     chuck/src/core/util_console.h \
     chuck/src/core/util_buffers.h \
+    chuck/src/core/ulib_doc.h \
     chuck/src/core/ulib_std.h \
     chuck/src/core/ulib_opsc.h \
     chuck/src/core/ulib_math.h \
@@ -315,47 +347,6 @@ HEADERS  += qt/mAMainWindow.h \
     chuck/src/core/rtmidi.h \
     chuck/src/core/midiio_rtmidi.h \
     chuck/src/core/hidio_sdl.h \
-    chuck/src/core/chuck_yacc.h \
-    chuck/src/core/chuck_vm.h \
-    chuck/src/core/chuck_utils.h \
-    chuck/src/core/chuck_ugen.h \
-    chuck/src/core/chuck_type.h \
-    chuck/src/core/chuck_table.h \
-    chuck/src/core/chuck_symbol.h \
-    chuck/src/core/chuck_stats.h \
-    chuck/src/core/chuck_shell.h \
-    chuck/src/core/chuck_scan.h \
-    chuck/src/core/chuck_parse.h \
-    chuck/src/core/chuck_otf.h \
-    chuck/src/core/chuck_oo.h \
-    chuck/src/core/chuck_lang.h \
-    chuck/src/core/chuck_instr.h \
-    chuck/src/core/chuck_frame.h \
-    chuck/src/core/chuck_errmsg.h \
-    chuck/src/core/chuck_emit.h \
-    chuck/src/core/chuck_dl.h \
-    chuck/src/core/chuck_def.h \
-    chuck/src/core/chuck_compile.h \
-    chuck/src/core/chuck_absyn.h \
-    chuck/src/core/util_serial.h \
-    chuck/src/core/chuck_io.h \
-    qt/madocumentview.h \
-    qt/miniAudicle_pc.h \
-    miniAudicle.h \
-    miniAudicle_ui_elements.h \
-    miniAudicle_shell.h \
-    miniAudicle_log.h \
-    miniAudicle_import.h \
-    miniAudicle_debug.h \
-    util_rterror.h \
-    qt/mAConsoleMonitor.h \
-    qt/mAVMMonitor.h \
-    qt/mAsciLexerChucK.h \
-    qt/mAPreferencesWindow.h \
-    qt/mAExportDialog.h \
-    qt/ZSettings.h \
-    qt/mASocketManager.h \
-    version.h \
     chuck/src/core/lo/lo_types_internal.h \
     chuck/src/core/lo/lo_types.h \
     chuck/src/core/lo/lo_throw.h \
@@ -367,8 +358,19 @@ HEADERS  += qt/mAMainWindow.h \
     chuck/src/core/lo/lo_endian.h \
     chuck/src/core/lo/lo.h \
     chuck/src/core/lo/config.h \ 
-    qt/mADeviceBrowser.h \
-    chuck/src/core/chuck.h
+    chuck/src/host/RtAudio/include/asio.h \
+    chuck/src/host/RtAudio/include/asiodrivers.h \
+    chuck/src/host/RtAudio/include/asiodrvr.h \
+    chuck/src/host/RtAudio/include/asiolist.h \
+    chuck/src/host/RtAudio/include/asiosys.h \
+    chuck/src/host/RtAudio/include/dsound.h \
+    chuck/src/host/RtAudio/include/functiondiscoverykeys_devpkey.h \
+    chuck/src/host/RtAudio/include/ginclude.h \
+    chuck/src/host/RtAudio/include/iasiodrv.h \
+    chuck/src/host/RtAudio/include/iasiothiscallresolver.h \
+    chuck/src/host/RtAudio/include/soundcard.h \
+    chuck/src/host/RtAudio/RtAudio.h \
+    chuck/src/host/chuck_audio.h
 
 
 #-------------------------------------------------
