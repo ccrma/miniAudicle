@@ -50,7 +50,9 @@ U.S.A.
 #include "chuck_audio.h"
 #include "chuck.h"
 #include "util_string.h"
+#include "util_platforms.h"
 #include "version.h"
+
 #ifndef __PLATFORM_WIN32__
 #include "git-rev.h"
 #endif // __PLATFORM_WIN32__
@@ -450,7 +452,7 @@ t_OTF_RESULT miniAudicle::handle_reply( t_CKUINT docid, string & out )
         {
             if( sleep_count < vm_sleep_max )
             {
-                usleep( vm_sleep_time );
+                ck_usleep( vm_sleep_time );
                 sleep_count++;
             }
             
