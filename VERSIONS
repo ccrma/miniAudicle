@@ -2,9 +2,19 @@
 miniAudicle VERSIONS log
 ------------------------
 
-1.5.0.4
+1.5.0.5 (July 2023)
 ---
-    - (updated) chuck-1.5.0.3 (chai)
+    - (updated) chuck-1.5.0.5 (chai)
+    - (added, from chuck) chuck compiler now print code line that 
+      generated the error, and pinpoints the location of the error in the 
+      miniAudicle console
+
+
+1.5.0.4 (June 2023)
+---
+    - (updated) chuck-1.5.0.4 (chai)
+    - (added) VM Monitor now will automatically swith to HH:MM:SS.SAMPLE
+      display beyond one hour, making those long sessions easier to track
     - (added, Qt, Windows/Linux/mac-qt) in Preferences->Editing tab, 
       there is now a drop-box selection for "Windowing Style" allowing 
       users to select the windowing look-and-feel; the available styles 
@@ -12,12 +22,22 @@ miniAudicle VERSIONS log
       by operating system. For example, some systems have accessible 
       high-contrast windowing styles. FYI: the default windowing style
       for Windows, Linux, and mac-qt is "Fusion".
+    - (added) chugins probe button in Preferences->ChuGins tab; prints
+      the equivalent of --chugin-probe on the command-line to the 
+      miniAudicle Console
+    - (added, macOS) Preferences->Audio now has an "Audio driver"
+      drop-down box that can select an available driver to view its
+      associated audio devices; brings this feature to parity with
+      miniAudicle on Windows and Linux
 
-1.5.0.3
+
+1.5.0.3 (June 2023)
 ---
     - (updated) chuck-1.5.0.3 (chai)
+    - (maintenance release, post git repository re-alignment)
 
-1.5.0.2
+
+1.5.0.2 (June 2023)
 ---
     - (updated) chuck-1.5.0.2 (chai)
     - (added) menu "Help" now has items that will open websites in
@@ -38,7 +58,8 @@ miniAudicle VERSIONS log
       drop-down box that can select an available driver to view its
       associated audio devices
 
-1.5.0.1
+
+1.5.0.1 (June 2023)
 ---
     - (updated) chuck-1.5.0.1 (chai)
     - (updated) on Windows and Linux: miniAudicle now has a "Audio 
@@ -52,7 +73,8 @@ miniAudicle VERSIONS log
       |- needs qscintilla-qt6-devel and qscintilla-qt6)
       [Many thanks to Fernando Lopez-Lezcano and Nils Tonnätt]
 
-1.5.0.0
+
+1.5.0.0 (May 2023)
 ---
     - (added) chuck-1.5.0.0 (chai)
     - (added) preferences: added "Default" options to audio settings,
@@ -73,6 +95,7 @@ miniAudicle VERSIONS log
     - (updated) miniAudicle app icon updated to new "20th anniversary 
       edition" ChucK logo
 
+
 1.4.0.2
 ---
     - (fixed) addressed a possible crash when starting VM fails, sometimes
@@ -81,10 +104,12 @@ miniAudicle VERSIONS log
       preferences.
     - (updated) syntax highlighting Chubgraph => Chugraph
 
+
 1.3.6.0
 ---
     - (added) chuck-1.3.6.0
     - (added) syntax highlighting of vec3/vec4 types
+
 
 1.3.5.2
 ---
@@ -92,11 +117,13 @@ miniAudicle VERSIONS log
     - (fixed)(Mac) Console Monitor display bug in Mac OS X 10.11 "El Capitan"
     - (fixed)(Win/Linux) fix custom syntax coloring bug
     - (fixed)(Win/Linux) output from exported scripts is displayed
+
     
 1.3.5.1
 ---
     - (added) sync version number to chuck version number
     - (added) chuck-1.3.5.1
+
     
 1.3.2
 ---
@@ -105,6 +132,7 @@ miniAudicle VERSIONS log
     - (fixed)(all) exporting works with scripts that use Machine.add
     - (fixed)(Mac) deprecation warning fixes
     - (fixed)(Mac) AirPlay output devices are blacklisted
+
     
 1.3.1
 ---
@@ -131,10 +159,12 @@ miniAudicle VERSIONS log
     - (fixed)(Mac) better MAUI stability
     - (fixed)(Windows) Windows XP emulation mode no longer required on Vista/7
 
+
 0.2.2
 ---
     - (added) chuck-1.3.1.0
     - (fixed) 64-bit support
+
 
 0.2.1
 ---
@@ -144,11 +174,13 @@ miniAudicle VERSIONS log
 	- (fixed)(Linux) build in Ubuntu 11.10 (thanks Ricardo Fabbri)
 	- (fixed)(Windows) miniAudicle now exits properly
 
+
 0.2.0
 ---
     - (added)(all) chuck-1.2.1.3
     - (added)(Mac) GUI buffer size option
     - (fixed)(Mac) Snow Leopard compilation fix
+
 
 0.1.3.8
 ---
@@ -157,6 +189,7 @@ miniAudicle VERSIONS log
     - (added)(Mac) device browser
     - (added)(Mac) on-the-fly programming visualization
     - (fixed)(Mac) smart indentation bugfixes/tweaks
+
 
 0.1.3.7
 ---
@@ -180,6 +213,7 @@ miniAudicle VERSIONS log
       held down
     - (fixed)(Mac) improved console monitor performance
 
+
 0.1.3.6c
 ---
     - (added)(all) integrated with chuck-1.2.0.7b
@@ -187,6 +221,7 @@ miniAudicle VERSIONS log
       issues.
     - (fixed)(Mac) fixed issue where documents with non-ASCII
       characters would not be saved.
+
 
 0.1.3.6
 ---
@@ -202,6 +237,7 @@ miniAudicle VERSIONS log
       virtual machine monitor
     - (removed)(Linux,Windows) console monitor buffer limit ignored (too slow)
 
+
 0.1.3.5
 ---
     - (fixed)(all) fixed nasty bug where real-time audio would fail if more 
@@ -215,6 +251,7 @@ miniAudicle VERSIONS log
     - (changed)(Win32,Linux) changed syntax highlighting colors
     - (added)(all) console monitor now has limited, user-adjustable scrollback 
       buffer size
+
 
 0.1.3.4
 ---
@@ -245,12 +282,14 @@ miniAudicle VERSIONS log
     - (added)(Mac) ability to select audio interface and sample rate via 
       Preferences dialog
 
+
 0.1.3.3
 ---
     - initial Windows release
     - initial Linux release
     - fixed excessive CPU consumption problem (os x)
     - background color option now works (os x)
+
 
 0.1.3.2
 ---
@@ -259,11 +298,13 @@ miniAudicle VERSIONS log
     - removed external dependencies in documentation files
     - ChucK version 1.2.0.6 integrated
 
+
 0.1.3.1
 ---
     - updated on-the-fly toolbar icons
     - fixed bug where miniAudicle freezes adding/replacing large files
     - fixed "NSScanner nil string" bug
+
 
 0.1.3.0
 ---
@@ -272,6 +313,7 @@ miniAudicle VERSIONS log
     - implemented MAUI_View, MAUI_Button, and MAUI_LED objects
     - expanded MAUI_Element and MAUI_Slider object interfaces
     - disabled network thread by default
+
 
 0.1.2.0
 ---
@@ -297,6 +339,7 @@ miniAudicle VERSIONS log
     - ChucK version 1.2.0.5 integrated
     - Virtual Machine Monitor, Console Monitor, and ChucK shell no longer 
     temporarily disappear when moving the focus to another application
+
 
 0.1.0.0
 ---
