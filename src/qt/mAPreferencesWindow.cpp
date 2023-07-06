@@ -167,10 +167,10 @@ void mAPreferencesWindow::configureDefaults()
     ZSettings::setDefault(mAPreferencesEnableNetwork, false);
     ZSettings::setDefault(mAPreferencesAudioOutput, 0);
     ZSettings::setDefault(mAPreferencesAudioInput, 0);
-    ZSettings::setDefault(mAPreferencesSampleRate, SAMPLE_RATE_DEFAULT);
+    ZSettings::setDefault(mAPreferencesSampleRate, CK_SAMPLE_RATE_DEFAULT);
     ZSettings::setDefault(mAPreferencesOutputChannels, 2);
     ZSettings::setDefault(mAPreferencesInputChannels, 2);
-    ZSettings::setDefault(mAPreferencesBufferSize, BUFFER_SIZE_DEFAULT);
+    ZSettings::setDefault(mAPreferencesBufferSize, CK_BUFFER_SIZE_DEFAULT);
     // 1.5.0.1 (ge) added -- default RtAudio::Api enum
     ZSettings::setDefault(mAPreferencesAudioDriver, (int)ChuckAudio::driverNameToApi(NULL));
     ZSettings::setDefault(mAPreferencesWindowingStyle, MA_WINDOWING_STYLE_DEFAULT );

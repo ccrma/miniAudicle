@@ -488,7 +488,7 @@ void mADocumentView::add()
     }
     else if( otf_result == OTF_COMPILE_ERROR )
     {
-        int error_line;
+        t_CKINT error_line;
         if( m_ma->get_last_result( m_docid, NULL, NULL, &error_line ) )
         {
 //            ui->textEdit->fillIndicatorRange(error_line, 0, error_line+1, 0,
@@ -543,7 +543,7 @@ void mADocumentView::replace()
     }
     else if( otf_result == OTF_COMPILE_ERROR )
     {
-        int error_line;
+        t_CKINT error_line;
         if( m_ma->get_last_result( m_docid, NULL, NULL, &error_line ) )
         {
 //            [text_view setShowsErrorLine:YES];
