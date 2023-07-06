@@ -112,7 +112,7 @@ public:
     
     t_CKBOOL process_reply();
     t_CKBOOL get_last_result( t_CKUINT docid, t_OTF_RESULT * result,
-                              std::string * out, int * line_num  );
+                              std::string * out, t_CKINT * line_num  );
     t_CKBOOL get_last_result( t_CKUINT docid, _doc_otf_result * result  );
     
     t_CKUINT allocate_document_id();

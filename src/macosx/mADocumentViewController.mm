@@ -216,11 +216,11 @@ using namespace std;
     
     else if( otf_result == OTF_COMPILE_ERROR )
     {
-        int error_line;
+        t_CKINT error_line;
         if( ma->get_last_result( docid, NULL, NULL, &error_line ) )
         {
             [text_view setShowsErrorLine:YES];
-            [text_view setErrorLine:error_line];
+            [text_view setErrorLine:(unsigned)error_line];
         }
         
         if([self.windowController currentViewController] == self)
@@ -281,11 +281,11 @@ using namespace std;
     
     else if( otf_result == OTF_COMPILE_ERROR )
     {
-        int error_line;
+        t_CKINT error_line;
         if( ma->get_last_result( docid, NULL, NULL, &error_line ) )
         {
             [text_view setShowsErrorLine:YES];
-            [text_view setErrorLine:error_line];
+            [text_view setErrorLine:(unsigned)error_line];
         }
         
         if([self.windowController currentViewController] == self)

@@ -284,7 +284,7 @@ NSString * const mARecordSessionSaveToKey = @"mARecordSessionSaveToKey";
         }
         else if( otf_result == OTF_COMPILE_ERROR )
         {
-            int error_line;
+            t_CKINT error_line;
             string error_text;
             if( ma->get_last_result( docid, NULL, &error_text, &error_line ) )
             {

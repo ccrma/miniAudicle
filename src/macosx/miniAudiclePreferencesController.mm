@@ -169,11 +169,11 @@ miniAudicle_Version currentVersion()
         [defaults setObject:[NSNumber numberWithInt:ChuckAudio::defaultDriverApi()] forKey:mAPreferencesAudioDriver];
 
         // -1 means the maximum number of channels available
-        [defaults setObject:[NSNumber numberWithInt:NUM_CHANNELS_DEFAULT] forKey:mAPreferencesInputChannels];
-        [defaults setObject:[NSNumber numberWithInt:NUM_CHANNELS_DEFAULT] forKey:mAPreferencesOutputChannels];
+        [defaults setObject:[NSNumber numberWithInt:CK_NUM_CHANNELS_DEFAULT] forKey:mAPreferencesInputChannels];
+        [defaults setObject:[NSNumber numberWithInt:CK_NUM_CHANNELS_DEFAULT] forKey:mAPreferencesOutputChannels];
         
         [defaults setObject:[NSNumber numberWithInt:0] forKey:mAPreferencesSampleRate];
-        [defaults setObject:[NSNumber numberWithInt:BUFFER_SIZE_DEFAULT] forKey:mAPreferencesBufferSize];
+        [defaults setObject:[NSNumber numberWithInt:CK_BUFFER_SIZE_DEFAULT] forKey:mAPreferencesBufferSize];
         
         [defaults setObject:[NSNumber numberWithFloat:2.0] forKey:mAPreferencesVMStallTimeout];
         
@@ -401,14 +401,14 @@ miniAudicle_Version currentVersion()
     
     // output channels
     int num_output_channels = [[output_channels titleOfSelectedItem] intValue];
-    if (num_output_channels == 0) num_output_channels = NUM_CHANNELS_DEFAULT;
+    if (num_output_channels == 0) num_output_channels = CK_NUM_CHANNELS_DEFAULT;
     [[NSUserDefaults standardUserDefaults] setInteger:num_output_channels
                                                forKey:mAPreferencesOutputChannels];
     [mac miniAudicle]->set_num_outputs( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesOutputChannels] intValue] );
     
     // input channels
     int num_input_channels = [[output_channels titleOfSelectedItem] intValue];
-    if (num_input_channels == 0) num_input_channels = NUM_CHANNELS_DEFAULT;
+    if (num_input_channels == 0) num_input_channels = CK_NUM_CHANNELS_DEFAULT;
     [[NSUserDefaults standardUserDefaults] setInteger:num_input_channels
                                                forKey:mAPreferencesInputChannels];
     [mac miniAudicle]->set_num_inputs( [[[NSUserDefaults standardUserDefaults] objectForKey:mAPreferencesInputChannels] intValue] );
@@ -881,7 +881,7 @@ miniAudicle_Version currentVersion()
 
     if (selected_output == -1) // default output
     {
-        [output_channels addItemWithTitle:[NSString stringWithFormat:@"%i", NUM_CHANNELS_DEFAULT]];
+        [output_channels addItemWithTitle:[NSString stringWithFormat:@"%i", CK_NUM_CHANNELS_DEFAULT]];
         [output_channels selectItem:[output_channels lastItem]];
         [sample_rate selectItem:[sample_rate lastItem]];
     }
@@ -930,7 +930,7 @@ miniAudicle_Version currentVersion()
     
     if (selected_input == -1) // default input
     {
-        [input_channels addItemWithTitle:[NSString stringWithFormat:@"%i", NUM_CHANNELS_DEFAULT]];
+        [input_channels addItemWithTitle:[NSString stringWithFormat:@"%i", CK_NUM_CHANNELS_DEFAULT]];
         [input_channels selectItem:[input_channels lastItem]];
     }
     else

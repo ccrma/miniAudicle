@@ -35,23 +35,14 @@ U.S.A.
 #include <string.h>
 #include <ctype.h>
 
-#ifdef __PLATFORM_WIN32__
-#include <windows.h>
-#include <io.h>
-#include <fcntl.h>
-#else
-#include <unistd.h>
-#endif
-
+#include "version.h"
 #include "miniAudicle.h"
-#include "chuck_audio.h"
-#include "chuck_otf.h"
-#include "chuck_errmsg.h"
-#include "chuck_audio.h"
 #include "chuck.h"
+#include "chuck_errmsg.h"
+#include "chuck_otf.h"
+#include "chuck_audio.h"
 #include "util_string.h"
 #include "util_platforms.h"
-#include "version.h"
 
 #ifndef __PLATFORM_WIN32__
 #include "git-rev.h"
@@ -60,9 +51,9 @@ U.S.A.
 #include "miniAudicle_ui_elements.h"
 #include "miniAudicle_import.h"
 #include "util_rterror.h"
-//using namespace miniAudicle;
 
 using namespace std;
+//using namespace miniAudicle;
 
 // check if need to implicitly enable MAUI
 #ifndef __MA_IMPORT_MAUI__
@@ -88,15 +79,8 @@ using namespace std;
     t_CKINT priority_low = 0x7fffffff;
 #endif
 
-// default sample rates
-#if !defined(SAMPLING_RATE_DEFAULT)
-    #if defined(__PLATFORM_LINUX__)
-        #define SAMPLING_RATE_DEFAULT 48000
-    #else
-        #define SAMPLING_RATE_DEFAULT 44100
-    #endif //
-#endif // !defined(SAMPLING_RATE_DEFAULT)
-
+// set mA default sample rate to CK default
+#define MA_SAMPLE_RATE_DEFAULT CK_SAMPLE_RATE_DEFAULT
 
 // miniAudicle version text
 extern const char MA_VERSION[] = ENV_MA_VERSION " (latte)";
@@ -180,10 +164,10 @@ miniAudicle::miniAudicle()
     vm_options.dac = 0;
     vm_options.adc = 0;
     vm_options.srate = 0;
-    vm_options.buffer_size = BUFFER_SIZE_DEFAULT;
-    vm_options.num_buffers = NUM_BUFFERS_DEFAULT;
-    vm_options.num_inputs = NUM_CHANNELS_DEFAULT;
-    vm_options.num_outputs = NUM_CHANNELS_DEFAULT;
+    vm_options.buffer_size = CK_BUFFER_SIZE_DEFAULT;
+    vm_options.num_buffers = CK_NUM_BUFFERS_DEFAULT;
+    vm_options.num_inputs = CK_NUM_CHANNELS_DEFAULT;
+    vm_options.num_outputs = CK_NUM_CHANNELS_DEFAULT;
     vm_options.enable_block = FALSE;
     vm_options.force_srate = FALSE;
     
@@ -455,7 +439,6 @@ t_OTF_RESULT miniAudicle::handle_reply( t_CKUINT docid, string & out )
                 ck_usleep( vm_sleep_time );
                 sleep_count++;
             }
-            
             else
             {
                 return OTF_VM_TIMEOUT;
@@ -754,7 +737,7 @@ t_CKBOOL miniAudicle::process_reply()
 // desc: ...
 //-----------------------------------------------------------------------------
 t_CKBOOL miniAudicle::get_last_result( t_CKUINT docid, t_OTF_RESULT * result,
-                                       string * out, int * line_num )
+                                       string * out, t_CKINT * line_num )
 {
     if( last_result.count( docid ) == 0 )
         return FALSE;
@@ -907,9 +890,9 @@ t_CKBOOL miniAudicle::start_vm()
         EM_log( CK_LOG_INFO, "allocating VM..." );
         t_CKBOOL enable_audio = vm_options.enable_audio;
         t_CKBOOL vm_halt = FALSE;
-        t_CKUINT srate = vm_options.srate != 0 ? vm_options.srate : SAMPLE_RATE_DEFAULT;
+        t_CKUINT srate = vm_options.srate != 0 ? vm_options.srate : CK_SAMPLE_RATE_DEFAULT;
         t_CKUINT buffer_size = vm_options.buffer_size;
-        t_CKUINT num_buffers = NUM_BUFFERS_DEFAULT;
+        t_CKUINT num_buffers = CK_NUM_BUFFERS_DEFAULT;
         string driverName = vm_options.driver;
         t_CKUINT dac = vm_options.dac;
         t_CKUINT adc = vm_options.adc;
@@ -1563,7 +1546,7 @@ t_CKBOOL miniAudicle::set_sample_rate( t_CKUINT srate )
 #ifndef __CHIP_MODE__
     if( interfaces.size() == 0 )
     {
-        vm_options.srate = SAMPLING_RATE_DEFAULT;
+        vm_options.srate = MA_SAMPLE_RATE_DEFAULT;
         vm_options.force_srate = FALSE;
         return TRUE;
     }
@@ -1571,7 +1554,7 @@ t_CKBOOL miniAudicle::set_sample_rate( t_CKUINT srate )
     if( srate == 0 )
     {
         // defaults -- force_srate = false
-        vm_options.srate = SAMPLING_RATE_DEFAULT;
+        vm_options.srate = MA_SAMPLE_RATE_DEFAULT;
         vm_options.force_srate = FALSE;
         return TRUE;
     }
@@ -1589,7 +1572,7 @@ t_CKBOOL miniAudicle::set_sample_rate( t_CKUINT srate )
     if( i == len )
         // the specified sample rate isnt support by the dac
     {
-        vm_options.srate = SAMPLING_RATE_DEFAULT; // hope this one works!
+        vm_options.srate = MA_SAMPLE_RATE_DEFAULT; // hope this one works!
         vm_options.force_srate = FALSE;
         return TRUE;
     }
@@ -1605,7 +1588,7 @@ t_CKBOOL miniAudicle::set_sample_rate( t_CKUINT srate )
     if( i == len )
         // the specified sample rate isnt support by the adc
     {
-        vm_options.srate = SAMPLING_RATE_DEFAULT; // hope this one works!
+        vm_options.srate = MA_SAMPLE_RATE_DEFAULT; // hope this one works!
         vm_options.force_srate = FALSE;
         return TRUE;
     }
