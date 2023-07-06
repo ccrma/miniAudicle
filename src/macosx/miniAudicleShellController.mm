@@ -57,7 +57,7 @@ void * ma_shell_cb( void * p )
     shell->run();
     
     // delete and set to NULL
-    SAFE_DELETE( shell );
+    CK_SAFE_DELETE( shell );
     // perhaps let shell destructor clean up mode and ui?
     
     EM_log( CK_LOG_INFO, "exiting thread routine for shell..." );

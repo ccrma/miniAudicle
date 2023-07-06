@@ -151,7 +151,7 @@ mAPreferencesWindow::mAPreferencesWindow( QWidget * parent, miniAudicle * ma)
 //-----------------------------------------------------------------------------
 mAPreferencesWindow::~mAPreferencesWindow()
 {
-    SAFE_DELETE( ui );
+    CK_SAFE_DELETE( ui );
 }
 
 
@@ -634,7 +634,7 @@ void mAPreferencesWindow::probeChugins()
     // suppress logging
     chuck->setLogLevel( CK_LOG_NONE );
     // clean up local instance
-    SAFE_DELETE( chuck );
+    CK_SAFE_DELETE( chuck );
 
     // restore to previous log level
     m_ma->set_log_level( logLevel );

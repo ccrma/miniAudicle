@@ -48,7 +48,7 @@ struct mAAutocompleteNode
     
     ~mAAutocompleteNode()
     {
-        SAFE_DELETE(completions);
+        CK_SAFE_DELETE(completions);
     }
 
     
@@ -211,9 +211,9 @@ mAAutocomplete::mAAutocomplete()
 
 mAAutocomplete::~mAAutocomplete()
 {
-    SAFE_DELETE(m_tree);
+    CK_SAFE_DELETE(m_tree);
     for(int i = 0; i < m_allWords.size(); i++)
-        SAFE_DELETE(m_allWords[i]);
+        CK_SAFE_DELETE(m_allWords[i]);
     m_allWords.clear();
 }
 

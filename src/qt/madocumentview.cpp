@@ -94,9 +94,9 @@ mADocumentView::~mADocumentView()
 {
     detach();
     
-    SAFE_DELETE(file);
-    SAFE_DELETE(lexer);
-    SAFE_DELETE(ui);
+    CK_SAFE_DELETE(file);
+    CK_SAFE_DELETE(lexer);
+    CK_SAFE_DELETE(ui);
 }
 
 void mADocumentView::preferencesChanged()

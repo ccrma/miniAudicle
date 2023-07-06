@@ -1035,7 +1035,7 @@ miniAudicle_Version currentVersion()
     // suppress logging
     localChuck->setLogLevel( CK_LOG_NONE );
     // clean up local instance
-    SAFE_DELETE( localChuck );
+    CK_SAFE_DELETE( localChuck );
 
     // restore to previous log level (log levels are global)
     ma->set_log_level( logLevel );

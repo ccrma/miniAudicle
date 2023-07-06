@@ -57,7 +57,7 @@ mADeviceBrowser::mADeviceBrowser(QWidget *parent) :
 
 mADeviceBrowser::~mADeviceBrowser()
 {
-    SAFE_DELETE(ui);
+    CK_SAFE_DELETE(ui);
 }
 
 

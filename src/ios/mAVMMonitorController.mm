@@ -128,7 +128,7 @@ NSString * const mAVMMonitorControllerStatusUpdateNotification = @"mAVMMonitorCo
         
         isUpdating = NO;
         
-        SAFE_DELETE_ARRAY(status_buffers);
+        CK_SAFE_DELETE_ARRAY(status_buffers);
         status_buffers = NULL;
 
         most_recent_status = NULL;
