@@ -201,7 +201,7 @@ miniAudicle::~miniAudicle()
         stop_vm();
 
     // clear | 1.5.0.1 (ge) using SAFE_DELETE macro
-    CK_CK_SAFE_DELETE( class_names );
+    CK_SAFE_DELETE( class_names );
     
     // log
     EM_log( CK_LOG_INFO, "miniAudicle instance destroyed..." );
@@ -1100,7 +1100,7 @@ t_CKBOOL miniAudicle::stop_vm()
     {
         for( size_t i = 0; i < num_status_bufs; i++ )
         {
-            CK_CK_SAFE_DELETE( status_bufs[i] );
+            CK_SAFE_DELETE( status_bufs[i] );
         }
         CK_SAFE_DELETE_ARRAY( status_bufs );
     }
@@ -1117,7 +1117,7 @@ t_CKBOOL miniAudicle::stop_vm()
         // clean up chuck global components
         ChucK::globalCleanup();
         // delete and zero out
-        CK_CK_SAFE_DELETE(m_chuck);
+        CK_SAFE_DELETE(m_chuck);
         // zero out references
         compiler = NULL;
         vm = NULL;
@@ -1292,7 +1292,7 @@ t_CKBOOL miniAudicle::probe( const char * driverName )
     // check for errors;
     if (rtaudio_has_error()) {
         rtaudio_error_print(true);
-        CK_CK_SAFE_DELETE(rta);
+        CK_SAFE_DELETE(rta);
         return FALSE;
     }
 
@@ -1333,7 +1333,7 @@ t_CKBOOL miniAudicle::probe( const char * driverName )
         default_output = 0;
 
     // done
-    CK_CK_SAFE_DELETE( rta );
+    CK_SAFE_DELETE( rta );
     
 #endif // __CHIP_MODE__
     
