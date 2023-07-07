@@ -111,4 +111,46 @@ protected:
 };
 
 
+
+
+//-----------------------------------------------------------------------------
+// in search of a VT100 color printing
+//
+// Copyright (C) 2016 Petar Perisin <petar.perisin@gmail.com>
+// LicenseRef-Qt-Commercial OR GPL-3.0-only WITH Qt-GPL-exception-1.0
+//
+// https://forum.qt.io/topic/96638/qplaintextedit-vt100-espace-sequence-support
+// https://code.qt.io/cgit/qt-creator/qt-creator.git/tree/src/libs/utils/ansiescapecodehandler.h
+// https://code.qt.io/cgit/qt-creator/qt-creator.git/tree/src/libs/utils/ansiescapecodehandler.cpp
+//-----------------------------------------------------------------------------
+
+class FormattedText
+{
+public:
+    FormattedText() = default;
+    FormattedText(const QString &txt, const QTextCharFormat &fmt = QTextCharFormat()) :
+        text(txt), format(fmt)
+    { }
+
+    QString text;
+    QTextCharFormat format;
+};
+
+class AnsiEscapeCodeHandler
+{
+public:
+    QList<FormattedText> parseText(const FormattedText &input);
+    void endFormatScope();
+
+private:
+    void setFormatScope(const QTextCharFormat &charFormat);
+
+    bool            m_previousFormatClosed = true;
+    bool            m_waitingForTerminator = false;
+    QString         m_alternateTerminator;
+    QTextCharFormat m_previousFormat;
+    QString         m_pendingText;
+};
+
+
 #endif // MACONSOLEMONITOR_H
