@@ -973,7 +973,8 @@ t_CKBOOL miniAudicle::start_vm()
 
         // pop
         EM_poplog();
-        
+
+        // set ChucK parameters
         m_chuck->setParam(CHUCK_PARAM_SAMPLE_RATE, srate);
         m_chuck->setParam(CHUCK_PARAM_INPUT_CHANNELS, input_channels);
         m_chuck->setParam(CHUCK_PARAM_OUTPUT_CHANNELS, output_channels);
@@ -983,6 +984,12 @@ t_CKBOOL miniAudicle::start_vm()
         m_chuck->setParam(CHUCK_PARAM_USER_CHUGIN_DIRECTORIES, library_paths);
         m_chuck->setParam( CHUCK_PARAM_HINT_IS_REALTIME_AUDIO, enable_audio );
 
+#ifdef __MA_COLOR_CONSOLE__
+        // enable chuck color TTY output; to be interpreted and rendred by mA console
+        m_chuck->setParam(CHUCK_PARAM_TTY_COLOR, TRUE);
+#endif
+
+        // initialize
         if( !m_chuck->init() )
         {
             fprintf( stderr, "[chuck]: failed to init chuck engine\n" );
@@ -997,9 +1004,10 @@ t_CKBOOL miniAudicle::start_vm()
         compiler = m_chuck->compiler();
         
 #ifdef __MA_IMPORT_MAUI__
-        // import api
+        // import miniAudicle UI api
         init_maui( compiler->env() );
 #endif
+        // call query functions
         for(list<t_CKBOOL (*)(Chuck_Env *)>::iterator i = vm_options.query_funcs.begin(); i != vm_options.query_funcs.end(); i++)
             (*i)( compiler->env() );
 
@@ -1026,18 +1034,17 @@ t_CKBOOL miniAudicle::start_vm()
 
         // pop
         EM_poplog();
-        
-        // set chout/cherr callbacks
+
+        // set chuck chout/cherr redirect handlers
         if( m_console_callback )
         {
             m_chuck->setChoutCallback(m_console_callback);
             m_chuck->setCherrCallback(m_console_callback);
         }
 
-
         // log
         EM_log( CK_LOG_SYSTEM, "virtual machine initialized..." );
-        EM_log( CK_LOG_SYSTEM, "chuck version: %s...", m_chuck->version() );
+        EM_log( CK_LOG_SYSTEM, "chuck version: %s...", TC::green(m_chuck->version(),true).c_str() );
 
         // pop log
         EM_poplog();
@@ -1046,7 +1053,7 @@ t_CKBOOL miniAudicle::start_vm()
         EM_log( CK_LOG_SYSTEM, "starting real-time audio..." );
 
         // start the audio subsystem
-        if(!ChuckAudio::start())
+        if( !ChuckAudio::start() )
         {
             EM_log( CK_LOG_SYSTEM, "error starting audio (use --silent/-s for non-realtime)" );
             // pop
@@ -1766,6 +1773,20 @@ t_CKBOOL miniAudicle::get_new_class_names( vector< string > & v )
     }
     
     return TRUE;
+}
+
+
+//-----------------------------------------------------------------------------
+// name: set_console_column_width_hint()
+// desc: set console column width, in # of characters
+//-----------------------------------------------------------------------------
+void miniAudicle::set_console_column_width_hint( t_CKUINT columnWidth )
+{
+    // check
+    if( !m_chuck ) return;
+    // set tty width
+    // this helps chuck snippet code when a line of code is too long for the console
+    m_chuck->setParam(CHUCK_PARAM_TTY_WIDTH_HINT, columnWidth );
 }
 
 

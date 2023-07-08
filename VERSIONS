@@ -2,6 +2,13 @@
 miniAudicle VERSIONS log
 ------------------------
 
+1.5.0.6 (July 2023)
+---
+    - (updated) chuck-1.5.0.6 (chai)
+    - (fixed, high priority) replace shred crash resolved
+    - (added, Windows + Linux) color VM console output
+
+
 1.5.0.5 (July 2023)
 ---
     - (updated) chuck-1.5.0.5 (chai)

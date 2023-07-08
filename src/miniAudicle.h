@@ -136,6 +136,9 @@ public:
     // see audio system (e.g., ChucKAudio.cpp) for more information
     t_CKBOOL probe( const char * driver );
 
+    // get the ChucK instance | 1.5.0.6 (ge) added
+    // ChucK * chuck() { return m_chuck; }
+
 #ifndef __CHIP_MODE__
     const std::vector< RtAudio::DeviceInfo > & get_interfaces();
 #endif // __CHIP_MODE__
@@ -169,7 +172,10 @@ public:
     t_CKBOOL add_query_func(t_CKBOOL (*func)(Chuck_Env *));
     // 1.5.0.1 (ge) added (see probe() above for more information)
     t_CKBOOL set_driver( const char * driver );
-
+    // 1.5.0.6 (ge) set console column width, in # of characters
+    // this helps chuck snippet code when a line of code is too long for the console
+    void set_console_column_width_hint( t_CKUINT columnWidth );
+    // set the console callback function
     void set_ck_console_callback(void (*callback)(const char *));
 
 protected:
