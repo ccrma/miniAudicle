@@ -141,26 +141,52 @@ mAConsoleMonitor::~mAConsoleMonitor()
 
 
 //-----------------------------------------------------------------------------
-// name: ckErrOutCallback()
-// desc: redirect handler for chuck err stream
-//       1.5.0.6 (ge) add ansi escape code / color TTY processing
+// name: resizeEvent() | 1.5.0.6 (ge) added
+// desc: customize handling of window resize
 //-----------------------------------------------------------------------------
-void mAConsoleMonitor::ckErrOutCallback( const char * str )
+void mAConsoleMonitor::resizeEvent( QResizeEvent* event )
 {
-    // previously: unprocessed pass through
-    // write( write_fd, str, strlen(str) );
+    // call parent
+    QMainWindow::resizeEvent(event);
 
-    // get width
+    // handle
+    handleResize();
+}
+
+
+//-----------------------------------------------------------------------------
+// name: handleResize() | 1.5.0.6 (ge) added
+// desc: handle console resize
+//-----------------------------------------------------------------------------
+void mAConsoleMonitor::handleResize()
+{
+    // get console width
     int width = ui->plainTextEdit->size().width();
     // get character columns for current width
     width = (int)(width/(double)ui->plainTextEdit->fontMetrics().averageCharWidth() + .5);
     // pad
-    width -= 3;
+    width -= 4;
     // tell miniAudicle about number of characters
     ma_ref->set_console_column_width_hint( width );
+}
 
+
+//-----------------------------------------------------------------------------
+// name: formatAndOutput() | 1.5.0.6 (ge) added
+// desc: format str and output to console
+//-----------------------------------------------------------------------------
+void mAConsoleMonitor::formatAndOutput( const char * str )
+{
     // process text for ANSI escape codes; format text
     QList<FormattedText> list = m_esc2text->parseText( FormattedText(QString(str)) );
+    // console scroll bar
+    QScrollBar * verticalScroll = ui->plainTextEdit->verticalScrollBar();
+    // whether to auto-scroll
+    bool autoScroll = verticalScroll->sliderPosition() == verticalScroll->maximum();
+
+    // handle resize
+    handleResize();
+
     // get cursor
     QTextCursor cursor(ui->plainTextEdit->document());
     // get character count
@@ -176,10 +202,30 @@ void mAConsoleMonitor::ckErrOutCallback( const char * str )
         cursor.insertText(list[i].text, list[i].format );
     }
 
-    // part of scroll to end
-    ui->plainTextEdit->ensureCursorVisible();
-    // scroll to the end
-    ui->plainTextEdit->verticalScrollBar()->setValue(ui->plainTextEdit->verticalScrollBar()->maximum());
+    // check
+    if( autoScroll )
+    {
+        // part of scroll to end
+        ui->plainTextEdit->ensureCursorVisible();
+        // scroll to the end
+        verticalScroll->setSliderPosition(verticalScroll->maximum());
+        // ui->plainTextEdit->verticalScrollBar()->setValue(ui->plainTextEdit->verticalScrollBar()->maximum());
+    }
+}
+
+
+//-----------------------------------------------------------------------------
+// name: ckErrOutCallback()
+// desc: redirect handler for chuck err stream
+//       1.5.0.6 (ge) add ansi escape code / color TTY processing
+//-----------------------------------------------------------------------------
+void mAConsoleMonitor::ckErrOutCallback( const char * str )
+{
+    // previously: unprocessed pass through
+    // write( write_fd, str, strlen(str) );
+
+    // format and output to console | 1.5.0.6 (ge) added
+    formatAndOutput( str );
 }
 
 
@@ -201,19 +247,11 @@ void mAConsoleMonitor::appendFromFile(int fd)
 
     if(len > 0)
     {
+        // NULL terminate the string
         buf[len] = '\0';
-        QScrollBar * verticalScroll = ui->plainTextEdit->verticalScrollBar();
-        bool scroll = verticalScroll->sliderPosition() == verticalScroll->maximum();
-        QTextCursor cursor(ui->plainTextEdit->document());
-        int count = ui->plainTextEdit->document()->characterCount();
-        if(count > 0)
-            cursor.setPosition(count-1);
-        else
-            cursor.setPosition(0);
-        cursor.insertText(QString(buf));
 
-        if(scroll)
-            verticalScroll->setSliderPosition(verticalScroll->maximum());
+        // format and output to console | 1.5.0.6 (ge) added
+        formatAndOutput( buf );
     }
 }
 

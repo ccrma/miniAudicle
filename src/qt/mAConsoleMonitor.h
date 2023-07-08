@@ -58,6 +58,9 @@ public:
     // destructor
     ~mAConsoleMonitor();
 
+    // resize event handler
+    void resizeEvent( QResizeEvent* event );
+
     // err callback redirect coming from chuck
     void ckErrOutCallback(const char *str);
 
@@ -66,6 +69,12 @@ public slots:
     void appendFromFile(int fd);
     // called when data available to append
     void dataAvailable();
+    // handle console resize
+    void handleResize();
+
+protected:
+    // format string and output to console
+    void formatAndOutput( const char * str );
 
 private:
     // the ui
