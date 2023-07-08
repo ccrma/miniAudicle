@@ -30,6 +30,9 @@ MAKEFILE = makefile.qt
 PRECOMPILED_HEADER = qt/miniAudicle_pc.h
 DEFINES += HAVE_CONFIG_H
 
+# miniAudicle enable color console
+DEFINES += __MA_COLOR_CONSOLE__
+
 # (unix systems) where to put intermediate/generated files
 unix:BUILD_DIR = qt-build
 unix:OBJECTS_DIR = qt-build

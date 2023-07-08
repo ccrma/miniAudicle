@@ -21,31 +21,29 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 U.S.A.
 -----------------------------------------------------------------------------*/
-
 #include "mAConsoleMonitor.h"
 #include "ui_mAConsoleMonitor.h"
+
+#include "miniAudicle.h"
+#include "chuck_def.h"
+#include "chuck_errmsg.h"
+#include "chuck.h"
 
 #include <QtWidgets/QScrollBar>
 #include <QMenu>
 #include <QTextEdit>
 #include <QPlainTextEdit>
 
-#include "chuck_def.h"
-#include "chuck_errmsg.h"
+#include <fcntl.h>
+#include <stdio.h>
 
 #ifndef __PLATFORM_WIN32__
 #include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
 #else
 #include <windows.h>
 #include <io.h>
-#include <fcntl.h>
-#include <stdio.h>
 #endif
 
-#include "miniAudicle.h"
-#include "chuck.h"
 
 #define DISABLE_CONSOLE_MONITOR 0
 
@@ -56,21 +54,30 @@ U.S.A.
 #define STDOUT_FILENO 1
 #endif
 
+// our console monitor
 static mAConsoleMonitor * g_console_monitor = NULL;
 
-void ck_err_out_callback(const char *str)
+
+// redirect
+void ck_err_out_callback( const char * str )
 {
-    if (g_console_monitor)
+    if( g_console_monitor )
     {
-        g_console_monitor->ckErrOutCallback(str);
+        g_console_monitor->ckErrOutCallback( str );
     }
 }
 
-        
+
+//-----------------------------------------------------------------------------
+// name: mAConsoleMonitor()
+// desc: constructor
+//-----------------------------------------------------------------------------
 mAConsoleMonitor::mAConsoleMonitor(QWidget *parent, miniAudicle * ma) :
     QMainWindow(parent),
     ui(new Ui::mAConsoleMonitor),
-    m_notifier(NULL)
+    ma_ref(ma), // 1.5.0.6 (ge) added
+    m_notifier(NULL),
+    m_esc2text(new AnsiEscapeCodeHandler) // 1.5.0.6 (ge) added
 {
     ui->setupUi(this);
     read_fd = 0;
@@ -114,7 +121,8 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent, miniAudicle * ma) :
 
     g_console_monitor = this;
 
-    ma->set_ck_console_callback(ck_err_out_callback);
+    // redirect chuck-specific stderr output
+    ma->set_ck_console_callback( ck_err_out_callback );
 
     mAConsoleMonitorThread * thread = new mAConsoleMonitorThread(this);
     QObject::connect(thread, SIGNAL(dataAvailable()),
@@ -131,11 +139,54 @@ mAConsoleMonitor::~mAConsoleMonitor()
     delete ui;
 }
 
-void mAConsoleMonitor::ckErrOutCallback(const char *str)
+
+//-----------------------------------------------------------------------------
+// name: ckErrOutCallback()
+// desc: redirect handler for chuck err stream
+//       1.5.0.6 (ge) add ansi escape code / color TTY processing
+//-----------------------------------------------------------------------------
+void mAConsoleMonitor::ckErrOutCallback( const char * str )
 {
-    write(write_fd, str, strlen(str));
+    // previously: unprocessed pass through
+    // write( write_fd, str, strlen(str) );
+
+    // get width
+    int width = ui->plainTextEdit->size().width();
+    // get character columns for current width
+    width = (int)(width/(double)ui->plainTextEdit->fontMetrics().averageCharWidth() + .5);
+    // pad
+    width -= 3;
+    // tell miniAudicle about number of characters
+    ma_ref->set_console_column_width_hint( width );
+
+    // process text for ANSI escape codes; format text
+    QList<FormattedText> list = m_esc2text->parseText( FormattedText(QString(str)) );
+    // get cursor
+    QTextCursor cursor(ui->plainTextEdit->document());
+    // get character count
+    int count = ui->plainTextEdit->document()->characterCount();
+    // position cursor to the end
+    if(count > 0) cursor.setPosition(count-1);
+    else cursor.setPosition(0);
+
+    // loop over formatted text list
+    for( int i = 0; i < list.count(); i++ )
+    {
+        // insert text
+        cursor.insertText(list[i].text, list[i].format );
+    }
+
+    // part of scroll to end
+    ui->plainTextEdit->ensureCursorVisible();
+    // scroll to the end
+    ui->plainTextEdit->verticalScrollBar()->setValue(ui->plainTextEdit->verticalScrollBar()->maximum());
 }
 
+
+//-----------------------------------------------------------------------------
+// name: appendFromFile()
+// desc: append contents of file
+//-----------------------------------------------------------------------------
 void mAConsoleMonitor::appendFromFile(int fd)
 {
 #define BUF_SIZE 8192
@@ -166,10 +217,12 @@ void mAConsoleMonitor::appendFromFile(int fd)
     }
 }
 
+
 void mAConsoleMonitor::dataAvailable()
 {
     appendFromFile(read_fd);
 }
+
 
 void mAConsoleMonitorThread::run()
 {
@@ -234,7 +287,6 @@ void mAPlainTextEdit::contextMenuEvent( QContextMenuEvent * event )
 // https://code.qt.io/cgit/qt-creator/qt-creator.git/tree/src/libs/utils/ansiescapecodehandler.h
 // https://code.qt.io/cgit/qt-creator/qt-creator.git/tree/src/libs/utils/ansiescapecodehandler.cpp
 //-----------------------------------------------------------------------------
-
 /*!
     \class Utils::AnsiEscapeCodeHandler
     \inmodule QtCreator
