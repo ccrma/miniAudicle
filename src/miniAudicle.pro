@@ -19,19 +19,24 @@
 
 # build target
 TARGET = miniAudicle
+
 # build as application
 TEMPLATE = app
+
 # Qt modules
 QT += core gui network widgets
+
 # c++ language dialect
 CONFIG += c++11
+
 CONFIG += warn_off
 MAKEFILE = makefile.qt
 PRECOMPILED_HEADER = qt/miniAudicle_pc.h
-DEFINES += HAVE_CONFIG_H
 
 # miniAudicle enable color console
 DEFINES += __MA_COLOR_CONSOLE__
+# for liblo
+DEFINES += HAVE_CONFIG_H
 
 # (unix systems) where to put intermediate/generated files
 unix:BUILD_DIR = qt-build
@@ -57,9 +62,10 @@ QMAKE_TARGET_BUNDLE_PREFIX = edu.stanford.chuck
 # set application bundle identifier name
 QMAKE_BUNDLE = miniAudicle
 
-# compiler flags; assumes Qsci/ in $$[QT_INSTALL_HEADERS]
-CFLAGS = -D__MACOSX_CORE__ -I../src/chuck/src -I../src \
-    -I../src/chuck/src/core  -I../src/chuck/src/host \
+# #defines
+CFLAGS += -D__MACOSX_CORE__
+# header paths; assumes Qsci/ in $$[QT_INSTALL_HEADERS]
+CFLAGS += -I../src/chuck/src -I../src -I../src/chuck/src/core  -I../src/chuck/src/host
 
 # qmake compiler flags
 QMAKE_CXXFLAGS += $$CFLAGS
@@ -96,7 +102,6 @@ equals( QSCINTILLA_LINKING, "static" ) { # use static linking
 
 # icon
 ICON = qt/icon/miniAudicle.ico
-
 }
 
 
@@ -127,21 +132,25 @@ contains(RTAUDIO_BACKEND,JACK){
     LIBS += -ljack
 }
 
-
+# adjust flags
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -O3
 QMAKE_CFLAGS_RELEASE -= -O2
 QMAKE_CFLAGS_RELEASE += -O3
 QMAKE_LFLAGS_RELEASE -= -O1
 
-CFLAGS += -D__CK_SNDFILE_NATIVE__ -D__CHUCK_NO_MAIN__ -D__LINUX__ -D__PLATFORM_LINUX__ -Ichuck/src/core -Ichuck/src/host -DHAVE_CONFIG_H
+# defines
+CFLAGS += -D__CK_SNDFILE_NATIVE__
+# include paths
+CFLAGS += -Ichuck/src/core -Ichuck/src/host
+
+# qmake flags
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LFLAGS += $$LDFLAGS
 LIBS += -lasound -lstdc++ -lm -lsndfile -ldl -lqscintilla2_qt6
 
 target.path = /usr/local/bin
-
 examples.path = /usr/local/share/doc/chuck/examples/
 examples.files = chuck/src/examples/*
 
