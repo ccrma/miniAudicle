@@ -21,7 +21,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 U.S.A.
 -----------------------------------------------------------------------------*/
-
 #include "madocumentview.h"
 #include "ui_madocumentview.h"
 
@@ -35,13 +34,11 @@ U.S.A.
 
 #include "mAsciLexerChucK.h"
 #include "mAExportDialog.h"
-#include "ZSettings.h"
 #include "mAPreferencesWindow.h"
-
+#include "ZSettings.h"
 #include "util_string.h"
 
 #include <signal.h>
-
 using namespace std;
 
 
@@ -186,14 +183,14 @@ void mADocumentView::exportAsWav()
             while(true)
             {
                 if(progress.wasCanceled()) { cancelled = true; break; }
-#ifdef WIN32
+#ifdef __PLATFORM_WINDOWS__
                 if(process.waitForFinished(10)) break;
-#else // !WIN32
+#else // !__PLATFORM_WINDOWS__
                 // seems to be necessary to check both on Linux
                 // whereas on Windows state() is NotRunning before the process has started
                 // palm => face
                 if(process.state() == QProcess::NotRunning || process.waitForFinished(10)) break;
-#endif // WIN32
+#endif // __PLATFORM_WINDOWS__
                 
                 QByteArray output = process.readAllStandardOutput();
                 if(output.length())
@@ -277,7 +274,7 @@ void mADocumentView::exportAsWav()
                 
         if(cancelled)
         {
-#ifdef __PLATFORM_WIN32__
+#ifdef __PLATFORM_WINDOWS__
             AttachConsole((DWORD)process.processId()); // attach to process console
             SetConsoleCtrlHandler(NULL, TRUE); // disable Control+C handling for our app
             GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0); // generate Control+C event

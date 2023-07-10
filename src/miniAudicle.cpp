@@ -44,9 +44,9 @@ U.S.A.
 #include "util_string.h"
 #include "util_platforms.h"
 
-#ifndef __PLATFORM_WIN32__
+#ifndef __PLATFORM_WINDOWS__
 #include "git-rev.h"
-#endif // __PLATFORM_WIN32__
+#endif // __PLATFORM_WINDOWS__
 
 #include "miniAudicle_ui_elements.h"
 #include "miniAudicle_import.h"
@@ -71,7 +71,7 @@ using namespace std;
 #if defined(__MACOSX_CORE__)
     t_CKINT priority = 80;
     t_CKINT priority_low = 60;
-#elif defined(__PLATFORM_WIN32__)
+#elif defined(__PLATFORM_WINDOWS__)
     t_CKINT priority = 0;
     t_CKINT priority_low = 0;
 #else
@@ -84,7 +84,7 @@ using namespace std;
 
 // miniAudicle version text
 extern const char MA_VERSION[] = ENV_MA_VERSION " (latte)";
-#ifndef __PLATFORM_WIN32__
+#ifndef __PLATFORM_WINDOWS__
 extern const char MA_ABOUT[] = "version %s\n\
 git: " GIT_REVISION "\n\
 Copyright (c) Spencer Salazar\n\n\
@@ -95,7 +95,7 @@ extern const char MA_ABOUT[] = "version %s\n\
 Copyright (c) Spencer Salazar\n\n\
 ChucK: version %s %lu-bit\n\
 Copyright (c) Ge Wang and Perry Cook\nhttp://chuck.stanford.edu/";
-#endif // __PLATFORM_WIN32__
+#endif // __PLATFORM_WINDOWS__
 
 // miniAudicle help
 extern const char MA_HELP[] = 

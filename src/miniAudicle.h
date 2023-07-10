@@ -32,6 +32,7 @@ U.S.A.
 #ifndef __MINIAUDICLE_H__
 #define __MINIAUDICLE_H__
 
+#include "chuck_def.h"
 #include "chuck_compile.h"
 #include "chuck_type.h"
 #include "util_thread.h"

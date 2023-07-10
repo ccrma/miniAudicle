@@ -29,7 +29,9 @@ U.S.A.
 #include <QThread>
 #include <QPlainTextEdit>
 
-#ifdef __PLATFORM_WIN32__
+#include "miniAudicle.h" // 1.5.0.7 (ge) added for platform macros
+
+#ifdef __PLATFORM_WINDOWS__
 #include <windows.h>
 #endif
 
@@ -37,7 +39,7 @@ namespace Ui {
 class mAConsoleMonitor;
 }
 
-class miniAudicle;
+//class miniAudicle;
 class mAConsoleMonitorThread;
 class AnsiEscapeCodeHandler;
 
@@ -82,7 +84,7 @@ private:
     // miniAudicle reference
     miniAudicle * ma_ref;
 
-#ifdef __PLATFORM_WIN32__
+#ifdef __PLATFORM_WINDOWS__
     HANDLE hRead, hWrite;
 #endif
     // file descriptors

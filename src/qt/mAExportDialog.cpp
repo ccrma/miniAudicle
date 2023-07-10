@@ -2,6 +2,8 @@
 #include "ui_mAExportDialog.h"
 
 #include "ZSettings.h"
+#include "miniAudicle.h" // 1.5.0.7 (ge) added for platform macros
+
 #include <QProcessEnvironment>
 #include <QFileInfo>
 
@@ -74,16 +76,16 @@ QString which(const QString &bin)
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     
     QString pathVar = env.value("PATH");
-#ifdef WIN32
+#ifdef __PLATFORM_WINDOWS__
     QStringList paths = pathVar.split(';');
-#else // !WIN32
+#else // not windows
     QStringList paths = pathVar.split(':');
-#endif // WIN32
+#endif // __PLATFORM_WINDOWS__
     
     foreach(QString path, paths)
     {
         QString binPath = path + "/" + bin;
-#ifdef WIN32
+#ifdef __PLATFORM_WINDOWS__
         binPath += ".exe";
 #endif
         QFileInfo binInfo(binPath);
@@ -91,12 +93,12 @@ QString which(const QString &bin)
             return binPath;
     }
     
-#ifdef WIN32
+#ifdef __PLATFORM_WINDOWS__
     QString binPath = QCoreApplication::applicationDirPath() + "/util/" + bin + ".exe";
     QFileInfo binInfo(binPath);
     if(binInfo.exists() && binInfo.isExecutable())
         return binPath;
-#endif // WIN32
+#endif // __PLATFORM_WINDOWS__
     
     return "";
 }

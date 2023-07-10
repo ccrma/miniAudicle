@@ -25,9 +25,8 @@ U.S.A.
 #include "ui_mAConsoleMonitor.h"
 
 #include "miniAudicle.h"
-#include "chuck_def.h"
-#include "chuck_errmsg.h"
 #include "chuck.h"
+#include "chuck_errmsg.h"
 
 #include <QtWidgets/QScrollBar>
 #include <QMenu>
@@ -37,7 +36,7 @@ U.S.A.
 #include <fcntl.h>
 #include <stdio.h>
 
-#ifndef __PLATFORM_WIN32__
+#ifndef __PLATFORM_WINDOWS__
 #include <unistd.h>
 #else
 #include <windows.h>
@@ -82,7 +81,7 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent, miniAudicle * ma) :
     ui->setupUi(this);
     read_fd = 0;
 #if !DISABLE_CONSOLE_MONITOR
-#ifndef __PLATFORM_WIN32__
+#ifndef __PLATFORM_WINDOWS__
     int fd[2];
 
     if( pipe( fd ) )
@@ -129,7 +128,7 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent, miniAudicle * ma) :
                      this, SLOT(dataAvailable()), Qt::BlockingQueuedConnection);
     thread->start();
     
-#endif // __PLATFORM_WIN32__
+#endif // __PLATFORM_WINDOWS__
 #endif // !DISABLE_CONSOLE_MONITOR
 }
 
@@ -182,7 +181,8 @@ void mAConsoleMonitor::formatAndOutput( const char * str )
     // console scroll bar
     QScrollBar * verticalScroll = ui->plainTextEdit->verticalScrollBar();
     // whether to auto-scroll
-    bool autoScroll = verticalScroll->sliderPosition() == verticalScroll->maximum();
+    bool autoScroll = true;
+    // bool autoScroll = verticalScroll->sliderPosition() == verticalScroll->maximum();
 
     // handle resize
     handleResize();
@@ -239,7 +239,7 @@ void mAConsoleMonitor::appendFromFile(int fd)
     static char buf[BUF_SIZE];
     int len = 0;
 
-#ifdef __PLATFORM_WIN32__
+#ifdef __PLATFORM_WINDOWS__
     len = _read( fd, buf, BUF_SIZE-1 );
 #else
     len = read( fd, buf, BUF_SIZE-1 );
@@ -264,7 +264,7 @@ void mAConsoleMonitor::dataAvailable()
 
 void mAConsoleMonitorThread::run()
 {
-#ifdef __PLATFORM_WIN32__
+#ifdef __PLATFORM_WINDOWS__
     char one;
     DWORD read;
 

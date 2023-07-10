@@ -404,7 +404,7 @@ void mAMainWindow::openFile(const QString &path)
 void mAMainWindow::openExample()
 {
     QString examplesDir;
-#if defined(__PLATFORM_WIN32__)
+#ifdef __PLATFORM_WINDOWS__
     examplesDir = QCoreApplication::applicationDirPath() + "/examples/";
 //    examplesDir = "C:/Program Files/ChucK/examples/";
 #elif defined(__LINUX__)
@@ -687,7 +687,7 @@ void mAMainWindow::toggleVM()
 
             m_vmMonitor->vmChangedToState(true);
 
-#ifdef __PLATFORM_WIN32__
+#ifdef __PLATFORM_WINDOWS__
             // windows only: disable restarting the vm
             ui->actionStart_Virtual_Machine->setEnabled(false);
 #endif

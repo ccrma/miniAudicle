@@ -153,14 +153,21 @@ INSTALLS += target examples
 # windows build configurations
 #-------------------------------------------------
 win32 {
-DEFINES -= UNICODE
 # 2022 QTSIN
+DEFINES -= UNICODE
 DEFINES -= _UNICODE
-CFLAGS = -D__PLATFORM_WIN32__ -D__WINDOWS_MODERN__ -D__CHUCK_NO_MAIN__ -D__WINDOWS_DS__ -D__WINDOWS_WASAPI__ -D__WINDOWS_ASIO__ -D_WINSOCKAPI_ -I../src -I../src/chuck/src/core -I../src/chuck/src/host -I../src/chuck/src/host/RtAudio/include -DWIN32 -D_WINDOWS -D__CK_MATH_DEFINE_ROUND_TRUNC__
+
+# defines
+CFLAGS += -D__WINDOWS_DS__ -D__WINDOWS_WASAPI__ -D__WINDOWS_ASIO__ -D_WINSOCKAPI_
+# include paths
+CFLAGS += -I../src -I../src/chuck/src/core -I../src/chuck/src/host -I../src/chuck/src/host/RtAudio/include
+
+# qmake flags
 QMAKE_CXXFLAGS += $$CFLAGS
 QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LFLAGS += /libpath:../src/qt/lib ws2_32.lib dinput8.lib advapi32.lib kernel32.lib user32.lib gdi32.lib dsound.lib dxguid.lib winmm.lib ole32.lib
 
+# link different
 Debug {
     QMAKE_LFLAGS += qscintilla2_qt6d.lib
 }
@@ -169,8 +176,10 @@ Release {
     QMAKE_LFLAGS += qscintilla2_qt6.lib
 }
 
+# resources
 RC_FILE = qt/icon/miniAudicle.rc
 
+# for windows add ASIO source
 SOURCES += \
 chuck/src/host/RtAudio/include/asio.cpp \
 chuck/src/host/RtAudio/include/asiodrivers.cpp \

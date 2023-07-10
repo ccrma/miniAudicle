@@ -196,7 +196,7 @@ void mAPreferencesWindow::configureDefaults()
 
     QStringList paths;
 
-#ifdef __PLATFORM_WIN32__
+#ifdef __PLATFORM_WINDOWS__
     paths = QString(g_default_chugin_path).split(";");
     //paths.append(QCoreApplication::applicationDirPath() + "/ChuGins");
 #else
