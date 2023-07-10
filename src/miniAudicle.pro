@@ -28,7 +28,6 @@ QT += core gui network widgets
 
 # c++ language dialect
 CONFIG += c++11
-
 CONFIG += warn_off
 MAKEFILE = makefile.qt
 PRECOMPILED_HEADER = qt/miniAudicle_pc.h
@@ -49,11 +48,11 @@ unix:RCC_DIR = qt-build
 QMAKE_CXXFLAGS += -I$$shell_path($$_PRO_FILE_PWD_)/qt
 QMAKE_CFLAGS += -I$$shell_path($$_PRO_FILE_PWD_)/qt
 
+
 #-------------------------------------------------
 # macOS build configurations
 #-------------------------------------------------
 macx {
-
 # specific architecture(s); use x86_64 and arm64 for universal binary
 QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
 
@@ -109,7 +108,6 @@ ICON = qt/icon/miniAudicle.ico
 # linux build configurations
 #-------------------------------------------------
 linux-* {
-
 # for non-system/self-compiled version of QScintilla, comment out / modify following lines as appropriate
 # QSCI_PATH = qt/qscintilla2_qt6/src/QScintilla_src-2.14.0
 # CFLAGS += -I$$QSCI_PATH/src/
