@@ -129,6 +129,10 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent, miniAudicle * ma) :
     thread->start();
     
 #endif // __PLATFORM_WINDOWS__
+
+    // 1.5.0.7 (ge) seems to be a robust way to always move scroll bar to bottom
+    // QObject::connect( ui->plainTextEdit->verticalScrollBar(), SIGNAL(rangeChanged(int,int)), this, SLOT(moveScrollBarToBottom(int,int)));
+
 #endif // !DISABLE_CONSOLE_MONITOR
 }
 
@@ -136,6 +140,18 @@ mAConsoleMonitor::~mAConsoleMonitor()
 {
     if(m_notifier) delete m_notifier;
     delete ui;
+}
+
+
+//-----------------------------------------------------------------------------
+// name: moveScrollBarToBottom() | 1.5.0.7 (ge) added
+// desc: move scroll bar to bottom
+//-----------------------------------------------------------------------------
+void mAConsoleMonitor::moveScrollBarToBottom( int min, int max )
+{
+    Q_UNUSED(min);
+    QScrollBar * scrollbar = ui->plainTextEdit->verticalScrollBar();
+    scrollbar->setValue( max );
 }
 
 
@@ -171,8 +187,9 @@ void mAConsoleMonitor::handleResize()
 
 
 //-----------------------------------------------------------------------------
-// name: formatAndOutput() | 1.5.0.6 (ge) added
+// name: formatAndOutput()
 // desc: format str and output to console
+//       1.5.0.6 (ge) add ansi escape code / color TTY processing
 //-----------------------------------------------------------------------------
 void mAConsoleMonitor::formatAndOutput( const char * str )
 {
@@ -181,8 +198,7 @@ void mAConsoleMonitor::formatAndOutput( const char * str )
     // console scroll bar
     QScrollBar * verticalScroll = ui->plainTextEdit->verticalScrollBar();
     // whether to auto-scroll
-    bool autoScroll = true;
-    // bool autoScroll = verticalScroll->sliderPosition() == verticalScroll->maximum();
+    bool autoScroll = verticalScroll->sliderPosition() == verticalScroll->maximum();
 
     // handle resize
     handleResize();
@@ -199,7 +215,7 @@ void mAConsoleMonitor::formatAndOutput( const char * str )
     for( int i = 0; i < list.count(); i++ )
     {
         // insert text
-        cursor.insertText(list[i].text, list[i].format );
+        cursor.insertText( list[i].text, list[i].format );
     }
 
     // check
@@ -209,7 +225,6 @@ void mAConsoleMonitor::formatAndOutput( const char * str )
         ui->plainTextEdit->ensureCursorVisible();
         // scroll to the end
         verticalScroll->setSliderPosition(verticalScroll->maximum());
-        // ui->plainTextEdit->verticalScrollBar()->setValue(ui->plainTextEdit->verticalScrollBar()->maximum());
     }
 }
 
@@ -217,15 +232,11 @@ void mAConsoleMonitor::formatAndOutput( const char * str )
 //-----------------------------------------------------------------------------
 // name: ckErrOutCallback()
 // desc: redirect handler for chuck err stream
-//       1.5.0.6 (ge) add ansi escape code / color TTY processing
 //-----------------------------------------------------------------------------
 void mAConsoleMonitor::ckErrOutCallback( const char * str )
 {
-    // previously: unprocessed pass through
-    // write( write_fd, str, strlen(str) );
-
-    // format and output to console | 1.5.0.6 (ge) added
-    formatAndOutput( str );
+    // write to pipe
+    write( write_fd, str, strlen(str) );
 }
 
 

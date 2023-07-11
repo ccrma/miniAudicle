@@ -73,6 +73,8 @@ public slots:
     void dataAvailable();
     // handle console resize
     void handleResize();
+    // scroll to bottom
+    void moveScrollBarToBottom(int min, int max );
 
 protected:
     // format string and output to console
