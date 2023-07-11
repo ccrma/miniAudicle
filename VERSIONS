@@ -2,6 +2,14 @@
 miniAudicle VERSIONS log
 ------------------------
 
+1.5.0.7 (July 2023)
+---
+    - (updated) chuck-1.5.0.7 (chai)
+    - this is another patch release
+    - (fixed, high priority) regression issue in miniAudicle 
+      Qt on windows/linux printing chuck output to VM Console
+
+
 1.5.0.6 (July 2023)
 ---
     - (updated) chuck-1.5.0.6 (chai)
