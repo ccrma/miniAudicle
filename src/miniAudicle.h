@@ -142,6 +142,8 @@ public:
 
 #ifndef __CHIP_MODE__
     const std::vector< RtAudio::DeviceInfo > & get_interfaces();
+    t_CKINT get_default_output_interface();
+    t_CKINT get_default_input_interface();
 #endif // __CHIP_MODE__
 
     void set_log_level( t_CKINT n );

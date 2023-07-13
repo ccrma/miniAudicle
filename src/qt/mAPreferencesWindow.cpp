@@ -419,7 +419,11 @@ void mAPreferencesWindow::probeAudioDevices( int driver, bool resetToDefault )
 
     int dac = settings.get(mAPreferencesAudioOutput).toInt();
     int adc = settings.get(mAPreferencesAudioInput).toInt();
-    
+
+    // add "Default" options with index 0 | 1.5.0.8 (ge)
+    ui->audioOutput->addItem( "Default", 0 );
+    ui->audioInput->addItem( "Default", 0 );
+
     // load available audio I/O interfaces into the pop up menus
     for(i = 0; i < len; i++)
     {
@@ -444,9 +448,11 @@ void mAPreferencesWindow::probeAudioDevices( int driver, bool resetToDefault )
         }
     }
 
-    // if( dac == 0 ) ui->audioOutput->setCurrentIndex( 0 );
-    // if( adc == 0 ) ui->audioInput->setCurrentIndex( 0 );
+    // 1.5.0.8 (ge) re-enabled
+    if( dac == 0 ) ui->audioOutput->setCurrentIndex( 0 );
+    if( adc == 0 ) ui->audioInput->setCurrentIndex( 0 );
     
+    // trigger update of related combo boxes
     this->selectedAudioInputChanged();
     this->selectedAudioOutputChanged();
 }
@@ -469,19 +475,32 @@ void mAPreferencesWindow::selectedAudioDriverChanged()
 
 void mAPreferencesWindow::selectedAudioOutputChanged()
 {
+    // our settings
     ZSettings settings;
 
+    // clear combo boxes
     ui->outputChannels->clear();
     ui->sampleRate->clear();
-    
+
+    // get interfaces
     const vector<RtAudio::DeviceInfo> & interfaces = m_ma->get_interfaces();
-
+    // check if no interfaces, then empty
+    if( interfaces.size() == 0 )
+        return;
+    // get current index
     int selected_output_item = ui->audioOutput->currentIndex();
-
+    // nothing selected?
     if( selected_output_item == -1 )
         return;
-    
-    vector<RtAudio::DeviceInfo>::size_type selected_output = (vector< RtAudio::DeviceInfo >::size_type) ui->audioOutput->itemData(selected_output_item).toInt()-1;
+
+    // get the index of the selected
+    t_CKINT selected_output = ui->audioOutput->itemData(selected_output_item).toInt()-1;
+    // check for default
+    if( selected_output < 0 )
+    {
+        // default
+        selected_output = m_ma->get_default_output_interface();
+    }
     
     vector<int>::size_type j, sr_len = interfaces[selected_output].sampleRates.size();
     
@@ -518,19 +537,33 @@ void mAPreferencesWindow::selectedAudioOutputChanged()
 
 void mAPreferencesWindow::selectedAudioInputChanged()
 {
+    // our settings
     ZSettings settings;
 
+    // clear input channels combo box
     ui->inputChannels->clear();
-    
+    // get list of audio devices
     const vector<RtAudio::DeviceInfo> & interfaces = m_ma->get_interfaces();
-
+    // check if no interfaces, then empty
+    if( interfaces.size() == 0 )
+        return;
+    // current selection
     int selected_input_item = ui->audioInput->currentIndex();
-
+    // nothing selected?
     if( selected_input_item == -1 )
         return;
-    
-    vector<RtAudio::DeviceInfo>::size_type selected_input = (vector<RtAudio::DeviceInfo>::size_type) ui->audioInput->itemData(selected_input_item).toInt()-1;
-    
+
+    // get the device index
+    t_CKINT selected_input = ui->audioInput->itemData(selected_input_item).toInt()-1;
+    // check for default
+    if( selected_input < 0 )
+    {
+        // default
+        selected_input = m_ma->get_default_input_interface();
+        // if zero, then actually no default
+        if( selected_input == 0 ) return;
+    }
+
     // load available numbers of channels into respective pop up buttons
     int k, num_channels;
     
@@ -539,7 +572,7 @@ void mAPreferencesWindow::selectedAudioInputChanged()
         ui->inputChannels->addItem(QString("%1").arg(k+1), k+1);
     
     int default_input_channels = settings.get(mAPreferencesInputChannels).toInt();
-    if(default_input_channels > num_channels)
+    if( default_input_channels > num_channels )
         /* use as many channels as possible */
         ui->inputChannels->setCurrentIndex(ui->inputChannels->count()-1);
     else
@@ -615,6 +648,11 @@ void mAPreferencesWindow::probeChugins()
     chuck->setParam( CHUCK_PARAM_CHUGIN_ENABLE, chugin_load );
     chuck->setParam( CHUCK_PARAM_USER_CHUGIN_DIRECTORIES, dl_search_path );
     // the_chuck->setParam( CHUCK_PARAM_USER_CHUGINS, named_dls );
+
+#ifdef __MA_COLOR_CONSOLE__
+    // enable chuck color text output, using ANSI escape codes to be processed and rendered by mA console
+    chuck->setParam( CHUCK_PARAM_TTY_COLOR, TRUE );
+#endif
 
     // signal
     probeChuginInitiated();

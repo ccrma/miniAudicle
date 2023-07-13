@@ -101,8 +101,10 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent, miniAudicle * ma) :
         EM_log( CK_LOG_WARNING, "(console monitor): unable to set stdout to non-blocking" );
     }
 
-    setlinebuf(stdout);
-    
+    // set stream buffering: unbuffered, line-buffered (this case), or fully buffered
+    setlinebuf( stdout );
+
+    // set up reader
     m_notifier = new QSocketNotifier( read_fd, QSocketNotifier::Read );
     connect(m_notifier, SIGNAL(activated(int)), this, SLOT(appendFromFile(int)));
     m_notifier->setEnabled(true);

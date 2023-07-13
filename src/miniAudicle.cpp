@@ -89,12 +89,12 @@ extern const char MA_ABOUT[] = "version %s\n\
 git: " GIT_REVISION "\n\
 Copyright (c) Spencer Salazar\n\n\
 ChucK: version %s %lu-bit\n\
-Copyright (c) Ge Wang and Perry Cook\nhttp://chuck.stanford.edu/";
+Copyright (c) Ge Wang and Perry Cook\nhttps://chuck.stanford.edu/";
 #else
 extern const char MA_ABOUT[] = "version %s\n\
 Copyright (c) Spencer Salazar\n\n\
 ChucK: version %s %lu-bit\n\
-Copyright (c) Ge Wang and Perry Cook\nhttp://chuck.stanford.edu/";
+Copyright (c) Ge Wang and Perry Cook\nhttps://chuck.stanford.edu/";
 #endif // __PLATFORM_WINDOWS__
 
 // miniAudicle help
@@ -856,6 +856,8 @@ t_CKBOOL miniAudicle::start_vm()
         status_bufs[i] = new Chuck_VM_Status;
     status_bufs_read = 0;
     status_bufs_write = 0;
+    // for saving log level
+    t_CKINT savedLogLevel = CK_LOG_SYSTEM;
     
     // clear shred management structures
     last_result.clear();
@@ -937,6 +939,18 @@ t_CKBOOL miniAudicle::start_vm()
         
         m_chuck = new ChucK();
         
+        // set chuck chout/cherr redirect handlers
+        if( m_console_callback )
+        {
+            m_chuck->setChoutCallback( m_console_callback) ;
+            m_chuck->setCherrCallback( m_console_callback );
+        }
+
+#ifdef __MA_COLOR_CONSOLE__
+        // enable chuck color text output, using ANSI escape codes to be processed and rendered by mA console
+        m_chuck->setParam( CHUCK_PARAM_TTY_COLOR, TRUE );
+#endif
+
         //--------------------------- AUDIO I/O SETUP ---------------------------------
         
         // log
@@ -944,13 +958,24 @@ t_CKBOOL miniAudicle::start_vm()
         // push
         EM_pushlog();
 
+        // temporarily lower the verbose level; starting the VM with a high log level
+        // (e.g., FINEST) can result in A LOT of log within chuck initialization, which on
+        // on some systems (linux/macOS-qt) could result in DEADLOCK \[o]/ after writing sufficiently
+        // enough output to stderr but with no mechanism to drain the buffer--possible cause:
+        // for non-windows platforms, we've set up stderr redirect to be consumed through Qt's
+        // signal/slot mechanism, it is not clear whether the the redirect can execute since
+        // we are currently already within a slot (namely "toggleVM()")
+        savedLogLevel = m_chuck->getLogLevel();
+        // set no higher than INFO
+        m_chuck->setLogLevel( savedLogLevel > CK_LOG_INFO ? CK_LOG_INFO : savedLogLevel );
+
         // probe / init (this shouldn't start audio yet)
         if( !ChuckAudio::initialize( dac, adc, output_channels, input_channels, srate,
                                      buffer_size, num_buffers, audio_cb, m_chuck,
                                      force_srate, driverName.c_str() ) )
         {
-            EM_log( CK_LOG_SYSTEM,
-                   "cannot initialize audio device (use --silent/-s for non-realtime)" );
+            EM_log( CK_LOG_SYSTEM, "%s (%s)",
+                   TC::orange("cannot initialize audio device",true).c_str(), TC::magenta("check Audio Preferences",true).c_str() );
             // pop
             EM_poplog();
             // handle error
@@ -983,11 +1008,6 @@ t_CKBOOL miniAudicle::start_vm()
         m_chuck->setParam(CHUCK_PARAM_USER_CHUGINS, named_chugins);
         m_chuck->setParam(CHUCK_PARAM_USER_CHUGIN_DIRECTORIES, library_paths);
         m_chuck->setParam( CHUCK_PARAM_HINT_IS_REALTIME_AUDIO, enable_audio );
-
-#ifdef __MA_COLOR_CONSOLE__
-        // enable chuck color TTY output; to be interpreted and rendred by mA console
-        m_chuck->setParam(CHUCK_PARAM_TTY_COLOR, TRUE);
-#endif
 
         // initialize
         if( !m_chuck->init() )
@@ -1035,13 +1055,6 @@ t_CKBOOL miniAudicle::start_vm()
         // pop
         EM_poplog();
 
-        // set chuck chout/cherr redirect handlers
-        if( m_console_callback )
-        {
-            m_chuck->setChoutCallback(m_console_callback);
-            m_chuck->setCherrCallback(m_console_callback);
-        }
-
         // log
         EM_log( CK_LOG_SYSTEM, "virtual machine initialized..." );
         EM_log( CK_LOG_SYSTEM, "chuck version: %s...", TC::green(m_chuck->version(),true).c_str() );
@@ -1067,11 +1080,14 @@ t_CKBOOL miniAudicle::start_vm()
     vm_on = TRUE;
     // pop
     EM_poplog();
+    // restore log level
+    if( m_chuck ) m_chuck->setLogLevel( savedLogLevel );
     // done
     return vm_on;
-    
-// in case something goes really wrong above | 1.4.0.2
+
+// in case something goes really wrong above | 1.4.0.2 (added)
 error:
+    // no need to restore savedLogLevel; about to clean up chuck...
     // clean up
     stop_vm();
     // pop
@@ -1341,6 +1357,24 @@ t_CKBOOL miniAudicle::probe( const char * driverName )
 const vector< RtAudio::DeviceInfo > & miniAudicle::get_interfaces()
 {
     return interfaces;
+}
+
+//-----------------------------------------------------------------------------
+// name: get_default_output_interface()
+// desc: return vector of audio device infos
+//-----------------------------------------------------------------------------
+t_CKINT miniAudicle::get_default_output_interface()
+{
+    return default_output;
+}
+
+//-----------------------------------------------------------------------------
+// name: get_default_input_interface()
+// desc: return vector of audio device infos
+//-----------------------------------------------------------------------------
+t_CKINT miniAudicle::get_default_input_interface()
+{
+    return default_input;
 }
 #endif // __CHIP_MODE__
 

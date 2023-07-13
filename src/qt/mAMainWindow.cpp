@@ -297,16 +297,16 @@ bool mAMainWindow::shouldCloseOrQuit()
 
 void mAMainWindow::about()
 {
-    char buf[256];
+    char buf[512];
     snprintf(buf, 256, MA_ABOUT, MA_VERSION, ChucK::version(), sizeof(void*)*8);
     QString body = QString("<h3>miniAudicle</h3>\n") + buf;
     body.replace(QRegularExpression("\n"), "<br />");
-    QMessageBox::about(this, "About miniAudicle", body);
+    QMessageBox::about( this, "About miniAudicle", body );
 }
 
 void mAMainWindow::websiteMiniAudicle()
 {
-    QDesktopServices::openUrl(QUrl("https://github.com/ccrma/miniAudicle"));
+    QDesktopServices::openUrl(QUrl("https://github.com/ccrma/miniAudicle#readme"));
 }
 
 void mAMainWindow::websiteChucK()
