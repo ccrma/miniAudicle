@@ -12,7 +12,7 @@
 				<string>ck</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>ck</string>
+			<string>ck.icns</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeMIMETypes</key>
@@ -28,11 +28,9 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSHandlerRank</key>
-			<string>Owner</string>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
-			<array>
-				<string>edu.stanford.chuck-ck</string>
-			</array>
+			<array/>
 			<key>NSDocumentClass</key>
 			<string>miniAudicleDocument</string>
 		</dict>
@@ -44,7 +42,7 @@
 	<key>CFBundleIconFile</key>
 	<string>miniAudicle</string>
 	<key>CFBundleIdentifier</key>
-	<string>edu.stanford.chuck.miniAudicle</string>
+	<string>org.miniAudicle.miniAudicle</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
@@ -67,7 +65,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.utf8-plain-text</string>
-				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>ChucK Script</string>
@@ -81,7 +78,7 @@
 				<string>ChucK</string>
 			</dict>
 			<key>UTTypeIdentifier</key>
-			<string>edu.stanford.chuck-ck</string>
+			<string>edu.stanford.chuck</string>
 			<key>UTTypeReferenceURL</key>
 			<string>http://chuck.stanford.edu/</string>
 			<key>UTTypeTagSpecification</key>
