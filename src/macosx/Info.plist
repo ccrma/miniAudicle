@@ -13,8 +13,6 @@
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>ck.icns</string>
-			<key>CFBundleTypeIconSystemGenerated</key>
-			<integer>1</integer>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
 				<string>text/plain</string>
@@ -27,10 +25,6 @@
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
-			<key>LSItemContentTypes</key>
-			<array/>
 			<key>NSDocumentClass</key>
 			<string>miniAudicleDocument</string>
 		</dict>
