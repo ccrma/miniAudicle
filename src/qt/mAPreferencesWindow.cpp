@@ -560,8 +560,6 @@ void mAPreferencesWindow::selectedAudioInputChanged()
     {
         // default
         selected_input = m_ma->get_default_input_interface();
-        // if zero, then actually no default
-        if( selected_input == 0 ) return;
     }
 
     // load available numbers of channels into respective pop up buttons
