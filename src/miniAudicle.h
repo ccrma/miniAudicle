@@ -214,8 +214,8 @@ protected:
     
 #ifndef __CHIP_MODE__
     std::vector< RtAudio::DeviceInfo > interfaces;
-    std::vector< RtAudio::DeviceInfo >::size_type default_input;
-    std::vector< RtAudio::DeviceInfo >::size_type default_output;
+    t_CKINT default_input;
+    t_CKINT default_output;
 #endif // __CHIP_MODE__
 
     void (*m_console_callback)(const char *);

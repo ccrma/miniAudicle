@@ -1308,7 +1308,7 @@ t_CKBOOL miniAudicle::probe( const char * driverName )
     default_input = devices;
     default_output = devices;
     
-    // loop over devices
+    // loop over devices, add, and find defaults
     for( int i = 0; i < devices; i++ )
     {
         RtAudio::DeviceInfo info = rta->getDeviceInfo( i );
@@ -1322,23 +1322,43 @@ t_CKBOOL miniAudicle::probe( const char * driverName )
         interfaces.push_back( info );
         
         // check for default input device
-        if( interfaces[i].isDefaultInput && interfaces[i].inputChannels
+        if( interfaces.back().isDefaultInput && interfaces.back().inputChannels
             && default_input == devices )
-            default_input = i;
+            default_input = interfaces.size()-1;
         
         // check for default output device
-        if( interfaces[i].isDefaultOutput && interfaces[i].outputChannels
+        if( interfaces.back().isDefaultOutput && interfaces.back().outputChannels
             && default_output == devices )
-            default_output = i;
+            default_output = interfaces.size()-1;
     }
 
     // if no default input devices were found above
     if( default_input == devices )
-        default_input = 0;
+    {
+        // find first device that has input
+        for( int i = 0; i < interfaces.size(); i++ )
+        {
+            if( interfaces[i].inputChannels )
+                default_input = i;
+        }
+
+        // still nothing, give up and set to 0
+        if( default_input == devices ) default_input = 0;
+    }
     
     // if no default output devices were found above
     if( default_output == devices )
-        default_output = 0;
+    {
+        // find first device that has output
+        for( int i = 0; i < interfaces.size(); i++ )
+        {
+            if( interfaces[i].outputChannels )
+                default_output = i;
+        }
+
+        // still nothing, give up and set to 0
+        if( default_output == devices ) default_output = 0;
+    }
 
     // done
     CK_SAFE_DELETE( rta );
