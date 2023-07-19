@@ -420,12 +420,27 @@ void mAPreferencesWindow::probeAudioDevices( int driver, bool resetToDefault )
     int dac = settings.get(mAPreferencesAudioOutput).toInt();
     int adc = settings.get(mAPreferencesAudioInput).toInt();
 
-    // add "Default" options with index 0 | 1.5.0.8 (ge)
-    ui->audioOutput->addItem( "Default", 0 );
-    ui->audioInput->addItem( "Default", 0 );
+    t_CKBOOL hasDefaultAlready = FALSE;
+    // loop through to make sure audio driver doesn't already have interfaces named "default"
+    for( i = 0; i < len; i++ )
+    {
+        if( tolower(interfaces[i].name) == "default" )
+        {
+            hasDefaultAlready = TRUE;
+            break;
+        }
+    }
+
+    // check if has "default" entry already
+    if( !hasDefaultAlready )
+    {
+        // add "Default" options with index 0 | 1.5.0.8 (ge)
+        ui->audioOutput->addItem( "Default", 0 );
+        ui->audioInput->addItem( "Default", 0 );
+    }
 
     // load available audio I/O interfaces into the pop up menus
-    for(i = 0; i < len; i++)
+    for( i = 0; i < len; i++ )
     {
         // output
         if( interfaces[i].outputChannels > 0 || interfaces[i].duplexChannels > 0)
