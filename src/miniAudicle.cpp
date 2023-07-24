@@ -227,16 +227,17 @@ t_OTF_RESULT miniAudicle::run_code( string & code, string & name,
     // fill in the VM message
     msg->code = compiler->output();
     msg->code->name = name;
-    msg->type = MSG_ADD;
-    msg->reply = ( ck_msg_func )1;
+    msg->type = CK_MSG_ADD;
     msg->args = new vector< string >( args );
-        
+    // set flag for VM to queue message
+    msg->reply_queue = TRUE; // 1.5.0.8 (ge) updated VM msg processing system
+
     // execute
     vm->queue_msg( msg, 1 );
-    
+
     // check results
     t_OTF_RESULT result = handle_reply( docid, out );
-    
+
     _doc_otf_result otf_result;
     t_CKBOOL gotit = get_last_result( docid, &otf_result );
     if( gotit && result == OTF_SUCCESS )
@@ -287,11 +288,13 @@ t_OTF_RESULT miniAudicle::replace_code( string & code, string & name,
     msg->code = compiler->output();
     
     msg->code->name = name;
-    msg->type = MSG_REPLACE;
+    msg->type = CK_MSG_REPLACE;
     msg->param = documents[docid]->back();
-    msg->reply = ( ck_msg_func )1;
     msg->args = new vector< string >( args );
-    
+    // set flag for VM to queue message
+    msg->reply_queue = TRUE; // 1.5.0.8 (ge) updated VM msg processing system
+
+    // execute
     vm->queue_msg( msg, 1 );
     
     // check results
@@ -352,10 +355,12 @@ t_OTF_RESULT miniAudicle::remove_shred( t_CKUINT docid, t_CKINT shred_id,
 {
     Chuck_Msg * msg = new Chuck_Msg;
     
-    msg->type = MSG_REMOVE;
+    msg->type = CK_MSG_REMOVE;
     msg->param = shred_id;
-    msg->reply = ( ck_msg_func )1;
-    
+    // set flag for VM to queue message
+    msg->reply_queue = TRUE; // 1.5.0.8 (ge) updated VM msg processing system
+
+    // execute
     vm->queue_msg( msg, 1 );
     
     // check results
@@ -371,11 +376,13 @@ t_OTF_RESULT miniAudicle::removeall( t_CKUINT docid, string & out )
 {
     Chuck_Msg * msg = new Chuck_Msg;
     
-    msg->type = MSG_REMOVEALL;
-    msg->reply = ( ck_msg_func )1;
-    
+    msg->type = CK_MSG_REMOVEALL;
+    // set flag for VM to queue message
+    msg->reply_queue = TRUE; // 1.5.0.8 (ge) updated VM msg processing system
+
+    // execute
     vm->queue_msg( msg, 1 );
-    
+
     // check results
     return handle_reply( docid, out );
 }
@@ -389,13 +396,15 @@ t_OTF_RESULT miniAudicle::removelast( t_CKUINT docid, string & out )
 {
     Chuck_Msg * msg = new Chuck_Msg;
     
-    msg->type = MSG_REMOVE;
+    msg->type = CK_MSG_REMOVE;
     msg->param = 0xffffffff;
-    msg->reply = ( ck_msg_func )1;
-    
+    // set flag for VM to queue message
+    msg->reply_queue = TRUE; // 1.5.0.8 (ge) updated VM msg processing system
+
+    // execute
     vm->queue_msg( msg, 1 );
-    
-    // 
+
+    // get reply
     return handle_reply( docid, out );
 }
 
@@ -407,12 +416,15 @@ t_OTF_RESULT miniAudicle::removelast( t_CKUINT docid, string & out )
 t_OTF_RESULT miniAudicle::clearvm( t_CKUINT docid, string & out )
 {
     Chuck_Msg * msg = new Chuck_Msg;
-    
-    msg->type = MSG_CLEARVM;
-    msg->reply = ( ck_msg_func )1;
-    
+
+    // set message type
+    msg->type = CK_MSG_CLEARVM;
+    // set flag for VM to queue message
+    msg->reply_queue = TRUE; // 1.5.0.8 (ge) updated VM msg processing system
+
+    // execute
     vm->queue_msg( msg, 1 );
-    
+
     // check results
     return handle_reply( docid, out );
 }
@@ -506,15 +518,18 @@ t_OTF_RESULT miniAudicle::status( Chuck_VM_Status * status )
                 status->clear();
                 Chuck_VM_Status_copy( *status, *( status_bufs[i] ) );
             }
-            
-            Chuck_Msg * msg = new Chuck_Msg;
-            
-            msg->type = MSG_STATUS;
-            msg->reply = ( ck_msg_func )1;
-            msg->user = status_bufs[i];
-            
-            status_bufs[i] = NULL;
 
+            // create a new chuck message
+            Chuck_Msg * msg = new Chuck_Msg;
+            // set message type
+            msg->type = CK_MSG_STATUS;
+            // set vm status struct pointer to rotating status buffers
+            msg->status = status_bufs[i];
+            status_bufs[i] = NULL;
+            // set flag for VM to queue message
+            msg->reply_queue = TRUE; // 1.5.0.8 (ge) updated VM msg
+
+            // execute
             vm->queue_msg( msg, 1 );
             
             return OTF_SUCCESS;
@@ -538,7 +553,7 @@ t_CKBOOL miniAudicle::process_reply()
     if( ( msg = vm->get_reply() ) == NULL )
         return FALSE;
     
-    if( msg->type == MSG_STATUS )
+    if( msg->type == CK_MSG_STATUS )
     {
         vm_status_timeouts = 0;
         size_t i = 0;
@@ -546,7 +561,7 @@ t_CKBOOL miniAudicle::process_reply()
         {
             if( !status_bufs[i] )
             {
-                status_bufs[i] = ( Chuck_VM_Status * ) msg->user;
+                status_bufs[i] = msg->status;
                 status_bufs_read = i;
                 break;
             }
@@ -555,7 +570,7 @@ t_CKBOOL miniAudicle::process_reply()
         if( i == num_status_bufs )
             EM_log( CK_LOG_SEVERE, "(miniAudicle): insufficient buffers for status query, leaking memory" );
         
-        delete msg;
+        CK_SAFE_DELETE( msg );
         return TRUE;
     }
     
@@ -569,13 +584,13 @@ t_CKBOOL miniAudicle::process_reply()
     // then no one cares about this message
     if( !documents.count( docid ) )
     {
-        delete msg;
+        CK_SAFE_DELETE( msg );
         return TRUE;
     }
     
     switch( msg->type )
     {
-        case MSG_ADD:
+        case CK_MSG_ADD:
             shred_id = msg->replyA;
             
             if( shred_id == 0 )
@@ -605,7 +620,7 @@ t_CKBOOL miniAudicle::process_reply()
             
             break;
             
-        case MSG_REPLACE:
+        case CK_MSG_REPLACE:
             shred_id = msg->replyA;
             
             if( shred_id == 0 )
@@ -632,7 +647,7 @@ t_CKBOOL miniAudicle::process_reply()
             
             break;
             
-        case MSG_REMOVE:
+        case CK_MSG_REMOVE:
             /*
             if( msg->param == 0xffffffff )
                 // remove last
@@ -710,7 +725,7 @@ t_CKBOOL miniAudicle::process_reply()
                 
             break;
             
-        case MSG_REMOVEALL:
+        case CK_MSG_REMOVEALL:
             if( msg->replyA == 0 )
             {
                 last_result[docid].result = OTF_VM_ERROR;
@@ -725,9 +740,10 @@ t_CKBOOL miniAudicle::process_reply()
 
             break;
     }
-    
-    delete msg;
-    
+
+    // clean up the message that we initially created
+    CK_SAFE_DELETE( msg );
+
     return TRUE;
 }
 
@@ -815,7 +831,7 @@ void miniAudicle::free_document_id( t_CKUINT docid )
             if( shreds.count( doc_shreds->at( i ) ) )
                 shreds.erase( doc_shreds->at( i ) );
         // delete data
-        delete documents[docid];
+        CK_SAFE_DELETE( documents[docid] );
         // remove from map
         documents.erase( docid );
     }

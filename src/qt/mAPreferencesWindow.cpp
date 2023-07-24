@@ -407,6 +407,7 @@ void mAPreferencesWindow::restoreDefaults()
 void mAPreferencesWindow::probeAudioDevices( int driver, bool resetToDefault )
 {
     ZSettings settings;
+    t_CKBOOL hasDefaultAlready = FALSE;
 
     // probe
     m_ma->probe( ChuckAudio::driverApiToName(driver) );
@@ -420,8 +421,8 @@ void mAPreferencesWindow::probeAudioDevices( int driver, bool resetToDefault )
     int dac = settings.get(mAPreferencesAudioOutput).toInt();
     int adc = settings.get(mAPreferencesAudioInput).toInt();
 
-    t_CKBOOL hasDefaultAlready = FALSE;
-    // loop through to make sure audio driver doesn't already have interfaces named "default"
+    // make sure audio driver doesn't already have interfaces named "default"
+    // FYI linux/ALSA may have input and output devices named "default"
     for( i = 0; i < len; i++ )
     {
         if( tolower(interfaces[i].name) == "default" )
