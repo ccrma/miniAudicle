@@ -1023,7 +1023,7 @@ t_CKBOOL miniAudicle::start_vm()
         m_chuck->setParam(CHUCK_PARAM_VM_HALT, vm_halt);
         m_chuck->setParam(CHUCK_PARAM_USER_CHUGINS, named_chugins);
         m_chuck->setParam(CHUCK_PARAM_USER_CHUGIN_DIRECTORIES, library_paths);
-        m_chuck->setParam( CHUCK_PARAM_HINT_IS_REALTIME_AUDIO, enable_audio );
+        m_chuck->setParam( CHUCK_PARAM_IS_REALTIME_AUDIO_HINT, enable_audio );
 
         // initialize
         if( !m_chuck->init() )

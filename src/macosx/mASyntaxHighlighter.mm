@@ -65,6 +65,7 @@ U.S.A.
     @"protected",
     @"private",
     @"global",
+    @"auto",
     
     @"function",
     @"fun",
@@ -282,6 +283,7 @@ U.S.A.
     @"TwoPole",
     @"TwoZero",
     @"UAna",
+    @"UGen",
     @"UGen_Multi",
     @"UGen_Stereo",
     @"UnFlip",
