@@ -464,6 +464,12 @@ void mAPreferencesWindow::probeAudioDevices( int driver, bool resetToDefault )
         }
     }
 
+    // check if we have any | 1.5.0.8
+    if( ui->audioOutput->count() <= 1 && !hasDefaultAlready )
+        ui->audioOutput->setItemText(0, "(no device detected)" );
+    if( ui->audioInput->count() <= 1 && !hasDefaultAlready )
+        ui->audioInput->setItemText(0, "(no device detected)" );
+
     // 1.5.0.8 (ge) re-enabled
     if( dac == 0 ) ui->audioOutput->setCurrentIndex( 0 );
     if( adc == 0 ) ui->audioInput->setCurrentIndex( 0 );

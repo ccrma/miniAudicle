@@ -1062,9 +1062,9 @@ t_CKBOOL miniAudicle::start_vm()
         {
             EM_log( CK_LOG_SYSTEM, "num buffers: %ld", num_buffers );
             EM_log( CK_LOG_SYSTEM, "adaptive block processing: %ld", adaptive_size > 1 ? adaptive_size : 0 );
-            EM_log(CK_LOG_SYSTEM, "audio driver: %s", driverName != "" ? driverName.c_str() : "(unspecified)");
-            EM_log( CK_LOG_SYSTEM, "adc:[%d] \"%s\"", adc, adc_device_name.c_str() );
-            EM_log( CK_LOG_SYSTEM, "dac:[%d] \"%s\"", dac, dac_device_name.c_str() );
+            EM_log( CK_LOG_SYSTEM, "audio driver: %s", driverName != "" ? driverName.c_str() : "(unspecified)");
+            EM_log( CK_LOG_SYSTEM, "adc:[%d] \"%s\"", adc, adc_device_name != "" ? adc_device_name.c_str() : "(none or unknown)" );
+            EM_log( CK_LOG_SYSTEM, "dac:[%d] \"%s\"", dac, dac_device_name != "" ? dac_device_name.c_str() : "(none or unknown)" );
         }
         EM_log( CK_LOG_SYSTEM, "channels in: %ld out: %ld", input_channels, output_channels );
 

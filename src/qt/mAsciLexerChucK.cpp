@@ -61,7 +61,7 @@ const char *mAsciLexerChucK::keywords(int set) const
         return "int float time dur polar complex vec3 vec4 void same if else while do "
                "until for break continue return switch repeat "
                "class extends public static pure this "
-               "super interface implements protected "
+               "super interface implements protected global auto "
                "private function fun spork const new now "
                "true false maybe null NULL me pi samp ms "
                "second minute hour day week dac adc blackhole chout cherr";
