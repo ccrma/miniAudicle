@@ -1838,8 +1838,8 @@ t_CKBOOL miniAudicle::get_new_class_names( vector< string > & v )
     for( i = 0; i < len; i++ )
     {
         if( types[i] )
-            if( class_names->insert( pair< string, t_CKINT >( types[i]->name, 1 ) ).second )
-                v.push_back( types[i]->name );
+            if( class_names->insert( pair< string, t_CKINT >( types[i]->base_name, 1 ) ).second )
+                v.push_back( types[i]->base_name );
     }
     
     return TRUE;

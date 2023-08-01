@@ -135,7 +135,7 @@ mAAutocomplete::mAAutocomplete()
     for(vector<Chuck_Type *>::iterator t = types.begin(); t != types.end(); t++)
     {
         Chuck_Type * type = *t;
-        string name = type->name;
+        string name = type->base_name;
         
         if(skip(name)) continue;
         

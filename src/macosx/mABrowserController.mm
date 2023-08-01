@@ -103,7 +103,7 @@ static const char * exclude_types[] =
     for( ; i < len; i++ )
     {
         Chuck_Type * type = types[i];
-        string name = type->name;
+        string name = type->base_name;
         if( name[0] == '@' )
             continue;
         
