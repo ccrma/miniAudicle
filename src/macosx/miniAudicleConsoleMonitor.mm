@@ -43,11 +43,15 @@ U.S.A.
 
 static FILE * g_ck_errmsg_write_fd = NULL;
 
-void ck_errmsg_callback(const char* msg)
+// callback from chuck stdout / stderr
+void ck_errmsg_callback( const char * msg )
 {
-    if (g_ck_errmsg_write_fd != NULL)
+    if( g_ck_errmsg_write_fd != NULL )
     {
-        fprintf(g_ck_errmsg_write_fd, "%s", msg);
+        // write
+        fprintf( g_ck_errmsg_write_fd, "%s", msg );
+        // always flush the file to immedately display to miniAudicle console | 1.5.1.1
+        fflush( g_ck_errmsg_write_fd );
     }
 }
 
