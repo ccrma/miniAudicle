@@ -1,13 +1,13 @@
 #!/bin/sh
 
-echo xcrun altool --notarize-app \
-    --primary-bundle-id "$NOTARIZATION_PRIMARY_BUNDLE_ID" \
-    --username "$NOTARIZATION_USERNAME" \
-    --password "$NOTARIZATION_PASSWORD" \
-    --file "$1"
+echo xcrun notarytool submit "$1" \
+    --team-id "$NOTARIZATION_TEAM_ID" \
+    --apple-id "$NOTARIZATION_USERNAME" \
+    --password "****" \
+    --wait
 
-xcrun altool --notarize-app \
-    --primary-bundle-id "$NOTARIZATION_PRIMARY_BUNDLE_ID" \
-    --username "$NOTARIZATION_USERNAME" \
+xcrun notarytool submit "$1" \
+    --team-id "$NOTARIZATION_TEAM_ID" \
+    --apple-id "$NOTARIZATION_USERNAME" \
     --password "$NOTARIZATION_PASSWORD" \
-    --file "$1"
+    --wait
