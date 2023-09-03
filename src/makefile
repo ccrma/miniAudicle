@@ -90,9 +90,10 @@ ifneq ($(wildcard makefile.qt-*),)
 	make -f $(firstword $(wildcard makefile.qt-*)) clean
 	rm $(wildcard makefile.qt-*)
 else
-	rm -rf *.{o,d} qt/*.o miniAudicle macosx/*.{o,d} macosx/miniAudicle.app \
+	rm -rf *.{o,d} qt/*.o miniAudicle miniAudicle.app macosx/*.{o,d} macosx/miniAudicle.app \
         macosx/Resources/English.lproj/*.nib makefile.qt*
 	-make -C $(CHUCK_SRC_DIR) clean
+	-make -C $(CHUGINS_SRC_ROOT) clean
 endif
 
 PPA_CHUG_VERSION?=1.3.3a
