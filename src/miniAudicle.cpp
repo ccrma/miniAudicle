@@ -1134,10 +1134,8 @@ t_CKBOOL miniAudicle::stop_vm()
     {
         // log
         EM_log( CK_LOG_SYSTEM, "stopping chuck virtual machine..." );
-        // stop audio, in case it's started
-        ChuckAudio::stop();
-        // shutdown audio, in case it's initialized
-        ChuckAudio::shutdown();
+        // shutdown audio in case it's initialized; implicitly stops audio
+        ChuckAudio::shutdown( 10 ); // 10ms delay 1.5.1.3
         // clean up chuck global components
         ChucK::globalCleanup();
         // delete and zero out
