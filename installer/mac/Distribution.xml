@@ -19,6 +19,7 @@
     <pkg-ref id="edu.stanford.chuck.PanN"/>
     <pkg-ref id="edu.stanford.chuck.PitchTrack"/>
     <pkg-ref id="edu.stanford.chuck.PowerADSR"/>
+    <pkg-ref id="edu.stanford.chuck.RexEx"/>
     <pkg-ref id="edu.stanford.chuck.Sigmund"/>
     <pkg-ref id="edu.stanford.chuck.Spectacle"/>
     <pkg-ref id="edu.stanford.chuck.WinFuncEnv"/>
@@ -52,6 +53,7 @@
             <line choice="PanN"/>
             <line choice="PitchTrack"/>
             <line choice="PowerADSR"/>
+            <line choice="RegEx"/>
             <line choice="Sigmund"/>
             <line choice="Spectacle"/>
             <line choice="WinFuncEnv"/>
@@ -152,6 +154,11 @@
     </choice>
     <pkg-ref id="edu.stanford.chuck.PowerADSR" version="0" onConclusion="none">PowerADSR.chug.pkg</pkg-ref>
     
+    <choice id="RegEx" title="RegEx" description="Tools for regular expression matching. " enabled="0">
+        <pkg-ref id="edu.stanford.chuck.RegEx"/>
+    </choice>
+    <pkg-ref id="edu.stanford.chuck.RegEx" version="0" onConclusion="none">RegEx.chug.pkg</pkg-ref>
+
     <choice id="Sigmund" title="Sigmund" description="" enabled="0">
         <pkg-ref id="edu.stanford.chuck.Sigmund"/>
     </choice>
