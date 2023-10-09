@@ -6,6 +6,7 @@
     <pkg-ref id="edu.stanford.chuck.ABSaturator"/>
     <pkg-ref id="edu.stanford.chuck.AmbPan"/>
     <pkg-ref id="edu.stanford.chuck.Bitcrusher"/>
+    <pkg-ref id="edu.stanford.chuck.ChuGL"/>
     <pkg-ref id="edu.stanford.chuck.Elliptic"/>
     <pkg-ref id="edu.stanford.chuck.ExpDelay"/>
     <pkg-ref id="edu.stanford.chuck.ExpEnv"/>
@@ -40,6 +41,7 @@
             <line choice="ABSaturator"/>
             <line choice="AmbPan"/>
             <line choice="Bitcrusher"/>
+            <line choice="ChuGL"/>
             <line choice="Elliptic"/>
             <line choice="ExpDelay"/>
             <line choice="ExpEnv"/>
@@ -88,7 +90,12 @@
         <pkg-ref id="edu.stanford.chuck.Bitcrusher"/>
     </choice>
     <pkg-ref id="edu.stanford.chuck.Bitcrusher" version="0" onConclusion="none">Bitcrusher.chug.pkg</pkg-ref>
-    
+
+    <choice id="ChuGL" title="ChuGL" description="real-time 3D/2D audiovisual programming in ChucK" enabled="0">
+        <pkg-ref id="edu.stanford.chuck.ChuGL"/>
+    </choice>
+    <pkg-ref id="edu.stanford.chuck.ChuGL" version="0" onConclusion="none">ChuGL.chug.pkg</pkg-ref>
+
     <choice id="Elliptic" title="Elliptic" description="Elliptic filter, capable of very steep slopes or interesting harmonic ripples. By Joel Matthys. " enabled="0">
         <pkg-ref id="edu.stanford.chuck.Elliptic"/>
     </choice>
@@ -153,7 +160,7 @@
         <pkg-ref id="edu.stanford.chuck.PowerADSR"/>
     </choice>
     <pkg-ref id="edu.stanford.chuck.PowerADSR" version="0" onConclusion="none">PowerADSR.chug.pkg</pkg-ref>
-    
+
     <choice id="RegEx" title="RegEx" description="Tools for regular expression matching. " enabled="0">
         <pkg-ref id="edu.stanford.chuck.RegEx"/>
     </choice>

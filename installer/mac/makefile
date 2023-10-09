@@ -6,8 +6,8 @@ VERSION_MK=$(MINI_SRC_ROOT)/src/version.mk
 
 include $(VERSION_MK)
 
-CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher Elliptic ExpEnv ExpDelay FIR \
-    FoldbackSaturator GVerb KasFilter MagicSine Mesh2D Multicomb \
+CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher ChuGL Elliptic ExpEnv ExpDelay \
+    FIR FoldbackSaturator GVerb KasFilter MagicSine Mesh2D Multicomb \
     PanN PitchTrack PowerADSR RegEx Sigmund Spectacle WinFuncEnv \
     WPDiodeLadder WPKorg35
 CHUGINS=$(addsuffix .chug,$(CHUGIN_NAMES))
