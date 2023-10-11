@@ -104,6 +104,10 @@ $(CHUGINS): $(CHUGINS_ORIGINAL)
 $(CHUGINS_ORIGINAL): 
 	ARCHS="arm64 x86_64" make -C $(dir $@) osx
 
+chugl-sign:
+	productsign --sign "$(CERT_INSTALLER)" ./ChuGL.chug.pkg ./ChuGL.chug-signed.pkg
+	pkgutil --check-signature ./ChuGL.chug-signed.pkg
+
 clean: 
 	rm -rf miniAudicle.app chuck $(CHUGINS) *.pkg *.tmp
 clean-all: clean
@@ -111,4 +115,3 @@ clean-all: clean
 	make -C $(CHUCK_SRC_ROOT)/src clean
 	make -C $(MINI_SRC_ROOT)/src clean
 	make -C $(CHUGINS_SRC_ROOT) clean
-
