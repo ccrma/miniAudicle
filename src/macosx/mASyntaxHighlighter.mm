@@ -38,6 +38,7 @@ U.S.A.
     @"complex",
     @"void",
     @"same",
+    @"vec2",
     @"vec3",
     @"vec4",
     
@@ -66,6 +67,10 @@ U.S.A.
     @"private",
     @"global",
     @"auto",
+
+    @"@operator",
+    @"@construct",
+    @"@destruct",
     
     @"function",
     @"fun",
