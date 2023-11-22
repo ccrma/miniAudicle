@@ -231,7 +231,6 @@ SOURCES += \
     chuck/src/core/hidio_sdl.cpp \
     chuck/src/core/chuck.cpp \
     chuck/src/core/chuck_vm.cpp \
-    chuck/src/core/chuck_utils.cpp \
     chuck/src/core/chuck_ugen.cpp \
     chuck/src/core/chuck_type.cpp \
     chuck/src/core/chuck_table.cpp \
@@ -335,7 +334,6 @@ HEADERS  += qt/mAMainWindow.h \
     chuck/src/core/chuck_symbol.h \
     chuck/src/core/chuck_ugen.h \
     chuck/src/core/chuck_type.h \
-    chuck/src/core/chuck_utils.h \
     chuck/src/core/chuck_vm.h \
     chuck/src/core/chuck_yacc.h \
     chuck/src/core/util_xforms.h \

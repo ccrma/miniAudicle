@@ -111,7 +111,6 @@ CHUCK_CXXSRCS= \
     $(CHUCK_SRC_DIR)/core/chuck_frame.cpp \
     $(CHUCK_SRC_DIR)/core/chuck_symbol.cpp \
     $(CHUCK_SRC_DIR)/core/chuck_table.cpp \
-    $(CHUCK_SRC_DIR)/core/chuck_utils.cpp \
     $(CHUCK_SRC_DIR)/core/chuck_vm.cpp \
     $(CHUCK_SRC_DIR)/core/chuck_instr.cpp \
     $(CHUCK_SRC_DIR)/core/chuck_scan.cpp \
