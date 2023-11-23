@@ -102,7 +102,7 @@ $(CHUGINS): $(CHUGINS_ORIGINAL)
 	codesign --entitlements miniAudicle.entitlements --force --options=runtime --sign "$(CERT_APP)" $@
 	touch $@
 $(CHUGINS_ORIGINAL): 
-	ARCHS="arm64 x86_64" make -C $(dir $@) osx
+	ARCHS="arm64 x86_64" make -C $(dir $@) mac
 
 clean: 
 	rm -rf miniAudicle.app chuck $(CHUGINS) *.pkg *.tmp
