@@ -37,6 +37,10 @@ As an alternative to installing/buliding Qt and Qscintilla as described above, y
 brew install qt
 brew install qscintilla2
 ```
+If you have multiple Qt versions installed, set this variable to avoid mixing in Qt5 content:
+```
+export QT_SELECT=qt6
+```
 To build from the command line (either of the two approaches above should work, as long as the headers and paths are in place):
 ```
 cd miniAudicle/src
@@ -56,6 +60,11 @@ sudo apt install build-essential bison flex libqt6-base-dev libqscintilla2-qt6-d
 ```
 For other Linux distributions, the setup should be similar although the package install tools and package names may be slightly different. NOTE: setups that do not need JACK or PulseAudio can omit either or both of these packages. ALSA is needed for MIDI support on Linux.
 
+If you have multiple Qt versions installed, set this variable to avoid mixing in Qt5 content:
+```
+export QT_SELECT=qt6
+```
+
 To build **miniAudicle** (with all supported drivers: ALSA, PulseAudio, and JACK), navigate to the `miniAudicle/src` directory and run 'make':
 ```
 cd miniAudicle/src
@@ -72,7 +81,7 @@ Or, to build for ALSA only:
 make linux-alsa
 ```
 
-This build should build a `miniAudicle` executable in `src/macosx`.
+This should build a `miniAudicle` executable in `src`.
 
 
 ### Windows
