@@ -29,7 +29,6 @@
 		09056C1C1FCE8FF9004A2BD4 /* chuck_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95441FCE794A005114AE /* chuck_table.cpp */; };
 		09056C1D1FCE8FF9004A2BD4 /* chuck_type.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C955F1FCE794D005114AE /* chuck_type.cpp */; };
 		09056C1E1FCE8FF9004A2BD4 /* chuck_ugen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95261FCE7947005114AE /* chuck_ugen.cpp */; };
-		09056C1F1FCE8FF9004A2BD4 /* chuck_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95211FCE7946005114AE /* chuck_utils.cpp */; };
 		09056C201FCE8FF9004A2BD4 /* chuck_vm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95581FCE794C005114AE /* chuck_vm.cpp */; };
 		09056C211FCE8FF9004A2BD4 /* chuck.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C955B1FCE794D005114AE /* chuck.cpp */; };
 		09056C221FCE8FF9004A2BD4 /* midiio_rtmidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95171FCE7945005114AE /* midiio_rtmidi.cpp */; };
@@ -83,7 +82,6 @@
 		092C95761FCE794D005114AE /* util_network.c in Sources */ = {isa = PBXBuildFile; fileRef = 092C951D1FCE7945005114AE /* util_network.c */; };
 		092C95771FCE794D005114AE /* uana_xform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C951E1FCE7946005114AE /* uana_xform.cpp */; };
 		092C95781FCE794D005114AE /* chuck_io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C951F1FCE7946005114AE /* chuck_io.cpp */; };
-		092C95791FCE794D005114AE /* chuck_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95211FCE7946005114AE /* chuck_utils.cpp */; };
 		092C957A1FCE794D005114AE /* rtmidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95241FCE7946005114AE /* rtmidi.cpp */; };
 		092C957B1FCE794D005114AE /* chuck_ugen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95261FCE7947005114AE /* chuck_ugen.cpp */; };
 		092C957C1FCE794D005114AE /* ulib_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092C95291FCE7947005114AE /* ulib_math.cpp */; };
@@ -427,7 +425,6 @@
 		092C951E1FCE7946005114AE /* uana_xform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uana_xform.cpp; sourceTree = "<group>"; };
 		092C951F1FCE7946005114AE /* chuck_io.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_io.cpp; sourceTree = "<group>"; };
 		092C95201FCE7946005114AE /* ulib_opsc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulib_opsc.h; sourceTree = "<group>"; };
-		092C95211FCE7946005114AE /* chuck_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_utils.cpp; sourceTree = "<group>"; };
 		092C95221FCE7946005114AE /* chuck_otf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chuck_otf.h; sourceTree = "<group>"; };
 		092C95231FCE7946005114AE /* chuck_io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chuck_io.h; sourceTree = "<group>"; };
 		092C95241FCE7946005114AE /* rtmidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rtmidi.cpp; sourceTree = "<group>"; };
@@ -495,7 +492,6 @@
 		092C95641FCE794D005114AE /* chuck_symbol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chuck_symbol.cpp; sourceTree = "<group>"; };
 		092C95651FCE794D005114AE /* util_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util_math.h; sourceTree = "<group>"; };
 		092C95661FCE794D005114AE /* ugen_osc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ugen_osc.cpp; sourceTree = "<group>"; };
-		092C95671FCE794D005114AE /* chuck_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chuck_utils.h; sourceTree = "<group>"; };
 		092C95681FCE794D005114AE /* ugen_filter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ugen_filter.cpp; sourceTree = "<group>"; };
 		092C95691FCE794D005114AE /* uana_extract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uana_extract.h; sourceTree = "<group>"; };
 		092C956A1FCE794D005114AE /* chuck_symbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chuck_symbol.h; sourceTree = "<group>"; };
@@ -975,8 +971,6 @@
 				092C95521FCE794C005114AE /* chuck_type.h */,
 				092C95261FCE7947005114AE /* chuck_ugen.cpp */,
 				092C95401FCE794A005114AE /* chuck_ugen.h */,
-				092C95211FCE7946005114AE /* chuck_utils.cpp */,
-				092C95671FCE794D005114AE /* chuck_utils.h */,
 				092C95581FCE794C005114AE /* chuck_vm.cpp */,
 				092C951B1FCE7945005114AE /* chuck_vm.h */,
 				092C955B1FCE794D005114AE /* chuck.cpp */,
@@ -1919,7 +1913,6 @@
 				09056C0A1FCE83B0004A2BD4 /* RtAudio.cpp in Sources */,
 				092C95831FCE794D005114AE /* chuck_compile.cpp in Sources */,
 				092C95731FCE794D005114AE /* util_sndfile.c in Sources */,
-				092C95791FCE794D005114AE /* chuck_utils.cpp in Sources */,
 				092C95851FCE794D005114AE /* ulib_std.cpp in Sources */,
 				092C95961FCE794D005114AE /* chuck_stats.cpp in Sources */,
 				092C95721FCE794D005114AE /* chuck_errmsg.cpp in Sources */,
@@ -1967,7 +1960,6 @@
 				09A40BD10A9A5662007604EA /* miniAudicle_shell.cpp in Sources */,
 				D5A682F81E26B81D009A460F /* NSPanel+ButtonTag.m in Sources */,
 				09056C1B1FCE8FF9004A2BD4 /* chuck_symbol.cpp in Sources */,
-				09056C1F1FCE8FF9004A2BD4 /* chuck_utils.cpp in Sources */,
 				09056C1E1FCE8FF9004A2BD4 /* chuck_ugen.cpp in Sources */,
 				09056C201FCE8FF9004A2BD4 /* chuck_vm.cpp in Sources */,
 				09056C241FCE8FF9004A2BD4 /* uana_extract.cpp in Sources */,

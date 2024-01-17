@@ -60,7 +60,7 @@ t_CKFLOAT marecordsession_rightVU = 0;
 t_CKBOOL init_maui( Chuck_Env * env )
 {
     // log
-    EM_log( CK_LOG_SEVERE, "loading miniAudicle UI (MAUI) API..." );
+    EM_log( CK_LOG_HERALD, "loading miniAudicle UI (MAUI) API..." );
     // push indent level
     EM_pushlog();
 
@@ -72,19 +72,19 @@ t_CKBOOL init_maui( Chuck_Env * env )
     type_engine_load_context( env, context );
 
     // go
-    //EM_log( CK_LOG_SEVERE, "module MAUI_Element..." );    
+    //EM_log( CK_LOG_HERALD, "module MAUI_Element..." );    
     if( !init_class_mauielement( env ) ) goto error;
-    //EM_log( CK_LOG_SEVERE, "module MAUI_Slider..." );
+    //EM_log( CK_LOG_HERALD, "module MAUI_Slider..." );
     if( !init_class_maslider( env ) ) goto error;
-    //EM_log( CK_LOG_SEVERE, "module MAUI_View..." );
+    //EM_log( CK_LOG_HERALD, "module MAUI_View..." );
     if( !init_class_mauiview( env ) ) goto error;
-    //EM_log( CK_LOG_SEVERE, "module MAUI_Button..." );
+    //EM_log( CK_LOG_HERALD, "module MAUI_Button..." );
     if( !init_class_mauibutton( env ) ) goto error;
-    //EM_log( CK_LOG_SEVERE, "module MAUI_LED..." );
+    //EM_log( CK_LOG_HERALD, "module MAUI_LED..." );
     if( !init_class_mauiled( env ) ) goto error;
-    //EM_log( CK_LOG_SEVERE, "module MAUI_Text..." );
+    //EM_log( CK_LOG_HERALD, "module MAUI_Text..." );
     if( !init_class_mauitext( env ) ) goto error;
-    //EM_log( CK_LOG_SEVERE, "module MAUI_Gauge..." );
+    //EM_log( CK_LOG_HERALD, "module MAUI_Gauge..." );
     if( !init_class_mauigauge( env ) ) goto error;
 
     // import
