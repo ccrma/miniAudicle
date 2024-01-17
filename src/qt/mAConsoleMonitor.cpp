@@ -113,7 +113,7 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent, miniAudicle * ma) :
 
     if( !CreatePipe( &hRead, &hWrite, NULL, 8192*4 ) )
     {
-        EM_log( CK_LOG_SEVERE, "(console monitor): pipe error %d, disabling console monitor", GetLastError() );
+        EM_log( CK_LOG_HERALD, "(console monitor): pipe error %d, disabling console monitor", GetLastError() );
         return;
     }
         

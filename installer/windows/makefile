@@ -9,7 +9,7 @@ VERSION_MK=$(MINI_SRC_ROOT)/src/version.mk
 include $(VERSION_MK)
 WIN32_VERSION=$(shell echo $(PKG_VERSION) | egrep -o '^[0-9]+(\.[0-9]+(\.[0-9]+(\.[0-9]+)?)?)?')
 
-CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher FIR FoldbackSaturator KasFilter MagicSine \
+CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher ChuGL FIR FoldbackSaturator KasFilter MagicSine \
 	PanN PitchTrack GVerb Mesh2D Spectacle Elliptic Sigmund ExpDelay ExpEnv Overdrive \
 	Multicomb PowerADSR RegEx WinFuncEnv WPDiodeLadder WPKorg35
 CHUGINS=$(addprefix chugins/,$(addsuffix .chug,$(CHUGIN_NAMES)))
@@ -22,7 +22,10 @@ INSTALLER=chuck-$(PKG_VERSION).msi
 # edit this pattern if your build dir is different
 QT_BUILD_DIR=$(wildcard $(MINI_SRC_ROOT)/build-miniAudicle-Desktop_Qt_*-Release)
 
-default: $(INSTALLER)
+default: chugl_prep $(INSTALLER)
+
+chugl_prep:
+	cp ../../src/chugins/ChuGL/ChuGL.chug ../../src/chugins/x64/Release/
 
 upload: $(INSTALLER)
 	scp $(INSTALLER) spencer@ccrma-gate.stanford.edu:Library/Web/chuck
