@@ -30,7 +30,7 @@ bool rtaudio_has_error()
 
 void rtaudio_error_print(bool clearError)
 {
-    EM_log(CK_LOG_SEVERE, "RtAudio: error: %s", g_lastRtAudioErrorText.c_str());
+    EM_log(CK_LOG_HERALD, "RtAudio: error: %s", g_lastRtAudioErrorText.c_str());
     
     if (clearError) rtaudio_error_clear();
 }

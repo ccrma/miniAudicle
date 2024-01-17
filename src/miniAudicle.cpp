@@ -536,7 +536,7 @@ t_OTF_RESULT miniAudicle::status( Chuck_VM_Status * status )
         }
     }
     
-    //EM_log( CK_LOG_SEVERE, "(miniAudicle): insufficient buffers for status query" );
+    //EM_log( CK_LOG_HERALD, "(miniAudicle): insufficient buffers for status query" );
     
     return OTF_MINI_ERROR;
 }
@@ -568,7 +568,7 @@ t_CKBOOL miniAudicle::process_reply()
         }
         
         if( i == num_status_bufs )
-            EM_log( CK_LOG_SEVERE, "(miniAudicle): insufficient buffers for status query, leaking memory" );
+            EM_log( CK_LOG_HERALD, "(miniAudicle): insufficient buffers for status query, leaking memory" );
         
         CK_SAFE_DELETE( msg );
         return TRUE;
