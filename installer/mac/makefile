@@ -6,7 +6,7 @@ VERSION_MK=$(MINI_SRC_ROOT)/src/version.mk
 
 include $(VERSION_MK)
 
-CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher Elliptic ExpEnv ExpDelay FIR \
+CHUGIN_NAMES=ABSaturator AmbPan Bitcrusher ChuGL Elliptic ExpEnv ExpDelay FIR \
     FoldbackSaturator GVerb KasFilter MagicSine Mesh2D Multicomb \
     PanN PitchTrack PowerADSR RegEx Sigmund Spectacle WinFuncEnv \
     WPDiodeLadder WPKorg35
@@ -103,6 +103,15 @@ $(CHUGINS): $(CHUGINS_ORIGINAL)
 	touch $@
 $(CHUGINS_ORIGINAL): 
 	ARCHS="arm64 x86_64" make -C $(dir $@) mac
+
+# soft-link chugl src directory to appear in chugins
+chugl-prep:
+	ln -s ../../../chugl/src ../../../chugins/ChuGL
+
+# for standalone chugl signing
+chugl-sign:
+	productsign --sign "$(CERT_INSTALLER)" ./ChuGL.chug.pkg ./ChuGL.chug-signed.pkg
+	pkgutil --check-signature ./ChuGL.chug-signed.pkg
 
 clean: 
 	rm -rf miniAudicle.app chuck $(CHUGINS) *.pkg *.tmp
