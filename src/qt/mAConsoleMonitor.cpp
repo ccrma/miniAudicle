@@ -86,7 +86,7 @@ mAConsoleMonitor::mAConsoleMonitor(QWidget *parent, miniAudicle * ma) :
 
     if( pipe( fd ) )
     {
-        EM_log( CK_LOG_SEVERE, "(console monitor): pipe error, disabling console monitor" );
+        EM_log( CK_LOG_HERALD, "(console monitor): pipe error, disabling console monitor" );
         return;
     }
 
