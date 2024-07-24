@@ -25,7 +25,7 @@ QT_BUILD_DIR=$(wildcard $(MINI_SRC_ROOT)/build-miniAudicle-Desktop_Qt_*-Release)
 default: chugl_prep $(INSTALLER)
 
 chugl_prep:
-	cp ../../src/chugins/ChuGL/build-release/Release/ChuGL.chug ../../src/chugins/x64/Release/
+	cp ../../src/chugins/ChuGL/src/build-release/Release/ChuGL.chug ../../src/chugins/x64/Release/
 
 upload: $(INSTALLER)
 	scp $(INSTALLER) spencer@ccrma-gate.stanford.edu:Library/Web/chuck
