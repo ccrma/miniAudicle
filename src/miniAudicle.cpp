@@ -215,7 +215,7 @@ t_OTF_RESULT miniAudicle::run_code( string & code, string & name,
     {
         last_result[docid].result = OTF_COMPILE_ERROR;
         last_result[docid].output = string( EM_lasterror() ) + "\n";
-        last_result[docid].line = EM_extLineNum;
+        last_result[docid].line = EM_lineNum;
         
         out += last_result[docid].output;
         return last_result[docid].result;
@@ -277,7 +277,7 @@ t_OTF_RESULT miniAudicle::replace_code( string & code, string & name,
     {
         last_result[docid].result = OTF_COMPILE_ERROR;
         last_result[docid].output = string( EM_lasterror() ) + "\n";
-        last_result[docid].line = EM_extLineNum;
+        last_result[docid].line = EM_lineNum;
         
         out += last_result[docid].output;
         return last_result[docid].result;
