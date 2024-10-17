@@ -206,7 +206,7 @@
 	if(!outpipe) {
         NSLog(@"Error opening pipe: %@",forProcess);
         NSBeep();
-        return nil;
+        return 0;
     }
 	
 	do {
