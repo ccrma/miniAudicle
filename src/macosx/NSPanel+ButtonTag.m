@@ -25,7 +25,7 @@
                 NSString *btnTitle = ((NSButton *)level2View).title;
                 
                 if ([btnTitle  isEqual: title]) {
-                    int tag = (NSButton *)level2View.tag;
+                    int tag = ((NSButton *)level2View).tag;
                     return tag;
                 }
             }
