@@ -210,8 +210,10 @@ t_OTF_RESULT miniAudicle::run_code( string & code, string & name,
         return OTF_MINI_ERROR;
     }
 
-    // compile
-    if( !compiler->go( name, filepath, code ) )
+    // compile -- always compile the code in the buffer
+    // even if the buffer has been saved to file;
+    // however, the filepath can be provided as directory basis
+    if( !compiler->compileCode( code, filepath ) )
     {
         last_result[docid].result = OTF_COMPILE_ERROR;
         last_result[docid].output = string( EM_lasterror() ) + "\n";
@@ -273,7 +275,10 @@ t_OTF_RESULT miniAudicle::replace_code( string & code, string & name,
         return OTF_MINI_ERROR;
     }
 
-    if( !compiler->go( name, filepath, code ) )
+    // compile -- always compile the code in the buffer
+    // even if the buffer has been saved to file;
+    // however, the filepath can be provided as directory basis
+    if( !compiler->compileCode( code, filepath ) )
     {
         last_result[docid].result = OTF_COMPILE_ERROR;
         last_result[docid].output = string( EM_lasterror() ) + "\n";

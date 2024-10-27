@@ -68,6 +68,7 @@ U.S.A.
     @"global",
     @"auto",
 
+    @"@import",
     @"@operator",
     @"@construct",
     @"@destruct",
