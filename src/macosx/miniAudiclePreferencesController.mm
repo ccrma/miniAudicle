@@ -145,6 +145,7 @@ miniAudicle_Version currentVersion()
 
 @interface miniAudiclePreferencesController ()
 
+- (NSMutableArray *)_loadImportPaths;
 - (void)_updatePreferencesVersioning;
 
 @end
@@ -221,20 +222,11 @@ miniAudicle_Version currentVersion()
         
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:mAPreferencesEnableChugins];
         
-        std::list<std::string> default_chugin_pathv;
-        std::string path_list = g_default_chugin_path;
-        parse_path_list(path_list, default_chugin_pathv);
-        NSMutableArray * chugin_path_array = [NSMutableArray arrayWithCapacity:default_chugin_pathv.size()];
-        for(std::list<std::string>::iterator i = default_chugin_pathv.begin();
-            i != default_chugin_pathv.end(); i++)
-        {
-            [chugin_path_array addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                          [NSString stringWithUTF8String:i->c_str()], @"location", 
-                                          @"folder", @"type", nil]];
-        }
-        
+        // load import search paths
+        NSMutableArray * chugin_path_array = [self _loadImportPaths];
+        // set into defaults
         [defaults setObject:chugin_path_array forKey:mAPreferencesChuginPaths];
-        
+        // register defaults
         [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
         
         // spencer: 0.2.3: add extra syntax color keys if missing
@@ -280,13 +272,34 @@ miniAudicle_Version currentVersion()
             [new_sh setObject:@"ffffff" forKey:IDEKit_NameForColor( IDEKit_kLangColor_Background )];
             [[NSUserDefaults standardUserDefaults] setObject:new_sh forKey:IDEKit_TextColorsPrefKey];
         }
-        
+
+        // version-based updating
         [self _updatePreferencesVersioning];
     }
     
     return self;
 }
 
+- (NSMutableArray *)_loadImportPaths
+{
+    // list of paths
+    std::list<std::string> import_paths;
+    // use user only (system and packages paths implicit) | 1.5.4.0 (ge)
+    parse_path_list( g_default_path_user, import_paths );
+    // TODO: merge system, packages, user
+    NSMutableArray * import_paths_array = [NSMutableArray arrayWithCapacity:import_paths.size()];
+    // fill array
+    for( std::list<std::string>::iterator i = import_paths.begin();
+         i != import_paths.end(); i++)
+    {
+        // add element
+        [import_paths_array addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                      [NSString stringWithUTF8String:i->c_str()], @"location",
+                                      @"folder", @"type", nil]];
+    }
+    // done...
+    return import_paths_array;
+}
 
 - (void)_updatePreferencesVersioning
 {
@@ -301,22 +314,10 @@ miniAudicle_Version currentVersion()
     if(newVersion > oldVersion)
     {
         // version upgrade scenario
-        
-        if(oldVersion < miniAudicle_Version(1,3,5,2))
+        if(oldVersion < miniAudicle_Version(1,5,4,0))
         {
             // force-replace chugin path
-            std::list<std::string> default_chugin_pathv;
-            std::string path_list = g_default_chugin_path;
-            parse_path_list(path_list, default_chugin_pathv);
-            NSMutableArray * chugin_path_array = [NSMutableArray arrayWithCapacity:default_chugin_pathv.size()];
-            for(std::list<std::string>::iterator i = default_chugin_pathv.begin();
-                i != default_chugin_pathv.end(); i++)
-            {
-                [chugin_path_array addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                              [NSString stringWithUTF8String:i->c_str()], @"location",
-                                              @"folder", @"type", nil]];
-            }
-            
+            NSMutableArray * chugin_path_array = [self _loadImportPaths];
             [defaults setObject:chugin_path_array forKey:mAPreferencesChuginPaths];
             [defaults synchronize];
         }
@@ -1001,7 +1002,7 @@ miniAudicle_Version currentVersion()
     bool chugin_load = ([enable_chugins state] == NSOnState);
     // chugins search paths
     std::list<std::string> named_dls;
-    std::list<std::string> dl_search_path;
+    std::list<std::string> dl_search_path_user;
     // iterate over what's in the list
     for(int i = 0; i < [chugin_paths count]; i++)
     {
@@ -1012,13 +1013,32 @@ miniAudicle_Version currentVersion()
             named_dls.push_back([[path objectForKey:@"location"] UTF8String]);
         // chugin search path
         else if([[path objectForKey:@"type"] isEqualToString:@"folder"])
-            dl_search_path.push_back([[path objectForKey:@"location"] UTF8String]);
+            dl_search_path_user.push_back([[path objectForKey:@"location"] UTF8String]);
     }
 
     // set c parameters
     localChuck->setParam( CHUCK_PARAM_CHUGIN_ENABLE, chugin_load );
     localChuck->setParam( CHUCK_PARAM_USER_CHUGINS, named_dls );
-    localChuck->setParam( CHUCK_PARAM_USER_CHUGIN_DIRECTORIES, dl_search_path );
+    localChuck->setParam( CHUCK_PARAM_IMPORT_PATH_USER, dl_search_path_user );
+
+    // separate into system, packages, user | 1.5.4.0 (ge)
+    std::string import_path_system, import_path_packages;
+    // miniAudicle tracks user paths; now set system and packages paths | 1.5.4.0 (ge)
+    std::list<std::string> dl_search_path_system, dl_search_path_packages;
+    // if set as environment variable, get it; otherwise use default (system)
+    if( getenv( g_envvar_path_system ) )
+    { import_path_system = getenv( g_envvar_path_system ); }
+    else { import_path_system = g_default_path_system; }
+    // if set as environment variable, get it; otherwise use default (packages)
+    if( getenv( g_envvar_path_packages ) )
+    { import_path_packages = getenv( g_envvar_path_packages ); }
+    else { import_path_packages = g_default_path_packages; }
+    // parse the colon list into STL list
+    parse_path_list( import_path_system, dl_search_path_system );
+    parse_path_list( import_path_packages, dl_search_path_packages );
+    // set system and packages paths in chuck
+    localChuck->setParam( CHUCK_PARAM_IMPORT_PATH_SYSTEM, dl_search_path_system );
+    localChuck->setParam( CHUCK_PARAM_IMPORT_PATH_PACKAGES, dl_search_path_packages );
 
     // print
     EM_log( CK_LOG_SYSTEM, "-------( %s )-------", timestamp_formatted().c_str() );

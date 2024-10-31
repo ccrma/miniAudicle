@@ -64,7 +64,8 @@ const char *mAsciLexerChucK::keywords(int set) const
                "super interface implements protected global auto "
                "private function fun spork const new now "
                "true false maybe null NULL me pi samp ms "
-               "second minute hour day week dac adc blackhole chout cherr";
+               "second minute hour day week dac adc blackhole chout cherr "
+               "@operator @import @construct @destruct";
     if(set == 2) // class names
         return "Object "
                 "string "

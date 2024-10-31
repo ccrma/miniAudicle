@@ -948,11 +948,11 @@ t_CKBOOL miniAudicle::start_vm()
         g_do_watchdog = FALSE;
 #endif
         
-        std::list<std::string> library_paths = vm_options.library_paths;
+        std::list<std::string> dl_search_path_user = vm_options.library_paths;
         std::list<std::string> named_chugins = vm_options.named_chugins;
         // normalize paths
-        for(std::list<std::string>::iterator i = library_paths.begin();
-            i != library_paths.end(); i++)
+        for(std::list<std::string>::iterator i = dl_search_path_user.begin();
+            i != dl_search_path_user.end(); i++)
             *i = expand_filepath(*i);
         for(std::list<std::string>::iterator j = named_chugins.begin();
             j != named_chugins.end(); j++)
@@ -1027,8 +1027,26 @@ t_CKBOOL miniAudicle::start_vm()
         m_chuck->setParam(CHUCK_PARAM_VM_ADAPTIVE, adaptive_size);
         m_chuck->setParam(CHUCK_PARAM_VM_HALT, vm_halt);
         m_chuck->setParam(CHUCK_PARAM_USER_CHUGINS, named_chugins);
-        m_chuck->setParam(CHUCK_PARAM_USER_CHUGIN_DIRECTORIES, library_paths);
-        m_chuck->setParam( CHUCK_PARAM_IS_REALTIME_AUDIO_HINT, enable_audio );
+        m_chuck->setParam(CHUCK_PARAM_IMPORT_PATH_USER, dl_search_path_user);
+        m_chuck->setParam(CHUCK_PARAM_IS_REALTIME_AUDIO_HINT, enable_audio);
+
+        // miniAudicle tracks user paths; now set system and packages paths | 1.5.4.0 (ge)
+        std::string import_path_system, import_path_packages;
+        std::list<std::string> dl_search_path_system, dl_search_path_packages;
+        // if set as environment variable, get it; otherwise use default (system)
+        if( getenv( g_envvar_path_system ) )
+        { import_path_system = getenv( g_envvar_path_system ); }
+        else { import_path_system = g_default_path_system; }
+        // if set as environment variable, get it; otherwise use default (packages)
+        if( getenv( g_envvar_path_packages ) )
+        { import_path_packages = getenv( g_envvar_path_packages ); }
+        else { import_path_packages = g_default_path_packages; }
+        // parse the colon list into STL list
+        parse_path_list( import_path_system, dl_search_path_system );
+        parse_path_list( import_path_packages, dl_search_path_packages );
+        // set system and packages paths in chuck
+        m_chuck->setParam( CHUCK_PARAM_IMPORT_PATH_SYSTEM, dl_search_path_system );
+        m_chuck->setParam( CHUCK_PARAM_IMPORT_PATH_PACKAGES, dl_search_path_packages );
 
         // initialize
         if( !m_chuck->init() )
