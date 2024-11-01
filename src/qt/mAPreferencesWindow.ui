@@ -57,7 +57,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <property name="documentMode">
       <bool>true</bool>
@@ -648,7 +648,17 @@
        <item>
         <widget class="QCheckBox" name="enableChugins">
          <property name="text">
-          <string>Enable ChuGins</string>
+          <string>auto-load default ChuGins</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string>When using @import, ChucK attempts to locate the specified ChuGins (.chug) and library files (.ck) along its system and user paths. The latter can be viewed and edited below. (To see a full list of search paths, press &quot;Probe ChuGins&quot;.)</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
