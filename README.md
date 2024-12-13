@@ -55,7 +55,7 @@ Dependencies: gcc, g++, make, bison, flex, Qt6, QScintilla, libsndfile, ALSA, Pu
 
 To set up a build environment for **miniAudicle** on Debian or Ubuntu:
 ```
-sudo apt install build-essential bison flex libqt6-base-dev libqscintilla2-qt6-dev \
+sudo apt install build-essential bison flex qt6-base-dev libqscintilla2-qt6-dev \
   libsndfile1-dev libasound2-dev libpulse-dev libjack-jackd2-dev
 ```
 For other Linux distributions, the setup should be similar although the package install tools and package names may be slightly different. NOTE: setups that do not need JACK or PulseAudio can omit either or both of these packages. ALSA is needed for MIDI support on Linux.
