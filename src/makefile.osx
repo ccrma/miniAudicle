@@ -41,8 +41,11 @@ CFLAGS+=-D__MACOSX_CORE__ -c -DGCC_FAST_OBJC_DISPATCH $(INCLUDES) \
     -mmacosx-version-min=10.9 $(ISYSROOT) -DENV_MA_VERSION="\"$(VERSION)\""
 
 FRAMEWORKS=Cocoa CoreAudio CoreMIDI CoreFoundation Carbon IOKit Security AVFoundation
+# linker assumes CXX -- e.g., g++
 LIBS=$(addprefix -framework ,$(FRAMEWORKS)) \
-    $(LINK_EXTRAS) -lc++ -lm
+    $(LINK_EXTRAS) -lm
+# if linking using CC -- e.g., gcc -- add -lc++
+# LIBS+= -lc++
 LDFLAGS=$(LIBS) -mmacosx-version-min=10.9 $(ISYSROOT)
 LDFLAGS_MA=-F$(BUNDLE_FRAMEWORKS_DIR) -framework PSMTabBarControl -rpath "@executable_path/../Frameworks"
 
