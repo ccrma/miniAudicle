@@ -2,6 +2,14 @@
 miniAudicle VERSIONS log
 ------------------------
 
+1.5.4.4 (January 2025)
+---
+    - (fixed) miniAudicle export and record functionalities; these resulted
+      in empty WAV file (in 1.5.4.2 and 1.5.4.3), due to updates to garbage
+      collection policy for UGens. exporting and recording should now work,
+      once again
+
+
 1.5.1.1 (August 2023)
 ---
     - (updated) chuck-1.5.1.1 (chai)
