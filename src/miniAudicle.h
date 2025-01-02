@@ -80,6 +80,10 @@ enum t_OTF_RESULT
     OTF_UNDEFINED
 };
 
+// global event names | 1.5.4.4 (ge) added
+// (for communicating with chuck scripts e.g., for recording)
+#define MA_GLOBAL_EVENT_RECORDING "MINIAUDICLE_GLOBAL_EVENT_RECORDING"
+
 
 //-----------------------------------------------------------------------------
 // name: class miniAudicle
@@ -99,8 +103,8 @@ public:
                                t_CKUINT docid, t_CKUINT & shred_id, 
                                std::string & out );
     t_OTF_RESULT remove_code( t_CKUINT docid, t_CKUINT & shred_id, 
-                              std::string & out );
-    t_OTF_RESULT remove_shred( t_CKUINT docid, t_CKINT shred_id, std::string & out );
+                              std::string & out, const std::string & globalEventName = "" );
+    t_OTF_RESULT remove_shred( t_CKUINT docid, t_CKUINT shred_id, std::string & out );
     t_OTF_RESULT removeall( t_CKUINT docid, std::string & out );
     t_OTF_RESULT removelast( t_CKUINT docid, std::string & out );
     t_OTF_RESULT clearvm( t_CKUINT docid, std::string & out );

@@ -212,7 +212,7 @@ NSString * const mARecordSessionSaveToKey = @"mARecordSessionSaveToKey";
     if(ma->is_on())
     {
         string result_str;
-        ma->remove_code(docid, record_shred_id, result_str);
+        ma->remove_code( docid, record_shred_id, result_str, MA_GLOBAL_EVENT_RECORDING );;
         record_shred_id = 0;
     }
     

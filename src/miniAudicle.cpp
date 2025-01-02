@@ -38,6 +38,7 @@ U.S.A.
 #include "version.h"
 #include "miniAudicle.h"
 #include "chuck.h"
+#include "chuck_globals.h" // for access to global manager
 #include "chuck_errmsg.h"
 #include "chuck_otf.h"
 #include "chuck_audio.h"
@@ -320,8 +321,8 @@ t_OTF_RESULT miniAudicle::replace_code( string & code, string & name,
 // name: remove_code()
 // desc: ...
 //-----------------------------------------------------------------------------
-t_OTF_RESULT miniAudicle::remove_code( t_CKUINT docid, t_CKUINT & shred_id, 
-                                       string & out )
+t_OTF_RESULT miniAudicle::remove_code( t_CKUINT docid, t_CKUINT & shred_id,
+                                       string & out, const string & globalEventName )
 {
     if( documents.find( docid ) == documents.end() )
     {
@@ -337,16 +338,29 @@ t_OTF_RESULT miniAudicle::remove_code( t_CKUINT docid, t_CKUINT & shred_id,
         out += "no shred to remove\n";
         return OTF_MINI_ERROR;
     }
-    
-    t_CKUINT rm_shred_id = documents[docid]->back();
-    
-    t_OTF_RESULT result = remove_shred( docid, rm_shred_id, out );
-    
-    if( result == OTF_SUCCESS )
-        shred_id = rm_shred_id;
-    else
-        shred_id = 0;
-    
+
+    // return code
+    t_OTF_RESULT result = OTF_UNDEFINED;
+
+    // get shred ID to remove
+    shred_id = documents[docid]->back();
+
+    // check which method to remove code
+    if( globalEventName == "" ) // no named global event to trigger
+    {
+        // remove the shred from ChucK VM
+        result = remove_shred( docid, shred_id, out );
+        // check result code
+        if( result != OTF_SUCCESS ) { shred_id = 0; }
+    }
+    else // broadcast to named global event | 1.5.4.4 (ge) added
+    {
+        // broadcast global event by name
+        vm->globals_manager()->broadcastGlobalEvent( globalEventName.c_str() );
+        // set result code; assume this worked
+        result = OTF_SUCCESS;
+    }
+
     return result;
 }
 
@@ -355,7 +369,7 @@ t_OTF_RESULT miniAudicle::remove_code( t_CKUINT docid, t_CKUINT & shred_id,
 // name: remove_shred()
 // desc: ...
 //-----------------------------------------------------------------------------
-t_OTF_RESULT miniAudicle::remove_shred( t_CKUINT docid, t_CKINT shred_id, 
+t_OTF_RESULT miniAudicle::remove_shred( t_CKUINT docid, t_CKUINT shred_id,
                                         string & out )
 {
     Chuck_Msg * msg = new Chuck_Msg;
