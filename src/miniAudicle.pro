@@ -29,7 +29,16 @@ QT += core gui network widgets
 # c++ language dialect
 CONFIG += c++11
 CONFIG += warn_off
+# Qt has only been tested with version 13 of the platform SDK, you're using 15.
+# This is an unsupported configuration. You may experience build issues, and by using
+# the 15.2 SDK you are opting in to new features that Qt has not been prepared for.
+# Please downgrade the SDK you use to build your app to version 13, or configure
+# with CONFIG+=sdk_no_version_check when running qmake to silence this warning.
+CONFIG+=sdk_no_version_check
+
+# makefile
 MAKEFILE = makefile.qt
+# pch
 PRECOMPILED_HEADER = qt/miniAudicle_pc.h
 
 # miniAudicle enable color console
@@ -61,6 +70,11 @@ QMAKE_TARGET_BUNDLE_PREFIX = edu.stanford.chuck
 # set application bundle identifier name
 QMAKE_BUNDLE = miniAudicle
 
+# set minimum macOS version
+# FYI as of 1.5.4.4, chuck still supports macOS SDK 10.9 and above
+# FYI (but miniAudicle / Qt requires at least 11.0)
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 11
+
 # #defines
 CFLAGS += -D__MACOSX_CORE__
 # header paths; assumes Qsci/ in $$[QT_INSTALL_HEADERS]
@@ -74,7 +88,7 @@ QMAKE_CFLAGS += $$CFLAGS
 QMAKE_LFLAGS +=
 # qmake libraries and frameworks to link against
 QMAKE_LIBS += -framework Cocoa -framework CoreAudio -framework CoreMIDI \
-    -framework CoreFoundation -framework Carbon -framework IOKit -lstdc++ -lm \
+    -framework CoreFoundation -framework Carbon -framework IOKit -lm \
     -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport
 
 # controls whether to link against dynamic or static qscintilla
