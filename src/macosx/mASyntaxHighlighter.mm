@@ -72,7 +72,8 @@ U.S.A.
     @"@operator",
     @"@construct",
     @"@destruct",
-    
+    @"@doc",
+
     @"function",
     @"fun",
     @"spork",
