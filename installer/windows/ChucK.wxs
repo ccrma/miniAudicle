@@ -44,6 +44,10 @@
               <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
             </Component>
             
+            <Component Id='chumpEXE' Win64='yes' Guid='7F30EE08-F7FC-429C-9D3B-743460058BE5'>
+              <File Id='chumpEXE' Name='chump.exe' DiskId='1' Source='chump.exe' KeyPath='yes' />
+            </Component>
+
             <Directory Id="util" Name="util">
               <Component Id='oggencEXE' Win64='yes' Guid='3B8BFD3D-2EBE-445a-89AE-376C4E4F8059'>
                 <File Id='oggencEXE' Name='oggenc.exe' DiskId='1' Source='oggenc.exe' KeyPath='yes' />
@@ -73,6 +77,9 @@
       </Feature>
       <Feature Id='chuckEXE' Title='chuck.exe' Description='chuck.exe command line executable.' Level='1'>
         <ComponentRef Id='chuckEXE' />
+      </Feature>
+      <Feature Id='chumpEXE' Title='chump.exe' Description='chump.exe package manager for chuck.' Level='1'>
+        <ComponentRef Id='chumpEXE' />
       </Feature>
       <Feature Id='chugins' Title='ChuGins' Description='ChuGins extend the native capabilities of ChucK with additional unit generators.' Level='1'>
         <ComponentGroupRef Id='chugins' />

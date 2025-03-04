@@ -3,6 +3,7 @@
     
     <pkg-ref id="edu.stanford.chuck.miniAudicle"/>
     <pkg-ref id="edu.stanford.chuck.chuck"/>
+    <pkg-ref id="edu.stanford.chuck.chump"/>
     <pkg-ref id="edu.stanford.chuck.ABSaturator"/>
     <pkg-ref id="edu.stanford.chuck.AmbPan"/>
     <pkg-ref id="edu.stanford.chuck.Bitcrusher"/>
@@ -36,6 +37,7 @@
     <choices-outline>
         <line choice="edu.stanford.chuck.miniAudicle"/>
         <line choice="edu.stanford.chuck.chuck"/>
+        <line choice="edu.stanford.chuck.chump"/>
         <line choice="edu.stanford.chuck.examples"/>
         <line choice="ChuGins">
             <line choice="ABSaturator"/>
@@ -73,6 +75,11 @@
         <pkg-ref id="edu.stanford.chuck.chuck"/>
     </choice>
     <pkg-ref id="edu.stanford.chuck.chuck" version="0" onConclusion="none">chuck.pkg</pkg-ref>
+
+    <choice id="edu.stanford.chuck.chump" title="chump" description="ChuMP is the ChucK Manager of Packages. ">
+        <pkg-ref id="edu.stanford.chuck.chump"/>
+    </choice>
+    <pkg-ref id="edu.stanford.chuck.chump" version="0" onConclusion="none">chump.pkg</pkg-ref>
     
     <choice id="ChuGins" title="ChuGins" description="ChuGins extend the native capabilities of ChucK with additional unit generators. "/>
     

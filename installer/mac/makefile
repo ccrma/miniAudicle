@@ -1,5 +1,6 @@
 MINI_SRC_ROOT=../..
 CHUCK_SRC_ROOT=$(MINI_SRC_ROOT)/src/chuck
+CHUMP_SRC_ROOT=$(MINI_SRC_ROOT)/src/chump
 CHUGINS_SRC_ROOT=$(MINI_SRC_ROOT)/src/chugins
 
 VERSION_MK=$(MINI_SRC_ROOT)/src/version.mk
@@ -17,7 +18,7 @@ EXAMPLES=$(CHUCK_SRC_ROOT)/examples
 
 # PKGS=$(addsuffix .pkg,$(CHUGINS) miniAudicle.app chuck)
 APP_PKGS=$(addsuffix .pkg,miniAudicle.app)
-BIN_PKGS=$(addsuffix .pkg,chuck)
+BIN_PKGS=$(addsuffix .pkg,chuck chump)
 CHUGIN_PKGS=$(addsuffix .pkg,$(CHUGINS))
 EXAMPLES_PKG=examples.pkg
 PKGS=$(APP_PKGS) $(BIN_PKGS) $(CHUGIN_PKGS) $(EXAMPLES_PKG)
@@ -41,11 +42,12 @@ upload: $(INSTALLER)
 	@echo "uploaded to URL: "
 	@echo "https://ccrma.stanford.edu/~spencer/chuck/$(INSTALLER)"
 
-$(INSTALLER): $(PKGS) miniAudicle.app chuck $(CHUGINS) $(VERSION_MK) Distribution.xml
+$(INSTALLER): $(PKGS) miniAudicle.app chuck chump $(CHUGINS) $(VERSION_MK) Distribution.xml
 	@echo "--- Creating installer ---"
 	@echo "    chuck path:" $(realpath $(CHUCK_SRC_ROOT))
 	@echo "    miniAudicle path:" $(realpath $(MINI_SRC_ROOT))
 	@echo "    chugin path:" $(realpath $(CHUGINS_SRC_ROOT))
+	@echo "    chump path:" $(realpath $(CHUMP_SRC_ROOT))
 	productbuild --distribution Distribution.xml --version $(PKG_VERSION) --package-path . --sign "$(CERT_INSTALLER)" --resources resources $@
 
 $(APP_PKGS): %.pkg: %
@@ -97,6 +99,15 @@ $(CHUCK_SRC_ROOT)/src/chuck:
 	make -C $(CHUCK_SRC_ROOT)/src/ clean
 	make -C $(CHUCK_SRC_ROOT)/src/ mac-ub
 
+chump: $(CHUMP_SRC_ROOT)/chump
+	cp -af $< .
+	codesign --entitlements miniAudicle.entitlements --force --options=runtime --sign "$(CERT_APP)" $@
+	touch $@
+
+$(CHUMP_SRC_ROOT)/chump:
+	make -C $(CHUMP_SRC_ROOT)/ clean-all
+	make -C $(CHUMP_SRC_ROOT)/ mac
+
 $(CHUGINS): $(CHUGINS_ORIGINAL)
 	cp -af $(CHUGINS_SRC_ROOT)/$(basename $@)/$@  .
 	codesign --entitlements miniAudicle.entitlements --force --options=runtime --sign "$(CERT_APP)" $@
@@ -114,9 +125,9 @@ chugl-sign:
 	pkgutil --check-signature ./ChuGL.chug-signed.pkg
 
 clean: 
-	rm -rf miniAudicle.app chuck $(CHUGINS) *.pkg *.tmp
+	rm -rf miniAudicle.app chuck chump $(CHUGINS) *.pkg *.tmp
 clean-all: clean
-	rm -rf miniAudicle.app chuck $(CHUGINS) *.pkg
+	rm -rf miniAudicle.app chuck chump $(CHUGINS) *.pkg
 	make -C $(CHUCK_SRC_ROOT)/src clean
 	make -C $(MINI_SRC_ROOT)/src clean
 	make -C $(CHUGINS_SRC_ROOT) clean

@@ -1,6 +1,7 @@
 
 MINI_SRC_ROOT=../..
 CHUCK_SRC_ROOT=../../src/chuck/
+CHUMP_SRC_ROOT=../../src/chump/
 CHUGINS_SRC_ROOT=../../src/chugins
 CHUCK_EXAMPLES=../../src/chuck/examples
 
@@ -30,7 +31,7 @@ chugl_prep:
 upload: $(INSTALLER)
 	scp $(INSTALLER) spencer@ccrma-gate.stanford.edu:Library/Web/chuck
 
-$(INSTALLER): $(WIXOBJ) miniAudicle.exe chuck.exe $(CHUGINS) ck_dialog.bmp ck_banner.bmp gpl2.rtf
+$(INSTALLER): $(WIXOBJ) miniAudicle.exe chuck.exe chump.exe $(CHUGINS) ck_dialog.bmp ck_banner.bmp gpl2.rtf
 	light -dPKG_VERSION="$(WIN32_VERSION)" -ext WixUIExtension -out "$@" $(WIXOBJ)
 
 %.wixobj: %.wxs
@@ -53,6 +54,10 @@ chuck.exe: $(CHUCK_SRC_ROOT)/src/visual-studio/x64/Release/chuck.exe
 	cp -af $< .
 	touch $@
 
+chump.exe: $(CHUMP_SRC_ROOT)/builddir-release/chump-cli/chump.exe
+	cp -af $< .
+	touch $@
+
 chugins.wxs: $(CHUGINS)
 	heat dir chugins -gg -dr INSTALLDIR -cg chugins -out $@
 	sed -i 's/SourceDir/chugins/g' $@
@@ -67,7 +72,7 @@ $(CHUGINS_ORIGINAL):
 	make -C $(CHUGINS_SRC_ROOT)/$(basename $(notdir $@)) win32
 
 clean: 
-	rm -rf miniAudicle.exe chuck.exe $(CHUGINS) *.wixobj *.wixpdb *.msi examples examples.wxs
+	rm -rf miniAudicle.exe chuck.exe chump.exe $(CHUGINS) *.wixobj *.wixpdb *.msi examples examples.wxs
 clean-all: clean
 	make -C $(CHUCK_SRC_ROOT)/src clean
 	make -C $(CHUGINS_SRC_ROOT) clean

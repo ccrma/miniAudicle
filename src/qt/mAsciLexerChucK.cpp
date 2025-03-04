@@ -65,7 +65,7 @@ const char *mAsciLexerChucK::keywords(int set) const
                "private function fun spork const new now "
                "true false maybe null NULL me pi samp ms "
                "second minute hour day week dac adc blackhole chout cherr "
-               "@operator @import @construct @destruct";
+               "@operator @import @construct @destruct @doc";
     if(set == 2) // class names
         return "Object "
                 "string "
