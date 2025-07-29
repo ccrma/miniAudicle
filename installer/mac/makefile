@@ -117,7 +117,7 @@ $(CHUGINS_ORIGINAL):
 
 # soft-link chugl src directory to appear in chugins
 chugl-prep:
-	ln -s ../../../chugl/src ../../../chugins/ChuGL
+	ln -sf ../../../chugl/src ../../../chugins/ChuGL
 
 # for standalone chugl signing
 chugl-sign:
