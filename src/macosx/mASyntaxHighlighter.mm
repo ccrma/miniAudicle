@@ -73,6 +73,7 @@ U.S.A.
     @"@construct",
     @"@destruct",
     @"@doc",
+    @"@example",
 
     @"function",
     @"fun",

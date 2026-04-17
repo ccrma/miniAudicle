@@ -63,9 +63,9 @@ const char *mAsciLexerChucK::keywords(int set) const
                "class extends public static pure this "
                "super interface implements protected global auto "
                "private function fun spork const new now "
-               "true false maybe null NULL me pi samp ms "
+               "true false maybe null NULL me pi samp ms eon"
                "second minute hour day week dac adc blackhole chout cherr "
-               "@operator @import @construct @destruct @doc";
+               "@operator @import @construct @destruct @doc @example";
     if(set == 2) // class names
         return "Object "
                 "string "
