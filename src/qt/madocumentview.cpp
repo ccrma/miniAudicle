@@ -394,6 +394,12 @@ void mADocumentView::save()
 
     if(file != NULL)
     {
+        // format-on-save: formatCode() is idempotent (no-op on already-formatted
+        // or on formatter error) so we can unconditionally call it when enabled
+        ZSettings settings;
+        if(settings.get(mAPreferencesFormatOnSave).toBool())
+            formatCode();
+
         file->open(QIODevice::WriteOnly | QIODevice::Truncate);
         ui->textEdit->write(file);
         file->flush();
@@ -439,6 +445,11 @@ void mADocumentView::saveAs()
 
     if(file != NULL)
     {
+        // format-on-save: see save() for rationale
+        ZSettings settings;
+        if(settings.get(mAPreferencesFormatOnSave).toBool())
+            formatCode();
+
         file->open(QIODevice::WriteOnly | QIODevice::Truncate);
         ui->textEdit->write(file);
         file->flush();
