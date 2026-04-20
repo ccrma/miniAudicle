@@ -83,6 +83,8 @@
     <addaction name="separator"/>
     <addaction name="actionSelect_All"/>
     <addaction name="separator"/>
+    <addaction name="actionFormat_Code"/>
+    <addaction name="separator"/>
     <addaction name="actionPreferences"/>
    </widget>
    <widget class="QMenu" name="menuChucK">
@@ -278,6 +280,14 @@
    </property>
    <property name="shortcut">
     <string>Alt+,</string>
+   </property>
+  </action>
+  <action name="actionFormat_Code">
+   <property name="text">
+    <string>Format Code</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+I</string>
    </property>
   </action>
   <action name="actionAdd_Shred">

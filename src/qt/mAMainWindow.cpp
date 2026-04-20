@@ -335,6 +335,8 @@ void mAMainWindow::newFile()
     documentView->setTabWidget(ui->tabWidget);
     QObject::connect(m_preferencesWindow, SIGNAL(preferencesChanged()),
                      documentView, SLOT(preferencesChanged()));
+    QObject::connect(documentView, SIGNAL(formatError(QString)),
+                     statusBar(), SLOT(showMessage(QString)));
 
     ui->tabWidget->addTab(documentView, QIcon(), "untitled");
     ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);
@@ -383,6 +385,8 @@ void mAMainWindow::openFile(const QString &path)
 
             QObject::connect(m_preferencesWindow, SIGNAL(preferencesChanged()),
                              documentView, SLOT(preferencesChanged()));
+            QObject::connect(documentView, SIGNAL(formatError(QString)),
+                             statusBar(), SLOT(showMessage(QString)));
 
             ui->tabWidget->addTab(documentView, QIcon(), fileInfo.fileName());
             ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);
@@ -434,6 +438,8 @@ void mAMainWindow::openExample()
             documentView->setTabWidget(ui->tabWidget);
             QObject::connect(m_preferencesWindow, SIGNAL(preferencesChanged()),
                              documentView, SLOT(preferencesChanged()));
+            QObject::connect(documentView, SIGNAL(formatError(QString)),
+                             statusBar(), SLOT(showMessage(QString)));
             documentView->setReadOnly(true);
 
             ui->tabWidget->addTab(documentView, QIcon(), fileInfo.fileName());
@@ -550,6 +556,7 @@ void mAMainWindow::tabSelected(int index)
     ui->actionPaste->disconnect();
     ui->actionSelect_All->disconnect();
     ui->actionExport_as_WAV->disconnect();
+    ui->actionFormat_Code->disconnect();
 
     if(currentView == NULL)
     {
@@ -570,6 +577,7 @@ void mAMainWindow::tabSelected(int index)
     connect(ui->actionPaste, SIGNAL(triggered()), currentView, SIGNAL(paste()));
     connect(ui->actionSelect_All, SIGNAL(triggered()), currentView, SIGNAL(selectAll()));
     connect(ui->actionExport_as_WAV, SIGNAL(triggered()), currentView, SLOT(exportAsWav()));
+    connect(ui->actionFormat_Code, SIGNAL(triggered()), currentView, SLOT(formatCode()));
 }
 
 #pragma mark

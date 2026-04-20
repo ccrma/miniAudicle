@@ -84,6 +84,7 @@ const QString mAPreferencesUseTabs = "/GUI/Editing/UsesTabs";
 const QString mAPreferencesTabSize = "/GUI/Editing/TabSize";
 const QString mAPreferencesShowLineNumbers = "/GUI/Editing/ShowLineNumbers";
 const QString mAPreferencesWindowingStyle = "/GUI/Editing/WindowingStyle"; // 1.5.0.4 (ge) added
+const QString mAPreferencesFormatterCommand = "/GUI/Editing/FormatterCommand";
 
 const QString mAPreferencesCurrentDirectory = "/Miscellaneous/CurrentDirectory";
 
@@ -190,6 +191,7 @@ void mAPreferencesWindow::configureDefaults()
 
     ZSettings::setDefault(mAPreferencesUseTabs, false);
     ZSettings::setDefault(mAPreferencesTabSize, 4);
+    ZSettings::setDefault(mAPreferencesFormatterCommand, "chuckfmt");
     // ZSettings::setDefault(mAPreferences)
 
     ZSettings::setDefault(mAPreferencesEnableChuGins, true);
@@ -279,6 +281,7 @@ void mAPreferencesWindow::loadSettingsToGUI()
    
     ui->editorUsesTabs->setChecked(settings.get(mAPreferencesUseTabs).toBool());
     ui->tabWidth->setValue(settings.get(mAPreferencesTabSize).toInt());
+    ui->formatterCommand->setText(settings.get(mAPreferencesFormatterCommand).toString());
     
     ui->enableChugins->setChecked(settings.get(mAPreferencesEnableChuGins).toBool());
     ui->chuginsList->clear();
@@ -366,6 +369,7 @@ void mAPreferencesWindow::loadGUIToSettings()
     
     settings.set(mAPreferencesUseTabs, ui->editorUsesTabs->isChecked());
     settings.set(mAPreferencesTabSize, ui->tabWidth->value());
+    settings.set(mAPreferencesFormatterCommand, ui->formatterCommand->text());
 
     settings.set(mAPreferencesEnableChuGins, ui->enableChugins->isChecked());
     QStringList paths;

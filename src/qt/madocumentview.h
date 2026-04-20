@@ -78,6 +78,7 @@ public slots:
     void readOnlySaveDialogClicked(QAbstractButton *button);    
     void preferencesChanged();
     void exportAsWav();
+    void formatCode();
     
 signals:
     void undo();
@@ -86,6 +87,7 @@ signals:
     void copy();
     void paste();
     void selectAll();
+    void formatError(const QString &message);
 
 protected:
     void showEvent( QShowEvent * event );
