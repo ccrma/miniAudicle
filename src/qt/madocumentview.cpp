@@ -622,7 +622,10 @@ void mADocumentView::formatCode()
     QString bin = which(command);
     if(bin.isEmpty())
     {
-        emit formatError(QString("formatter not found: %1").arg(command));
+        if(command == "chuckfmt")
+            emit formatError("chuckfmt not found in PATH -- install from https://github.com/aik2mlj/chuckfmt");
+        else
+            emit formatError(QString("formatter not found: %1").arg(command));
         return;
     }
 
