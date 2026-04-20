@@ -141,6 +141,8 @@ extern const QString mAPreferencesUseTabs;
 extern const QString mAPreferencesTabSize;
 extern const QString mAPreferencesShowLineNumbers;
 extern const QString mAPreferencesWindowingStyle;
+extern const QString mAPreferencesFormatterCommand;
+extern const QString mAPreferencesFormatOnSave;
 
 extern const QString mAPreferencesCurrentDirectory;
 

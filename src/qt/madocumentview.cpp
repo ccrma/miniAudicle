@@ -394,6 +394,12 @@ void mADocumentView::save()
 
     if(file != NULL)
     {
+        // format-on-save: formatCode() is idempotent (no-op on already-formatted
+        // or on formatter error) so we can unconditionally call it when enabled
+        ZSettings settings;
+        if(settings.get(mAPreferencesFormatOnSave).toBool())
+            formatCode();
+
         file->open(QIODevice::WriteOnly | QIODevice::Truncate);
         ui->textEdit->write(file);
         file->flush();
@@ -439,6 +445,11 @@ void mADocumentView::saveAs()
 
     if(file != NULL)
     {
+        // format-on-save: see save() for rationale
+        ZSettings settings;
+        if(settings.get(mAPreferencesFormatOnSave).toBool())
+            formatCode();
+
         file->open(QIODevice::WriteOnly | QIODevice::Truncate);
         ui->textEdit->write(file);
         file->flush();
@@ -588,5 +599,83 @@ void mADocumentView::remove()
         
         m_lastResult = output;        
     }    
+}
+
+
+void mADocumentView::formatCode()
+{
+    QString input = ui->textEdit->text();
+    if(input.isEmpty()) return;
+
+    int line = 0, col = 0;
+    ui->textEdit->getCursorPosition(&line, &col);
+    int firstVisible = ui->textEdit->firstVisibleLine();
+
+    ZSettings settings;
+    QString command = settings.get(mAPreferencesFormatterCommand, "chuckfmt").toString().trimmed();
+    if(command.isEmpty())
+    {
+        emit formatError("formatter command is empty (set it in Preferences)");
+        return;
+    }
+
+    QString bin = which(command);
+    if(bin.isEmpty())
+    {
+        if(command == "chuckfmt")
+            emit formatError("chuckfmt not found in PATH -- install from https://github.com/aik2mlj/chuckfmt");
+        else
+            emit formatError(QString("formatter not found: %1").arg(command));
+        return;
+    }
+
+    // contract is stdin->stdout with no args, so any formatter works; do not
+    // pass the file path. do NOT set MergedChannels either -- stderr must stay
+    // separate so error text never contaminates the replacement buffer
+    QProcess process;
+    process.start(bin, QStringList());
+    if(!process.waitForStarted(3000))
+    {
+        emit formatError(QString("failed to start %1").arg(command));
+        return;
+    }
+    process.write(input.toUtf8());
+    process.closeWriteChannel();
+
+    // soft upper bound; chuckfmt typically returns in <100ms
+    if(!process.waitForFinished(10000))
+    {
+        process.kill();
+        emit formatError("formatter timed out");
+        return;
+    }
+
+    if(process.exitStatus() != QProcess::NormalExit || process.exitCode() != 0)
+    {
+        QByteArray err = process.readAllStandardError();
+        QString msg = QString::fromUtf8(err).trimmed();
+        if(msg.isEmpty()) msg = QString("%1 exited with code %2").arg(command).arg(process.exitCode());
+        emit formatError(QString("formatter failed: %1").arg(msg));
+        return;
+    }
+
+    QByteArray out = process.readAllStandardOutput();
+    QString formatted = QString::fromUtf8(out);
+
+    // skip the buffer replace when nothing changed so the modified flag
+    // doesn't get flipped on an already-formatted document
+    if(formatted == input) return;
+
+    // selectAll+replaceSelectedText (not setText) preserves undo history,
+    // and the begin/endUndoAction wrap makes one Ctrl+Z revert the whole format
+    ui->textEdit->beginUndoAction();
+    ui->textEdit->selectAll(true);
+    ui->textEdit->replaceSelectedText(formatted);
+    ui->textEdit->endUndoAction();
+
+    int newLineCount = ui->textEdit->lines();
+    int restoredLine = qMin(line, newLineCount - 1);
+    ui->textEdit->setCursorPosition(restoredLine, col);
+    ui->textEdit->setFirstVisibleLine(qMin(firstVisible, newLineCount - 1));
 }
 

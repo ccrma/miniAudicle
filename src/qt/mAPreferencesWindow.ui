@@ -614,6 +614,27 @@
         </layout>
        </item>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_formatter">
+         <item>
+          <widget class="QLabel" name="label_formatter">
+           <property name="text">
+            <string>Formatter command:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="formatterCommand"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="formatOnSave">
+         <property name="text">
+          <string>Format on save</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
