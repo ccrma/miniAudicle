@@ -192,7 +192,8 @@ NSString *tmpFilepath(NSString *base, NSString *extension, NSString *dir, BOOL c
                 [self.exportTask setArguments:@[
                  self.exportWAVPath,
                  @"-o", [[self.destinationPath stringByDeletingPathExtension] stringByAppendingPathExtension:@"m4a"],
-                 @"-f", @"m4af", // M4A format
+                 @"-f", @"m4af", // M4A file format
+                 @"-d", @"aac", // AAC data format
                  @"-s", @"3", // VBR mode
                  @"-b", @"192000", // 192 Kbps
                  ]];
