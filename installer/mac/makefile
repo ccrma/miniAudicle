@@ -104,9 +104,11 @@ chump: $(CHUMP_SRC_ROOT)/chump
 	codesign --entitlements miniAudicle.entitlements --force --options=runtime --sign "$(CERT_APP)" $@
 	touch $@
 
+# use mac-release to account for homebrew lib unlink and link (for building universal binaries)
 $(CHUMP_SRC_ROOT)/chump:
 	make -C $(CHUMP_SRC_ROOT)/ clean-all
-	make -C $(CHUMP_SRC_ROOT)/ mac
+	make -C $(CHUMP_SRC_ROOT)/ mac-release
+	# make -C $(CHUMP_SRC_ROOT)/ mac
 
 $(CHUGINS): $(CHUGINS_ORIGINAL)
 	cp -af $(CHUGINS_SRC_ROOT)/$(basename $@)/$@  .
@@ -131,4 +133,5 @@ clean-all: clean
 	make -C $(CHUCK_SRC_ROOT)/src clean
 	make -C $(MINI_SRC_ROOT)/src clean
 	make -C $(CHUGINS_SRC_ROOT) clean
+	make -C $(CHUMP_SRC_ROOT) clean-all
 
